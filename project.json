@@ -12,6 +12,7 @@
 
     "jsList" : [
         "src/resource.js",
+        "src/Constants.js",
         "src/AccountSelectorLayer.js",
         "src/LoginLayer.js",
         "src/MainScreenLayer.js",

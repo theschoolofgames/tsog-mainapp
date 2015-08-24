@@ -1,9 +1,7 @@
 var res = {
     School_plist: "res/SD/school.plist",
     School_png: "res/SD/school.png",
-    School1_png: "res/school.png",
-    SchoolName_png: "res/school-name.png",
-    Back_png: "res/back-button.png"
+    Bg_png: "res/bg.png"
 };
 
 var g_resources = [];

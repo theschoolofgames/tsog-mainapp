@@ -6,12 +6,12 @@
         <key>texturePackerVersion</key>
         <string>3.9.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/Fawj2/fawj2/_sourceart/Map/map.tps</string>
+        <string>/Users/Tony/dev/project/tsog/_sourceart/school-screen/school.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.5</double>
+                <double>1</double>
                 <key>extension</key>
                 <string>/SD/</string>
                 <key>spriteFilter</key>
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../res/{v}/map.png</filename>
+        <filename>../../res/{v}/school.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/map.plist</filename>
+                <filename>../../res/{v}/school.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
