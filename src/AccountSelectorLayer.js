@@ -34,6 +34,14 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             acc.addClickEventListener(function() {self.callback()});
         }
+        this.createPlusButton();
+    },
+
+    createPlusButton:function (){
+        var p = new ccui.Button("plus-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        p.x = cc.winSize.width * 3/4;
+        p.y = cc.winSize.height * 0.25;
+        this.addChild(p);
     },
 
     callback: function () {

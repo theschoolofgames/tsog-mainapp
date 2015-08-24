@@ -2,10 +2,10 @@ tools/
 publish/
 .DS_Store
 
-frameworks/runtime-src/proj.ios_mac/d-beat.xcodeproj/project.xcworkspace/
+frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/
 frameworks/js-bindings/bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
 frameworks/js-bindings/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/
-frameworks/runtime-src/proj.ios_mac/d-beat.xcodeproj/xcuserdata/
+frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/xcuserdata/
 frameworks/js-bindings/bindings/proj.ios_mac/build/
 frameworks/js-bindings/cocos2d-x/build/build
 frameworks/runtime-src/proj.ios_mac/build/
