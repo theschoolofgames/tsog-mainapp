@@ -65,7 +65,7 @@
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
-	<string>org.cocos2dx.tsog</string>
+	<string>com.hub102.tsog</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
