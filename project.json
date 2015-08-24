@@ -8,14 +8,14 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d"],
+    "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
         "src/resource.js",
-        "src/AccountListLayer.js",
+        "src/AccountSelectorLayer.js",
         "src/LoginLayer.js",
         "src/MainScreenLayer.js",
-        "src/SchoolListLayer.js",
-        "src/GameListLayer.js"
+        "src/SchoolSelectorLayer.js",
+        "src/GameSelectorLayer.js"
     ]
 }

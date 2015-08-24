@@ -1,4 +1,4 @@
-var SchoolListLayer = cc.Layer.extend({
+var GameSelectorLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
     }

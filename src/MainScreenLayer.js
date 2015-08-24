@@ -1,7 +1,10 @@
 var MainScreenLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
-        cc.log("main screen layer");
+        cc.spriteFrameCache.addSpriteFrames(res.School_plist);
+
+        var schList = new SchoolSelectorLayer();
+        this.addChild(schList);
     }
 });
 

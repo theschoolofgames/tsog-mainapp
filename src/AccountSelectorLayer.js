@@ -1,4 +1,4 @@
-var AccountListLayer = cc.Layer.extend({
+var AccountSelectorLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
     }
