@@ -12,6 +12,10 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/AccountListLayer.js",
+        "src/LoginLayer.js",
+        "src/MainScreenLayer.js",
+        "src/SchoolListLayer.js",
+        "src/GameListLayer.js"
     ]
 }
