@@ -409,9 +409,9 @@
 			productReference = 509D4AAA17EBB24E00697056 /* tsog-desktop.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A922753C1517C094001B78AA /* tsog-mobile */ = {
+		A922753C1517C094001B78AA /* tsog */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog-mobile" */;
+			buildConfigurationList = A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog" */;
 			buildPhases = (
 				A92275391517C094001B78AA /* Sources */,
 				A922753A1517C094001B78AA /* Frameworks */,
@@ -423,7 +423,7 @@
 				C037820B18BF77BC00FE4F13 /* PBXTargetDependency */,
 				1A67682F180E9C110076BC67 /* PBXTargetDependency */,
 			);
-			name = "tsog-mobile";
+			name = tsog;
 			productName = tsog;
 			productReference = A922753D1517C094001B78AA /* tsog-mobile.app */;
 			productType = "com.apple.product-type.application";
@@ -463,7 +463,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				A922753C1517C094001B78AA /* tsog-mobile */,
+				A922753C1517C094001B78AA /* tsog */,
 				509D4A7517EBB24E00697056 /* tsog-desktop */,
 			);
 		};
@@ -761,7 +761,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog-mobile" */ = {
+		A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A92277011517C097001B78AA /* Debug */,
