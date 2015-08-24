@@ -52,7 +52,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var name = ACCOUNT_INFO[index].name;
         var lb = new cc.LabelTTF(name, "Arial", 24);
         lb.x = button.width / 2;
-        lb.y = button.height / 8;
+        lb.y = button.height / 8 + lb.height/2;
         button.addChild(lb);
     },
 
