@@ -8,6 +8,7 @@ frameworks/js-bindings/bindings/proj.ios_mac/build/
 frameworks/js-bindings/cocos2d-x/build/build
 frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/
 frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/xcuserdata/
+frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/xcuserdata/
 frameworks/runtime-src/proj.ios_mac/build/
 frameworks/cocos2d-x/build/build/
 frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/build/
