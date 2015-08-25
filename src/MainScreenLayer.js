@@ -1,15 +1,16 @@
 var MainScreenLayer = cc.Layer.extend({
-    accList: null,
-    schList: null,
+    accLayer: null,
+    schLayer: null,
+    loginLayer: null,
 
     ctor: function () {
         this._super();
 
         cc.spriteFrameCache.addSpriteFrames(res.School_plist);
         this.addBackground();
-        this.accList = new AccountSelectorLayer();
-        this.schList = new SchoolSelectorLayer();
-        this.addChild(this.schList);
+        this.schLayer = new SchoolSelectorLayer();
+
+        this.addChild(this.schLayer);
     },
 
     addBackground: function() {
@@ -20,9 +21,26 @@ var MainScreenLayer = cc.Layer.extend({
         this.addChild(bg);
     },
 
-    addNewLayer: function(oldLayer, newLayer){
+    addNewLayer: function(oldLayer, newLayer, arg){
         oldLayer.removeFromParent();
-        this.addChild(newLayer);
+
+        var layer;
+        switch(newLayer){
+            case "accLayer":
+                layer = new AccountSelectorLayer(arg);
+                this.accLayer = layer;
+                break;
+            case "schLayer":
+                layer = new SchoolSelectorLayer();
+                this.schLayer = layer;
+                break;
+            case "loginLayer":
+                layer = new LoginLayer(arg);
+                this.loginLayer = layer;
+                break;
+        }
+
+        this.addChild(layer);
     }
 });
 

@@ -1,5 +1,6 @@
 var AccountSelectorLayer = cc.Layer.extend({
-    accountBtn: null,
+    accountBtn: [],
+    school: null,
 
     ctor: function () {
         this._super();
@@ -10,12 +11,13 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createAccountButton: function (accNumber){
         var self = this;
+        var acc;
         for ( var i = 0; i < accNumber; i++) {
             var s = ACCOUNT_INFO[i].sex;
             if (s === 0)
-                var acc = new ccui.Button("female-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                acc = new ccui.Button("female-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
             else
-                var acc = new ccui.Button("male-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                acc = new ccui.Button("male-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
 
             if (i < 3) {
                 acc.x = ((cc.winSize.width / 4) * (i + 1));
@@ -30,9 +32,11 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.createAccountNameLabel(i, acc);
 
             this.addChild(acc);
-            this.accountBtn = acc;
+            this.accountBtn.push(acc);
 
-            acc.addClickEventListener(function() {self.callback()});
+            acc.addClickEventListener(function() {
+                self.callback(this);
+            });
         }
         this.createPlusButton();
     },
@@ -44,8 +48,10 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.addChild(p);
     },
 
-    callback: function () {
-        cc.log("callback in account selector layer");
+    callback: function (account) {
+        var p = this.parent;
+        var button = account.tag;
+        p.addNewLayer(this, "loginLayer", button);
     },
 
     createAccountNameLabel: function(index, button) {
@@ -64,7 +70,9 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.addChild(b);
 
         b.addClickEventListener(function() {
-            self.parent.addNewLayer(self, self.parent.schList);
+            self.parent.addNewLayer(self, "schLayer");
         });
+
     },
+
 });

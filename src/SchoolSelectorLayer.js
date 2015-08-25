@@ -1,6 +1,6 @@
 var SchoolSelectorLayer = cc.Layer.extend({
     schNumber: 0,
-    scBtn: null,
+    schoolBtn: [],
 
     ctor: function () {
         this._super();
@@ -27,16 +27,18 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             sc.addChild(scName);
             this.addChild(sc);
-            this.scBtn = sc;
 
-            sc.addClickEventListener(function() {self.callBack()});
+            this.schoolBtn.push(sc);
+
+            sc.addClickEventListener(function() {self.callBack(this)});
         }
     },
 
-    callBack: function() {
+    callBack: function(school) {
         // this.btn.tag get the tag of button are clicked
-        cc.log("callback in school selector layer");
-        var parent = this.parent;
-        parent.addNewLayer(this, parent.accList);
+        var p = this.parent;
+        var button = school.tag;
+
+        p.addNewLayer(this, "accLayer", button);
     }
 });
