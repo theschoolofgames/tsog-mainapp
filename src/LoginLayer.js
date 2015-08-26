@@ -1,6 +1,12 @@
 var LoginLayer = cc.Layer.extend({
     _passwordList: [],
+    _scrollView: null,
     accountClicked: null,
+    _passwordField: null,
+    _passwordList: [0, 1, 2, 3, 4, 5, 6],
+    _passwordArea: null,
+    _passwordClickedBefore: null,
+    _originPos: null,
 
     ctor: function (account) {
         this._super();
@@ -10,6 +16,7 @@ var LoginLayer = cc.Layer.extend({
         this.createAccountImage();
         this.createPasswordField();
         this.createPasswordList();
+        this.createScrollView();
         this.addBackButton();
     },
 
@@ -21,8 +28,8 @@ var LoginLayer = cc.Layer.extend({
         else
             acc = new ccui.Button("male-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
 
-        acc.x = cc.winSize.width / 2;
-        acc.y = cc.winSize.height / 2;
+        acc.x = cc.winSize.width / 3;
+        acc.y = cc.winSize.height / 2 + acc.height /2;
 
         this.createAccountNameLabel(this.accountClicked, acc);
         this.addChild(acc);
@@ -37,11 +44,61 @@ var LoginLayer = cc.Layer.extend({
     },
 
     createPasswordField: function() {
+        var f = new cc.Sprite("#password-field.png");
+        f.x = cc.winSize.width / 2;
+        f.y = cc.winSize.height / 2;
+
+        this._passwordField = f;
+        this.addChild(this._passwordField);
 
     },
 
     createPasswordList: function() {
+        this.createPasswordArea();
+        for ( var i = 0; i < this._passwordList.length; i++) {
+            var pwImage = this.createNewPassWordImage(i);
+            this._passwordArea.width = pwImage.x;
+            this._passwordArea.height = pwImage.y + pwImage.height;
+            this._passwordArea.x = 0;
+            this._passwordArea.y = this._passwordArea.height / 2;
+            this._passwordArea.addChild(pwImage);
+        }
+    },
 
+    createNewPassWordImage: function(i){
+        var self = this;
+        var pwImage = new ccui.Button();
+
+        pwImage.loadTextureNormal("password-img.png", ccui.Widget.PLIST_TEXTURE);
+        pwImage.x = pwImage.width + (pwImage.width*2)* i;
+        pwImage.y = pwImage.height;
+        pwImage.tag = i;
+        pwImage.setSwallowTouches(false);
+        pwImage.addClickEventListener(function() {self.onPasswordClicked(this)});
+
+        return pwImage;
+    },
+
+    onPasswordClicked: function(password) {
+        if (this._passwordClickedBefore) {
+            var pw = this.createNewPassWordImage(this._passwordClickedBefore.tag);
+            this._passwordArea.addChild(pw);
+        }
+
+        this._passwordClickedBefore = password;
+        password.removeFromParent();
+        this._passwordClickedBefore.setPosition(this._passwordField.width / 2, this._passwordField.height /2);
+        this._passwordField.addChild(this._passwordClickedBefore);
+    },
+
+    setPassWordImageVisible: function(pwImg, visible){
+        pwImg.setVisible(visible);
+    },
+
+    createPasswordArea: function() {
+        var area = new cc.Sprite();
+        area.setAnchorPoint(0, 0.5);
+        this._passwordArea = area;
     },
 
     addBackButton: function() {
@@ -55,5 +112,29 @@ var LoginLayer = cc.Layer.extend({
             self.parent.addNewLayer(self, "accLayer");
         });
 
+    },
+
+    createScrollView: function(){
+        var self = this;
+        this._scrollView = new ccui.ScrollView();
+        this._scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
+        this._scrollView.setTouchEnabled(true);
+        this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
+
+        var scrollViewRect = this._scrollView.getContentSize();
+
+        this._scrollView.x = 0;
+        this._scrollView.y = 0;
+        self.addChild(this._scrollView);
+
+        var innerWidth = this._passwordArea.width + 100;
+        var innerHeight = cc.winSize.height/2 - this._passwordField.height;
+        this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
+
+        this._scrollView.addChild(this._passwordArea);
+
+        cc.log("innerWidth: " + innerWidth);
+        cc.log("innerHeight: " + innerHeight);
+        cc.log("contentsize: " + JSON.stringify(this._scrollView.getContentSize()));
     },
 });
