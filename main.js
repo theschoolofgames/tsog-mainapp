@@ -55,8 +55,46 @@ cc.game.onStart = function(){
     cc.view.enableRetina(false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
+
     // Setup the resolution policy and design resolution size
-    cc.view.setDesignResolutionSize(960, 640, cc.ResolutionPolicy.SHOW_ALL);
+    var smallResource = { size: cc.size(480, 320), directory: "res/LD" };
+    var mediumResource = { size: cc.size(960, 640), directory: "res/SD" };
+    var largeResource = { size: cc.size(2304, 1536), directory: "res/HD" };
+    var designResolutionSize = cc.size(960, 640);
+    var frameSize = cc.director.getOpenGLView().getFrameSize();
+
+    cc.view.setDesignResolutionSize(
+        designResolutionSize.width,
+        designResolutionSize.height,
+        cc.ResolutionPolicy.FIXED_HEIGHT);
+
+    if (cc.sys.isNative) {
+        var searchPaths = jsb.fileUtils.getSearchPaths();
+
+        if (frameSize.width >= largeResource.size.width) {
+            searchPaths.push(largeResource.directory);
+            cc.director.setContentScaleFactor(largeResource.size.width/designResolutionSize.width);
+            cc.log("Use largeResource");
+        } else if (frameSize.width >= mediumResource.size.width) {
+            searchPaths.push(mediumResource.directory);
+            cc.director.setContentScaleFactor(mediumResource.size.width/designResolutionSize.width);
+            cc.log("Use mediumResource");
+        } else {
+            searchPaths.push(smallResource.directory);
+            cc.director.setContentScaleFactor(smallResource.size.width/designResolutionSize.width);
+            cc.log("Use smallResource");
+        }
+        searchPaths.push("res");
+        jsb.fileUtils.setSearchPaths(searchPaths);
+    }
+    else {
+        // web html5
+        cc.view.setDesignResolutionSize(designResolutionSize.width,
+            designResolutionSize.height,
+            cc.ResolutionPolicy.SHOW_ALL);
+    }
+    cc.log(cc.winSize.width + " - " + cc.winSize.height);
+
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
     //load resources

@@ -15,7 +15,8 @@ var MainScreenLayer = cc.Layer.extend({
 
     addBackground: function() {
         var bg = new cc.Sprite(res.Bg_png);
-        bg.setScaleX(cc.winSize.width / bg.width);
+        var scale = cc.winSize.width / bg.width;
+        bg.setScaleX(scale);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
