@@ -89,10 +89,17 @@ var LoginLayer = cc.Layer.extend({
 
         if (ACCOUNT_INFO[this.accountClicked].passwordImg == password.tag) {
             // now is the 2nd picture
+            var move = cc.moveTo(1, cc.p(this._passwordField.width / 2, this._passwordField.height /2));
+            var move_ease = move.easing(cc.easeElasticInOut(0.8));
+
             this._passwordClickedBefore = password;
             password.removeFromParent();
-            this._passwordClickedBefore.setPosition(this._passwordField.width / 2, this._passwordField.height /2);
             this._passwordField.addChild(this._passwordClickedBefore);
+
+            this._passwordClickedBefore.runAction(
+                cc.sequence(
+                    move_ease
+                ));
             // move to welcome screen
             cc.log("Moving to Welcome Screen");
         }
