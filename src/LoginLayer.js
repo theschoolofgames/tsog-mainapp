@@ -3,7 +3,7 @@ var LoginLayer = cc.Layer.extend({
     _scrollView: null,
     accountClicked: null,
     _passwordField: null,
-    _passwordList: [0, 1, 2, 3, 4, 5, 6],
+    _passwordList: [0],
     _passwordArea: null,
     _passwordClickedBefore: null,
     _originPos: null,
@@ -24,9 +24,9 @@ var LoginLayer = cc.Layer.extend({
         var s = ACCOUNT_INFO[this.accountClicked].sex;
         var acc;
         if (s === 0)
-            acc = new ccui.Button("female-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            acc = new ccui.Button(res.Female_png, "", "");
         else
-            acc = new ccui.Button("male-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            acc = new ccui.Button(res.Male_png, "", "");
 
         acc.x = cc.winSize.width / 3;
         acc.y = cc.winSize.height / 2 + acc.height /2;
@@ -44,7 +44,7 @@ var LoginLayer = cc.Layer.extend({
     },
 
     createPasswordField: function() {
-        var f = new cc.Sprite("#password-field.png");
+        var f = new cc.Sprite(res.PasswordField_png);
         f.x = cc.winSize.width / 2;
         f.y = cc.winSize.height / 2;
 
@@ -69,7 +69,7 @@ var LoginLayer = cc.Layer.extend({
         var self = this;
         var pwImage = new ccui.Button();
 
-        pwImage.loadTextureNormal("password-img.png", ccui.Widget.PLIST_TEXTURE);
+        pwImage.loadTextureNormal(res.PasswordImg_png);
         pwImage.x = pwImage.width + (pwImage.width*2)* i;
         pwImage.y = pwImage.height;
         pwImage.tag = i;
@@ -89,12 +89,12 @@ var LoginLayer = cc.Layer.extend({
 
         if (ACCOUNT_INFO[this.accountClicked].passwordImg == password.tag) {
             // now is the 2nd picture
-            var move = cc.moveTo(1, cc.p(this._passwordField.width / 2, this._passwordField.height /2));
+            var move = cc.moveTo(1, cc.p(this._passwordField.x, this._passwordField.y));
             var move_ease = move.easing(cc.easeElasticInOut(0.8));
 
             this._passwordClickedBefore = password;
             password.removeFromParent();
-            this._passwordField.addChild(this._passwordClickedBefore);
+            this.addChild(this._passwordClickedBefore);
 
             this._passwordClickedBefore.runAction(
                 cc.sequence(
@@ -117,7 +117,7 @@ var LoginLayer = cc.Layer.extend({
 
     addBackButton: function() {
         var self = this;
-        var b = new ccui.Button("back-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var b = new ccui.Button(res.Back_png, "", "");
         b.x = b.width / 2;
         b.y = cc.winSize.height - b.height / 2;
         this.addChild(b);
@@ -147,8 +147,5 @@ var LoginLayer = cc.Layer.extend({
 
         this._scrollView.addChild(this._passwordArea);
 
-        cc.log("innerWidth: " + innerWidth);
-        cc.log("innerHeight: " + innerHeight);
-        cc.log("contentsize: " + JSON.stringify(this._scrollView.getContentSize()));
     },
 });

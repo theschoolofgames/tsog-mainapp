@@ -15,9 +15,9 @@ var AccountSelectorLayer = cc.Layer.extend({
         for ( var i = 0; i < accNumber; i++) {
             var s = ACCOUNT_INFO[i].sex;
             if (s === 0)
-                acc = new ccui.Button("female-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                acc = new ccui.Button(res.Female_png, "", "");
             else
-                acc = new ccui.Button("male-avt.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                acc = new ccui.Button(res.Male_png, "", "");
 
             if (i < 3) {
                 acc.x = ((cc.winSize.width / 4) * (i + 1));
@@ -43,7 +43,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createPlusButton:function (){
         var self = this;
-        var p = new ccui.Button("plus-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var p = new ccui.Button(res.Plus_png, "", "");
         p.x = cc.winSize.width * 3/4;
         p.y = cc.winSize.height * 0.25;
         p.addClickEventListener(function() {
@@ -69,7 +69,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     addBackButton: function() {
         var self = this;
-        var b = new ccui.Button("back-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var b = new ccui.Button(res.Back_png, "", "");
         b.x = b.width / 2;
         b.y = cc.winSize.height - b.height / 2;
         this.addChild(b);

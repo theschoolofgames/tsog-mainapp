@@ -15,7 +15,7 @@ var MainScreenLayer = cc.Layer.extend({
     },
 
     addBackground: function() {
-        var bg = new cc.Sprite(res.Bg_png);
+        var bg = new cc.Sprite("#background.png");
         var scale = cc.winSize.width / bg.width;
         bg.setScaleX(scale);
         bg.x = cc.winSize.width / 2;
@@ -33,7 +33,7 @@ var MainScreenLayer = cc.Layer.extend({
                 this.accLayer = layer;
                 break;
             case "schLayer":
-                layer = new SchoolSelectorLayer();
+                layer = new SchoolSelectorLayer(arg);
                 this.schLayer = layer;
                 break;
             case "loginLayer":
