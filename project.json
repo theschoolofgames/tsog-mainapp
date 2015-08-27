@@ -15,6 +15,7 @@
         "src/Constants.js",
         "src/AccountSelectorLayer.js",
         "src/LoginLayer.js",
+        "src/SignUpLayer.js",
         "src/MainScreenLayer.js",
         "src/SchoolSelectorLayer.js",
         "src/GameSelectorLayer.js"

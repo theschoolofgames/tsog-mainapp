@@ -42,9 +42,14 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createPlusButton:function (){
+        var self = this;
         var p = new ccui.Button("plus-button.png", "", "", ccui.Widget.PLIST_TEXTURE);
         p.x = cc.winSize.width * 3/4;
         p.y = cc.winSize.height * 0.25;
+        p.addClickEventListener(function() {
+            self.parent.addNewLayer(this, "signUpLayer");
+            cc.log("going to sign up layer");
+        });
         this.addChild(p);
     },
 

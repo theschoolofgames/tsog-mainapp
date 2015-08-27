@@ -80,15 +80,22 @@ var LoginLayer = cc.Layer.extend({
     },
 
     onPasswordClicked: function(password) {
-        if (this._passwordClickedBefore) {
-            var pw = this.createNewPassWordImage(this._passwordClickedBefore.tag);
-            this._passwordArea.addChild(pw);
-        }
+        // if (this._passwordClickedBefore) {
+        //     var pw = this.createNewPassWordImage(this._passwordClickedBefore.tag);
+        //     this._passwordArea.addChild(pw);
+        // }
 
-        this._passwordClickedBefore = password;
-        password.removeFromParent();
-        this._passwordClickedBefore.setPosition(this._passwordField.width / 2, this._passwordField.height /2);
-        this._passwordField.addChild(this._passwordClickedBefore);
+
+
+        if (ACCOUNT_INFO[this.accountClicked].passwordImg == password.tag) {
+            // now is the 2nd picture
+            this._passwordClickedBefore = password;
+            password.removeFromParent();
+            this._passwordClickedBefore.setPosition(this._passwordField.width / 2, this._passwordField.height /2);
+            this._passwordField.addChild(this._passwordClickedBefore);
+            // move to welcome screen
+            cc.log("Moving to Welcome Screen");
+        }
     },
 
     setPassWordImageVisible: function(pwImg, visible){

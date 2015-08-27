@@ -2,6 +2,7 @@ var MainScreenLayer = cc.Layer.extend({
     accLayer: null,
     schLayer: null,
     loginLayer: null,
+    signUpLayer: null,
 
     ctor: function () {
         this._super();
@@ -38,6 +39,10 @@ var MainScreenLayer = cc.Layer.extend({
             case "loginLayer":
                 layer = new LoginLayer(arg);
                 this.loginLayer = layer;
+                break;
+            case "signUpLayer":
+                layer = new SignUpLayer();
+                this.signUpLayer = layer;
                 break;
         }
 
