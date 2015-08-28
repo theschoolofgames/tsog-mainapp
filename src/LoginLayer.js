@@ -135,8 +135,6 @@ var LoginLayer = cc.Layer.extend({
         this._scrollView.setTouchEnabled(true);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
 
-        var scrollViewRect = this._scrollView.getContentSize();
-
         this._scrollView.x = 0;
         this._scrollView.y = 0;
         self.addChild(this._scrollView);
