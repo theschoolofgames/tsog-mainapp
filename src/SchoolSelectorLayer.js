@@ -52,7 +52,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         this._searchArea.width = this._searchButton.width + this._searchField.width;
         this._searchArea.height = this._searchButton.height;
-        sArea.x = cc.winSize.width / 2 - this._searchField.width/2;
+        sArea.x = cc.winSize.width / 2 - this._searchField.width/4;
         sArea.y = cc.winSize.height - 50;
         this.addChild(this._searchArea);
     },
@@ -72,10 +72,16 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var field = new cc.Sprite("#search_field.png");
         field.x = this._searchButton.x + field.width / 2;
         field.y = this._searchButton.height/2;
+        var size = cc.size(field.width, field.height);
+        var tf = new ccui.TextField("Your School Name", "Arial", 30);
 
-        var tf = new ccui.TextField();
         tf.x = field.width / 2;
         tf.y = field.height / 2;
+
+        // tf.setPlaceHolder("Your School Name");
+        // tf.setPlaceHolderColor(cc.color.BLACK);
+        cc.log(tf.getPlaceHolder());
+
         field.addChild(tf);
         this._searchArea.addChild(field);
         this._searchField = tf;
