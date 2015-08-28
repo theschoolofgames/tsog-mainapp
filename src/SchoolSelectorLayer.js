@@ -1,6 +1,7 @@
 var SchoolSelectorLayer = cc.Layer.extend({
     schHolder: 0,
     schoolBtn: [],
+    schoolName: [],
     _lastedSchool: null,
     _searchArea: null,
     _searchButton: null,
@@ -53,17 +54,17 @@ var SchoolSelectorLayer = cc.Layer.extend({
             else {
                 sc.y = cc.winSize.height / 3;
             }
-
+            sc.setSwallowTouches(false);
             sc.tag = i;
 
             r = Math.floor(Math.random() * 3);
-            cc.log(r);
-            var scName = new cc.Sprite("#school_name-" + (r+1) +".png");
+
+            var scName = new cc.Sprite("#school_name-" + (r + 1) +".png");
             scName.x = sc.width / 2;
             scName.y = sc.height / 2;
 
             sc.addChild(scName , -1);
-
+            this.schoolName.push(r);
             this.schoolBtn.push(sc);
 
             sc.addClickEventListener(function() {self.callBack(this)});
@@ -83,7 +84,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._searchArea.height = this._searchButton.height;
         sArea.x = cc.winSize.width / 2 - this._searchField.width/4;
         sArea.y = cc.winSize.height - 50;
-        this.addChild(this._searchArea);
+        this.addChild(this._searchArea, 99);
     },
 
     createSearchButton: function() {
@@ -93,8 +94,37 @@ var SchoolSelectorLayer = cc.Layer.extend({
             ccui.Widget.PLIST_TEXTURE);
         button.x = button.width;
         button.y = button.height/2;
+        button.addClickEventListener(function(){
+            self.searchSchoolByName();
+        });
+
         this._searchArea.addChild(button,9);
         this._searchButton = button;
+
+        var self = this;
+    },
+
+    searchSchoolByName: function() {
+        var str = this._searchField.getString();
+        var scName;
+        var n = -1;
+        var newStr;
+        for ( var i = 0; i< str.length;i++){
+            newStr = str.charAt(i).toUpperCase();
+        }
+
+        for ( var i = 0; i < this.schoolBtn.length; i++) {
+            var id = this.schoolName[i];
+            scName = SCHOOL_INFO[id].name;
+            n = scName.search(newStr);
+            if (n >= 0) {
+                cc.log("school has found");
+            } else {
+                this.schoolBtn[i].removeFromParent();
+            }
+            if (i == (this.schoolBtn.length - 1) && n == -1)
+                this.createSchoolHolder(8);
+        }
     },
 
     createSearchField: function() {

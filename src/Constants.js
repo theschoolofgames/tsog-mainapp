@@ -7,10 +7,8 @@ ACCOUNT_INFO = [
 ];
 
 SCHOOL_INFO = [
-    {name: "DAI HOC QUOC GIA", id: 1 },
-    {name: "DAI HOC YET KIEU", id: 2 },
-    {name: "DAI HOC YET KIEU", id: 3 },
-    {name: "DAI HOC THUONG MAI", id: 5},
-    {name: "DAI HOC QUOC GIA", id: 4 }
+    {name: "DAI HOC MO", id: 1 },
+    {name: "BABY ONE MORE TIME VUVU", id: 2 },
+    {name: "DAI HOC QUOC GIA", id: 3}
 ];
 
