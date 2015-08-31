@@ -71,17 +71,17 @@ cc.game.onStart = function(){
     if (cc.sys.isNative) {
         var searchPaths = jsb.fileUtils.getSearchPaths();
 
-        if (frameSize.width >= largeResource.size.width) {
+        if (frameSize.height >= largeResource.size.height) {
             searchPaths.push(largeResource.directory);
-            cc.director.setContentScaleFactor(largeResource.size.width/designResolutionSize.width);
+            cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
             cc.log("Use largeResource");
-        } else if (frameSize.width >= mediumResource.size.width) {
+        } else if (frameSize.height >= mediumResource.size.height) {
             searchPaths.push(mediumResource.directory);
-            cc.director.setContentScaleFactor(mediumResource.size.width/designResolutionSize.width);
+            cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
             cc.log("Use mediumResource");
         } else {
             searchPaths.push(smallResource.directory);
-            cc.director.setContentScaleFactor(smallResource.size.width/designResolutionSize.width);
+            cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
             cc.log("Use smallResource");
         }
         searchPaths.push("res");

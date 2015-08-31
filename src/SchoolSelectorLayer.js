@@ -38,7 +38,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var self = this;
 
         var w, r1, r2 = 0;
-        var scale, width;
+        var scale, width, font;
         for ( var i = 0; i < schNumber; i++) {
             r1 = Math.floor(Math.random() * 2 + 1);
             var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -47,8 +47,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             if (i > 1)
                 sc.x = cc.winSize.width / 4 * 2 * w + sc.width/2;
-            else
-                sc.x = cc.winSize.width / 4;
+            else {
+                if (this.isWideScreen())
+                    sc.x = cc.winSize.width / 4 - 70;
+                else
+                    sc.x = cc.winSize.width / 4;
+            }
 
             if ((i % 2) == 0) {
                 sc.y = cc.winSize.height / 3 *2;
@@ -61,10 +65,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             r2 = Math.floor(Math.random() * 3);
             width = sc.width * 3;
-            scale = 0.3;
+            scale = 0.6;
+            if (this.isWideScreen())
+                font = res.RedFont_SD_fnt;
+            else
+                font = res.RedFont_HD_fnt;
 
             var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
-                            res.RedFont_fnt,
+                            font,
                             width,
                             cc.TEXT_ALIGNMENT_CENTER);
             scName.setScale(scale);
@@ -122,23 +130,22 @@ var SchoolSelectorLayer = cc.Layer.extend({
         }
         var a =[];
         var found = false;
-        for ( var i = 0; i < this.schoolBtn.length; i++) {
-            var id = this.schoolName[i];
-            scName = SCHOOL_INFO[id].name;
-            n = scName.search(newStr);
-            if (n >= 0) {
-                cc.log("school has found");
-                found = true;
-            } else {
-                a.push(this.schoolBtn[i]);
-                this.schoolBtn[i].removeFromParent();
-            }
-            if (i === (this.schoolBtn.length - 1) && !found) {
-                for ( var j = 0; j < this.schoolBtn.length; j++) {
-                    this.schHolder.addChild(this.schoolBtn[j]);
-                }
-            }
-        }
+        // for ( var i = 0; i < this.schoolBtn.length; i++) {
+        //     var id = this.schoolName[i];
+        //     scName = SCHOOL_INFO[id].name;
+        //     n = scName.search(newStr);
+        //     if (n >= 0) {
+        //         cc.log("school has found");
+        //         found = true;
+        //     } else {
+        //         a.push(i);
+        //     }
+        //     if (i === (this.schoolBtn.length - 1) && !found) {
+        //         for ( var j = 0; j < this.schoolBtn.length; j++) {
+        //             this.schHolder.addChild(this.schoolBtn[j]);
+        //         }
+        //     }
+        // }
     },
 
     createSearchField: function() {
@@ -183,5 +190,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         this._scrollView.addChild(this.schHolder);
 
+    },
+
+    isWideScreen: function(){
+        return cc.winSize.width/cc.winSize.height > 1.7;
     }
 });
