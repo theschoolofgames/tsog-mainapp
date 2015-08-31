@@ -38,6 +38,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var self = this;
 
         var w, r1, r2 = 0;
+        var scale, width;
         for ( var i = 0; i < schNumber; i++) {
             r1 = Math.floor(Math.random() * 2 + 1);
             var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -47,7 +48,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             if (i > 1)
                 sc.x = cc.winSize.width / 4 * 2 * w + sc.width/2;
             else
-                sc.x = cc.winSize.width / 4 - 70;
+                sc.x = cc.winSize.width / 4;
 
             if ((i % 2) == 0) {
                 sc.y = cc.winSize.height / 3 *2;
@@ -59,12 +60,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.tag = i;
 
             r2 = Math.floor(Math.random() * 3);
+            width = sc.width * 3;
+            scale = 0.3;
 
             var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
                             res.RedFont_fnt,
-                            sc.width * 0.8,
+                            width,
                             cc.TEXT_ALIGNMENT_CENTER);
-            // scName.setScale(0.3);
+            scName.setScale(scale);
             scName.x = sc.width / 2;
             scName.y = sc.height / 2;
 
