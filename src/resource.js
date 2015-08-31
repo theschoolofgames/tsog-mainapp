@@ -6,7 +6,9 @@ var res = {
     Male_png: "res/male-avt.png",
     PasswordField_png: "res/password-field.png",
     PasswordImg_png: "res/password-img.png",
-    Plus_png: "res/plus-button.png"
+    Plus_png: "res/plus-button.png",
+    RedFont_fnt: "res/font/red-font.fnt",
+    RedFont_png: "res/font/red-font.png",
 };
 
 var g_resources = [];

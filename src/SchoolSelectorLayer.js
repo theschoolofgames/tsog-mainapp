@@ -37,9 +37,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
     createSchoolButton: function(schNumber) {
         var self = this;
 
-        var w, r = 0;
+        var w, r1, r2 = 0;
         for ( var i = 0; i < schNumber; i++) {
-            var sc = new ccui.Button("school_bg.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            r1 = Math.floor(Math.random() * 2 + 1);
+            var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
 
             w = Math.floor(i / 2);
 
@@ -57,14 +58,18 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.setSwallowTouches(false);
             sc.tag = i;
 
-            r = Math.floor(Math.random() * 3);
+            r2 = Math.floor(Math.random() * 3);
 
-            var scName = new cc.Sprite("#school_name-" + (r + 1) +".png");
+            var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
+                            res.RedFont_fnt,
+                            sc.width * 0.8,
+                            cc.TEXT_ALIGNMENT_CENTER);
+            // scName.setScale(0.3);
             scName.x = sc.width / 2;
             scName.y = sc.height / 2;
 
-            sc.addChild(scName , -1);
-            this.schoolName.push(r);
+            sc.addChild(scName);
+            this.schoolName.push(r2);
             this.schoolBtn.push(sc);
 
             sc.addClickEventListener(function() {self.callBack(this)});
@@ -108,22 +113,28 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var str = this._searchField.getString();
         var scName;
         var n = -1;
-        var newStr;
+        var newStr = "";
         for ( var i = 0; i< str.length;i++){
-            newStr = str.charAt(i).toUpperCase();
+            newStr += str.charAt(i).toUpperCase();
         }
-
+        var a =[];
+        var found = false;
         for ( var i = 0; i < this.schoolBtn.length; i++) {
             var id = this.schoolName[i];
             scName = SCHOOL_INFO[id].name;
             n = scName.search(newStr);
             if (n >= 0) {
                 cc.log("school has found");
+                found = true;
             } else {
+                a.push(this.schoolBtn[i]);
                 this.schoolBtn[i].removeFromParent();
             }
-            if (i == (this.schoolBtn.length - 1) && n == -1)
-                this.createSchoolHolder(8);
+            if (i === (this.schoolBtn.length - 1) && !found) {
+                for ( var j = 0; j < this.schoolBtn.length; j++) {
+                    this.schHolder.addChild(this.schoolBtn[j]);
+                }
+            }
         }
     },
 
@@ -131,15 +142,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var field = new cc.Sprite("#search_field.png");
         field.x = this._searchButton.x + field.width / 2;
         field.y = this._searchButton.height/2;
+
         var size = cc.size(field.width, field.height);
         var tf = new ccui.TextField("Your School Name", "Arial", 30);
 
         tf.x = field.width / 2;
         tf.y = field.height / 2;
-
-        // tf.setPlaceHolder("Your School Name");
-        // tf.setPlaceHolderColor(cc.color.BLACK);
-        cc.log(tf.getPlaceHolder());
 
         field.addChild(tf);
         this._searchArea.addChild(field);

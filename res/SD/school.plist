@@ -7,7 +7,7 @@
             <key>back-button.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{857,336},{40,27}}</string>
+                <string>{{904,307},{40,27}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -30,27 +30,40 @@
                 <key>sourceSize</key>
                 <string>{853,640}</string>
             </dict>
-            <key>school_bg.png</key>
+            <key>school_bg-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,644},{341,201}}</string>
+                <string>{{2,644},{338,201}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,1},{341,201}}</string>
+                <string>{{0,0},{338,201}}</string>
                 <key>sourceSize</key>
-                <string>{343,203}</string>
+                <string>{338,201}</string>
             </dict>
-            <key>school_name-1.png</key>
+            <key>school_bg-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{609,772},{236,65}}</string>
+                <string>{{342,644},{337,192}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{337,192}}</string>
+                <key>sourceSize</key>
+                <string>{337,192}</string>
+            </dict>
+            <key>school_name-1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{904,2},{236,65}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{236,65}}</string>
                 <key>sourceSize</key>
@@ -59,11 +72,11 @@
             <key>school_name-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{345,744},{262,97}}</string>
+                <string>{{857,336},{262,97}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{262,97}}</string>
                 <key>sourceSize</key>
@@ -72,7 +85,7 @@
             <key>school_name-3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{345,644},{233,98}}</string>
+                <string>{{681,644},{233,98}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +98,7 @@
             <key>school_name-4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{580,644},{233,97}}</string>
+                <string>{{681,744},{233,97}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,11 +111,11 @@
             <key>search_button-pressed.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{815,644},{62,65}}</string>
+                <string>{{904,240},{62,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,0},{62,65}}</string>
                 <key>sourceSize</key>
@@ -111,11 +124,11 @@
             <key>search_button.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{815,708},{62,65}}</string>
+                <string>{{916,600},{62,65}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,0},{62,65}}</string>
                 <key>sourceSize</key>
@@ -142,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>school.png</string>
             <key>size</key>
-            <string>{904,847}</string>
+            <string>{980,847}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:30a735a1435bd03135ebb04853388965:d857d29f748cac4b66b6ea15de121865:d5a4559589750e3d1ee0ab0b70bd8e8a$</string>
+            <string>$TexturePacker:SmartUpdate:203b6eda4355f546572e7186c9605f11:9fec143f80f9399e032d9930fda386a5:d5a4559589750e3d1ee0ab0b70bd8e8a$</string>
             <key>textureFileName</key>
             <string>school.png</string>
         </dict>
