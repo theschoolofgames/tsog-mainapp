@@ -13,5 +13,12 @@ SCHOOL_INFO = [
     {name: "DAI HOC QUOC GIA", id: 3}
 ];
 
+SCHOOL_NAME_COLOR = [
+    res.RedFont_fnt,
+    res.YellowFont_fnt,
+    res.PurpleFont_fnt,
+    res.GreenFont_fnt
+];
+
 
 

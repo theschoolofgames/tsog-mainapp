@@ -51,7 +51,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         var w, r1, r2 = 0;
         var scale, width, font;
-        var font = res.RedFont_SD_fnt;
+
 
         var itemIndex = 0;
         for (var i = 0; i < schNumber; i++) {
@@ -65,9 +65,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.schoolBtn.push(sc);
 
             r2 = Math.floor(Math.random() * 3);
+            font = SCHOOL_NAME_COLOR[Math.floor(Math.random() * 4)];
+
             var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
                 font,
-                sc.width * 3,
+                sc.width*1.5,
                 cc.TEXT_ALIGNMENT_CENTER);
             scName.setScale(0.5);
             scName.x = sc.width / 2;
