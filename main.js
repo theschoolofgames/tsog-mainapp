@@ -57,9 +57,8 @@ cc.game.onStart = function(){
     cc.view.adjustViewPort(true);
 
     // Setup the resolution policy and design resolution size
-    var smallResource = { size: cc.size(480, 320), directory: "res/LD" };
     var mediumResource = { size: cc.size(960, 640), directory: "res/SD" };
-    var largeResource = { size: cc.size(2304, 1536), directory: "res/HD" };
+    var largeResource = { size: cc.size(2730, 1536), directory: "res/HD" };
     var designResolutionSize = cc.size(960, 640);
     var frameSize = cc.director.getOpenGLView().getFrameSize();
 

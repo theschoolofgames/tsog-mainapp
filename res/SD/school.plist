@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{40,27}</string>
             </dict>
-            <key>background.png</key>
+            <key>bg-school.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{853,640}}</string>
@@ -157,7 +157,7 @@
             <key>size</key>
             <string>{980,847}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:203b6eda4355f546572e7186c9605f11:9fec143f80f9399e032d9930fda386a5:d5a4559589750e3d1ee0ab0b70bd8e8a$</string>
+            <string>$TexturePacker:SmartUpdate:57282a2f856ba08023078da20955a989:9fec143f80f9399e032d9930fda386a5:d5a4559589750e3d1ee0ab0b70bd8e8a$</string>
             <key>textureFileName</key>
             <string>school.png</string>
         </dict>

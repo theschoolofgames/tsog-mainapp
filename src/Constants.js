@@ -1,9 +1,10 @@
-ACCOUNT_INFO = [
-    {name: "Stefan", sex: 1, avtImg: "", avtType: "", passwordImg: 0},
-    {name: "Marvin", sex: 1, avtImg: "", avtType: "", passwordImg: 0},
-    {name: "Hana", sex: 0, avtImg: "", avtType: "", passwordImg: 0},
-    {name: "Nick", sex: 0, avtImg: "", avtType: "", passwordImg: 0},
-    {name: "Tony", sex: 1, avtImg: "", avtType: "", passwordImg: 0}
+ACCOUNT_POS = [
+    {x: 350, y: 1071},
+    {x: 930, y: 1071},
+    {x: 1512, y: 1071},
+    {x: 633, y: 606},
+    {x: 1206, y: 606},
+    {x: 1720, y: 606}
 ];
 
 SCHOOL_INFO = [
@@ -11,4 +12,6 @@ SCHOOL_INFO = [
     {name: "BABY ONE MORE TIME VUVU", id: 2 },
     {name: "DAI HOC QUOC GIA", id: 3}
 ];
+
+
 

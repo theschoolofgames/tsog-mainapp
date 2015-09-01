@@ -10,7 +10,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     ctor: function () {
         this._super();
-
+        this.addBackground();
         this.resetAllChildren();
 
         this._lastedSchool = cc.sys.localStorage.getItem("lastedSchool") || null;
@@ -21,6 +21,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     resetAllChildren: function() {
         this.schoolBtn = [];
+    },
+
+    addBackground: function() {
+        var bg = new cc.Sprite("#bg-school.png");
+        var scale = cc.winSize.width / bg.width;
+        bg.setScaleX(scale);
+        bg.x = cc.winSize.width / 2;
+        bg.y = cc.winSize.height / 2;
+        this.addChild(bg);
     },
 
     createSchoolHolder: function(schNumber){
@@ -65,9 +74,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             r2 = Math.floor(Math.random() * 3);
             width = sc.width * 3;
-            scale = 0.6;
-            if (this.isWideScreen())
+            scale = 0.3;
+            if (this.isWideScreen()) {
                 font = res.RedFont_SD_fnt;
+                scale = 0.6;
+            }
             else
                 font = res.RedFont_HD_fnt;
 
@@ -110,9 +121,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             ccui.Widget.PLIST_TEXTURE);
         button.x = button.width;
         button.y = button.height/2;
-        button.addClickEventListener(function(){
-            self.searchSchoolByName();
-        });
+        button.addClickEventListener(function(){});
 
         this._searchArea.addChild(button,9);
         this._searchButton = button;
@@ -120,32 +129,35 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var self = this;
     },
 
-    searchSchoolByName: function() {
-        var str = this._searchField.getString();
-        var scName;
-        var n = -1;
+    onSearchFieldInsertText: function(tf, text) {
+        var str = tf.getString();
+        cc.log("on textfield insert text: " + str);
+        var found = false;
         var newStr = "";
+        var n = -1;
+        var count = -1;
+        var scName;
+        var a =[];
+
         for ( var i = 0; i< str.length;i++){
             newStr += str.charAt(i).toUpperCase();
         }
-        var a =[];
-        var found = false;
-        // for ( var i = 0; i < this.schoolBtn.length; i++) {
-        //     var id = this.schoolName[i];
-        //     scName = SCHOOL_INFO[id].name;
-        //     n = scName.search(newStr);
-        //     if (n >= 0) {
-        //         cc.log("school has found");
-        //         found = true;
-        //     } else {
-        //         a.push(i);
-        //     }
-        //     if (i === (this.schoolBtn.length - 1) && !found) {
-        //         for ( var j = 0; j < this.schoolBtn.length; j++) {
-        //             this.schHolder.addChild(this.schoolBtn[j]);
-        //         }
-        //     }
-        // }
+
+        for ( var i = 0; i < this.schoolBtn.length; i++) {
+            var id = this.schoolName[i];
+            scName = SCHOOL_INFO[id].name;
+            if (newStr != "") {
+                n = scName.search(newStr);
+                if ( n >= 0 ){
+                    count++;
+                    this.schoolBtn[i].setPosition(this.schoolBtn[count].getPosition());
+                    this.schoolBtn[i].setVisible(true);
+                    cc.log(JSON.stringify(this.schoolBtn[count].getPosition()));
+                } else {
+                    this.schoolBtn[i].setVisible(false);
+                }
+            }
+        }
     },
 
     createSearchField: function() {
@@ -162,6 +174,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         field.addChild(tf);
         this._searchArea.addChild(field);
         this._searchField = tf;
+        tf.addEventListener(this.onSearchFieldInsertText, this);
+
     },
 
     callBack: function(school) {
