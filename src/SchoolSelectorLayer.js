@@ -8,6 +8,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
     _searchField: null,
     _scrollView: null,
 
+    _cols: 2,
+    _rows: 2,
+
     ctor: function () {
         this._super();
         this.addBackground();
@@ -33,9 +36,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     createSchoolHolder: function(schNumber){
-        this.schHolder = new cc.Sprite();
-        this.schHolder.x = cc.winSize.width / 3;
-        this.schHolder.y = cc.winSize.height / 2;
+        this.schHolder = new cc.Layer();
+        // this.schHolder.x = cc.winSize.width / 3;
+        // this.schHolder.y = cc.winSize.height / 2;
         this.schHolder.width = this.schoolBtn[schNumber - 1].y + this.schoolBtn[schNumber -1].width;
         this.schHolder.height = cc.winSize.height;
         for ( var i = 0; i < this.schoolBtn.length; i++) {
@@ -48,54 +51,32 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         var w, r1, r2 = 0;
         var scale, width, font;
-        for ( var i = 0; i < schNumber; i++) {
+        var font = res.RedFont_SD_fnt;
+
+        var itemIndex = 0;
+        for (var i = 0; i < schNumber; i++) {
             r1 = Math.floor(Math.random() * 2 + 1);
             var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-
-            w = Math.floor(i / 2);
-
-            if (i > 1)
-                sc.x = cc.winSize.width / 4 * 2 * w + sc.width/2;
-            else {
-                if (this.isWideScreen())
-                    sc.x = cc.winSize.width / 4 - 70;
-                else
-                    sc.x = cc.winSize.width / 4;
-            }
-
-            if ((i % 2) == 0) {
-                sc.y = cc.winSize.height / 3 *2;
-            }
-            else {
-                sc.y = cc.winSize.height / 3;
-            }
+            sc.setPosition(this._getBtnPosition(i));
             sc.setSwallowTouches(false);
             sc.tag = i;
+            sc.addClickEventListener(function() {self.callBack(this)});
 
-            r2 = Math.floor(Math.random() * 3);
-            width = sc.width * 3;
-            scale = 0.3;
-            if (this.isWideScreen()) {
-                font = res.RedFont_SD_fnt;
-                scale = 0.6;
-            }
-            else
-                font = res.RedFont_HD_fnt;
-
-            var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
-                            font,
-                            width,
-                            cc.TEXT_ALIGNMENT_CENTER);
-            scName.setScale(scale);
-            scName.x = sc.width / 2;
-            scName.y = sc.height / 2;
-
-            sc.addChild(scName);
-            this.schoolName.push(r2);
             this.schoolBtn.push(sc);
 
-            sc.addClickEventListener(function() {self.callBack(this)});
-        }
+            r2 = Math.floor(Math.random() * 3);
+            var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
+                font,
+                sc.width * 3,
+                cc.TEXT_ALIGNMENT_CENTER);
+            scName.setScale(0.5);
+            scName.x = sc.width / 2;
+            scName.y = sc.height / 2;
+            sc.addChild(scName);
+
+            this.schoolName.push(r2);
+        };
+
         this.createSchoolHolder(schNumber);
     },
 
@@ -131,16 +112,18 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     onSearchFieldInsertText: function(tf, text) {
         var str = tf.getString();
-        cc.log("on textfield insert text: " + str);
-        var found = false;
-        var newStr = "";
+        // cc.log("on textfield insert text: " + str);
+        var newStr = str.toUpperCase();
         var n = -1;
         var count = -1;
         var scName;
-        var a =[];
 
-        for ( var i = 0; i< str.length;i++){
-            newStr += str.charAt(i).toUpperCase();
+        if (newStr == "") {
+            for ( var i = 0; i < this.schoolBtn.length; i++) {
+                this.schoolBtn[i].setPosition(this._getBtnPosition(i));
+                this.schoolBtn[i].setVisible(true);
+            }
+            return;
         }
 
         for ( var i = 0; i < this.schoolBtn.length; i++) {
@@ -148,11 +131,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
             scName = SCHOOL_INFO[id].name;
             if (newStr != "") {
                 n = scName.search(newStr);
+                console.log(n + " " + scName);
                 if ( n >= 0 ){
                     count++;
-                    this.schoolBtn[i].setPosition(this.schoolBtn[count].getPosition());
+                    this.schoolBtn[i].setPosition(this._getBtnPosition(count));
                     this.schoolBtn[i].setVisible(true);
-                    cc.log(JSON.stringify(this.schoolBtn[count].getPosition()));
+                    // cc.log(JSON.stringify(this.schoolBtn[count].getPosition()));
                 } else {
                     this.schoolBtn[i].setVisible(false);
                 }
@@ -208,5 +192,17 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     isWideScreen: function(){
         return cc.winSize.width/cc.winSize.height > 1.7;
+    },
+
+    _getBtnPosition: function(index) {
+        var x = Math.floor(index / this._rows);
+        var y = (index % this._cols);
+        var posX = cc.winSize.width * (0.25 + x/2);
+        var posY = cc.winSize.height * (1 - 1/3 * (y+1));
+
+        return {
+            x: posX,
+            y: posY
+        }
     }
 });
