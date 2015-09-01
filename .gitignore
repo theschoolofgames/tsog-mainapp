@@ -12,3 +12,7 @@ frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/xcuserdat
 frameworks/runtime-src/proj.ios_mac/build/
 frameworks/cocos2d-x/build/build/
 frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/build/
+
+frameworks/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/
+frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
+
