@@ -13,7 +13,8 @@ var res = {
     RedFont_fnt: "red-font-export.fnt",
     YellowFont_fnt: "yellow-font-export.fnt",
     PurpleFont_fnt: "purple-font-export.fnt",
-    GreenFont_fnt: "green-font-export.fnt"
+    GreenFont_fnt: "green-font-export.fnt",
+    Welcome_jpg:"welcome.jpg"
 };
 
 var g_resources = [];

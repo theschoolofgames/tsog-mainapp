@@ -91,6 +91,8 @@ cc.game.onStart = function(){
         cc.view.setDesignResolutionSize(designResolutionSize.width,
             designResolutionSize.height,
             cc.ResolutionPolicy.SHOW_ALL);
+        
+        jsb.fileUtils.setSearchPaths("res/SD");
     }
     cc.log(cc.winSize.width + " - " + cc.winSize.height);
 
@@ -98,7 +100,7 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
-        cc.director.runScene(new MainScreen());
+        cc.director.runScene(new WelcomeScene());
     }, this);
 };
 cc.game.run();

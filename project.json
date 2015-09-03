@@ -18,6 +18,8 @@
         "src/SignUpLayer.js",
         "src/MainScreenLayer.js",
         "src/SchoolSelectorLayer.js",
-        "src/GameSelectorLayer.js"
+        "src/GameSelectorLayer.js",
+        "src/LoginSucceedLayer.js",
+        "src/WelcomeLayer.js"
     ]
 }
