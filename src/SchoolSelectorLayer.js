@@ -1,5 +1,5 @@
 var SchoolSelectorLayer = cc.Layer.extend({
-    schHolder: 0,
+    schHolder: null,
     schoolBtn: [],
     schoolName: [],
     _lastedSchool: null,
@@ -7,6 +7,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
     _searchButton: null,
     _searchField: null,
     _scrollView: null,
+    _startTouchPosition: null,
+
+    _isTouchMoved: false,
 
     _cols: 2,
     _rows: 2,
@@ -15,11 +18,20 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._super();
         this.addBackground();
         this.resetAllChildren();
-
+        this.name = "SchoolSelectorLayer";
         this._lastedSchool = cc.sys.localStorage.getItem("lastedSchool") || null;
         this.createSearchArea();
         this.createSchoolButton(8);
         this.createScrollView();
+
+        var self = this;
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: false,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved,
+                onTouchEnded: this.onTouchEnded
+        }, this);
     },
 
     resetAllChildren: function() {
@@ -58,9 +70,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
             r1 = Math.floor(Math.random() * 2 + 1);
             var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
             sc.setPosition(this._getBtnPosition(i));
-            sc.setSwallowTouches(false);
             sc.tag = i;
-            sc.addClickEventListener(function() {self.callBack(this)});
+            sc.setSwallowTouches(false);
+            sc.addClickEventListener(function() {
+                if (!self._isTouchMoved) {
+                    cc.log("Selected school");
+                    self.addNewLayer(this, "accLayer", button);
+                }
+
+            });
 
             this.schoolBtn.push(sc);
 
@@ -77,6 +95,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.addChild(scName);
 
             this.schoolName.push(r2);
+
+
         };
 
         this.createSchoolHolder(schNumber);
@@ -98,13 +118,16 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     createSearchButton: function() {
+        var self = this;
         var button = new ccui.Button("search_button.png",
             "search_button-pressed.png",
             "",
             ccui.Widget.PLIST_TEXTURE);
         button.x = button.width;
         button.y = button.height/2;
-        button.addClickEventListener(function(){});
+        button.addClickEventListener(function(){
+            self._searchField.onTouchBegan();
+        });
 
         this._searchArea.addChild(button,9);
         this._searchButton = button;
@@ -112,11 +135,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var self = this;
     },
 
-    onSearchFieldInsertText: function(tf, text) {
+    onSearchFieldInsertText: function(tf) {
         var str = tf.getString();
-        // cc.log("on textfield insert text: " + str);
+
         var newStr = str.toUpperCase();
-        var n = -1;
+        var result = -1;
         var count = -1;
         var scName;
 
@@ -125,6 +148,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 this.schoolBtn[i].setPosition(this._getBtnPosition(i));
                 this.schoolBtn[i].setVisible(true);
             }
+            var innerWidth = Math.ceil(((this.schoolBtn.length - 1) / 2) * cc.winSize.width / 2);
+            this._scrollView.setInnerContainerSize(cc.size(innerWidth, cc.winSize.height));
             return;
         }
 
@@ -132,9 +157,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
             var id = this.schoolName[i];
             scName = SCHOOL_INFO[id].name;
             if (newStr != "") {
-                n = scName.search(newStr);
-                console.log(n + " " + scName);
-                if ( n >= 0 ){
+                result = scName.search(newStr);
+
+                if ( result >= 0 ){
                     count++;
                     this.schoolBtn[i].setPosition(this._getBtnPosition(count));
                     this.schoolBtn[i].setVisible(true);
@@ -144,6 +169,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 }
             }
         }
+        // reset scroll container size
+        var innerWidth = Math.ceil((count - 1) / 2) * cc.winSize.width / 2;
+        this._scrollView.setInnerContainerSize(cc.size(innerWidth, cc.winSize.height));
     },
 
     createSearchField: function() {
@@ -152,7 +180,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
         field.y = this._searchButton.height/2;
 
         var size = cc.size(field.width, field.height);
-        var tf = new ccui.TextField("Your School Name", "Arial", 30);
+        cc.log(field.width + " - " + field.height);
+        var tf = new ccui.TextField("Your School Name", "Arial", 32);
+
+        tf.setTouchAreaEnabled(true);
+
+        tf.setTouchSize(cc.size(600, 80));
 
         tf.x = field.width / 2;
         tf.y = field.height / 2;
@@ -160,16 +193,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         field.addChild(tf);
         this._searchArea.addChild(field);
         this._searchField = tf;
+
         tf.addEventListener(this.onSearchFieldInsertText, this);
-
-    },
-
-    callBack: function(school) {
-        // this.btn.tag get the tag of button are clicked
-        var p = this.parent;
-        var button = school.tag;
-        cc.sys.localStorage.setItem("lastedSchool", button);
-        p.addNewLayer(this, "accLayer", button);
     },
 
     createScrollView: function(){
@@ -177,6 +202,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView = new ccui.ScrollView();
         this._scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this._scrollView.setTouchEnabled(true);
+        this._scrollView.setSwallowTouches(false);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
 
         this._scrollView.x = 0;
@@ -184,9 +210,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
         self.addChild(this._scrollView);
 
         var innerWidth = Math.ceil(this.schoolBtn.length / 4) * cc.winSize.width;
-        var innerHeight = cc.winSize.height - this._searchArea.height;
-        // cc.log("inner width: " + innerWidth);
-        // cc.log("inner height: " + innerHeight);
+        var innerHeight = cc.winSize.height;
+
+        this._scrollView.setBounceEnabled(true);
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         this._scrollView.addChild(this.schHolder);
 
@@ -206,5 +232,33 @@ var SchoolSelectorLayer = cc.Layer.extend({
             x: posX,
             y: posY
         }
+    },
+
+    onTouchBegan: function(touch, event) {
+        cc.log("onTouchBegan");
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+        targetNode._startTouchPosition = touchedPos;
+        targetNode._isTouchMoved = false;
+        return true;
+    },
+
+    onTouchMoved: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+        var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
+        var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
+        var distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+        cc.log("distance: " + distance);
+        if(distance > 3)
+            targetNode._isTouchMoved = true;
+
+        cc.log("targetNode name: " + targetNode.name);
+        return true;
+    },
+
+    onTouchEnded: function() {
+
+        return true;
     }
 });

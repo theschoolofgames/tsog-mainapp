@@ -1,8 +1,8 @@
 var res = {
-    Account_plist: "res/SD/account.plist",
-    Account_png: "res/SD/account.png",
-    School_plist: "res/SD/school.plist",
-    School_png: "res/SD/school.png",
+    Account_plist: "account.plist",
+    Account_png: "account.png",
+    School_plist: "school.plist",
+    School_png: "school.png",
     LoginSucceed_png: "login-succeed.png",
     PasswordField_png: "res/password-field.png",
     PasswordImg_png: "res/password-img.png",
