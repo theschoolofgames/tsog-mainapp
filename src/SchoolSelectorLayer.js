@@ -169,7 +169,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var p = this.parent;
         var button = school.tag;
         cc.sys.localStorage.setItem("lastedSchool", button);
-        p.addNewLayer(this, "accLayer", button);
+        // p.addNewLayer(this, "accLayer", button);
+        cc.director.replaceScene(new AccountSelectorScene());
     },
 
     createScrollView: function(){
@@ -206,5 +207,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
             x: posX,
             y: posY
         }
+    }
+});
+
+var SchoolSelectorScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        var msLayer = new SchoolSelectorLayer();
+        this.addChild(msLayer);
     }
 });

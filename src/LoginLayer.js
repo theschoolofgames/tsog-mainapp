@@ -123,7 +123,7 @@ var LoginLayer = cc.Layer.extend({
         this.addChild(b);
 
         b.addClickEventListener(function() {
-            self.parent.addNewLayer(self, "accLayer");
+            cc.director.replaceScene(new AccountSelectorScene());
         });
 
     },
@@ -146,4 +146,13 @@ var LoginLayer = cc.Layer.extend({
         this._scrollView.addChild(this._passwordArea);
 
     },
+});
+
+var LoginScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        var msLayer = new LoginLayer();
+        this.addChild(msLayer);
+    }
 });

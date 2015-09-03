@@ -87,7 +87,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     callback: function (account) {
         var p = this.parent;
         var button = account.tag;
-        p.addNewLayer(this, "loginLayer", button);
+        cc.director.replaceScene(new LoginScene());
     },
 
     addBackButton: function() {
@@ -98,7 +98,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.addChild(b, 1);
 
         b.addClickEventListener(function() {
-            self.parent.addNewLayer(self, "schLayer");
+            cc.director.replaceScene(new SchoolSelectorScene());
         });
         this.backButton = b;
     },
@@ -122,4 +122,13 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     }
 
+});
+
+var AccountSelectorScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        var msLayer = new AccountSelectorLayer();
+        this.addChild(msLayer);
+    }
 });
