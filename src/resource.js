@@ -3,6 +3,7 @@ var res = {
     Account_png: "res/SD/account.png",
     School_plist: "res/SD/school.plist",
     School_png: "res/SD/school.png",
+    LoginSucceed_png: "login-succeed.png",
     PasswordField_png: "res/password-field.png",
     PasswordImg_png: "res/password-img.png",
     RedFont_png: "red-font-export.png",
