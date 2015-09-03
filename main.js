@@ -100,6 +100,7 @@ cc.game.onStart = function(){
     cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
+        KVDatabase.setupInstance(CocosKVImpl);
         cc.director.runScene(new WelcomeScene());
     }, this);
 };

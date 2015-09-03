@@ -1,0 +1,1 @@
+var CocosKVImpl = cc.sys.localStorage;

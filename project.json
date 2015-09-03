@@ -13,6 +13,9 @@
     "jsList" : [
         "src/resource.js",
         "src/Constants.js",
+        "src/database/CocosKVImpl.js",
+        "src/database/KVDatabase.js",
+        "src/Managers/DataManager.js",
         "src/AccountSelectorLayer.js",
         "src/LoginLayer.js",
         "src/SignUpLayer.js",
