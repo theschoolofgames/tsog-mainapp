@@ -33,6 +33,15 @@ SCHOOL_NAME_COLOR = [
     res.GreenFont_fnt
 ];
 
+var TREE_POSITIONS = [
+    { x : 50, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 50, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 50, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 50, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 50, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 50, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
+];
+
 // String
 
 var STRING_SCHOOL_DATA  = "school_data";

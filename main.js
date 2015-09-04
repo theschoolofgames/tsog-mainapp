@@ -91,7 +91,7 @@ cc.game.onStart = function(){
         cc.view.setDesignResolutionSize(designResolutionSize.width,
             designResolutionSize.height,
             cc.ResolutionPolicy.SHOW_ALL);
-        
+
         jsb.fileUtils.setSearchPaths("res/SD");
     }
     cc.log(cc.winSize.width + " - " + cc.winSize.height);
@@ -101,7 +101,7 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
-        cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new MainScene());
     }, this);
 };
 cc.game.run();
