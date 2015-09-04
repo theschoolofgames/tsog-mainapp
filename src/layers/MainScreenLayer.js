@@ -9,6 +9,7 @@ var MainScreenLayer = cc.Layer.extend({
 
         cc.spriteFrameCache.addSpriteFrames(res.School_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
 
         this.schLayer = new SchoolSelectorLayer();
 

@@ -248,12 +248,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
         var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
         var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
-        var distance = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-        cc.log("distance: " + distance);
-        if(distance > 3)
+        var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+        // cc.log("distance: " + distance);
+        if(sqrDistance > 9)
             targetNode._isTouchMoved = true;
 
-        cc.log("targetNode name: " + targetNode.name);
+        // cc.log("targetNode name: " + targetNode.name);
         return true;
     }
 });
