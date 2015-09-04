@@ -34,12 +34,12 @@ SCHOOL_NAME_COLOR = [
 ];
 
 var TREE_POSITIONS = [
-    { x : 50, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 50, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 50, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 50, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 50, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 50, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 100, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 250, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 400, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 550, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 700, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100 }
+    // { x : 850, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
 ];
 
 // String

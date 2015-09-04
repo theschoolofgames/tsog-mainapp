@@ -11,6 +11,15 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createParallaxNode();
         this.createForeGround();
         this.createBush();
+        this.createTree();
+        // this.createFlowerFrames();
+    },
+
+    createAvatar: function(avatarID, parent) {
+        var avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
+        avatar.setAnchorPoint(0, 0);
+        avatar.setPosition(parent.getPosition());
+        parent.addChild(avatar);
     },
 
     createAccountButton: function (){
@@ -37,7 +46,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                                  "",
                                  ccui.Widget.PLIST_TEXTURE);
 
-        bb.x = bb.width*1.5 ;
+        bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height/2;
         this.addChild(bb);
     },
@@ -57,11 +66,19 @@ var AccountSelectorLayer = cc.Layer.extend({
         node.width = bush.width*3;
         node.height = bush.height;
 
-        this._prlNode.addChild(node, 1, cc.p(0.5, 0), cc.p(0,0))
+        this._prlNode.addChild(node, 1, cc.p(0.1, 0), cc.p(0,0));
     },
 
-    createFlowerFrames: function() {
+    createFlowerFrames: function(x, y) {
+        cc.log("x: " + x);
+        cc.log("y: " + y);
+        var fFrame = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        fFrame.setAnchorPoint(0, 0);
+        fFrame.x = x;
+        fFrame.y = y;
+        this.createAvatar(1, fFrame);
 
+        return fFrame;
     },
 
     createForeGround: function() {
@@ -74,12 +91,13 @@ var AccountSelectorLayer = cc.Layer.extend({
             ground.x = i * (ground.width - 3);
             ground.y = -ground.height/2;
             ground.flippedX = i%2 == 0;
+
             node.addChild(ground);
         }
         node.width = ground.width*3;
         node.height = ground.height;
 
-        this._prlNode.addChild(node, 2, cc.p(1, 0), cc.p(0,0));
+        this._prlNode.addChild(node, 2, cc.p(0.5, 0), cc.p(0,0));
 
         this._ground = ground;
     },
@@ -102,6 +120,27 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createPlusButton:function (){
 
+    },
+
+    createTree: function() {
+        var node = new cc.Node();
+        var tree;
+        for ( var i = 0; i < TREE_POSITIONS.length; i++) {
+            tree = new cc.Sprite("#tree-" + (i+1) + ".png");
+            tree.setAnchorPoint(0, 0);
+            tree.x = TREE_POSITIONS[i].x;
+            tree.y = this._ground.y + this._ground.height / 2;
+
+            var fFrame = this.createFlowerFrames(tree.x, tree.y + tree.height);
+
+            node.addChild(tree);
+            node.addChild(fFrame);
+
+        }
+        node.setAnchorPoint(0.8, 0);
+        node.width = tree.width* TREE_POSITIONS.length;
+        node.height = tree.height*2;
+        this._prlNode.addChild(node, 3, cc.p(0.8, 0.15), cc.p(0,0));
     },
 
     createScrollView: function(){
