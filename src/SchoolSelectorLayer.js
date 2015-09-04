@@ -24,7 +24,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.createSchoolButton(8);
         this.createScrollView();
 
-        var self = this;
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
@@ -48,8 +47,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     createSchoolHolder: function(schNumber){
         this.schHolder = new cc.Layer();
-        // this.schHolder.x = cc.winSize.width / 3;
-        // this.schHolder.y = cc.winSize.height / 2;
+
         this.schHolder.width = this.schoolBtn[schNumber - 1].y + this.schoolBtn[schNumber -1].width;
         this.schHolder.height = cc.winSize.height;
         for ( var i = 0; i < this.schoolBtn.length; i++) {
