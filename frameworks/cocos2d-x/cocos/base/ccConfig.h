@@ -192,7 +192,7 @@ THE SOFTWARE.
  * 2 -- draw texture box
  */
 #ifndef CC_SPRITE_DEBUG_DRAW
-#define CC_SPRITE_DEBUG_DRAW 0
+#define CC_SPRITE_DEBUG_DRAW 1
 #endif
 
 /** @def CC_SPRITEBATCHNODE_DEBUG_DRAW

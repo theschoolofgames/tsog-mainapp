@@ -1,12 +1,16 @@
 var AccountSelectorLayer = cc.Layer.extend({
     _prlNode: null,
+    _ground: null,
 
     ctor: function () {
         this._super();
 
         this.createBackground();
         this.createBackButton();
+        this.createScrollView();
         this.createParallaxNode();
+        this.createForeGround();
+        this.createBush();
     },
 
     createAccountButton: function (){
@@ -18,7 +22,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var bg = new cc.Sprite(res.Bg_account_png);
+        var bg = new cc.Sprite(res.Bg_account_jpg);
         var scale = cc.winSize.width / bg.width;
         bg.setScaleX(scale);
 
@@ -34,16 +38,50 @@ var AccountSelectorLayer = cc.Layer.extend({
                                  ccui.Widget.PLIST_TEXTURE);
 
         bb.x = bb.width*1.5 ;
-        bb.y = bb.height*1.5;
+        bb.y = cc.winSize.height - bb.height/2;
         this.addChild(bb);
+    },
+
+    createBush: function() {
+        var bush;
+        var node = new cc.Node();
+
+        for ( var i = -1; i <= 1; i++) {
+            bush = new cc.Sprite("#grass.png");
+            bush.setAnchorPoint(0,0);
+            bush.x = i * (bush.width - 3);
+            bush.y = this._ground.y + bush.height/2;
+            bush.flippedX = i%2 == 0;
+            node.addChild(bush);
+        }
+        node.width = bush.width*3;
+        node.height = bush.height;
+
+        this._prlNode.addChild(node, 1, cc.p(0.5, 0), cc.p(0,0))
     },
 
     createFlowerFrames: function() {
 
     },
 
-    createGround: function() {
+    createForeGround: function() {
+        var ground;
+        var node = new cc.Node();
 
+        for ( var i = -1; i <= 1; i++) {
+            ground = new cc.Sprite("#ground.png");
+            ground.setAnchorPoint(0,0);
+            ground.x = i * (ground.width - 3);
+            ground.y = -ground.height/2;
+            ground.flippedX = i%2 == 0;
+            node.addChild(ground);
+        }
+        node.width = ground.width*3;
+        node.height = ground.height;
+
+        this._prlNode.addChild(node, 2, cc.p(1, 0), cc.p(0,0));
+
+        this._ground = ground;
     },
 
     createMaskLayer: function() {
@@ -54,7 +92,10 @@ var AccountSelectorLayer = cc.Layer.extend({
         var prlNode = new cc.ParallaxNode();
         prlNode.width = cc.winSize.width;
         prlNode.height = cc.winSize.height;
-        this.addChild(prlNode);
+        prlNode.x = this._scrollView.width / 2;
+        prlNode.y = this._scrollView.height / 2;
+
+        this._scrollView.addChild(prlNode);
 
         this._prlNode = prlNode;
     },
@@ -72,14 +113,13 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setSwallowTouches(false);
         scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
 
-        this.addChild(this._scrollView);
-
-        var innerWidth = cc.winSize.width*2;
+        var innerWidth = cc.winSize.width*1.5;
         var innerHeight = cc.winSize.height;
 
         scrollView.setBounceEnabled(true);
         scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
 
+        this.addChild(scrollView);
         this._scrollView = scrollView;
     }
 
