@@ -207,13 +207,13 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createPassWordImage: function() {
         var self = this;
+        var ids = shuffle([1, 2, 3, 4, 5, 6]);
         for ( var i = 0; i < 6; i++) {
-            var randIdx = Math.ceil(Math.random() * 6);
-            var pwImage = new ccui.Button("icon-" + randIdx + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
-            pwImage.x = pwImage.width * (i + 1) + pwImage.width*(i - 1);
-            pwImage.y = -pwImage.height/2 - 20;
+            var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
+            pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
+            pwImage.y = pwImage.height/2 + 5;
 
-            this._node.addChild(pwImage, 3);
+            this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
             var pos = this.convertToNodeSpace(this._passwordContainer.getPosition());

@@ -13,6 +13,7 @@
     "jsList" : [
         "src/resource.js",
         "src/Constants.js",
+        "src/JSExtension.js",
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
         "src/Managers/DataManager.js",
