@@ -16,13 +16,13 @@
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
         "src/Managers/DataManager.js",
-        "src/AccountSelectorLayer.js",
-        "src/LoginLayer.js",
-        "src/SignUpLayer.js",
-        "src/MainScreenLayer.js",
-        "src/SchoolSelectorLayer.js",
-        "src/GameSelectorLayer.js",
-        "src/LoginSucceedLayer.js",
-        "src/WelcomeLayer.js"
+        "src/layers/AccountSelectorLayer.js",
+        "src/layers/LoginLayer.js",
+        "src/layers/SignUpLayer.js",
+        "src/layers/MainScreenLayer.js",
+        "src/layers/SchoolSelectorLayer.js",
+        "src/layers/GameSelectorLayer.js",
+        "src/layers/LoginSucceedLayer.js",
+        "src/layers/WelcomeLayer.js"
     ]
 }
