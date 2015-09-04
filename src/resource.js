@@ -3,11 +3,16 @@ var res = {
     Account_png: "account.png",
     School_plist: "school.plist",
     School_png: "school.png",
+    Game_plist: "game.plist",
+    Game_png: "game.png",
+    // Temporary
     LoginSucceed_png: "login-succeed.png",
     Welcome_jpg:"welcome.jpg",
+    // Bg
     Bg_account_jpg: "bg/bg-account.jpg",
     Bg_school_jpg: "bg/bg-school.jpg",
     Bg_game_jpg: "bg/bg-game.jpg",
+    // Font
     RedFont_png: "red-font-export.png",
     YellowFont_png: "yellow-font-export.png",
     PurpleFont_png: "purple-font-export.png",

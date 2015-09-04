@@ -48,6 +48,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height/2;
+        bb.addClickEventListener(function() {
+            cc.director.replaceScene(new SchoolSelectorScene());
+        });
         this.addChild(bb);
     },
 
