@@ -10,7 +10,10 @@
 
 @implementation H102Wrapper
 + (void)countlyStart:(NSString *)appKey withUrl:(NSString *)hostUrl {
-    NSLog(@"countlyStart: %@, %@", appKey, hostUrl);
     [[Countly sharedInstance] start:appKey withHost:hostUrl];
+}
+
++ (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count {
+    [[Countly sharedInstance] recordEvent:key count:[count intValue]];
 }
 @end

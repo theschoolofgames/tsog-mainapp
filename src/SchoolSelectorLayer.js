@@ -73,6 +73,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.addClickEventListener(function() {
                 if (!self._isTouchMoved) {
                     cc.log("Selected school");
+                    jsb.reflection.callStaticMethod("H102Wrapper",
+                                             "countlyRecordEvent:count:",
+                                             "select_school",
+                                             1);
                     cc.director.replaceScene(new AccountSelectorScene());
                 }
 

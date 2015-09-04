@@ -54,7 +54,6 @@ cc.game.onStart = function(){
     if (cc.sys.isNative) {
         var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
         var hostUrl = "http://tsog.hub102.com";
-        cc.log("countly appKey: %s", appKey);
         jsb.reflection.callStaticMethod("H102Wrapper",
                                              "countlyStart:withUrl:",
                                              appKey,

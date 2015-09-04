@@ -12,6 +12,7 @@
 
 @interface H102Wrapper : NSObject
 + (void)countlyStart:(NSString *)appKey withUrl:(NSString *)hostUrl;
++ (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count;
 @end
 
 
