@@ -72,6 +72,14 @@
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
+		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; };
+		F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
+		F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; };
+		F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; };
+		F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8C057181B99360200DEB2C0 /* LICENSE */; };
+		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
+		F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +202,18 @@
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
 		EDD7E3291B58AE29009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		F8C057101B99360200DEB2C0 /* Countly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly.h; sourceTree = "<group>"; };
+		F8C057111B99360200DEB2C0 /* Countly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly.m; sourceTree = "<group>"; };
+		F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countly.xcdatamodel; sourceTree = "<group>"; };
+		F8C057141B99360200DEB2C0 /* Countly_OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly_OpenUDID.h; sourceTree = "<group>"; };
+		F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly_OpenUDID.m; sourceTree = "<group>"; };
+		F8C057161B99360200DEB2C0 /* CountlyDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountlyDB.h; sourceTree = "<group>"; };
+		F8C057171B99360200DEB2C0 /* CountlyDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountlyDB.m; sourceTree = "<group>"; };
+		F8C057181B99360200DEB2C0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		F8C057201B99365D00DEB2C0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		F8C057221B99385500DEB2C0 /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
+		F8C057241B99386D00DEB2C0 /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +244,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */,
+				F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */,
 				EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */,
 				BA3A85EC1A724AE900924D24 /* Security.framework in Frameworks */,
 				BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */,
@@ -302,6 +324,7 @@
 			children = (
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
+				F8C0570F1B99360200DEB2C0 /* countly */,
 				BAF426FA19484B3E002B22EF /* script */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
@@ -324,6 +347,8 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F8C057201B99365D00DEB2C0 /* CoreData.framework */,
+				F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */,
 				EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */,
 				EDD7E3291B58AE29009F9DEB /* libiconv.dylib */,
 				BAEE4D831AC40C11003BEB0F /* Security.framework */,
@@ -373,6 +398,8 @@
 				509D4AB917EBB2AB00697056 /* Prefix.pch */,
 				509D4ABA17EBB2AB00697056 /* RootViewController.h */,
 				509D4ABB17EBB2AB00697056 /* RootViewController.mm */,
+				F8C057221B99385500DEB2C0 /* H102Wrapper.m */,
+				F8C057241B99386D00DEB2C0 /* H102Wrapper.h */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -385,6 +412,21 @@
 			);
 			name = Classes;
 			path = ../Classes;
+			sourceTree = "<group>";
+		};
+		F8C0570F1B99360200DEB2C0 /* countly */ = {
+			isa = PBXGroup;
+			children = (
+				F8C057101B99360200DEB2C0 /* Countly.h */,
+				F8C057111B99360200DEB2C0 /* Countly.m */,
+				F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */,
+				F8C057141B99360200DEB2C0 /* Countly_OpenUDID.h */,
+				F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */,
+				F8C057161B99360200DEB2C0 /* CountlyDB.h */,
+				F8C057171B99360200DEB2C0 /* CountlyDB.m */,
+				F8C057181B99360200DEB2C0 /* LICENSE */,
+			);
+			path = countly;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -534,6 +576,7 @@
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
+				F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
@@ -558,9 +601,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */,
+				F8C057191B99360200DEB2C0 /* Countly.m in Sources */,
+				F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
+				F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -772,6 +820,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */,
+			);
+			currentVersion = F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */;
+			path = Countly.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A92275341517C094001B78AA /* Project object */;
 }

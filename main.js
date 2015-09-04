@@ -51,6 +51,15 @@ cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
 
+    if (cc.sys.isNative) {
+        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
+        var hostUrl = "http://tsog.hub102.com";
+        jsb.reflection.callStaticMethod("H102Wrapper",
+                                             "countlyStart:withUrl:",
+                                             appKey,
+                                             hostUrl);
+    }
+
     // Pass true to enable retina display, disabled by default to improve performance
     cc.view.enableRetina(false);
     // Adjust viewport meta
