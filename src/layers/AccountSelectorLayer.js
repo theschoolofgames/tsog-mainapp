@@ -16,9 +16,12 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createAvatar: function(avatarID, parent) {
-        var avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
-        avatar.setAnchorPoint(0, 0);
-        avatar.setPosition(parent.getPosition());
+        var avatar;
+        if (avatarID != -1)
+            avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
+        else
+            avatar = new cc.Sprite("#plus_button.png");
+        avatar.setPosition(cc.p(parent.width/2, parent.height/2 + 10));
         parent.addChild(avatar);
     },
 
@@ -72,14 +75,17 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._prlNode.addChild(node, 1, cc.p(0.1, 0), cc.p(0,0));
     },
 
-    createFlowerFrames: function(x, y) {
-        cc.log("x: " + x);
-        cc.log("y: " + y);
+    createFlowerFrames: function(idx, x, y) {
+        // cc.log("x: " + x);
+        // cc.log("y: " + y);
         var fFrame = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        fFrame.setAnchorPoint(0, 0);
+        fFrame.setAnchorPoint(0.5, 0);
         fFrame.x = x;
         fFrame.y = y;
-        this.createAvatar(1, fFrame);
+        if (idx != TREE_POSITIONS.length-1)
+            this.createAvatar(idx % 3 + 1, fFrame);
+        else
+            this.createAvatar(-1, fFrame);
 
         return fFrame;
     },
@@ -111,7 +117,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createParallaxNode: function() {
         var prlNode = new cc.ParallaxNode();
-        prlNode.width = cc.winSize.width;
+        prlNode.width = cc.winSize.width*2;
         prlNode.height = cc.winSize.height;
         prlNode.x = this._scrollView.width / 2;
         prlNode.y = this._scrollView.height / 2;
@@ -130,19 +136,21 @@ var AccountSelectorLayer = cc.Layer.extend({
         var tree;
         for ( var i = 0; i < TREE_POSITIONS.length; i++) {
             tree = new cc.Sprite("#tree-" + (i+1) + ".png");
-            tree.setAnchorPoint(0, 0);
+            tree.setAnchorPoint(0.5, 0);
             tree.x = TREE_POSITIONS[i].x;
             tree.y = this._ground.y + this._ground.height / 2;
 
-            var fFrame = this.createFlowerFrames(tree.x, tree.y + tree.height);
+            var fFrame = this.createFlowerFrames(i,
+                                                tree.x + TREE_POSITIONS[i].flowerOffsetX, 
+                                                tree.y + tree.height + TREE_POSITIONS[i].flowerOffsetY);
 
-            node.addChild(tree);
-            node.addChild(fFrame);
+            node.addChild(tree, 1);
+            node.addChild(fFrame, 2);
 
         }
-        node.setAnchorPoint(0.8, 0);
-        node.width = tree.width* TREE_POSITIONS.length;
-        node.height = tree.height*2;
+        node.setAnchorPoint(0.35, 0);
+        node.width = tree.width * TREE_POSITIONS.length;
+        node.height = tree.height * 2;
         this._prlNode.addChild(node, 3, cc.p(0.8, 0.15), cc.p(0,0));
     },
 
@@ -155,7 +163,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setSwallowTouches(false);
         scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
 
-        var innerWidth = cc.winSize.width*1.5;
+        var innerWidth = TREE_POSITIONS[TREE_POSITIONS.length-1].x + 100*2;
         var innerHeight = cc.winSize.height;
 
         scrollView.setBounceEnabled(true);

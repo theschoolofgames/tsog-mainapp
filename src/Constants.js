@@ -91,12 +91,12 @@ SCHOOL_NAME_COLOR = [
 ];
 
 var TREE_POSITIONS = [
-    { x : 100, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 250, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 400, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 550, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100 },
-    { x : 700, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100 }
-    // { x : 850, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100 },
+    { x : 100, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 30, flowerOffsetY: -10 },
+    { x : 250, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -10 },
+    { x : 400, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: -30, flowerOffsetY: -18 },
+    { x : 550, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: -23, flowerOffsetY: -15 },
+    { x : 640, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -30 },
+    { x : 750, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -30 }
 ];
 
 // String
