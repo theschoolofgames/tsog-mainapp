@@ -38,7 +38,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var bg = new cc.Sprite("bg-school.png");
+        var bg = new cc.Sprite(res.Bg_school_jpg);
         var scale = cc.winSize.width / bg.width;
         bg.setScaleX(scale);
         bg.x = cc.winSize.width / 2;
