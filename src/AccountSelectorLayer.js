@@ -18,8 +18,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createBackground: function() {
         var bg = new cc.Sprite("bg-account.png");
-        var scale = cc.winSize.height / bg.height;
-        bg.setScale(scale);
+        var scale = cc.winSize.width / bg.width;
+        cc.log(scale);
+        // bg.setScaleX(scale);
 
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
