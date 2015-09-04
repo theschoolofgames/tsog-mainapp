@@ -29,8 +29,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: false,
                 onTouchBegan: this.onTouchBegan,
-                onTouchMoved: this.onTouchMoved,
-                onTouchEnded: this.onTouchEnded
+                onTouchMoved: this.onTouchMoved
         }, this);
     },
 
@@ -60,32 +59,31 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     createSchoolButton: function(schNumber) {
         var self = this;
-
-        var w, r1, r2 = 0;
         var scale, width, font;
 
+        var schoolData = DataManager.getInstance().getSchoolData();
 
         var itemIndex = 0;
         for (var i = 0; i < schNumber; i++) {
-            r1 = Math.floor(Math.random() * 2 + 1);
-            var sc = new ccui.Button("school_bg-"+ r1 +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+            var randBgIdx = Math.floor(Math.random() * 2 + 1);
+            var sc = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
             sc.setPosition(this._getBtnPosition(i));
             sc.tag = i;
             sc.setSwallowTouches(false);
             sc.addClickEventListener(function() {
                 if (!self._isTouchMoved) {
                     cc.log("Selected school");
-                    self.addNewLayer(this, "accLayer", button);
+                    cc.director.replaceScene(new AccountSelectorScene());
                 }
 
             });
 
             this.schoolBtn.push(sc);
 
-            r2 = Math.floor(Math.random() * 3);
+            var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
             font = SCHOOL_NAME_COLOR[Math.floor(Math.random() * 4)];
 
-            var scName = new cc.LabelBMFont(SCHOOL_INFO[r2].name,
+            var scName = new cc.LabelBMFont(schoolData[randSchoolIdx].school_name.toUpperCase(),
                 font,
                 sc.width*1.5,
                 cc.TEXT_ALIGNMENT_CENTER);
@@ -94,9 +92,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             scName.y = sc.height / 2;
             sc.addChild(scName);
 
-            this.schoolName.push(r2);
-
-
+            this.schoolName.push(randSchoolIdx);
         };
 
         this.createSchoolHolder(schNumber);
@@ -143,6 +139,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var count = -1;
         var scName;
 
+        var schoolData = DataManager.getInstance().getSchoolData();
+
         if (newStr == "") {
             for ( var i = 0; i < this.schoolBtn.length; i++) {
                 this.schoolBtn[i].setPosition(this._getBtnPosition(i));
@@ -155,7 +153,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         for ( var i = 0; i < this.schoolBtn.length; i++) {
             var id = this.schoolName[i];
-            scName = SCHOOL_INFO[id].name;
+            scName = schoolData[id].name;
             if (newStr != "") {
                 result = scName.search(newStr);
 
@@ -255,10 +253,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         cc.log("targetNode name: " + targetNode.name);
         return true;
-    },
+    }
+});
 
-    onTouchEnded: function() {
+var SchoolSelectorScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
 
-        return true;
+        var msLayer = new SchoolSelectorLayer();
+        this.addChild(msLayer);
     }
 });

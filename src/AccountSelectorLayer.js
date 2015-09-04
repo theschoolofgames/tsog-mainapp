@@ -1,3 +1,12 @@
+var treePositions = [
+    { x = 50, hintImageId = 1, hintOffsetX = 50, hintOffsetY = 100 },
+    { x = 50, hintImageId = 1, hintOffsetX = 50, hintOffsetY = 100 },
+    { x = 50, hintImageId = 2, hintOffsetX = 50, hintOffsetY = 100 },
+    { x = 50, hintImageId = 3, hintOffsetX = 50, hintOffsetY = 100 },
+    { x = 50, hintImageId = 3, hintOffsetX = 50, hintOffsetY = 100 },
+    { x = 50, hintImageId = 4, hintOffsetX = 50, hintOffsetY = 100 },
+];
+
 var AccountSelectorLayer = cc.Layer.extend({
     accountBtn: [],
     school: null,
@@ -44,7 +53,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.accountBtn.push(acc);
 
             acc.addClickEventListener(function() {
-                self.callback(this);
+                cc.director.replaceScene(new LoginScene());
             });
         }
         this.createFlowerFrames();
@@ -84,12 +93,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.accountHolder.addChild(p);
     },
 
-    callback: function (account) {
-        var p = this.parent;
-        var button = account.tag;
-        p.addNewLayer(this, "loginLayer", button);
-    },
-
     addBackButton: function() {
         var self = this;
         var b = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
@@ -98,7 +101,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.addChild(b, 1);
 
         b.addClickEventListener(function() {
-            self.parent.addNewLayer(self, "schLayer");
+            cc.director.replaceScene(new SchoolSelectorScene());
         });
         this.backButton = b;
     },
@@ -122,4 +125,13 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     }
 
+});
+
+var AccountSelectorScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        var msLayer = new AccountSelectorLayer();
+        this.addChild(msLayer);
+    }
 });
