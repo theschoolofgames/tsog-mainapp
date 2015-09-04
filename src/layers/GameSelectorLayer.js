@@ -98,3 +98,12 @@ var GameSelectorLayer = cc.Layer.extend({
         this.addChild(bb);
     },
 });
+
+var GameSelectorScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        var gsLayer = new GameSelectorLayer();
+        this.addChild(gsLayer);
+    }
+});

@@ -21,7 +21,7 @@ var WelcomeLayer = cc.Layer.extend({
 		this.runAction(cc.sequence(
 			cc.delayTime(1),
 			cc.callFunc(function() {
-				// cc.director.runScene(new MainScene());
+				cc.director.replaceScene(new GameSelectorScene());
 			}, this)
 		));
 	}

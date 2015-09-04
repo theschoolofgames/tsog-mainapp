@@ -32,49 +32,49 @@ GAME_INFO = [
         game_name: "Alphabet",
         android_bundle: "com.hub102.abc",
         ios_bundle: "com.hub102.abc"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ2",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ3",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ4",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ5",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ6",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ7",
         android_bundle: "com.hub102.xyz",
         ios_bundle: "com.hub102.xyz"
-    },  
+    },
     {
         game_id: "55e10c0b2eee625df1993a60",
         game_name: "XYZ8",
@@ -91,12 +91,12 @@ SCHOOL_NAME_COLOR = [
 ];
 
 var TREE_POSITIONS = [
-    { x : 100, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 30, flowerOffsetY: -10 },
-    { x : 250, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -10 },
-    { x : 400, hintImageId : 1, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: -30, flowerOffsetY: -18 },
-    { x : 550, hintImageId : 3, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: -23, flowerOffsetY: -15 },
-    { x : 640, hintImageId : 2, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -30 },
-    { x : 750, hintImageId : 4, hintOffsetX : 50, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -30 }
+    {x : 100, hintImageId : 1, hintOffsetX : 270, hintOffsetY : 300, flowerOffsetX: 30, flowerOffsetY: -40 },
+    {x : 250, hintImageId : 4, hintOffsetX : 270, hintOffsetY : 300, flowerOffsetX: 10, flowerOffsetY: -40 },
+    {x : 400, hintImageId : 1, hintOffsetX : 200, hintOffsetY : 300, flowerOffsetX: -30, flowerOffsetY: -48 },
+    {x : 550, hintImageId : 3, hintOffsetX : -270, hintOffsetY : 300, flowerOffsetX: -23, flowerOffsetY: -45 },
+    {x : 640, hintImageId : 2, hintOffsetX : -270, hintOffsetY : 300, flowerOffsetX: 10, flowerOffsetY: -50 },
+    {x : 750, hintImageId : 4, hintOffsetX : 250, hintOffsetY : 100, flowerOffsetX: 10, flowerOffsetY: -50 }
 ];
 
 // String
