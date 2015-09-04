@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		014E46621B99448600C94301 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; };
+		014E46631B99448600C94301 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; };
+		014E46641B99448600C94301 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; };
+		014E46651B99448A00C94301 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
+		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -72,10 +77,10 @@
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
-		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; };
+		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
-		F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; };
-		F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; };
+		F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8C057181B99360200DEB2C0 /* LICENSE */; };
 		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
@@ -592,8 +597,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				014E46651B99448A00C94301 /* Countly.xcdatamodeld in Sources */,
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
+				014E46621B99448600C94301 /* Countly.m in Sources */,
+				014E46631B99448600C94301 /* Countly_OpenUDID.m in Sources */,
+				014E46661B99448F00C94301 /* H102Wrapper.m in Sources */,
 				C06E23CC18CEFE680093C81A /* main.cpp in Sources */,
+				014E46641B99448600C94301 /* CountlyDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
