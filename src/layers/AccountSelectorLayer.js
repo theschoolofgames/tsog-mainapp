@@ -8,6 +8,8 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _isAvatarClicked: false,
 
+    _passwordItems: [],
+
     ctor: function () {
         this._super();
 
@@ -206,12 +208,13 @@ var AccountSelectorLayer = cc.Layer.extend({
     createPassWordImage: function() {
         var self = this;
         for ( var i = 0; i < 6; i++) {
-            var randIdx = Math.ceil(Math.random() * 4);
+            var randIdx = Math.ceil(Math.random() * 6);
             var pwImage = new ccui.Button("icon-" + randIdx + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             pwImage.x = pwImage.width * (i + 1) + pwImage.width*(i - 1);
             pwImage.y = -pwImage.height/2 - 20;
 
             this._node.addChild(pwImage, 3);
+            this._passwordItems.push(pwImage);
 
             var pos = this.convertToNodeSpace(this._passwordContainer.getPosition());
             cc.log(JSON.stringify(pos));
@@ -259,8 +262,11 @@ var AccountSelectorLayer = cc.Layer.extend({
     onCancelChoosePassword: function() {
         this._mask.removeFromParent();
         this._passwordContainer.removeFromParent();
-        this._ground.removeAllChildren();
         this._isAvatarClicked = false;
+
+        for(var i = 0; i < this._passwordItems.length; i++)
+            this._passwordItems[i].removeFromParent();
+        this._passwordItems = [];
 
         this._prlNode.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, -450))
