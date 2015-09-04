@@ -4,8 +4,8 @@ var res = {
     School_plist: "school.plist",
     School_png: "school.png",
     LoginSucceed_png: "login-succeed.png",
-    PasswordField_png: "res/password-field.png",
-    PasswordImg_png: "res/password-img.png",
+    Welcome_jpg:"welcome.jpg",
+    Bg_account_png: "res/bg-account.png",
     RedFont_png: "red-font-export.png",
     YellowFont_png: "yellow-font-export.png",
     PurpleFont_png: "purple-font-export.png",
@@ -13,8 +13,7 @@ var res = {
     RedFont_fnt: "red-font-export.fnt",
     YellowFont_fnt: "yellow-font-export.fnt",
     PurpleFont_fnt: "purple-font-export.fnt",
-    GreenFont_fnt: "green-font-export.fnt",
-    Welcome_jpg:"welcome.jpg"
+    GreenFont_fnt: "green-font-export.fnt"
 };
 
 var g_resources = [];

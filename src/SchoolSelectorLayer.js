@@ -16,7 +16,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     ctor: function () {
         this._super();
-        this.addBackground();
+        this.createBackground();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
         this._lastedSchool = cc.sys.localStorage.getItem("lastedSchool") || null;
@@ -37,7 +37,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.schoolBtn = [];
     },
 
-    addBackground: function() {
+    createBackground: function() {
         var bg = new cc.Sprite("#bg-school.png");
         var scale = cc.winSize.width / bg.width;
         bg.setScaleX(scale);
