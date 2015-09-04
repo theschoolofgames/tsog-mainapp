@@ -51,7 +51,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
             var pin = new cc.Sprite("#pin.png");
             pin.x = posX;
-            pin.y = posY + 65;
+            pin.y = posY + btnGame.height/2 - 3;
             this._scrollViewContainer.addChild(pin, 2);
 
             var lbName = new cc.LabelTTF(gameData[i].game_name, "Arial", 18);
