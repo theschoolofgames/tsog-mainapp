@@ -155,7 +155,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         for ( var i = 0; i < this.schoolBtn.length; i++) {
             var id = this.schoolName[i];
-            scName = schoolData[id].name;
+            scName = schoolData[id].school_name.toUpperCase();
             if (newStr != "") {
                 result = scName.search(newStr);
 
