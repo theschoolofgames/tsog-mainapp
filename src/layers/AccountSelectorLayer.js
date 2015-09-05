@@ -100,12 +100,12 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         for ( var i = -1; i <= 1; i++) {
             ground = new cc.Sprite("#ground.png");
-            ground.setAnchorPoint(0,0);
+            ground.setAnchorPoint(0, 0);
             ground.x = i * (ground.width - 3);
-            ground.y = -ground.height;
+            ground.y = -ground.height/2;
             ground.flippedX = i%2 == 0;
 
-            node.addChild(ground, 2);
+            node.addChild(ground, 3);
         }
         // node.width = ground.width;
         // node.height = ground.height;
@@ -124,7 +124,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         prlNode.width = cc.winSize.width*2;
         prlNode.height = cc.winSize.height;
         prlNode.x = this._scrollView.width / 2;
-        prlNode.y = this._scrollView.height / 2;
+        prlNode.y = 0;
 
         this._scrollView.addChild(prlNode);
 
@@ -143,7 +143,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             tree = new cc.Sprite("#tree-" + (i+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
             tree.x = TREE_POSITIONS[i].x;
-            tree.y = this._ground.y + this._ground.height - 20;
+            tree.y = this._ground.height/2 - 20;
 
 
             var fFrame = this.createFlowerFrames(i,
@@ -170,7 +170,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._node.setAnchorPoint(0.35, 0);
         this._node.width = tree.width * TREE_POSITIONS.length;
         this._node.height = tree.height * 2;
-        this._prlNode.addChild(this._node, 3, cc.p(0.8, 0.15), cc.p(0,0));
+        this._prlNode.addChild(this._node, 3, cc.p(0.8, 1), cc.p(0,0));
     },
 
     createScrollView: function(){
@@ -209,18 +209,20 @@ var AccountSelectorLayer = cc.Layer.extend({
         var self = this;
         var ids = shuffle([1, 2, 3, 4, 5, 6]);
         this._passwordItems = [];
+
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
-            pwImage.y = -pwImage.height/2 - 20;
+            pwImage.y = pwImage.height/2 + 5;
 
-            this._node.addChild(pwImage, 3);
+            this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
-            var pos = this.convertToNodeSpace(this._passwordContainer.getPosition());
-            cc.log(JSON.stringify(pos));
-
             pwImage.addClickEventListener(function() {
+                var nodeAbsolutePos = self.convertToWorldSpace(self._node.getPosition());
+                var pos = cc.pAdd(self.convertToWorldSpace(self._passwordContainer.getPosition()), nodeAbsolutePos);
+                cc.log(JSON.stringify(pos));
+
                 var move = cc.moveTo(1, cc.p(pos.x + 35, pos.y));
                 var move_ease = move.easing(cc.easeElasticInOut(0.8));
 
@@ -242,7 +244,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._isAvatarClicked = true;
 
         this._prlNode.runAction(cc.sequence(
-            cc.moveBy(0.2, cc.p(0, 450))
+            cc.moveBy(0.2, cc.p(0, 55))
         ));
 
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
@@ -271,7 +273,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._passwordItems = [];
 
         this._prlNode.runAction(cc.sequence(
-            cc.moveBy(0.2, cc.p(0, -450))
+            cc.moveBy(0.2, cc.p(0, -55))
         ));
         this._avatarClicked.setLocalZOrder(1);
     },
@@ -284,7 +286,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             targetNode.onCancelChoosePassword();
 
         return true;
-    },
+    }
 
 });
 
