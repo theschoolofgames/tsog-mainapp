@@ -208,16 +208,18 @@ var AccountSelectorLayer = cc.Layer.extend({
     createPassWordImage: function() {
         var self = this;
         var ids = shuffle([1, 2, 3, 4, 5, 6]);
+        this._passwordItems = [];
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
-            pwImage.y = pwImage.height/2 + 5;
+            pwImage.y = -pwImage.height/2 - 20;
 
-            this.addChild(pwImage, 3);
+            this._node.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
             var pos = this.convertToNodeSpace(this._passwordContainer.getPosition());
             cc.log(JSON.stringify(pos));
+
             pwImage.addClickEventListener(function() {
                 var move = cc.moveTo(1, cc.p(pos.x + 35, pos.y));
                 var move_ease = move.easing(cc.easeElasticInOut(0.8));
@@ -282,7 +284,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             targetNode.onCancelChoosePassword();
 
         return true;
-    }
+    },
 
 });
 
