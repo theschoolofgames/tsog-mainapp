@@ -236,10 +236,12 @@ var AccountSelectorLayer = cc.Layer.extend({
                 this.runAction(cc.sequence(
                     move_ease,
                     cc.callFunc(function(){
-                        jsb.reflection.callStaticMethod("H102Wrapper",
-                                             "countlyRecordEvent:count:",
-                                             "select_account",
-                                             1);
+                        if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
+                            jsb.reflection.callStaticMethod("H102Wrapper",
+                                                 "countlyRecordEvent:count:",
+                                                 "select_account",
+                                                 1);
+                        }
                         cc.director.replaceScene(new WelcomeScene());
                     })
                 ));
