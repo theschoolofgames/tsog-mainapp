@@ -8,7 +8,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     _startTouchPosition: null,
 
     _isTouchMoved: false,
-    _isAvatarClicked: false,
+    _isAvatarJustClicked: false,
 
     _passwordItems: [],
 
@@ -29,6 +29,17 @@ var AccountSelectorLayer = cc.Layer.extend({
                 onTouchBegan: this.onTouchBegan,
                 onTouchMoved: this.onTouchMoved
         }, this);
+
+        // create mask
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
+        mask.width = this.width *2;
+        mask.height = this.height;
+        mask.x = - mask.width/3;
+        mask.y = 50;
+        this._node.addChild(mask, 2);
+
+        this._mask = mask;
+        mask.visible = false;
     },
 
     createAvatar: function(avatarID, parent) {
@@ -67,19 +78,19 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createBush: function() {
         var bush;
-
+        var node = new cc.Node();
         for ( var i = -1; i <= 1; i++) {
             bush = new cc.Sprite("#grass.png");
             bush.setAnchorPoint(0,0);
             bush.x = i * (bush.width - 3);
             bush.y = this._ground.y + bush.height - 20;
             bush.flippedX = i%2 == 0;
-            this._node.addChild(bush, -1);
+            node.addChild(bush, -1);
         }
-        // node.width = bush.width*3;
-        // node.height = bush.height;
+        node.width = bush.width*3;
+        node.height = bush.height;
 
-        // this._prlNode.addChild(node, 1, cc.p(0.1, 0), cc.p(0,0));
+        this._prlNode.addChild(node, 1, cc.p(0.4, 1), cc.p(0,0));
     },
 
     createFlowerFrames: function(idx, x, y) {
@@ -93,6 +104,16 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.createAvatar(idx % 3 + 1, fFrame);
         else
             this.createAvatar(-1, fFrame);
+
+        var self = this;
+        fFrame.addClickEventListener(function() {
+            cc.log("onAvatarClicked");
+            var parent = this.parent;
+            if(self._isTouchMoved)
+                return;
+
+            self.onAvatarClicked(parent);
+        });
 
         return fFrame;
     },
@@ -113,8 +134,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         // node.width = ground.width;
         // node.height = ground.height;
 
-        // this._prlNode.addChild(node, 4, cc.p(0.5, 0), cc.p(0,0));
-        this._node = node;
+        this._prlNode.addChild(node, 4, cc.p(0.8, 1), cc.p(0,0));
+        // this._node = node;
         this._ground = ground;
     },
 
@@ -159,24 +180,16 @@ var AccountSelectorLayer = cc.Layer.extend({
             subNode.addChild(fFrame, 2);
             subNode.tag = i;
 
-            this._node.addChild(subNode, 1);
+            // this._node.addChild(subNode, 1);
+            node.addChild(subNode, 1);
 
-            fFrame.addClickEventListener(function() {
-                var p = this.parent;
-                if(self._isTouchMoved)
-                    return;
-
-                if (!self._isAvatarClicked)
-                    self.onAvatarClicked(p)
-                else
-                    self.onCancelChoosePassword()
-            });
         }
+        this._node = node;
+        node.setAnchorPoint(0.35, 0);
+        node.width = tree.width * TREE_POSITIONS.length;
+        node.height = tree.height * 2;
 
-        this._node.setAnchorPoint(0.35, 0);
-        this._node.width = tree.width * TREE_POSITIONS.length;
-        this._node.height = tree.height * 2;
-        this._prlNode.addChild(this._node, 3, cc.p(0.8, 1), cc.p(0,0));
+        this._prlNode.addChild(node, 3, cc.p(0.8, 1), cc.p(0,0));
     },
 
     createScrollView: function(){
@@ -187,6 +200,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setTouchEnabled(true);
         scrollView.setSwallowTouches(false);
         scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
+
+        scrollView.setClippingEnabled(false);
 
         var innerWidth = TREE_POSITIONS[TREE_POSITIONS.length-1].x + 100*2;
         var innerHeight = cc.winSize.height;
@@ -207,7 +222,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         pwContainer.x = containerObj.x + containerObj.hintOffsetX;
         pwContainer.y = containerObj.hintOffsetY;
 
-        this._node.addChild(pwContainer, 3);
+        this.addChild(pwContainer, 3);
         this._passwordContainer = pwContainer;
     },
 
@@ -218,16 +233,18 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
+            cc.log(JSON.stringify(pwImage.getAnchorPoint()));
+            // pwImage.setAnchorPoint(0.5, 0);
             pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
-            pwImage.y = pwImage.height/2 + 5;
+            pwImage.y = -this._ground.height/2 + pwImage.height/2 + 10;
 
             this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
             pwImage.addClickEventListener(function() {
-                var nodeAbsolutePos = self.convertToWorldSpace(self._node.getPosition());
-                var pos = cc.pAdd(self.convertToWorldSpace(self._passwordContainer.getPosition()), nodeAbsolutePos);
-                // var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
+                // var nodeAbsolutePos = self.convertToWorldSpace(self._node.getPosition());
+                // var pos = cc.pAdd(self.convertToWorldSpace(self._passwordContainer.getPosition()), nodeAbsolutePos);
+                var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
                 cc.log(JSON.stringify(pos));
 
                 var move = cc.moveTo(1, cc.p(pos.x + 35, pos.y));
@@ -250,22 +267,25 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     },
 
-    onAvatarClicked: function(avatar) {
-        // create mask
-        this._isAvatarClicked = true;
+    onAvatarClicked: function(avatar, fFrame) {
+        this._mask.visible = true;
 
-        this._prlNode.runAction(cc.sequence(
+        var self = this;
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: function(touch, event) {
+                    var targetNode = event.getCurrentTarget();
+                    var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+                    if (touchedPos.y >= 90)
+                        self.onCancelChoosePassword();
+                    return true;
+                }
+        }, this._mask);
+
+        this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, 55))
         ));
-
-        var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-        mask.width = this.width *2;
-        mask.x = - mask.width/3;
-        mask.y = -10;
-        this._node.addChild(mask, 2);
-
-        this._mask = mask;
-
         // reset avatar clicked zOrder
         avatar.setLocalZOrder(3);
         this._avatarClicked = avatar;
@@ -274,31 +294,31 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createPassWordImage();
     },
 
-    onCancelChoosePassword: function() {
-        this._mask.removeFromParent();
+    onCancelChoosePassword: function(fFrame) {
+        this._mask.visible = false;
         this._passwordContainer.removeFromParent();
-        this._isAvatarClicked = false;
+
+        cc.eventManager.removeListener(this._mask);
 
         for(var i = 0; i < this._passwordItems.length; i++)
             this._passwordItems[i].removeFromParent();
+
         this._passwordItems = [];
 
-        this._prlNode.runAction(cc.sequence(
+        this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, -55))
         ));
         this._avatarClicked.setLocalZOrder(1);
     },
 
     onTouchBegan: function(touch, event) {
-
+        cc.log("onTouchBegan");
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+
+        cc.log("touchedPos y: " + touchedPos.y);
         targetNode._startTouchPosition = touchedPos;
         targetNode._isTouchMoved = false;
-
-        if (touchedPos.y > 90 && targetNode._isAvatarClicked)
-            targetNode.onCancelChoosePassword();
-
         return true;
     },
 
@@ -308,11 +328,10 @@ var AccountSelectorLayer = cc.Layer.extend({
         var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
         var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
         var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
-        // cc.log("distance: " + distance);
+
         if(sqrDistance > 9)
             targetNode._isTouchMoved = true;
 
-        // cc.log("targetNode name: " + targetNode.name);
         return true;
     }
 
