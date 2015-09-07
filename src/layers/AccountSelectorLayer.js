@@ -5,7 +5,9 @@ var AccountSelectorLayer = cc.Layer.extend({
     _mask: null,
     _avatarClicked: null,
     _passwordContainer: null,
+    _startTouchPosition: null,
 
+    _isTouchMoved: false,
     _isAvatarClicked: false,
 
     _passwordItems: [],
@@ -41,8 +43,8 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createBackground: function() {
         var bg = new cc.Sprite(res.Bg_account_jpg);
-        var scale = cc.winSize.width / bg.width;
-        bg.setScaleX(scale);
+        // var scale = cc.winSize.width / bg.width;
+        // bg.setScaleX(scale);
 
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
@@ -56,7 +58,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                                  ccui.Widget.PLIST_TEXTURE);
 
         bb.x = bb.width ;
-        bb.y = cc.winSize.height - bb.height/2;
+        bb.y = cc.winSize.height - bb.height*2/3;
         bb.addClickEventListener(function() {
             cc.director.replaceScene(new SchoolSelectorScene());
         });
@@ -85,6 +87,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         fFrame.setAnchorPoint(0.5, 0);
         fFrame.x = x;
         fFrame.y = y;
+        fFrame.setSwallowTouches(false);
 
         if (idx != TREE_POSITIONS.length-1)
             this.createAvatar(idx % 3 + 1, fFrame);
@@ -160,6 +163,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             fFrame.addClickEventListener(function() {
                 var p = this.parent;
+                if(self._isTouchMoved)
+                    return;
+
                 if (!self._isAvatarClicked)
                     self.onAvatarClicked(p)
                 else
@@ -221,6 +227,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             pwImage.addClickEventListener(function() {
                 var nodeAbsolutePos = self.convertToWorldSpace(self._node.getPosition());
                 var pos = cc.pAdd(self.convertToWorldSpace(self._passwordContainer.getPosition()), nodeAbsolutePos);
+                // var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
                 cc.log(JSON.stringify(pos));
 
                 var move = cc.moveTo(1, cc.p(pos.x + 35, pos.y));
@@ -283,12 +290,29 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
+
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+        targetNode._startTouchPosition = touchedPos;
+        targetNode._isTouchMoved = false;
 
         if (touchedPos.y > 90 && targetNode._isAvatarClicked)
             targetNode.onCancelChoosePassword();
 
+        return true;
+    },
+
+    onTouchMoved: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+        var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
+        var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
+        var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+        // cc.log("distance: " + distance);
+        if(sqrDistance > 9)
+            targetNode._isTouchMoved = true;
+
+        // cc.log("targetNode name: " + targetNode.name);
         return true;
     }
 

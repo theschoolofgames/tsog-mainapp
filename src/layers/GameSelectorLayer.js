@@ -89,8 +89,8 @@ var GameSelectorLayer = cc.Layer.extend({
                                  "",
                                  ccui.Widget.PLIST_TEXTURE);
 
-        bb.x = bb.width*1.5 ;
-        bb.y = cc.winSize.height - bb.height;
+        bb.x = bb.width ;
+        bb.y = cc.winSize.height - bb.height*2/3;
         bb.addClickEventListener(function() {
             cc.director.replaceScene(new AccountSelectorScene());
         });

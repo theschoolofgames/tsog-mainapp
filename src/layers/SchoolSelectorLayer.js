@@ -38,8 +38,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     createBackground: function() {
         var bg = new cc.Sprite(res.Bg_school_jpg);
-        var scale = cc.winSize.width / bg.width;
-        bg.setScaleX(scale);
+        // var scale = cc.winSize.width / bg.width;
+        // bg.setScaleX(scale);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
@@ -235,7 +235,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        cc.log("onTouchBegan");
+
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
         targetNode._startTouchPosition = touchedPos;
