@@ -111,6 +111,8 @@ var AccountSelectorLayer = cc.Layer.extend({
             var parent = this.parent;
             if(self._isTouchMoved)
                 return;
+            if(self._mask.visible)
+                return;
 
             self.onAvatarClicked(parent);
         });
@@ -214,7 +216,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createPasswordContainer: function() {
-        cc.log(this._avatarClicked.tag);
+
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag];
         var pwContainer = new cc.Sprite("#password_holder-"
                             + containerObj.hintImageId
@@ -266,7 +268,6 @@ var AccountSelectorLayer = cc.Layer.extend({
             });
 
         }
-
     },
 
     onAvatarClicked: function(avatar, fFrame) {
