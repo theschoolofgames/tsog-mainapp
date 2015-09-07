@@ -221,6 +221,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var pwContainer = new cc.Sprite("#password_holder-"
                             + containerObj.hintImageId
                             + ".png");
+
         pwContainer.x = containerObj.x + containerObj.hintOffsetX;
         pwContainer.y = containerObj.hintOffsetY;
 
@@ -232,11 +233,12 @@ var AccountSelectorLayer = cc.Layer.extend({
         var self = this;
         var ids = shuffle([1, 2, 3, 4, 5, 6]);
         this._passwordItems = [];
+        var containerObj = TREE_POSITIONS[this._avatarClicked.tag];
 
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             cc.log(JSON.stringify(pwImage.getAnchorPoint()));
-            // pwImage.setAnchorPoint(0.5, 0);
+
             pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
             pwImage.y = -this._ground.height/2 + pwImage.height/2 + 10;
 
@@ -249,7 +251,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
                 cc.log(JSON.stringify(pos));
 
-                var move = cc.moveTo(1, cc.p(pos.x + 35, pos.y));
+                var move = cc.moveTo(1, cc.p(pos.x + containerObj.passwordOffsetX, pos.y +55));
                 var move_ease = move.easing(cc.easeElasticInOut(0.8));
 
                 this.runAction(cc.sequence(
@@ -280,7 +282,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 onTouchBegan: function(touch, event) {
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-                    if (touchedPos.y >= 90)
+                    if (touchedPos.y >= 55)
                         self.onCancelChoosePassword();
                     return true;
                 }
@@ -315,11 +317,9 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        cc.log("onTouchBegan");
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
 
-        cc.log("touchedPos y: " + touchedPos.y);
         targetNode._startTouchPosition = touchedPos;
         targetNode._isTouchMoved = false;
         return true;
