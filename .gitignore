@@ -1,5 +1,6 @@
 tools/
 publish/
+simulator/
 .DS_Store
 
 frameworks/js-bindings/bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
@@ -15,4 +16,14 @@ frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/build/
 
 frameworks/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/
 frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
+
+frameworks/cocos2d-x/cocos/platform/android/java/bin/
+frameworks/cocos2d-x/cocos/platform/android/java/gen/
+
+frameworks/runtime-src/proj.android/assets/
+frameworks/runtime-src/proj.android/bin/
+frameworks/runtime-src/proj.android/gen/
+frameworks/runtime-src/proj.android/libs/armeabi/
+frameworks/runtime-src/proj.android/libs/x86/
+frameworks/runtime-src/proj.android/obj/
 
