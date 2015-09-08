@@ -243,8 +243,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[0] === this) {
+                    this.cleanup();
+                    this.stopAllActions();
                     var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
-                    cc.log(JSON.stringify(pos));
 
                     var move = cc.moveTo(1, cc.p(pos.x + containerObj.passwordOffsetX, pos.y +55));
                     var move_ease = move.easing(cc.easeElasticInOut(0.8));
@@ -270,6 +271,13 @@ var AccountSelectorLayer = cc.Layer.extend({
                 }
             });
 
+            if (self._passwordItems[0] === pwImage) {
+                pwImage.runAction(cc.repeatForever(
+                    cc.sequence(
+                            cc.scaleTo(0.5, 0.5),
+                            cc.scaleTo(0.5, 1.2)
+                        )));
+            }
         }
     },
 
