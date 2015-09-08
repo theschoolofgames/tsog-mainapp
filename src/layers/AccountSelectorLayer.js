@@ -1,6 +1,8 @@
 var TREES_BATCH_SIZE = 6;
 var TREES_PADDING = 150;
 var AccountSelectorLayer = cc.Layer.extend({
+    _schoolId: null,
+
     _prlNode: null,
     _ground: null,
     _treesContainer: null,
@@ -16,8 +18,10 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _batchFirstItemXs: [],
 
-    ctor: function () {
+    ctor: function (schoolId) {
         this._super();
+        var self = this;
+        this._schoolId = schoolId;
 
         this.createBackground();
         this.createBackButton();
@@ -27,16 +31,64 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createBush();
         this.createTrees();
 
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+        if (accountData != null) {
+            this.createScrollView();
+            this.createParallaxNode();
+            this.createForeGround();
+            this.createBush();
+            this.createTree();
+
+            // create mask
+            this.createMaskLayer();
+
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                    loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+
+                    RequestsManager.getInstance().getAccounts(schoolId, function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setAccountData(schoolId, data.accounts);
+                            self._scrollView.removeFromParent();
+                            self.createScrollView();
+                            self.createParallaxNode();
+                            self.createForeGround();
+                            self.createBush();
+                            self.createTree();
+                            self.createMaskLayer();
+                        }
+                    });
+                })));
+        }
+        else {
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    Utils.addLoadingIndicatorLayer(true);
+                    RequestsManager.getInstance().getAccounts(schoolId, function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setAccountData(schoolId, data.accounts);
+                            self.createScrollView();
+                            self.createParallaxNode();
+                            self.createForeGround();
+                            self.createBush();
+                            self.createTree();
+                            self.createMaskLayer();
+                        }
+                    });
+                })));
+        }
 
         cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: true,
-                onTouchBegan: this.onTouchBegan,
-                onTouchMoved: this.onTouchMoved
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan,
+            onTouchMoved: this.onTouchMoved
         }, this);
-
-        // create mask
-        this.createMaskLayer();
     },
 
     createAvatar: function(avatarID, parent) {
@@ -71,7 +123,10 @@ var AccountSelectorLayer = cc.Layer.extend({
     createBush: function() {
         var bush;
         var node = new cc.Node();
-        for ( var i = -1; i < NUMBER_OF_TREES/6; i++) {
+
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        for ( var i = -1; i < accountData.length/6; i++) {
             bush = new cc.Sprite("#grass.png");
             bush.setAnchorPoint(0,0);
             bush.x = i * (bush.width - 3);
@@ -113,7 +168,9 @@ var AccountSelectorLayer = cc.Layer.extend({
         var ground;
         var node = new cc.Node();
 
-        for ( var i = -1; i < NUMBER_OF_TREES/6; i++) {
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        for ( var i = -1; i < accountData.length/6; i++) {
             ground = new cc.Sprite("#ground.png");
             ground.setAnchorPoint(0, 0);
             ground.x = i * (ground.width - 3);
@@ -130,7 +187,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createMaskLayer: function() {
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-        mask.width = (NUMBER_OF_TREES / 6 + 1) * cc.winSize.width;
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        mask.width = (accountData.length / 6 + 1) * cc.winSize.width;
         mask.height = this.height;
         mask.x = - mask.width/3;
         mask.y = 50;
@@ -160,7 +219,9 @@ var AccountSelectorLayer = cc.Layer.extend({
         var firstTreeX = 0;
         var batchWidth = 0;
         var lastTree = null;
-        for ( var i = 0; i < NUMBER_OF_TREES; i++) {
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        for ( var i = 0; i < accountData.length; i++) {
             index = i%6;
 
             cc.log("index: "+ index + " i: " + i);
@@ -215,6 +276,11 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
 
         scrollView.setClippingEnabled(false);
+
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        var innerWidth = accountData.length / 6 * cc.winSize.width;
+        var innerHeight = cc.winSize.height;
 
         scrollView.setBounceEnabled(true);
 
@@ -374,10 +440,10 @@ var AccountSelectorLayer = cc.Layer.extend({
 });
 
 var AccountSelectorScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(schoolId) {
         this._super();
 
-        var msLayer = new AccountSelectorLayer();
+        var msLayer = new AccountSelectorLayer(schoolId);
         this.addChild(msLayer);
     }
 });
