@@ -5,6 +5,8 @@ var res = {
     School_png: "school.png",
     Game_plist: "game.plist",
     Game_png: "game.png",
+    Loading_plist: "loading.plist",
+    Loading_png: "loading.png",
     // Temporary
     LoginSucceed_png: "login-succeed.png",
     Welcome_jpg:"welcome.jpg",

@@ -1,3 +1,7 @@
+var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+
+var TAG_LOADING_INDICATOR_LAYER = 717;
+
 ACCOUNT_POS = [
     {x: 350, y: 1071},
     {x: 930, y: 1071},

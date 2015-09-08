@@ -2,7 +2,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
     schHolder: null,
     schoolBtn: [],
     schoolName: [],
-    _lastedSchool: null,
     _searchArea: null,
     _searchButton: null,
     _searchField: null,
@@ -19,10 +18,50 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.createBackground();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
-        this._lastedSchool = cc.sys.localStorage.getItem("lastedSchool") || null;
-        this.createSearchArea();
-        this.createSchoolButton(8);
-        this.createScrollView();
+
+        var self = this;
+
+        var schoolData = DataManager.getInstance().getSchoolData();
+        if (schoolData != null) {
+            this.createSearchArea();
+            this.createSchoolButton();
+            this.createScrollView();
+
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                    loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+
+                    RequestsManager.getInstance().getSchools(function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setSchoolData(data);
+                            self._scrollView.removeFromParent();
+                            self.schoolBtn = [];
+                            self.schoolName = [];
+                            self.createSchoolButton();
+                            self.createScrollView();
+                        }
+                    });
+                })));
+        }
+        else {
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    Utils.addLoadingIndicatorLayer(true);
+                    RequestsManager.getInstance().getSchools(function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setSchoolData(data);
+                            self.createSearchArea();
+                            self.createSchoolButton();
+                            self.createScrollView();
+                        }
+                    });
+                })));
+        }
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -45,24 +84,24 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.addChild(bg);
     },
 
-    createSchoolHolder: function(schNumber){
+    createSchoolHolder: function(){
         this.schHolder = new cc.Layer();
 
-        this.schHolder.width = this.schoolBtn[schNumber - 1].y + this.schoolBtn[schNumber -1].width;
+        this.schHolder.width = this.schoolBtn[this.schoolBtn.length-1].y + this.schoolBtn[this.schoolBtn.length-1].width;
         this.schHolder.height = cc.winSize.height;
         for ( var i = 0; i < this.schoolBtn.length; i++) {
             this.schHolder.addChild(this.schoolBtn[i]);
         }
     },
 
-    createSchoolButton: function(schNumber) {
+    createSchoolButton: function() {
         var self = this;
         var scale, width, font;
 
         var schoolData = DataManager.getInstance().getSchoolData();
 
         var itemIndex = 0;
-        for (var i = 0; i < schNumber; i++) {
+        for (var i = 0; i < schoolData.length; i++) {
             var randBgIdx = Math.floor(Math.random() * 2 + 1);
             var sc = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
             sc.setPosition(this._getBtnPosition(i));
@@ -84,10 +123,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             this.schoolBtn.push(sc);
 
-            var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
+            // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
             font = SCHOOL_NAME_COLOR[Math.floor(Math.random() * 4)];
 
-            var scName = new cc.LabelBMFont(schoolData[randSchoolIdx].school_name.toUpperCase(),
+            var scName = new cc.LabelBMFont(schoolData[i].school_name.toUpperCase(),
                 font,
                 sc.width*1.5,
                 cc.TEXT_ALIGNMENT_CENTER);
@@ -96,10 +135,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
             scName.y = sc.height / 2;
             sc.addChild(scName);
 
-            this.schoolName.push(randSchoolIdx);
+            this.schoolName.push(i);
         };
 
-        this.createSchoolHolder(schNumber);
+        this.createSchoolHolder();
     },
 
     createSearchArea: function() {
