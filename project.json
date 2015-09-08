@@ -14,9 +14,11 @@
         "src/resource.js",
         "src/Constants.js",
         "src/JSExtension.js",
+        "src/Utils.js",
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
-        "src/Managers/DataManager.js",
+        "src/meerkat/DataManager.js",
+        "src/meerkat/RequestsManager.js",
         "src/layers/AccountSelectorLayer.js",
         "src/layers/LoginLayer.js",
         "src/layers/SignUpLayer.js",
@@ -24,6 +26,7 @@
         "src/layers/SchoolSelectorLayer.js",
         "src/layers/GameSelectorLayer.js",
         "src/layers/LoginSucceedLayer.js",
-        "src/layers/WelcomeLayer.js"
+        "src/layers/WelcomeLayer.js",
+        "src/layers/LoadingIndicatorLayer.js"
     ]
 }

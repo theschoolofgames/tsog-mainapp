@@ -8,8 +8,8 @@ var DataManager = cc.Class.extend({
         var schoolDataString = KVDatabase.getInstance().getString(STRING_SCHOOL_DATA);
         if (schoolDataString != "")
             this._schoolData = JSON.parse(schoolDataString);
-        else
-            this._schoolData = SCHOOL_INFO;
+        // else
+        //     this._schoolData = SCHOOL_INFO;
 
         var gameDataString = KVDatabase.getInstance().getString(STRING_GAME_DATA);
         if (gameDataString != "")
@@ -22,9 +22,14 @@ var DataManager = cc.Class.extend({
         return this._schoolData;
     },
 
+    setSchoolData: function(data) {
+        this._schoolData = data;
+        KVDatabase.getInstance().set(STRING_SCHOOL_DATA, JSON.stringify(data));
+    },
+
     getGameData: function() {
         return this._gameData;
-    }
+    },
 });
 
 DataManager._instance = null;

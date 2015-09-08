@@ -1,3 +1,6 @@
+var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+
+var TAG_LOADING_INDICATOR_LAYER = 717;
 
 SCHOOL_INFO = [
     {
