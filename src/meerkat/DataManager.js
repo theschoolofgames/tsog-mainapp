@@ -1,5 +1,6 @@
 var DataManager = cc.Class.extend({
     _schoolData: null,
+    _accountData: {},
     _gameData: null,
 
     ctor: function() {
@@ -10,6 +11,10 @@ var DataManager = cc.Class.extend({
             this._schoolData = JSON.parse(schoolDataString);
         // else
         //     this._schoolData = SCHOOL_INFO;
+
+        var accountDataString = KVDatabase.getInstance().getString(STRING_ACCOUNT_DATA);
+        if (accountDataString != "")
+            this._accountData = JSON.parse(accountDataString);
 
         var gameDataString = KVDatabase.getInstance().getString(STRING_GAME_DATA);
         if (gameDataString != "")
@@ -25,6 +30,15 @@ var DataManager = cc.Class.extend({
     setSchoolData: function(data) {
         this._schoolData = data;
         KVDatabase.getInstance().set(STRING_SCHOOL_DATA, JSON.stringify(data));
+    },
+
+    getAccountData: function(schoolId) {
+        return this._accountData.schoolId;
+    },
+
+    setAccountData: function(schoolId, data) {
+        this._accountData.schoolId = data;
+        KVDatabase.getInstance().set(STRING_ACCOUNT_DATA, JSON.stringify(this._accountData));
     },
 
     getGameData: function() {

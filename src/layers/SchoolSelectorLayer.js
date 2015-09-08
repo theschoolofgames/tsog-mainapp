@@ -107,7 +107,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.setPosition(this._getBtnPosition(i));
             sc.tag = i;
             sc.setSwallowTouches(false);
-            sc.addClickEventListener(function() {
+            sc.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
                     cc.log("Selected school");
                     if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
@@ -116,7 +116,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                                                  "select_school",
                                                  1);
                     }
-                    cc.director.replaceScene(new AccountSelectorScene());
+                    cc.director.replaceScene(new AccountSelectorScene(schoolData[sender.tag].school_id));
                 }
 
             });

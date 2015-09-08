@@ -98,4 +98,5 @@ var NUMBER_OF_TREES = 20;
 // String
 
 var STRING_SCHOOL_DATA  = "school_data";
+var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_GAME_DATA  = "game_data";

@@ -2,20 +2,33 @@ var RequestsManager = cc.Class.extend({
     _encode: true,
     _encryption: false,
     ctor: function () {
-      cc.assert(RequestsManager._instance == null, "can be instantiated once only");
+        cc.assert(RequestsManager._instance == null, "can be instantiated once only");
     },
 
     getSchools: function(callback) {
-      var url = BACKEND_ADDRESS + "api/schools";
+        var url = BACKEND_ADDRESS + "api/schools";
 
-      RequestHelper.get(url, function(succeed, responseText) {
-        if (succeed) {
-          var data = JSON.parse(responseText);
-          callback && callback(true, data);
-        }
-        else
-          callback && callback(false, null);
-      }); 
+        RequestHelper.get(url, function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+               callback && callback(false, null);
+        }); 
+    },
+
+    getAccounts: function(schoolId, callback) {
+        var url = BACKEND_ADDRESS + "api/accounts?school_id=" + schoolId;
+
+        RequestHelper.get(url, function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+                callback && callback(false, null);
+        }); 
     }
 });
 
