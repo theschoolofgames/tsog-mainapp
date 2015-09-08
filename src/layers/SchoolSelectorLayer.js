@@ -185,9 +185,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
         cc.log(field.width + " - " + field.height);
         var tf = new ccui.TextField("Your School Name", "Arial", 32);
 
-        tf.setTouchAreaEnabled(true);
+        // tf.setTouchAreaEnabled(true);
 
-        tf.setTouchSize(cc.size(600, 80));
+        // tf.setTouchSize(cc.size(600, 80));
 
         tf.x = field.width / 2;
         tf.y = field.height / 2;
