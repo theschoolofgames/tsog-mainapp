@@ -43,11 +43,8 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createAvatar: function(avatarID, parent) {
-        var avatar;
-        if (avatarID != -1)
-            avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
-        else
-            avatar = new cc.Sprite("#plus_button.png");
+        var avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
+
         avatar.setPosition(cc.p(parent.width/2, parent.height/2 + 10));
         parent.addChild(avatar);
     },
@@ -100,10 +97,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         fFrame.y = y;
         fFrame.setSwallowTouches(false);
 
-        if (idx != TREE_POSITIONS.length-1)
-            this.createAvatar(idx % 3 + 1, fFrame);
-        else
-            this.createAvatar(-1, fFrame);
+        this.createAvatar(idx % 3 + 1, fFrame);
+       
 
         var self = this;
         fFrame.addClickEventListener(function() {
