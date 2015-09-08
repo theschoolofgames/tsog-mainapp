@@ -32,7 +32,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         // create mask
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-        mask.width = this.width *2;
+        mask.width = NUMBER_OF_TREES / 6 * cc.winSize.width;
         mask.height = this.height;
         mask.x = - mask.width/3;
         mask.y = 50;
@@ -51,8 +51,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createBackground: function() {
         var bg = new cc.Sprite(res.Bg_account_jpg);
-        // var scale = cc.winSize.width / bg.width;
-        // bg.setScaleX(scale);
 
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
@@ -98,7 +96,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         fFrame.setSwallowTouches(false);
 
         this.createAvatar(idx % 3 + 1, fFrame);
-       
 
         var self = this;
         fFrame.addClickEventListener(function() {
@@ -128,11 +125,9 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             node.addChild(ground, 3);
         }
-        // node.width = ground.width;
-        // node.height = ground.height;
 
         this._prlNode.addChild(node, 4, cc.p(0.8, 1), cc.p(0,0));
-        // this._node = node;
+
         this._ground = ground;
     },
 
@@ -158,24 +153,33 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createTree: function() {
         var node = new cc.Node();
-        var tree, subNode;
+        var tree, subNode, index;
+        var offsetX = 0;
         var self = this;
-        for ( var i = 0; i < TREE_POSITIONS.length; i++) {
-            tree = new cc.Sprite("#tree-" + (i+1) + ".png");
+        for ( var i = 0; i < NUMBER_OF_TREES; i++) {
+            if (i >= 6) {
+                index = i%6;
+                if (index == 0) offsetX = -50
+            }
+            else {
+                index = i;
+            }
+            cc.log("index: "+ index + " i: " + i);
+            tree = new cc.Sprite("#tree-" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
-            tree.x = TREE_POSITIONS[i].x;
+            tree.x = i * 125 + TREE_POSITIONS[index].x + 100 + offsetX;
             tree.y = this._ground.height/2 - 20;
 
-
-            var fFrame = this.createFlowerFrames(i,
-                                                tree.x + TREE_POSITIONS[i].flowerOffsetX,
-                                                tree.y + tree.height + TREE_POSITIONS[i].flowerOffsetY);
+            offsetX = 0;
+            var fFrame = this.createFlowerFrames(index,
+                                                tree.x + TREE_POSITIONS[index].flowerOffsetX,
+                                                tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
 
             subNode = new cc.Node();
 
             subNode.addChild(tree, 1);
             subNode.addChild(fFrame, 2);
-            subNode.tag = i;
+            subNode.tag = index;
 
             // this._node.addChild(subNode, 1);
             node.addChild(subNode, 1);
@@ -200,7 +204,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         scrollView.setClippingEnabled(false);
 
-        var innerWidth = TREE_POSITIONS[TREE_POSITIONS.length-1].x + 100*2;
+        var innerWidth = NUMBER_OF_TREES / 6 * cc.winSize.width;
         var innerHeight = cc.winSize.height;
 
         scrollView.setBounceEnabled(true);
