@@ -86,13 +86,14 @@ SCHOOL_NAME_COLOR = [
 ];
 
 var TREE_POSITIONS = [
-    {x : 0, hintImageId : 1, hintOffsetX : 400, passwordOffsetX: 30, hintOffsetY : 350, flowerOffsetX: 30, flowerOffsetY: -40 },
-    {x : 0, hintImageId : 4, hintOffsetX : 400, passwordOffsetX: 35, hintOffsetY : 350, flowerOffsetX: 10, flowerOffsetY: -40 },
-    {x : 30, hintImageId : 1, hintOffsetX : 350, passwordOffsetX: 30, hintOffsetY : 350, flowerOffsetX: -30, flowerOffsetY: -48 },
-    {x : 20, hintImageId : 3, hintOffsetX : -200, passwordOffsetX: -35, hintOffsetY : 350, flowerOffsetX: -23, flowerOffsetY: -45 },
-    {x : -20, hintImageId : 2, hintOffsetX : -200, passwordOffsetX: -30, hintOffsetY : 350, flowerOffsetX: 10, flowerOffsetY: -57 },
-    {x : -40, hintImageId : 3, hintOffsetX : -200, passwordOffsetX: -35, hintOffsetY : 350, flowerOffsetX: 10, flowerOffsetY: -62 }
+    {x : 0, hintImageId : 1, hintOffsetX : 400, hintOffsetY : 350, passwordOffsetX: 30, flowerOffsetX: 30, flowerOffsetY: -40 },
+    {x : 0, hintImageId : 4, hintOffsetX : 500, hintOffsetY : 350, passwordOffsetX: 35, flowerOffsetX: 10, flowerOffsetY: -40 },
+    {x : 30, hintImageId : 1, hintOffsetX : 650, hintOffsetY : 350, passwordOffsetX: 30, flowerOffsetX: -30, flowerOffsetY: -48 },
+    {x : 20, hintImageId : 3, hintOffsetX : 350,  hintOffsetY : 350,passwordOffsetX: -35, flowerOffsetX: -23, flowerOffsetY: -45 },
+    {x : -20, hintImageId : 2, hintOffsetX : 500,  hintOffsetY : 350,passwordOffsetX: -30, flowerOffsetX: 10, flowerOffsetY: -57 },
+    {x : -40, hintImageId : 3, hintOffsetX : 600,  hintOffsetY : 350,passwordOffsetX: -35, flowerOffsetX: 10, flowerOffsetY: -62 }
 ];
+
 
 var NUMBER_OF_TREES = 20;
 // String

@@ -1,7 +1,9 @@
+var TREES_BATCH_SIZE = 6;
+var TREES_PADDING = 150;
 var AccountSelectorLayer = cc.Layer.extend({
     _prlNode: null,
     _ground: null,
-    _node: null,
+    _treesContainer: null,
     _mask: null,
     _avatarClicked: null,
     _passwordContainer: null,
@@ -12,6 +14,8 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _passwordItems: [],
 
+    _batchFirstItemXs: [],
+
     ctor: function () {
         this._super();
 
@@ -21,7 +25,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createParallaxNode();
         this.createForeGround();
         this.createBush();
-        this.createTree();
+        this.createTrees();
+
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -80,7 +85,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._prlNode.addChild(node, 1, cc.p(0.4, 1), cc.p(0,0));
     },
 
-    createFlowerFrames: function(idx, x, y) {
+    createAccountButton: function(idx, x, y) {
         var fFrame = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
         fFrame.setAnchorPoint(0.5, 0);
         fFrame.x = x;
@@ -129,7 +134,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         mask.height = this.height;
         mask.x = - mask.width/3;
         mask.y = 50;
-        this._node.addChild(mask, 2);
+        this._treesContainer.addChild(mask, 2);
 
         this._mask = mask;
         mask.visible = false;
@@ -137,9 +142,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createParallaxNode: function() {
         var prlNode = new cc.ParallaxNode();
-        prlNode.width = cc.winSize.width*2;
-        prlNode.height = cc.winSize.height;
-        prlNode.x = this._scrollView.width / 2;
+        prlNode.x = 0;
         prlNode.y = 0;
 
         this._scrollView.addChild(prlNode);
@@ -147,27 +150,26 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._prlNode = prlNode;
     },
 
-    createTree: function() {
-        var node = new cc.Node();
+    createTrees: function() {
+        var treesContainer = new cc.Node();
         var tree, subNode, index;
-        var offsetX = 0;
         var self = this;
+
+        var treeDistance = 125;
+
+        var firstTreeX = 0;
+        var batchWidth = 0;
+        var lastTree = null;
         for ( var i = 0; i < NUMBER_OF_TREES; i++) {
-            if (i >= 6) {
-                index = i%6;
-                if (index == 0) offsetX = -50
-            }
-            else {
-                index = i;
-            }
+            index = i%6;
+
             cc.log("index: "+ index + " i: " + i);
             tree = new cc.Sprite("#tree-" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
-            tree.x = i * 125 + TREE_POSITIONS[index].x + 100 + offsetX;
+            tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
             tree.y = this._ground.height/2 - 20;
 
-            offsetX = 0;
-            var fFrame = this.createFlowerFrames(index,
+            var fFrame = this.createAccountButton(index,
                                                 tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                                 tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
 
@@ -175,18 +177,32 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             subNode.addChild(tree, 1);
             subNode.addChild(fFrame, 2);
-            subNode.tag = index;
+            subNode.tag = i;
 
-            // this._node.addChild(subNode, 1);
-            node.addChild(subNode, 1);
+            if (i % TREES_BATCH_SIZE == 0) {
+                cc.log("Tree #%d x: %d", i, tree.x);
+                this._batchFirstItemXs.push(tree.x);
 
+                if (i == 0)
+                    firstTreeX = tree.x;
+                else if (i == TREES_BATCH_SIZE)
+                    batchWidth = tree.getBoundingBox().x - firstTreeX;
+            }
+
+            treesContainer.addChild(subNode, 1);
+            lastTree = tree;
         }
-        this._node = node;
-        node.setAnchorPoint(0.35, 0);
-        node.width = tree.width * TREE_POSITIONS.length;
-        node.height = tree.height * 2;
+        this._treesContainer = treesContainer;
+        treesContainer.setAnchorPoint(0, 0);
 
-        this._prlNode.addChild(node, 3, cc.p(0.8, 1), cc.p(0,0));
+        cc.log("batchWidth: %d", batchWidth);
+
+        this._prlNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
+
+        var innerWidth = lastTree.x - firstTreeX + cc.winSize.width;
+        var innerHeight = cc.winSize.height;
+        cc.log("innerWidth: " + innerWidth);
+        this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
     },
 
     createScrollView: function(){
@@ -200,11 +216,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         scrollView.setClippingEnabled(false);
 
-        var innerWidth = NUMBER_OF_TREES / 6 * cc.winSize.width;
-        var innerHeight = cc.winSize.height;
-
         scrollView.setBounceEnabled(true);
-        scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
 
         this.addChild(scrollView);
         this._scrollView = scrollView;
@@ -212,12 +224,13 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createPasswordContainer: function(avatarNode) {
 
-        var containerObj = TREE_POSITIONS[this._avatarClicked.tag];
+        var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
         var pwContainer = new cc.Sprite("#password_holder-"
                             + containerObj.hintImageId
                             + ".png");
 
-        var avatarPos = this.convertToWorldSpace(avatarNode);
+        var avatarPos = this.convertToWorldSpace(avatarNode.getPosition());
+        cc.log(avatarPos.x + "-" + avatarPos.y);
         pwContainer.x = avatarPos.x + containerObj.hintOffsetX;
         pwContainer.y = avatarPos.y + containerObj.hintOffsetY;
 
@@ -229,7 +242,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var self = this;
         var ids = shuffle([1, 2, 3, 4, 5, 6]);
         this._passwordItems = [];
-        var containerObj = TREE_POSITIONS[this._avatarClicked.tag];
+        var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
 
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -282,8 +295,18 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     onAvatarClicked: function(avatar, fFrame) {
+        // scroll to start of batch
+        cc.log("onAvatarClicked: #%d", avatar.tag);
+        var batchId = Math.floor((avatar.tag) / TREES_BATCH_SIZE);
+        var batchX = this._batchFirstItemXs[batchId] - TREES_PADDING;
+        var percent = (batchX / (this._scrollView.getInnerContainerSize().width - this._scrollView.width))*100;
+        cc.log("batch #%d pos: %d -> percent: %d", batchId, batchX, percent);
+        // this._scrollView.scrollToPercentHorizontal(percent, 0.1, true);
+        this._prlNode.x = -batchX;
+
         this._mask.visible = true;
 
+        // set touch handler so that touch on mask quit select password mode
         var self = this;
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -296,6 +319,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                     return true;
                 }
         }, this._mask);
+
 
         this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, 55))
