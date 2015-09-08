@@ -1,11 +1,3 @@
-ACCOUNT_POS = [
-    {x: 350, y: 1071},
-    {x: 930, y: 1071},
-    {x: 1512, y: 1071},
-    {x: 633, y: 606},
-    {x: 1206, y: 606},
-    {x: 1720, y: 606}
-];
 
 SCHOOL_INFO = [
     {
@@ -99,7 +91,7 @@ var TREE_POSITIONS = [
     {x : -40, hintImageId : 3, hintOffsetX : -200, passwordOffsetX: -35, hintOffsetY : 350, flowerOffsetX: 10, flowerOffsetY: -62 }
 ];
 
-var NUMBER_OF_TREES = 14;
+var NUMBER_OF_TREES = 20;
 // String
 
 var STRING_SCHOOL_DATA  = "school_data";

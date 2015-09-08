@@ -31,15 +31,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         }, this);
 
         // create mask
-        var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-        mask.width = NUMBER_OF_TREES / 6 * cc.winSize.width;
-        mask.height = this.height;
-        mask.x = - mask.width/3;
-        mask.y = 50;
-        this._node.addChild(mask, 2);
-
-        this._mask = mask;
-        mask.visible = false;
+        this.createMaskLayer();
     },
 
     createAvatar: function(avatarID, parent) {
@@ -74,7 +66,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     createBush: function() {
         var bush;
         var node = new cc.Node();
-        for ( var i = -1; i <= 1; i++) {
+        for ( var i = -1; i < NUMBER_OF_TREES/6; i++) {
             bush = new cc.Sprite("#grass.png");
             bush.setAnchorPoint(0,0);
             bush.x = i * (bush.width - 3);
@@ -116,7 +108,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var ground;
         var node = new cc.Node();
 
-        for ( var i = -1; i <= 1; i++) {
+        for ( var i = -1; i < NUMBER_OF_TREES/6; i++) {
             ground = new cc.Sprite("#ground.png");
             ground.setAnchorPoint(0, 0);
             ground.x = i * (ground.width - 3);
@@ -132,7 +124,15 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createMaskLayer: function() {
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
+        mask.width = (NUMBER_OF_TREES / 6 + 1) * cc.winSize.width;
+        mask.height = this.height;
+        mask.x = - mask.width/3;
+        mask.y = 50;
+        this._node.addChild(mask, 2);
 
+        this._mask = mask;
+        mask.visible = false;
     },
 
     createParallaxNode: function() {
@@ -145,10 +145,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._scrollView.addChild(prlNode);
 
         this._prlNode = prlNode;
-    },
-
-    createPlusButton:function (){
-
     },
 
     createTree: function() {
@@ -214,15 +210,16 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._scrollView = scrollView;
     },
 
-    createPasswordContainer: function() {
+    createPasswordContainer: function(avatarNode) {
 
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag];
         var pwContainer = new cc.Sprite("#password_holder-"
                             + containerObj.hintImageId
                             + ".png");
 
-        pwContainer.x = containerObj.x + containerObj.hintOffsetX;
-        pwContainer.y = containerObj.hintOffsetY;
+        var avatarPos = this.convertToWorldSpace(avatarNode);
+        pwContainer.x = avatarPos.x + containerObj.hintOffsetX;
+        pwContainer.y = avatarPos.y + containerObj.hintOffsetY;
 
         this.addChild(pwContainer, 3);
         this._passwordContainer = pwContainer;
@@ -245,27 +242,32 @@ var AccountSelectorLayer = cc.Layer.extend({
             this._passwordItems.push(pwImage);
 
             pwImage.addClickEventListener(function() {
-                // var nodeAbsolutePos = self.convertToWorldSpace(self._node.getPosition());
-                // var pos = cc.pAdd(self.convertToWorldSpace(self._passwordContainer.getPosition()), nodeAbsolutePos);
-                var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
-                cc.log(JSON.stringify(pos));
+                if (self._passwordItems[0] === this) {
+                    var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
+                    cc.log(JSON.stringify(pos));
 
-                var move = cc.moveTo(1, cc.p(pos.x + containerObj.passwordOffsetX, pos.y +55));
-                var move_ease = move.easing(cc.easeElasticInOut(0.8));
+                    var move = cc.moveTo(1, cc.p(pos.x + containerObj.passwordOffsetX, pos.y +55));
+                    var move_ease = move.easing(cc.easeElasticInOut(0.8));
 
-                this.runAction(cc.sequence(
-                    move_ease,
-                    cc.callFunc(function(){
-                        if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-                            jsb.reflection.callStaticMethod("H102Wrapper",
-                                                 "countlyRecordEvent:count:",
-                                                 "select_account",
-                                                 1);
-                        }
-                        cc.director.replaceScene(new WelcomeScene());
-                    })
-                ));
-
+                    this.runAction(cc.sequence(
+                        move_ease,
+                        cc.callFunc(function(){
+                            if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
+                                jsb.reflection.callStaticMethod("H102Wrapper",
+                                                     "countlyRecordEvent:count:",
+                                                     "select_account",
+                                                     1);
+                            }
+                            cc.director.replaceScene(new WelcomeScene());
+                        })
+                    ));
+                } else {
+                    this.runAction(cc.sequence(
+                            cc.moveBy(0.1, cc.p(10,0)),
+                            cc.moveBy(0.1, cc.p(-20,0)),
+                            cc.moveBy(0.1, cc.p(10,0))
+                        ));
+                }
             });
 
         }
@@ -294,7 +296,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         avatar.setLocalZOrder(3);
         this._avatarClicked = avatar;
 
-        this.createPasswordContainer();
+        this.createPasswordContainer(avatar);
         this.createPassWordImage();
     },
 
