@@ -36,6 +36,10 @@ Utils.loadImg = function(imgUrl, spriteNode) {
         var fileName = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
 
         var frame = cc.spriteFrameCache.getSpriteFrame(fileName);
+        if (!frame) {
+            Utils.loadSavedTexture(fileName);
+            frame = cc.spriteFrameCache.getSpriteFrame(fileName);
+        }
         if (frame) {
             if (spriteNode instanceof ccui.Button)
                 spriteNode.loadTextureNormal(fileName, ccui.Widget.PLIST_TEXTURE);
@@ -80,4 +84,17 @@ Utils.writeTexture = function(fileName) {
     sprite.visit();
     renderTexture.end();
     renderTexture.saveToFile("games/" + fileName, 1);
+}
+
+Utils.loadSavedTexture = function(fileName) {
+    var fullName = jsb.fileUtils.getWritablePath() + 'games/' + fileName;
+    if (jsb.fileUtils.isFileExist(fullName)) {
+        var sprite = new cc.Sprite(fullName);
+        var spriteFrame = new cc.SpriteFrame(sprite.getTexture(), cc.rect(0, 0, sprite.width, sprite.height));
+        cc.spriteFrameCache.addSpriteFrame(spriteFrame, fileName);
+
+        return true;
+    }
+
+    return false;
 }
