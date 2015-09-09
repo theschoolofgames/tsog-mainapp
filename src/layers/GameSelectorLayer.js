@@ -25,22 +25,26 @@ var GameSelectorLayer = cc.Layer.extend({
             this.createScrollViewContainer();
             this.createScrollView();
 
-            this.runAction(cc.sequence(
-                cc.delayTime(0),
-                cc.callFunc(function() {
-                    var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                    loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+            if (GameSelectorLayer.loadedDataIds.indexOf(this._userId) >= 0) {
+                this.runAction(cc.sequence(
+                    cc.delayTime(0),
+                    cc.callFunc(function() {
+                        var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                        loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                    RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
-                        Utils.removeLoadingIndicatorLayer();
-                        if (succeed) {
-                            DataManager.getInstance().setGameData(self._userId, data.games);
-                            self._scrollView.removeFromParent();
-                            self.createScrollViewContainer();
-                            self.createScrollView();
-                        }
-                    });
-                })));
+                        RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
+                            Utils.removeLoadingIndicatorLayer();
+                            if (succeed) {
+                                DataManager.getInstance().setGameData(self._userId, data.games);
+                                self._scrollView.removeFromParent();
+                                self.createScrollViewContainer();
+                                self.createScrollView();
+
+                                GameSelectorLayer.loadedDataIds.push(self._userId);
+                            }
+                        });
+                    })));
+            }
         }
         else {
             this.runAction(cc.sequence(
@@ -185,6 +189,8 @@ var GameSelectorLayer = cc.Layer.extend({
         this.addChild(bb);
     },
 });
+
+GameSelectorLayer.loadedDataIds = [];
 
 var GameSelectorScene = cc.Scene.extend({
     ctor: function() {

@@ -1,5 +1,5 @@
-// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-var BACKEND_ADDRESS = "http://localhost:3000/";
+var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+// var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
 
@@ -104,3 +104,4 @@ var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_GAME_DATA  = "game_data";
 
 var STRING_USER_ID = "user_id";
+var STRING_SCHOOL_ID = "school_id";

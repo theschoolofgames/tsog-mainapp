@@ -27,24 +27,28 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.createSchoolButton();
             this.createScrollView();
 
-            this.runAction(cc.sequence(
-                cc.delayTime(0),
-                cc.callFunc(function() {
-                    var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                    loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+            if (!SchoolSelectorLayer.loadedData) {
+                this.runAction(cc.sequence(
+                    cc.delayTime(0),
+                    cc.callFunc(function() {
+                        var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                        loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                    RequestsManager.getInstance().getSchools(function(succeed, data) {
-                        Utils.removeLoadingIndicatorLayer();
-                        if (succeed) {
-                            DataManager.getInstance().setSchoolData(data);
-                            self._scrollView.removeFromParent();
-                            self.schoolBtn = [];
-                            self.schoolName = [];
-                            self.createSchoolButton();
-                            self.createScrollView();
-                        }
-                    });
-                })));
+                        RequestsManager.getInstance().getSchools(function(succeed, data) {
+                            Utils.removeLoadingIndicatorLayer();
+                            if (succeed) {
+                                DataManager.getInstance().setSchoolData(data);
+                                self._scrollView.removeFromParent();
+                                self.schoolBtn = [];
+                                self.schoolName = [];
+                                self.createSchoolButton();
+                                self.createScrollView();
+
+                                SchoolSelectorLayer.loadedData = true;
+                            }
+                        });
+                    })));
+            }
         }
         else {
             this.runAction(cc.sequence(
@@ -116,7 +120,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
                                                  "select_school",
                                                  1);
                     }
-                    cc.director.replaceScene(new AccountSelectorScene(schoolData[sender.tag].school_id));
+                    KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
+                    cc.director.replaceScene(new AccountSelectorScene());
                 }
 
             });
@@ -297,6 +302,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         return true;
     }
 });
+
+SchoolSelectorLayer.loadedData = false;
 
 var SchoolSelectorScene = cc.Scene.extend({
     ctor: function() {

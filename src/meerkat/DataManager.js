@@ -33,20 +33,20 @@ var DataManager = cc.Class.extend({
     },
 
     getAccountData: function(schoolId) {
-        return this._accountData.schoolId;
+        return this._accountData[schoolId];
     },
 
     setAccountData: function(schoolId, data) {
-        this._accountData.schoolId = data;
+        this._accountData[schoolId] = data;
         KVDatabase.getInstance().set(STRING_ACCOUNT_DATA, JSON.stringify(this._accountData));
     },
 
     getGameData: function(userId) {
-        return this._gameData.userId;
+        return this._gameData[userId];
     },
 
     setGameData: function(userId, data) {
-        this._gameData.userId = data;
+        this._gameData[userId] = data;
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
     }
 });
