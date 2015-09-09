@@ -334,7 +334,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var availablePasswords = [1, 2, 3, 4, 5, 6];
         var ids = [passwordId];
         var currentPassIndex = availablePasswords.indexOf(passwordId);
-        if (currentPassIndex >= 0) 
+        if (currentPassIndex >= 0)
             availablePasswords.splice(currentPassIndex, 1);
 
         ids = shuffle(ids.concat(shuffle(availablePasswords).slice(0, 5)));
@@ -353,14 +353,20 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
-            var accountButtonParent = this._passwordContainer.parent;
-            var pwContainerTag = this._passwordContainer.tag;
+            // var accountButtonParent = this._passwordContainer.parent;
+            // var pwContainerTag = this._passwordContainer.tag;
+
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
+                //scale pwImage to fill the password container
+                // this.setScale(1.2);
                     this.cleanup();
                     // this.stopAllActions();
+                    var accountButtonParent = self._passwordContainer.parent;
+                    var pwContainerTag = self._passwordContainer.tag;
+
                     var pos = accountButtonParent.convertToWorldSpace(self._passwordContainer.getPosition());
-                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -45);
+                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -55);
                     var moveToPos = cc.pAdd(pos, differentPos);
 
                     var move = cc.moveTo(1, moveToPos);
@@ -443,7 +449,10 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     onCancelChoosePassword: function() {
         this._mask.visible = false;
-        this._passwordContainer.removeFromParent();
+        if (this._passwordContainer) {
+            this._passwordContainer.removeFromParent();
+            // this._passwordContainer = null;
+        }
 
         cc.eventManager.removeListener(this._mask);
 
