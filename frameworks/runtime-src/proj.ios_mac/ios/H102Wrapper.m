@@ -16,4 +16,13 @@
 + (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count {
     [[Countly sharedInstance] recordEvent:key count:[count intValue]];
 }
+
++ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
+  NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
+  if ([[UIApplication sharedApplication] canOpenURL:theURL])
+    [[UIApplication sharedApplication] openURL:theURL];
+  else
+    NSLog(@"Receiver not found");
+}
+
 @end

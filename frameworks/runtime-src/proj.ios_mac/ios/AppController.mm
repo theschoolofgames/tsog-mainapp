@@ -123,6 +123,13 @@ static AppDelegate s_sharedApplication;
      */
 }
 
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+  return YES;
+}
+
 
 #pragma mark -
 #pragma mark Memory management

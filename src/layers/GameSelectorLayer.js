@@ -76,7 +76,12 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.x = posX;
             btnGame.y = posY;
             btnGame.rotation = Math.random() * 10 - 5;
-            // btnGame.scale = 0.9;
+            btnGame.addClickEventListener(function() {
+                jsb.reflection.callStaticMethod("H102Wrapper",
+                                                "openScheme:withData:",
+                                                "com.hub102.tsog-alphabet",
+                                                "sampleData");
+            });
             this._scrollViewContainer.addChild(btnGame, 1);
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
