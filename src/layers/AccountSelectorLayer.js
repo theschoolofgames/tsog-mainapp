@@ -7,6 +7,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     _prlNode: null,
     _ground: null,
     _treesContainer: null,
+    _lastTree: null,
     _mask: null,
     _avatarClicked: null,
     _passwordContainer: null,
@@ -263,14 +264,15 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._treesContainer = treesContainer;
         treesContainer.setAnchorPoint(0, 0);
 
-        cc.log("batchWidth: %d", batchWidth);
+        // cc.log("batchWidth: %d", batchWidth);
 
         this._prlNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
 
-        var innerWidth = lastTree.x - firstTreeX + cc.winSize.width;
+        var innerWidth = lastTree.x - firstTreeX + cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
         cc.log("innerWidth: " + innerWidth);
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
+        this._lastTree = lastTree;
     },
 
     createScrollView: function(){
@@ -307,20 +309,22 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var pwContainerPos = {
             hintId: hintId,
-            pwContainerOffSetX: isLeft ? 1 : -1,
-            pwContainerOffSetY: isTop ? -1 : 1
+            pwContainerOffSetRatioX: isLeft ? 1 : -1,
+            pwContainerOffSetRatioY: isTop ? -1 : 1,
+            pwContainerOffSetX: 50,
+            pwContainerOffSetY: 50
         };
 
-        cc.log(pwContainerPos.pwContainerOffSetX + " : " + pwContainerPos.pwContainerOffSetY);
+        cc.log(pwContainerPos.pwContainerOffSetRatioX + " : " + pwContainerPos.pwContainerOffSetRatioY);
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
         var pwContainer = new cc.Sprite("#password_holder-"
                             + pwContainerPos.hintId
                             + ".png");
 
         pwContainer.x = accountButton.width / 2
-                        + pwContainer.width*pwContainerPos.pwContainerOffSetX;
+                        + (pwContainer.width - pwContainerPos.pwContainerOffSetX)*pwContainerPos.pwContainerOffSetRatioX;
         pwContainer.y = accountButton.height / 2
-                        + pwContainer.height*pwContainerPos.pwContainerOffSetY;
+                        + (pwContainer.height - pwContainerPos.pwContainerOffSetY)*pwContainerPos.pwContainerOffSetRatioY;
 
         pwContainer.tag = hintId;
 
@@ -366,7 +370,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                     var pwContainerTag = self._passwordContainer.tag;
 
                     var pos = accountButtonParent.convertToWorldSpace(self._passwordContainer.getPosition());
-                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -55);
+                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -54);
                     var moveToPos = cc.pAdd(pos, differentPos);
 
                     var move = cc.moveTo(1, moveToPos);
@@ -383,7 +387,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                             }
 
                             KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserId);
-                            cc.director.replaceScene(new WelcomeScene());
+                            // cc.director.replaceScene(new WelcomeScene());
                         })
                     ));
                 } else {
@@ -411,30 +415,33 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         cc.log("onAvatarClicked: #%d", accountContainer.tag);
 
-        // var batchId = Math.floor((accountContainer.tag) / TREES_BATCH_SIZE);
-        // var batchX = this._batchFirstItemXs[batchId] - TREES_PADDING;
-        // var percent = (batchX / (this._scrollView.getInnerContainerSize().width - this._scrollView.width))*100;
+        // //check if clicked account is in left-right border of screen
 
-        // // cc.log("batch #%d pos: %d -> percent: %d", batchId, batchX, percent);
-        // this._scrollView.scrollToPercentHorizontal(percent, 0.1, true);
-        // this._prlNode.x = -batchX;
+        var currentTouchPosX = this._currentTouchPos.x;
+        var maxLeft = cc.winSize.width - accountButton.width;
+        var maxRight = accountButton.width;
+
+        var percent = ((accountButton.x) / this._lastTree.x)*100;
+        cc.log("percent: " + percent);
+        //left
+        if (currentTouchPosX < maxRight || currentTouchPosX > maxLeft)
+            this._scrollView.scrollToPercentHorizontal(percent, 0.5, true)
 
         this._mask.visible = true;
-
         // set touch handler so that touch on mask quit select password mode
         var self = this;
-        cc.eventManager.addListener({
+        var maskListener = cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+
                     if (touchedPos.y >= 55)
                         self.onCancelChoosePassword();
                     return true;
                 }
         }, this._mask);
-
 
         this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, 55))
@@ -449,10 +456,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     onCancelChoosePassword: function() {
         this._mask.visible = false;
-        if (this._passwordContainer) {
-            this._passwordContainer.removeFromParent();
-            // this._passwordContainer = null;
-        }
+        this._passwordContainer.removeFromParent();
 
         cc.eventManager.removeListener(this._mask);
 

@@ -92,9 +92,9 @@ var HINT_BOTTOM_RIGHT_ID = 2;
 var HINT_BOTTOM_LEFT_ID = 3;
 
 var HINT_OFFSET = [
-    {x: 30},
-    {x: 30},
-    {x: -30},
+    {x: 35},
+    {x: 35},
+    {x: -35},
     {x: -35}
 ];
 
