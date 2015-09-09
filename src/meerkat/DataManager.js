@@ -1,7 +1,7 @@
 var DataManager = cc.Class.extend({
     _schoolData: null,
     _accountData: {},
-    _gameData: null,
+    _gameData: {},
 
     ctor: function() {
         cc.assert(DataManager._instance == null, "can be instantiated once only");
@@ -19,8 +19,8 @@ var DataManager = cc.Class.extend({
         var gameDataString = KVDatabase.getInstance().getString(STRING_GAME_DATA);
         if (gameDataString != "")
             this._gameData = JSON.parse(gameDataString);
-        else
-            this._gameData = GAME_INFO;
+        // else
+        //     this._gameData = GAME_INFO;
     },
 
     getSchoolData: function() {
@@ -41,9 +41,14 @@ var DataManager = cc.Class.extend({
         KVDatabase.getInstance().set(STRING_ACCOUNT_DATA, JSON.stringify(this._accountData));
     },
 
-    getGameData: function() {
-        return this._gameData;
+    getGameData: function(userId) {
+        return this._gameData.userId;
     },
+
+    setGameData: function(userId, data) {
+        this._gameData.userId = data;
+        KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
+    }
 });
 
 DataManager._instance = null;

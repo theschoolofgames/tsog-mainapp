@@ -6,21 +6,63 @@ var GameSelectorLayer = cc.Layer.extend({
     _iconGapWidth: 178,
     _iconGapHeight: 175,
 
+    _userId: null,
+
     ctor: function () {
         this._super();
+        var self = this;
 
         var bg = new cc.Sprite(res.Bg_game_jpg);
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
         this.addChild(bg);
 
-        this.createScrollViewContainer();
-        this.createScrollView();
+        this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+
+        var gameData = DataManager.getInstance().getGameData(this._userId);
+
+        if (gameData != null) {
+            this.createScrollViewContainer();
+            this.createScrollView();
+
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                    loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+
+                    RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setGameData(self._userId, data.games);
+                            self._scrollView.removeFromParent();
+                            self.createScrollViewContainer();
+                            self.createScrollView();
+                        }
+                    });
+                })));
+        }
+        else {
+            this.runAction(cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    Utils.addLoadingIndicatorLayer(true);
+                    RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
+                        Utils.removeLoadingIndicatorLayer();
+                        if (succeed) {
+                            DataManager.getInstance().setGameData(self._userId, data.games);
+                            self.createScrollViewContainer();
+                            self.createScrollView();
+                        }
+                    });
+                })));
+        }
+
         this.createBackButton();
     },
 
     createScrollViewContainer: function() {
-        var gameData = DataManager.getInstance().getGameData();
+        var gameData = DataManager.getInstance().getGameData(this._userId);
 
         // var containerWidth = Math.ceil(gameData.length / 2) * this._iconGapWidth;
         var containerWidth = this._iconGapWidth * 4;
@@ -76,10 +118,12 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.x = posX;
             btnGame.y = posY;
             btnGame.rotation = Math.random() * 10 - 5;
-            btnGame.addClickEventListener(function() {
+            btnGame.userData = gameData[i];
+            btnGame.addClickEventListener(function(sender) {
+                var data = sender.userData;
                 jsb.reflection.callStaticMethod("H102Wrapper",
                                                 "openScheme:withData:",
-                                                "com.hub102.tsog-alphabet",
+                                                data.ios_bundle,
                                                 "sampleData");
             });
             this._scrollViewContainer.addChild(btnGame, 1);

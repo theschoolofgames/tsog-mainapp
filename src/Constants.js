@@ -1,4 +1,5 @@
-var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
 
@@ -21,62 +22,62 @@ SCHOOL_INFO = [
     }
 ];
 
-GAME_INFO = [
-    {
-        game_id: "55e10c0b2eee625df1993a5f",
-        game_name: "Alphabet",
-        android_bundle: "com.hub102.abc",
-        ios_bundle: "com.hub102.abc"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ2",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ3",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ4",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ5",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ6",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ7",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    },
-    {
-        game_id: "55e10c0b2eee625df1993a60",
-        game_name: "XYZ8",
-        android_bundle: "com.hub102.xyz",
-        ios_bundle: "com.hub102.xyz"
-    }
-]
+// GAME_INFO = [
+//     {
+//         game_id: "55e10c0b2eee625df1993a5f",
+//         game_name: "Alphabet",
+//         android_bundle: "com.hub102.abc",
+//         ios_bundle: "com.hub102.abc"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ2",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ3",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ4",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ5",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ6",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ7",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     },
+//     {
+//         game_id: "55e10c0b2eee625df1993a60",
+//         game_name: "XYZ8",
+//         android_bundle: "com.hub102.xyz",
+//         ios_bundle: "com.hub102.xyz"
+//     }
+// ]
 
 SCHOOL_NAME_COLOR = [
     res.RedFont_fnt,
@@ -101,3 +102,5 @@ var NUMBER_OF_TREES = 20;
 var STRING_SCHOOL_DATA  = "school_data";
 var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_GAME_DATA  = "game_data";
+
+var STRING_USER_ID = "user_id";

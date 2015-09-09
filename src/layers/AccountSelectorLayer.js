@@ -18,6 +18,8 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _batchFirstItemXs: [],
 
+    _selectedUserId: null,
+
     ctor: function (schoolId) {
         this._super();
         var self = this;
@@ -140,17 +142,17 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._prlNode.addChild(node, 1, cc.p(0.4, 1), cc.p(0,0));
     },
 
-    createAccountButton: function(idx, x, y) {
+    createAccountButton: function(userData, x, y) {
         var fFrame = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
         fFrame.setAnchorPoint(0.5, 0);
         fFrame.x = x;
         fFrame.y = y;
         fFrame.setSwallowTouches(false);
-
-        this.createAvatar(idx % 3 + 1, fFrame);
+        fFrame.userData = userData.user_id;
+        this.createAvatar(userData.avatar.hair_id % 3 + 1, fFrame);
 
         var self = this;
-        fFrame.addClickEventListener(function() {
+        fFrame.addClickEventListener(function(sender) {
             cc.log("onAvatarClicked");
             var parent = this.parent;
             if(self._isTouchMoved)
@@ -159,6 +161,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 return;
 
             self.onAvatarClicked(parent);
+            self._selectedUserId = sender.userData;
         });
 
         return fFrame;
@@ -230,7 +233,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
             tree.y = this._ground.height/2 - 20;
 
-            var fFrame = this.createAccountButton(index,
+            var fFrame = this.createAccountButton(accountData[i],
                                                 tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                                 tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
 
@@ -338,6 +341,8 @@ var AccountSelectorLayer = cc.Layer.extend({
                                                      "select_account",
                                                      1);
                             }
+                            
+                            KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserId);
                             cc.director.replaceScene(new WelcomeScene());
                         })
                     ));

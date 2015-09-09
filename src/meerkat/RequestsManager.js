@@ -29,6 +29,19 @@ var RequestsManager = cc.Class.extend({
             else
                 callback && callback(false, null);
         }); 
+    },
+
+    getGames: function(userId, callback) {
+        var url = BACKEND_ADDRESS + "api/games?user_id=" + userId;
+
+        RequestHelper.get(url, function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+                callback && callback(false, null);
+        }); 
     }
 });
 
