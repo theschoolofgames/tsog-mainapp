@@ -70,6 +70,8 @@ Utils.loadImg = function(imgUrl, spriteNode) {
 }
 
 Utils.writeTexture = function(fileName) {
+    jsb.fileUtils.createDirectory(jsb.fileUtils.getWritablePath() + 'games/');
+
     var sprite = new cc.Sprite("#" + fileName);
     sprite.anchorX = sprite.anchorY = 0;
 
@@ -77,5 +79,5 @@ Utils.writeTexture = function(fileName) {
     renderTexture.begin();
     sprite.visit();
     renderTexture.end();
-    renderTexture.saveToFile(fileName, 1);
+    renderTexture.saveToFile("games/" + fileName, 1);
 }
