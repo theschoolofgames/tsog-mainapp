@@ -11,6 +11,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     _avatarClicked: null,
     _passwordContainer: null,
     _startTouchPosition: null,
+    _currentTouchPos: null,
 
     _isTouchMoved: false,
     _isAvatarJustClicked: false,
@@ -157,13 +158,14 @@ var AccountSelectorLayer = cc.Layer.extend({
         var self = this;
         fFrame.addClickEventListener(function(sender) {
             cc.log("onAvatarClicked");
-            var parent = this.parent;
+
             if(self._isTouchMoved)
                 return;
             if(self._mask.visible)
                 return;
 
-            self.onAvatarClicked(parent);
+
+            self.onAvatarClicked(this);
             self._selectedUserId = sender.userData;
         });
 
@@ -195,7 +197,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
 
-        mask.width = (accountData.length / 6 + 1) * cc.winSize.width;
+        mask.width = (accountData.length / 6 + 2) * cc.winSize.width;
         mask.height = this.height;
         mask.x = - mask.width/3;
         mask.y = 50;
@@ -230,7 +232,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         for ( var i = 0; i < accountData.length; i++) {
             index = i%6;
 
-            cc.log("index: "+ index + " i: " + i);
+            // cc.log("index: "+ index + " i: " + i);
             tree = new cc.Sprite("#tree-" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
             tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
@@ -247,7 +249,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             subNode.tag = i;
 
             if (i % TREES_BATCH_SIZE == 0) {
-                cc.log("Tree #%d x: %d", i, tree.x);
+                // cc.log("Tree #%d x: %d", i, tree.x);
                 this._batchFirstItemXs.push(tree.x);
 
                 if (i == 0)
@@ -294,19 +296,36 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._scrollView = scrollView;
     },
 
-    createPasswordContainer: function(avatarNode) {
+    createPasswordContainer: function(accountButton) {
+        // handle passwordContainer position
+        var treeTag = accountButton.parent.tag;
+        var isTop = TREE_POSITIONS[treeTag % TREES_BATCH_SIZE].isTopRow;
+        var isLeft = this._currentTouchPos.x <= cc.winSize.width/2;
 
+        var hValue = isLeft ? 0 : 1;
+        var vValue = isTop ? 0 : 1;
+        var hintId =hValue*2 + vValue;
+
+        var pwContainerPos = {
+            hintId: hintId,
+            pwContainerOffSetX: isLeft ? 1 : -1,
+            pwContainerOffSetY: isTop ? -1 : 1
+        };
+
+        cc.log(pwContainerPos.pwContainerOffSetX + " : " + pwContainerPos.pwContainerOffSetY);
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
         var pwContainer = new cc.Sprite("#password_holder-"
-                            + containerObj.hintImageId
+                            + pwContainerPos.hintId
                             + ".png");
 
-        var avatarPos = this.convertToWorldSpace(avatarNode.getPosition());
-        cc.log(avatarPos.x + "-" + avatarPos.y);
-        pwContainer.x = avatarPos.x + containerObj.hintOffsetX;
-        pwContainer.y = avatarPos.y + containerObj.hintOffsetY;
+        pwContainer.x = accountButton.width / 2
+                        + pwContainer.width*pwContainerPos.pwContainerOffSetX;
+        pwContainer.y = accountButton.height / 2
+                        + pwContainer.height*pwContainerPos.pwContainerOffSetY;
 
-        this.addChild(pwContainer, 3);
+        pwContainer.tag = hintId;
+
+        accountButton.addChild(pwContainer, 3);
         this._passwordContainer = pwContainer;
     },
 
@@ -326,13 +345,17 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
+            var accountButtonParent = this._passwordContainer.parent;
+            var pwContainerTag = this._passwordContainer.tag;
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[0] === this) {
                     this.cleanup();
-                    this.stopAllActions();
-                    var pos = self.convertToNodeSpace(self._passwordContainer.getPosition());
+                    // this.stopAllActions();
+                    var pos = accountButtonParent.convertToWorldSpace(self._passwordContainer.getPosition());
+                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -45);
+                    var moveToPos = cc.pAdd(pos, differentPos);
 
-                    var move = cc.moveTo(1, cc.p(pos.x + containerObj.passwordOffsetX, pos.y +55));
+                    var move = cc.moveTo(1, moveToPos);
                     var move_ease = move.easing(cc.easeElasticInOut(0.8));
 
                     this.runAction(cc.sequence(
@@ -368,15 +391,19 @@ var AccountSelectorLayer = cc.Layer.extend({
         }
     },
 
-    onAvatarClicked: function(avatar, fFrame) {
+    onAvatarClicked: function(accountButton) {
         // scroll to start of batch
-        cc.log("onAvatarClicked: #%d", avatar.tag);
-        var batchId = Math.floor((avatar.tag) / TREES_BATCH_SIZE);
-        var batchX = this._batchFirstItemXs[batchId] - TREES_PADDING;
-        var percent = (batchX / (this._scrollView.getInnerContainerSize().width - this._scrollView.width))*100;
-        cc.log("batch #%d pos: %d -> percent: %d", batchId, batchX, percent);
+        var accountContainer = accountButton.parent;
+
+        cc.log("onAvatarClicked: #%d", accountContainer.tag);
+
+        // var batchId = Math.floor((accountContainer.tag) / TREES_BATCH_SIZE);
+        // var batchX = this._batchFirstItemXs[batchId] - TREES_PADDING;
+        // var percent = (batchX / (this._scrollView.getInnerContainerSize().width - this._scrollView.width))*100;
+
+        // // cc.log("batch #%d pos: %d -> percent: %d", batchId, batchX, percent);
         // this._scrollView.scrollToPercentHorizontal(percent, 0.1, true);
-        this._prlNode.x = -batchX;
+        // this._prlNode.x = -batchX;
 
         this._mask.visible = true;
 
@@ -399,14 +426,14 @@ var AccountSelectorLayer = cc.Layer.extend({
             cc.moveBy(0.2, cc.p(0, 55))
         ));
         // reset avatar clicked zOrder
-        avatar.setLocalZOrder(3);
-        this._avatarClicked = avatar;
+        accountContainer.setLocalZOrder(3);
+        this._avatarClicked = accountContainer;
 
-        this.createPasswordContainer(avatar);
+        this.createPasswordContainer(accountButton);
         this.createPassWordImage();
     },
 
-    onCancelChoosePassword: function(fFrame) {
+    onCancelChoosePassword: function() {
         this._mask.visible = false;
         this._passwordContainer.removeFromParent();
 
@@ -426,6 +453,9 @@ var AccountSelectorLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+
+        //save current touch position to set password container relative to accountButton
+        targetNode._currentTouchPos = touch.getLocation();
 
         targetNode._startTouchPosition = touchedPos;
         targetNode._isTouchMoved = false;

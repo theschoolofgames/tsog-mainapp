@@ -86,15 +86,26 @@ SCHOOL_NAME_COLOR = [
     res.GreenFont_fnt
 ];
 
-var TREE_POSITIONS = [
-    {x : 0, hintImageId : 1, hintOffsetX : 400, hintOffsetY : 350, passwordOffsetX: 30, flowerOffsetX: 30, flowerOffsetY: -40 },
-    {x : 0, hintImageId : 4, hintOffsetX : 500, hintOffsetY : 350, passwordOffsetX: 35, flowerOffsetX: 10, flowerOffsetY: -40 },
-    {x : 30, hintImageId : 1, hintOffsetX : 650, hintOffsetY : 350, passwordOffsetX: 30, flowerOffsetX: -30, flowerOffsetY: -48 },
-    {x : 20, hintImageId : 3, hintOffsetX : 350,  hintOffsetY : 350,passwordOffsetX: -35, flowerOffsetX: -23, flowerOffsetY: -45 },
-    {x : -20, hintImageId : 2, hintOffsetX : 500,  hintOffsetY : 350,passwordOffsetX: -30, flowerOffsetX: 10, flowerOffsetY: -57 },
-    {x : -40, hintImageId : 3, hintOffsetX : 600,  hintOffsetY : 350,passwordOffsetX: -35, flowerOffsetX: 10, flowerOffsetY: -62 }
+var HINT_TOP_LEFT_ID = 0;
+var HINT_TOP_RIGHT_ID = 1;
+var HINT_BOTTOM_RIGHT_ID = 2;
+var HINT_BOTTOM_LEFT_ID = 3;
+
+var HINT_OFFSET = [
+    {x: 30},
+    {x: 30},
+    {x: 30},
+    {x: 30}
 ];
 
+var TREE_POSITIONS = [
+    {isTopRow: true, x : 0, flowerOffsetX: 30, flowerOffsetY: -40 },
+    {isTopRow: false, x : 0, flowerOffsetX: 10, flowerOffsetY: -40 },
+    {isTopRow: true, x : 30, flowerOffsetX: -30, flowerOffsetY: -48 },
+    {isTopRow: false, x : 20, flowerOffsetX: -23, flowerOffsetY: -45 },
+    {isTopRow: true, x : -20, flowerOffsetX: 10, flowerOffsetY: -57 },
+    {isTopRow: false, x : -40, flowerOffsetX: 10, flowerOffsetY: -62 }
+];
 
 var NUMBER_OF_TREES = 20;
 // String
