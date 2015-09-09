@@ -25,11 +25,11 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         this.createBackground();
         this.createBackButton();
-        this.createScrollView();
-        this.createParallaxNode();
-        this.createForeGround();
-        this.createBush();
-        this.createTrees();
+        // this.createScrollView();
+        // this.createParallaxNode();
+        // this.createForeGround();
+        // this.createBush();
+        // this.createTrees();
 
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
         if (accountData != null) {
@@ -37,7 +37,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.createParallaxNode();
             this.createForeGround();
             this.createBush();
-            this.createTree();
+            this.createTrees();
 
             // create mask
             this.createMaskLayer();
@@ -57,7 +57,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                             self.createParallaxNode();
                             self.createForeGround();
                             self.createBush();
-                            self.createTree();
+                            self.createTrees();
                             self.createMaskLayer();
                         }
                     });
@@ -76,7 +76,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                             self.createParallaxNode();
                             self.createForeGround();
                             self.createBush();
-                            self.createTree();
+                            self.createTrees();
                             self.createMaskLayer();
                         }
                     });
