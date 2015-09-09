@@ -106,7 +106,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         var itemIndex = 0;
         for (var i = 0; i < schoolData.length; i++) {
-            var randBgIdx = Math.floor(Math.random() * 2 + 1);
+            var randBgIdx = i%2+1;
             var sc = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
             sc.setPosition(this._getBtnPosition(i));
             sc.tag = i;
@@ -129,7 +129,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.schoolBtn.push(sc);
 
             // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
-            font = SCHOOL_NAME_COLOR[Math.floor(Math.random() * 4)];
+            font = SCHOOL_NAME_COLOR[i%4];
 
             var scName = new cc.LabelBMFont(schoolData[i].school_name.toUpperCase(),
                 font,

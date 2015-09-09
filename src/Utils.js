@@ -33,10 +33,12 @@ Utils.loadImg = function(imgUrl, spriteNode) {
         if (imgUrl.startsWith('https'))
             imgUrl = "http" + imgUrl.substring(5);
 
-        var frame = cc.spriteFrameCache.getSpriteFrame(imgUrl);
+        var fileName = imgUrl.substring(imgUrl.lastIndexOf('/')+1);
+
+        var frame = cc.spriteFrameCache.getSpriteFrame(fileName);
         if (frame) {
             if (spriteNode instanceof ccui.Button)
-                spriteNode.loadTextureNormal(imgUrl, ccui.Widget.PLIST_TEXTURE);
+                spriteNode.loadTextureNormal(fileName, ccui.Widget.PLIST_TEXTURE);
             if (spriteNode instanceof cc.Sprite)
                 spriteNode.setSpriteFrame(frame);
 
@@ -52,15 +54,28 @@ Utils.loadImg = function(imgUrl, spriteNode) {
                 // self._avatarTexture[fbid] = texture;
 
                 var spriteFrame = new cc.SpriteFrame(texture, cc.rect(0, 0, texture.width, texture.height));
-                cc.spriteFrameCache.addSpriteFrame(spriteFrame, imgUrl);
+                cc.spriteFrameCache.addSpriteFrame(spriteFrame, fileName);
 
                 if (spriteNode instanceof ccui.Button)
-                    spriteNode.loadTextureNormal(imgUrl, ccui.Widget.PLIST_TEXTURE);
+                    spriteNode.loadTextureNormal(fileName, ccui.Widget.PLIST_TEXTURE);
                 if (spriteNode instanceof cc.Sprite)
                     spriteNode.setSpriteFrame(spriteFrame);
 
                 spriteNode.scale = oldWidth / (spriteNode.getBoundingBox().width / spriteNode.scale);
+
+                Utils.writeTexture(fileName);
             }
         });
     }
+}
+
+Utils.writeTexture = function(fileName) {
+    var sprite = new cc.Sprite("#" + fileName);
+    sprite.anchorX = sprite.anchorY = 0;
+
+    var renderTexture = new cc.RenderTexture(sprite.width, sprite.height);
+    renderTexture.begin();
+    sprite.visit();
+    renderTexture.end();
+    renderTexture.saveToFile(fileName, 1);
 }

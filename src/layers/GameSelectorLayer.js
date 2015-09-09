@@ -8,6 +8,8 @@ var GameSelectorLayer = cc.Layer.extend({
 
     _userId: null,
 
+    _cacheSpriteFrameNames: [],
+
     ctor: function () {
         this._super();
         var self = this;
@@ -67,6 +69,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
     createScrollViewContainer: function() {
         var gameData = DataManager.getInstance().getGameData(this._userId);
+        var self = this;
 
         // var containerWidth = Math.ceil(gameData.length / 2) * this._iconGapWidth;
         var containerWidth = this._iconGapWidth * 4;
@@ -131,7 +134,6 @@ var GameSelectorLayer = cc.Layer.extend({
                                                 "sampleData");
             });
             this._scrollViewContainer.addChild(btnGame, 1);
-
             Utils.loadImg(gameData[i].icon, btnGame);
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");

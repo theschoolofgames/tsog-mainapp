@@ -51,6 +51,8 @@ cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
 
+    cc.log(jsb.fileUtils.getWritablePath());
+
     if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
         var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
         var hostUrl = "http://tsog.hub102.com";
