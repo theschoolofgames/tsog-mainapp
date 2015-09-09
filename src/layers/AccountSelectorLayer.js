@@ -152,7 +152,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         fFrame.x = x;
         fFrame.y = y;
         fFrame.setSwallowTouches(false);
-        fFrame.userData = userData.user_id;
+        fFrame.userData = userData;
         this.createAvatar(userData.avatar.hair_id % 3 + 1, fFrame);
 
         var self = this;
@@ -164,9 +164,8 @@ var AccountSelectorLayer = cc.Layer.extend({
             if(self._mask.visible)
                 return;
 
-
             self.onAvatarClicked(this);
-            self._selectedUserId = sender.userData;
+            self._selectedUserId = sender.userData.user_id;
         });
 
         return fFrame;
@@ -329,9 +328,17 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._passwordContainer = pwContainer;
     },
 
-    createPassWordImage: function() {
+    createPassWordImage: function(passwordId) {
         var self = this;
-        var ids = shuffle([1, 2, 3, 4, 5, 6]);
+
+        var availablePasswords = [1, 2, 3, 4, 5, 6];
+        var ids = [passwordId];
+        var currentPassIndex = availablePasswords.indexOf(passwordId);
+        if (currentPassIndex >= 0) 
+            availablePasswords = availablePasswords.slice(currentPassIndex, 1);
+
+        ids = shuffle(ids.concat(shuffle(availablePasswords).slice(0, 5)));
+
         this._passwordItems = [];
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
 
@@ -430,7 +437,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._avatarClicked = accountContainer;
 
         this.createPasswordContainer(accountButton);
-        this.createPassWordImage();
+        this.createPassWordImage(accountButton.userData.password);
     },
 
     onCancelChoosePassword: function() {
