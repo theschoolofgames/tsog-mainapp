@@ -4,98 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>icon-game-1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-4.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-5.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-6.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-7.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-8.png</key>
+            <key>icon-game-default.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{260,2},{256,256}}</string>
@@ -144,7 +53,7 @@
             <key>size</key>
             <string>{564,260}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:134c5ebaebe5b43a5e8d72ac7114173a:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:d90081b21d6c988d7559cb2d3fba4433:1/1$</string>
             <key>textureFileName</key>
             <string>game.png</string>
         </dict>

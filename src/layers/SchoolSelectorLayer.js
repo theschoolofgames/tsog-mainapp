@@ -170,7 +170,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         button.x = button.width;
         button.y = button.height/2;
         button.addClickEventListener(function(){
-            self._searchField.onTouchBegan();
+            // self._searchField.onTouchBegan();
         });
 
         this._searchArea.addChild(button,9);

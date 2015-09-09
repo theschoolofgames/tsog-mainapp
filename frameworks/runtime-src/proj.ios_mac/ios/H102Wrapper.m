@@ -21,8 +21,15 @@
   NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
   if ([[UIApplication sharedApplication] canOpenURL:theURL])
     [[UIApplication sharedApplication] openURL:theURL];
-  else
+  else {
     NSLog(@"Receiver not found");
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                      message:@"Target game not found"
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    [message show];
+  }
 }
 
 @end

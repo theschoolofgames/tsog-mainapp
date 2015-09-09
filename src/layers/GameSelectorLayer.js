@@ -118,7 +118,7 @@ var GameSelectorLayer = cc.Layer.extend({
             var btnGame = new ccui.Button();
             btnGame.scale = 1.35;
             btnGame.setSwallowTouches(false);
-            btnGame.loadTextures("icon-game-1.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            btnGame.loadTextures("icon-game-default.png", "", "", ccui.Widget.PLIST_TEXTURE);
             btnGame.x = posX;
             btnGame.y = posY;
             btnGame.rotation = Math.random() * 10 - 5;
@@ -132,9 +132,11 @@ var GameSelectorLayer = cc.Layer.extend({
             });
             this._scrollViewContainer.addChild(btnGame, 1);
 
+            Utils.loadImg(gameData[i].icon, btnGame);
+
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
             btnShadow.x = posX;
-            btnShadow.y = posY - 8;
+            btnShadow.y = posY - 8 * btnGame.scale;
             btnShadow.rotation = btnGame.rotation;
             btnShadow.scale = btnGame.scale;
             this._scrollViewContainer.addChild(btnShadow, 0);
