@@ -335,9 +335,10 @@ var AccountSelectorLayer = cc.Layer.extend({
         var ids = [passwordId];
         var currentPassIndex = availablePasswords.indexOf(passwordId);
         if (currentPassIndex >= 0) 
-            availablePasswords = availablePasswords.slice(currentPassIndex, 1);
+            availablePasswords.splice(currentPassIndex, 1);
 
         ids = shuffle(ids.concat(shuffle(availablePasswords).slice(0, 5)));
+        var passwordIndex = ids.indexOf(passwordId);
 
         this._passwordItems = [];
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
@@ -355,7 +356,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             var accountButtonParent = this._passwordContainer.parent;
             var pwContainerTag = this._passwordContainer.tag;
             pwImage.addClickEventListener(function() {
-                if (self._passwordItems[0] === this) {
+                if (self._passwordItems[passwordIndex] === this) {
                     this.cleanup();
                     // this.stopAllActions();
                     var pos = accountButtonParent.convertToWorldSpace(self._passwordContainer.getPosition());
@@ -388,7 +389,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 }
             });
 
-            if (self._passwordItems[0] === pwImage) {
+            if (self._passwordItems[passwordIndex] === pwImage) {
                 pwImage.runAction(cc.repeatForever(
                     cc.sequence(
                             cc.scaleTo(0.5, 0.5),
