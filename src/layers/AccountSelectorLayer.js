@@ -448,6 +448,17 @@ var AccountSelectorLayer = cc.Layer.extend({
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
                     cc.log("onTouchBegan mask");
+                    if (self._mask.visible)
+                        return true;
+
+                    var targetNode = event.getCurrentTarget();
+                    var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+                    if (touchedPos.y >= 50)
+                        self.onCancelChoosePassword();
+
+                    return true;
+                },
+                onTouchEnded: function(touch, event) {
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
                     if (touchedPos.y >= 50)
