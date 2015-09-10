@@ -7,6 +7,7 @@ var GameSelectorLayer = cc.Layer.extend({
     _iconGapHeight: 175,
 
     _userId: null,
+    _schoolId: null,
 
     _cacheSpriteFrameNames: [],
 
@@ -20,6 +21,7 @@ var GameSelectorLayer = cc.Layer.extend({
         this.addChild(bg);
 
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+        this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
 
         var gameData = DataManager.getInstance().getGameData(this._userId);
 
@@ -128,10 +130,18 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.userData = gameData[i];
             btnGame.addClickEventListener(function(sender) {
                 var data = sender.userData;
+                var schoolData = DataManager.getInstance().getSchoolData();
+                var schoolName = "";
+                for (var i = 0; i < schoolData.length; i++) {
+                    if (schoolData[i].school_id == self._schoolId)
+                        schoolName = schoolData[i].school_name;
+                }
+
+                var sendData = self._userId + ":" + self._schoolId + ":" + schoolName;
                 jsb.reflection.callStaticMethod("H102Wrapper",
                                                 "openScheme:withData:",
                                                 data.ios_bundle,
-                                                "sampleData");
+                                                Base64.encode(sendData));
             });
                 
             this._scrollViewContainer.addChild(btnGame, 1);
