@@ -252,12 +252,20 @@ var AccountSelectorLayer = cc.Layer.extend({
                     batchWidth = tree.getBoundingBox().x - firstTreeX;
             }
 
-            subNode.scale = 0;
-            subNode.runAction(
+            accountButton.scale = 0;
+            accountButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
-                    cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.9))
+                    cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
                 ));
+
+            tree.scale = 0;
+            tree.runAction(
+                cc.sequence(
+                    cc.delayTime(i*0.1),
+                    cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
+                ));
+
             treesContainer.addChild(subNode, 1);
             lastTree = tree;
         }

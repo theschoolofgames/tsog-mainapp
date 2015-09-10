@@ -146,7 +146,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.4))
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
         }
 
