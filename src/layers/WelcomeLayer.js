@@ -1,25 +1,26 @@
-var WelcomeLayer = cc.Layer.extend({
+var WelcomeLayer = cc.LayerColor.extend({
 
 	ctor: function() {
-		this._super();
+		this._super(cc.color(255, 255, 255, 255));
 
-		this.loadWelcomeLayerImage();
+		this.addWelcomeCutscene();
 		this.moveToMainScene();
 	},
 
-	loadWelcomeLayerImage: function() {
-		var WelcomeImage = new cc.Sprite(res.Welcome_jpg);
-		var scale = cc.winSize.width / WelcomeImage.width;
-		WelcomeImage.setScale(scale);
-		WelcomeImage.x = cc.winSize.width / 2;
-		WelcomeImage.y = cc.winSize.height / 2;
-		this.addChild(WelcomeImage);
+	addWelcomeCutscene: function() {
+		
+        var lwfSprite = lwf.Sprite.create("welcome.lwf");
+        lwfSprite.setAnchorPoint(cc.p(0.5, 0.5));
+        lwfSprite.x = cc.winSize.width*0.5;
+        lwfSprite.y = cc.winSize.height*0.5;
+        lwfSprite.scale = cc.winSize.width / lwfSprite.getContentSize().width;
+        this.addChild(lwfSprite);
 	},
 
 	moveToMainScene: function() {
 
 		this.runAction(cc.sequence(
-			cc.delayTime(1),
+			cc.delayTime(4),
 			cc.callFunc(function() {
 				cc.director.replaceScene(new GameSelectorScene());
 			}, this)
