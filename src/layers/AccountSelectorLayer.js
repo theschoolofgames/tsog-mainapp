@@ -9,6 +9,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     _treesContainer: null,
     _lastTree: null,
     _mask: null,
+    _maskListener: null,
     _avatarClicked: null,
     _passwordContainer: null,
     _startTouchPosition: null,
@@ -143,16 +144,16 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createAccountButton: function(userData, x, y) {
-        var fFrame = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        fFrame.setAnchorPoint(0.5, 0);
-        fFrame.x = x;
-        fFrame.y = y;
-        fFrame.setSwallowTouches(false);
-        fFrame.userData = userData;
-        this.createAvatar(userData.avatar.hair_id % 3 + 1, fFrame);
+        var accountButton = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        accountButton.setAnchorPoint(0.5, 0);
+        accountButton.x = x;
+        accountButton.y = y;
+        accountButton.setSwallowTouches(false);
+        accountButton.userData = userData;
+        this.createAvatar(userData.avatar.hair_id % 3 + 1, accountButton);
 
         var self = this;
-        fFrame.addClickEventListener(function(sender) {
+        accountButton.addClickEventListener(function(sender) {
             cc.log("onAvatarClicked");
 
             if(self._isTouchMoved)
@@ -164,7 +165,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             self._selectedUserId = sender.userData.user_id;
         });
 
-        return fFrame;
+        return accountButton;
     },
 
     createForeGround: function() {
@@ -227,7 +228,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         for ( var i = 0; i < accountData.length; i++) {
             index = i%6;
 
-            // cc.log("index: "+ index + " i: " + i);
             tree = new cc.Sprite("#tree-" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
             tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
@@ -244,7 +244,6 @@ var AccountSelectorLayer = cc.Layer.extend({
             subNode.tag = i;
 
             if (i % TREES_BATCH_SIZE == 0) {
-                // cc.log("Tree #%d x: %d", i, tree.x);
                 this._batchFirstItemXs.push(tree.x);
 
                 if (i == 0)
@@ -258,8 +257,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         }
         this._treesContainer = treesContainer;
         treesContainer.setAnchorPoint(0, 0);
-
-        // cc.log("batchWidth: %d", batchWidth);
 
         this._parallaxNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
 
@@ -310,7 +307,6 @@ var AccountSelectorLayer = cc.Layer.extend({
             pwContainerOffSetY: 50
         };
 
-        cc.log(pwContainerPos.pwContainerOffSetRatioX + " : " + pwContainerPos.pwContainerOffSetRatioY);
         var containerObj = TREE_POSITIONS[this._avatarClicked.tag % TREES_BATCH_SIZE];
         var pwContainer = new cc.Sprite("#password_holder-"
                             + pwContainerPos.hintId
@@ -346,7 +342,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         for ( var i = 0; i < 6; i++) {
             var pwImage = new ccui.Button("icon-" + ids[i] + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
-            cc.log(JSON.stringify(pwImage.getAnchorPoint()));
 
             pwImage.x = (cc.winSize.width / 6) * i + cc.winSize.width/12;
             pwImage.y = -this._ground.height/2 + pwImage.height/2 + 10;
@@ -360,9 +355,9 @@ var AccountSelectorLayer = cc.Layer.extend({
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
                 //scale pwImage to fill the password container
-                // this.setScale(1.2);
                     this.cleanup();
-                    // this.stopAllActions();
+                    this.setScale(1);
+
                     var accountButtonParent = self._passwordContainer.parent;
                     var pwContainerTag = self._passwordContainer.tag;
 
@@ -438,14 +433,16 @@ var AccountSelectorLayer = cc.Layer.extend({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
+                    cc.log("onTouchBegan mask");
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-
-                    if (touchedPos.y >= 55)
+                    if (touchedPos.y >= 50)
                         self.onCancelChoosePassword();
+
                     return true;
                 }
         }, this._mask);
+
 
         this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, 55))
@@ -453,6 +450,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         // reset avatar clicked zOrder
         accountContainer.setLocalZOrder(3);
         this._avatarClicked = accountContainer;
+        this._maskListener = maskListener;
 
         this.createPasswordContainer(accountButton);
         this.createPassWordImage(accountButton.userData.password);
@@ -462,7 +460,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._mask.visible = false;
         this._passwordContainer.removeFromParent();
 
-        cc.eventManager.removeListener(this._mask);
+        cc.eventManager.removeListener(this._maskListener);
 
         for(var i = 0; i < this._passwordItems.length; i++)
             this._passwordItems[i].removeFromParent();
@@ -478,6 +476,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
+        cc.log("onTouchBegan root");
 
         //save current touch position to set password container relative to accountButton
         targetNode._currentTouchPos = touch.getLocation();
