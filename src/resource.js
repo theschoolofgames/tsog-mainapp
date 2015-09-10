@@ -22,7 +22,10 @@ var res = {
     RedFont_fnt: "red-font-export.fnt",
     YellowFont_fnt: "yellow-font-export.fnt",
     PurpleFont_fnt: "purple-font-export.fnt",
-    GreenFont_fnt: "green-font-export.fnt"
+    GreenFont_fnt: "green-font-export.fnt",
+    // Sound
+    bubble_sound_mp3: "res/sound/bubble.mp3",
+    rustle_sound_mp3: "res/sound/rustle.mp3"
 };
 
 var g_resources = [];

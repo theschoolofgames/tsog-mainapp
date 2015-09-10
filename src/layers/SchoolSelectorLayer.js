@@ -114,6 +114,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
                     cc.log("Selected school");
+                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
                     if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
                         jsb.reflection.callStaticMethod("H102Wrapper",
                                                  "countlyRecordEvent:count:",
@@ -146,6 +147,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
+                    cc.callFunc(function(){
+                        cc.audioEngine.playEffect(res.bubble_sound_mp3);
+                    }),
                     cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
         }

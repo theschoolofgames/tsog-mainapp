@@ -257,6 +257,9 @@ var AccountSelectorLayer = cc.Layer.extend({
             accountButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
+                    cc.callFunc(function(){
+                        cc.audioEngine.playEffect(res.rustle_sound_mp3);
+                    }),
                     cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
                 ));
 
@@ -420,7 +423,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     onAvatarClicked: function(accountButton) {
         // scroll to start of batch
         var accountContainer = accountButton.parent;
-
+        cc.audioEngine.playEffect(res.rustle_sound_mp3);
         cc.log("onAvatarClicked: #%d", accountContainer.tag);
 
         // //check if clicked account is in left-right border of screen
