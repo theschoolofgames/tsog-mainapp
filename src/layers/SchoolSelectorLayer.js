@@ -107,11 +107,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var itemIndex = 0;
         for (var i = 0; i < schoolData.length; i++) {
             var randBgIdx = i%2+1;
-            var sc = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-            sc.setPosition(this._getBtnPosition(i));
-            sc.tag = i;
-            sc.setSwallowTouches(false);
-            sc.addClickEventListener(function(sender) {
+            var schoolButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+            schoolButton.setPosition(this._getBtnPosition(i));
+            schoolButton.tag = i;
+            schoolButton.setSwallowTouches(false);
+            schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
                     cc.log("Selected school");
                     if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
@@ -126,24 +126,24 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             });
 
-            this.schoolBtn.push(sc);
+            this.schoolBtn.push(schoolButton);
 
             // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
             font = SCHOOL_NAME_COLOR[i%4];
 
-            var scName = new cc.LabelBMFont(schoolData[i].school_name.toUpperCase(),
+            var schoolName = new cc.LabelBMFont(schoolData[i].school_name.toUpperCase(),
                 font,
-                sc.width*1.5,
+                schoolButton.width*1.5,
                 cc.TEXT_ALIGNMENT_CENTER);
-            scName.setScale(0.5);
-            scName.x = sc.width / 2;
-            scName.y = sc.height / 2;
-            sc.addChild(scName);
+            schoolName.setScale(0.5);
+            schoolName.x = schoolButton.width / 2;
+            schoolName.y = schoolButton.height / 2;
+            schoolButton.addChild(schoolName);
 
             this.schoolName.push(i);
 
-            sc.scale = 0;
-            sc.runAction(
+            schoolButton.scale = 0;
+            schoolButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
                     cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.4))

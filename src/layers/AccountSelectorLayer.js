@@ -233,14 +233,14 @@ var AccountSelectorLayer = cc.Layer.extend({
             tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
             tree.y = this._ground.height/2 - 20;
 
-            var fFrame = this.createAccountButton(accountData[i],
+            var accountButton = this.createAccountButton(accountData[i],
                                                 tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                                 tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
 
             subNode = new cc.Node();
 
             subNode.addChild(tree, 1);
-            subNode.addChild(fFrame, 2);
+            subNode.addChild(accountButton, 2);
             subNode.tag = i;
 
             if (i % TREES_BATCH_SIZE == 0) {
@@ -252,6 +252,12 @@ var AccountSelectorLayer = cc.Layer.extend({
                     batchWidth = tree.getBoundingBox().x - firstTreeX;
             }
 
+            subNode.scale = 0;
+            subNode.runAction(
+                cc.sequence(
+                    cc.delayTime(i*0.1),
+                    cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.9))
+                ));
             treesContainer.addChild(subNode, 1);
             lastTree = tree;
         }
