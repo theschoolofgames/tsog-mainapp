@@ -4,7 +4,7 @@ var TREES_PADDING = 150;
 var AccountSelectorLayer = cc.Layer.extend({
     _schoolId: null,
 
-    _prlNode: null,
+    _parallaxNode: null,
     _ground: null,
     _treesContainer: null,
     _lastTree: null,
@@ -29,11 +29,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         this.createBackground();
         this.createBackButton();
-        // this.createScrollView();
-        // this.createParallaxNode();
-        // this.createForeGround();
-        // this.createBush();
-        // this.createTrees();
 
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
@@ -144,7 +139,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         node.width = bush.width*3;
         node.height = bush.height;
 
-        this._prlNode.addChild(node, 1, cc.p(0.4, 1), cc.p(0,0));
+        this._parallaxNode.addChild(node, 1, cc.p(0.4, 1), cc.p(0,0));
     },
 
     createAccountButton: function(userData, x, y) {
@@ -188,7 +183,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             node.addChild(ground, 3);
         }
 
-        this._prlNode.addChild(node, 4, cc.p(0.8, 1), cc.p(0,0));
+        this._parallaxNode.addChild(node, 4, cc.p(0.8, 1), cc.p(0,0));
 
         this._ground = ground;
     },
@@ -208,13 +203,13 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createParallaxNode: function() {
-        var prlNode = new cc.ParallaxNode();
-        prlNode.x = 0;
-        prlNode.y = 0;
+        var parallaxNode = new cc.ParallaxNode();
+        parallaxNode.x = 0;
+        parallaxNode.y = 0;
 
-        this._scrollView.addChild(prlNode);
+        this._scrollView.setContainer(parallaxNode);
 
-        this._prlNode = prlNode;
+        this._parallaxNode = parallaxNode;
     },
 
     createTrees: function() {
@@ -266,32 +261,32 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         // cc.log("batchWidth: %d", batchWidth);
 
-        this._prlNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
+        this._parallaxNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
 
         var innerWidth = lastTree.x - firstTreeX + cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
         cc.log("innerWidth: " + innerWidth);
-        this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
+        this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
         this._lastTree = lastTree;
     },
 
     createScrollView: function(){
 
         var self = this;
-        var scrollView = new ccui.ScrollView();
-        scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
+        var scrollView = new cc.ScrollView();
+        scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         scrollView.setTouchEnabled(true);
-        scrollView.setSwallowTouches(false);
-        scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
+        // scrollView.setSwallowTouches(false);
+        scrollView.setViewSize(cc.size(cc.winSize.width, cc.winSize.height));
 
-        scrollView.setClippingEnabled(false);
+        scrollView.setClippingToBounds(false);
 
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
 
         var innerWidth = accountData.length / 6 * cc.winSize.width;
         var innerHeight = cc.winSize.height;
 
-        scrollView.setBounceEnabled(true);
+        scrollView.setBounceable(true);
 
         this.addChild(scrollView);
         this._scrollView = scrollView;
@@ -322,9 +317,11 @@ var AccountSelectorLayer = cc.Layer.extend({
                             + ".png");
 
         pwContainer.x = accountButton.width / 2
-                        + (pwContainer.width - pwContainerPos.pwContainerOffSetX)*pwContainerPos.pwContainerOffSetRatioX;
+                        + (pwContainer.width
+                        - pwContainerPos.pwContainerOffSetX)*pwContainerPos.pwContainerOffSetRatioX;
         pwContainer.y = accountButton.height / 2
-                        + (pwContainer.height - pwContainerPos.pwContainerOffSetY)*pwContainerPos.pwContainerOffSetRatioY;
+                        + (pwContainer.height
+                        - pwContainerPos.pwContainerOffSetY)*pwContainerPos.pwContainerOffSetRatioY;
 
         pwContainer.tag = hintId;
 
@@ -417,15 +414,22 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         // //check if clicked account is in left-right border of screen
 
-        var currentTouchPosX = this._currentTouchPos.x;
-        var maxLeft = cc.winSize.width - accountButton.width;
-        var maxRight = accountButton.width;
+        var safeWidth = 130;
 
-        var percent = ((accountButton.x) / this._lastTree.x)*100;
-        cc.log("percent: " + percent);
-        //left
-        if (currentTouchPosX < maxRight || currentTouchPosX > maxLeft)
-            this._scrollView.scrollToPercentHorizontal(percent, 0.5, true)
+        var currentTouchPosX = this._currentTouchPos.x;
+        var scrollToX = -1;
+        var currentScrollInnerX = this._scrollView.getContentOffset().x;
+        cc.log("currentTouchPosX: %d | currentScrollInnerX: %d", currentTouchPosX,
+            currentScrollInnerX);
+
+        if (currentTouchPosX < safeWidth)
+            scrollToX = currentScrollInnerX + safeWidth;
+        else if (currentTouchPosX > cc.winSize.width - safeWidth)
+            scrollToX = currentScrollInnerX - safeWidth;
+
+        cc.log("scrollToX: %d", scrollToX);
+        if (scrollToX != -1)
+            this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
 
         this._mask.visible = true;
         // set touch handler so that touch on mask quit select password mode
