@@ -116,7 +116,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 break;
 
             var posX = containerWidth / 3 * (i + 0.5);
-            var posY = containerHeight/2;
+            var posY = containerHeight/2 + 35;
 
             var btnGame = new ccui.Button();
 
@@ -140,7 +140,7 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.runAction(
                 cc.sequence(
                     cc.delayTime(i* 0.1),
-                    cc.scaleTo(0.5, 0.65).easing(cc.easeElasticOut(1.2))
+                    cc.scaleTo(0.5, 0.65).easing(cc.easeElasticOut(0.6))
                 ));
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
@@ -165,7 +165,7 @@ var GameSelectorLayer = cc.Layer.extend({
             pin.runAction(
                 cc.sequence(
                     cc.delayTime(i* 0.1),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(1.2))
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
 
         }
