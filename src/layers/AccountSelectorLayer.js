@@ -17,6 +17,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _isTouchMoved: false,
     _isAvatarJustClicked: false,
+    _isActionRunning: false,
 
     _passwordItems: [],
 
@@ -369,6 +370,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
                 //scale pwImage to fill the password container
+                    self._isActionRunning = true;
                     this.cleanup();
                     this.setScale(1);
 
@@ -451,14 +453,12 @@ var AccountSelectorLayer = cc.Layer.extend({
                     if (self._mask.visible)
                         return true;
 
-                    var targetNode = event.getCurrentTarget();
-                    var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-                    if (touchedPos.y >= 50)
-                        self.onCancelChoosePassword();
-
                     return true;
                 },
                 onTouchEnded: function(touch, event) {
+                    if (self._isActionRunning)
+                        return true;
+
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
                     if (touchedPos.y >= 50)
@@ -499,6 +499,8 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
+
+
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
         cc.log("onTouchBegan root");
@@ -506,6 +508,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         //save current touch position to set password container relative to accountButton
         targetNode._currentTouchPos = touch.getLocation();
 
+        if (self._isActionRunning)
+            return true;
         targetNode._startTouchPosition = touchedPos;
         targetNode._isTouchMoved = false;
         return true;
