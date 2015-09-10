@@ -141,7 +141,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
             sc.addChild(scName);
 
             this.schoolName.push(i);
-        };
+
+            sc.scale = 0;
+            sc.runAction(
+                cc.sequence(
+                    cc.delayTime(i*0.1),
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.4))
+                ));
+        }
 
         this.createSchoolHolder();
     },
