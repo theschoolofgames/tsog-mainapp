@@ -119,7 +119,7 @@ var GameSelectorLayer = cc.Layer.extend({
             var posY = containerHeight/2;
 
             var btnGame = new ccui.Button();
-            btnGame.scale = 1.35;
+
             btnGame.setSwallowTouches(false);
             btnGame.loadTextures("icon-game-default.png", "", "", ccui.Widget.PLIST_TEXTURE);
             btnGame.x = posX;
@@ -133,8 +133,15 @@ var GameSelectorLayer = cc.Layer.extend({
                                                 data.ios_bundle,
                                                 "sampleData");
             });
+                
             this._scrollViewContainer.addChild(btnGame, 1);
             Utils.loadImg(gameData[i].icon, btnGame);
+            btnGame.scale = 0.01;
+            btnGame.runAction(
+                cc.sequence(
+                    cc.delayTime(i* 0.1),
+                    cc.scaleTo(0.5, 0.65).easing(cc.easeElasticOut(1.2))
+                ));
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
             btnShadow.x = posX;
@@ -145,7 +152,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
             var pin = new cc.Sprite("#pin.png");
             pin.x = posX;
-            pin.y = posY + btnGame.getBoundingBox().height/2 - 3;
+            pin.y = posY + btnGame.getBoundingBox().height +80;
             this._scrollViewContainer.addChild(pin, 2);
 
             var lbName = new cc.LabelTTF(gameData[i].game_name, "Arial", 20);
@@ -153,6 +160,14 @@ var GameSelectorLayer = cc.Layer.extend({
             lbName.x = posX;
             lbName.y = posY - 120;
             this._scrollViewContainer.addChild(lbName);
+
+            pin.scale = 0.01;
+            pin.runAction(
+                cc.sequence(
+                    cc.delayTime(i* 0.1),
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(1.2))
+                ));
+
         }
     },
 
