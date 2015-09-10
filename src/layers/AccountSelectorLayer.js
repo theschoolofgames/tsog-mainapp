@@ -425,7 +425,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         // //check if clicked account is in left-right border of screen
 
-        var safeWidth = 130;
+        var safeWidth = 200;
 
         var currentTouchPosX = this._currentTouchPos.x;
         var scrollToX = -1;
@@ -500,7 +500,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     onTouchBegan: function(touch, event) {
 
-
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
         cc.log("onTouchBegan root");
@@ -508,7 +507,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         //save current touch position to set password container relative to accountButton
         targetNode._currentTouchPos = touch.getLocation();
 
-        if (self._isActionRunning)
+        if (targetNode._isActionRunning)
             return true;
         targetNode._startTouchPosition = touchedPos;
         targetNode._isTouchMoved = false;
