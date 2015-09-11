@@ -254,14 +254,21 @@ var AccountSelectorLayer = cc.Layer.extend({
             }
 
             accountButton.scale = 0;
-            accountButton.runAction(
-                cc.sequence(
-                    cc.delayTime(i*0.1),
-                    cc.callFunc(function(){
-                        cc.audioEngine.playEffect(res.rustle_sound_mp3);
-                    }),
-                    cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
-                ));
+            if (i < 7)
+                accountButton.runAction(
+                    cc.sequence(
+                        cc.delayTime(i*0.1),
+                        cc.callFunc(function(){
+                            cc.audioEngine.playEffect(res.rustle_sound_mp3);
+                        }),
+                        cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
+                    ));
+            else
+                accountButton.runAction(
+                    cc.sequence(
+                        cc.delayTime(i*0.1),
+                        cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
+                    ));
 
             tree.scale = 0;
             tree.runAction(
@@ -385,7 +392,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                     var moveToPos = cc.pAdd(pos, differentPos);
 
                     var move = cc.moveTo(1, moveToPos);
-                    var move_ease = move.easing(cc.easeElasticInOut(0.8));
+                    var move_ease = move.easing(cc.easeElasticInOut(0.9));
 
                     this.runAction(cc.sequence(
                         move_ease,
@@ -413,8 +420,8 @@ var AccountSelectorLayer = cc.Layer.extend({
             if (self._passwordItems[passwordIndex] === pwImage) {
                 pwImage.runAction(cc.repeatForever(
                     cc.sequence(
-                            cc.scaleTo(0.5, 0.5),
-                            cc.scaleTo(0.5, 1.2)
+                            cc.scaleTo(0.5, 0.8),
+                            cc.scaleTo(0.5, 1.1)
                         )));
             }
         }
