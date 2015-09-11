@@ -155,7 +155,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var self = this;
         accountButton.addClickEventListener(function(sender) {
-            cc.log("onAvatarClicked");
+            // cc.log("onAvatarClicked");
 
             if(self._isTouchMoved)
                 return;
