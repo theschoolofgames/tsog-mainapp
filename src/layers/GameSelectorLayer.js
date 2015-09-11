@@ -143,7 +143,7 @@ var GameSelectorLayer = cc.Layer.extend({
                                                 data.ios_bundle,
                                                 Base64.encode(sendData));
             });
-                
+
             this._scrollViewContainer.addChild(btnGame, 1);
             Utils.loadImg(gameData[i].icon, btnGame);
             btnGame.scale = 0.01;
@@ -204,18 +204,19 @@ var GameSelectorLayer = cc.Layer.extend({
     },
 
     createBackButton: function() {
-        var bb = new ccui.Button("back.png",
+        var backButton = new ccui.Button("back.png",
                                  "back-pressed.png",
                                  "",
                                  ccui.Widget.PLIST_TEXTURE);
 
-        bb.x = bb.width ;
-        bb.y = cc.winSize.height - bb.height*2/3;
-        bb.addClickEventListener(function() {
+        backButton.x = backButton.width ;
+        backButton.y = cc.winSize.height - backButton.height*2/3;
+        backButton.addClickEventListener(function() {
+            cc.sys.localStorage.setItem("isLoggedIn", 0);
             cc.director.replaceScene(new AccountSelectorScene());
         });
 
-        this.addChild(bb);
+        this.addChild(backButton);
     },
 });
 

@@ -174,18 +174,20 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     createSearchButton: function() {
         var self = this;
-        var button = new ccui.Button("search_button.png",
+        var searchButton = new ccui.Button("search_button.png",
             "search_button-pressed.png",
             "",
             ccui.Widget.PLIST_TEXTURE);
-        button.x = button.width;
-        button.y = button.height/2;
-        button.addClickEventListener(function(){
+        searchButton.x = searchButton.width;
+        searchButton.y = searchButton.height/2;
+        searchButton.setTouchEnabled(false);
+
+        searchButton.addClickEventListener(function(){
             // self._searchField.onTouchBegan();
         });
 
-        this._searchArea.addChild(button,9);
-        this._searchButton = button;
+        this._searchArea.addChild(searchButton, 9);
+        this._searchButton = searchButton;
 
         var self = this;
     },

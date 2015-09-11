@@ -3,6 +3,7 @@ var MainScreenLayer = cc.Layer.extend({
     schLayer: null,
     loginLayer: null,
     signUpLayer: null,
+    _isLoggedIn: 0,
 
     ctor: function () {
         this._super();
@@ -12,12 +13,26 @@ var MainScreenLayer = cc.Layer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
 
-        this.schLayer = new SchoolSelectorLayer();
-        // this.schLayer = new GameSelectorLayer();
+        this._isLoggedIn = parseInt(cc.sys.localStorage.getItem("isLoggedIn")) || 0;
+        /*
+            this._isLoggedIn = 0 is not logged in,
+            1 is logged in
+        */
+        cc.log("isLoggedIn " + this._isLoggedIn);
+        if (this._isLoggedIn == 0 ) {
+            this.schLayer = new SchoolSelectorLayer();
+            this.addChild(this.schLayer);
+        } else {
+            cc.log("move to welcome");
+            this.runAction(
+                cc.sequence(
+                    cc.delayTime(0),
+                    cc.callFunc(function() {
+                        cc.director.replaceScene(new WelcomeScene());
+                    })
+                ))
+        }
 
-        this.addChild(this.schLayer);
-
-        // this.addChild(new LoadingIndicatorLayer());
     }
 });
 

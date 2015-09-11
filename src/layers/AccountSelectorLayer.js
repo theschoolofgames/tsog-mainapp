@@ -379,10 +379,12 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
-                //scale pwImage to fill the password container
                     self._isActionRunning = true;
                     this.cleanup();
                     this.setScale(1);
+
+                    //set logged in
+                    cc.sys.localStorage.setItem("isLoggedIn", 1);
 
                     var accountButtonParent = self._passwordContainer.parent;
                     var pwContainerTag = self._passwordContainer.tag;
