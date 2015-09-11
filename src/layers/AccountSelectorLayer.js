@@ -374,9 +374,6 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.addChild(pwImage, 3);
             this._passwordItems.push(pwImage);
 
-            // var accountButtonParent = this._passwordContainer.parent;
-            // var pwContainerTag = this._passwordContainer.tag;
-
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
                     self._isActionRunning = true;
@@ -396,6 +393,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                     var move = cc.moveTo(1, moveToPos);
                     var move_ease = move.easing(cc.easeElasticInOut(0.9));
 
+                    // move to welcome scene
                     this.runAction(cc.sequence(
                         move_ease,
                         cc.callFunc(function(){
@@ -411,6 +409,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         })
                     ));
                 } else {
+                    // shake password image if its not the right one
                     this.runAction(cc.sequence(
                             cc.moveBy(0.1, cc.p(10,0)),
                             cc.moveBy(0.1, cc.p(-20,0)),
@@ -418,12 +417,12 @@ var AccountSelectorLayer = cc.Layer.extend({
                         ));
                 }
             });
-
+            // scale the right password
             if (self._passwordItems[passwordIndex] === pwImage) {
                 pwImage.runAction(cc.repeatForever(
                     cc.sequence(
-                            cc.scaleTo(0.5, 0.8),
-                            cc.scaleTo(0.5, 1.1)
+                            cc.scaleTo(0.8, 0.8),
+                            cc.scaleTo(0.8, 1.1)
                         )));
             }
         }
@@ -433,7 +432,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         // scroll to start of batch
         var accountContainer = accountButton.parent;
         cc.audioEngine.playEffect(res.rustle_sound_mp3);
-        cc.log("onAvatarClicked: #%d", accountContainer.tag);
+        // cc.log("onAvatarClicked: #%d", accountContainer.tag);
 
         // //check if clicked account is in left-right border of screen
 
@@ -442,15 +441,18 @@ var AccountSelectorLayer = cc.Layer.extend({
         var currentTouchPosX = this._currentTouchPos.x;
         var scrollToX = -1;
         var currentScrollInnerX = this._scrollView.getContentOffset().x;
-        cc.log("currentTouchPosX: %d | currentScrollInnerX: %d", currentTouchPosX,
-            currentScrollInnerX);
+        // cc.log("currentTouchPosX: %d | currentScrollInnerX: %d", currentTouchPosX,
+        //     // currentScrollInnerX);
 
         if (currentTouchPosX < safeWidth)
             scrollToX = currentScrollInnerX + safeWidth;
         else if (currentTouchPosX > cc.winSize.width - safeWidth)
             scrollToX = currentScrollInnerX - safeWidth;
 
-        cc.log("scrollToX: %d", scrollToX);
+        // cc.log("scrollToX: %d", scrollToX);
+        if (scrollToX > 0)
+            scrollToX = 0;
+
         if (scrollToX != -1)
             this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
 
@@ -461,7 +463,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
-                    cc.log("onTouchBegan mask");
+                    // cc.log("onTouchBegan mask");
                     if (self._mask.visible)
                         return true;
 
@@ -514,7 +516,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-        cc.log("onTouchBegan root");
+        // cc.log("onTouchBegan root");
 
         //save current touch position to set password container relative to accountButton
         targetNode._currentTouchPos = touch.getLocation();

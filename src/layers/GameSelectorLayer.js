@@ -8,6 +8,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
     _userId: null,
     _schoolId: null,
+    _schoolName: null,
 
     _cacheSpriteFrameNames: [],
 
@@ -28,6 +29,7 @@ var GameSelectorLayer = cc.Layer.extend({
         if (gameData != null) {
             this.createScrollViewContainer();
             this.createScrollView();
+            this.createUserInfoLabel();
 
             if (GameSelectorLayer.loadedDataIds.indexOf(this._userId) >= 0) {
                 this.runAction(cc.sequence(
@@ -51,6 +53,7 @@ var GameSelectorLayer = cc.Layer.extend({
             }
         }
         else {
+
             this.runAction(cc.sequence(
                 cc.delayTime(0),
                 cc.callFunc(function() {
@@ -61,12 +64,26 @@ var GameSelectorLayer = cc.Layer.extend({
                             DataManager.getInstance().setGameData(self._userId, data.games);
                             self.createScrollViewContainer();
                             self.createScrollView();
+                            self.createUserInfoLabel();
                         }
                     });
                 })));
         }
-
         this.createBackButton();
+    },
+
+    createUserInfoLabel: function() {
+        cc.log("createUserInfoLabel");
+        var schoolName = this.getSchoolName();
+        var infoString = schoolName + "\n" + this._userId;
+        var scrollViewContainerWorldPos = this._scrollView.convertToWorldSpace(
+                                    this._scrollViewContainer.getPosition());
+        var infoLabel = new cc.LabelTTF(infoString, "Arial", 32);
+
+        infoLabel.x = cc.winSize.width / 2;
+        infoLabel.y = scrollViewContainerWorldPos.y + this._scrollViewContainer.height;
+
+        this.addChild(infoLabel, 2);
     },
 
     createScrollViewContainer: function() {
@@ -80,7 +97,7 @@ var GameSelectorLayer = cc.Layer.extend({
         // this._scrollViewContainer = new cc.LayerColor(cc.color(255, 0, 0, 255));
         this._scrollViewContainer = new cc.Layer();
         this._scrollViewContainer.setContentSize(containerWidth, containerHeight);
-
+        this._scrollViewContainer.y = -60;
         // for (var i = 0; i < gameData.length; i++) {
         //     var posX = Math.floor(i / 2) * this._iconGapWidth + this._iconGapWidth/2;
         //     var posY = (1 - (i % 2)) * this._iconGapHeight + this._iconGapHeight/2 + 25;
@@ -130,12 +147,7 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.userData = gameData[i];
             btnGame.addClickEventListener(function(sender) {
                 var data = sender.userData;
-                var schoolData = DataManager.getInstance().getSchoolData();
-                var schoolName = "";
-                for (var i = 0; i < schoolData.length; i++) {
-                    if (schoolData[i].school_id == self._schoolId)
-                        schoolName = schoolData[i].school_name;
-                }
+                var schoolName = self.getSchoolName();
 
                 var sendData = self._userId + ":" + self._schoolId + ":" + schoolName;
                 jsb.reflection.callStaticMethod("H102Wrapper",
@@ -143,15 +155,16 @@ var GameSelectorLayer = cc.Layer.extend({
                                                 data.ios_bundle,
                                                 Base64.encode(sendData));
             });
-
-            this._scrollViewContainer.addChild(btnGame, 1);
-            Utils.loadImg(gameData[i].icon, btnGame);
+            // icon animate
             btnGame.scale = 0.01;
             btnGame.runAction(
                 cc.sequence(
                     cc.delayTime(i* 0.1),
                     cc.scaleTo(0.5, 0.65).easing(cc.easeElasticOut(0.6))
                 ));
+
+            this._scrollViewContainer.addChild(btnGame, 1);
+            Utils.loadImg(gameData[i].icon, btnGame);
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
             btnShadow.x = posX;
@@ -177,7 +190,6 @@ var GameSelectorLayer = cc.Layer.extend({
                     cc.delayTime(i* 0.1),
                     cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
-
         }
     },
 
@@ -217,6 +229,17 @@ var GameSelectorLayer = cc.Layer.extend({
         });
 
         this.addChild(backButton);
+    },
+
+    getSchoolName: function() {
+        var schoolData = DataManager.getInstance().getSchoolData();
+        var schoolName = "";
+        for (var i = 0; i < schoolData.length; i++) {
+            if (schoolData[i].school_id == this._schoolId)
+                schoolName = schoolData[i].school_name;
+        }
+
+        return schoolName;
     },
 });
 

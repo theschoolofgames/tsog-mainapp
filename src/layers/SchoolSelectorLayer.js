@@ -111,21 +111,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.setPosition(this._getBtnPosition(i));
             schoolButton.tag = i;
             schoolButton.setSwallowTouches(false);
-            schoolButton.addClickEventListener(function(sender) {
-                if (!self._isTouchMoved) {
-                    cc.log("Selected school");
-                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
-                    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-                        jsb.reflection.callStaticMethod("H102Wrapper",
-                                                 "countlyRecordEvent:count:",
-                                                 "select_school",
-                                                 1);
-                    }
-                    KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
-                    cc.director.replaceScene(new AccountSelectorScene());
-                }
-
-            });
 
             this.schoolBtn.push(schoolButton);
 
@@ -144,7 +129,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.schoolName.push(i);
 
             schoolButton.scale = 0;
-            schoolButton.runAction(
+
+            if (i < 4)
+                schoolButton.runAction(
                 cc.sequence(
                     cc.delayTime(i*0.1),
                     cc.callFunc(function(){
@@ -152,6 +139,27 @@ var SchoolSelectorLayer = cc.Layer.extend({
                     }),
                     cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
+            else
+                schoolButton.runAction(
+                cc.sequence(
+                    cc.delayTime(i*0.1),
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+                ));
+            //add event listener
+            schoolButton.addClickEventListener(function(sender) {
+                if (!self._isTouchMoved) {
+                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
+                    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
+                        jsb.reflection.callStaticMethod("H102Wrapper",
+                                                 "countlyRecordEvent:count:",
+                                                 "select_school",
+                                                 1);
+                    }
+                    KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
+                    cc.director.replaceScene(new AccountSelectorScene());
+                }
+
+            });
         }
 
         this.createSchoolHolder();
