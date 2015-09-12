@@ -20,9 +20,9 @@ var WelcomeLayer = cc.LayerColor.extend({
 	moveToMainScene: function() {
 
 		this.runAction(cc.sequence(
-			cc.delayTime(4),
+			cc.delayTime(5),
 			cc.callFunc(function() {
-				cc.director.replaceScene(new GameSelectorScene());
+                cc.director.runScene(new cc.TransitionFade(2, new GameSelectorScene, cc.color.WHITE));
 			}, this)
 		));
 	}
