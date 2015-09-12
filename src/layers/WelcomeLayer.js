@@ -22,7 +22,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this.runAction(cc.sequence(
 			cc.delayTime(5),
 			cc.callFunc(function() {
-                cc.director.runScene(new cc.TransitionFade(2, new GameSelectorScene, cc.color.WHITE));
+                cc.director.runScene(new cc.TransitionFade(2, new GameSelectorScene(), cc.color(255, 255, 255, 255)));
 			}, this)
 		));
 	}

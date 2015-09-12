@@ -1216,7 +1216,7 @@ bool TransitionFade::initWithDuration(float duration, Scene *scene, const Color3
 
 bool TransitionFade::initWithDuration(float t, Scene *scene)
 {
-    this->initWithDuration(t, scene, Color3B::BLACK);
+    this->initWithDuration(t, scene, Color3B::WHITE);
     return true;
 }
 
