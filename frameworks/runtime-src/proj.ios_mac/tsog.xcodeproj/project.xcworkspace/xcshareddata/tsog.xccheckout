@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>F204268A-7BDF-4821-AE7F-B808AC615E84</string>
 	<key>IDESourceControlProjectName</key>
-	<string>tsog</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>D10DC7255E041C6C05BDF176AF2EB5C0A74D525F</key>
 		<string>lab.hub102.com:stefan/tsog-main-app.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj</string>
+	<string>frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>D10DC7255E041C6C05BDF176AF2EB5C0A74D525F</key>
@@ -34,7 +34,7 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>D10DC7255E041C6C05BDF176AF2EB5C0A74D525F</string>
 			<key>IDESourceControlWCCName</key>
-			<string>tsog</string>
+			<string>tsog-main-app</string>
 		</dict>
 	</array>
 </dict>

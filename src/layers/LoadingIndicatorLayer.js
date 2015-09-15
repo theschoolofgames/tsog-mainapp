@@ -3,7 +3,7 @@ var LoadingIndicatorLayer = cc.LayerColor.extend({
 
     ctor: function(block) {
         if (block)
-            this._super(cc.color(0, 0, 0, 64));
+            this._super(cc.color(0, 0, 0, 120));
         else
             this._super(cc.color(0, 0, 0, 0));
 
