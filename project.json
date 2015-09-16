@@ -20,7 +20,6 @@
         "src/meerkat/DataManager.js",
         "src/meerkat/RequestsManager.js",
         "src/layers/AccountSelectorLayer.js",
-        "src/layers/LoginLayer.js",
         "src/layers/SignUpLayer.js",
         "src/layers/MainScreenLayer.js",
         "src/layers/SchoolSelectorLayer.js",

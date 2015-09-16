@@ -1,8 +1,5 @@
 var MainScreenLayer = cc.Layer.extend({
-    accLayer: null,
     schLayer: null,
-    loginLayer: null,
-    signUpLayer: null,
     _isLoggedIn: 0,
 
     ctor: function () {
