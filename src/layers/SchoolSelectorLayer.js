@@ -81,19 +81,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     addArrowImage: function() {
+        var firstSchoolPos = this._getBtnPosition(0);
         var leftArrowImg = new cc.Sprite("#arrow-left.png");
-        leftArrowImg.x = leftArrowImg.width;
+        leftArrowImg.x = firstSchoolPos.x / 4;
         leftArrowImg.y = cc.winSize.height / 2;
 
         var rightArrowImg = new cc.Sprite("#arrow-right.png");
-        rightArrowImg.x = cc.winSize.width - rightArrowImg.width;
+        rightArrowImg.x = cc.winSize.width - firstSchoolPos.x / 4;
         rightArrowImg.y = cc.winSize.height / 2;
-
-        if (cc.winSize.width/cc.winSize.height < IPHONE_RESOLUTION) {
-            leftArrowImg.setScaleX(0.8);
-            rightArrowImg.setScaleX(0.8);
-        }
-
 
         this.addChild(leftArrowImg);
         this.addChild(rightArrowImg);
