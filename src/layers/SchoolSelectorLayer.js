@@ -148,23 +148,14 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             this.schoolName.push(i);
 
-            schoolButton.scale = 0;
+            var delayTime = i * DELTA_DELAY_TIME;
 
             if (i < 4)
-                schoolButton.runAction(
-                cc.sequence(
-                    cc.delayTime(i*0.1),
-                    cc.callFunc(function(){
-                        cc.audioEngine.playEffect(res.bubble_sound_mp3);
-                    }),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-                ));
+                this.addObjectAction(schoolButton, delayTime, function(){
+                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
+                });
             else
-                schoolButton.runAction(
-                cc.sequence(
-                    cc.delayTime(i*0.1),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-                ));
+                this.addObjectAction(schoolButton, delayTime, function(){});
             //add event listener
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
@@ -183,6 +174,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
         }
 
         this.createSchoolHolder();
+    },
+
+    addObjectAction: function(object, delayTime, func) {
+        object.scale = 0;
+        object.runAction(cc.sequence(
+                cc.delayTime(delayTime),
+                cc.callFunc(func),
+                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+            ));
     },
 
     createSearchArea: function() {

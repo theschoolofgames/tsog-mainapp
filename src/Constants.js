@@ -118,6 +118,7 @@ var ACCOUNT_TABLE_NAME = [
 
 var NUMBER_OF_TREES = 20;
 var IPHONE_RESOLUTION = 16/9;
+var DELTA_DELAY_TIME = 0.1;
 // String
 
 var STRING_SCHOOL_DATA  = "school_data";

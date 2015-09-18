@@ -281,29 +281,15 @@ var AccountSelectorLayer = cc.Layer.extend({
                     batchWidth = tree.getBoundingBox().x - firstTreeX;
             }
 
-            accountButton.scale = 0;
+            var delayTime = i * DELTA_DELAY_TIME;
             if (i < 7)
-                accountButton.runAction(
-                    cc.sequence(
-                        cc.delayTime(i*0.1),
-                        cc.callFunc(function(){
-                            cc.audioEngine.playEffect(res.rustle_sound_mp3);
-                        }),
-                        cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
-                    ));
+                this.addObjectAction(accountButton, delayTime, function(){
+                    cc.audioEngine.playEffect(res.rustle_sound_mp3);
+                });
             else
-                accountButton.runAction(
-                    cc.sequence(
-                        cc.delayTime(i*0.1),
-                        cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
-                    ));
+                this.addObjectAction(accountButton, delayTime, function(){});
 
-            tree.scale = 0;
-            tree.runAction(
-                cc.sequence(
-                    cc.delayTime(i*0.1),
-                    cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
-                ));
+            this.addObjectAction(tree, delayTime, function(){});
 
             treesContainer.addChild(subNode, 1);
             lastTree = tree;
@@ -318,6 +304,15 @@ var AccountSelectorLayer = cc.Layer.extend({
         cc.log("innerWidth: " + innerWidth);
         this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
         this._lastTree = lastTree;
+    },
+
+    addObjectAction: function(object, delayTime, func) {
+        object.scale = 0;
+        object.runAction(cc.sequence(
+                cc.delayTime(delayTime),
+                cc.callFunc(func),
+                cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
+            ));
     },
 
     createScrollView: function(){
