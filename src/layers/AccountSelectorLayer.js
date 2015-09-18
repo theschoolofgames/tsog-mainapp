@@ -95,6 +95,33 @@ var AccountSelectorLayer = cc.Layer.extend({
         }, this);
     },
 
+    addAccountTableName: function(account) {
+        var accountTableName = new cc.Sprite("#table-name.png");
+        accountTableName.x = account.width / 2;
+        accountTableName.y = accountTableName.height/2;
+        //add name to the table
+        this.addTableName(accountTableName);
+        account.addChild(accountTableName);
+    },
+
+    addTableName: function(accountTableName) {
+        var randomedNameIndex = Math.floor(Math.random() * ACCOUNT_TABLE_NAME.length);
+        var randomedName = ACCOUNT_TABLE_NAME[randomedNameIndex];
+
+        var font = SCHOOL_NAME_COLOR[1];
+
+        var tableName = new cc.LabelBMFont(randomedName,
+                            font,
+                            accountTableName.width*1.5,
+                            cc.TEXT_ALIGNMENT_CENTER);
+
+        tableName.setScale(0.35);
+        tableName.x = accountTableName.width/2;
+        tableName.y = accountTableName.height/2 + 3;
+
+        accountTableName.addChild(tableName);
+    },
+
     createAvatar: function(avatarID, parent) {
         var avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
 
@@ -235,8 +262,9 @@ var AccountSelectorLayer = cc.Layer.extend({
             tree.y = this._ground.height/2 - 20;
 
             var accountButton = this.createAccountButton(accountData[i],
-                                                tree.x + TREE_POSITIONS[index].flowerOffsetX,
-                                                tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
+                                    tree.x + TREE_POSITIONS[index].flowerOffsetX,
+                                    tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
+            this.addAccountTableName(accountButton);
 
             subNode = new cc.Node();
 
@@ -432,24 +460,18 @@ var AccountSelectorLayer = cc.Layer.extend({
         // scroll to start of batch
         var accountContainer = accountButton.parent;
         cc.audioEngine.playEffect(res.rustle_sound_mp3);
-        // cc.log("onAvatarClicked: #%d", accountContainer.tag);
-
         // //check if clicked account is in left-right border of screen
-
         var safeWidth = 200;
 
         var currentTouchPosX = this._currentTouchPos.x;
         var scrollToX = -1;
         var currentScrollInnerX = this._scrollView.getContentOffset().x;
-        // cc.log("currentTouchPosX: %d | currentScrollInnerX: %d", currentTouchPosX,
-        //     // currentScrollInnerX);
 
         if (currentTouchPosX < safeWidth)
             scrollToX = currentScrollInnerX + safeWidth;
         else if (currentTouchPosX > cc.winSize.width - safeWidth)
             scrollToX = currentScrollInnerX - safeWidth;
 
-        // cc.log("scrollToX: %d", scrollToX);
         if (scrollToX > 0)
             scrollToX = 0;
 
@@ -463,7 +485,6 @@ var AccountSelectorLayer = cc.Layer.extend({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
-                    // cc.log("onTouchBegan mask");
                     if (self._mask.visible)
                         return true;
 
@@ -481,7 +502,6 @@ var AccountSelectorLayer = cc.Layer.extend({
                     return true;
                 }
         }, this._mask);
-
 
         this.runAction(cc.sequence(
             cc.moveBy(0.2, cc.p(0, 55))
@@ -516,8 +536,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-        // cc.log("onTouchBegan root");
-
         //save current touch position to set password container relative to accountButton
         targetNode._currentTouchPos = touch.getLocation();
 

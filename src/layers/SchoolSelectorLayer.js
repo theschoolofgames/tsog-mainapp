@@ -43,7 +43,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                                 self.schoolName = [];
                                 self.createSchoolButton();
                                 self.createScrollView();
-
+                                self.addArrowImage();
                                 SchoolSelectorLayer.loadedData = true;
                             }
                         });
@@ -62,6 +62,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                             self.createSearchArea();
                             self.createSchoolButton();
                             self.createScrollView();
+                            self.addArrowImage();
                         }
                     });
                 })));
@@ -77,6 +78,25 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     resetAllChildren: function() {
         this.schoolBtn = [];
+    },
+
+    addArrowImage: function() {
+        var leftArrowImg = new cc.Sprite("#arrow-left.png");
+        leftArrowImg.x = leftArrowImg.width;
+        leftArrowImg.y = cc.winSize.height / 2;
+
+        var rightArrowImg = new cc.Sprite("#arrow-right.png");
+        rightArrowImg.x = cc.winSize.width - rightArrowImg.width;
+        rightArrowImg.y = cc.winSize.height / 2;
+
+        if (cc.winSize.width/cc.winSize.height < IPHONE_RESOLUTION) {
+            leftArrowImg.setScaleX(0.8);
+            rightArrowImg.setScaleX(0.8);
+        }
+
+
+        this.addChild(leftArrowImg);
+        this.addChild(rightArrowImg);
     },
 
     createBackground: function() {

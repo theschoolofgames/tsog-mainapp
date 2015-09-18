@@ -107,7 +107,17 @@ var TREE_POSITIONS = [
     {isTopRow: false, x : -40, flowerOffsetX: 10, flowerOffsetY: -62 }
 ];
 
+var ACCOUNT_TABLE_NAME = [
+    "DAVID",
+    "HANA",
+    "MARVIN",
+    "NICK",
+    "STEFAN",
+    "TONY"
+];
+
 var NUMBER_OF_TREES = 20;
+var IPHONE_RESOLUTION = 16/9;
 // String
 
 var STRING_SCHOOL_DATA  = "school_data";
