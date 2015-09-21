@@ -107,7 +107,7 @@ var TREE_POSITIONS = [
     {isTopRow: false, x : -40, flowerOffsetX: 10, flowerOffsetY: -62 }
 ];
 
-var ACCOUNT_TABLE_NAME = [
+var ACCOUNT_LABEL_NAME = [
     "DAVID GUETTA",
     "HANA MAXCOVA",
     "MARVIN PUTIN",
