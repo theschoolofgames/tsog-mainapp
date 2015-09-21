@@ -108,12 +108,12 @@ var TREE_POSITIONS = [
 ];
 
 var ACCOUNT_TABLE_NAME = [
-    "DAVID",
-    "HANA",
-    "MARVIN",
-    "NICK",
-    "STEFAN",
-    "TONY"
+    "DAVID GUETTA",
+    "HANA MAXCOVA",
+    "MARVIN PUTIN",
+    "NICK CHICKEN",
+    "STEFAN SONGOHAN",
+    "TONY SLARK"
 ];
 
 var NUMBER_OF_TREES = 20;

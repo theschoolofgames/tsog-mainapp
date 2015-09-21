@@ -16,6 +16,7 @@ var MainScreenLayer = cc.Layer.extend({
             1 is logged in
         */
         cc.log("isLoggedIn " + this._isLoggedIn);
+            // cc.director.replaceScene(new SchoolSelectorScene());
         if (this._isLoggedIn == 0 ) {
             this.schLayer = new SchoolSelectorLayer();
             this.addChild(this.schLayer);

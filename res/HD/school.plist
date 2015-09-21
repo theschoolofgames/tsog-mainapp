@@ -4,6 +4,32 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>arrow-left.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1623,106},{124,190}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{124,190}}</string>
+                <key>sourceSize</key>
+                <string>{124,190}</string>
+            </dict>
+            <key>arrow-right.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1749,106},{124,190}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{124,190}}</string>
+                <key>sourceSize</key>
+                <string>{124,190}</string>
+            </dict>
             <key>school_bg-1.png</key>
             <dict>
                 <key>frame</key>
@@ -33,7 +59,7 @@
             <key>search_button-pressed.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1623,260},{147,152}}</string>
+                <string>{{1623,298},{147,152}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -46,7 +72,7 @@
             <key>search_button.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1623,106},{147,152}}</string>
+                <string>{{1772,298},{147,152}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -79,7 +105,7 @@
             <key>size</key>
             <string>{2417,482}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:315ce79545a7b6499f74467bc7c8188c:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:30476dde0cbd5a6e8f07aa8c8cb1845b:89b10d3db315a0610d86d06f0b9ee1b2:460636a2bd1f8b9cfb9a67cc309a23db$</string>
             <key>textureFileName</key>
             <string>school.png</string>
         </dict>

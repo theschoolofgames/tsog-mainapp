@@ -95,31 +95,40 @@ var AccountSelectorLayer = cc.Layer.extend({
         }, this);
     },
 
-    addAccountTableName: function(account) {
-        var accountTableName = new cc.Sprite("#table-name.png");
-        accountTableName.x = account.width / 2;
-        accountTableName.y = accountTableName.height/2;
-        //add name to the table
-        this.addTableName(accountTableName);
-        account.addChild(accountTableName);
+    addAccountLabelName: function(account) {
+        var addAccountLabelName = new cc.Sprite("#table-name.png");
+        addAccountLabelName.x = account.width / 2;
+        addAccountLabelName.y = addAccountLabelName.height/2 - 5;
+        //add name to label
+        this.addAccountName(addAccountLabelName);
+        account.addChild(addAccountLabelName);
     },
 
-    addTableName: function(accountTableName) {
+    addAccountName: function(addAccountLabelName) {
         var randomedNameIndex = Math.floor(Math.random() * ACCOUNT_TABLE_NAME.length);
         var randomedName = ACCOUNT_TABLE_NAME[randomedNameIndex];
 
-        var font = SCHOOL_NAME_COLOR[1];
+        var accountNameFontDef = new cc.FontDefinition();
+        accountNameFontDef.fontName = "Arial Rounded MT Bold";
+        accountNameFontDef.fontSize = 16;
+        accountNameFontDef.fillStyle = cc.color("#fffcae");
+        accountNameFontDef.boundingWidth = addAccountLabelName.width - 20;
+        accountNameFontDef.boundingHeight = addAccountLabelName.height - 10;
+        accountNameFontDef.shadowEnabled = true;
+        accountNameFontDef.shadowOffsetX = 0;
+        accountNameFontDef.shadowOffsetY = -2;
+        accountNameFontDef.shadowBlur = 1;
+        accountNameFontDef.shadowOpacity = 0.2;
 
-        var tableName = new cc.LabelBMFont(randomedName,
-                            font,
-                            accountTableName.width*1.5,
-                            cc.TEXT_ALIGNMENT_CENTER);
+        var accountName = new cc.LabelTTF(randomedName, accountNameFontDef);
 
-        tableName.setScale(0.35);
-        tableName.x = accountTableName.width/2;
-        tableName.y = accountTableName.height/2 + 3;
+        fontDimensions = cc.size(accountName.width * 0.75, accountName.height);
+        accountName.setDimensions(fontDimensions);
+        accountName.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        accountName.x = addAccountLabelName.width/2;
+        accountName.y = addAccountLabelName.height/2 - 2;
 
-        accountTableName.addChild(tableName);
+        addAccountLabelName.addChild(accountName);
     },
 
     createAvatar: function(avatarID, parent) {
@@ -264,7 +273,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             var accountButton = this.createAccountButton(accountData[i],
                                     tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                     tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
-            this.addAccountTableName(accountButton);
+            this.addAccountLabelName(accountButton);
 
             subNode = new cc.Node();
 
