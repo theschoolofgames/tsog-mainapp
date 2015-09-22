@@ -37,6 +37,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
                         RequestsManager.getInstance().getSchools(function(succeed, data) {
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
+                                SchoolSelectorLayer.loadedData = true;
+                                if (JSON.stringify(schoolData) === JSON.stringify(data))
+                                    return;
+
                                 DataManager.getInstance().setSchoolData(data);
                                 self._scrollView.removeFromParent();
                                 self.schoolBtn = [];
@@ -44,7 +48,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
                                 self.createSchoolButton();
                                 self.createScrollView();
                                 self.addArrowImage();
-                                SchoolSelectorLayer.loadedData = true;
                             }
                         });
                     })));

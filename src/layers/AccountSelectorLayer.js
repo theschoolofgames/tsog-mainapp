@@ -52,6 +52,10 @@ var AccountSelectorLayer = cc.Layer.extend({
                         RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
+                                AccountSelectorLayer.loadedDataIds.push(self._schoolId);
+                                if (JSON.stringify(accountData) === JSON.stringify(data))
+                                    return;
+
                                 DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
                                 self._scrollView.removeFromParent();
                                 self.createScrollView();
@@ -61,7 +65,6 @@ var AccountSelectorLayer = cc.Layer.extend({
                                 self.createTrees();
                                 self.createMaskLayer();
 
-                                AccountSelectorLayer.loadedDataIds.push(self._schoolId);
                             }
                         });
                     })));

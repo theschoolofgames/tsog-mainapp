@@ -41,12 +41,14 @@ var GameSelectorLayer = cc.Layer.extend({
                         RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
+                                GameSelectorLayer.loadedDataIds.push(self._userId);
+                                if (JSON.stringify(accountData) === JSON.stringify(data))
+                                    return;
+
                                 DataManager.getInstance().setGameData(self._userId, data.games);
                                 self._scrollView.removeFromParent();
                                 self.createScrollViewContainer();
                                 self.createScrollView();
-
-                                GameSelectorLayer.loadedDataIds.push(self._userId);
                             }
                         });
                     })));
