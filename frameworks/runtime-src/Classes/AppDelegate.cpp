@@ -33,6 +33,10 @@
 #include "experimental/jsb_cocos2dx_experimental_webView_manual.h"
 #endif
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#include "jsb_cocos2dx_audioengine_auto.hpp"
+#endif
+
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include "platform/android/CCJavascriptJavaBridge.h"
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
@@ -98,6 +102,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     // ui can be commented out to reduce the package, attension studio need ui module
     sc->addRegisterCallback(register_all_cocos2dx_ui);
     sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
+    
+    // LWF
+    sc->addRegisterCallback(register_all_lwf);
 
     // studio can be commented out to reduce the package, 
 //    sc->addRegisterCallback(register_all_cocos2dx_studio);
@@ -126,9 +133,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 //    sc->addRegisterCallback(register_all_cocos2dx_physics3d);
 //    sc->addRegisterCallback(register_all_cocos2dx_physics3d_manual);
 #endif
-    
-    // LWF
-    sc->addRegisterCallback(register_all_lwf);
 
 #if CC_USE_NAVMESH
     sc->addRegisterCallback(register_all_cocos2dx_navmesh);
@@ -140,6 +144,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(register_all_cocos2dx_experimental_video_manual);
     sc->addRegisterCallback(register_all_cocos2dx_experimental_webView);
     sc->addRegisterCallback(register_all_cocos2dx_experimental_webView_manual);
+#endif
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+    sc->addRegisterCallback(register_all_cocos2dx_audioengine);
 #endif
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
