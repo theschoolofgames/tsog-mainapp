@@ -192,7 +192,15 @@ ccs.BoneNode = (function () {
         },
 
         setBlendFunc: function (blendFunc) {
-            this._blendFunc = blendFunc;
+            var ob = this._blendFunc;
+            if(blendFunc && ob.src !== blendFunc.src && ob.dst !== blendFunc.dst){
+                this._blendFunc = blendFunc;
+                var boneSkins = this._boneSkins;
+                for (var boneSkin, i = 0; i < boneSkins.length; i++) {
+                    boneSkin = boneSkins[i];
+                    boneSkin.setBlendFunc(blendFunc);
+                }
+            }
         },
 
         getBlendFunc: function () {
@@ -436,6 +444,11 @@ ccs.BoneNode = (function () {
 
         _addToSkinList: function (skin) {
             this._boneSkins.push(skin);
+            if (skin.getBlendFunc){
+                var blendFunc = skin.getBlendFunc();
+                if(this._blendFunc.src !== blendFunc.src && this._blendFunc.dst !== blendFunc.dst)
+                    skin.setBlendFunc(this._blendFunc);
+            }
         },
 
         _removeFromSkinList: function (skin) {
@@ -519,7 +532,7 @@ ccs.BoneNode = (function () {
 
         proto.visit = function (parentCmd) {
             var node = this._node;
-            node._visit(parentCmd);
+            node._visit && node._visit(parentCmd);
         };
         proto.updateDebugPoint = function (points) {
             this._drawNode.clear();
@@ -551,7 +564,8 @@ ccs.BoneNode = (function () {
         proto.constructor = BoneNodeWebGLCmd;
 
         proto.visit = function (parentCmd) {
-            this._node._visit(parentCmd);
+            var node = this._node;
+            node._visit && node._visit(parentCmd);
         };
         proto.updateDebugPoint = function (points) {
             this._drawNode.clear();

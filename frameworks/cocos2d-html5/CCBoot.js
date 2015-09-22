@@ -365,6 +365,8 @@ cc.async = /** @lends cc.async# */{
  * @class
  */
 cc.path = /** @lends cc.path# */{
+    normalizeRE: /[^\.\/]+\/\.\.\//,
+
     /**
      * Join strings to be a path.
      * @example
@@ -501,6 +503,17 @@ cc.path = /** @lends cc.path# */{
         index = pathStr.lastIndexOf("/");
         index = index <= 0 ? 0 : index + 1;
         return pathStr.substring(0, index) + basename + ext + tempStr;
+    },
+    //todo make public after verification
+    _normalize: function(url){
+        var oldUrl = url = String(url);
+
+        //removing all ../
+        do {
+            oldUrl = url;
+            url = url.replace(this.normalizeRE, "");
+        } while(oldUrl.length !== url.length);
+        return url;
     }
 };
 //+++++++++++++++++++++++++something about path end++++++++++++++++++++++++++++++++
@@ -1577,28 +1590,6 @@ cc._initSys = function (config, CONFIG_KEY) {
      */
     sys.language = currLanguage;
 
-    var browserType = sys.BROWSER_TYPE_UNKNOWN;
-    var browserTypes = ua.match(/sogou|qzone|liebao|micromessenger|qqbrowser|ucbrowser|360 aphone|360browser|baiduboxapp|baidubrowser|maxthon|trident|oupeng|opera|miuibrowser|firefox/i)
-        || ua.match(/chrome|safari/i);
-    if (browserTypes && browserTypes.length > 0) {
-        browserType = browserTypes[0];
-        if (browserType === 'micromessenger') {
-            browserType = sys.BROWSER_TYPE_WECHAT;
-        } else if (browserType === "safari" && (ua.match(/android.*applewebkit/)))
-            browserType = sys.BROWSER_TYPE_ANDROID;
-        else if (browserType === "trident") browserType = sys.BROWSER_TYPE_IE;
-        else if (browserType === "360 aphone") browserType = sys.BROWSER_TYPE_360;
-    }else if(ua.indexOf("iphone") && ua.indexOf("mobile")){
-        browserType = "safari";
-    }
-    /**
-     * Indicate the running browser type
-     * @memberof cc.sys
-     * @name browserType
-     * @type {String}
-     */
-    sys.browserType = browserType;
-
     // Get the os of system
     var iOS = ( ua.match(/(iPad|iPhone|iPod)/i) ? true : false );
     var isAndroid = ua.match(/android/i) || nav.platform.match(/android/i) ? true : false;
@@ -1618,13 +1609,88 @@ cc._initSys = function (config, CONFIG_KEY) {
      */
     sys.os = osName;
 
-    var multipleAudioWhiteList = [
-        sys.BROWSER_TYPE_BAIDU, sys.BROWSER_TYPE_OPERA, sys.BROWSER_TYPE_FIREFOX, sys.BROWSER_TYPE_CHROME, sys.BROWSER_TYPE_BAIDU_APP,
-        sys.BROWSER_TYPE_SAFARI, sys.BROWSER_TYPE_UC, sys.BROWSER_TYPE_QQ, sys.BROWSER_TYPE_MOBILE_QQ, sys.BROWSER_TYPE_IE
-    ];
+    /* Determine the browser type */
+    var browserType = sys.BROWSER_TYPE_UNKNOWN;
+    var browserTypes = ua.match(/sogou|qzone|liebao|micromessenger|qqbrowser|ucbrowser|360 aphone|360browser|baiduboxapp|baidubrowser|maxthon|trident|oupeng|opera|miuibrowser|firefox/i)
+        || ua.match(/chrome|safari/i);
+    if (browserTypes && browserTypes.length > 0) {
+        browserType = browserTypes[0];
+        if (browserType === 'micromessenger') {
+            browserType = sys.BROWSER_TYPE_WECHAT;
+        } else if (browserType === "safari" && (ua.match(/android.*applewebkit/)))
+            browserType = sys.BROWSER_TYPE_ANDROID;
+        else if (browserType === "trident") browserType = sys.BROWSER_TYPE_IE;
+        else if (browserType === "360 aphone") browserType = sys.BROWSER_TYPE_360;
+    }else if(ua.indexOf("iphone") && ua.indexOf("mobile")){
+        browserType = sys.BROWSER_TYPE_SAFARI;
+    }
 
-    sys._supportMultipleAudio = multipleAudioWhiteList.indexOf(sys.browserType) > -1;
+    /* Determine the browser version number */
+    var browserVersion, tmp = null;
+    switch(browserType){
+        case sys.BROWSER_TYPE_IE:
+            tmp = ua.match(/(msie |rv:)([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_FIREFOX:
+            tmp = ua.match(/(firefox\/|rv:)([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_CHROME:
+            tmp = ua.match(/chrome\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_BAIDU:
+            tmp = ua.match(/baidubrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_UC:
+            tmp = ua.match(/ucbrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_QQ:
+            tmp = ua.match(/qqbrowser\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_OUPENG:
+            tmp = ua.match(/oupeng\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_WECHAT:
+            tmp = ua.match(/micromessenger\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_SAFARI:
+            tmp = ua.match(/safari\/([\d.]+)/);
+            break;
+        case sys.BROWSER_TYPE_MIUI:
+            tmp = ua.match(/miuibrowser\/([\d.]+)/);
+            break;
+    }
+    browserVersion = tmp ? tmp[1] : "";
 
+    /**
+     * Indicate the running browser type
+     * @memberof cc.sys
+     * @name browserType
+     * @type {String}
+     */
+    sys.browserType = browserType;
+
+    /**
+     * Indicate the running browser version
+     * @memberof cc.sys
+     * @name browserVersion
+     * @type {Number}
+     */
+    sys.browserVersion = browserVersion;
+
+    var w = window.innerWidth || document.documentElement.clientWidth;
+    var h = window.innerHeight || document.documentElement.clientHeight;
+    var ratio = window.devicePixelRatio || 1;
+
+    /**
+     * Indicate the real pixel resolution of the whole game window
+     * @memberof cc.sys
+     * @name windowPixelResolution
+     * @type {Number}
+     */
+    sys.windowPixelResolution = {
+        width: ratio * w,
+        height: ratio * h
+    };
 
     //++++++++++++++++++something about cc._renderTYpe and cc._supportRender begin++++++++++++++++++++++++++++
 
@@ -1682,14 +1748,6 @@ cc._initSys = function (config, CONFIG_KEY) {
     sys._supportCanvasNewBlendModes = sys._canUseCanvasNewBlendModes();
 
     //++++++++++++++++++something about cc._renderType and cc._supportRender end++++++++++++++++++++++++++++++
-
-    // check if browser supports Web Audio
-    // check Web Audio's context
-    try {
-        sys._supportWebAudio = !!(win.AudioContext || win.webkitAudioContext || win.mozAudioContext);
-    } catch (e) {
-        sys._supportWebAudio = false;
-    }
 
     /**
      * cc.sys.localStorage is a local storage component.

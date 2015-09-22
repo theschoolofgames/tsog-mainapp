@@ -41,7 +41,11 @@
         },
 
         getNodeJson: function(json){
-            return json["Content"]["Content"]["ObjectData"];
+            var content = json["Content"];
+            if(content["ObjectData"])
+                return content["ObjectData"];
+
+            return content["Content"]["ObjectData"];
         },
 
         getClass: function(json){
@@ -1292,12 +1296,18 @@
             node.setBlendFunc(new cc.BlendFunc(blendFunc["Src"] || 0, blendFunc["Dst"] || 0));
 
         parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
         return node;
     };
 
     parser.initSkeletonNode = function(json){
         var node = new ccs.SkeletonNode();
         parser.generalAttributes(node, json);
+        var color = json["CColor"];
+        if(color && (color["R"] !== undefined || color["G"] !== undefined || color["B"] !== undefined))
+            node.setColor(getColor(color));
         return node;
     };
 

@@ -5,8 +5,8 @@
              classpath="./compiler/compiler.jar"/>
     <target name="compile">
         <jscomp compilationLevel="simple" warning="quiet"
-                debug="false" output="./../lib/cocos2d-js-v3.7.1-min.js">
-            <!--sourceMapOutputFile="./../lib/cocos2d-js-v3.7.1-sourcemap" sourceMapFormat="V3" -->
+                debug="false" output="./../lib/cocos2d-js-v3.8-min.js">
+            <!--sourceMapOutputFile="./../lib/cocos2d-js-v3.8-sourcemap" sourceMapFormat="V3" -->
             <sources dir="./../">
                 <file name="Base64Images.js"/>
                 <file name="CCBoot.js"/>
@@ -75,6 +75,7 @@
                 <file name="cocos2d/core/sprites/CCSpriteBatchNodeWebGLRenderCmd.js"/>
                 <file name="cocos2d/core/CCConfiguration.js"/>
                 <file name="cocos2d/core/CCDirector.js"/>
+                <file name="cocos2d/core/CCDirectorCanvas.js"/>
                 <file name="cocos2d/core/CCDirectorWebGL.js"/>
                 <file name="cocos2d/core/CCCamera.js"/>
                 <file name="cocos2d/core/CCScheduler.js"/>
@@ -272,6 +273,9 @@
                 <file name="extensions/cocostudio/timeline/ActionTimeline.js"/>
                 <file name="extensions/cocostudio/timeline/Frame.js"/>
                 <file name="extensions/cocostudio/timeline/Timeline.js"/>
+                <file name="extensions/cocostudio/timeline/CCSkinNode.js"/>
+                <file name="extensions/cocostudio/timeline/CCBoneNode.js"/>
+                <file name="extensions/cocostudio/timeline/CCSkeletonNode.js"/>
                 <file name="extensions/cocostudio/loader/load.js"/>
                 <file name="extensions/cocostudio/loader/parsers/action-1.x.js"/>
                 <file name="extensions/cocostudio/loader/parsers/action-2.x.js"/>
@@ -300,8 +304,8 @@
 
     <target name="compile_core">
         <jscomp compilationLevel="simple" warning="quiet"
-                debug="false" output="./../lib/cocos2d-js-v3.7.1-core-min.js">
-            <!--sourceMapOutputFile="./../lib/cocos2d-js-v3.7.1-core-sourcemap" sourceMapFormat="V3" -->
+                debug="false" output="./../lib/cocos2d-js-v3.8-core-min.js">
+            <!--sourceMapOutputFile="./../lib/cocos2d-js-v3.8-core-sourcemap" sourceMapFormat="V3" -->
             <sources dir="./../">
                 <file name="CCBoot.js"/>
                 <file name="cocos2d/core/platform/CCClass.js"/>
