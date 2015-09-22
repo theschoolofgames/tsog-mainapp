@@ -4,20 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>icon-game-default.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
-            <key>icon-game-shadow.png</key>
+            <key>icon-game-default-1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,2},{256,256}}</string>
@@ -30,10 +17,36 @@
                 <key>sourceSize</key>
                 <string>{256,256}</string>
             </dict>
+            <key>icon-game-default.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{260,2},{256,256}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,1},{256,256}}</string>
+                <key>sourceSize</key>
+                <string>{256,258}</string>
+            </dict>
+            <key>icon-game-shadow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{518,2},{256,256}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{256,256}}</string>
+                <key>sourceSize</key>
+                <string>{256,256}</string>
+            </dict>
             <key>pin.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{518,2},{44,63}}</string>
+                <string>{{776,2},{44,63}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -51,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>game.png</string>
             <key>size</key>
-            <string>{564,260}</string>
+            <string>{822,260}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d90081b21d6c988d7559cb2d3fba4433:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:ccd3e538f74d0f77afb6d922a2d6f4db:625a788eac1574322b748039bd9c73da:6f4c536624696814219c1486f93e8c0a$</string>
             <key>textureFileName</key>
             <string>game.png</string>
         </dict>
