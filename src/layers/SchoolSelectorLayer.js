@@ -310,9 +310,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
     _getBtnPosition: function(index) {
         var x = Math.floor(index / this._rows);
         var y = (index % this._cols);
-        var posX = cc.winSize.width * (0.25 + x/2);
+        var posX = cc.winSize.width * (0.3 + x/2.5);
         var posY = cc.winSize.height * (1 - 1/3 * (y+1));
-
+        cc.log("posX: " + posX + "- posY: " + posY);
         return {
             x: posX,
             y: posY
@@ -335,8 +335,13 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
         var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
 
-        if(sqrDistance > 9)
+        if(sqrDistance > 9) {
+            if (!targetNode._isTouchMoved) {
+                cc.audioEngine.end();
+                cc.audioEngine.playEffect(res.bubble_scroll_sound_mp3);
+            }
             targetNode._isTouchMoved = true;
+        }
 
         return true;
     }
