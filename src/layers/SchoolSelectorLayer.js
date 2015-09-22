@@ -146,14 +146,26 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             this.schoolName.push(i);
 
+            // add bubble effect
             var delayTime = i * DELTA_DELAY_TIME;
-
             if (i < 4)
                 this.addObjectAction(schoolButton, delayTime, function(){
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
                 });
             else
                 this.addObjectAction(schoolButton, delayTime, function(){});
+
+            schoolButton.runAction(
+                cc.repeatForever(
+                    cc.sequence(
+                            cc.delayTime(0),
+                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
+                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
+                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
+                            cc.moveTo(1.5, schoolButton.getPosition())
+                        )
+                )
+            )
             //add event listener
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
@@ -312,11 +324,19 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var y = (index % this._cols);
         var posX = cc.winSize.width * (0.3 + x/2.5);
         var posY = cc.winSize.height * (1 - 1/3 * (y+1));
-        cc.log("posX: " + posX + "- posY: " + posY);
+
         return {
             x: posX,
             y: posY
         }
+    },
+    // get random position to make different between school button
+    getRandomedPosition: function(schoolButton) {
+        var randomedValueX = Math.random() * 20 - 10;
+        var randomedValueY = Math.random() * 20 - 10;
+        var randomedPos =  cc.p(schoolButton.x + randomedValueX, schoolButton.y + randomedValueY);
+
+        return randomedPos;
     },
 
     onTouchBegan: function(touch, event) {
