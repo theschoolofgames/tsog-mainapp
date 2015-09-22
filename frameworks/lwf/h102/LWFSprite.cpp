@@ -16,7 +16,9 @@ namespace h102 {
         if (sprite && sprite->init(filepath)) {
             sprite->autorelease();
             
-            sprite->lwf->FitForWidth(sprite->lwf->width/2, sprite->lwf->height/2);
+            Size visibleSize = Director::getInstance()->getVisibleSize();
+
+            sprite->lwf->FitForWidth(visibleSize.width, visibleSize.height);
             sprite->setContentSize(Size(sprite->lwf->width*sprite->lwf->scaleByStage, sprite->lwf->height*sprite->lwf->scaleByStage));
             
             return sprite;
@@ -24,7 +26,6 @@ namespace h102 {
         CC_SAFE_DELETE(sprite);
         return NULL;
     }
-    
     
     LWFSprite::LWFSprite() : LWFNode()
     {

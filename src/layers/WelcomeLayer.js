@@ -13,16 +13,16 @@ var WelcomeLayer = cc.LayerColor.extend({
         lwfSprite.setAnchorPoint(cc.p(0.5, 0.5));
         lwfSprite.x = cc.winSize.width*0.5;
         lwfSprite.y = cc.winSize.height*0.5;
-        lwfSprite.scale = cc.winSize.width / lwfSprite.getContentSize().width;
+        // lwfSprite.scale = cc.winSize.width / lwfSprite.getContentSize().width;
         this.addChild(lwfSprite);
 	},
 
 	moveToMainScene: function() {
 
 		this.runAction(cc.sequence(
-			cc.delayTime(5),
+			cc.delayTime(10),
 			cc.callFunc(function() {
-                cc.director.runScene(new cc.TransitionFade(2, new GameSelectorScene(), cc.color(255, 255, 255, 255)));
+                cc.director.runScene(new cc.TransitionFade(1, new GameSelectorScene(), cc.color(255, 255, 255, 255)));
 			}, this)
 		));
 	}
