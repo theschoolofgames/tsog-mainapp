@@ -19,7 +19,7 @@ Utils.removeLoadingIndicatorLayer = function() {
         layer.removeFromParent();    
 }
 
-Utils.loadImg = function(imgUrl, spriteNode) {
+Utils.loadImg = function(imgUrl, spriteNode, cb) {
     if (!spriteNode) return;
 
     var oldWidth = spriteNode.getBoundingBox().width;

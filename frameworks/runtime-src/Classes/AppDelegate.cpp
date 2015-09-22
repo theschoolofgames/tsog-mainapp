@@ -163,6 +163,9 @@ bool AppDelegate::applicationDidFinishLaunching()
     ScriptEngineProtocol *engine = ScriptingCore::getInstance();
     ScriptEngineManager::getInstance()->setScriptEngine(engine);
     ScriptingCore::getInstance()->runScript("main.js");
+  
+  auto console = director->getConsole();
+  console->listenOnTCP(6050);
 
     return true;
 }

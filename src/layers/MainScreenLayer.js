@@ -26,7 +26,8 @@ var MainScreenLayer = cc.Layer.extend({
                 cc.sequence(
                     cc.delayTime(0),
                     cc.callFunc(function() {
-                        cc.director.replaceScene(new WelcomeScene());
+                        // cc.director.replaceScene(new WelcomeScene());
+                        cc.director.replaceScene(new GameSelectorScene());
                     })
                 ))
         }

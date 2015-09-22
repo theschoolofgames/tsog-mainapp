@@ -157,16 +157,9 @@ var GameSelectorLayer = cc.Layer.extend({
                                                 data.ios_bundle,
                                                 Base64.encode(sendData));
             });
-            // icon animate
-            btnGame.scale = 0.01;
-            btnGame.runAction(
-                cc.sequence(
-                    cc.delayTime(i* 0.1),
-                    cc.scaleTo(0.5, 0.65).easing(cc.easeElasticOut(0.6))
-                ));
-
-            this._scrollViewContainer.addChild(btnGame, 1);
+            btnGame.scale = 1.35;
             Utils.loadImg(gameData[i].icon, btnGame);
+            this._scrollViewContainer.addChild(btnGame, 1);
 
             var btnShadow = new cc.Sprite("#icon-game-shadow.png");
             btnShadow.x = posX;
@@ -186,12 +179,23 @@ var GameSelectorLayer = cc.Layer.extend({
             lbName.y = posY - 120;
             this._scrollViewContainer.addChild(lbName);
 
+            var btnAction = cc.sequence(
+                cc.delayTime(i* 0.1),
+                cc.scaleTo(0.5, btnGame.scale).easing(cc.easeElasticOut(0.6))
+            );
+
             pin.scale = 0.01;
-            pin.runAction(
-                cc.sequence(
-                    cc.delayTime(i* 0.1),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-                ));
+            btnGame.scale = 0.01;
+            btnShadow.scale = 0.01;
+
+            // btnGame.visible = false;
+
+            pin.runAction(btnAction.clone());
+            btnGame.runAction(btnAction.clone());
+            btnShadow.runAction(cc.sequence(
+                cc.delayTime(i* 0.1),
+                cc.scaleTo(0.5, 1.35).easing(cc.easeElasticOut(0.6))
+            ));            
         }
     },
 
