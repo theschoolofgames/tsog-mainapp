@@ -105,7 +105,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     addAccountName: function(addAccountLabelName) {
-        var randomedNameIndex = Math.floor(Math.random() * ACCOUNT_TABLE_NAME.length);
+        var randomedNameIndex = Math.floor(Math.random() * ACCOUNT_LABEL_NAME.length);
         var randomedName = ACCOUNT_LABEL_NAME[randomedNameIndex];
 
         var accountNameFontDef = new cc.FontDefinition();

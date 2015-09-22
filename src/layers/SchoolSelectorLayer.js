@@ -26,7 +26,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.createSearchArea();
             this.createSchoolButton();
             this.createScrollView();
-
+            this.addArrowImage();
             if (!SchoolSelectorLayer.loadedData) {
                 this.runAction(cc.sequence(
                     cc.delayTime(0),
