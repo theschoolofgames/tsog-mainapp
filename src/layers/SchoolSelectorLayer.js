@@ -158,12 +158,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                            cc.delayTime(0),
-                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
-                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
-                            cc.moveTo(1.5, this.getRandomedPosition(schoolButton)),
-                            cc.moveTo(1.5, schoolButton.getPosition())
-                        )
+                        cc.delayTime(0),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
+                        cc.moveTo(MOVE_DELAY_TIME, schoolButton.getPosition())
+                    )
                 )
             )
             //add event listener

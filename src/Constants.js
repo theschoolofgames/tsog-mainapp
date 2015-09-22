@@ -2,6 +2,7 @@ var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://192.168.2.108:3000/";
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
+var MOVE_DELAY_TIME = 1.5;
 
 SCHOOL_INFO = [
     {
