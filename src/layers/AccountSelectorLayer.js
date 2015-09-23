@@ -42,7 +42,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             this.createTrees();
             this.createMaskLayer();
 
-            if (AccountSelectorLayer.loadedDataIds.indexOf(this._schoolId) >= 0) {
+            if (AccountSelectorLayer.loadedDataIds.indexOf(this._schoolId) == -1) {
                 this.runAction(cc.sequence(
                     cc.delayTime(0),
                     cc.callFunc(function() {
@@ -53,7 +53,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
                                 AccountSelectorLayer.loadedDataIds.push(self._schoolId);
-                                if (JSON.stringify(accountData) === JSON.stringify(data))
+                                if (JSON.stringify(accountData) === JSON.stringify(data.accounts))
                                     return;
 
                                 DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
@@ -98,40 +98,38 @@ var AccountSelectorLayer = cc.Layer.extend({
         }, this);
     },
 
-    addAccountLabelName: function(account) {
-        var addAccountLabelName = new cc.Sprite("#table-name.png");
-        addAccountLabelName.x = account.width / 2;
-        addAccountLabelName.y = addAccountLabelName.height/2 - 5;
+    addAccountLabelName: function(account, name) {
+        var accountLabelName = new cc.Sprite("#table-name.png");
+        accountLabelName.x = account.width / 2;
+        accountLabelName.y = accountLabelName.height/2 - 5;
         //add name to label
-        this.addAccountName(addAccountLabelName);
-        account.addChild(addAccountLabelName);
+        this.addAccountName(accountLabelName, name);
+        account.addChild(accountLabelName);
     },
 
-    addAccountName: function(addAccountLabelName) {
-        var randomedNameIndex = Math.floor(Math.random() * ACCOUNT_LABEL_NAME.length);
-        var randomedName = ACCOUNT_LABEL_NAME[randomedNameIndex];
+    addAccountName: function(accountLabelName, name) {
 
         var accountNameFontDef = new cc.FontDefinition();
         accountNameFontDef.fontName = "Arial Rounded MT Bold";
         accountNameFontDef.fontSize = 16;
         accountNameFontDef.fillStyle = cc.color("#fffcae");
-        accountNameFontDef.boundingWidth = addAccountLabelName.width - 20;
-        accountNameFontDef.boundingHeight = addAccountLabelName.height - 10;
+        accountNameFontDef.boundingWidth = accountLabelName.width - 20;
+        accountNameFontDef.boundingHeight = accountLabelName.height - 10;
         accountNameFontDef.shadowEnabled = true;
         accountNameFontDef.shadowOffsetX = 0;
         accountNameFontDef.shadowOffsetY = -2;
         accountNameFontDef.shadowBlur = 1;
         accountNameFontDef.shadowOpacity = 0.2;
 
-        var accountName = new cc.LabelTTF(randomedName, accountNameFontDef);
+        var accountName = new cc.LabelTTF(name, accountNameFontDef);
 
         fontDimensions = cc.size(accountName.width * 0.75, accountName.height);
         accountName.setDimensions(fontDimensions);
         accountName.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        accountName.x = addAccountLabelName.width/2;
-        accountName.y = addAccountLabelName.height/2 - 2;
+        accountName.x = accountLabelName.width/2;
+        accountName.y = accountLabelName.height/2 - 2;
 
-        addAccountLabelName.addChild(accountName);
+        accountLabelName.addChild(accountName);
     },
 
     createAvatar: function(avatarID, parent) {
@@ -276,7 +274,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             var accountButton = this.createAccountButton(accountData[i],
                                     tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                     tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
-            this.addAccountLabelName(accountButton);
+            this.addAccountLabelName(accountButton, accountData[i].name);
 
             subNode = new cc.Node();
 

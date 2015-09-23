@@ -31,7 +31,7 @@ var GameSelectorLayer = cc.Layer.extend({
             this.createScrollView();
             this.createUserInfoLabel();
 
-            if (GameSelectorLayer.loadedDataIds.indexOf(this._userId) >= 0) {
+            if (GameSelectorLayer.loadedDataIds.indexOf(this._userId) == -1) {
                 this.runAction(cc.sequence(
                     cc.delayTime(0),
                     cc.callFunc(function() {
@@ -42,7 +42,7 @@ var GameSelectorLayer = cc.Layer.extend({
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
                                 GameSelectorLayer.loadedDataIds.push(self._userId);
-                                if (JSON.stringify(accountData) === JSON.stringify(data))
+                                if (JSON.stringify(accountData) === JSON.stringify(data.games))
                                     return;
 
                                 DataManager.getInstance().setGameData(self._userId, data.games);
