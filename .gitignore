@@ -3,6 +3,7 @@ publish/
 simulator/
 .DS_Store
 
+frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/xcshareddata/
 frameworks/js-bindings/bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
 frameworks/js-bindings/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/
 frameworks/js-bindings/bindings/proj.ios_mac/build/
