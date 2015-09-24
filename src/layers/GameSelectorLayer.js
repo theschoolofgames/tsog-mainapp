@@ -7,6 +7,7 @@ var GameSelectorLayer = cc.Layer.extend({
     _iconGapHeight: 175,
 
     _userId: null,
+    _userName: null,
     _schoolId: null,
     _schoolName: null,
 
@@ -22,6 +23,7 @@ var GameSelectorLayer = cc.Layer.extend({
         this.addChild(bg);
 
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+        this._userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
 
         var gameData = DataManager.getInstance().getGameData(this._userId);
@@ -42,7 +44,7 @@ var GameSelectorLayer = cc.Layer.extend({
                             Utils.removeLoadingIndicatorLayer();
                             if (succeed) {
                                 GameSelectorLayer.loadedDataIds.push(self._userId);
-                                if (JSON.stringify(accountData) === JSON.stringify(data.games))
+                                if (JSON.stringify(gameData) === JSON.stringify(data.games))
                                     return;
 
                                 DataManager.getInstance().setGameData(self._userId, data.games);
@@ -77,7 +79,7 @@ var GameSelectorLayer = cc.Layer.extend({
     createUserInfoLabel: function() {
         cc.log("createUserInfoLabel");
         var schoolName = this.getSchoolName();
-        var infoString = schoolName + "\n" + this._userId;
+        var infoString = schoolName + "\n" + this._userName;
         var scrollViewContainerWorldPos = this._scrollView.convertToWorldSpace(
                                     this._scrollViewContainer.getPosition());
         var infoLabel = new cc.LabelTTF(infoString, "Arial", 32);
@@ -151,7 +153,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolName = self.getSchoolName();
 
-                var sendData = self._userId + ":" + self._schoolId + ":" + schoolName;
+                var sendData = self._userName + ":" + schoolName;
                 jsb.reflection.callStaticMethod("H102Wrapper",
                                                 "openScheme:withData:",
                                                 data.ios_bundle,

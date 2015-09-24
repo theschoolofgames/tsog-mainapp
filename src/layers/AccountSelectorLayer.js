@@ -23,7 +23,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _batchFirstItemXs: [],
 
-    _selectedUserId: null,
+    _selectedUserData: null,
 
     ctor: function () {
         this._super();
@@ -200,7 +200,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 return;
 
             self.onAvatarClicked(this);
-            self._selectedUserId = sender.userData.user_id;
+            self._selectedUserData = sender.userData;
         });
 
         return accountButton;
@@ -437,7 +437,8 @@ var AccountSelectorLayer = cc.Layer.extend({
                                                      1);
                             }
 
-                            KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserId);
+                            KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
+                            KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
                             cc.director.replaceScene(new WelcomeScene());
                         })
                     ));
