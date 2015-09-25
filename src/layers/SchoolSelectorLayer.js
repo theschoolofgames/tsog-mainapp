@@ -7,7 +7,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
     _searchField: null,
     _scrollView: null,
     _startTouchPosition: null,
-
+    _leftArrowImg: null,
+    _rightArrowImg: null,
     _isTouchMoved: false,
 
     _cols: 2,
@@ -88,11 +89,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var leftArrowImg = new cc.Sprite("#arrow-left.png");
         leftArrowImg.x = firstSchoolPos.x / 4;
         leftArrowImg.y = cc.winSize.height / 2;
-
+        this._leftArrowImg = leftArrowImg;
         var rightArrowImg = new cc.Sprite("#arrow-right.png");
         rightArrowImg.x = cc.winSize.width - firstSchoolPos.x / 4;
         rightArrowImg.y = cc.winSize.height / 2;
-
+        this._rightArrowImg = rightArrowImg;
         this.addChild(leftArrowImg);
         this.addChild(rightArrowImg);
     },
@@ -301,6 +302,21 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setTouchEnabled(true);
         this._scrollView.setSwallowTouches(false);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
+        this._scrollView.addEventListener(function(pScrollView, event) {
+            if(event == ccui.ScrollView.EVENT_BOUNCE_LEFT) {
+                self._leftArrowImg.setVisible(false);
+            };
+            if(event == ccui.ScrollView.EVENT_BOUNCE_RIGHT) {
+                self._rightArrowImg.setVisible(false);
+            };
+            if(event == ccui.ScrollView.EVENT_SCROLLING) {
+                self._leftArrowImg.setVisible(true);
+                self._rightArrowImg.setVisible(true);
+            };
+
+                
+            
+        }, this);
 
         this._scrollView.x = 0;
         this._scrollView.y = 0;
@@ -312,6 +328,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setBounceEnabled(true);
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         this._scrollView.addChild(this.schHolder);
+            
 
     },
 
