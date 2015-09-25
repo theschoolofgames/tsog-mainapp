@@ -26,7 +26,8 @@ var res = {
     // Sound
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",
-    bubble_scroll_sound_mp3: "res/sound/bubble-scroll.mp3"
+    bubble_scroll_sound_mp3: "res/sound/bubble-scroll.mp3",
+    welcome_sound_mp3: "res/sound/welcome.mp3"
 };
 
 var g_resources = [];

@@ -5,10 +5,11 @@ var WelcomeLayer = cc.LayerColor.extend({
 
 		this.addWelcomeCutscene();
 		this.moveToMainScene();
+
+	    cc.audioEngine.playMusic(res.welcome_sound_mp3);
 	},
 
 	addWelcomeCutscene: function() {
-		
         var lwfSprite = cc.LWFSprite.create("welcome.lwf");
         lwfSprite.setAnchorPoint(cc.p(0.5, 0.5));
         lwfSprite.x = cc.winSize.width*0.5;
@@ -20,7 +21,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 	moveToMainScene: function() {
 
 		this.runAction(cc.sequence(
-			cc.delayTime(10),
+			cc.delayTime(5.5),
 			cc.callFunc(function() {
                 cc.director.runScene(new cc.TransitionFade(1, new GameSelectorScene(), cc.color(255, 255, 255, 255)));
 			}, this)

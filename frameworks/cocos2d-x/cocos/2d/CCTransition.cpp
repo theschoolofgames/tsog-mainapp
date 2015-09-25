@@ -1215,7 +1215,7 @@ TransitionFade * TransitionFade::create(float duration, Scene *scene, const Colo
 
 TransitionFade* TransitionFade::create(float duration,Scene* scene)
 {
-    return TransitionFade::create(duration, scene, Color3B::BLACK);
+    return TransitionFade::create(duration, scene, Color3B::WHITE);
 }
 
 bool TransitionFade::initWithDuration(float duration, Scene *scene, const Color3B& color)

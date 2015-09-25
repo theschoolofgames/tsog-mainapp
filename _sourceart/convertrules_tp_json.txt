@@ -1,0 +1,1 @@
+*.swf,.png,#{TEXTUREPACKER} --format json --data #{dst}.json --sheet #{dst}.png #{src} --max-size 4096 --opt RGBA8888 --dither-fs-alpha --border-padding 4 --shape-padding 4 --padding 4 --scale #{scale} --disable-rotation --size-constraints AnySize --inner-padding 4 	--maxrects-heuristics best --reduce-border-artifacts
