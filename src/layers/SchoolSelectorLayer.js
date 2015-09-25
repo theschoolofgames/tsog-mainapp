@@ -314,21 +314,21 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 self._rightArrowImg.setVisible(true);
             };
 
-                
-            
+
+
         }, this);
 
         this._scrollView.x = 0;
         this._scrollView.y = 0;
         self.addChild(this._scrollView);
 
-        var innerWidth = Math.ceil(this.schoolBtn.length / 4) * cc.winSize.width;
+        var innerWidth = Math.ceil(this.schoolBtn.length / 2) * cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
 
         this._scrollView.setBounceEnabled(true);
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         this._scrollView.addChild(this.schHolder);
-            
+
 
     },
 

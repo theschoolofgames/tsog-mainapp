@@ -211,11 +211,11 @@ var AccountSelectorLayer = cc.Layer.extend({
         var node = new cc.Node();
 
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-
-        for ( var i = -1; i < accountData.length/6; i++) {
+        var numberOfGround = Math.ceil(accountData.length/6);
+        for ( var i = -1; i < numberOfGround; i++) {
             ground = new cc.Sprite("#ground.png");
             ground.setAnchorPoint(0, 0);
-            ground.x = i * (ground.width - 3);
+            ground.x = i * (ground.width - 5);
             ground.y = -ground.height/2;
             ground.flippedX = i%2 == 0;
 
