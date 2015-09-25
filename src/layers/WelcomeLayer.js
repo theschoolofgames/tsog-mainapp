@@ -9,7 +9,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 
 	addWelcomeCutscene: function() {
 		
-        var lwfSprite = lwf.Sprite.create("welcome.lwf");
+        var lwfSprite = cc.LWFSprite.create("welcome.lwf");
         lwfSprite.setAnchorPoint(cc.p(0.5, 0.5));
         lwfSprite.x = cc.winSize.width*0.5;
         lwfSprite.y = cc.winSize.height*0.5;

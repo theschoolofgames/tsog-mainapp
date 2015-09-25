@@ -75,6 +75,42 @@
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
+		EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08EE1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08EF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F01BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B11BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B31BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F21BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B51BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F31BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B71BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BB1BB50D2200B36D24 /* lwf_animation.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F51BB50D2200B36D24 /* lwf_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BD1BB50D2200B36D24 /* lwf_bitmap.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F61BB50D2200B36D24 /* lwf_bitmapclip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BF1BB50D2200B36D24 /* lwf_bitmapclip.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F71BB50D2200B36D24 /* lwf_bitmapex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C11BB50D2200B36D24 /* lwf_bitmapex.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F81BB50D2200B36D24 /* lwf_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C31BB50D2200B36D24 /* lwf_button.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C51BB50D2200B36D24 /* lwf_compat.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FA1BB50D2200B36D24 /* lwf_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C71BB50D2200B36D24 /* lwf_core.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C91BB50D2200B36D24 /* lwf_coredata.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FC1BB50D2200B36D24 /* lwf_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CA1BB50D2200B36D24 /* lwf_data.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CC1BB50D2200B36D24 /* lwf_event.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FE1BB50D2200B36D24 /* lwf_eventbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CD1BB50D2200B36D24 /* lwf_eventbutton.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B08FF1BB50D2200B36D24 /* lwf_eventmovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CF1BB50D2200B36D24 /* lwf_eventmovie.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D11BB50D2200B36D24 /* lwf_format.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D31BB50D2200B36D24 /* lwf_graphic.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09021BB50D2200B36D24 /* lwf_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D51BB50D2200B36D24 /* lwf_input.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D61BB50D2200B36D24 /* lwf_iobject.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D81BB50D2200B36D24 /* lwf_lwfcontainer.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DA1BB50D2200B36D24 /* lwf_movie.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09061BB50D2200B36D24 /* lwf_movieat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DC1BB50D2200B36D24 /* lwf_movieat.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DD1BB50D2200B36D24 /* lwf_movieop.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DE1BB50D2200B36D24 /* lwf_movieprop.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DF1BB50D2200B36D24 /* lwf_object.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E11BB50D2200B36D24 /* lwf_particle.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E31BB50D2200B36D24 /* lwf_programobj.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E51BB50D2200B36D24 /* lwf_property.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E81BB50D2200B36D24 /* lwf_text.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */; settings = {ASSET_TAGS = (); }; };
+		EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */; settings = {ASSET_TAGS = (); }; };
+		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; settings = {ASSET_TAGS = (); }; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
 		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -85,44 +121,8 @@
 		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
 		F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
-		F8E726F21BA203A600223CB0 /* lwf_cocos2dx_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726B01BA203A600223CB0 /* lwf_cocos2dx_bitmap.cpp */; };
-		F8E726F31BA203A600223CB0 /* lwf_cocos2dx_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726B21BA203A600223CB0 /* lwf_cocos2dx_factory.cpp */; };
-		F8E726F41BA203A600223CB0 /* lwf_cocos2dx_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726B41BA203A600223CB0 /* lwf_cocos2dx_node.cpp */; };
-		F8E726F51BA203A600223CB0 /* lwf_cocos2dx_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726B61BA203A600223CB0 /* lwf_cocos2dx_particle.cpp */; };
-		F8E726F61BA203A600223CB0 /* lwf_cocos2dx_resourcecache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726B81BA203A600223CB0 /* lwf_cocos2dx_resourcecache.cpp */; };
-		F8E726F71BA203A600223CB0 /* lwf_cocos2dx_textbmfont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726BA1BA203A600223CB0 /* lwf_cocos2dx_textbmfont.cpp */; };
-		F8E726F81BA203A600223CB0 /* lwf_cocos2dx_textttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726BC1BA203A600223CB0 /* lwf_cocos2dx_textttf.cpp */; };
-		F8E726F91BA203A600223CB0 /* lwf_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726C01BA203A600223CB0 /* lwf_animation.cpp */; };
-		F8E726FA1BA203A600223CB0 /* lwf_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726C21BA203A600223CB0 /* lwf_bitmap.cpp */; };
-		F8E726FB1BA203A600223CB0 /* lwf_bitmapclip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726C41BA203A600223CB0 /* lwf_bitmapclip.cpp */; };
-		F8E726FC1BA203A600223CB0 /* lwf_bitmapex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726C61BA203A600223CB0 /* lwf_bitmapex.cpp */; };
-		F8E726FD1BA203A600223CB0 /* lwf_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726C81BA203A600223CB0 /* lwf_button.cpp */; };
-		F8E726FE1BA203A600223CB0 /* lwf_compat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726CA1BA203A600223CB0 /* lwf_compat.cpp */; };
-		F8E726FF1BA203A600223CB0 /* lwf_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726CC1BA203A600223CB0 /* lwf_core.cpp */; };
-		F8E727001BA203A600223CB0 /* lwf_coredata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726CE1BA203A600223CB0 /* lwf_coredata.cpp */; };
-		F8E727011BA203A600223CB0 /* lwf_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726CF1BA203A600223CB0 /* lwf_data.cpp */; };
-		F8E727021BA203A600223CB0 /* lwf_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726D11BA203A600223CB0 /* lwf_event.cpp */; };
-		F8E727031BA203A600223CB0 /* lwf_eventbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726D21BA203A600223CB0 /* lwf_eventbutton.cpp */; };
-		F8E727041BA203A600223CB0 /* lwf_eventmovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726D41BA203A600223CB0 /* lwf_eventmovie.cpp */; };
-		F8E727051BA203A600223CB0 /* lwf_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726D61BA203A600223CB0 /* lwf_format.cpp */; };
-		F8E727061BA203A600223CB0 /* lwf_graphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726D81BA203A600223CB0 /* lwf_graphic.cpp */; };
-		F8E727071BA203A600223CB0 /* lwf_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726DA1BA203A600223CB0 /* lwf_input.cpp */; };
-		F8E727081BA203A600223CB0 /* lwf_iobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726DB1BA203A600223CB0 /* lwf_iobject.cpp */; };
-		F8E727091BA203A600223CB0 /* lwf_lwfcontainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726DD1BA203A600223CB0 /* lwf_lwfcontainer.cpp */; };
-		F8E7270A1BA203A600223CB0 /* lwf_movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726DF1BA203A600223CB0 /* lwf_movie.cpp */; };
-		F8E7270B1BA203A600223CB0 /* lwf_movieat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E11BA203A600223CB0 /* lwf_movieat.cpp */; };
-		F8E7270C1BA203A600223CB0 /* lwf_movieop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E21BA203A600223CB0 /* lwf_movieop.cpp */; };
-		F8E7270D1BA203A600223CB0 /* lwf_movieprop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E31BA203A600223CB0 /* lwf_movieprop.cpp */; };
-		F8E7270E1BA203A600223CB0 /* lwf_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E41BA203A600223CB0 /* lwf_object.cpp */; };
-		F8E7270F1BA203A600223CB0 /* lwf_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E61BA203A600223CB0 /* lwf_particle.cpp */; };
-		F8E727101BA203A600223CB0 /* lwf_programobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726E81BA203A600223CB0 /* lwf_programobj.cpp */; };
-		F8E727111BA203A600223CB0 /* lwf_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726EA1BA203A600223CB0 /* lwf_property.cpp */; };
-		F8E727121BA203A600223CB0 /* lwf_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726ED1BA203A600223CB0 /* lwf_text.cpp */; };
-		F8E727131BA203A600223CB0 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E726F01BA203A600223CB0 /* lwf_utility.cpp */; };
 		F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727151BA2040B00223CB0 /* Alloc.c */; };
 		F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727171BA2040B00223CB0 /* LzmaDec.c */; };
-		F8E727211BA207BA00223CB0 /* jsb_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = F8E7271E1BA207BA00223CB0 /* jsb_lwf_api.js */; };
-		F8E727221BA207BA00223CB0 /* jsb_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E7271F1BA207BA00223CB0 /* jsb_lwf.cpp */; };
 		F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E727281BA2129000223CB0 /* LWFSprite.cpp */; };
 /* End PBXBuildFile section */
 
@@ -244,6 +244,75 @@
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		EB7B08AA1BB50D2200B36D24 /* lwf_cocos2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx.h; sourceTree = "<group>"; };
+		EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_bitmap.cpp; sourceTree = "<group>"; };
+		EB7B08AC1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_bitmap.h; sourceTree = "<group>"; };
+		EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_factory.cpp; sourceTree = "<group>"; };
+		EB7B08AE1BB50D2200B36D24 /* lwf_cocos2dx_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_factory.h; sourceTree = "<group>"; };
+		EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_node.cpp; sourceTree = "<group>"; };
+		EB7B08B01BB50D2200B36D24 /* lwf_cocos2dx_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_node.h; sourceTree = "<group>"; };
+		EB7B08B11BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_particle.cpp; sourceTree = "<group>"; };
+		EB7B08B21BB50D2200B36D24 /* lwf_cocos2dx_particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_particle.h; sourceTree = "<group>"; };
+		EB7B08B31BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_resourcecache.cpp; sourceTree = "<group>"; };
+		EB7B08B41BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_resourcecache.h; sourceTree = "<group>"; };
+		EB7B08B51BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_textbmfont.cpp; sourceTree = "<group>"; };
+		EB7B08B61BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_textbmfont.h; sourceTree = "<group>"; };
+		EB7B08B71BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_textttf.cpp; sourceTree = "<group>"; };
+		EB7B08B81BB50D2200B36D24 /* lwf_cocos2dx_textttf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_textttf.h; sourceTree = "<group>"; };
+		EB7B08BA1BB50D2200B36D24 /* lwf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf.h; sourceTree = "<group>"; };
+		EB7B08BB1BB50D2200B36D24 /* lwf_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_animation.cpp; sourceTree = "<group>"; };
+		EB7B08BC1BB50D2200B36D24 /* lwf_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_animation.h; sourceTree = "<group>"; };
+		EB7B08BD1BB50D2200B36D24 /* lwf_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmap.cpp; sourceTree = "<group>"; };
+		EB7B08BE1BB50D2200B36D24 /* lwf_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmap.h; sourceTree = "<group>"; };
+		EB7B08BF1BB50D2200B36D24 /* lwf_bitmapclip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmapclip.cpp; sourceTree = "<group>"; };
+		EB7B08C01BB50D2200B36D24 /* lwf_bitmapclip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmapclip.h; sourceTree = "<group>"; };
+		EB7B08C11BB50D2200B36D24 /* lwf_bitmapex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmapex.cpp; sourceTree = "<group>"; };
+		EB7B08C21BB50D2200B36D24 /* lwf_bitmapex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmapex.h; sourceTree = "<group>"; };
+		EB7B08C31BB50D2200B36D24 /* lwf_button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_button.cpp; sourceTree = "<group>"; };
+		EB7B08C41BB50D2200B36D24 /* lwf_button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_button.h; sourceTree = "<group>"; };
+		EB7B08C51BB50D2200B36D24 /* lwf_compat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_compat.cpp; sourceTree = "<group>"; };
+		EB7B08C61BB50D2200B36D24 /* lwf_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_compat.h; sourceTree = "<group>"; };
+		EB7B08C71BB50D2200B36D24 /* lwf_core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_core.cpp; sourceTree = "<group>"; };
+		EB7B08C81BB50D2200B36D24 /* lwf_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_core.h; sourceTree = "<group>"; };
+		EB7B08C91BB50D2200B36D24 /* lwf_coredata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_coredata.cpp; sourceTree = "<group>"; };
+		EB7B08CA1BB50D2200B36D24 /* lwf_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_data.cpp; sourceTree = "<group>"; };
+		EB7B08CB1BB50D2200B36D24 /* lwf_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_data.h; sourceTree = "<group>"; };
+		EB7B08CC1BB50D2200B36D24 /* lwf_event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_event.cpp; sourceTree = "<group>"; };
+		EB7B08CD1BB50D2200B36D24 /* lwf_eventbutton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_eventbutton.cpp; sourceTree = "<group>"; };
+		EB7B08CE1BB50D2200B36D24 /* lwf_eventbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_eventbutton.h; sourceTree = "<group>"; };
+		EB7B08CF1BB50D2200B36D24 /* lwf_eventmovie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_eventmovie.cpp; sourceTree = "<group>"; };
+		EB7B08D01BB50D2200B36D24 /* lwf_eventmovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_eventmovie.h; sourceTree = "<group>"; };
+		EB7B08D11BB50D2200B36D24 /* lwf_format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_format.cpp; sourceTree = "<group>"; };
+		EB7B08D21BB50D2200B36D24 /* lwf_format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_format.h; sourceTree = "<group>"; };
+		EB7B08D31BB50D2200B36D24 /* lwf_graphic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_graphic.cpp; sourceTree = "<group>"; };
+		EB7B08D41BB50D2200B36D24 /* lwf_graphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_graphic.h; sourceTree = "<group>"; };
+		EB7B08D51BB50D2200B36D24 /* lwf_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_input.cpp; sourceTree = "<group>"; };
+		EB7B08D61BB50D2200B36D24 /* lwf_iobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_iobject.cpp; sourceTree = "<group>"; };
+		EB7B08D71BB50D2200B36D24 /* lwf_iobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_iobject.h; sourceTree = "<group>"; };
+		EB7B08D81BB50D2200B36D24 /* lwf_lwfcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_lwfcontainer.cpp; sourceTree = "<group>"; };
+		EB7B08D91BB50D2200B36D24 /* lwf_lwfcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_lwfcontainer.h; sourceTree = "<group>"; };
+		EB7B08DA1BB50D2200B36D24 /* lwf_movie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movie.cpp; sourceTree = "<group>"; };
+		EB7B08DB1BB50D2200B36D24 /* lwf_movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_movie.h; sourceTree = "<group>"; };
+		EB7B08DC1BB50D2200B36D24 /* lwf_movieat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieat.cpp; sourceTree = "<group>"; };
+		EB7B08DD1BB50D2200B36D24 /* lwf_movieop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieop.cpp; sourceTree = "<group>"; };
+		EB7B08DE1BB50D2200B36D24 /* lwf_movieprop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieprop.cpp; sourceTree = "<group>"; };
+		EB7B08DF1BB50D2200B36D24 /* lwf_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_object.cpp; sourceTree = "<group>"; };
+		EB7B08E01BB50D2200B36D24 /* lwf_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_object.h; sourceTree = "<group>"; };
+		EB7B08E11BB50D2200B36D24 /* lwf_particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_particle.cpp; sourceTree = "<group>"; };
+		EB7B08E21BB50D2200B36D24 /* lwf_particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_particle.h; sourceTree = "<group>"; };
+		EB7B08E31BB50D2200B36D24 /* lwf_programobj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_programobj.cpp; sourceTree = "<group>"; };
+		EB7B08E41BB50D2200B36D24 /* lwf_programobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_programobj.h; sourceTree = "<group>"; };
+		EB7B08E51BB50D2200B36D24 /* lwf_property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_property.cpp; sourceTree = "<group>"; };
+		EB7B08E61BB50D2200B36D24 /* lwf_property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_property.h; sourceTree = "<group>"; };
+		EB7B08E71BB50D2200B36D24 /* lwf_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_renderer.h; sourceTree = "<group>"; };
+		EB7B08E81BB50D2200B36D24 /* lwf_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_text.cpp; sourceTree = "<group>"; };
+		EB7B08E91BB50D2200B36D24 /* lwf_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_text.h; sourceTree = "<group>"; };
+		EB7B08EA1BB50D2200B36D24 /* lwf_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_type.h; sourceTree = "<group>"; };
+		EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_utility.cpp; sourceTree = "<group>"; };
+		EB7B08EC1BB50D2200B36D24 /* lwf_utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_utility.h; sourceTree = "<group>"; };
+		EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_cocos2dx_lwf_api.js; sourceTree = "<group>"; };
+		EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2dx_lwf.cpp; sourceTree = "<group>"; };
+		EB7B09131BB50D6B00B36D24 /* jsb_cocos2dx_lwf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_lwf.hpp; sourceTree = "<group>"; };
 		EDD7E3291B58AE29009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		F8C057101B99360200DEB2C0 /* Countly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly.h; sourceTree = "<group>"; };
@@ -258,80 +327,11 @@
 		F8C057201B99365D00DEB2C0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057221B99385500DEB2C0 /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
 		F8C057241B99386D00DEB2C0 /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
-		F8E726AF1BA203A600223CB0 /* lwf_cocos2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx.h; sourceTree = "<group>"; };
-		F8E726B01BA203A600223CB0 /* lwf_cocos2dx_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_bitmap.cpp; sourceTree = "<group>"; };
-		F8E726B11BA203A600223CB0 /* lwf_cocos2dx_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_bitmap.h; sourceTree = "<group>"; };
-		F8E726B21BA203A600223CB0 /* lwf_cocos2dx_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_factory.cpp; sourceTree = "<group>"; };
-		F8E726B31BA203A600223CB0 /* lwf_cocos2dx_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_factory.h; sourceTree = "<group>"; };
-		F8E726B41BA203A600223CB0 /* lwf_cocos2dx_node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_node.cpp; sourceTree = "<group>"; };
-		F8E726B51BA203A600223CB0 /* lwf_cocos2dx_node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_node.h; sourceTree = "<group>"; };
-		F8E726B61BA203A600223CB0 /* lwf_cocos2dx_particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_particle.cpp; sourceTree = "<group>"; };
-		F8E726B71BA203A600223CB0 /* lwf_cocos2dx_particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_particle.h; sourceTree = "<group>"; };
-		F8E726B81BA203A600223CB0 /* lwf_cocos2dx_resourcecache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_resourcecache.cpp; sourceTree = "<group>"; };
-		F8E726B91BA203A600223CB0 /* lwf_cocos2dx_resourcecache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_resourcecache.h; sourceTree = "<group>"; };
-		F8E726BA1BA203A600223CB0 /* lwf_cocos2dx_textbmfont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_textbmfont.cpp; sourceTree = "<group>"; };
-		F8E726BB1BA203A600223CB0 /* lwf_cocos2dx_textbmfont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_textbmfont.h; sourceTree = "<group>"; };
-		F8E726BC1BA203A600223CB0 /* lwf_cocos2dx_textttf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_textttf.cpp; sourceTree = "<group>"; };
-		F8E726BD1BA203A600223CB0 /* lwf_cocos2dx_textttf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_textttf.h; sourceTree = "<group>"; };
-		F8E726BF1BA203A600223CB0 /* lwf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf.h; sourceTree = "<group>"; };
-		F8E726C01BA203A600223CB0 /* lwf_animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_animation.cpp; sourceTree = "<group>"; };
-		F8E726C11BA203A600223CB0 /* lwf_animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_animation.h; sourceTree = "<group>"; };
-		F8E726C21BA203A600223CB0 /* lwf_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmap.cpp; sourceTree = "<group>"; };
-		F8E726C31BA203A600223CB0 /* lwf_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmap.h; sourceTree = "<group>"; };
-		F8E726C41BA203A600223CB0 /* lwf_bitmapclip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmapclip.cpp; sourceTree = "<group>"; };
-		F8E726C51BA203A600223CB0 /* lwf_bitmapclip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmapclip.h; sourceTree = "<group>"; };
-		F8E726C61BA203A600223CB0 /* lwf_bitmapex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_bitmapex.cpp; sourceTree = "<group>"; };
-		F8E726C71BA203A600223CB0 /* lwf_bitmapex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_bitmapex.h; sourceTree = "<group>"; };
-		F8E726C81BA203A600223CB0 /* lwf_button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_button.cpp; sourceTree = "<group>"; };
-		F8E726C91BA203A600223CB0 /* lwf_button.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_button.h; sourceTree = "<group>"; };
-		F8E726CA1BA203A600223CB0 /* lwf_compat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_compat.cpp; sourceTree = "<group>"; };
-		F8E726CB1BA203A600223CB0 /* lwf_compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_compat.h; sourceTree = "<group>"; };
-		F8E726CC1BA203A600223CB0 /* lwf_core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_core.cpp; sourceTree = "<group>"; };
-		F8E726CD1BA203A600223CB0 /* lwf_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_core.h; sourceTree = "<group>"; };
-		F8E726CE1BA203A600223CB0 /* lwf_coredata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_coredata.cpp; sourceTree = "<group>"; };
-		F8E726CF1BA203A600223CB0 /* lwf_data.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_data.cpp; sourceTree = "<group>"; };
-		F8E726D01BA203A600223CB0 /* lwf_data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_data.h; sourceTree = "<group>"; };
-		F8E726D11BA203A600223CB0 /* lwf_event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_event.cpp; sourceTree = "<group>"; };
-		F8E726D21BA203A600223CB0 /* lwf_eventbutton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_eventbutton.cpp; sourceTree = "<group>"; };
-		F8E726D31BA203A600223CB0 /* lwf_eventbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_eventbutton.h; sourceTree = "<group>"; };
-		F8E726D41BA203A600223CB0 /* lwf_eventmovie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_eventmovie.cpp; sourceTree = "<group>"; };
-		F8E726D51BA203A600223CB0 /* lwf_eventmovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_eventmovie.h; sourceTree = "<group>"; };
-		F8E726D61BA203A600223CB0 /* lwf_format.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_format.cpp; sourceTree = "<group>"; };
-		F8E726D71BA203A600223CB0 /* lwf_format.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_format.h; sourceTree = "<group>"; };
-		F8E726D81BA203A600223CB0 /* lwf_graphic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_graphic.cpp; sourceTree = "<group>"; };
-		F8E726D91BA203A600223CB0 /* lwf_graphic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_graphic.h; sourceTree = "<group>"; };
-		F8E726DA1BA203A600223CB0 /* lwf_input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_input.cpp; sourceTree = "<group>"; };
-		F8E726DB1BA203A600223CB0 /* lwf_iobject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_iobject.cpp; sourceTree = "<group>"; };
-		F8E726DC1BA203A600223CB0 /* lwf_iobject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_iobject.h; sourceTree = "<group>"; };
-		F8E726DD1BA203A600223CB0 /* lwf_lwfcontainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_lwfcontainer.cpp; sourceTree = "<group>"; };
-		F8E726DE1BA203A600223CB0 /* lwf_lwfcontainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_lwfcontainer.h; sourceTree = "<group>"; };
-		F8E726DF1BA203A600223CB0 /* lwf_movie.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movie.cpp; sourceTree = "<group>"; };
-		F8E726E01BA203A600223CB0 /* lwf_movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_movie.h; sourceTree = "<group>"; };
-		F8E726E11BA203A600223CB0 /* lwf_movieat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieat.cpp; sourceTree = "<group>"; };
-		F8E726E21BA203A600223CB0 /* lwf_movieop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieop.cpp; sourceTree = "<group>"; };
-		F8E726E31BA203A600223CB0 /* lwf_movieprop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_movieprop.cpp; sourceTree = "<group>"; };
-		F8E726E41BA203A600223CB0 /* lwf_object.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_object.cpp; sourceTree = "<group>"; };
-		F8E726E51BA203A600223CB0 /* lwf_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_object.h; sourceTree = "<group>"; };
-		F8E726E61BA203A600223CB0 /* lwf_particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_particle.cpp; sourceTree = "<group>"; };
-		F8E726E71BA203A600223CB0 /* lwf_particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_particle.h; sourceTree = "<group>"; };
-		F8E726E81BA203A600223CB0 /* lwf_programobj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_programobj.cpp; sourceTree = "<group>"; };
-		F8E726E91BA203A600223CB0 /* lwf_programobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_programobj.h; sourceTree = "<group>"; };
-		F8E726EA1BA203A600223CB0 /* lwf_property.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_property.cpp; sourceTree = "<group>"; };
-		F8E726EB1BA203A600223CB0 /* lwf_property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_property.h; sourceTree = "<group>"; };
-		F8E726EC1BA203A600223CB0 /* lwf_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_renderer.h; sourceTree = "<group>"; };
-		F8E726ED1BA203A600223CB0 /* lwf_text.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_text.cpp; sourceTree = "<group>"; };
-		F8E726EE1BA203A600223CB0 /* lwf_text.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_text.h; sourceTree = "<group>"; };
-		F8E726EF1BA203A600223CB0 /* lwf_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_type.h; sourceTree = "<group>"; };
-		F8E726F01BA203A600223CB0 /* lwf_utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_utility.cpp; sourceTree = "<group>"; };
-		F8E726F11BA203A600223CB0 /* lwf_utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_utility.h; sourceTree = "<group>"; };
 		F8E727151BA2040B00223CB0 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
 		F8E727161BA2040B00223CB0 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
 		F8E727171BA2040B00223CB0 /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaDec.c; sourceTree = "<group>"; };
 		F8E727181BA2040B00223CB0 /* LzmaDec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaDec.h; sourceTree = "<group>"; };
 		F8E727191BA2040B00223CB0 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		F8E7271E1BA207BA00223CB0 /* jsb_lwf_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_lwf_api.js; sourceTree = "<group>"; };
-		F8E7271F1BA207BA00223CB0 /* jsb_lwf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_lwf.cpp; sourceTree = "<group>"; };
-		F8E727201BA207BA00223CB0 /* jsb_lwf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_lwf.hpp; sourceTree = "<group>"; };
 		F8E727281BA2129000223CB0 /* LWFSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LWFSprite.cpp; sourceTree = "<group>"; };
 		F8E727291BA2129000223CB0 /* LWFSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFSprite.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -535,6 +535,105 @@
 			path = ../Classes;
 			sourceTree = "<group>";
 		};
+		EB7B08A91BB50D2200B36D24 /* cocos2dx */ = {
+			isa = PBXGroup;
+			children = (
+				EB7B090F1BB50D6B00B36D24 /* js-bindings */,
+				EB7B08AA1BB50D2200B36D24 /* lwf_cocos2dx.h */,
+				EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */,
+				EB7B08AC1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.h */,
+				EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */,
+				EB7B08AE1BB50D2200B36D24 /* lwf_cocos2dx_factory.h */,
+				EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */,
+				EB7B08B01BB50D2200B36D24 /* lwf_cocos2dx_node.h */,
+				EB7B08B11BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp */,
+				EB7B08B21BB50D2200B36D24 /* lwf_cocos2dx_particle.h */,
+				EB7B08B31BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp */,
+				EB7B08B41BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.h */,
+				EB7B08B51BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp */,
+				EB7B08B61BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.h */,
+				EB7B08B71BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp */,
+				EB7B08B81BB50D2200B36D24 /* lwf_cocos2dx_textttf.h */,
+			);
+			path = cocos2dx;
+			sourceTree = "<group>";
+		};
+		EB7B08B91BB50D2200B36D24 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				EB7B08BA1BB50D2200B36D24 /* lwf.h */,
+				EB7B08BB1BB50D2200B36D24 /* lwf_animation.cpp */,
+				EB7B08BC1BB50D2200B36D24 /* lwf_animation.h */,
+				EB7B08BD1BB50D2200B36D24 /* lwf_bitmap.cpp */,
+				EB7B08BE1BB50D2200B36D24 /* lwf_bitmap.h */,
+				EB7B08BF1BB50D2200B36D24 /* lwf_bitmapclip.cpp */,
+				EB7B08C01BB50D2200B36D24 /* lwf_bitmapclip.h */,
+				EB7B08C11BB50D2200B36D24 /* lwf_bitmapex.cpp */,
+				EB7B08C21BB50D2200B36D24 /* lwf_bitmapex.h */,
+				EB7B08C31BB50D2200B36D24 /* lwf_button.cpp */,
+				EB7B08C41BB50D2200B36D24 /* lwf_button.h */,
+				EB7B08C51BB50D2200B36D24 /* lwf_compat.cpp */,
+				EB7B08C61BB50D2200B36D24 /* lwf_compat.h */,
+				EB7B08C71BB50D2200B36D24 /* lwf_core.cpp */,
+				EB7B08C81BB50D2200B36D24 /* lwf_core.h */,
+				EB7B08C91BB50D2200B36D24 /* lwf_coredata.cpp */,
+				EB7B08CA1BB50D2200B36D24 /* lwf_data.cpp */,
+				EB7B08CB1BB50D2200B36D24 /* lwf_data.h */,
+				EB7B08CC1BB50D2200B36D24 /* lwf_event.cpp */,
+				EB7B08CD1BB50D2200B36D24 /* lwf_eventbutton.cpp */,
+				EB7B08CE1BB50D2200B36D24 /* lwf_eventbutton.h */,
+				EB7B08CF1BB50D2200B36D24 /* lwf_eventmovie.cpp */,
+				EB7B08D01BB50D2200B36D24 /* lwf_eventmovie.h */,
+				EB7B08D11BB50D2200B36D24 /* lwf_format.cpp */,
+				EB7B08D21BB50D2200B36D24 /* lwf_format.h */,
+				EB7B08D31BB50D2200B36D24 /* lwf_graphic.cpp */,
+				EB7B08D41BB50D2200B36D24 /* lwf_graphic.h */,
+				EB7B08D51BB50D2200B36D24 /* lwf_input.cpp */,
+				EB7B08D61BB50D2200B36D24 /* lwf_iobject.cpp */,
+				EB7B08D71BB50D2200B36D24 /* lwf_iobject.h */,
+				EB7B08D81BB50D2200B36D24 /* lwf_lwfcontainer.cpp */,
+				EB7B08D91BB50D2200B36D24 /* lwf_lwfcontainer.h */,
+				EB7B08DA1BB50D2200B36D24 /* lwf_movie.cpp */,
+				EB7B08DB1BB50D2200B36D24 /* lwf_movie.h */,
+				EB7B08DC1BB50D2200B36D24 /* lwf_movieat.cpp */,
+				EB7B08DD1BB50D2200B36D24 /* lwf_movieop.cpp */,
+				EB7B08DE1BB50D2200B36D24 /* lwf_movieprop.cpp */,
+				EB7B08DF1BB50D2200B36D24 /* lwf_object.cpp */,
+				EB7B08E01BB50D2200B36D24 /* lwf_object.h */,
+				EB7B08E11BB50D2200B36D24 /* lwf_particle.cpp */,
+				EB7B08E21BB50D2200B36D24 /* lwf_particle.h */,
+				EB7B08E31BB50D2200B36D24 /* lwf_programobj.cpp */,
+				EB7B08E41BB50D2200B36D24 /* lwf_programobj.h */,
+				EB7B08E51BB50D2200B36D24 /* lwf_property.cpp */,
+				EB7B08E61BB50D2200B36D24 /* lwf_property.h */,
+				EB7B08E71BB50D2200B36D24 /* lwf_renderer.h */,
+				EB7B08E81BB50D2200B36D24 /* lwf_text.cpp */,
+				EB7B08E91BB50D2200B36D24 /* lwf_text.h */,
+				EB7B08EA1BB50D2200B36D24 /* lwf_type.h */,
+				EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */,
+				EB7B08EC1BB50D2200B36D24 /* lwf_utility.h */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		EB7B090F1BB50D6B00B36D24 /* js-bindings */ = {
+			isa = PBXGroup;
+			children = (
+				EB7B09101BB50D6B00B36D24 /* api */,
+				EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */,
+				EB7B09131BB50D6B00B36D24 /* jsb_cocos2dx_lwf.hpp */,
+			);
+			path = "js-bindings";
+			sourceTree = "<group>";
+		};
+		EB7B09101BB50D6B00B36D24 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
 		F8C0570F1B99360200DEB2C0 /* countly */ = {
 			isa = PBXGroup;
 			children = (
@@ -553,94 +652,13 @@
 		F8E726AD1BA203A600223CB0 /* lwf */ = {
 			isa = PBXGroup;
 			children = (
+				EB7B08A91BB50D2200B36D24 /* cocos2dx */,
+				EB7B08B91BB50D2200B36D24 /* core */,
 				F8E727271BA2129000223CB0 /* h102 */,
 				F8E727141BA2040B00223CB0 /* lzma */,
-				F8E726AE1BA203A600223CB0 /* cocos2dx */,
-				F8E726BE1BA203A600223CB0 /* core */,
 			);
 			name = lwf;
 			path = ../../lwf;
-			sourceTree = "<group>";
-		};
-		F8E726AE1BA203A600223CB0 /* cocos2dx */ = {
-			isa = PBXGroup;
-			children = (
-				F8E7271C1BA207BA00223CB0 /* js-bindings */,
-				F8E726AF1BA203A600223CB0 /* lwf_cocos2dx.h */,
-				F8E726B01BA203A600223CB0 /* lwf_cocos2dx_bitmap.cpp */,
-				F8E726B11BA203A600223CB0 /* lwf_cocos2dx_bitmap.h */,
-				F8E726B21BA203A600223CB0 /* lwf_cocos2dx_factory.cpp */,
-				F8E726B31BA203A600223CB0 /* lwf_cocos2dx_factory.h */,
-				F8E726B41BA203A600223CB0 /* lwf_cocos2dx_node.cpp */,
-				F8E726B51BA203A600223CB0 /* lwf_cocos2dx_node.h */,
-				F8E726B61BA203A600223CB0 /* lwf_cocos2dx_particle.cpp */,
-				F8E726B71BA203A600223CB0 /* lwf_cocos2dx_particle.h */,
-				F8E726B81BA203A600223CB0 /* lwf_cocos2dx_resourcecache.cpp */,
-				F8E726B91BA203A600223CB0 /* lwf_cocos2dx_resourcecache.h */,
-				F8E726BA1BA203A600223CB0 /* lwf_cocos2dx_textbmfont.cpp */,
-				F8E726BB1BA203A600223CB0 /* lwf_cocos2dx_textbmfont.h */,
-				F8E726BC1BA203A600223CB0 /* lwf_cocos2dx_textttf.cpp */,
-				F8E726BD1BA203A600223CB0 /* lwf_cocos2dx_textttf.h */,
-			);
-			path = cocos2dx;
-			sourceTree = "<group>";
-		};
-		F8E726BE1BA203A600223CB0 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				F8E726BF1BA203A600223CB0 /* lwf.h */,
-				F8E726C01BA203A600223CB0 /* lwf_animation.cpp */,
-				F8E726C11BA203A600223CB0 /* lwf_animation.h */,
-				F8E726C21BA203A600223CB0 /* lwf_bitmap.cpp */,
-				F8E726C31BA203A600223CB0 /* lwf_bitmap.h */,
-				F8E726C41BA203A600223CB0 /* lwf_bitmapclip.cpp */,
-				F8E726C51BA203A600223CB0 /* lwf_bitmapclip.h */,
-				F8E726C61BA203A600223CB0 /* lwf_bitmapex.cpp */,
-				F8E726C71BA203A600223CB0 /* lwf_bitmapex.h */,
-				F8E726C81BA203A600223CB0 /* lwf_button.cpp */,
-				F8E726C91BA203A600223CB0 /* lwf_button.h */,
-				F8E726CA1BA203A600223CB0 /* lwf_compat.cpp */,
-				F8E726CB1BA203A600223CB0 /* lwf_compat.h */,
-				F8E726CC1BA203A600223CB0 /* lwf_core.cpp */,
-				F8E726CD1BA203A600223CB0 /* lwf_core.h */,
-				F8E726CE1BA203A600223CB0 /* lwf_coredata.cpp */,
-				F8E726CF1BA203A600223CB0 /* lwf_data.cpp */,
-				F8E726D01BA203A600223CB0 /* lwf_data.h */,
-				F8E726D11BA203A600223CB0 /* lwf_event.cpp */,
-				F8E726D21BA203A600223CB0 /* lwf_eventbutton.cpp */,
-				F8E726D31BA203A600223CB0 /* lwf_eventbutton.h */,
-				F8E726D41BA203A600223CB0 /* lwf_eventmovie.cpp */,
-				F8E726D51BA203A600223CB0 /* lwf_eventmovie.h */,
-				F8E726D61BA203A600223CB0 /* lwf_format.cpp */,
-				F8E726D71BA203A600223CB0 /* lwf_format.h */,
-				F8E726D81BA203A600223CB0 /* lwf_graphic.cpp */,
-				F8E726D91BA203A600223CB0 /* lwf_graphic.h */,
-				F8E726DA1BA203A600223CB0 /* lwf_input.cpp */,
-				F8E726DB1BA203A600223CB0 /* lwf_iobject.cpp */,
-				F8E726DC1BA203A600223CB0 /* lwf_iobject.h */,
-				F8E726DD1BA203A600223CB0 /* lwf_lwfcontainer.cpp */,
-				F8E726DE1BA203A600223CB0 /* lwf_lwfcontainer.h */,
-				F8E726DF1BA203A600223CB0 /* lwf_movie.cpp */,
-				F8E726E01BA203A600223CB0 /* lwf_movie.h */,
-				F8E726E11BA203A600223CB0 /* lwf_movieat.cpp */,
-				F8E726E21BA203A600223CB0 /* lwf_movieop.cpp */,
-				F8E726E31BA203A600223CB0 /* lwf_movieprop.cpp */,
-				F8E726E41BA203A600223CB0 /* lwf_object.cpp */,
-				F8E726E51BA203A600223CB0 /* lwf_object.h */,
-				F8E726E61BA203A600223CB0 /* lwf_particle.cpp */,
-				F8E726E71BA203A600223CB0 /* lwf_particle.h */,
-				F8E726E81BA203A600223CB0 /* lwf_programobj.cpp */,
-				F8E726E91BA203A600223CB0 /* lwf_programobj.h */,
-				F8E726EA1BA203A600223CB0 /* lwf_property.cpp */,
-				F8E726EB1BA203A600223CB0 /* lwf_property.h */,
-				F8E726EC1BA203A600223CB0 /* lwf_renderer.h */,
-				F8E726ED1BA203A600223CB0 /* lwf_text.cpp */,
-				F8E726EE1BA203A600223CB0 /* lwf_text.h */,
-				F8E726EF1BA203A600223CB0 /* lwf_type.h */,
-				F8E726F01BA203A600223CB0 /* lwf_utility.cpp */,
-				F8E726F11BA203A600223CB0 /* lwf_utility.h */,
-			);
-			path = core;
 			sourceTree = "<group>";
 		};
 		F8E727141BA2040B00223CB0 /* lzma */ = {
@@ -654,24 +672,6 @@
 			);
 			name = lzma;
 			path = supports/lzma;
-			sourceTree = "<group>";
-		};
-		F8E7271C1BA207BA00223CB0 /* js-bindings */ = {
-			isa = PBXGroup;
-			children = (
-				F8E7271D1BA207BA00223CB0 /* api */,
-				F8E7271F1BA207BA00223CB0 /* jsb_lwf.cpp */,
-				F8E727201BA207BA00223CB0 /* jsb_lwf.hpp */,
-			);
-			path = "js-bindings";
-			sourceTree = "<group>";
-		};
-		F8E7271D1BA207BA00223CB0 /* api */ = {
-			isa = PBXGroup;
-			children = (
-				F8E7271E1BA207BA00223CB0 /* jsb_lwf_api.js */,
-			);
-			path = api;
 			sourceTree = "<group>";
 		};
 		F8E727271BA2129000223CB0 /* h102 */ = {
@@ -824,12 +824,12 @@
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
-				F8E727211BA207BA00223CB0 /* jsb_lwf_api.js in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
 				509D4AC517EBB2AB00697056 /* Icon-144.png in Resources */,
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
+				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
 				F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
@@ -861,53 +861,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8E7270A1BA203A600223CB0 /* lwf_movie.cpp in Sources */,
-				F8E727051BA203A600223CB0 /* lwf_format.cpp in Sources */,
-				F8E726F71BA203A600223CB0 /* lwf_cocos2dx_textbmfont.cpp in Sources */,
-				F8E727091BA203A600223CB0 /* lwf_lwfcontainer.cpp in Sources */,
-				F8E727041BA203A600223CB0 /* lwf_eventmovie.cpp in Sources */,
-				F8E726F51BA203A600223CB0 /* lwf_cocos2dx_particle.cpp in Sources */,
-				F8E726F61BA203A600223CB0 /* lwf_cocos2dx_resourcecache.cpp in Sources */,
-				F8E726F41BA203A600223CB0 /* lwf_cocos2dx_node.cpp in Sources */,
-				F8E727061BA203A600223CB0 /* lwf_graphic.cpp in Sources */,
-				F8E7270F1BA203A600223CB0 /* lwf_particle.cpp in Sources */,
-				F8E727131BA203A600223CB0 /* lwf_utility.cpp in Sources */,
 				F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */,
-				F8E727081BA203A600223CB0 /* lwf_iobject.cpp in Sources */,
-				F8E726FE1BA203A600223CB0 /* lwf_compat.cpp in Sources */,
+				EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */,
 				F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */,
-				F8E727111BA203A600223CB0 /* lwf_property.cpp in Sources */,
-				F8E726F91BA203A600223CB0 /* lwf_animation.cpp in Sources */,
-				F8E727101BA203A600223CB0 /* lwf_programobj.cpp in Sources */,
-				F8E726FA1BA203A600223CB0 /* lwf_bitmap.cpp in Sources */,
-				F8E726F21BA203A600223CB0 /* lwf_cocos2dx_bitmap.cpp in Sources */,
+				EB7B08FE1BB50D2200B36D24 /* lwf_eventbutton.cpp in Sources */,
 				F8C057191B99360200DEB2C0 /* Countly.m in Sources */,
+				EB7B08F81BB50D2200B36D24 /* lwf_button.cpp in Sources */,
+				EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */,
 				F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */,
+				EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */,
+				EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */,
 				F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */,
-				F8E727031BA203A600223CB0 /* lwf_eventbutton.cpp in Sources */,
-				F8E727011BA203A600223CB0 /* lwf_data.cpp in Sources */,
-				F8E726FB1BA203A600223CB0 /* lwf_bitmapclip.cpp in Sources */,
-				F8E726F81BA203A600223CB0 /* lwf_cocos2dx_textttf.cpp in Sources */,
-				F8E726FD1BA203A600223CB0 /* lwf_button.cpp in Sources */,
+				EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */,
+				EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */,
+				EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */,
-				F8E7270E1BA203A600223CB0 /* lwf_object.cpp in Sources */,
+				EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */,
+				EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */,
+				EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */,
+				EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
-				F8E7270B1BA203A600223CB0 /* lwf_movieat.cpp in Sources */,
+				EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */,
 				F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */,
-				F8E726FF1BA203A600223CB0 /* lwf_core.cpp in Sources */,
-				F8E7270C1BA203A600223CB0 /* lwf_movieop.cpp in Sources */,
+				EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */,
+				EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */,
+				EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */,
+				EB7B08F51BB50D2200B36D24 /* lwf_bitmap.cpp in Sources */,
+				EB7B08F01BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp in Sources */,
+				EB7B09061BB50D2200B36D24 /* lwf_movieat.cpp in Sources */,
+				EB7B09021BB50D2200B36D24 /* lwf_input.cpp in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				EB7B08FA1BB50D2200B36D24 /* lwf_core.cpp in Sources */,
+				EB7B08FF1BB50D2200B36D24 /* lwf_eventmovie.cpp in Sources */,
+				EB7B08EE1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp in Sources */,
+				EB7B08F61BB50D2200B36D24 /* lwf_bitmapclip.cpp in Sources */,
+				EB7B08EF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp in Sources */,
+				EB7B08F21BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp in Sources */,
+				EB7B08F31BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp in Sources */,
+				EB7B08FC1BB50D2200B36D24 /* lwf_data.cpp in Sources */,
+				EB7B08F71BB50D2200B36D24 /* lwf_bitmapex.cpp in Sources */,
 				F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */,
-				F8E727121BA203A600223CB0 /* lwf_text.cpp in Sources */,
-				F8E727001BA203A600223CB0 /* lwf_coredata.cpp in Sources */,
-				F8E727221BA207BA00223CB0 /* jsb_lwf.cpp in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
-				F8E726F31BA203A600223CB0 /* lwf_cocos2dx_factory.cpp in Sources */,
-				F8E7270D1BA203A600223CB0 /* lwf_movieprop.cpp in Sources */,
-				F8E727021BA203A600223CB0 /* lwf_event.cpp in Sources */,
-				F8E727071BA203A600223CB0 /* lwf_input.cpp in Sources */,
-				F8E726FC1BA203A600223CB0 /* lwf_bitmapex.cpp in Sources */,
+				EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */,
+				EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */,
+				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
+				EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */,
+				EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

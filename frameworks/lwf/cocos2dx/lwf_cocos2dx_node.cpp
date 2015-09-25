@@ -33,8 +33,7 @@ NS_CC_BEGIN;
 
 using namespace LWF;
 
-LWFNode *LWFNode::create
-(
+LWFNode *LWFNode::create(
 	const char *pszFileName, void *l, TextureLoadHandler textureLoadHandler)
 {
 	LWFNodeHandlers h;

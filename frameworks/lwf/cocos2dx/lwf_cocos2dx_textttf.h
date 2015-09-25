@@ -33,7 +33,6 @@ class LWFText : public Label
 public:
   // NOTE : COCOS2D_VERSION is defined as 0x00030700 in Cocos2d-x 3.8 package.
   //        Please modify that declaration before using LWF.
-#if 0x00030800 <= COCOS2D_VERSION
 	LWFText(FontAtlas *atlas, TextHAlignment hAlignment)
 		: Label(hAlignment) {
 		setFontAtlas(atlas);
@@ -43,14 +42,6 @@ public:
 		: Label(hAlignment, vAlignment) {
 		setFontAtlas(atlas);
 	}
-#else
-	LWFText(FontAtlas *atlas, TextHAlignment hAlignment)
-		: Label(atlas, hAlignment) {}
-	LWFText(FontAtlas *atlas, TextHAlignment hAlignment,
-			TextVAlignment vAlignment)
-		: Label(atlas, hAlignment, vAlignment) {}
-
-#endif
 
 	virtual ~LWFText() {}
 	virtual LWF::Text *GetText() = 0;

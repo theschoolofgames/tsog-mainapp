@@ -43,7 +43,7 @@
 #include "platform/ios/JavaScriptObjCBridge.h"
 #endif
 
-#include "jsb_lwf.hpp"
+#include "jsb_cocos2dx_lwf.hpp"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -104,7 +104,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(register_all_cocos2dx_ui_manual);
     
     // LWF
-    sc->addRegisterCallback(register_all_lwf);
+    sc->addRegisterCallback(register_all_cocos2dx_lwf);
 
     // studio can be commented out to reduce the package, 
 //    sc->addRegisterCallback(register_all_cocos2dx_studio);

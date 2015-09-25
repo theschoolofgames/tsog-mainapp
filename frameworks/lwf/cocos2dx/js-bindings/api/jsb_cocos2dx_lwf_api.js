@@ -1,12 +1,12 @@
 /**
- * @module lwf
+ * @module cocos2dx_lwf
  */
-var lwf = lwf || {};
+var cc = cc || {};
 
 /**
  * @class LWFBitmap
  */
-lwf.Bitmap = {
+cc.LWFBitmap = {
 
 /**
  * @method GetBitmap
@@ -33,7 +33,7 @@ GetBitmapEx : function (
 /**
  * @class LWFNode
  */
-lwf.Node = {
+cc.LWFNode = {
 
 /**
  * @method isDestructed
@@ -117,43 +117,9 @@ LWFNode : function (
 };
 
 /**
- * @class LWFParticle
- */
-lwf.Particle = {
-
-/**
- * @method GetParticle
- * @return {LWF::Particle}
- */
-GetParticle : function (
-)
-{
-    return LWF::Particle;
-},
-
-};
-
-/**
- * @class LWFText
- */
-lwf.Text = {
-
-/**
- * @method GetText
- * @return {LWF::Text}
- */
-GetText : function (
-)
-{
-    return LWF::Text;
-},
-
-};
-
-/**
  * @class LWFSprite
  */
-lwf.Sprite = {
+cc.LWFSprite = {
 
 /**
  * @method create
