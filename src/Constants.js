@@ -127,4 +127,5 @@ var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_GAME_DATA  = "game_data";
 
 var STRING_USER_ID = "user_id";
+var STRING_USER_NAME = "user_name";
 var STRING_SCHOOL_ID = "school_id";
