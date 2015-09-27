@@ -86,6 +86,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
         infoLabel.x = cc.winSize.width / 2;
         infoLabel.y = scrollViewContainerWorldPos.y + this._scrollViewContainer.height;
+        infoLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
 
         this.addChild(infoLabel, 2);
     },
