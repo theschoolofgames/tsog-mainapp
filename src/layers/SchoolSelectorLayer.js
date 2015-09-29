@@ -89,13 +89,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var leftArrowImg = new cc.Sprite("#arrow-left.png");
         leftArrowImg.x = firstSchoolPos.x / 4;
         leftArrowImg.y = cc.winSize.height / 2;
-        this._leftArrowImg = leftArrowImg;
+        leftArrowImg.setVisible(false);
+        // this._leftArrowImg.setVisible(false);
         var rightArrowImg = new cc.Sprite("#arrow-right.png");
         rightArrowImg.x = cc.winSize.width - firstSchoolPos.x / 4;
         rightArrowImg.y = cc.winSize.height / 2;
-        this._rightArrowImg = rightArrowImg;
         this.addChild(leftArrowImg);
         this.addChild(rightArrowImg);
+        this._rightArrowImg = rightArrowImg;
+        this._leftArrowImg = leftArrowImg;
     },
 
     createBackground: function() {
@@ -303,18 +305,24 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setSwallowTouches(false);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
         this._scrollView.addEventListener(function(pScrollView, event) {
-            if(event == ccui.ScrollView.EVENT_BOUNCE_LEFT) {
-                self._leftArrowImg.setVisible(false);
-            };
-            if(event == ccui.ScrollView.EVENT_BOUNCE_RIGHT) {
-                self._rightArrowImg.setVisible(false);
-            };
-            if(event == ccui.ScrollView.EVENT_SCROLLING) {
-                self._leftArrowImg.setVisible(true);
-                self._rightArrowImg.setVisible(true);
-            };
 
+            
+        if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT)
+            self._rightArrowImg.setVisible(false);
+        else if (event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
+            self._rightArrowImg.setVisible(false);
+        else
+            self._rightArrowImg.setVisible(true);
 
+        if (event == ccui.ScrollView.EVENT_SCROLL_TO_LEFT)
+            self._leftArrowImg.setVisible(false);
+        else if (event == ccui.ScrollView.EVENT_BOUNCE_LEFT)
+            self._leftArrowImg.setVisible(false);
+        else
+            self._leftArrowImg.setVisible(true);
+
+        cc.log("event : " + event);
+               
 
         }, this);
 
