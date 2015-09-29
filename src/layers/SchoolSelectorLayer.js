@@ -305,25 +305,19 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setSwallowTouches(false);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
         this._scrollView.addEventListener(function(pScrollView, event) {
+            if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT)
+                self._rightArrowImg.setVisible(false);
+            else if (event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
+                self._rightArrowImg.setVisible(false);
+            else
+                self._rightArrowImg.setVisible(true);
 
-            
-        if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT)
-            self._rightArrowImg.setVisible(false);
-        else if (event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
-            self._rightArrowImg.setVisible(false);
-        else
-            self._rightArrowImg.setVisible(true);
-
-        if (event == ccui.ScrollView.EVENT_SCROLL_TO_LEFT)
-            self._leftArrowImg.setVisible(false);
-        else if (event == ccui.ScrollView.EVENT_BOUNCE_LEFT)
-            self._leftArrowImg.setVisible(false);
-        else
-            self._leftArrowImg.setVisible(true);
-
-        cc.log("event : " + event);
-               
-
+            if (event == ccui.ScrollView.EVENT_SCROLL_TO_LEFT)
+                self._leftArrowImg.setVisible(false);
+            else if (event == ccui.ScrollView.EVENT_BOUNCE_LEFT)
+                self._leftArrowImg.setVisible(false);
+            else
+                self._leftArrowImg.setVisible(true);
         }, this);
 
         this._scrollView.x = 0;
