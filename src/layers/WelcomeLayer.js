@@ -6,6 +6,8 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this.addWelcomeCutscene();
 		this.moveToMainScene();
 
+        //reset music volume
+        cc.audioEngine.setMusicVolume(1);
 	    cc.audioEngine.playMusic(res.welcome_sound_mp3);
 	},
 

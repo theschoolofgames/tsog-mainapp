@@ -29,6 +29,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._super();
         var self = this;
 
+        this.playBackgroundMusic();
         this.createBackground();
         this.createBackButton();
 
@@ -211,7 +212,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var node = new cc.Node();
 
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        var numberOfGround = Math.ceil(accountData.length/6);
+        var numberOfGround = Math.ceil(accountData.length/6) + 1;
         for ( var i = -1; i < numberOfGround; i++) {
             ground = new cc.Sprite("#ground.png");
             ground.setAnchorPoint(0, 0);
@@ -409,6 +410,11 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             pwImage.addClickEventListener(function() {
                 if (self._passwordItems[passwordIndex] === this) {
+                    // stop background music and play effect sound
+                    // cc.audioEngine.stopMusic();
+                    self.turnDownMusicVolume();
+                    cc.audioEngine.playEffect(res.right_password_mp3);
+
                     self._isActionRunning = true;
                     this.cleanup();
                     this.setScale(1);
@@ -443,6 +449,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         })
                     ));
                 } else {
+                    cc.audioEngine.playEffect(res.wrong_password_mp3);
                     // shake password image if its not the right one
                     this.runAction(cc.sequence(
                             cc.moveBy(0.1, cc.p(10,0)),
@@ -563,6 +570,23 @@ var AccountSelectorLayer = cc.Layer.extend({
             targetNode._isTouchMoved = true;
 
         return true;
+    },
+
+    playBackgroundMusic: function() {
+        if (cc.audioEngine.isMusicPlaying())
+            return
+        // play background music
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.background_mp3, true);
+    },
+
+    turnDownMusicVolume: function() {
+        this.runAction(cc.sequence(
+                cc.delayTime(1),
+                cc.callFunc(function() {
+                    cc.audioEngine.setMusicVolume(0);
+                })
+            ))
     }
 
 });

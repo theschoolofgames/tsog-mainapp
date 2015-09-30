@@ -16,6 +16,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     ctor: function () {
         this._super();
+
+        this.playBackgroundMusic();
         this.createBackground();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
@@ -375,15 +377,23 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
 
         if(sqrDistance > 9) {
-            if (!targetNode._isTouchMoved) {
-                cc.audioEngine.end();
-                cc.audioEngine.playEffect(res.bubble_scroll_sound_mp3);
-            }
+            // if (!targetNode._isTouchMoved) {
+            //     cc.audioEngine.end();
+            //     cc.audioEngine.playEffect(res.bubble_scroll_sound_mp3);
+            // }
             targetNode._isTouchMoved = true;
         }
 
         return true;
-    }
+    },
+
+    playBackgroundMusic: function() {
+        if (cc.audioEngine.isMusicPlaying())
+            return
+        // play background music
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.background_mp3, true);
+    },
 });
 
 SchoolSelectorLayer.loadedData = false;

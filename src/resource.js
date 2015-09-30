@@ -27,7 +27,11 @@ var res = {
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",
     bubble_scroll_sound_mp3: "res/sound/bubble-scroll.mp3",
-    welcome_sound_mp3: "res/sound/welcome.mp3"
+    welcome_sound_mp3: "res/sound/welcome.mp3",
+    change_scene_mp3: "res/sound/change-scene.mp3",
+    right_password_mp3: "res/sound/right-password.mp3",
+    wrong_password_mp3: "res/sound/wrong-pass.mp3",
+    background_mp3: "res/sound/background.mp3"
 };
 
 var g_resources = [];

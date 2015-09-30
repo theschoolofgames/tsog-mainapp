@@ -198,7 +198,7 @@ var GameSelectorLayer = cc.Layer.extend({
             btnShadow.runAction(cc.sequence(
                 cc.delayTime(i* 0.1),
                 cc.scaleTo(0.5, 1.35).easing(cc.easeElasticOut(0.6))
-            ));            
+            ));
         }
     },
 
@@ -233,6 +233,7 @@ var GameSelectorLayer = cc.Layer.extend({
         backButton.x = backButton.width ;
         backButton.y = cc.winSize.height - backButton.height*2/3;
         backButton.addClickEventListener(function() {
+            cc.audioEngine.stopMusic();
             cc.sys.localStorage.setItem("isLoggedIn", 0);
             cc.director.replaceScene(new AccountSelectorScene());
         });
