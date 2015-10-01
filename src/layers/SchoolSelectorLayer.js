@@ -17,7 +17,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
 
-        this.playBackgroundMusic();
         this.createBackground();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
@@ -385,14 +384,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
         }
 
         return true;
-    },
-
-    playBackgroundMusic: function() {
-        if (cc.audioEngine.isMusicPlaying())
-            return
-        // play background music
-        cc.audioEngine.setMusicVolume(0.2);
-        cc.audioEngine.playMusic(res.background_mp3, true);
     },
 });
 

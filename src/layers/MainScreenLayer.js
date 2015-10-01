@@ -19,6 +19,7 @@ var MainScreenLayer = cc.Layer.extend({
         if (this._isLoggedIn == 0 ) {
             this.schLayer = new SchoolSelectorLayer();
             this.addChild(this.schLayer);
+            this.playBackgroundMusic();
         } else {
             cc.log("move to welcome");
             this.runAction(
@@ -26,12 +27,19 @@ var MainScreenLayer = cc.Layer.extend({
                     cc.delayTime(0),
                     cc.callFunc(function() {
                         cc.director.replaceScene(new WelcomeScene());
-                        // cc.director.replaceScene(new GameSelectorScene());
                     })
                 ))
         }
 
-    }
+    },
+
+    playBackgroundMusic: function() {
+        if (cc.audioEngine.isMusicPlaying())
+            return
+        // play background music
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.background_mp3, true);
+    },
 });
 
 var MainScene = cc.Scene.extend({

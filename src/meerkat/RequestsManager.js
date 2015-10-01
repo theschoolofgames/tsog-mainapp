@@ -15,7 +15,7 @@ var RequestsManager = cc.Class.extend({
             }
             else
                callback && callback(false, null);
-        }); 
+        });
     },
 
     getAccounts: function(schoolId, callback) {
@@ -28,7 +28,7 @@ var RequestsManager = cc.Class.extend({
             }
             else
                 callback && callback(false, null);
-        }); 
+        });
     },
 
     getGames: function(userId, callback) {
@@ -41,7 +41,7 @@ var RequestsManager = cc.Class.extend({
             }
             else
                 callback && callback(false, null);
-        }); 
+        });
     }
 });
 
