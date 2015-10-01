@@ -155,7 +155,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolName = self.getSchoolName();
 
-                var sendData = self._userName + ":" + schoolName;
+                var sendData = self._userName + ":" + schoolName + ":" + self._userId;
                 jsb.reflection.callStaticMethod("H102Wrapper",
                                                 "openScheme:withData:",
                                                 data.ios_bundle,
