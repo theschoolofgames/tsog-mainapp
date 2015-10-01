@@ -17,6 +17,7 @@ var GameSelectorLayer = cc.Layer.extend({
         this._super();
         var self = this;
 
+        this.playBackgroundMusic();
         var bg = new cc.Sprite(res.Bg_game_jpg);
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
@@ -250,6 +251,15 @@ var GameSelectorLayer = cc.Layer.extend({
         }
 
         return schoolName;
+    },
+
+    playBackgroundMusic: function() {
+        cc.audioEngine.stopMusic();
+        if (cc.audioEngine.isMusicPlaying())
+            return
+        // play background music
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.background_mp3, true);
     },
 });
 
