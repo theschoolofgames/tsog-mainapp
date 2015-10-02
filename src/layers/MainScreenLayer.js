@@ -15,13 +15,14 @@ var MainScreenLayer = cc.Layer.extend({
             this._isLoggedIn = 0 is not logged in,
             1 is logged in
         */
+        var self = this;
         if (this._isLoggedIn == 0 ) {
             this.runAction(
                 cc.sequence(
                     cc.delayTime(0),
                     cc.callFunc(function() {
                         cc.director.replaceScene(new SchoolSelectorScene());
-                        this.playBackgroundMusic();
+                        self.playBackgroundMusic();
                     })
                 ))
         } else {
