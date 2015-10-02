@@ -75,42 +75,43 @@
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
-		EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08EE1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08EF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F01BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B11BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B31BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F21BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B51BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F31BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B71BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BB1BB50D2200B36D24 /* lwf_animation.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F51BB50D2200B36D24 /* lwf_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BD1BB50D2200B36D24 /* lwf_bitmap.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F61BB50D2200B36D24 /* lwf_bitmapclip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BF1BB50D2200B36D24 /* lwf_bitmapclip.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F71BB50D2200B36D24 /* lwf_bitmapex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C11BB50D2200B36D24 /* lwf_bitmapex.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F81BB50D2200B36D24 /* lwf_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C31BB50D2200B36D24 /* lwf_button.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C51BB50D2200B36D24 /* lwf_compat.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FA1BB50D2200B36D24 /* lwf_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C71BB50D2200B36D24 /* lwf_core.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C91BB50D2200B36D24 /* lwf_coredata.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FC1BB50D2200B36D24 /* lwf_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CA1BB50D2200B36D24 /* lwf_data.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CC1BB50D2200B36D24 /* lwf_event.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FE1BB50D2200B36D24 /* lwf_eventbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CD1BB50D2200B36D24 /* lwf_eventbutton.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B08FF1BB50D2200B36D24 /* lwf_eventmovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CF1BB50D2200B36D24 /* lwf_eventmovie.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D11BB50D2200B36D24 /* lwf_format.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D31BB50D2200B36D24 /* lwf_graphic.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09021BB50D2200B36D24 /* lwf_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D51BB50D2200B36D24 /* lwf_input.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D61BB50D2200B36D24 /* lwf_iobject.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D81BB50D2200B36D24 /* lwf_lwfcontainer.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DA1BB50D2200B36D24 /* lwf_movie.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09061BB50D2200B36D24 /* lwf_movieat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DC1BB50D2200B36D24 /* lwf_movieat.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DD1BB50D2200B36D24 /* lwf_movieop.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DE1BB50D2200B36D24 /* lwf_movieprop.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DF1BB50D2200B36D24 /* lwf_object.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E11BB50D2200B36D24 /* lwf_particle.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E31BB50D2200B36D24 /* lwf_programobj.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E51BB50D2200B36D24 /* lwf_property.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E81BB50D2200B36D24 /* lwf_text.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */; settings = {ASSET_TAGS = (); }; };
-		EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */; settings = {ASSET_TAGS = (); }; };
-		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; settings = {ASSET_TAGS = (); }; };
+		EA4CD6751BBEF5870054555C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA4CD6741BBEF5870054555C /* Images.xcassets */; };
+		EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */; };
+		EB7B08EE1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */; };
+		EB7B08EF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */; };
+		EB7B08F01BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B11BB50D2200B36D24 /* lwf_cocos2dx_particle.cpp */; };
+		EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B31BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp */; };
+		EB7B08F21BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B51BB50D2200B36D24 /* lwf_cocos2dx_textbmfont.cpp */; };
+		EB7B08F31BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08B71BB50D2200B36D24 /* lwf_cocos2dx_textttf.cpp */; };
+		EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BB1BB50D2200B36D24 /* lwf_animation.cpp */; };
+		EB7B08F51BB50D2200B36D24 /* lwf_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BD1BB50D2200B36D24 /* lwf_bitmap.cpp */; };
+		EB7B08F61BB50D2200B36D24 /* lwf_bitmapclip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08BF1BB50D2200B36D24 /* lwf_bitmapclip.cpp */; };
+		EB7B08F71BB50D2200B36D24 /* lwf_bitmapex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C11BB50D2200B36D24 /* lwf_bitmapex.cpp */; };
+		EB7B08F81BB50D2200B36D24 /* lwf_button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C31BB50D2200B36D24 /* lwf_button.cpp */; };
+		EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C51BB50D2200B36D24 /* lwf_compat.cpp */; };
+		EB7B08FA1BB50D2200B36D24 /* lwf_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C71BB50D2200B36D24 /* lwf_core.cpp */; };
+		EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08C91BB50D2200B36D24 /* lwf_coredata.cpp */; };
+		EB7B08FC1BB50D2200B36D24 /* lwf_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CA1BB50D2200B36D24 /* lwf_data.cpp */; };
+		EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CC1BB50D2200B36D24 /* lwf_event.cpp */; };
+		EB7B08FE1BB50D2200B36D24 /* lwf_eventbutton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CD1BB50D2200B36D24 /* lwf_eventbutton.cpp */; };
+		EB7B08FF1BB50D2200B36D24 /* lwf_eventmovie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08CF1BB50D2200B36D24 /* lwf_eventmovie.cpp */; };
+		EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D11BB50D2200B36D24 /* lwf_format.cpp */; };
+		EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D31BB50D2200B36D24 /* lwf_graphic.cpp */; };
+		EB7B09021BB50D2200B36D24 /* lwf_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D51BB50D2200B36D24 /* lwf_input.cpp */; };
+		EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D61BB50D2200B36D24 /* lwf_iobject.cpp */; };
+		EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08D81BB50D2200B36D24 /* lwf_lwfcontainer.cpp */; };
+		EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DA1BB50D2200B36D24 /* lwf_movie.cpp */; };
+		EB7B09061BB50D2200B36D24 /* lwf_movieat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DC1BB50D2200B36D24 /* lwf_movieat.cpp */; };
+		EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DD1BB50D2200B36D24 /* lwf_movieop.cpp */; };
+		EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DE1BB50D2200B36D24 /* lwf_movieprop.cpp */; };
+		EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08DF1BB50D2200B36D24 /* lwf_object.cpp */; };
+		EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E11BB50D2200B36D24 /* lwf_particle.cpp */; };
+		EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E31BB50D2200B36D24 /* lwf_programobj.cpp */; };
+		EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E51BB50D2200B36D24 /* lwf_property.cpp */; };
+		EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08E81BB50D2200B36D24 /* lwf_text.cpp */; };
+		EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */; };
+		EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */; };
+		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
 		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -244,6 +245,7 @@
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		EA4CD6741BBEF5870054555C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tsog/Images.xcassets; sourceTree = "<group>"; };
 		EB7B08AA1BB50D2200B36D24 /* lwf_cocos2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx.h; sourceTree = "<group>"; };
 		EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_bitmap.cpp; sourceTree = "<group>"; };
 		EB7B08AC1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_bitmap.h; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EA4CD6741BBEF5870054555C /* Images.xcassets */,
 				1A1A081B18C9DF05005C6854 /* project.json */,
 				1A6BF21418C9DB5900FB0E1C /* main.js */,
 				C0799CB518BAE62000E9C828 /* res */,
@@ -823,6 +826,7 @@
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
+				EA4CD6751BBEF5870054555C /* Images.xcassets in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
@@ -1037,6 +1041,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Son Tung Nguyen (2248KN5M9U)";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1066,6 +1072,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Son Tung Nguyen (2248KN5M9U)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;

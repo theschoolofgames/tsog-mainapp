@@ -15,11 +15,15 @@ var MainScreenLayer = cc.Layer.extend({
             this._isLoggedIn = 0 is not logged in,
             1 is logged in
         */
-            // cc.director.replaceScene(new SchoolSelectorScene());
         if (this._isLoggedIn == 0 ) {
-            this.schLayer = new SchoolSelectorLayer();
-            this.addChild(this.schLayer);
-            this.playBackgroundMusic();
+            this.runAction(
+                cc.sequence(
+                    cc.delayTime(0),
+                    cc.callFunc(function() {
+                        cc.director.replaceScene(new SchoolSelectorScene());
+                        this.playBackgroundMusic();
+                    })
+                ))
         } else {
             cc.log("move to welcome");
             this.runAction(
