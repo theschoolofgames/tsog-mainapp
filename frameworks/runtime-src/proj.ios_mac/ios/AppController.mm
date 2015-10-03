@@ -31,6 +31,8 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
+#import "IOSNDKHelper.h"
+
 @implementation AppController
 
 #pragma mark -
@@ -82,6 +84,9 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     cocos2d::Application::getInstance()->run();
+  
+    [IOSNDKHelper setNDKReceiver:self];
+  
     return YES;
 }
 
@@ -146,6 +151,21 @@ static AppDelegate s_sharedApplication;
     [super dealloc];
 }
 
+#pragma Native OC methods
+- (void)showMessage:(NSString *)title message:(NSString *)message  {
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+  
+  [alertView show];
+}
+
+- (void)showMessage:(NSObject *)prms {
+  NSDictionary* dict = (NSDictionary*)prms;
+  [self showMessage:[dict valueForKey:@"title"] message:[dict valueForKey:@"message"]];
+}
 
 @end
 

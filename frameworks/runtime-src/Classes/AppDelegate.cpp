@@ -43,7 +43,8 @@
 #include "platform/ios/JavaScriptObjCBridge.h"
 #endif
 
-#include "jsb_cocos2dx_lwf.hpp"
+#include "../../lwf/cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
+#include "NDKHelper/NDKHelper.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -166,6 +167,16 @@ bool AppDelegate::applicationDidFinishLaunching()
   
   auto console = director->getConsole();
   console->listenOnTCP(6050);
+  
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("reportError", [sc](EventCustom* pEvent) {
+    std::string mess = *((std::string*)pEvent->getUserData());
+    
+    ValueMap params( {
+      { "title", Value("Error") },
+      { "message", Value(mess) }
+    });
+    sendMessageWithParams("showMessage", Value(params));
+  });
 
     return true;
 }

@@ -29,6 +29,13 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import org.json.JSONObject;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
+import com.easyndk.classes.AndroidNDKHelper;
+
 public class AppActivity extends Cocos2dxActivity {
 	
     @Override
@@ -37,6 +44,25 @@ public class AppActivity extends Cocos2dxActivity {
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
+        AndroidNDKHelper.SetNDKReceiver(this);
+
         return glSurfaceView;
+    }
+
+    public void showMessage(String title, String message) {
+        AlertDialog alertDialog = new AlertDialog.Builder(AppActivity.this).create();
+        alertDialog.setTitle(title);
+        alertDialog.setMessage(message);
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+        alertDialog.show();
+    }
+
+    public void showMessage(JSONObject prms) {
+        showMessage(prms.optString("title"), prms.optString("message"));
     }
 }

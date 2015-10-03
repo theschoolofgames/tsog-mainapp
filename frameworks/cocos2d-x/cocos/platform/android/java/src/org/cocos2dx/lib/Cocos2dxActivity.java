@@ -458,7 +458,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
       Log.d(TAG, "product=" + product);
       boolean isEmulator = false;
       if (product != null) {
-         isEmulator = product.equals("sdk") || product.contains("_sdk") || product.contains("sdk_");
+         isEmulator = product.equals("sdk") || product.contains("_sdk") || product.contains("sdk_") || product.contains("vbox");
       }
       Log.d(TAG, "isEmulator=" + isEmulator);
       return isEmulator;

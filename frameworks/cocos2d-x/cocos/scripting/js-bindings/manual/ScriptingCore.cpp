@@ -806,6 +806,12 @@ void ScriptingCore::cleanup()
 
 void ScriptingCore::reportError(JSContext *cx, const char *message, JSErrorReport *report)
 {
+  std::string mess = StringUtils::format("%s:%u:%s\n",
+                                         report->filename ? report->filename : "<no filename=\"filename\">",
+                                         (unsigned int) report->lineno,
+                                         message);
+  Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("reportError", &mess);
+  
     js_log("%s:%u:%s\n",
             report->filename ? report->filename : "<no filename=\"filename\">",
             (unsigned int) report->lineno,
