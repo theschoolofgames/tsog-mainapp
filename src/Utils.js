@@ -5,7 +5,7 @@ Utils.callCountlyStart = function() {
         var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
         var hostUrl = "http://tsog.hub102.com";
 
-        if (cc.sys.os == sys.OS_IOS) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
             jsb.reflection.callStaticMethod("H102Wrapper",
                                             "countlyStart:withUrl:",
                                             appKey,
@@ -16,7 +16,7 @@ Utils.callCountlyStart = function() {
 
 Utils.callCountlyRecordEvent = function(key, count) {
     if (cc.sys.isNative) {
-        if (cc.sys.os == sys.OS_IOS) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
             jsb.reflection.callStaticMethod("H102Wrapper",
                                             "countlyRecordEvent:count:",
                                             key, count);
@@ -26,11 +26,19 @@ Utils.callCountlyRecordEvent = function(key, count) {
 
 Utils.callOpenScheme = function(scheme, data) {
     if (cc.sys.isNative) {
-        if (cc.sys.os == sys.OS_IOS) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
             jsb.reflection.callStaticMethod("H102Wrapper",
                                             "openScheme:withData:",
                                             scheme,
                                             data);
+        }
+
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                            "openScheme",
+                                            "(Ljava/lang/String;Ljava/lang/String;)Z",
+                                            scheme,
+                                            data);   
         }
     }
 }
