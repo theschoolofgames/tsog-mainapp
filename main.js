@@ -53,14 +53,7 @@ cc.game.onStart = function(){
 
     cc.log(jsb.fileUtils.getWritablePath());
 
-    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
-        var hostUrl = "http://tsog.hub102.com";
-        jsb.reflection.callStaticMethod("H102Wrapper",
-                                             "countlyStart:withUrl:",
-                                             appKey,
-                                             hostUrl);
-    }
+    Utils.callCountlyStart();
 
     // Pass true to enable retina display, disabled by default to improve performance
     cc.view.enableRetina(false);
@@ -85,15 +78,15 @@ cc.game.onStart = function(){
             searchPaths.push(largeResource.directory);
             cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
             cc.log("Use largeResource");
-        } else if (frameSize.height >= mediumResource.size.height) {
+        } else //if (frameSize.height >= mediumResource.size.height) {
             searchPaths.push(mediumResource.directory);
             cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
             cc.log("Use mediumResource");
-        } else {
-            searchPaths.push(smallResource.directory);
-            cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
-            cc.log("Use smallResource");
-        }
+        // } else {
+        //     searchPaths.push(smallResource.directory);
+        //     cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
+        //     cc.log("Use smallResource");
+        // }
         searchPaths.push("res");
         jsb.fileUtils.setSearchPaths(searchPaths);
     }

@@ -48,7 +48,7 @@
 	<string>1.0</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>com.hub102.tsog-alphabet</string>
+		<string>com.hub102.tsog.alphabet</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

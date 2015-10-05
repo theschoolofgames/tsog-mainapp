@@ -437,10 +437,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         move_ease,
                         cc.callFunc(function(){
                             if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-                                jsb.reflection.callStaticMethod("H102Wrapper",
-                                                     "countlyRecordEvent:count:",
-                                                     "select_account",
-                                                     1);
+                                Utils.callCountlyRecordEvent("select_account", 1);
                             }
 
                             KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);

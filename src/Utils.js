@@ -1,5 +1,40 @@
 var Utils = Utils || {};
 
+Utils.callCountlyStart = function() {
+    if (cc.sys.isNative) {
+        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
+        var hostUrl = "http://tsog.hub102.com";
+
+        if (cc.sys.os == sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "countlyStart:withUrl:",
+                                            appKey,
+                                            hostUrl);
+        }
+    }
+}
+
+Utils.callCountlyRecordEvent = function(key, count) {
+    if (cc.sys.isNative) {
+        if (cc.sys.os == sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "countlyRecordEvent:count:",
+                                            key, count);
+        }
+    }
+}
+
+Utils.callOpenScheme = function(scheme, data) {
+    if (cc.sys.isNative) {
+        if (cc.sys.os == sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "openScheme:withData:",
+                                            scheme,
+                                            data);
+        }
+    }
+}
+
 Utils.addLoadingIndicatorLayer = function(block) {
     var currentScene = cc.director.getRunningScene();
 
@@ -41,10 +76,12 @@ Utils.loadImg = function(imgUrl, spriteNode, cb) {
             frame = cc.spriteFrameCache.getSpriteFrame(fileName);
         }
         if (frame) {
-            if (spriteNode instanceof ccui.Button)
+            if (spriteNode instanceof ccui.Button) {
                 spriteNode.loadTextureNormal(fileName, ccui.Widget.PLIST_TEXTURE);
-            if (spriteNode instanceof cc.Sprite)
+            }
+            if (spriteNode instanceof cc.Sprite) {
                 spriteNode.setSpriteFrame(frame);
+            }
 
             spriteNode.scale = oldWidth / (spriteNode.getBoundingBox().width / spriteNode.scale);
 
@@ -57,13 +94,16 @@ Utils.loadImg = function(imgUrl, spriteNode, cb) {
                 // cc.log(texture.pixelsWidth + " " + texture.pixelsHeight);
                 // self._avatarTexture[fbid] = texture;
 
+                texture.setAntiAliasTexParameters();
                 var spriteFrame = new cc.SpriteFrame(texture, cc.rect(0, 0, texture.width, texture.height));
                 cc.spriteFrameCache.addSpriteFrame(spriteFrame, fileName);
 
-                if (spriteNode instanceof ccui.Button)
+                if (spriteNode instanceof ccui.Button) {
                     spriteNode.loadTextureNormal(fileName, ccui.Widget.PLIST_TEXTURE);
-                if (spriteNode instanceof cc.Sprite)
+                }
+                if (spriteNode instanceof cc.Sprite) {
                     spriteNode.setSpriteFrame(spriteFrame);
+                }
 
                 spriteNode.scale = oldWidth / (spriteNode.getBoundingBox().width / spriteNode.scale);
 
@@ -90,6 +130,7 @@ Utils.loadSavedTexture = function(fileName) {
     var fullName = jsb.fileUtils.getWritablePath() + 'games/' + fileName;
     if (jsb.fileUtils.isFileExist(fullName)) {
         var sprite = new cc.Sprite(fullName);
+        sprite.texture.setAntiAliasTexParameters();
         var spriteFrame = new cc.SpriteFrame(sprite.getTexture(), cc.rect(0, 0, sprite.width, sprite.height));
         cc.spriteFrameCache.addSpriteFrame(spriteFrame, fileName);
 
