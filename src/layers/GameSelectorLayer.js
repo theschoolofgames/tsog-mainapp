@@ -156,7 +156,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var schoolName = self.getSchoolName();
 
                 var sendData = self._userName + ":" + schoolName + ":" + self._userId;
-                var scheme = cc.sys.os == sys.OS_IOS ? data.ios_bundle : data.android_bundle;
+                var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
                 Utils.callOpenScheme(scheme, Base64.encode(sendData)); 
             });
             btnGame.scale = 1.35;

@@ -33,14 +33,19 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 
 import com.easyndk.classes.AndroidNDKHelper;
 
 public class AppActivity extends Cocos2dxActivity {
 	
+    private static AppActivity app = null;
+
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
         Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
+        app = this;
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
@@ -49,20 +54,45 @@ public class AppActivity extends Cocos2dxActivity {
         return glSurfaceView;
     }
 
+    // Easy NDK
     public void showMessage(String title, String message) {
-        AlertDialog alertDialog = new AlertDialog.Builder(AppActivity.this).create();
-        alertDialog.setTitle(title);
-        alertDialog.setMessage(message);
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        alertDialog.show();
+        final String aTitle = title, aMessage = message;
+        app.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog alertDialog = new AlertDialog.Builder(app).create();
+                alertDialog.setTitle(aTitle);
+                alertDialog.setMessage(aMessage);
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                alertDialog.show();
+            }
+        });
     }
 
     public void showMessage(JSONObject prms) {
         showMessage(prms.optString("title"), prms.optString("message"));
+    }
+
+    // Reflection
+    public static boolean openScheme(String bundleId, String data) {
+        PackageManager manager = app.getPackageManager();
+
+        Intent i = manager.getLaunchIntentForPackage(bundleId);
+        if (i == null) {
+            app.showMessage("Error", "Target game not found");
+            return false;
+            //throw new PackageManager.NameNotFoundException();
+        }
+        i.setAction(Intent.ACTION_SEND);
+        i.putExtra(Intent.EXTRA_TEXT, data);
+        i.setType("text/plain");
+        i.addCategory(Intent.CATEGORY_LAUNCHER);
+        app.startActivity(i);
+        return true;    
     }
 }
