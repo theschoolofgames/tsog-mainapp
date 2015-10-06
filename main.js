@@ -109,3 +109,7 @@ cc.game.onStart = function(){
     }, this);
 };
 cc.game.run();
+
+function receiveData(data) {
+    cc.log(data);
+}

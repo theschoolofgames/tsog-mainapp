@@ -28,15 +28,12 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-
-import org.json.JSONObject;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
-import com.easyndk.classes.AndroidNDKHelper;
 
 public class AppActivity extends Cocos2dxActivity {
 	
@@ -49,13 +46,11 @@ public class AppActivity extends Cocos2dxActivity {
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        AndroidNDKHelper.SetNDKReceiver(this);
-
         return glSurfaceView;
     }
 
-    // Easy NDK
-    public void showMessage(String title, String message) {
+    // Reflection
+    public static void showMessage(String title, String message) {
         final String aTitle = title, aMessage = message;
         app.runOnUiThread(new Runnable() {
             @Override
@@ -74,17 +69,12 @@ public class AppActivity extends Cocos2dxActivity {
         });
     }
 
-    public void showMessage(JSONObject prms) {
-        showMessage(prms.optString("title"), prms.optString("message"));
-    }
-
-    // Reflection
     public static boolean openScheme(String bundleId, String data) {
         PackageManager manager = app.getPackageManager();
 
         Intent i = manager.getLaunchIntentForPackage(bundleId);
         if (i == null) {
-            app.showMessage("Error", "Target game not found");
+            AppActivity.showMessage("Error", "Target game not found");
             return false;
             //throw new PackageManager.NameNotFoundException();
         }

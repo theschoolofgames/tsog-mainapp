@@ -44,7 +44,6 @@
 #endif
 
 #include "../../lwf/cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
-#include "NDKHelper/NDKHelper.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -171,11 +170,11 @@ bool AppDelegate::applicationDidFinishLaunching()
   Director::getInstance()->getEventDispatcher()->addCustomEventListener("reportError", [sc](EventCustom* pEvent) {
     std::string mess = *((std::string*)pEvent->getUserData());
     
-    ValueMap params( {
-      { "title", Value("Error") },
-      { "message", Value(mess) }
-    });
-    sendMessageWithParams("showMessage", Value(params));
+    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
+                                                                           CallFunc::create([mess](){
+      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
+    }), NULL));
+
   });
 
     return true;

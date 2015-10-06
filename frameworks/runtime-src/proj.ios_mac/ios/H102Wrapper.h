@@ -15,6 +15,8 @@
 + (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count;
 
 + (void)openScheme:(NSString *)bundleId withData:(NSString *)data;
+
++ (void)showMessage:(NSString *)title message:(NSString *)message;
 @end
 
 

@@ -32,4 +32,14 @@
   }
 }
 
++ (void)showMessage:(NSString *)title message:(NSString *)message  {
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+  
+  [alertView show];
+}
+
 @end

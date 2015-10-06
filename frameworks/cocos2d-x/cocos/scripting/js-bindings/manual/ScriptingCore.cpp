@@ -806,7 +806,7 @@ void ScriptingCore::cleanup()
 
 void ScriptingCore::reportError(JSContext *cx, const char *message, JSErrorReport *report)
 {
-  std::string mess = StringUtils::format("%s:%u:%s\n",
+  std::string mess = StringUtils::format("%s:%u:%s",
                                          report->filename ? report->filename : "<no filename=\"filename\">",
                                          (unsigned int) report->lineno,
                                          message);
