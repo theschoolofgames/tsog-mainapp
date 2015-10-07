@@ -12,20 +12,20 @@
 		014E46641B99448600C94301 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; };
 		014E46651B99448A00C94301 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
 		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
-		0167B1891BBF9D700078DA54 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1871BBF9D700078DA54 /* IOSNDKHelper.mm */; settings = {ASSET_TAGS = (); }; };
-		0167B1A21BBF9D790078DA54 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18B1BBF9D780078DA54 /* dump.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A31BBF9D790078DA54 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18C1BBF9D780078DA54 /* error.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A41BBF9D790078DA54 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18D1BBF9D780078DA54 /* hashtable.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A51BBF9D790078DA54 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1921BBF9D780078DA54 /* load.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A61BBF9D790078DA54 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1931BBF9D780078DA54 /* memory.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A71BBF9D790078DA54 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1941BBF9D780078DA54 /* pack_unpack.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A81BBF9D790078DA54 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1951BBF9D780078DA54 /* strbuffer.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1A91BBF9D790078DA54 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1971BBF9D790078DA54 /* strconv.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1AA1BBF9D790078DA54 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1981BBF9D790078DA54 /* utf.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1AB1BBF9D790078DA54 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19A1BBF9D790078DA54 /* value.c */; settings = {ASSET_TAGS = (); }; };
-		0167B1AC1BBF9D790078DA54 /* CallFuncNV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19C1BBF9D790078DA54 /* CallFuncNV.cpp */; settings = {ASSET_TAGS = (); }; };
-		0167B1AD1BBF9D790078DA54 /* NDKCallbackNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19E1BBF9D790078DA54 /* NDKCallbackNode.cpp */; settings = {ASSET_TAGS = (); }; };
-		0167B1AE1BBF9D790078DA54 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1A01BBF9D790078DA54 /* NDKHelper.cpp */; settings = {ASSET_TAGS = (); }; };
+		0167B1891BBF9D700078DA54 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1871BBF9D700078DA54 /* IOSNDKHelper.mm */; };
+		0167B1A21BBF9D790078DA54 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18B1BBF9D780078DA54 /* dump.c */; };
+		0167B1A31BBF9D790078DA54 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18C1BBF9D780078DA54 /* error.c */; };
+		0167B1A41BBF9D790078DA54 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B18D1BBF9D780078DA54 /* hashtable.c */; };
+		0167B1A51BBF9D790078DA54 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1921BBF9D780078DA54 /* load.c */; };
+		0167B1A61BBF9D790078DA54 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1931BBF9D780078DA54 /* memory.c */; };
+		0167B1A71BBF9D790078DA54 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1941BBF9D780078DA54 /* pack_unpack.c */; };
+		0167B1A81BBF9D790078DA54 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1951BBF9D780078DA54 /* strbuffer.c */; };
+		0167B1A91BBF9D790078DA54 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1971BBF9D790078DA54 /* strconv.c */; };
+		0167B1AA1BBF9D790078DA54 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1981BBF9D790078DA54 /* utf.c */; };
+		0167B1AB1BBF9D790078DA54 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19A1BBF9D790078DA54 /* value.c */; };
+		0167B1AC1BBF9D790078DA54 /* CallFuncNV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19C1BBF9D790078DA54 /* CallFuncNV.cpp */; };
+		0167B1AD1BBF9D790078DA54 /* NDKCallbackNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B19E1BBF9D790078DA54 /* NDKCallbackNode.cpp */; };
+		0167B1AE1BBF9D790078DA54 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0167B1A01BBF9D790078DA54 /* NDKHelper.cpp */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -89,7 +89,6 @@
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
-		EA4CD6751BBEF5870054555C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA4CD6741BBEF5870054555C /* Images.xcassets */; };
 		EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */; };
 		EB7B08EE1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AD1BB50D2200B36D24 /* lwf_cocos2dx_factory.cpp */; };
 		EB7B08EF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08AF1BB50D2200B36D24 /* lwf_cocos2dx_node.cpp */; };
@@ -284,7 +283,6 @@
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
-		EA4CD6741BBEF5870054555C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tsog/Images.xcassets; sourceTree = "<group>"; };
 		EB7B08AA1BB50D2200B36D24 /* lwf_cocos2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx.h; sourceTree = "<group>"; };
 		EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_bitmap.cpp; sourceTree = "<group>"; };
 		EB7B08AC1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_bitmap.h; sourceTree = "<group>"; };
@@ -486,7 +484,6 @@
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				EA4CD6741BBEF5870054555C /* Images.xcassets */,
 				1A1A081B18C9DF05005C6854 /* project.json */,
 				1A6BF21418C9DB5900FB0E1C /* main.js */,
 				C0799CB518BAE62000E9C828 /* res */,
@@ -922,7 +919,6 @@
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
-				EA4CD6751BBEF5870054555C /* Images.xcassets in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
