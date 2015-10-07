@@ -4,23 +4,10 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>icon-game-default-1.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{256,256}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{256,256}}</string>
-                <key>sourceSize</key>
-                <string>{256,256}</string>
-            </dict>
             <key>icon-game-default.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{260,2},{256,256}}</string>
+                <string>{{2,525},{256,256}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +20,7 @@
             <key>icon-game-shadow.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{518,2},{256,256}}</string>
+                <string>{{2,783},{256,256}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,15 +33,28 @@
             <key>pin.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{776,2},{44,63}}</string>
+                <string>{{260,525},{44,63}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{44,63}}</string>
+                <key>sourceSize</key>
+                <string>{44,63}</string>
+            </dict>
+            <key>pug.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{475,521}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{44,63}}</string>
+                <string>{{2,0},{475,521}}</string>
                 <key>sourceSize</key>
-                <string>{44,63}</string>
+                <string>{479,521}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>game.png</string>
             <key>size</key>
-            <string>{822,260}</string>
+            <string>{479,1041}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ccd3e538f74d0f77afb6d922a2d6f4db:625a788eac1574322b748039bd9c73da:6f4c536624696814219c1486f93e8c0a$</string>
+            <string>$TexturePacker:SmartUpdate:996299a62d0f2f473eeaf39acc2c19a2:5189567bbe2ddd10fa94feeb236ef051:6f4c536624696814219c1486f93e8c0a$</string>
             <key>textureFileName</key>
             <string>game.png</string>
         </dict>

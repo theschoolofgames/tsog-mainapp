@@ -22,6 +22,11 @@ var GameSelectorLayer = cc.Layer.extend({
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
         this.addChild(bg);
+        var pug = new cc.Sprite("#pug.png");
+        pug.setAnchorPoint(0.5, 0);
+        pug.x = cc.winSize.width/2 - 310;
+        pug.y = 0;
+        this.addChild(pug, 99);
 
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         this._userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
