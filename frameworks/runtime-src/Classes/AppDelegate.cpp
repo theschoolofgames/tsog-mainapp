@@ -167,14 +167,16 @@ bool AppDelegate::applicationDidFinishLaunching()
   auto console = director->getConsole();
   console->listenOnTCP(6050);
   
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("reportError", [sc](EventCustom* pEvent) {
-    std::string mess = *((std::string*)pEvent->getUserData());
-    
+  JS_SetErrorReporter(sc->getGlobalContext(), [](JSContext *cx, const char *message, JSErrorReport *report) {
+    std::string mess = StringUtils::format("JS: %s:%u:%s",
+                                           report->filename ? report->filename : "<no filename=\"filename\">",
+                                           (unsigned int) report->lineno,
+                                           message);
+    CCLOG("%s", mess.c_str());
     Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
                                                                            CallFunc::create([mess](){
       ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
     }), NULL));
-
   });
 
     return true;
