@@ -34,7 +34,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
         var gameData = DataManager.getInstance().getGameData(this._userId);
 
-        if (gameData != null) {
+        if (gameData != null && gameData.length > 0) {
             this.createScrollViewContainer();
             this.createScrollView();
             this.createUserInfoLabel();
