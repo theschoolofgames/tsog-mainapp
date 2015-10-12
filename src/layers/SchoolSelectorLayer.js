@@ -21,6 +21,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
 
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: false,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved
+        }, this);
+    },
+
+    onEnterTransitionDidFinish: function() {
         var self = this;
 
         var schoolData = DataManager.getInstance().getSchoolData();
@@ -72,13 +81,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
                     });
                 })));
         }
-
-        cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: false,
-                onTouchBegan: this.onTouchBegan,
-                onTouchMoved: this.onTouchMoved
-        }, this);
     },
 
     resetAllChildren: function() {

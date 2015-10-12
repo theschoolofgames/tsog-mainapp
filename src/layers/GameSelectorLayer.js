@@ -32,8 +32,15 @@ var GameSelectorLayer = cc.Layer.extend({
         this._userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
 
-        var gameData = DataManager.getInstance().getGameData(this._userId);
+        this.createBackButton();
+    },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        var self = this;
+
+        var gameData = DataManager.getInstance().getGameData(this._userId);
+ 
         if (gameData != null && gameData.length > 0) {
             this.createScrollViewContainer();
             this.createScrollView();
@@ -63,7 +70,6 @@ var GameSelectorLayer = cc.Layer.extend({
             }
         }
         else {
-
             this.runAction(cc.sequence(
                 cc.delayTime(0),
                 cc.callFunc(function() {
@@ -76,10 +82,13 @@ var GameSelectorLayer = cc.Layer.extend({
                             self.createScrollView();
                             self.createUserInfoLabel();
                         }
+                        else {
+                            showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
+                            cc.director.replaceScene(new AccountSelectorScene());
+                        }
                     });
                 })));
         }
-        this.createBackButton();
     },
 
     createUserInfoLabel: function() {

@@ -86,6 +86,9 @@ var AccountSelectorLayer = cc.Layer.extend({
                             self.createBush();
                             self.createTrees();
                             self.createMaskLayer();
+                        } else {
+                            showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
+                            cc.director.replaceScene(new SchoolSelectorScene());
                         }
                     });
                 })));
