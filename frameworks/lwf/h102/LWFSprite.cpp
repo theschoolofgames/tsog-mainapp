@@ -18,7 +18,7 @@ namespace h102 {
             
             Size visibleSize = Director::getInstance()->getVisibleSize();
 
-            sprite->lwf->FitForWidth(visibleSize.width, visibleSize.height);
+            sprite->lwf->FitForHeight(visibleSize.width, visibleSize.height);
             sprite->setContentSize(Size(sprite->lwf->width*sprite->lwf->scaleByStage, sprite->lwf->height*sprite->lwf->scaleByStage));
             
             return sprite;
