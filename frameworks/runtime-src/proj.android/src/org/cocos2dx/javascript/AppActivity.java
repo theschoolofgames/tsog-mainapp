@@ -38,6 +38,7 @@ import android.content.pm.PackageManager;
 public class AppActivity extends Cocos2dxActivity {
 	
     private static AppActivity app = null;
+    private static String udid;
 
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -45,6 +46,8 @@ public class AppActivity extends Cocos2dxActivity {
         app = this;
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+
+        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
         return glSurfaceView;
     }
@@ -84,5 +87,9 @@ public class AppActivity extends Cocos2dxActivity {
         i.addCategory(Intent.CATEGORY_LAUNCHER);
         app.startActivity(i);
         return true;    
+    }
+
+    public static String getId() {
+        return udid;
     }
 }

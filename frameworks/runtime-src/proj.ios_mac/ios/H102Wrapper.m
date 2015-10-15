@@ -6,16 +6,9 @@
 //
 //
 #import "H102Wrapper.h"
-#import "Countly.h"
+#import "PDKeychainBindings.h"
 
 @implementation H102Wrapper
-+ (void)countlyStart:(NSString *)appKey withUrl:(NSString *)hostUrl {
-    [[Countly sharedInstance] start:appKey withHost:hostUrl];
-}
-
-+ (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count {
-    [[Countly sharedInstance] recordEvent:key count:[count intValue]];
-}
 
 + (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
   NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
@@ -40,6 +33,21 @@
                                             otherButtonTitles:nil];
   
   [alertView show];
+}
+
++ (NSString *)getUniqueDeviceId
+{
+  PDKeychainBindings *keychain = [PDKeychainBindings sharedKeychainBindings];
+  NSString *uniqueIdentifier = [keychain objectForKey:@"keyVendor"];
+  
+  if (!uniqueIdentifier || !uniqueIdentifier.length) {
+    
+    NSUUID *udid = [[UIDevice currentDevice] identifierForVendor];
+    uniqueIdentifier = [udid UUIDString];
+    [keychain setObject:uniqueIdentifier forKey:@"keyVendor"];
+  }
+  
+  return uniqueIdentifier;
 }
 
 @end

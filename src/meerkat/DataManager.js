@@ -32,6 +32,17 @@ var DataManager = cc.Class.extend({
         KVDatabase.getInstance().set(STRING_SCHOOL_DATA, JSON.stringify(data));
     },
 
+    getSchoolConfig: function(schoolId) {
+        var schoolData = this.getSchoolData();
+        var schoolConfig = "";
+        for (var i = 0; i < schoolData.length; i++) {
+            if (schoolData[i].school_id == schoolId)
+                schoolConfig = schoolData[i];
+        }
+
+        return schoolConfig;
+    },
+
     getAccountData: function(schoolId) {
         return this._accountData[schoolId];
     },

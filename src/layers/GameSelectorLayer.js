@@ -93,7 +93,7 @@ var GameSelectorLayer = cc.Layer.extend({
 
     createUserInfoLabel: function() {
         cc.log("createUserInfoLabel");
-        var schoolName = this.getSchoolName();
+        var schoolName = DataManager.getInstance().getSchoolConfig(this._schoolId).school_name;
         var infoString = schoolName + "\n" + this._userName;
         var scrollViewContainerWorldPos = this._scrollView.convertToWorldSpace(
                                     this._scrollViewContainer.getPosition());
@@ -167,9 +167,9 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.userData = gameData[i];
             btnGame.addClickEventListener(function(sender) {
                 var data = sender.userData;
-                var schoolName = self.getSchoolName();
+                var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
 
-                var sendData = self._userName + ":" + schoolName + ":" + self._userId;
+                var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
                 Utils.callOpenScheme(scheme, Base64.encode(sendData)); 
             });
@@ -252,17 +252,6 @@ var GameSelectorLayer = cc.Layer.extend({
         });
 
         this.addChild(backButton);
-    },
-
-    getSchoolName: function() {
-        var schoolData = DataManager.getInstance().getSchoolData();
-        var schoolName = "";
-        for (var i = 0; i < schoolData.length; i++) {
-            if (schoolData[i].school_id == this._schoolId)
-                schoolName = schoolData[i].school_name;
-        }
-
-        return schoolName;
     },
 
     playBackgroundMusic: function() {

@@ -53,8 +53,6 @@ cc.game.onStart = function(){
 
     cc.log(jsb.fileUtils.getWritablePath());
 
-    Utils.callCountlyStart();
-
     // Pass true to enable retina display, disabled by default to improve performance
     cc.view.enableRetina(false);
     // Adjust viewport meta

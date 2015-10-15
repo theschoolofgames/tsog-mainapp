@@ -176,9 +176,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
-                    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-                        Utils.callCountlyRecordEvent("select_school", 1);
-                    }
+
+                    RequestsManager.getInstance().postSegmentTrack(null, "select_school", null);
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
                     cc.director.replaceScene(new AccountSelectorScene());
                 }

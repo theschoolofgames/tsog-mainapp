@@ -1,6 +1,8 @@
 var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://192.168.100.4:3000/";
 
+var SEGMENT_KEY = "TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"
+
 var TAG_LOADING_INDICATOR_LAYER = 717;
 var MOVE_DELAY_TIME = 1.5;
 

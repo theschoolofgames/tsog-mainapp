@@ -1,29 +1,5 @@
 var Utils = Utils || {};
 
-Utils.callCountlyStart = function() {
-    if (cc.sys.isNative) {
-        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
-        var hostUrl = "http://tsog.hub102.com";
-
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "countlyStart:withUrl:",
-                                            appKey,
-                                            hostUrl);
-        }
-    }
-}
-
-Utils.callCountlyRecordEvent = function(key, count) {
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "countlyRecordEvent:count:",
-                                            key, count);
-        }
-    }
-}
-
 Utils.callOpenScheme = function(scheme, data) {
     if (cc.sys.isNative) {
         if (cc.sys.os == cc.sys.OS_IOS) {
@@ -41,6 +17,14 @@ Utils.callOpenScheme = function(scheme, data) {
                                             data);   
         }
     }
+}
+
+Utils.getUDID = function() {
+  if (cc.sys.os == cc.sys.OS_IOS)
+    return jsb.reflection.callStaticMethod("H102Wrapper", 
+                                           "getUniqueDeviceId");
+  else if (cc.sys.os == cc.sys.OS_ANDROID)
+    return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
 }
 
 Utils.addLoadingIndicatorLayer = function(block) {

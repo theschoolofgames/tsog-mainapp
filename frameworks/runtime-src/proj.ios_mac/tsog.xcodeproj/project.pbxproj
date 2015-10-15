@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		014E46621B99448600C94301 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; };
-		014E46631B99448600C94301 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; };
-		014E46641B99448600C94301 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; };
-		014E46651B99448A00C94301 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
 		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
+		01CF3C7C1BCF6EC200357DFB /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */; settings = {ASSET_TAGS = (); }; };
+		01CF3C7D1BCF6EC200357DFB /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */; settings = {ASSET_TAGS = (); }; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -113,11 +111,6 @@
 		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
-		F8C057191B99360200DEB2C0 /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057111B99360200DEB2C0 /* Countly.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */; };
-		F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057171B99360200DEB2C0 /* CountlyDB.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
-		F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8C057181B99360200DEB2C0 /* LICENSE */; };
 		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
 		F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
@@ -186,6 +179,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01CF3C781BCF6EC200357DFB /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
+		01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
+		01CF3C7A1BCF6EC200357DFB /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
+		01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -315,14 +312,6 @@
 		EB7B09131BB50D6B00B36D24 /* jsb_cocos2dx_lwf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_lwf.hpp; sourceTree = "<group>"; };
 		EDD7E3291B58AE29009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		F8C057101B99360200DEB2C0 /* Countly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly.h; sourceTree = "<group>"; };
-		F8C057111B99360200DEB2C0 /* Countly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly.m; sourceTree = "<group>"; };
-		F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countly.xcdatamodel; sourceTree = "<group>"; };
-		F8C057141B99360200DEB2C0 /* Countly_OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly_OpenUDID.h; sourceTree = "<group>"; };
-		F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly_OpenUDID.m; sourceTree = "<group>"; };
-		F8C057161B99360200DEB2C0 /* CountlyDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountlyDB.h; sourceTree = "<group>"; };
-		F8C057171B99360200DEB2C0 /* CountlyDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountlyDB.m; sourceTree = "<group>"; };
-		F8C057181B99360200DEB2C0 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057201B99365D00DEB2C0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057221B99385500DEB2C0 /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
@@ -388,6 +377,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01CF3C771BCF6EC200357DFB /* PDKeychainBindingsController */ = {
+			isa = PBXGroup;
+			children = (
+				01CF3C781BCF6EC200357DFB /* PDKeychainBindings.h */,
+				01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */,
+				01CF3C7A1BCF6EC200357DFB /* PDKeychainBindingsController.h */,
+				01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */,
+			);
+			path = PDKeychainBindingsController;
+			sourceTree = "<group>";
+		};
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -442,10 +442,10 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				01CF3C771BCF6EC200357DFB /* PDKeychainBindingsController */,
 				F8E726AD1BA203A600223CB0 /* lwf */,
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
-				F8C0570F1B99360200DEB2C0 /* countly */,
 				BAF426FA19484B3E002B22EF /* script */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
@@ -634,21 +634,6 @@
 			path = api;
 			sourceTree = "<group>";
 		};
-		F8C0570F1B99360200DEB2C0 /* countly */ = {
-			isa = PBXGroup;
-			children = (
-				F8C057101B99360200DEB2C0 /* Countly.h */,
-				F8C057111B99360200DEB2C0 /* Countly.m */,
-				F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */,
-				F8C057141B99360200DEB2C0 /* Countly_OpenUDID.h */,
-				F8C057151B99360200DEB2C0 /* Countly_OpenUDID.m */,
-				F8C057161B99360200DEB2C0 /* CountlyDB.h */,
-				F8C057171B99360200DEB2C0 /* CountlyDB.m */,
-				F8C057181B99360200DEB2C0 /* LICENSE */,
-			);
-			path = countly;
-			sourceTree = "<group>";
-		};
 		F8E726AD1BA203A600223CB0 /* lwf */ = {
 			isa = PBXGroup;
 			children = (
@@ -831,7 +816,6 @@
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
-				F8C0571D1B99360200DEB2C0 /* LICENSE in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
@@ -847,13 +831,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				014E46651B99448A00C94301 /* Countly.xcdatamodeld in Sources */,
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
-				014E46621B99448600C94301 /* Countly.m in Sources */,
-				014E46631B99448600C94301 /* Countly_OpenUDID.m in Sources */,
 				014E46661B99448F00C94301 /* H102Wrapper.m in Sources */,
 				C06E23CC18CEFE680093C81A /* main.cpp in Sources */,
-				014E46641B99448600C94301 /* CountlyDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,25 +841,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8C0571A1B99360200DEB2C0 /* Countly.xcdatamodeld in Sources */,
 				EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */,
 				F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */,
 				EB7B08FE1BB50D2200B36D24 /* lwf_eventbutton.cpp in Sources */,
-				F8C057191B99360200DEB2C0 /* Countly.m in Sources */,
 				EB7B08F81BB50D2200B36D24 /* lwf_button.cpp in Sources */,
 				EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */,
 				F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */,
 				EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */,
 				EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */,
-				F8C0571C1B99360200DEB2C0 /* CountlyDB.m in Sources */,
 				EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */,
 				EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */,
 				EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
-				F8C0571B1B99360200DEB2C0 /* Countly_OpenUDID.m in Sources */,
 				EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */,
 				EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */,
 				EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */,
+				01CF3C7D1BCF6EC200357DFB /* PDKeychainBindingsController.m in Sources */,
 				EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */,
@@ -906,6 +883,7 @@
 				EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */,
 				EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */,
 				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
+				01CF3C7C1BCF6EC200357DFB /* PDKeychainBindings.m in Sources */,
 				EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */,
 				EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */,
 			);
@@ -1124,19 +1102,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		F8C057121B99360200DEB2C0 /* Countly.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */,
-			);
-			currentVersion = F8C057131B99360200DEB2C0 /* Countly.xcdatamodel */;
-			path = Countly.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A92275341517C094001B78AA /* Project object */;
 }

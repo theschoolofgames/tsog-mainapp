@@ -439,10 +439,14 @@ var AccountSelectorLayer = cc.Layer.extend({
                     this.runAction(cc.sequence(
                         move_ease,
                         cc.callFunc(function(){
-                            if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-                                Utils.callCountlyRecordEvent("select_account", 1);
-                            }
+                            var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
 
+                            RequestsManager.getInstance().postSegmentIdentity(
+                                self._selectedUserData.user_id, 
+                                self._selectedUserData.name, 
+                                schoolConfig.school_id, 
+                                schoolConfig.school_name);
+                            
                             KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
                             KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
                             cc.director.replaceScene(new WelcomeScene());

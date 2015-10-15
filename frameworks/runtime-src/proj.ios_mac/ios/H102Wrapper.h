@@ -11,8 +11,6 @@
 #define tsog_H102Wrapper_h
 
 @interface H102Wrapper : NSObject
-+ (void)countlyStart:(NSString *)appKey withUrl:(NSString *)hostUrl;
-+ (void)countlyRecordEvent:(NSString *)key count:(NSNumber *)count;
 
 + (void)openScheme:(NSString *)bundleId withData:(NSString *)data;
 
