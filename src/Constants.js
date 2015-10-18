@@ -8,39 +8,39 @@ var MOVE_DELAY_TIME = 1.5;
 
 SCHOOL_INFO = [
     {
-        "school_id": "5604beb2ded84d7c8083389e",
+        "school_id": "56236595abd71555234a5ca0",
         "school_name": "Golden Sierra Grammar School"
     },
     {
-        "school_id": "5604beb2ded84d7c8083389f",
+        "school_id": "56236595abd71555234a5ca1",
         "school_name": "Lakewood College"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a0",
+        "school_id": "56236595abd71555234a5ca2",
         "school_name": "Highland School for Girls"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a1",
+        "school_id": "56236595abd71555234a5ca3",
         "school_name": "Grand Mountain Conservatory"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a2",
+        "school_id": "56236595abd71555234a5ca4",
         "school_name": "Cypress Middle School"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a3",
+        "school_id": "56236595abd71555234a5ca5",
         "school_name": "Highland Grammar School"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a4",
+        "school_id": "56236595abd71555234a5ca6",
         "school_name": "Pleasant Valley College"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a5",
+        "school_id": "56236595abd71555234a5ca7",
         "school_name": "Springfield College"
     },
     {
-        "school_id": "5604beb2ded84d7c808338a6",
+        "school_id": "56236595abd71555234a5ca8",
         "school_name": "Liberty Charter School"
     }
 ];

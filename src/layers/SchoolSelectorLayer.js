@@ -177,7 +177,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 if (!self._isTouchMoved) {
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
 
-                    RequestsManager.getInstance().postSegmentTrack(null, "select_school", null);
+                    RequestsManager.getInstance().postSegmentTrack(null, "select_school", 
+                        { 
+                            school_id: schoolData[sender.tag].school_id, 
+                            school_name: schoolData[sender.tag].school_name 
+                        });
+                    
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
                     cc.director.replaceScene(new AccountSelectorScene());
                 }
