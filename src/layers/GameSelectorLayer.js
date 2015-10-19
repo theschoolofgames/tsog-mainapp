@@ -169,7 +169,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
 
-                RequestsManager.getInstance().postSegmentTrack(self._userId, "select_game", { game_id: data.game_id, game_name: data.game_name });
+                Utils.segmentTrack("select_game", { game_id: data.game_id, game_name: data.game_name });
 
                 var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;

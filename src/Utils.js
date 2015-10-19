@@ -19,6 +19,50 @@ Utils.callOpenScheme = function(scheme, data) {
     }
 }
 
+Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
+    traits = {
+        userName: userName,
+        schoolName: schoolName,
+        schoolId: schoolId
+    };
+
+    if (cc.sys.isNative) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "segmentIdentity:traits:",
+                                            userId,
+                                            JSON.stringify(traits));
+        }
+
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            // jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+            //                                 "openScheme",
+            //                                 "(Ljava/lang/String;Ljava/lang/String;)Z",
+            //                                 scheme,
+            //                                 data);   
+        }
+    }
+}
+
+Utils.segmentTrack = function(event, properties) {
+    if (cc.sys.isNative) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "segmentTrack:properties:",
+                                            event,
+                                            JSON.stringify(properties));
+        }
+
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            // jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+            //                                 "openScheme",
+            //                                 "(Ljava/lang/String;Ljava/lang/String;)Z",
+            //                                 scheme,
+            //                                 data);   
+        }
+    }
+}
+
 Utils.getUDID = function() {
   if (cc.sys.os == cc.sys.OS_IOS)
     return jsb.reflection.callStaticMethod("H102Wrapper", 

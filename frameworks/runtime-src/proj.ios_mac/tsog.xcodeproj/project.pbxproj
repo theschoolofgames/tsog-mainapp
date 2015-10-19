@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
+		01C9EA6E1BD50B5C0062EF7D /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */; settings = {ASSET_TAGS = (); }; };
+		01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA711BD50BC20062EF7D /* AVFoundation.framework */; };
+		01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA731BD50BC80062EF7D /* CoreMedia.framework */; };
+		01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA771BD50BD20062EF7D /* CoreLocation.framework */; };
+		01C9EA7C1BD50BDB0062EF7D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */; };
+		01C9EA801BD50BE40062EF7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */; };
+		01C9EA821BD50BEC0062EF7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */; };
+		01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA831BD50C720062EF7D /* GameController.framework */; };
+		01C9EA8A1BD50FCD0062EF7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA891BD50FCD0062EF7D /* Foundation.framework */; };
+		01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8B1BD510B70062EF7D /* libicucore.tbd */; };
+		01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */; };
 		01CF3C7C1BCF6EC200357DFB /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */; settings = {ASSET_TAGS = (); }; };
 		01CF3C7D1BCF6EC200357DFB /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */; settings = {ASSET_TAGS = (); }; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
@@ -179,6 +190,20 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Analytics.framework; sourceTree = "<group>"; };
+		01C9EA711BD50BC20062EF7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA731BD50BC80062EF7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA751BD50BCD0062EF7D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA771BD50BD20062EF7D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA791BD50BD70062EF7D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA7D1BD50BDF0062EF7D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA831BD50C720062EF7D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA891BD50FCD0062EF7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		01C9EA8B1BD510B70062EF7D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
+		01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		01CF3C781BCF6EC200357DFB /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
 		01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
 		01CF3C7A1BCF6EC200357DFB /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
@@ -353,6 +378,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */,
+				01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */,
+				01C9EA8A1BD50FCD0062EF7D /* Foundation.framework in Frameworks */,
+				01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */,
+				01C9EA821BD50BEC0062EF7D /* QuartzCore.framework in Frameworks */,
+				01C9EA801BD50BE40062EF7D /* CoreBluetooth.framework in Frameworks */,
+				01C9EA7C1BD50BDB0062EF7D /* SystemConfiguration.framework in Frameworks */,
+				01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */,
+				01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */,
+				01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */,
 				F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */,
 				F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */,
 				EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */,
@@ -363,6 +398,7 @@
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
+				01C9EA6E1BD50B5C0062EF7D /* Analytics.framework in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
@@ -468,6 +504,20 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */,
+				01C9EA8B1BD510B70062EF7D /* libicucore.tbd */,
+				01C9EA891BD50FCD0062EF7D /* Foundation.framework */,
+				01C9EA831BD50C720062EF7D /* GameController.framework */,
+				01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */,
+				01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */,
+				01C9EA7D1BD50BDF0062EF7D /* CoreTelephony.framework */,
+				01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */,
+				01C9EA791BD50BD70062EF7D /* Security.framework */,
+				01C9EA771BD50BD20062EF7D /* CoreLocation.framework */,
+				01C9EA751BD50BCD0062EF7D /* CoreData.framework */,
+				01C9EA731BD50BC80062EF7D /* CoreMedia.framework */,
+				01C9EA711BD50BC20062EF7D /* AVFoundation.framework */,
+				01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */,
 				F8C057201B99365D00DEB2C0 /* CoreData.framework */,
 				F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */,
 				EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */,
@@ -1015,12 +1065,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1032,9 +1084,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual";
@@ -1046,11 +1098,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -1061,9 +1115,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
+				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual";

@@ -35,7 +35,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        if (accountData != null) {
+        if (accountData != null && accountData.length > 0) {
             this.createScrollView();
             this.createParallaxNode();
             this.createForeGround();
@@ -441,7 +441,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         cc.callFunc(function(){
                             var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
 
-                            RequestsManager.getInstance().postSegmentIdentity(
+                            Utils.segmentIdentity(
                                 self._selectedUserData.user_id, 
                                 self._selectedUserData.name, 
                                 schoolConfig.school_id, 

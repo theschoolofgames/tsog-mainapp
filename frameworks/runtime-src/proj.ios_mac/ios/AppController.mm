@@ -31,6 +31,8 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
+#import <Analytics/Analytics.h>
+
 @implementation AppController
 
 #pragma mark -
@@ -82,6 +84,9 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     cocos2d::Application::getInstance()->run();
+  
+  [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
+  [SEGAnalytics debug:YES];
   
     return YES;
 }
