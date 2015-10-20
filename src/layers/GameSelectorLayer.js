@@ -167,7 +167,7 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.userData = gameData[i];
             btnGame.addClickEventListener(function(sender) {
                 var data = sender.userData;
-                var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
+                var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
                 Utils.segmentTrack("select_game", { game_id: data.game_id, game_name: data.game_name });
 

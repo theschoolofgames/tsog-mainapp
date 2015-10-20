@@ -5,11 +5,12 @@ android {
     buildToolsVersion "22.0.1"
 
     defaultConfig {
-        applicationId "org.cocos2dx.tsog"
-        minSdkVersion 10
+        applicationId "com.hub102.tsog"
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
 
     sourceSets.main {
@@ -46,4 +47,11 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':libcocos2dx')
+
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.google.android.gms:play-services:8.1.0'
+    compile('com.segment.analytics.android:analytics:+@aar') {
+        transitive = true
+    }
+    compile 'com.google.code.gson:gson:2.4'
 }

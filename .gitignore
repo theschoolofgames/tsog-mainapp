@@ -1,10 +1,13 @@
 tools/
 publish/
 simulator/
+build/
 .DS_Store
 
+local.properties
+
 frameworks/runtime-src/proj.android/ant.properties
-frameworks/runtime-src/proj.android/hub102.keystore
+frameworks/runtime-src/hub102.keystore
 
 frameworks/runtime-src/proj.ios_mac/tsog.xcodeproj/project.xcworkspace/xcshareddata/
 frameworks/js-bindings/bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
@@ -31,3 +34,10 @@ frameworks/runtime-src/proj.android/libs/armeabi/
 frameworks/runtime-src/proj.android/libs/x86/
 frameworks/runtime-src/proj.android/obj/
 
+frameworks/runtime-src/proj.android-studio/app/assets/
+frameworks/runtime-src/proj.android-studio/app/bin/
+frameworks/runtime-src/proj.android-studio/app/gen/
+frameworks/runtime-src/proj.android-studio/app/libs/armeabi/
+frameworks/runtime-src/proj.android-studio/app/libs/x86/
+frameworks/runtime-src/proj.android-studio/app/obj/
+frameworks/runtime-src/proj.android-studio/app/gradle.properties
