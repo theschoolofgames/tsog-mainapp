@@ -31,7 +31,7 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
-#import <Analytics/Analytics.h>
+#import <Analytics.h>
 
 @implementation AppController
 
@@ -86,7 +86,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Application::getInstance()->run();
   
   [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
-//  [SEGAnalytics debug:YES];
+  // [SEGAnalytics debug:YES];
   
     return YES;
 }
@@ -144,6 +144,7 @@ static AppDelegate s_sharedApplication;
     /*
      Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
      */
+  if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground)
      cocos2d::Director::getInstance()->purgeCachedData();
 }
 

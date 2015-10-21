@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
-		01C9EA6E1BD50B5C0062EF7D /* Analytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */; settings = {ASSET_TAGS = (); }; };
 		01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA711BD50BC20062EF7D /* AVFoundation.framework */; };
 		01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA731BD50BC80062EF7D /* CoreMedia.framework */; };
 		01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA771BD50BD20062EF7D /* CoreLocation.framework */; };
@@ -122,6 +121,7 @@
 		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; };
 		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
 		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
+		F78EA3416BA38EFF03FCA1F7 /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287E4C29E1EC7B92C25799 /* libPods-tsog.a */; };
 		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
 		F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
@@ -190,7 +190,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Analytics.framework; sourceTree = "<group>"; };
 		01C9EA711BD50BC20062EF7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA731BD50BC80062EF7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA751BD50BCD0062EF7D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -213,6 +212,8 @@
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
+		27F167025F86BC143C0EDE83 /* Pods-tsog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.debug.xcconfig"; sourceTree = "<group>"; };
+		34287E4C29E1EC7B92C25799 /* libPods-tsog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -262,6 +263,7 @@
 		C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_js_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C06E23CB18CEFE680093C81A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C0799CB518BAE62000E9C828 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
+		CE6BA5892A6D86702AD30C2C /* Pods-tsog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.release.xcconfig"; sourceTree = "<group>"; };
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -398,7 +400,6 @@
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
-				01C9EA6E1BD50B5C0062EF7D /* Analytics.framework in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
@@ -407,6 +408,7 @@
 				A922754C1517C094001B78AA /* UIKit.framework in Frameworks */,
 				A922754E1517C094001B78AA /* Foundation.framework in Frameworks */,
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
+				F78EA3416BA38EFF03FCA1F7 /* libPods-tsog.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +477,15 @@
 			path = mac;
 			sourceTree = "<group>";
 		};
+		A18A24C40CCCEEA867796BD6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				27F167025F86BC143C0EDE83 /* Pods-tsog.debug.xcconfig */,
+				CE6BA5892A6D86702AD30C2C /* Pods-tsog.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
@@ -489,6 +500,7 @@
 				509D4ACA17EBB2BE00697056 /* mac */,
 				A922753E1517C094001B78AA /* Products */,
 				15628F5B15F0F5C2000CF24B /* Resources */,
+				A18A24C40CCCEEA867796BD6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -517,7 +529,6 @@
 				01C9EA751BD50BCD0062EF7D /* CoreData.framework */,
 				01C9EA731BD50BC80062EF7D /* CoreMedia.framework */,
 				01C9EA711BD50BC20062EF7D /* AVFoundation.framework */,
-				01C9EA6D1BD50B5B0062EF7D /* Analytics.framework */,
 				F8C057201B99365D00DEB2C0 /* CoreData.framework */,
 				F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */,
 				EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */,
@@ -542,6 +553,7 @@
 				A922754B1517C094001B78AA /* UIKit.framework */,
 				A922754D1517C094001B78AA /* Foundation.framework */,
 				A922754F1517C094001B78AA /* CoreGraphics.framework */,
+				34287E4C29E1EC7B92C25799 /* libPods-tsog.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -744,9 +756,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog" */;
 			buildPhases = (
+				8C5BF61419518DF461AEE3F2 /* Check Pods Manifest.lock */,
 				A92275391517C094001B78AA /* Sources */,
 				A922753A1517C094001B78AA /* Frameworks */,
 				A922753B1517C094001B78AA /* Resources */,
+				744B59B86A9EC274F20AE296 /* Embed Pods Frameworks */,
+				32D2E190053207D4CE8D8603 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -875,6 +890,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		32D2E190053207D4CE8D8603 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog/Pods-tsog-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		744B59B86A9EC274F20AE296 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog/Pods-tsog-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C5BF61419518DF461AEE3F2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		509D4A8017EBB24E00697056 /* Sources */ = {
@@ -1063,6 +1126,7 @@
 		};
 		A92277011517C097001B78AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27F167025F86BC143C0EDE83 /* Pods-tsog.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1085,8 +1149,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual";
@@ -1096,6 +1160,7 @@
 		};
 		A92277021517C097001B78AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE6BA5892A6D86702AD30C2C /* Pods-tsog.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1116,8 +1181,8 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
-				OTHER_LDFLAGS = "-ObjC";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual";

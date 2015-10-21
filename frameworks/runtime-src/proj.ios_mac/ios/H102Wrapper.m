@@ -7,7 +7,7 @@
 //
 #import "H102Wrapper.h"
 #import "PDKeychainBindings.h"
-#import <Analytics/Analytics.h>
+#import <Analytics.h>
 
 @implementation H102Wrapper
 
