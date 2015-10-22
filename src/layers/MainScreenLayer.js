@@ -10,6 +10,7 @@ var MainScreenLayer = cc.Layer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
 
+
         this._isLoggedIn = parseInt(cc.sys.localStorage.getItem("isLoggedIn")) || 0;
         /*
             this._isLoggedIn = 0 is not logged in,
@@ -39,12 +40,14 @@ var MainScreenLayer = cc.Layer.extend({
 
     },
 
+
     playBackgroundMusic: function() {
         if (cc.audioEngine.isMusicPlaying())
             return
         // play background music
         cc.audioEngine.setMusicVolume(0.2);
         cc.audioEngine.playMusic(res.background_mp3, true);
+        Utils.segmentTrack("enter_game",  null );
     },
 });
 

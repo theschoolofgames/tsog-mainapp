@@ -97,6 +97,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var rightArrowImg = new cc.Sprite("#arrow-right.png");
         rightArrowImg.x = cc.winSize.width - firstSchoolPos.x / 4;
         rightArrowImg.y = cc.winSize.height / 2;
+        rightArrowImg.setVisible(false);
         this.addChild(leftArrowImg);
         this.addChild(rightArrowImg);
         this._rightArrowImg = rightArrowImg;

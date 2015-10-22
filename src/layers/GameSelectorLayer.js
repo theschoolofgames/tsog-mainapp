@@ -10,7 +10,7 @@ var GameSelectorLayer = cc.Layer.extend({
     _userName: null,
     _schoolId: null,
     _schoolName: null,
-
+    _gameName:[],
     _cacheSpriteFrameNames: [],
 
     ctor: function () {
@@ -109,7 +109,7 @@ var GameSelectorLayer = cc.Layer.extend({
     createScrollViewContainer: function() {
         var gameData = DataManager.getInstance().getGameData(this._userId);
         var self = this;
-
+        Utils.segmentTrack("load_game", {game_name: this._gameName });
         // var containerWidth = Math.ceil(gameData.length / 2) * this._iconGapWidth;
         var containerWidth = this._iconGapWidth * 4;
         var containerHeight = this._iconGapHeight * 2 + 20;
@@ -153,6 +153,8 @@ var GameSelectorLayer = cc.Layer.extend({
         for (var i = 0; i < gameData.length; i++) {
             if (i >= 3)
                 break;
+            this._gameName.push(gameData[i].game_name);
+            cc.log("gamename:"+ this._gameName);
 
             var posX = containerWidth / 3 * (i + 0.5);
             var posY = containerHeight/2 + 35;
@@ -169,7 +171,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
-                Utils.segmentTrack("select_game", { game_id: data.game_id, game_name: data.game_name });
+                Utils.segmentTrack("click_game", { game_id: data.game_id, game_name: data.game_name });
 
                 var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
