@@ -56,6 +56,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
                                 self._scrollView.removeFromParent();
                                 self.schoolBtn = [];
                                 self.schoolName = [];
+                                self._rightArrowImg.removeFromParent();
+                                self._leftArrowImg.removeFromParent();
                                 self.createSchoolButton();
                                 self.createScrollView();
                                 self.addArrowImage();
