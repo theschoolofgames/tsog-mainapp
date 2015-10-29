@@ -43,6 +43,7 @@ import com.segment.analytics.Analytics;
 import com.segment.analytics.Traits;
 import com.segment.analytics.Properties;
 import com.segment.analytics.ValueMap;
+import com.segment.analytics.internal.integrations.CountlyIntegration;
 
 public class AppActivity extends Cocos2dxActivity {
     
@@ -57,7 +58,11 @@ public class AppActivity extends Cocos2dxActivity {
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
         udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-        Analytics.with(app);
+        Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
+            @Override public void onReady(Object instance) {
+                Analytics.with(app).flush();
+            }
+        });
 
         return glSurfaceView;
     }
