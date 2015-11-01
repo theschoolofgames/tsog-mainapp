@@ -173,10 +173,10 @@ bool AppDelegate::applicationDidFinishLaunching()
                                            (unsigned int) report->lineno,
                                            message);
     CCLOG("%s", mess.c_str());
-    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
-                                                                           CallFunc::create([mess](){
-      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
-    }), NULL));
+//    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
+//                                                                           CallFunc::create([mess](){
+//      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
+//    }), NULL));
   });
 
     return true;
