@@ -45,6 +45,21 @@ Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
 }
 
 Utils.segmentTrack = function(event, properties) {
+
+    var userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+    var userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
+    var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
+    var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
+
+    if (userId)
+        properties.user_id = userId;
+    if (userName)
+        properties.user_name = userName;
+    if (schoolId)
+        properties.school_id = schoolId;
+    if (schoolName)
+        properties.school_name = schoolName;
+
     if (cc.sys.isNative) {
         if (cc.sys.os == cc.sys.OS_IOS) {
             jsb.reflection.callStaticMethod("H102Wrapper",

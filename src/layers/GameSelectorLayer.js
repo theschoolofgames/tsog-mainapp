@@ -252,6 +252,10 @@ var GameSelectorLayer = cc.Layer.extend({
         backButton.addClickEventListener(function() {
             cc.audioEngine.stopMusic();
             cc.sys.localStorage.setItem("isLoggedIn", 0);
+
+            KVDatabase.getInstance().remove(STRING_USER_ID);
+            KVDatabase.getInstance().remove(STRING_USER_NAME);
+
             cc.director.replaceScene(new AccountSelectorScene());
         });
 

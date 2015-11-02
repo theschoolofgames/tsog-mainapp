@@ -160,6 +160,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height*2/3;
         bb.addClickEventListener(function() {
+            KVDatabase.getInstance().remove(STRING_SCHOOL_ID);
+            KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);
             cc.director.replaceScene(new SchoolSelectorScene());
         });
         this.addChild(bb);
