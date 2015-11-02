@@ -10,7 +10,7 @@ var GameSelectorLayer = cc.Layer.extend({
     _userName: null,
     _schoolId: null,
     _schoolName: null,
-    _gameName:[],
+
     _cacheSpriteFrameNames: [],
 
     ctor: function () {
@@ -109,7 +109,6 @@ var GameSelectorLayer = cc.Layer.extend({
     createScrollViewContainer: function() {
         var gameData = DataManager.getInstance().getGameData(this._userId);
         var self = this;
-        Utils.segmentTrack("load_game", {game_name: this._gameName });
         // var containerWidth = Math.ceil(gameData.length / 2) * this._iconGapWidth;
         var containerWidth = this._iconGapWidth * 4;
         var containerHeight = this._iconGapHeight * 2 + 20;
@@ -150,11 +149,12 @@ var GameSelectorLayer = cc.Layer.extend({
         //     this._scrollViewContainer.addChild(lbName);
         // }
 
+        var gameIds = [];
+
         for (var i = 0; i < gameData.length; i++) {
             if (i >= 3)
                 break;
-            this._gameName.push(gameData[i].game_name);
-            cc.log("gamename:"+ this._gameName);
+            gameIds.push(gameData[i].game_id);
 
             var posX = containerWidth / 3 * (i + 0.5);
             var posY = containerHeight/2 + 35;
@@ -217,6 +217,8 @@ var GameSelectorLayer = cc.Layer.extend({
                 cc.scaleTo(0.5, 1.35).easing(cc.easeElasticOut(0.6))
             ));
         }
+
+        Utils.segmentTrack("load_game", { game_ids: JSON.stringify(gameIds) });
     },
 
     createScrollView: function(){

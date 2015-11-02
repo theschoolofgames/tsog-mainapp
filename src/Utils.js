@@ -51,31 +51,37 @@ Utils.segmentTrack = function(event, properties) {
     var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
     var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
 
-    if (userId)
+    if (userId && userId != "")
         properties.user_id = userId;
-    if (userName)
+    if (userName && userName != "")
         properties.user_name = userName;
-    if (schoolId)
+    if (schoolId && schoolId != "")
         properties.school_id = schoolId;
-    if (schoolName)
+    if (schoolName && schoolName != "")
         properties.school_name = schoolName;
 
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "segmentTrack:properties:",
-                                            event,
-                                            JSON.stringify(properties));
-        }
+    // cc.director.getRunningScene().runAction(cc.sequence(
+    //     cc.delayTime(0),
+    //     cc.callFunc(function() {
+            if (cc.sys.isNative) {
+                cc.log("segmentTrack");
+                if (cc.sys.os == cc.sys.OS_IOS) {
+                    jsb.reflection.callStaticMethod("H102Wrapper",
+                                                    "segmentTrack:properties:",
+                                                    event,
+                                                    JSON.stringify(properties));
+                }
 
-        if (cc.sys.os == cc.sys.OS_ANDROID) {
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                            "segmentTrack",
-                                            "(Ljava/lang/String;Ljava/lang/String;)V",
-                                            event,
-                                            JSON.stringify(properties));   
-        }
-    }
+                if (cc.sys.os == cc.sys.OS_ANDROID) {
+                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                                    "segmentTrack",
+                                                    "(Ljava/lang/String;Ljava/lang/String;)V",
+                                                    event,
+                                                    JSON.stringify(properties));   
+                }
+            }
+    //     })
+    // ));
 }
 
 Utils.getUDID = function() {

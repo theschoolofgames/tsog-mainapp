@@ -187,6 +187,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                         });
                     
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
+                    KVDatabase.getInstance().set(STRING_SCHOOL_NAME, schoolData[sender.tag].school_name);
                     cc.director.replaceScene(new AccountSelectorScene());
                 }
 
