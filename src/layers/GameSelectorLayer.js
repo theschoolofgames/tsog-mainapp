@@ -173,9 +173,10 @@ var GameSelectorLayer = cc.Layer.extend({
 
                 Utils.segmentTrack("click_game", { game_id: data.game_id, game_name: data.game_name });
 
-                var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
+                var sendDataArray = [self._userName, self._userId, schoolConfig.school_name, schoolConfig.school_id, data.config];
+                // var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
-                Utils.callOpenScheme(scheme, Base64.encode(sendData)); 
+                Utils.callOpenScheme(scheme, Base64.encode(JSON.stringify(sendDataArray))); 
             });
             btnGame.scale = 1.35;
             Utils.loadImg(gameData[i].icon, btnGame);
