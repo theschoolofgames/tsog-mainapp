@@ -1,5 +1,5 @@
 // var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-var BACKEND_ADDRESS = "http://104.197.109.251/";
+var BACKEND_ADDRESS = "http://130.211.178.51/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var SEGMENT_KEY = "TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"
