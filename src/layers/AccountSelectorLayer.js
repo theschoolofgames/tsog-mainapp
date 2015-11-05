@@ -1,5 +1,6 @@
 var TREES_BATCH_SIZE = 6;
 var TREES_PADDING = 150;
+var TREE_DISTANCE = 125;
 
 var AccountSelectorLayer = cc.Layer.extend({
     _schoolId: null,
@@ -27,72 +28,12 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     ctor: function () {
         this._super();
-        var self = this;
 
         this.playBackgroundMusic();
         this.createBackground();
         this.createBackButton();
 
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
-        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        if (accountData != null && accountData.length > 0) {
-            this.createScrollView();
-            this.createParallaxNode();
-            this.createForeGround();
-            this.createBush();
-            this.createTrees();
-            this.createMaskLayer();
-
-            if (AccountSelectorLayer.loadedDataIds.indexOf(this._schoolId) == -1) {
-                this.runAction(cc.sequence(
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                        loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
-
-                        RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
-                            Utils.removeLoadingIndicatorLayer();
-                            if (succeed) {
-                                AccountSelectorLayer.loadedDataIds.push(self._schoolId);
-                                if (JSON.stringify(accountData) === JSON.stringify(data.accounts))
-                                    return;
-
-                                DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
-                                self._scrollView.removeFromParent();
-                                self.createScrollView();
-                                self.createParallaxNode();
-                                self.createForeGround();
-                                self.createBush();
-                                self.createTrees();
-                                self.createMaskLayer();
-
-                            }
-                        });
-                    })));
-            }
-        }
-        else {
-            this.runAction(cc.sequence(
-                cc.delayTime(0),
-                cc.callFunc(function() {
-                    Utils.addLoadingIndicatorLayer(true);
-                    RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
-                        Utils.removeLoadingIndicatorLayer();
-                        if (succeed) {
-                            DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
-                            self.createScrollView();
-                            self.createParallaxNode();
-                            self.createForeGround();
-                            self.createBush();
-                            self.createTrees();
-                            self.createMaskLayer();
-                        } else {
-                            showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
-                            cc.director.replaceScene(new SchoolSelectorScene());
-                        }
-                    });
-                })));
-        }
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -100,6 +41,62 @@ var AccountSelectorLayer = cc.Layer.extend({
             onTouchBegan: this.onTouchBegan,
             onTouchMoved: this.onTouchMoved
         }, this);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        var self = this;
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+
+        // If school has been choosen before and has account data in localstorage
+        if (accountData != null && accountData.length > 0) {
+            self.initObjects();  
+
+            // Check if this School data has been loaded
+            if (AccountSelectorLayer.loadedDataIds.indexOf(self._schoolId) == -1) {
+                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+
+                RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
+                    Utils.removeLoadingIndicatorLayer();
+                    if (succeed) {
+                        AccountSelectorLayer.loadedDataIds.push(self._schoolId);
+                        if (JSON.stringify(accountData) === JSON.stringify(data.accounts))
+                            return;
+
+                        self._scrollView.removeFromParent();
+
+                        DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
+                        self.initObjects();
+
+                    }
+                });
+            }
+        }
+        // This school is choosen the first time
+        else {
+            Utils.addLoadingIndicatorLayer(true);
+            RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
+                Utils.removeLoadingIndicatorLayer();
+                if (succeed) {
+                    DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
+                    self.initObjects();
+                } else {
+                    showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
+                    cc.director.replaceScene(new SchoolSelectorScene());
+                }
+            });
+        }
+    },
+
+    initObjects: function() {
+        this.createScrollView();
+        this.createParallaxNode();
+        this.createForeGround();
+        this.createBush();
+        this.createTrees();
+        this.createMaskLayer();
     },
 
     addAccountLabelName: function(account, name) {
@@ -138,14 +135,12 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     createAvatar: function(avatarID, parent) {
         var avatar = new cc.Sprite("#avatar-" + avatarID + ".png");
-
         avatar.setPosition(cc.p(parent.width/2, parent.height/2 + 10));
         parent.addChild(avatar);
     },
 
     createBackground: function() {
         var bg = new cc.Sprite(res.Bg_account_jpg);
-
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
@@ -198,11 +193,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var self = this;
         accountButton.addClickEventListener(function(sender) {
-            // cc.log("onAvatarClicked");
-
-            if(self._isTouchMoved)
-                return;
-            if(self._mask.visible)
+            if(self._isTouchMoved || self._mask.visible)
                 return;
 
             self.onAvatarClicked(this);
@@ -229,7 +220,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         }
 
         this._parallaxNode.addChild(node, 4, cc.p(0.8, 1), cc.p(0,0));
-
         this._ground = ground;
     },
 
@@ -239,7 +229,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         mask.width = (accountData.length / 6 + 2) * cc.winSize.width;
         mask.height = this.height;
-        mask.x = - mask.width/3;
+        mask.x = -mask.width/3;
         mask.y = 50;
         this._treesContainer.addChild(mask, 2);
 
@@ -262,8 +252,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         var tree, subNode, index;
         var self = this;
 
-        var treeDistance = 125;
-
         var firstTreeX = 0;
         var batchWidth = 0;
         var lastTree = null;
@@ -274,7 +262,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             tree = new cc.Sprite("#tree-" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
-            tree.x = i * treeDistance + TREE_POSITIONS[index].x + TREES_PADDING;
+            tree.x = i * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
             tree.y = this._ground.height/2 - 20;
 
             var accountButton = this.createAccountButton(accountData[i],
@@ -298,14 +286,12 @@ var AccountSelectorLayer = cc.Layer.extend({
             }
 
             var delayTime = i * DELTA_DELAY_TIME;
-            if (i < 7)
-                this.addObjectAction(accountButton, delayTime, function(){
+            this.addObjectAction(accountButton, delayTime, i, function(index){
+                if (index < 7)
                     cc.audioEngine.playEffect(res.rustle_sound_mp3);
-                });
-            else
-                this.addObjectAction(accountButton, delayTime, function(){});
+            });
 
-            this.addObjectAction(tree, delayTime, function(){});
+            this.addObjectAction(tree, delayTime);
 
             treesContainer.addChild(subNode, 1);
             lastTree = tree;
@@ -317,16 +303,16 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         var innerWidth = lastTree.x - firstTreeX + cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
-        cc.log("innerWidth: " + innerWidth);
+
         this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
         this._lastTree = lastTree;
     },
 
-    addObjectAction: function(object, delayTime, func) {
+    addObjectAction: function(object, delayTime, index, func) {
         object.scale = 0;
         object.runAction(cc.sequence(
                 cc.delayTime(delayTime),
-                cc.callFunc(func),
+                cc.callFunc(function() { func && func(index); }),
                 cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
             ));
     },
@@ -339,15 +325,13 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setTouchEnabled(true);
         // scrollView.setSwallowTouches(false);
         scrollView.setViewSize(cc.size(cc.winSize.width, cc.winSize.height));
-
         scrollView.setClippingToBounds(false);
+        scrollView.setBounceable(true);
 
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
 
         var innerWidth = accountData.length / 6 * cc.winSize.width;
         var innerHeight = cc.winSize.height;
-
-        scrollView.setBounceable(true);
 
         this.addChild(scrollView);
         this._scrollView = scrollView;
@@ -389,7 +373,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._passwordContainer = pwContainer;
     },
 
-    createPassWordImage: function(passwordId) {
+    createPasswordImage: function(passwordId) {
         var self = this;
 
         var availablePasswords = [1, 2, 3, 4, 5, 6];
@@ -414,56 +398,9 @@ var AccountSelectorLayer = cc.Layer.extend({
             this._passwordItems.push(pwImage);
 
             pwImage.addClickEventListener(function() {
-                if (self._passwordItems[passwordIndex] === this) {
-                    // stop background music and play effect sound
-                    // cc.audioEngine.stopMusic();
-                    self.turnDownMusicVolume();
-                    cc.audioEngine.playEffect(res.right_password_mp3);
-
-                    self._isActionRunning = true;
-                    this.cleanup();
-                    this.setScale(1);
-
-                    //set logged in
-                    cc.sys.localStorage.setItem("isLoggedIn", 1);
-
-                    var accountButtonParent = self._passwordContainer.parent;
-                    var pwContainerTag = self._passwordContainer.tag;
-
-                    var pos = accountButtonParent.convertToWorldSpace(self._passwordContainer.getPosition());
-                    var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -54);
-                    var moveToPos = cc.pAdd(pos, differentPos);
-
-                    var move = cc.moveTo(1, moveToPos);
-                    var move_ease = move.easing(cc.easeElasticInOut(0.9));
-
-                    // move to welcome scene
-                    this.runAction(cc.sequence(
-                        move_ease,
-                        cc.callFunc(function(){
-                            var schoolConfig = DataManager.getInstance().getSchoolConfig(this._schoolId);
-
-                            Utils.segmentIdentity(
-                                self._selectedUserData.user_id, 
-                                self._selectedUserData.name, 
-                                schoolConfig.school_id, 
-                                schoolConfig.school_name);
-                            
-                            KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
-                            KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
-                            cc.director.replaceScene(new WelcomeScene());
-                        })
-                    ));
-                } else {
-                    cc.audioEngine.playEffect(res.wrong_password_mp3);
-                    // shake password image if its not the right one
-                    this.runAction(cc.sequence(
-                            cc.moveBy(0.1, cc.p(10,0)),
-                            cc.moveBy(0.1, cc.p(-20,0)),
-                            cc.moveBy(0.1, cc.p(10,0))
-                        ));
-                }
+                self.onPasswordItemClicked(this, passwordIndex);
             });
+
             // scale the right password
             if (self._passwordItems[passwordIndex] === pwImage) {
                 pwImage.runAction(cc.repeatForever(
@@ -475,11 +412,61 @@ var AccountSelectorLayer = cc.Layer.extend({
         }
     },
 
+    onPasswordItemClicked: function(pwItem, passwordIndex) {
+        var self = this;
+
+        if (this._passwordItems[passwordIndex] === pwItem) {
+            // stop background music and play effect sound
+            this.turnDownMusicVolume();
+            cc.audioEngine.playEffect(res.right_password_mp3);
+
+            this._isActionRunning = true;
+            pwItem.cleanup();
+            pwItem.setScale(1);
+
+            //set logged in
+            KVDatabase.getInstance().set("isLoggedIn", 1);
+
+            var accountButtonParent = this._passwordContainer.parent;
+            var pwContainerTag = this._passwordContainer.tag;
+
+            var pos = accountButtonParent.convertToWorldSpace(this._passwordContainer.getPosition());
+            var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -54);
+            var moveToPos = cc.pAdd(pos, differentPos);
+
+            // move to welcome scene
+            pwItem.runAction(cc.sequence(
+                cc.moveTo(1, moveToPos).easing(cc.easeElasticInOut(0.9)),
+                cc.callFunc(function(){
+                    var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
+
+                    SegmentHelper.identity(
+                        self._selectedUserData.user_id, 
+                        self._selectedUserData.name, 
+                        schoolConfig.school_id, 
+                        schoolConfig.school_name);
+                    
+                    KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
+                    KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
+                    cc.director.replaceScene(new WelcomeScene());
+                })
+            ));
+        } else {
+            cc.audioEngine.playEffect(res.wrong_password_mp3);
+            // shake password image if its not the right one
+            pwItem.runAction(cc.sequence(
+                    cc.moveBy(0.1, cc.p(10,0)),
+                    cc.moveBy(0.1, cc.p(-20,0)),
+                    cc.moveBy(0.1, cc.p(10,0))
+                ));
+        }
+    },
+
     onAvatarClicked: function(accountButton) {
         // scroll to start of batch
         var accountContainer = accountButton.parent;
         cc.audioEngine.playEffect(res.rustle_sound_mp3);
-        // //check if clicked account is in left-right border of screen
+        // check if clicked account is in left-right border of screen
         var safeWidth = 200;
 
         var currentTouchPosX = this._currentTouchPos.x;
@@ -491,8 +478,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         else if (currentTouchPosX > cc.winSize.width - safeWidth)
             scrollToX = currentScrollInnerX - safeWidth;
 
-        if (scrollToX > 0)
-            scrollToX = 0;
+        if (scrollToX > 0) scrollToX = 0;
 
         if (scrollToX != -1)
             this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
@@ -504,21 +490,16 @@ var AccountSelectorLayer = cc.Layer.extend({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {
-                    if (self._mask.visible)
-                        return true;
-
                     return true;
                 },
                 onTouchEnded: function(touch, event) {
                     if (self._isActionRunning)
-                        return true;
+                        return;
 
                     var targetNode = event.getCurrentTarget();
                     var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
                     if (touchedPos.y >= 50)
                         self.onCancelChoosePassword();
-
-                    return true;
                 }
         }, this._mask);
 
@@ -531,7 +512,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._maskListener = maskListener;
 
         this.createPasswordContainer(accountButton);
-        this.createPassWordImage(accountButton.userData.password);
+        this.createPasswordImage(accountButton.userData.password);
     },
 
     onCancelChoosePassword: function() {
@@ -542,7 +523,6 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         for(var i = 0; i < this._passwordItems.length; i++)
             this._passwordItems[i].removeFromParent();
-
         this._passwordItems = [];
 
         this.runAction(cc.sequence(
@@ -568,14 +548,10 @@ var AccountSelectorLayer = cc.Layer.extend({
     onTouchMoved: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-        var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
-        var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
-        var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
-
-        if(sqrDistance > 100)
+        var delta = cc.pSub(touchedPos, targetNode._startTouchPosition);
+    
+        if(cc.pLengthSQ(delta) > 10 * 10)
             targetNode._isTouchMoved = true;
-
-        return true;
     },
 
     playBackgroundMusic: function() {

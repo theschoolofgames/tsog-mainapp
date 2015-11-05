@@ -40,69 +40,58 @@ var GameSelectorLayer = cc.Layer.extend({
         var self = this;
 
         var gameData = DataManager.getInstance().getGameData(this._userId);
- 
         if (gameData != null && gameData.length > 0) {
             this.createScrollViewContainer();
             this.createScrollView();
             this.createUserInfoLabel();
 
             if (GameSelectorLayer.loadedDataIds.indexOf(this._userId) == -1) {
-                this.runAction(cc.sequence(
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                        loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                        RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
-                            Utils.removeLoadingIndicatorLayer();
-                            if (succeed) {
-                                GameSelectorLayer.loadedDataIds.push(self._userId);
-                                if (JSON.stringify(gameData) === JSON.stringify(data.games))
-                                    return;
+                RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
+                    Utils.removeLoadingIndicatorLayer();
+                    if (succeed) {
+                        GameSelectorLayer.loadedDataIds.push(self._userId);
+                        if (JSON.stringify(gameData) === JSON.stringify(data.games))
+                            return;
 
-                                DataManager.getInstance().setGameData(self._userId, data.games);
-                                self._scrollView.removeFromParent();
-                                self.createScrollViewContainer();
-                                self.createScrollView();
-                            }
-                        });
-                    })));
+                        DataManager.getInstance().setGameData(self._userId, data.games);
+                        self._scrollView.removeFromParent();
+                        self.createScrollViewContainer();
+                        self.createScrollView();
+                    }
+                });
             }
         }
         else {
-            this.runAction(cc.sequence(
-                cc.delayTime(0),
-                cc.callFunc(function() {
-                    Utils.addLoadingIndicatorLayer(true);
-                    RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
-                        Utils.removeLoadingIndicatorLayer();
-                        if (succeed) {
-                            DataManager.getInstance().setGameData(self._userId, data.games);
-                            self.createScrollViewContainer();
-                            self.createScrollView();
-                            self.createUserInfoLabel();
-                        }
-                        else {
-                            showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
-                            cc.director.replaceScene(new AccountSelectorScene());
-                        }
-                    });
-                })));
+            Utils.addLoadingIndicatorLayer(true);
+            RequestsManager.getInstance().getGames(self._userId, function(succeed, data) {
+                Utils.removeLoadingIndicatorLayer();
+                if (succeed) {
+                    DataManager.getInstance().setGameData(self._userId, data.games);
+                    self.createScrollViewContainer();
+                    self.createScrollView();
+                    self.createUserInfoLabel();
+                }
+                else {
+                    showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
+                    cc.director.replaceScene(new AccountSelectorScene());
+                }
+            }); 
         }
     },
 
     createUserInfoLabel: function() {
-        cc.log("createUserInfoLabel");
+        // cc.log("createUserInfoLabel");
         var schoolName = DataManager.getInstance().getSchoolConfig(this._schoolId).school_name;
         var infoString = schoolName + "\n" + this._userName;
-        var scrollViewContainerWorldPos = this._scrollView.convertToWorldSpace(
-                                    this._scrollViewContainer.getPosition());
-        var infoLabel = new cc.LabelTTF(infoString, "Arial", 32);
+        var scrollViewContainerWorldPos = this._scrollView.convertToWorldSpace(this._scrollViewContainer.getPosition());
 
+        var infoLabel = new cc.LabelTTF(infoString, "Arial", 32);
         infoLabel.x = cc.winSize.width / 2;
         infoLabel.y = scrollViewContainerWorldPos.y + this._scrollViewContainer.height;
         infoLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-
         this.addChild(infoLabel, 2);
     },
 
@@ -171,12 +160,12 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
-                Utils.segmentTrack("click_game", { game_id: data.game_id, game_name: data.game_name });
+                SegmentHelper.track("click_game", { game_id: data.game_id, game_name: data.game_name });
 
                 var sendDataArray = [self._userName, self._userId, schoolConfig.school_name, schoolConfig.school_id, data.config];
-                // var sendData = self._userName + ":" + self._userId + ":" + schoolConfig.school_name + ":" + schoolConfig.school_id;
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
-                Utils.callOpenScheme(scheme, Base64.encode(JSON.stringify(sendDataArray))); 
+
+                NativeHelper.callNative("callOpenScheme", [scheme, Base64.encode(JSON.stringify(sendDataArray))]);
             });
             btnGame.scale = 1.35;
             Utils.loadImg(gameData[i].icon, btnGame);
@@ -209,8 +198,6 @@ var GameSelectorLayer = cc.Layer.extend({
             btnGame.scale = 0.01;
             btnShadow.scale = 0.01;
 
-            // btnGame.visible = false;
-
             pin.runAction(btnAction.clone());
             btnGame.runAction(btnAction.clone());
             btnShadow.runAction(cc.sequence(
@@ -219,7 +206,7 @@ var GameSelectorLayer = cc.Layer.extend({
             ));
         }
 
-        Utils.segmentTrack("load_game", { game_ids: JSON.stringify(gameIds) });
+        SegmentHelper.track("load_game", { game_ids: JSON.stringify(gameIds) });
     },
 
     createScrollView: function(){
@@ -236,9 +223,6 @@ var GameSelectorLayer = cc.Layer.extend({
         this._scrollView.setContentSize(this._iconGapWidth * 4, this._iconGapHeight * 2);
         self.addChild(this._scrollView);
 
-        // var innerWidth = Math.ceil(this.schoolBtn.length / 4) * cc.winSize.width;
-        // var innerHeight = cc.winSize.height;
-
         this._scrollView.setBounceEnabled(true);
         this._scrollView.setInnerContainerSize(this._scrollViewContainer.getContentSize());
         this._scrollView.addChild(this._scrollViewContainer);
@@ -254,7 +238,7 @@ var GameSelectorLayer = cc.Layer.extend({
         backButton.y = cc.winSize.height - backButton.height*2/3;
         backButton.addClickEventListener(function() {
             cc.audioEngine.stopMusic();
-            cc.sys.localStorage.setItem("isLoggedIn", 0);
+            KVDatabase.getInstance().set("isLoggedIn", 0);
 
             KVDatabase.getInstance().remove(STRING_USER_ID);
             KVDatabase.getInstance().remove(STRING_USER_NAME);

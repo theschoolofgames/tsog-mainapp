@@ -22,66 +22,61 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.name = "SchoolSelectorLayer";
 
         cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: false,
-                onTouchBegan: this.onTouchBegan,
-                onTouchMoved: this.onTouchMoved
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: false,
+            onTouchBegan: this.onTouchBegan,
+            onTouchMoved: this.onTouchMoved
         }, this);
     },
 
     onEnterTransitionDidFinish: function() {
-        var self = this;
+        this._super();
 
+        var self = this;
         var schoolData = DataManager.getInstance().getSchoolData();
+
         if (schoolData != null) {
             this.createSearchArea();
             this.createSchoolButton();
             this.createScrollView();
             this.addArrowImage();
             if (!SchoolSelectorLayer.loadedData) {
-                this.runAction(cc.sequence(
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                        loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                        RequestsManager.getInstance().getSchools(function(succeed, data) {
-                            Utils.removeLoadingIndicatorLayer();
-                            if (succeed) {
-                                SchoolSelectorLayer.loadedData = true;
-                                if (JSON.stringify(schoolData) === JSON.stringify(data))
-                                    return;
+                RequestsManager.getInstance().getSchools(function(succeed, data) {
+                    Utils.removeLoadingIndicatorLayer();
+                    if (succeed) {
+                        SchoolSelectorLayer.loadedData = true;
+                        if (JSON.stringify(schoolData) === JSON.stringify(data))
+                            return;
 
-                                DataManager.getInstance().setSchoolData(data);
-                                self._scrollView.removeFromParent();
-                                self.schoolBtn = [];
-                                self.schoolName = [];
-                                self._rightArrowImg.removeFromParent();
-                                self._leftArrowImg.removeFromParent();
-                                self.createSchoolButton();
-                                self.createScrollView();
-                                self.addArrowImage();
-                            }
-                        });
-                    })));
+                        DataManager.getInstance().setSchoolData(data);
+                        self._scrollView.removeFromParent();
+                        self.schoolBtn = [];
+                        self.schoolName = [];
+                        self._rightArrowImg.removeFromParent();
+                        self._leftArrowImg.removeFromParent();
+
+                        self.createSchoolButton();
+                        self.createScrollView();
+                        self.addArrowImage();
+                    }
+                });
             }
         }
         else {
-            this.runAction(cc.sequence(
-                cc.delayTime(0),
-                cc.callFunc(function() {
-                    Utils.addLoadingIndicatorLayer(true);
-                    RequestsManager.getInstance().getSchools(function(succeed, data) {
-                        Utils.removeLoadingIndicatorLayer();
-                        if (succeed) {
-                            DataManager.getInstance().setSchoolData(data);
-                            self.createSearchArea();
-                            self.createSchoolButton();
-                            self.createScrollView();
-                            self.addArrowImage();
-                        }
-                    });
-                })));
+            Utils.addLoadingIndicatorLayer(true);
+            RequestsManager.getInstance().getSchools(function(succeed, data) {
+                Utils.removeLoadingIndicatorLayer();
+                if (succeed) {
+                    DataManager.getInstance().setSchoolData(data);
+                    self.createSearchArea();
+                    self.createSchoolButton();
+                    self.createScrollView();
+                    self.addArrowImage();
+                }
+            });
         }
     },
 
@@ -91,25 +86,26 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     addArrowImage: function() {
         var firstSchoolPos = this._getBtnPosition(0);
+
         var leftArrowImg = new cc.Sprite("#arrow-left.png");
         leftArrowImg.x = firstSchoolPos.x / 4;
         leftArrowImg.y = cc.winSize.height / 2;
         leftArrowImg.setVisible(false);
-        // this._leftArrowImg.setVisible(false);
+
         var rightArrowImg = new cc.Sprite("#arrow-right.png");
         rightArrowImg.x = cc.winSize.width - firstSchoolPos.x / 4;
         rightArrowImg.y = cc.winSize.height / 2;
         rightArrowImg.setVisible(false);
+
         this.addChild(leftArrowImg);
         this.addChild(rightArrowImg);
+
         this._rightArrowImg = rightArrowImg;
         this._leftArrowImg = leftArrowImg;
     },
 
     createBackground: function() {
         var bg = new cc.Sprite(res.Bg_school_jpg);
-        // var scale = cc.winSize.width / bg.width;
-        // bg.setScaleX(scale);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
@@ -120,7 +116,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         this.schHolder.width = this.schoolBtn[this.schoolBtn.length-1].y + this.schoolBtn[this.schoolBtn.length-1].width;
         this.schHolder.height = cc.winSize.height;
-        for ( var i = 0; i < this.schoolBtn.length; i++) {
+        for (var i = 0; i < this.schoolBtn.length; i++) {
             this.schHolder.addChild(this.schoolBtn[i]);
         }
     },
@@ -157,12 +153,10 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             // add bubble effect
             var delayTime = i * DELTA_DELAY_TIME;
-            if (i < 4)
-                this.addObjectAction(schoolButton, delayTime, function(){
+            this.addObjectAction(schoolButton, delayTime, i, function(index){
+                if (index < 4)
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
-                });
-            else
-                this.addObjectAction(schoolButton, delayTime, function(){});
+            });
 
             schoolButton.runAction(
                 cc.repeatForever(
@@ -180,7 +174,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 if (!self._isTouchMoved) {
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
 
-                    Utils.segmentTrack("select_school", 
+                    SegmentHelper.track("select_school", 
                         { 
                             school_id: schoolData[sender.tag].school_id, 
                             school_name: schoolData[sender.tag].school_name 
@@ -197,13 +191,13 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.createSchoolHolder();
     },
 
-    addObjectAction: function(object, delayTime, func) {
+    addObjectAction: function(object, delayTime, index, func) {
         object.scale = 0;
         object.runAction(cc.sequence(
-                cc.delayTime(delayTime),
-                cc.callFunc(func),
-                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-            ));
+            cc.delayTime(delayTime),
+            cc.callFunc(function() { func && func(index) }),
+            cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+        ));
     },
 
     createSearchArea: function() {
@@ -271,7 +265,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
                     count++;
                     this.schoolBtn[i].setPosition(this._getBtnPosition(count));
                     this.schoolBtn[i].setVisible(true);
-                    // cc.log(JSON.stringify(this.schoolBtn[count].getPosition()));
                 } else {
                     this.schoolBtn[i].setVisible(false);
                 }
@@ -288,12 +281,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         field.y = this._searchButton.height/2;
 
         var size = cc.size(field.width, field.height);
-        cc.log(field.width + " - " + field.height);
+        // cc.log(field.width + " - " + field.height);  
         var tf = new ccui.TextField("Your School Name", "Arial", 32);
-
-        // tf.setTouchAreaEnabled(true);
-
-        // tf.setTouchSize(cc.size(600, 80));
 
         tf.x = field.width / 2;
         tf.y = field.height / 2;
@@ -313,16 +302,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setSwallowTouches(false);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
         this._scrollView.addEventListener(function(pScrollView, event) {
-            if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT)
-                self._rightArrowImg.setVisible(false);
-            else if (event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
+            if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT || event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
                 self._rightArrowImg.setVisible(false);
             else
                 self._rightArrowImg.setVisible(true);
 
-            if (event == ccui.ScrollView.EVENT_SCROLL_TO_LEFT)
-                self._leftArrowImg.setVisible(false);
-            else if (event == ccui.ScrollView.EVENT_BOUNCE_LEFT)
+            if (event == ccui.ScrollView.EVENT_SCROLL_TO_LEFT || event == ccui.ScrollView.EVENT_BOUNCE_LEFT)
                 self._leftArrowImg.setVisible(false);
             else
                 self._leftArrowImg.setVisible(true);
@@ -338,8 +323,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.setBounceEnabled(true);
         this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
         this._scrollView.addChild(this.schHolder);
-
-
     },
 
     isWideScreen: function(){
@@ -367,7 +350,6 @@ var SchoolSelectorLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
         targetNode._startTouchPosition = touchedPos;
@@ -378,19 +360,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
     onTouchMoved: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
-        var deltaX = touchedPos.x - targetNode._startTouchPosition.x;
-        var deltaY = touchedPos.y - targetNode._startTouchPosition.y;
-        var sqrDistance = Math.pow(deltaX, 2) + Math.pow(deltaY, 2);
+        var delta = cc.pSub(touchedPos, targetNode._startTouchPosition);
 
-        if(sqrDistance > 9) {
-            // if (!targetNode._isTouchMoved) {
-            //     cc.audioEngine.end();
-            //     cc.audioEngine.playEffect(res.bubble_scroll_sound_mp3);
-            // }
+        if(cc.pLengthSQ(delta) > 3 * 3) {  
             targetNode._isTouchMoved = true;
         }
-
-        return true;
     },
 });
 

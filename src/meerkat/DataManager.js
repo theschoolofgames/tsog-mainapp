@@ -9,8 +9,11 @@ var DataManager = cc.Class.extend({
         var schoolDataString = KVDatabase.getInstance().getString(STRING_SCHOOL_DATA);
         if (schoolDataString != "")
             this._schoolData = JSON.parse(schoolDataString);
-        else
-            this._schoolData = SCHOOL_INFO;
+        else {
+            cc.loader.loadJson("config/default_school.json", function(err, data) {
+                this._schoolData = data;
+            });
+        }
 
         var accountDataString = KVDatabase.getInstance().getString(STRING_ACCOUNT_DATA);
         if (accountDataString != "")

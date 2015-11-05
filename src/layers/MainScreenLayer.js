@@ -10,34 +10,20 @@ var MainScreenLayer = cc.Layer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
 
-
-        this._isLoggedIn = parseInt(cc.sys.localStorage.getItem("isLoggedIn")) || 0;
+        this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
         /*
             this._isLoggedIn = 0 is not logged in,
             1 is logged in
         */
         var self = this;
-        if (this._isLoggedIn == 0 ) {
-            this.runAction(
-                cc.sequence(
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        cc.director.replaceScene(new SchoolSelectorScene());
-                        self.playBackgroundMusic();
-                    })
-                ))
-        } else {
-            cc.log("move to welcome");
-            this.runAction(
-                cc.sequence(
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        cc.director.replaceScene(new WelcomeScene());
-                        // cc.director.replaceScene(new GameSelectorScene());
-                    })
-                ))
-        }
-
+        Utils.delayOneFrame(this, function() {
+            if (self._isLoggedIn == 0) {
+                cc.director.replaceScene(new SchoolSelectorScene());
+                self.playBackgroundMusic();
+            }
+            else
+                cc.director.replaceScene(new WelcomeScene());
+        });
     },
 
 
@@ -47,7 +33,7 @@ var MainScreenLayer = cc.Layer.extend({
         // play background music
         cc.audioEngine.setMusicVolume(0.2);
         cc.audioEngine.playMusic(res.background_mp3, true);
-        Utils.segmentTrack("enter_game",  null );
+        SegmentHelper.track("enter_game",  null );
     },
 });
 

@@ -1,95 +1,9 @@
 var Utils = Utils || {};
 
-Utils.callOpenScheme = function(scheme, data) {
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "openScheme:withData:",
-                                            scheme,
-                                            data);
-        }
-
-        if (cc.sys.os == cc.sys.OS_ANDROID) {
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                            "openScheme",
-                                            "(Ljava/lang/String;Ljava/lang/String;)Z",
-                                            scheme,
-                                            data);   
-        }
-    }
-}
-
-Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
-    traits = {
-        userName: userName,
-        schoolName: schoolName,
-        schoolId: schoolId
-    };
-
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "segmentIdentity:traits:",
-                                            userId,
-                                            JSON.stringify(traits));
-        }
-
-        if (cc.sys.os == cc.sys.OS_ANDROID) {
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                            "segmentIdentity",
-                                            "(Ljava/lang/String;Ljava/lang/String;)V",
-                                            userId,
-                                            JSON.stringify(traits));   
-        }
-    }
-}
-
-Utils.segmentTrack = function(event, properties) {
-
-    var userId = KVDatabase.getInstance().getString(STRING_USER_ID);
-    var userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
-    var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
-    var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
-
-    if (userId && userId != "")
-        properties.user_id = userId;
-    if (userName && userName != "")
-        properties.user_name = userName;
-    if (schoolId && schoolId != "")
-        properties.school_id = schoolId;
-    if (schoolName && schoolName != "")
-        properties.school_name = schoolName;
-
-    // cc.director.getRunningScene().runAction(cc.sequence(
-    //     cc.delayTime(0),
-    //     cc.callFunc(function() {
-            if (cc.sys.isNative) {
-                cc.log("segmentTrack");
-                if (cc.sys.os == cc.sys.OS_IOS) {
-                    jsb.reflection.callStaticMethod("H102Wrapper",
-                                                    "segmentTrack:properties:",
-                                                    event,
-                                                    JSON.stringify(properties));
-                }
-
-                if (cc.sys.os == cc.sys.OS_ANDROID) {
-                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                                    "segmentTrack",
-                                                    "(Ljava/lang/String;Ljava/lang/String;)V",
-                                                    event,
-                                                    JSON.stringify(properties));   
-                }
-            }
-    //     })
-    // ));
-}
-
-Utils.getUDID = function() {
-  if (cc.sys.os == cc.sys.OS_IOS)
-    return jsb.reflection.callStaticMethod("H102Wrapper", 
-                                           "getUniqueDeviceId");
-  else if (cc.sys.os == cc.sys.OS_ANDROID)
-    return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
+Utils.delayOneFrame = function(target, callback) {
+    target.runAction(cc.sequence(
+        cc.delayTime(0),
+        cc.callFunc(callback)));
 }
 
 Utils.addLoadingIndicatorLayer = function(block) {
@@ -148,8 +62,6 @@ Utils.loadImg = function(imgUrl, spriteNode, cb) {
         cc.loader.loadImg(imgUrl, function(target, texture) {
 
             if (texture instanceof cc.Texture2D) {
-                // cc.log(texture.pixelsWidth + " " + texture.pixelsHeight);
-                // self._avatarTexture[fbid] = texture;
 
                 texture.setAntiAliasTexParameters();
                 var spriteFrame = new cc.SpriteFrame(texture, cc.rect(0, 0, texture.width, texture.height));

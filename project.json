@@ -26,6 +26,8 @@
         "src/layers/GameSelectorLayer.js",
         "src/layers/LoginSucceedLayer.js",
         "src/layers/WelcomeLayer.js",
-        "src/layers/LoadingIndicatorLayer.js"
+        "src/layers/LoadingIndicatorLayer.js",
+        "src/helper/SegmentHelper.js",
+        "src/helper/NativeHelper.js"
     ]
 }
