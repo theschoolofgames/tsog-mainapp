@@ -174,7 +174,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 if (!self._isTouchMoved) {
                     cc.audioEngine.playEffect(res.bubble_sound_mp3);
 
-                    SegmentHelper.track("select_school", 
+                    SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
                         { 
                             school_id: schoolData[sender.tag].school_id, 
                             school_name: schoolData[sender.tag].school_name 

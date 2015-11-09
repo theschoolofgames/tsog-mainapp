@@ -46,3 +46,10 @@ var STRING_USER_ID = "user_id";
 var STRING_USER_NAME = "user_name";
 var STRING_SCHOOL_ID = "school_id";
 var STRING_SCHOOL_NAME = "school_name";
+
+var SEGMENT = {
+    SELECT_SCHOOL: "select_school",
+    ENTER_GAME: "enter_game",
+    LOAD_GAME: "load_game",
+    CLICK_GAME: "click_game"
+}

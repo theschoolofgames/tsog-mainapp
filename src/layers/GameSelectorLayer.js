@@ -160,7 +160,7 @@ var GameSelectorLayer = cc.Layer.extend({
                 var data = sender.userData;
                 var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
-                SegmentHelper.track("click_game", { game_id: data.game_id, game_name: data.game_name });
+                SegmentHelper.track(SEGMENT.CLICK_GAME, { game_id: data.game_id, game_name: data.game_name });
 
                 var sendDataArray = [self._userName, self._userId, schoolConfig.school_name, schoolConfig.school_id, data.config];
                 var scheme = cc.sys.os == cc.sys.OS_IOS ? data.ios_bundle : data.android_bundle;
@@ -206,7 +206,7 @@ var GameSelectorLayer = cc.Layer.extend({
             ));
         }
 
-        SegmentHelper.track("load_game", { game_ids: JSON.stringify(gameIds) });
+        SegmentHelper.track(SEGMENT.LOAD_GAME, { game_ids: JSON.stringify(gameIds) });
     },
 
     createScrollView: function(){
