@@ -90,11 +90,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Application::getInstance()->run();
   
   [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
-<<<<<<< HEAD
 //   [SEGAnalytics debug:YES];
-=======
-  [SEGAnalytics debug:YES];
->>>>>>> fix constants.js
   
   [Fabric with:@[[Crashlytics class], [Optimizely class]]];
   
