@@ -33,6 +33,10 @@
 
 #import <Analytics.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Optimizely/Optimizely.h>
+
 @implementation AppController
 
 #pragma mark -
@@ -87,6 +91,8 @@ static AppDelegate s_sharedApplication;
   
   [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
 //   [SEGAnalytics debug:YES];
+  
+  [Fabric with:@[[Crashlytics class], [Optimizely class]]];
   
     return YES;
 }

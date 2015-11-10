@@ -6,8 +6,10 @@
 //
 //
 #import "H102Wrapper.h"
-#import "PDKeychainBindings.h"
+#import <PDKeychainBindings.h>
 #import <Analytics.h>
+
+#import <Crashlytics/Crashlytics.h>
 
 @implementation H102Wrapper
 
@@ -56,6 +58,8 @@
   NSDictionary* traitDict = [NSJSONSerialization JSONObjectWithData:traitData options:0 error:nil];
   
   [[SEGAnalytics sharedAnalytics] identify:userId traits:traitDict];
+  
+//  [[Crashlytics sharedInstance] crash];
 }
 
 + (void)segmentTrack:(NSString *)event properties:(NSString *)properties {

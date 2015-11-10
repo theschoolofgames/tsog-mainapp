@@ -100,7 +100,12 @@ PODS:
     - Bugsnag/no-arc (= 4.0.7)
   - Bugsnag/no-arc (4.0.7)
   - Countly (15.06.01)
+  - Crashlytics (3.4.0):
+    - Fabric (~> 1.6.0)
   - CrittercismSDK (5.2.0)
+  - Fabric (1.6.0):
+    - Fabric/Base (= 1.6.0)
+  - Fabric/Base (1.6.0)
   - FlurrySDK (6.5.0):
     - FlurrySDK/FlurrySDK (= 6.5.0)
   - FlurrySDK/FlurrySDK (6.5.0)
@@ -116,6 +121,7 @@ PODS:
   - Mixpanel/Mixpanel (2.8.3)
   - MoEngage-iOS-SDK (1.4.3)
   - Optimizely-iOS-SDK (1.0.86)
+  - PDKeychainBindingsController (0.0.1)
   - Quantcast-Measure (1.4.7):
     - Quantcast-Measure/Core (= 1.4.7)
   - Quantcast-Measure/Core (1.4.7)
@@ -126,6 +132,9 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
+  - Crashlytics
+  - Fabric
+  - PDKeychainBindingsController
 
 SPEC CHECKSUMS:
   Amplitude-iOS: baba94b99a0166d5b874b46e5ef723f48b804bdd
@@ -134,7 +143,9 @@ SPEC CHECKSUMS:
   Apptimize: f187322af7163fe27dd3b3520d94d445680bec45
   Bugsnag: 5861d8519d30063abe7b3fcdcf4114a6dddab27a
   Countly: 2151c5286995b84972ba4a92c3fba6b5fafce6bb
+  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
   CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
+  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
   FlurrySDK: 820acaa95f7ec08797517720714783928d3e386b
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
@@ -144,6 +155,7 @@ SPEC CHECKSUMS:
   Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
   MoEngage-iOS-SDK: 81be7a433349a7d535c905a08629359eeefe0952
   Optimizely-iOS-SDK: 6c247b8eb907d9de290ff6ee37fb0c157a7f3444
+  PDKeychainBindingsController: fa8cb3cf99f2ea9240d61066ed0549f34e2cec3c
   Quantcast-Measure: de15122f2b48380afe42443d132f40f382df8ae7
   Taplytics: 0204c258a9a20e2607e3797142a9cb6f00bc210b
   Tapstream: e07f84d53c17a8a2ab53f81d2372299e786617aa

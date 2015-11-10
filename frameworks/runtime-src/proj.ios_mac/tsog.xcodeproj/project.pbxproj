@@ -18,8 +18,6 @@
 		01C9EA8A1BD50FCD0062EF7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA891BD50FCD0062EF7D /* Foundation.framework */; };
 		01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8B1BD510B70062EF7D /* libicucore.tbd */; };
 		01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */; };
-		01CF3C7C1BCF6EC200357DFB /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */; settings = {ASSET_TAGS = (); }; };
-		01CF3C7D1BCF6EC200357DFB /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */; settings = {ASSET_TAGS = (); }; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -203,10 +201,6 @@
 		01C9EA891BD50FCD0062EF7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA8B1BD510B70062EF7D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
 		01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		01CF3C781BCF6EC200357DFB /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
-		01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
-		01CF3C7A1BCF6EC200357DFB /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
-		01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -415,17 +409,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01CF3C771BCF6EC200357DFB /* PDKeychainBindingsController */ = {
-			isa = PBXGroup;
-			children = (
-				01CF3C781BCF6EC200357DFB /* PDKeychainBindings.h */,
-				01CF3C791BCF6EC200357DFB /* PDKeychainBindings.m */,
-				01CF3C7A1BCF6EC200357DFB /* PDKeychainBindingsController.h */,
-				01CF3C7B1BCF6EC200357DFB /* PDKeychainBindingsController.m */,
-			);
-			path = PDKeychainBindingsController;
-			sourceTree = "<group>";
-		};
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,7 +472,6 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
-				01CF3C771BCF6EC200357DFB /* PDKeychainBindingsController */,
 				F8E726AD1BA203A600223CB0 /* lwf */,
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
@@ -762,6 +744,7 @@
 				A922753B1517C094001B78AA /* Resources */,
 				744B59B86A9EC274F20AE296 /* Embed Pods Frameworks */,
 				32D2E190053207D4CE8D8603 /* Copy Pods Resources */,
+				0165B8D01BF1AA9F0066A39C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -892,6 +875,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0165B8D01BF1AA9F0066A39C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" f7ff6b169a623e6d5927af62fd29ce11144ff325 715f72c04f4915fd7e789344dbf6b52ce07fd0cf1eba4129717c31c7cba26154";
+		};
 		32D2E190053207D4CE8D8603 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -969,7 +965,6 @@
 				EB7B090A1BB50D2200B36D24 /* lwf_particle.cpp in Sources */,
 				EB7B09091BB50D2200B36D24 /* lwf_object.cpp in Sources */,
 				EB7B08F11BB50D2200B36D24 /* lwf_cocos2dx_resourcecache.cpp in Sources */,
-				01CF3C7D1BCF6EC200357DFB /* PDKeychainBindingsController.m in Sources */,
 				EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */,
@@ -996,7 +991,6 @@
 				EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */,
 				EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */,
 				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
-				01CF3C7C1BCF6EC200357DFB /* PDKeychainBindings.m in Sources */,
 				EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */,
 				EB7B09031BB50D2200B36D24 /* lwf_iobject.cpp in Sources */,
 			);
@@ -1131,7 +1125,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

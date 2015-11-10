@@ -4,7 +4,10 @@
 # use_frameworks!
 
 target 'tsog' do
-pod 'Analytics'
+  pod 'PDKeychainBindingsController'
+  pod 'Analytics'
+  pod 'Fabric'
+  pod 'Crashlytics'
 end
 
 target 'tsog-desktop' do
