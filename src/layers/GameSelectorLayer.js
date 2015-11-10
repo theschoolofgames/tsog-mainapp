@@ -206,7 +206,9 @@ var GameSelectorLayer = cc.Layer.extend({
             ));
         }
 
+
         SegmentHelper.track(SEGMENT.LOAD_GAME, { game_ids: JSON.stringify(gameIds) });
+        Utils.segmentTrack("load_game", {game_name: this._gameName });
     },
 
     createScrollView: function(){
