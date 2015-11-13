@@ -54,19 +54,23 @@
 }
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits {
-  NSData* traitData = [traits dataUsingEncoding:NSUTF8StringEncoding];
-  NSDictionary* traitDict = [NSJSONSerialization JSONObjectWithData:traitData options:0 error:nil];
-  
-  [[SEGAnalytics sharedAnalytics] identify:userId traits:traitDict];
-  
-//  [[Crashlytics sharedInstance] crash];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSData* traitData = [traits dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary* traitDict = [NSJSONSerialization JSONObjectWithData:traitData options:0 error:nil];
+    
+    [[SEGAnalytics sharedAnalytics] identify:userId traits:traitDict];
+  });
 }
 
 + (void)segmentTrack:(NSString *)event properties:(NSString *)properties {
-  NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
-  NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
-  
-  [[SEGAnalytics sharedAnalytics] track:event properties:propertiesDict];
+  NSLog(@"%@", [NSThread currentThread]);
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
+    
+    [[SEGAnalytics sharedAnalytics] track:event properties:propertiesDict];
+    
+  });
 }
 
 @end
