@@ -23,32 +23,91 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.javascript;
 
+import static android.widget.Toast.makeText;
+import static edu.cmu.pocketsphinx.SpeechRecognizerSetup.defaultSetup;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Traits;
 import com.segment.analytics.Properties;
-import com.segment.analytics.ValueMap;
-import com.segment.analytics.internal.integrations.CountlyIntegration;
 
-public class AppActivity extends Cocos2dxActivity {
+import edu.cmu.pocketsphinx.Assets;
+import edu.cmu.pocketsphinx.Hypothesis;
+import edu.cmu.pocketsphinx.RecognitionListener;
+import edu.cmu.pocketsphinx.SpeechRecognizer;
+
+public class AppActivity extends Cocos2dxActivity implements
+        RecognitionListener {
     
     private static AppActivity app = null;
     private static String udid;
+
+    private SpeechRecognizer recognizer;
+
+    private static final String KWS_SEARCH = "wakeup";
+    private static final String FORECAST_SEARCH = "forecast";
+    private static final String DIGITS_SEARCH = "digits";
+    private static final String PHONE_SEARCH = "phones";
+    private static final String MENU_SEARCH = "menu";
+
+    private static final String KEYPHRASE = "oh mighty computer";
+
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+            String libName = bundle.getString("android.app.lib_name.pocketsphinx");
+            System.loadLibrary(libName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        new AsyncTask<Void, Void, Exception>() {
+            @Override
+            protected Exception doInBackground(Void... params) {
+                try {
+                    Assets assets = new Assets(AppActivity.this);
+                    File assetDir = assets.syncAssets();
+                    setupRecognizer(assetDir);
+                } catch (IOException e) {
+                    return e;
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Exception result) {
+//                if (result != null) {
+//                    ((TextView) findViewById(R.id.caption_text))
+//                            .setText("Failed to init recognizer " + result);
+//                } else {
+//                    switchSearch(KWS_SEARCH);
+//                }
+            }
+        }.execute();
+    }
 
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -59,7 +118,8 @@ public class AppActivity extends Cocos2dxActivity {
 
         udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
         Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
-            @Override public void onReady(Object instance) {
+            @Override
+            public void onReady(Object instance) {
                 Analytics.with(app).flush();
             }
         });
@@ -77,11 +137,11 @@ public class AppActivity extends Cocos2dxActivity {
                 alertDialog.setTitle(aTitle);
                 alertDialog.setMessage(aMessage);
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
                 alertDialog.show();
             }
         });
@@ -127,5 +187,95 @@ public class AppActivity extends Cocos2dxActivity {
             p.putValue(entry.getKey(), entry.getValue());
         }
         Analytics.with(app).track(event, p);
+    }
+
+    @Override
+    public void onBeginningOfSpeech() {
+
+    }
+
+    @Override
+    public void onEndOfSpeech() {
+        if (!recognizer.getSearchName().equals(KWS_SEARCH))
+            switchSearch(KWS_SEARCH);
+    }
+
+    @Override
+    public void onPartialResult(Hypothesis hypothesis) {
+
+    }
+
+    @Override
+    public void onResult(Hypothesis hypothesis) {
+        if (hypothesis != null) {
+            String text = hypothesis.getHypstr();
+            makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onError(Exception e) {
+
+    }
+
+    @Override
+    public void onTimeout() {
+        switchSearch(KWS_SEARCH);
+    }
+
+    private void setupRecognizer(File assetsDir) throws IOException {
+        // The recognizer can be configured to perform multiple searches
+        // of different kind and switch between them
+
+        recognizer = defaultSetup()
+                .setAcousticModel(new File(assetsDir, "en-us-ptm"))
+                .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
+
+                        // To disable logging of raw audio comment out this call (takes a lot of space on the device)
+                .setRawLogDir(assetsDir)
+
+                        // Threshold to tune for keyphrase to balance between false alarms and misses
+                .setKeywordThreshold(1e-45f)
+
+                        // Use context-independent phonetic search, context-dependent is too slow for mobile
+                .setBoolean("-allphone_ci", true)
+
+                .getRecognizer();
+        recognizer.addListener(this);
+
+        /** In your application you might not need to add all those searches.
+         * They are added here for demonstration. You can leave just one.
+         */
+
+        // Create keyword-activation search.
+        recognizer.addKeyphraseSearch(KWS_SEARCH, KEYPHRASE);
+//
+//        // Create grammar-based search for selection between demos
+        File menuGrammar = new File(assetsDir, "menu.gram");
+        recognizer.addGrammarSearch(MENU_SEARCH, menuGrammar);
+//
+//        // Create grammar-based search for digit recognition
+//        File digitsGrammar = new File(assetsDir, "digits.gram");
+//        recognizer.addGrammarSearch(DIGITS_SEARCH, digitsGrammar);
+//
+//        // Create language model search
+//        File languageModel = new File(assetsDir, "weather.dmp");
+//        recognizer.addNgramSearch(FORECAST_SEARCH, languageModel);
+//
+//        // Phonetic search
+//        File phoneticModel = new File(assetsDir, "en-phone.dmp");
+//        recognizer.addAllphoneSearch(PHONE_SEARCH, phoneticModel);
+    }
+
+    private void switchSearch(String searchName) {
+        recognizer.stop();
+
+        // If we are not spotting, start listening with timeout (10000 ms or 10 seconds).
+        if (searchName.equals(KWS_SEARCH))
+            recognizer.startListening(searchName);
+        else
+            recognizer.startListening(searchName, 10000);
+
+        makeText(getApplicationContext(), searchName, Toast.LENGTH_SHORT).show();
     }
 }

@@ -73,30 +73,9 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dependency-cache" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.mixpanel.android/mixpanel-android/4.6.4/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.quantcast.android.measurement/QuantcastAndroidSdk-split/1.2.7/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-amplitude/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-appsflyer/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-apptimize/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-bugsnag/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-countly/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-crittercism/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-flurry/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-google-analytics/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-kahuna/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-leanplum/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-localytics/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-mixpanel/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-quantcast/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-taplytics/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-tapstream/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics-integration-uxcam/3.4.0/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.segment.analytics.android/analytics/3.4.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.3.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaResources" />
@@ -110,47 +89,17 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
-      <excludeFolder url="file://$MODULE_DIR$/build/test-results" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 22 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="analytics-integration-localytics-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="bugsnag-android-3.2.5" level="project" />
-    <orderEntry type="library" exported="" name="play-services-appindexing-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="tapstream-android-2.9.3" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-bugsnag-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-taplytics-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="sdk-android-14.12" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-crittercism-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="crittercism-android-agent-5.2.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-mixpanel-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="mixpanel-android-4.6.4" level="project" />
-    <orderEntry type="library" exported="" name="okhttp-2.2.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-analytics-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-countly-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="QuantcastAndroidSdk-split-1.2.7" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-kahuna-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="okio-1.2.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-appsflyer-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="tapstream-core-2.9.3" level="project" />
-    <orderEntry type="library" exported="" name="analytics-core-3.4.0" level="project" />
+    <orderEntry type="library" exported="" name="pocketsphinx-android-5prealpha-nolib" level="project" />
+    <orderEntry type="library" exported="" name="play-services-basement-8.3.0" level="project" />
+    <orderEntry type="library" exported="" name="analytics-4.0.0" level="project" />
     <orderEntry type="library" exported="" name="gson-2.4" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-flurry-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-ads-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-amplitude-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-apptimize-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-uxcam-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="play-services-basement-8.1.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-leanplum-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-quantcast-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-google-analytics-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-integration-tapstream-3.4.0" level="project" />
-    <orderEntry type="library" exported="" name="android-sdk-2.2.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-analytics-8.3.0" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="module" module-name="libcocos2dx" exported="" />
   </component>
 </module>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TSOG</string>
+
+    <string-array name="lib_names">
+        <item>pocketsphinx_jni</item>
+        <item>cocos2djs</item>
+    </string-array>
 </resources>
