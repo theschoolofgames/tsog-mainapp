@@ -54,3 +54,6 @@ dependencies {
 ant.importBuild 'assets.xml'
 preBuild.dependsOn(list, checksum)
 clean.dependsOn(clean_assets)
+dependencies {
+    compile 'com.google.android.gms:play-services-appindexing:8.3.0'
+}

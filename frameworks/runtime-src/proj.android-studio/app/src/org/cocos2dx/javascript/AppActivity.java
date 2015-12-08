@@ -34,10 +34,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -55,9 +60,11 @@ import edu.cmu.pocketsphinx.Hypothesis;
 import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
 
+import com.h102.H102Record;
+
 public class AppActivity extends Cocos2dxActivity implements
         RecognitionListener {
-    
+
     private static AppActivity app = null;
     private static String udid;
 
@@ -70,6 +77,11 @@ public class AppActivity extends Cocos2dxActivity implements
     private static final String MENU_SEARCH = "menu";
 
     private static final String KEYPHRASE = "oh mighty computer";
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -98,6 +110,9 @@ public class AppActivity extends Cocos2dxActivity implements
 //                }
             }
         }.execute();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -107,7 +122,7 @@ public class AppActivity extends Cocos2dxActivity implements
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        udid = Settings.System.getString(super.getContentResolver(), Settings.Secure.ANDROID_ID);
         Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
             @Override
             public void onReady(Object instance) {
@@ -152,7 +167,7 @@ public class AppActivity extends Cocos2dxActivity implements
         i.setType("text/plain");
         i.addCategory(Intent.CATEGORY_LAUNCHER);
         app.startActivity(i);
-        return true;    
+        return true;
     }
 
     public static String getId() {
@@ -160,10 +175,11 @@ public class AppActivity extends Cocos2dxActivity implements
     }
 
     public static void segmentIdentity(String userId, String traits) {
-        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {}.getType());
+        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
+        }.getType());
 
         Traits t = new Traits();
-        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
             t.putValue(entry.getKey(), entry.getValue());
         }
 
@@ -171,13 +187,34 @@ public class AppActivity extends Cocos2dxActivity implements
     }
 
     public static void segmentTrack(String event, String properties) {
-        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {}.getType());
+        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
+        }.getType());
 
         Properties p = new Properties();
-        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
             p.putValue(entry.getKey(), entry.getValue());
         }
         Analytics.with(app).track(event, p);
+    }
+
+    public static boolean checkMic() {
+        return H102Record.getInstance().checkMic();
+    }
+
+    public static boolean isRecording() {
+        return H102Record.getInstance().isRecording();
+    }
+
+    public static void initRecord(String fileName) {
+        H102Record.getInstance().initRecord(fileName);
+    }
+
+    public static void startRecord() {
+        H102Record.getInstance().startRecord();
+    }
+
+    public static void stopRecord() {
+        H102Record.getInstance().stopRecord();
     }
 
     @Override
@@ -269,4 +306,44 @@ public class AppActivity extends Cocos2dxActivity implements
 
         makeText(getApplicationContext(), searchName, Toast.LENGTH_SHORT).show();
     }
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        client.connect();
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "App Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://org.cocos2dx.javascript/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.start(client, viewAction);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//
+//        // ATTENTION: This was auto-generated to implement the App Indexing API.
+//        // See https://g.co/AppIndexing/AndroidStudio for more information.
+//        Action viewAction = Action.newAction(
+//                Action.TYPE_VIEW, // TODO: choose an action type.
+//                "App Page", // TODO: Define a title for the content shown.
+//                // TODO: If you have web page content that matches this app activity's content,
+//                // make sure this auto-generated web page URL is correct.
+//                // Otherwise, set the URL to null.
+//                Uri.parse("http://host/path"),
+//                // TODO: Make sure this auto-generated app deep link URI is correct.
+//                Uri.parse("android-app://org.cocos2dx.javascript/http/host/path")
+//        );
+//        AppIndex.AppIndexApi.end(client, viewAction);
+//        client.disconnect();
+//    }
 }

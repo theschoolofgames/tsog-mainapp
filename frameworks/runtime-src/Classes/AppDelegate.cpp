@@ -47,8 +47,8 @@
 
 #include "SimpleAudioEngine.h"
 
-#include "SoundTouch.h"
-#include "WavFile.h"
+#include "../../SoundTouch/core/SoundTouch.h"
+#include "../../SoundTouch/core/WavFile.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -195,10 +195,14 @@ bool AppDelegate::applicationDidFinishLaunching()
       string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "sound.wav");
       string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
     
+    CCLOG("Path1: %s", inFileDir.c_str());
+    
       WavInFile inFile(inFileDir.c_str());
       int sampleRate = inFile.getSampleRate();
       int bits = inFile.getNumBits();
       int nChannels = inFile.getNumChannels();
+    
+    CCLOG("Channels: %d", nChannels);
     
       WavOutFile outFile(outFileDir.c_str(), sampleRate, bits, nChannels);
     

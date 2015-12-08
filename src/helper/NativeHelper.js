@@ -49,30 +49,55 @@ var NativeHelperConfig = {
         iOS: [
             "H102Wrapper",
             "checkMic"
+        ],
+        Android: [
+            "org/cocos2dx/javascript/AppActivity",
+            "checkMic",
+            "()Z"
         ]
     },
     isRecording: {
         iOS: [
             "H102Wrapper",
             "isRecording"
+        ],
+        Android: [
+            "org/cocos2dx/javascript/AppActivity",
+            "isRecording",
+            "()Z"
         ]
     },
     initRecord: {
         iOS: [
             "H102Wrapper",
             "initRecord:"
+        ],
+        Android: [
+            "org/cocos2dx/javascript/AppActivity",
+            "initRecord",
+            "(Ljava/lang/String;)V"
         ]
     },
     startRecord: {
         iOS: [
             "H102Wrapper",
             "startRecord"
+        ],
+        Android: [
+            "org/cocos2dx/javascript/AppActivity",
+            "startRecord",
+            "()V"
         ]
     },
     stopRecord: {
         iOS: [
             "H102Wrapper",
             "stopRecord"
+        ],
+        Android: [
+            "org/cocos2dx/javascript/AppActivity",
+            "stopRecord",
+            "()V"
         ]
     }
 }
