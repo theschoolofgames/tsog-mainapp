@@ -4,6 +4,19 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>Mainground.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{858,2},{855,118}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{855,118}}</string>
+                <key>sourceSize</key>
+                <string>{855,118}</string>
+            </dict>
             <key>avatar-1.png</key>
             <dict>
                 <key>frame</key>
@@ -94,19 +107,6 @@
                 <string>{{0,0},{855,125}}</string>
                 <key>sourceSize</key>
                 <string>{855,125}</string>
-            </dict>
-            <key>ground.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{858,2},{855,118}}</string>
-                <key>offset</key>
-                <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{855,118}}</string>
-                <key>sourceSize</key>
-                <string>{855,118}</string>
             </dict>
             <key>icon-1.png</key>
             <dict>
@@ -277,7 +277,7 @@
                 <key>sourceSize</key>
                 <string>{107,38}</string>
             </dict>
-            <key>tree-1.png</key>
+            <key>tree1.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{171,128},{150,351}}</string>
@@ -290,7 +290,7 @@
                 <key>sourceSize</key>
                 <string>{150,351}</string>
             </dict>
-            <key>tree-2.png</key>
+            <key>tree2.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1397,202},{173,163}}</string>
@@ -303,7 +303,7 @@
                 <key>sourceSize</key>
                 <string>{173,163}</string>
             </dict>
-            <key>tree-3.png</key>
+            <key>tree3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{2,128},{168,360}}</string>
@@ -316,7 +316,7 @@
                 <key>sourceSize</key>
                 <string>{168,360}</string>
             </dict>
-            <key>tree-4.png</key>
+            <key>tree4.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{794,316},{125,159}}</string>
@@ -329,7 +329,7 @@
                 <key>sourceSize</key>
                 <string>{125,159}</string>
             </dict>
-            <key>tree-5.png</key>
+            <key>tree5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1187,121},{80,370}}</string>
@@ -342,7 +342,7 @@
                 <key>sourceSize</key>
                 <string>{80,370}</string>
             </dict>
-            <key>tree-6.png</key>
+            <key>tree6.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{617,316},{162,176}}</string>
@@ -365,7 +365,7 @@
             <key>size</key>
             <string>{1715,495}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9eaaaa1fc7690650842b502459417e90:6e633d615841b32048c16468dda7d2e6:cc5c63716bdaa1313fe923753eaaef6a$</string>
+            <string>$TexturePacker:SmartUpdate:5d9110504cbac13feb4d890cf1eab40e:7a3843fb3c7e752ed6374c2ed25e6207:cc5c63716bdaa1313fe923753eaaef6a$</string>
             <key>textureFileName</key>
             <string>account.png</string>
         </dict>

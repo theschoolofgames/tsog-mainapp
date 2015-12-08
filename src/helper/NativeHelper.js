@@ -49,7 +49,7 @@ var NativeHelperConfig = {
 
 // Args must be an array
 NativeHelper.callNative = function(method, args) {
-    if (!NativeHelperConfig[method][cc.sys.os]) {
+    if (!NativeHelperConfig[method] || !NativeHelperConfig[method][cc.sys.os]) {
         cc.log("WARNING: No config for os: " + cc.sys.os + " with method: " + method)
         return;
     }

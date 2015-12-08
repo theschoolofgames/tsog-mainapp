@@ -1,0 +1,14 @@
+{
+    "packageUrl" : "http://localhost:3000/games/alphabet/SD/",
+    "remoteVersionUrl" : "http://localhost:3000/games/alphabet/SD/version.manifest",
+    "remoteManifestUrl" : "http://localhost:3000/games/alphabet/SD/project.manifest",
+    "version" : "0.1",
+    "engineVersion" : "cocos2d-x-3.7.1",
+
+    "assets" : {
+    },
+
+    "searchPaths" : [
+        "res/SD"
+    ]
+}

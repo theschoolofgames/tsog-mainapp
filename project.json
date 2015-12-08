@@ -15,10 +15,15 @@
         "src/Constants.js",
         "src/JSExtension.js",
         "src/Utils.js",
+        "src/AnimatedEffect.js",
+        "src/Config.js",
+
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
+
         "src/meerkat/DataManager.js",
         "src/meerkat/RequestsManager.js",
+
         "src/layers/AccountSelectorLayer.js",
         "src/layers/SignUpLayer.js",
         "src/layers/MainScreenLayer.js",
@@ -27,6 +32,15 @@
         "src/layers/LoginSucceedLayer.js",
         "src/layers/WelcomeLayer.js",
         "src/layers/LoadingIndicatorLayer.js",
+
+        "src/Layer/Clock.js",
+        "src/Layer/ForestLayer.js",
+        "src/Layer/HudLayer.js",
+        "src/Layer/RoomLayer.js",
+        "src/Layer/SettingDialog.js",
+        "src/Layer/TalkingAdiLayer.js",
+        "src/Layer/TutorialLayer.js",
+
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js"
     ]

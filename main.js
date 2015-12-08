@@ -103,7 +103,24 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
+        RequestsManager.setupInstance();
+        ConfigStore.setupInstance(true);
+
+        cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
+        
         cc.director.runScene(new MainScene());
+
+        cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
+            cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
+        });
     }, this);
 };
 cc.game.run();

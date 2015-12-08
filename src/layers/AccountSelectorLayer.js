@@ -210,7 +210,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
         var numberOfGround = Math.ceil(accountData.length/6) + 1;
         for ( var i = -1; i < numberOfGround; i++) {
-            ground = new cc.Sprite("#ground.png");
+            ground = new cc.Sprite("#Mainground.png");
             ground.setAnchorPoint(0, 0);
             ground.x = i * (ground.width - 5);
             ground.y = -ground.height/2;
@@ -260,7 +260,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         for ( var i = 0; i < accountData.length; i++) {
             index = i%6;
 
-            tree = new cc.Sprite("#tree-" + (index+1) + ".png");
+            tree = new cc.Sprite("#tree" + (index+1) + ".png");
             tree.setAnchorPoint(0.5, 0);
             tree.x = i * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
             tree.y = this._ground.height/2 - 20;

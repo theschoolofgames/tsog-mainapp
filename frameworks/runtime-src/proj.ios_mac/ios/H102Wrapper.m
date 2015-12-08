@@ -73,4 +73,8 @@
   });
 }
 
++ (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value {
+    [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
+}
+
 @end
