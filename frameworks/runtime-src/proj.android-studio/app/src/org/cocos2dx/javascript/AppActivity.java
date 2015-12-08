@@ -75,15 +75,6 @@ public class AppActivity extends Cocos2dxActivity implements
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            Bundle bundle = ai.metaData;
-            String libName = bundle.getString("android.app.lib_name.pocketsphinx");
-            System.loadLibrary(libName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         new AsyncTask<Void, Void, Exception>() {
             @Override
             protected Exception doInBackground(Void... params) {

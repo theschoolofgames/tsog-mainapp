@@ -45,8 +45,14 @@
 
 #include "../../lwf/cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
 
+#include "SimpleAudioEngine.h"
+
+#include "SoundTouch.h"
+#include "WavFile.h"
+
 USING_NS_CC;
 using namespace CocosDenshion;
+using namespace soundtouch;
 
 AppDelegate::AppDelegate()
 {
@@ -178,7 +184,68 @@ bool AppDelegate::applicationDidFinishLaunching()
 //      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
 //    }), NULL));
   });
-
+  
+  director->getEventDispatcher()->addCustomEventListener("chipmunkify", [](EventCustom* event) {
+    #define BUFF_SIZE 4096
+    
+      SAMPLETYPE sampleBuffer[BUFF_SIZE];
+      int nSamples;
+    
+      SoundTouch* st = new SoundTouch();
+      string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "sound.wav");
+      string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
+    
+      WavInFile inFile(inFileDir.c_str());
+      int sampleRate = inFile.getSampleRate();
+      int bits = inFile.getNumBits();
+      int nChannels = inFile.getNumChannels();
+    
+      WavOutFile outFile(outFileDir.c_str(), sampleRate, bits, nChannels);
+    
+      st->setSampleRate(sampleRate);
+      st->setChannels(nChannels);
+    
+      st->setPitchSemiTones(3.0);
+    
+      int buffSizeSamples = BUFF_SIZE / nChannels;
+    
+      // Process samples read from the input file
+      while (inFile.eof() == 0)
+      {
+        int num;
+    
+        // Read a chunk of samples from the input file
+        num = inFile.read(sampleBuffer, BUFF_SIZE);
+        nSamples = num / nChannels;
+    
+        // Feed the samples into SoundTouch processor
+        st->putSamples(sampleBuffer, nSamples);
+    
+        // Read ready samples from SoundTouch processor & write them output file.
+        // NOTES:
+        // - 'receiveSamples' doesn't necessarily return any samples at all
+        //   during some rounds!
+        // - On the other hand, during some round 'receiveSamples' may have more
+        //   ready samples than would fit into 'sampleBuffer', and for this reason
+        //   the 'receiveSamples' call is iterated for as many times as it
+        //   outputs samples.
+        do
+        {
+          nSamples = st->receiveSamples(sampleBuffer, buffSizeSamples);
+          outFile.write(sampleBuffer, nSamples * nChannels);
+        } while (nSamples != 0);
+      }
+    
+      // Now the input file is processed, yet 'flush' few last samples that are
+      // hiding in the SoundTouch's internal processing pipeline.
+      st->flush();
+      do
+      {
+        nSamples = st->receiveSamples(sampleBuffer, buffSizeSamples);
+        outFile.write(sampleBuffer, nSamples * nChannels);
+      } while (nSamples != 0);
+  });
+  
     return true;
 }
 

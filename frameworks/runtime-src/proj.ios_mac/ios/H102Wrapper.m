@@ -11,6 +11,8 @@
 
 #import <Crashlytics/Crashlytics.h>
 
+#import "SimpleAudioRecordEngine_objc.h"
+
 @implementation H102Wrapper
 
 + (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
@@ -75,6 +77,30 @@
 
 + (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value {
     [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
+}
+
++ (BOOL)checkMic {
+  return [[SimpleAudioRecordEngine sharedEngine] checkMic];
+}
+
++ (BOOL)isRecording {
+  return [[SimpleAudioRecordEngine sharedEngine] isRecording];
+}
+
++ (void)initRecord:(NSString *)fileName {
+  [[SimpleAudioRecordEngine sharedEngine] initRecord:fileName];
+}
+
++ (void)startRecord {
+  [[SimpleAudioRecordEngine sharedEngine] startRecord];
+}
+
++ (void)stopRecord {
+  [[SimpleAudioRecordEngine sharedEngine] stopRecord];
+}
+
++ (void)chipmunkify:(NSString *)fileName {
+  
 }
 
 @end

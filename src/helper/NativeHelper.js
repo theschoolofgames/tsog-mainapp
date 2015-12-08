@@ -44,6 +44,36 @@ var NativeHelperConfig = {
             "segmentTrack",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
+    },
+    checkMic: {
+        iOS: [
+            "H102Wrapper",
+            "checkMic"
+        ]
+    },
+    isRecording: {
+        iOS: [
+            "H102Wrapper",
+            "isRecording"
+        ]
+    },
+    initRecord: {
+        iOS: [
+            "H102Wrapper",
+            "initRecord:"
+        ]
+    },
+    startRecord: {
+        iOS: [
+            "H102Wrapper",
+            "startRecord"
+        ]
+    },
+    stopRecord: {
+        iOS: [
+            "H102Wrapper",
+            "stopRecord"
+        ]
     }
 }
 

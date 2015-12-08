@@ -223,16 +223,23 @@ var SchoolSelectorLayer = cc.Layer.extend({
             ccui.Widget.PLIST_TEXTURE);
         searchButton.x = searchButton.width;
         searchButton.y = searchButton.height/2;
-        searchButton.setTouchEnabled(false);
+        // searchButton.setTouchEnabled(false);
+
+        cc.log("checkMic: " + NativeHelper.callNative("checkMic"));
+        NativeHelper.callNative("initRecord", ["sound.wav"]);
 
         searchButton.addClickEventListener(function(){
             // self._searchField.onTouchBegan();
+            if (NativeHelper.callNative("isRecording")) {
+                NativeHelper.callNative("stopRecord")
+                cc.eventManager.dispatchCustomEvent("chipmunkify");
+            }
+            else
+                NativeHelper.callNative("startRecord");
         });
 
         this._searchArea.addChild(searchButton, 9);
         this._searchButton = searchButton;
-
-        var self = this;
     },
 
     onSearchFieldInsertText: function(tf) {
