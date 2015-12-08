@@ -111,8 +111,8 @@ bool AppDelegate::applicationDidFinishLaunching()
 //    sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
     
     // spine can be commented out to reduce the package
-//    sc->addRegisterCallback(register_all_cocos2dx_spine);
-//    sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
+    sc->addRegisterCallback(register_all_cocos2dx_spine);
+    sc->addRegisterCallback(register_all_cocos2dx_spine_manual);
     
     // XmlHttpRequest can be commented out to reduce the package
     sc->addRegisterCallback(MinXmlHttpRequest::_js_register);

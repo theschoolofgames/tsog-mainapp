@@ -356,8 +356,12 @@ var res = {
    COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
    
    // BG sound 
-   BACKGROUND_mp3: "sounds/background.mp3"
+   BACKGROUND_mp3: "sounds/background.mp3",
 
+   Adidog_json: "AdiDog/Adidog.json",
+   Adidog_atlas: "AdiDog/Adidog.atlas",
+   Adidog_png1: "AdiDog/Adidog1.png",
+   Adidog_png2: "AdiDog/Adidog2.png"
 };
 
 var g_resources = [];

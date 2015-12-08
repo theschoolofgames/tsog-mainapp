@@ -1,9 +1,26 @@
 var TalkingAdiLayer = cc.Layer.extend({
     _allScale: 0,
+    _adiDogSpine: null,
     
     ctor:function() {
         this._super();
         this.createBackground();
+        this.createTalkingAdi();
+    },
+
+    createTalkingAdi: function() {
+        cc.log("before new");
+
+        this._adiDogSpine = new sp.SkeletonAnimation(res.Adidog_json, res.Adidog_atlas);
+        this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 4));
+
+        cc.log("after new");
+        // this._adiDogSpine.setMix('walk', 'jump', 0.2); 
+        // this._adiDogSpine.setMix('jump', 'run', 0.2);
+        this._adiDogSpine.setAnimation(0, 'Idle', true);
+        //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
+        // this._adiDogSpine.setScale(0.5);
+        this.addChild(this._adiDogSpine, 4);
     },
 
     createBackground: function() {
