@@ -94,13 +94,13 @@ public class H102Record {
                 Object obj = new Object();
                 try {
                     synchronized (obj) {
-                        boolean isListening = false;
+                        long startTime = -1;
                         long expectedtime = System.currentTimeMillis();
                         while (true) {//Or any Loops
                             while (System.currentTimeMillis() < expectedtime) {}
                             expectedtime += BACKGROUND_SOUND_DETECTING_LOOP_DELAY;//Sample expectedtime += 1000; 1 second sleep
 
-                            if (!isListening) {
+                            if (startTime < 0) {
                                 Log.w(TAG, "Restart");
                                 initRecord();
                                 startRecord();
@@ -110,10 +110,10 @@ public class H102Record {
 
                             int maxAmplitude = mRecorder.getMaxAmplitude();
                             Log.w(TAG, "Amplitude: " + maxAmplitude);
-                            if (!isListening) {
+                            if (startTime < 0) {
                                 if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
                                     Log.w(TAG, "Start");
-                                    isListening = true;
+                                    startTime = System.currentTimeMillis();
                                     app.runOnGLThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -124,7 +124,7 @@ public class H102Record {
                             } else {
                                 if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
                                     Log.w(TAG, "Stop");
-                                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), 2.0);
+                                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), System.currentTimeMillis()-startTime);
                                     app.runOnGLThread(new Runnable() {
                                         @Override
                                         public void run() {
