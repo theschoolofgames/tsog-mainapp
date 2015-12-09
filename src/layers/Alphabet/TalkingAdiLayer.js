@@ -33,14 +33,14 @@ var TalkingAdiLayer = cc.Layer.extend({
     },
 
     _createTalkingAdi: function() {
-        this._adiDogSpine = new sp.SkeletonAnimation(res.Adidog_json, res.Adidog_atlas);
+        cc.log("before creating adi");
+        this._adiDogSpine = new sp.SkeletonAnimation("adidog/adidog.json", "adidog/adidog.atlas", 0.3);
         this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
 
         this._adiDogSpine.addAnimation(0, 'Idle', true);
         // this._adiDogSpine.setAnimation(0, 'ListeningFinish', true);
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
-        this._adiDogSpine.setScale(0.3);
         this.addChild(this._adiDogSpine, 4);
 
         AudioListener.getInstance().setAdi(this._adiDogSpine);
