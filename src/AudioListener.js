@@ -19,12 +19,15 @@ var AudioListener = cc.Class.extend({
     // playbackLength: int (second)
     onStoppedListening: function(fileName, playbackLength) {
         cc.log("onStoppedListening");
+
         if (playbackLength > 0)
             this._talkingAdi.setAnimation(0, 'Talking', true);
         else {
             this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
             this._talkingAdi.addAnimation(0, 'Idle', true, 1);
         }
+
+        cc.audioEngine.playEffect(fileName);
     }
 });
 

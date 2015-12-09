@@ -66,31 +66,31 @@ public class AppActivity extends Cocos2dxActivity implements
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        new AsyncTask<Void, Void, Exception>() {
-            @Override
-            protected Exception doInBackground(Void... params) {
-                try {
-                    Assets assets = new Assets(AppActivity.this);
-                    File assetDir = assets.syncAssets();
-                    setupRecognizer(assetDir);
-                } catch (IOException e) {
-                    return e;
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Exception result) {
-                if (result == null)
-                    switchSearch(KWS_SEARCH);
-//                if (result != null) {
-//                    ((TextView) findViewById(R.id.caption_text))
-//                            .setText("Failed to init recognizer " + result);
-//                } else {
-//                    switchSearch(KWS_SEARCH);
+//        new AsyncTask<Void, Void, Exception>() {
+//            @Override
+//            protected Exception doInBackground(Void... params) {
+//                try {
+//                    Assets assets = new Assets(AppActivity.this);
+//                    File assetDir = assets.syncAssets();
+//                    setupRecognizer(assetDir);
+//                } catch (IOException e) {
+//                    return e;
 //                }
-            }
-        }.execute();
+//                return null;
+//            }
+//
+//            @Override
+//            protected void onPostExecute(Exception result) {
+//                if (result == null)
+//                    switchSearch(KWS_SEARCH);
+////                if (result != null) {
+////                    ((TextView) findViewById(R.id.caption_text))
+////                            .setText("Failed to init recognizer " + result);
+////                } else {
+////                    switchSearch(KWS_SEARCH);
+////                }
+//            }
+//        }.execute();
     }
 
     @Override

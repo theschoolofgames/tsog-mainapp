@@ -30,6 +30,8 @@ var TalkingAdiLayer = cc.Layer.extend({
                 return true;
             }
         }, this);
+
+        NativeHelper.callNative("startBackgroundSoundDetecting");
     },
 
     _createTalkingAdi: function() {

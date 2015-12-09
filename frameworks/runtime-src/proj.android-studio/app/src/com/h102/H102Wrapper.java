@@ -10,14 +10,15 @@ import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.provider.Settings;
 
+import org.cocos2dx.javascript.AppActivity;
+
 public class H102Wrapper
 {
-    public static Activity activity;
+    public static AppActivity activity;
 
     public static String getId() {
         return Settings.System.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -73,8 +74,8 @@ public class H102Wrapper
         return H102Record.getInstance().isRecording();
     }
 
-    public static void initRecord(String fileName) {
-        H102Record.getInstance().initRecord(fileName);
+    public static void initRecord() {
+        H102Record.getInstance().initRecord();
     }
 
     public static void startRecord() {
@@ -83,5 +84,9 @@ public class H102Wrapper
 
     public static void stopRecord() {
         H102Record.getInstance().stopRecord();
+    }
+
+    public static void startBackgroundSoundDetecting() {
+        H102Record.getInstance().startBackgroundSoundDetecting(activity);
     }
 }

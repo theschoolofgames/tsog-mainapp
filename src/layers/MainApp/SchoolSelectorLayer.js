@@ -225,17 +225,18 @@ var SchoolSelectorLayer = cc.Layer.extend({
         searchButton.y = searchButton.height/2;
         // searchButton.setTouchEnabled(false);
 
-        cc.log("checkMic: " + NativeHelper.callNative("checkMic"));
-        NativeHelper.callNative("initRecord", ["sound.wav"]);
+        // cc.log("checkMic: " + NativeHelper.callNative("checkMic"));
+        // NativeHelper.callNative("initRecord");
 
         searchButton.addClickEventListener(function(){
+            NativeHelper.callNative("startBackgroundSoundDetecting");
             // self._searchField.onTouchBegan();
-            if (NativeHelper.callNative("isRecording")) {
-                NativeHelper.callNative("stopRecord")
-                cc.eventManager.dispatchCustomEvent("chipmunkify");
-            }
-            else
-                NativeHelper.callNative("startRecord");
+            // if (NativeHelper.callNative("isRecording")) {
+            //     NativeHelper.callNative("stopRecord")
+            //     cc.eventManager.dispatchCustomEvent("chipmunkify");
+            // }
+            // else
+            //     NativeHelper.callNative("startRecord");
         });
 
         this._searchArea.addChild(searchButton, 9);

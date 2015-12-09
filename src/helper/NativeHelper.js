@@ -7,7 +7,7 @@ var NativeHelperConfig = {
             "openScheme:withData:"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "openScheme",
             "(Ljava/lang/String;Ljava/lang/String;)Z"
         ]
@@ -18,7 +18,7 @@ var NativeHelperConfig = {
             "getUniqueDeviceId"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "getId",
             "()Ljava/lang/String;"
         ]
@@ -29,7 +29,7 @@ var NativeHelperConfig = {
             "segmentIdentity:traits:"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "segmentIdentity",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
@@ -40,7 +40,7 @@ var NativeHelperConfig = {
             "segmentTrack:properties:"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "segmentTrack",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
@@ -51,7 +51,7 @@ var NativeHelperConfig = {
             "checkMic"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "checkMic",
             "()Z"
         ]
@@ -62,7 +62,7 @@ var NativeHelperConfig = {
             "isRecording"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "isRecording",
             "()Z"
         ]
@@ -73,9 +73,9 @@ var NativeHelperConfig = {
             "initRecord:"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "initRecord",
-            "(Ljava/lang/String;)V"
+            "()V"
         ]
     },
     startRecord: {
@@ -84,7 +84,7 @@ var NativeHelperConfig = {
             "startRecord"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "startRecord",
             "()V"
         ]
@@ -95,8 +95,15 @@ var NativeHelperConfig = {
             "stopRecord"
         ],
         Android: [
-            "org/cocos2dx/javascript/AppActivity",
+            "com/h102/H102Wrapper",
             "stopRecord",
+            "()V"
+        ]
+    },
+    startBackgroundSoundDetecting: {
+        Android: [
+            "com/h102/H102Wrapper",
+            "startBackgroundSoundDetecting",
             "()V"
         ]
     }
