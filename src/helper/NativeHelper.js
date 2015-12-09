@@ -106,6 +106,13 @@ var NativeHelperConfig = {
             "startBackgroundSoundDetecting",
             "()V"
         ]
+    },
+    stopBackgroundSoundDetecting: {
+        Android: [
+            "com/h102/H102Wrapper",
+            "stopBackgroundSoundDetecting",
+            "()V"
+        ]
     }
 }
 

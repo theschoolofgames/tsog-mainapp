@@ -106,6 +106,7 @@ var TalkingAdiLayer = cc.Layer.extend({
         var self = this;
         var clockInitTime = GAME_CONFIG.talkingAdiTime;
         var clock = new Clock(clockInitTime, function(){
+            NativeHelper.callNative("stopBackgroundSoundDetecting");
             cc.director.replaceScene(new RoomScene());
         });
         clock.visible = false;
@@ -121,6 +122,7 @@ var TalkingAdiLayer = cc.Layer.extend({
         this.addChild(nextBtn);
 
         nextBtn.addClickEventListener(function() {
+            NativeHelper.callNative("stopBackgroundSoundDetecting");
             cc.director.replaceScene(new RoomScene());
         })
     }
