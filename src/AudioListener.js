@@ -1,5 +1,6 @@
 var AudioListener = cc.Class.extend({
     _talkingAdi: null,
+    _playbackLength: 0,
 
     setAdi: function(adi) {
         if (adi == undefined || adi == null)
@@ -19,6 +20,15 @@ var AudioListener = cc.Class.extend({
     // playbackLength: long (milisecond)
     onStoppedListening: function(fileName, playbackLength) {
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
+        this._playbackLength = playbackLength;
+
+        cc.eventManager.dispatchCustomEvent("chipmunkify");
+    },
+
+    onAudioChipmunkified: function(fileName) {
+        cc.log("onAudioChipmunkified: " + fileName);
+
+        var self = this;
 
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0.2),
@@ -26,14 +36,14 @@ var AudioListener = cc.Class.extend({
                 cc.audioEngine.unloadEffect(fileName);
                 cc.audioEngine.playEffect(fileName);
 
-                if (playbackLength > 0)
-                    this._talkingAdi.setAnimation(0, 'Idle', true);
+                if (self._playbackLength > 0)
+                    self._talkingAdi.setAnimation(0, 'Idle', true);
                 else {
-                    this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
-                    this._talkingAdi.addAnimation(0, 'Idle', true, 1);
+                    self._talkingAdi.setAnimation(0, 'ListeningFinish', false);
+                    self._talkingAdi.addAnimation(0, 'Idle', true, 1);
                 }
             }),
-            cc.delayTime(playbackLength/1000),
+            cc.delayTime(self._playbackLength/1000),
             cc.callFunc(function() {
                 NativeHelper.callNative("startBackgroundSoundDetecting");
             })));

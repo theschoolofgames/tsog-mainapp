@@ -248,8 +248,8 @@ bool AppDelegate::applicationDidFinishLaunching()
       int nSamples;
     
       SoundTouch* st = new SoundTouch();
-      string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "sound.wav");
-      string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
+      string inFileDir = StringUtils::format("%s%s", "/sdcard/", "record_sound.wav");
+      string outFileDir = StringUtils::format("%s%s", "/sdcard/", "out.wav");
     
     CCLOG("Path1: %s", inFileDir.c_str());
     
@@ -304,6 +304,8 @@ bool AppDelegate::applicationDidFinishLaunching()
         nSamples = st->receiveSamples(sampleBuffer, buffSizeSamples);
         outFile.write(sampleBuffer, nSamples * nChannels);
       } while (nSamples != 0);
+    
+    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
   });
   
     return true;

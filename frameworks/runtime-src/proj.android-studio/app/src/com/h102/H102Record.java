@@ -123,6 +123,7 @@ public class H102Record {
                             } else {
                                 if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
                                     Log.w(TAG, "Stop");
+                                    stopBackgroundSoundDetecting();
                                     final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), System.currentTimeMillis()-startTime);
                                     app.runOnGLThread(new Runnable() {
                                         @Override
@@ -130,7 +131,6 @@ public class H102Record {
                                             Cocos2dxJavascriptJavaBridge.evalString(command);
                                         }
                                     });
-                                    stopBackgroundSoundDetecting();
                                     break;
                                 }
                             }
