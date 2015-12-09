@@ -10,9 +10,9 @@ var AudioListener = cc.Class.extend({
     },
 
     onStartedListening: function() {
-        this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
-        this._talkingAdi.addAnimation(0, 'Idle', true, 1);
         cc.log("onStartedListening");
+        this._talkingAdi.setAnimation(0, 'ListeningStart', false);
+        this._talkingAdi.addAnimation(0, 'ListeningLoop', true, 1);
     },
 
     // fileName: str
@@ -21,8 +21,10 @@ var AudioListener = cc.Class.extend({
         cc.log("onStoppedListening");
         if (playbackLength > 0)
             this._talkingAdi.setAnimation(0, 'Talking', true);
-        else 
-            this._talkingAdi.setAnimation(0, 'Idle', true);
+        else {
+            this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
+            this._talkingAdi.addAnimation(0, 'Idle', true, 1);
+        }
     }
 });
 

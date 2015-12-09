@@ -2,6 +2,7 @@ var TalkingAdiLayer = cc.Layer.extend({
     _allScale: 0,
     _adiDogSpine: null,
     _settingBtn: null,
+    _isListening: false,
     
     ctor:function() {
         this._super();
@@ -17,7 +18,14 @@ var TalkingAdiLayer = cc.Layer.extend({
             onTouchBegan: function(touch, event) {
                 var self = event.getCurrentTarget();
 
-                AudioListener.getInstance().onStartedListening();
+                if (self._isListening) {
+                    AudioListener.getInstance().onStoppedListening();
+                    self._isListening = false;
+                }
+                else {
+                    AudioListener.getInstance().onStartedListening();
+                    self._isListening = true;
+                }
 
                 return true;
             }
@@ -36,22 +44,6 @@ var TalkingAdiLayer = cc.Layer.extend({
         this.addChild(this._adiDogSpine, 4);
 
         AudioListener.getInstance().setAdi(this._adiDogSpine);
-    },
-
-    _adiStartListening: function() {
-        this._adiDogSpine.setAnimation(0, 'Listening', false);
-    },
-
-    _adiStopListening: function() {
-        // set to Idle if system does not receive anything
-        this._adiDogSpine.setAnimation(0, 'Idle', true);
-        // or start talking back
-        this._adiStartTalking();
-    },
-
-    _adiStartTalking: function() {
-        // adi dog keeps talking till the sound length receive
-        this._adiDogSpine.setAnimation(0, 'Talking', true);
     },
 
     _createBackground: function() {
