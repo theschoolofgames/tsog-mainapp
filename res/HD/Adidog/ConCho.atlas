@@ -1,146 +1,146 @@
 
 ConCho.png
-size: 512,128
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 body
   rotate: false
-  xy: 2, 21
-  size: 101, 105
-  orig: 101, 105
+  xy: 2, 194
+  size: 302, 316
+  orig: 302, 316
   offset: 0, 0
   index: -1
 chuong
-  rotate: false
-  xy: 495, 91
-  size: 15, 16
-  orig: 15, 16
+  rotate: true
+  xy: 975, 292
+  size: 44, 47
+  orig: 44, 47
   offset: 0, 0
   index: -1
 close eye
-  rotate: false
-  xy: 464, 15
-  size: 29, 30
-  orig: 29, 30
+  rotate: true
+  xy: 571, 11
+  size: 88, 89
+  orig: 88, 89
   offset: 0, 0
   index: -1
 day co
-  rotate: true
-  xy: 217, 2
-  size: 97, 30
-  orig: 97, 30
+  rotate: false
+  xy: 2, 101
+  size: 291, 91
+  orig: 291, 91
   offset: 0, 0
   index: -1
 eye
   rotate: false
-  xy: 249, 67
-  size: 83, 32
-  orig: 83, 32
+  xy: 2, 2
+  size: 250, 97
+  orig: 250, 97
   offset: 0, 0
   index: -1
 hand L
-  rotate: true
-  xy: 355, 83
-  size: 43, 68
-  orig: 43, 68
+  rotate: false
+  xy: 715, 125
+  size: 128, 205
+  orig: 128, 205
   offset: 0, 0
   index: -1
 hand L 2
   rotate: false
-  xy: 249, 6
-  size: 54, 59
-  orig: 54, 59
+  xy: 715, 332
+  size: 163, 178
+  orig: 163, 178
   offset: 0, 0
   index: -1
 hand R
-  rotate: true
-  xy: 425, 83
-  size: 43, 68
-  orig: 43, 68
+  rotate: false
+  xy: 845, 125
+  size: 128, 205
+  orig: 128, 205
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 105, 30
-  size: 110, 96
-  orig: 110, 96
+  xy: 306, 223
+  size: 329, 287
+  orig: 329, 287
   offset: 0, 0
   index: -1
 leg L
-  rotate: false
-  xy: 453, 47
-  size: 35, 34
-  orig: 35, 34
+  rotate: true
+  xy: 915, 17
+  size: 106, 103
+  orig: 106, 103
   offset: 0, 0
   index: -1
 leg R
   rotate: false
-  xy: 395, 7
-  size: 35, 34
-  orig: 35, 34
+  xy: 485, 118
+  size: 106, 103
+  orig: 106, 103
   offset: 0, 0
   index: -1
 long may
   rotate: false
-  xy: 2, 9
-  size: 59, 10
-  orig: 59, 10
+  xy: 306, 192
+  size: 177, 29
+  orig: 177, 29
   offset: 0, 0
   index: -1
 ma phai
   rotate: false
-  xy: 353, 43
-  size: 56, 38
-  orig: 56, 38
+  xy: 295, 77
+  size: 168, 113
+  orig: 168, 113
   offset: 0, 0
   index: -1
 mouth
   rotate: true
-  xy: 305, 8
-  size: 57, 46
-  orig: 57, 46
+  xy: 880, 338
+  size: 172, 137
+  orig: 172, 137
   offset: 0, 0
   index: -1
 mui
   rotate: true
-  xy: 495, 109
-  size: 17, 15
-  orig: 17, 15
+  xy: 975, 240
+  size: 50, 45
+  orig: 50, 45
   offset: 0, 0
   index: -1
 shadow
-  rotate: false
-  xy: 217, 101
-  size: 136, 25
-  orig: 136, 25
+  rotate: true
+  xy: 637, 101
+  size: 409, 76
+  orig: 409, 76
   offset: 0, 0
   index: -1
 tai phai
-  rotate: false
-  xy: 353, 8
-  size: 40, 33
-  orig: 40, 33
+  rotate: true
+  xy: 715, 2
+  size: 121, 98
+  orig: 121, 98
   offset: 0, 0
   index: -1
 tai trai
-  rotate: false
-  xy: 411, 48
-  size: 40, 33
-  orig: 40, 33
+  rotate: true
+  xy: 815, 2
+  size: 121, 98
+  orig: 121, 98
   offset: 0, 0
   index: -1
 tai trai 2
-  rotate: false
-  xy: 432, 10
-  size: 30, 35
-  orig: 30, 35
+  rotate: true
+  xy: 465, 25
+  size: 91, 104
+  orig: 91, 104
   offset: 0, 0
   index: -1
 trong mat L
-  rotate: true
-  xy: 464, 2
-  size: 11, 12
-  orig: 11, 12
+  rotate: false
+  xy: 254, 64
+  size: 32, 35
+  orig: 32, 35
   offset: 0, 0
   index: -1

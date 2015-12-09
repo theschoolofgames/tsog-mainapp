@@ -358,7 +358,9 @@ var res = {
 
    Adidog_json: "Adidog/ConCho.json",
    Adidog_atlas: "AdiDog/ConCho.atlas",
-   Adidog_png2: "AdiDog/ConCho.png"
+   Adidog_png2: "AdiDog/ConCho.png",
+
+   Plus_png: "plus.png"
 };
 
 var g_resources = [];

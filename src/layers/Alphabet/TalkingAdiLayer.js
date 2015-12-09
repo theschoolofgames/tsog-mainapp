@@ -24,14 +24,14 @@ var TalkingAdiLayer = cc.Layer.extend({
 
 
         // this._adiDogSpine.addAnimation(0, 'Idle', true)
-        this._adiDogSpine.setAnimation(0, 'listening', true);
+        this._adiDogSpine.setAnimation(0, 'ListeningFinish', true);
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
         this._adiDogSpine.setScale(0.3);
         this.addChild(this._adiDogSpine, 4);
     },
 
     _adiStartListening: function() {
-        this._adiDogSpine.setAnimation(0, 'listening', false);
+        this._adiDogSpine.setAnimation(0, 'Listening', false);
     },
 
     _adiStopListening: function() {

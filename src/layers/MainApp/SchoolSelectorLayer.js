@@ -356,6 +356,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         return randomedPos;
     },
 
+    
+
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = targetNode.convertToNodeSpace(touch.getLocation());
