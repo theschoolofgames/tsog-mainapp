@@ -34,8 +34,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -55,9 +58,13 @@ import edu.cmu.pocketsphinx.Hypothesis;
 import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
 
+import com.h102.H102Record;
+
 public class AppActivity extends Cocos2dxActivity implements
         RecognitionListener {
-    
+
+    private static final String TAG = AppActivity.class.getSimpleName();
+
     private static AppActivity app = null;
     private static String udid;
 
@@ -75,15 +82,6 @@ public class AppActivity extends Cocos2dxActivity implements
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        try {
-            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            Bundle bundle = ai.metaData;
-            String libName = bundle.getString("android.app.lib_name.pocketsphinx");
-            System.loadLibrary(libName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         new AsyncTask<Void, Void, Exception>() {
             @Override
             protected Exception doInBackground(Void... params) {
@@ -99,6 +97,8 @@ public class AppActivity extends Cocos2dxActivity implements
 
             @Override
             protected void onPostExecute(Exception result) {
+                if (result == null)
+                    switchSearch(KWS_SEARCH);
 //                if (result != null) {
 //                    ((TextView) findViewById(R.id.caption_text))
 //                            .setText("Failed to init recognizer " + result);
@@ -116,7 +116,7 @@ public class AppActivity extends Cocos2dxActivity implements
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        udid = Settings.System.getString(super.getContentResolver(), Settings.Secure.ANDROID_ID);
         Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
             @Override
             public void onReady(Object instance) {
@@ -161,7 +161,7 @@ public class AppActivity extends Cocos2dxActivity implements
         i.setType("text/plain");
         i.addCategory(Intent.CATEGORY_LAUNCHER);
         app.startActivity(i);
-        return true;    
+        return true;
     }
 
     public static String getId() {
@@ -169,10 +169,11 @@ public class AppActivity extends Cocos2dxActivity implements
     }
 
     public static void segmentIdentity(String userId, String traits) {
-        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {}.getType());
+        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
+        }.getType());
 
         Traits t = new Traits();
-        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
             t.putValue(entry.getKey(), entry.getValue());
         }
 
@@ -180,22 +181,46 @@ public class AppActivity extends Cocos2dxActivity implements
     }
 
     public static void segmentTrack(String event, String properties) {
-        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {}.getType());
+        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
+        }.getType());
 
         Properties p = new Properties();
-        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
             p.putValue(entry.getKey(), entry.getValue());
         }
         Analytics.with(app).track(event, p);
     }
 
+    public static boolean checkMic() {
+        return H102Record.getInstance().checkMic();
+    }
+
+    public static boolean isRecording() {
+        return H102Record.getInstance().isRecording();
+    }
+
+    public static void initRecord(String fileName) {
+        H102Record.getInstance().initRecord(fileName);
+    }
+
+    public static void startRecord() {
+        H102Record.getInstance().startRecord();
+    }
+
+    public static void stopRecord() {
+        H102Record.getInstance().stopRecord();
+    }
+
+
+
     @Override
     public void onBeginningOfSpeech() {
-
+        Log.d(TAG, "onBeginningOfSpeech");
     }
 
     @Override
     public void onEndOfSpeech() {
+        Log.d(TAG, "onEndOfSpeech");
         if (!recognizer.getSearchName().equals(KWS_SEARCH))
             switchSearch(KWS_SEARCH);
     }

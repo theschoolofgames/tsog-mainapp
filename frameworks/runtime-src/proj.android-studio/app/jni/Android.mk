@@ -17,6 +17,7 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes
 
 LOCAL_STATIC_LIBRARIES := cocos2d_js_static
 LOCAL_STATIC_LIBRARIES += cocos2d_lwf_static
+LOCAL_STATIC_LIBRARIES += cocos2d_soundtouch_static
 
 LOCAL_EXPORT_CFLAGS := -DCOCOS2D_DEBUG=2 -DCOCOS2D_JAVASCRIPT
 
@@ -26,4 +27,5 @@ $(call import-add-path,$(LOCAL_PATH))
 
 $(call import-module, scripting/js-bindings/proj.android)
 $(call import-module, ../../lwf)
+$(call import-module, ../../SoundTouch)
 $(call import-module, ./pocketsphinx)
