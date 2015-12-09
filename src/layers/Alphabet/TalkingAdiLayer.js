@@ -32,6 +32,8 @@ var TalkingAdiLayer = cc.Layer.extend({
         }, this);
 
         NativeHelper.callNative("startBackgroundSoundDetecting");
+
+        // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
     },
 
     _createTalkingAdi: function() {

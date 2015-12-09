@@ -18,16 +18,25 @@ var AudioListener = cc.Class.extend({
     // fileName: str
     // playbackLength: long (milisecond)
     onStoppedListening: function(fileName, playbackLength) {
-        cc.log("onStoppedListening");
+        cc.log("onStoppedListening: " + fileName + " " + playbackLength);
 
-        if (playbackLength > 0)
-            this._talkingAdi.setAnimation(0, 'Talking', true);
-        else {
-            this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
-            this._talkingAdi.addAnimation(0, 'Idle', true, 1);
-        }
+        cc.director.getRunningScene().runAction(cc.sequence(
+            cc.delayTime(0.2),
+            cc.callFunc(function() {
+                cc.audioEngine.unloadEffect(fileName);
+                cc.audioEngine.playEffect(fileName);
 
-        cc.audioEngine.playEffect(fileName);
+                if (playbackLength > 0)
+                    this._talkingAdi.setAnimation(0, 'Idle', true);
+                else {
+                    this._talkingAdi.setAnimation(0, 'ListeningFinish', false);
+                    this._talkingAdi.addAnimation(0, 'Idle', true, 1);
+                }
+            }),
+            cc.delayTime(playbackLength/1000),
+            cc.callFunc(function() {
+                NativeHelper.callNative("startBackgroundSoundDetecting");
+            })));
     }
 });
 
