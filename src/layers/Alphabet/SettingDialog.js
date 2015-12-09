@@ -76,8 +76,8 @@ var SettingDialog = cc.Layer.extend({
             KVDatabase.getInstance().remove("numberItems");
             KVDatabase.getInstance().remove("amountGamePlayed");
             
-            cc.director.replaceScene(new MainScreenScene());
-            NativeHelper.callNative("moveToMainApp");
+            cc.director.replaceScene(new SchoolSelectorScene());
+            // NativeHelper.callNative("moveToMainApp");
         })
     },
 
@@ -98,14 +98,13 @@ var SettingDialog = cc.Layer.extend({
         font = FONT_COLOR[1];
 
         text = this._dialogBgLabel.toUpperCase();
-        // var dialogBgLabel = new cc.LabelTTF(this._dialogBgLabel, "Arial", 32);
         var dialogBgLabel = new cc.LabelBMFont(text, 
                                             font, 
                                             this._dialogBg.width*1.5);
         dialogBgLabel.scale = 0.5;
         dialogBgLabel.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         dialogBgLabel.x = this._dialogBg.width/2;
-        dialogBgLabel.y = this._dialogBg.height/2;
+        dialogBgLabel.y = this._dialogBg.height/2 + 10;
         this._dialogBg.addChild(dialogBgLabel);
     },
 })

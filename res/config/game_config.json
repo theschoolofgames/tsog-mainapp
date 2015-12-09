@@ -7,5 +7,6 @@
     },
     "requireObjectsToHideAllShadow": 6,
     "levelTime": 120,
+    "talkingAdiTime": 120,
     "amountOfPlay": 4
 }

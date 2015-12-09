@@ -47,8 +47,6 @@ var res = {
    GrayButton_png: "res/gray-button.png",
    Red_PlaceHolder_jpg: "res/red-place-holder.jpg",
    Button_Refresh_png: "res/refresh-button.png",
-   Back_Button_png: "res/back.png",
-   Back_Button_Pressed_png: "res/back-pressed.png",
    BG_jpg: "BG.jpg",
 
    // plist file
@@ -358,10 +356,9 @@ var res = {
    // BG sound 
    BACKGROUND_mp3: "sounds/background.mp3",
 
-   Adidog_json: "AdiDog/Adidog.json",
-   Adidog_atlas: "AdiDog/Adidog.atlas",
-   Adidog_png1: "AdiDog/Adidog1.png",
-   Adidog_png2: "AdiDog/Adidog2.png"
+   Adidog_json: "Adidog/ConCho.json",
+   Adidog_atlas: "AdiDog/ConCho.atlas",
+   Adidog_png2: "AdiDog/ConCho.png"
 };
 
 var g_resources = [];

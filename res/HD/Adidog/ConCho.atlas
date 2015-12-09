@@ -1,0 +1,146 @@
+
+ConCho.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 21
+  size: 101, 105
+  orig: 101, 105
+  offset: 0, 0
+  index: -1
+chuong
+  rotate: false
+  xy: 495, 91
+  size: 15, 16
+  orig: 15, 16
+  offset: 0, 0
+  index: -1
+close eye
+  rotate: false
+  xy: 464, 15
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+day co
+  rotate: true
+  xy: 217, 2
+  size: 97, 30
+  orig: 97, 30
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 249, 67
+  size: 83, 32
+  orig: 83, 32
+  offset: 0, 0
+  index: -1
+hand L
+  rotate: true
+  xy: 355, 83
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+hand L 2
+  rotate: false
+  xy: 249, 6
+  size: 54, 59
+  orig: 54, 59
+  offset: 0, 0
+  index: -1
+hand R
+  rotate: true
+  xy: 425, 83
+  size: 43, 68
+  orig: 43, 68
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 105, 30
+  size: 110, 96
+  orig: 110, 96
+  offset: 0, 0
+  index: -1
+leg L
+  rotate: false
+  xy: 453, 47
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+leg R
+  rotate: false
+  xy: 395, 7
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+long may
+  rotate: false
+  xy: 2, 9
+  size: 59, 10
+  orig: 59, 10
+  offset: 0, 0
+  index: -1
+ma phai
+  rotate: false
+  xy: 353, 43
+  size: 56, 38
+  orig: 56, 38
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: true
+  xy: 305, 8
+  size: 57, 46
+  orig: 57, 46
+  offset: 0, 0
+  index: -1
+mui
+  rotate: true
+  xy: 495, 109
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 217, 101
+  size: 136, 25
+  orig: 136, 25
+  offset: 0, 0
+  index: -1
+tai phai
+  rotate: false
+  xy: 353, 8
+  size: 40, 33
+  orig: 40, 33
+  offset: 0, 0
+  index: -1
+tai trai
+  rotate: false
+  xy: 411, 48
+  size: 40, 33
+  orig: 40, 33
+  offset: 0, 0
+  index: -1
+tai trai 2
+  rotate: false
+  xy: 432, 10
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+trong mat L
+  rotate: true
+  xy: 464, 2
+  size: 11, 12
+  orig: 11, 12
+  offset: 0, 0
+  index: -1

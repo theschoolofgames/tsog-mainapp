@@ -97,8 +97,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addBackButton: function() {
-        NativeHelper.callNative("customLogging", ["Button", "res/back.png"]);
-        var backButton = new ccui.Button( "res/back.png",  "res/back-pressed.png", "");
+        NativeHelper.callNative("customLogging", ["Button", "back.png"]);
+        var backButton = new ccui.Button( "back.png",  "back-pressed.png", "");
         backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = backButton.height / 2;
 

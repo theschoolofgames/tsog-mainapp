@@ -5,11 +5,6 @@ var MainScreenLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
 
-        cc.spriteFrameCache.addSpriteFrames(res.School_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
-
         this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
         /*
             this._isLoggedIn = 0 is not logged in,
