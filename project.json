@@ -17,6 +17,7 @@
         "src/Utils.js",
         "src/AnimatedEffect.js",
         "src/Config.js",
+        "src/AudioListener.js",
 
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",

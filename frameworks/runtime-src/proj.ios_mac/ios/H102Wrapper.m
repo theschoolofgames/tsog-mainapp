@@ -15,20 +15,20 @@
 
 @implementation H102Wrapper
 
-+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
-  NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
-  if ([[UIApplication sharedApplication] canOpenURL:theURL])
-    [[UIApplication sharedApplication] openURL:theURL];
-  else {
-    NSLog(@"Receiver not found");
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                      message:@"Target game not found"
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    [message show];
-  }
-}
+//+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
+//  NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
+//  if ([[UIApplication sharedApplication] canOpenURL:theURL])
+//    [[UIApplication sharedApplication] openURL:theURL];
+//  else {
+//    NSLog(@"Receiver not found");
+//    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Error"
+//                                                      message:@"Target game not found"
+//                                                     delegate:nil
+//                                            cancelButtonTitle:@"OK"
+//                                            otherButtonTitles:nil];
+//    [message show];
+//  }
+//}
 
 + (void)showMessage:(NSString *)title message:(NSString *)message  {
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
@@ -65,7 +65,6 @@
 }
 
 + (void)segmentTrack:(NSString *)event properties:(NSString *)properties {
-  NSLog(@"%@", [NSThread currentThread]);
   dispatch_async(dispatch_get_main_queue(), ^{
     NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
@@ -97,10 +96,6 @@
 
 + (void)stopRecord {
   [[SimpleAudioRecordEngine sharedEngine] stopRecord];
-}
-
-+ (void)chipmunkify:(NSString *)fileName {
-  
 }
 
 @end
