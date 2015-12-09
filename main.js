@@ -105,6 +105,7 @@ cc.game.onStart = function(){
         KVDatabase.setupInstance(CocosKVImpl);
         RequestsManager.setupInstance();
         ConfigStore.setupInstance(true);
+        AudioListener.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);

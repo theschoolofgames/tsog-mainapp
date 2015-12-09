@@ -14,7 +14,13 @@ var TalkingAdiLayer = cc.Layer.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            onTouchBegan: function(touch, event) {return true;}
+            onTouchBegan: function(touch, event) {
+                var self = event.getCurrentTarget();
+
+                AudioListener.getInstance().onStartedListening();
+
+                return true;
+            }
         }, this);
     },
 
@@ -23,11 +29,13 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
 
-        // this._adiDogSpine.addAnimation(0, 'Idle', true)
-        this._adiDogSpine.setAnimation(0, 'ListeningFinish', true);
+        this._adiDogSpine.addAnimation(0, 'Idle', true);
+        // this._adiDogSpine.setAnimation(0, 'ListeningFinish', true);
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
         this._adiDogSpine.setScale(0.3);
         this.addChild(this._adiDogSpine, 4);
+
+        AudioListener.getInstance().setAdi(this._adiDogSpine);
     },
 
     _adiStartListening: function() {
