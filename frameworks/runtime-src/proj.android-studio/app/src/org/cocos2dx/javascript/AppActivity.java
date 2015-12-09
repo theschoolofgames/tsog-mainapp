@@ -38,11 +38,9 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -65,6 +63,8 @@ import com.h102.H102Record;
 public class AppActivity extends Cocos2dxActivity implements
         RecognitionListener {
 
+    private static final String TAG = AppActivity.class.getSimpleName();
+
     private static AppActivity app = null;
     private static String udid;
 
@@ -77,11 +77,6 @@ public class AppActivity extends Cocos2dxActivity implements
     private static final String MENU_SEARCH = "menu";
 
     private static final String KEYPHRASE = "oh mighty computer";
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -102,6 +97,8 @@ public class AppActivity extends Cocos2dxActivity implements
 
             @Override
             protected void onPostExecute(Exception result) {
+                if (result == null)
+                    switchSearch(KWS_SEARCH);
 //                if (result != null) {
 //                    ((TextView) findViewById(R.id.caption_text))
 //                            .setText("Failed to init recognizer " + result);
@@ -110,9 +107,6 @@ public class AppActivity extends Cocos2dxActivity implements
 //                }
             }
         }.execute();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -217,13 +211,16 @@ public class AppActivity extends Cocos2dxActivity implements
         H102Record.getInstance().stopRecord();
     }
 
+
+
     @Override
     public void onBeginningOfSpeech() {
-
+        Log.d(TAG, "onBeginningOfSpeech");
     }
 
     @Override
     public void onEndOfSpeech() {
+        Log.d(TAG, "onEndOfSpeech");
         if (!recognizer.getSearchName().equals(KWS_SEARCH))
             switchSearch(KWS_SEARCH);
     }
@@ -306,44 +303,4 @@ public class AppActivity extends Cocos2dxActivity implements
 
         makeText(getApplicationContext(), searchName, Toast.LENGTH_SHORT).show();
     }
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        client.connect();
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "App Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://org.cocos2dx.javascript/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.start(client, viewAction);
-//    }
-//
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//
-//        // ATTENTION: This was auto-generated to implement the App Indexing API.
-//        // See https://g.co/AppIndexing/AndroidStudio for more information.
-//        Action viewAction = Action.newAction(
-//                Action.TYPE_VIEW, // TODO: choose an action type.
-//                "App Page", // TODO: Define a title for the content shown.
-//                // TODO: If you have web page content that matches this app activity's content,
-//                // make sure this auto-generated web page URL is correct.
-//                // Otherwise, set the URL to null.
-//                Uri.parse("http://host/path"),
-//                // TODO: Make sure this auto-generated app deep link URI is correct.
-//                Uri.parse("android-app://org.cocos2dx.javascript/http/host/path")
-//        );
-//        AppIndex.AppIndexApi.end(client, viewAction);
-//        client.disconnect();
-//    }
 }

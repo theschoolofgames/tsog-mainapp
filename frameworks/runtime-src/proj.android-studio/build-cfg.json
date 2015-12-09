@@ -24,6 +24,10 @@
         {
             "from": "../../cocos2d-x/cocos/scripting/js-bindings/script",
             "to": "script"
+        },
+        {
+            "from": "pocketsphinx",
+            "to": ""
         }
     ]
 }
