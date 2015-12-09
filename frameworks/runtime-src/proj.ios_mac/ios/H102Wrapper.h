@@ -12,8 +12,6 @@
 
 @interface H102Wrapper : NSObject
 
-+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data;
-
 + (void)showMessage:(NSString *)title message:(NSString *)message;
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits;

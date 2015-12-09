@@ -29,36 +29,21 @@ import static edu.cmu.pocketsphinx.SpeechRecognizerSetup.defaultSetup;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.HashMap;
 
+import com.h102.H102Wrapper;
 import com.segment.analytics.Analytics;
-import com.segment.analytics.Traits;
-import com.segment.analytics.Properties;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
 import edu.cmu.pocketsphinx.RecognitionListener;
 import edu.cmu.pocketsphinx.SpeechRecognizer;
-
-import com.h102.H102Record;
 
 public class AppActivity extends Cocos2dxActivity implements
         RecognitionListener {
@@ -66,7 +51,6 @@ public class AppActivity extends Cocos2dxActivity implements
     private static final String TAG = AppActivity.class.getSimpleName();
 
     private static AppActivity app = null;
-    private static String udid;
 
     private SpeechRecognizer recognizer;
 
@@ -116,7 +100,6 @@ public class AppActivity extends Cocos2dxActivity implements
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        udid = Settings.System.getString(super.getContentResolver(), Settings.Secure.ANDROID_ID);
         Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
             @Override
             public void onReady(Object instance) {
@@ -124,94 +107,30 @@ public class AppActivity extends Cocos2dxActivity implements
             }
         });
 
+        H102Wrapper.activity = this;
+
         return glSurfaceView;
     }
 
     // Reflection
-    public static void showMessage(String title, String message) {
-        final String aTitle = title, aMessage = message;
-        app.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                AlertDialog alertDialog = new AlertDialog.Builder(app).create();
-                alertDialog.setTitle(aTitle);
-                alertDialog.setMessage(aMessage);
-                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                alertDialog.show();
-            }
-        });
-    }
-
-    public static boolean openScheme(String bundleId, String data) {
-        PackageManager manager = app.getPackageManager();
-
-        Intent i = manager.getLaunchIntentForPackage(bundleId);
-        if (i == null) {
-            AppActivity.showMessage("Error", "Target game not found");
-            return false;
-            //throw new PackageManager.NameNotFoundException();
-        }
-        i.setAction(Intent.ACTION_SEND);
-        i.putExtra(Intent.EXTRA_TEXT, data);
-        i.setType("text/plain");
-        i.addCategory(Intent.CATEGORY_LAUNCHER);
-        app.startActivity(i);
-        return true;
-    }
-
-    public static String getId() {
-        return udid;
-    }
-
-    public static void segmentIdentity(String userId, String traits) {
-        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
-        }.getType());
-
-        Traits t = new Traits();
-        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-            t.putValue(entry.getKey(), entry.getValue());
-        }
-
-        Analytics.with(app).identify(userId, t, null);
-    }
-
-    public static void segmentTrack(String event, String properties) {
-        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
-        }.getType());
-
-        Properties p = new Properties();
-        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-            p.putValue(entry.getKey(), entry.getValue());
-        }
-        Analytics.with(app).track(event, p);
-    }
-
-    public static boolean checkMic() {
-        return H102Record.getInstance().checkMic();
-    }
-
-    public static boolean isRecording() {
-        return H102Record.getInstance().isRecording();
-    }
-
-    public static void initRecord(String fileName) {
-        H102Record.getInstance().initRecord(fileName);
-    }
-
-    public static void startRecord() {
-        H102Record.getInstance().startRecord();
-    }
-
-    public static void stopRecord() {
-        H102Record.getInstance().stopRecord();
-    }
 
 
+//    public static boolean openScheme(String bundleId, String data) {
+//        PackageManager manager = app.getPackageManager();
+//
+//        Intent i = manager.getLaunchIntentForPackage(bundleId);
+//        if (i == null) {
+//            AppActivity.showMessage("Error", "Target game not found");
+//            return false;
+//            //throw new PackageManager.NameNotFoundException();
+//        }
+//        i.setAction(Intent.ACTION_SEND);
+//        i.putExtra(Intent.EXTRA_TEXT, data);
+//        i.setType("text/plain");
+//        i.addCategory(Intent.CATEGORY_LAUNCHER);
+//        app.startActivity(i);
+//        return true;
+//    }
 
     @Override
     public void onBeginningOfSpeech() {
