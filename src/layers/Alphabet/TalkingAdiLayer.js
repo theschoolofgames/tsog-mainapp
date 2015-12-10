@@ -42,7 +42,7 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
 
-        this._adiDogSpine.addAnimation(0, 'adidog-idle', true);
+        this._adiDogSpine.addAnimation(0, 'adidog-talking', true);
 
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
         this.addChild(this._adiDogSpine, 4);

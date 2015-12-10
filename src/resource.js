@@ -360,7 +360,8 @@ var res = {
     Adidog_atlas: "AdiDog/ConCho.atlas",
     Adidog_png2: "AdiDog/ConCho.png",
  
-    Plus_png: "plus.png"
+    Plus_png: "plus.png",
+    Create_png: "create-button.png"
 };
 
 var g_resources = [];

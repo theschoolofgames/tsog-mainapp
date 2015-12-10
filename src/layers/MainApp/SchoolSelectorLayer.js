@@ -40,6 +40,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             this.createSchoolButton();
             this.createScrollView();
             this.addArrowImage();
+            this._addPlusSchoolButton();
             if (!SchoolSelectorLayer.loadedData) {
                 var loadingLayer = Utils.addLoadingIndicatorLayer(false);
                 loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
@@ -61,6 +62,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                         self.createSchoolButton();
                         self.createScrollView();
                         self.addArrowImage();
+                        self._addPlusSchoolButton();
                     }
                 });
             }
@@ -75,6 +77,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                     self.createSchoolButton();
                     self.createScrollView();
                     self.addArrowImage();
+                    self._addPlusSchoolButton();
                 }
             });
         }
@@ -357,7 +360,33 @@ var SchoolSelectorLayer = cc.Layer.extend({
         return randomedPos;
     },
 
-    
+    _addPlusSchoolButton: function() {
+        var index = DataManager.getInstance().getSchoolData().length;
+        var randBgIdx = index%2+1;
+        var plusBtn = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var plusImg = new cc.Sprite("plus.png");
+        plusImg.x = plusBtn.width/2;
+        plusImg.y = plusBtn.height/2;
+        plusBtn.addChild(plusImg);
+        plusBtn.setPosition(this._getBtnPosition(index));
+
+        plusBtn.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    cc.delayTime(0),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
+                    cc.moveTo(MOVE_DELAY_TIME, plusBtn.getPosition())
+                )
+            )
+        )
+        this.schHolder.addChild(plusBtn);
+
+        plusBtn.addClickEventListener(function() {
+            cc.director.replaceScene(new NewSchoolScene());
+        });
+    },
 
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();

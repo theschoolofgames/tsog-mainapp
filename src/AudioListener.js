@@ -37,7 +37,7 @@ var AudioListener = cc.Class.extend({
                 cc.audioEngine.playEffect(fileName);
 
                 if (self._playbackLength > 0)
-                    self._talkingAdi.setAnimation(0, 'adidog-idle', true);
+                    self._talkingAdi.setAnimation(0, 'adidog-talking', true);
                 else {
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
                     self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
