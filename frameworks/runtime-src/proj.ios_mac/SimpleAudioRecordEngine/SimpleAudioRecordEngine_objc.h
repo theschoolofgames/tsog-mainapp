@@ -30,4 +30,6 @@
 
 - (NSString *)documentsPath;
 
+- (float)peakPowerForChannel:(NSUInteger)channelNumber;
+
 @end

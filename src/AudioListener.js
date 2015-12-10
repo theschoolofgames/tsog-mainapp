@@ -22,13 +22,15 @@ var AudioListener = cc.Class.extend({
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
         this._playbackLength = playbackLength;
 
-        // cc.eventManager.dispatchCustomEvent("chipmunkify");
+        cc.eventManager.dispatchCustomEvent("chipmunkify");
     },
 
     onAudioChipmunkified: function(fileName) {
         cc.log("onAudioChipmunkified: " + fileName);
 
         var self = this;
+
+        cc.audioEngine.setEffectsVolume(1);
 
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0.2),
@@ -43,7 +45,7 @@ var AudioListener = cc.Class.extend({
                     self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
                 }
             }),
-            cc.delayTime(self._playbackLength/1000),
+            cc.delayTime(self._playbackLength),
             cc.callFunc(function() {
                 NativeHelper.callNative("startBackgroundSoundDetecting");
             })));

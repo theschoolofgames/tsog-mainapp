@@ -70,7 +70,7 @@ var NativeHelperConfig = {
     initRecord: {
         iOS: [
             "H102Wrapper",
-            "initRecord:"
+            "initRecord"
         ],
         Android: [
             "com/h102/H102Wrapper",
@@ -101,6 +101,10 @@ var NativeHelperConfig = {
         ]
     },
     startBackgroundSoundDetecting: {
+        iOS: [
+            "H102Wrapper",
+            "startBackgroundSoundDetecting"
+        ],
         Android: [
             "com/h102/H102Wrapper",
             "startBackgroundSoundDetecting",

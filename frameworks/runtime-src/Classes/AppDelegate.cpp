@@ -248,8 +248,8 @@ bool AppDelegate::applicationDidFinishLaunching()
       int nSamples;
     
       SoundTouch* st = new SoundTouch();
-      string inFileDir = StringUtils::format("%s%s", "/sdcard/", "record_sound.wav");
-      string outFileDir = StringUtils::format("%s%s", "/sdcard/", "out.wav");
+      string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
+      string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
     
     CCLOG("Path1: %s", inFileDir.c_str());
     
