@@ -113,6 +113,17 @@ var NativeHelperConfig = {
             "stopBackgroundSoundDetecting",
             "()V"
         ]
+    },
+    showMessage: {
+        iOS: [
+            "H102Wrapper",
+            "showMessage:message:"
+        ], 
+        Android: [
+            "com/h102/H102Wrapper",
+            "showMessage",
+            "(Ljava/lang/String;Ljava/lang/String;)V"
+        ]
     }
 }
 

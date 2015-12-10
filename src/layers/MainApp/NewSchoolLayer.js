@@ -39,7 +39,9 @@ var NewSchoolLayer = cc.Layer.extend({
         tf.setTextColor(cc.color.GREEN);
         tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
         tf.color = cc.color.RED;
-        cc.log("touch size: " + JSON.stringify(tf.getTouchSize()));
+        tf.setTouchAreaEnabled(true);
+        tf.setMaxLengthEnabled(true);
+        tf.setMaxLength(13);
         fieldHolder.addChild(tf);
         holder.addChild(fieldHolder);
 
@@ -49,10 +51,10 @@ var NewSchoolLayer = cc.Layer.extend({
         holder.addChild(btn);
 
         var self = this;
-        var newSchoolName = tf.getString();
         var schoolData = DataManager.getInstance().getSchoolData();
+
         btn.addClickEventListener(function() {
-            cc.log("newSchoolName: " + newSchoolName);
+            var newSchoolName = tf.getString();
             if (newSchoolName == null || newSchoolName == ""){
                 cc.log("newSchoolName must be non-null");
                 return;
@@ -63,10 +65,20 @@ var NewSchoolLayer = cc.Layer.extend({
                 var scNameWithoutSpace = scName.replace(/\s+/g, '');
                 cc.log("scNameWithoutSpace: " + scNameWithoutSpace);
 
-                if ((newSchoolName === scName) || (newSchoolName === scNameWithoutSpace))
+                if (scName.indexOf(newSchoolName.toUpperCase()) > -1 || scNameWithoutSpace.indexOf(newSchoolName.toUpperCase()) > -1){
+                    cc.log("");
                     return;
+                }
 
-                cc.log("scNameWithoutSpace created successfully");
+                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
+                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+                // if (success) 
+                // NativeHelper.callNative("showMessage", ["Success", newSchoolName + " created successfully"])
+                // remove indicator
+                // Utils.removeLoadingIndicatorLayer();
+                // else
+                // NativeHelper.callNative("showMessage", ["Error", newSchoolName + " created failed"])
+                return;
             }
         });
     }
