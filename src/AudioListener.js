@@ -12,8 +12,8 @@ var AudioListener = cc.Class.extend({
 
     onStartedListening: function() {
         cc.log("onStartedListening");
-        this._talkingAdi.setAnimation(0, 'ListeningStart', false);
-        this._talkingAdi.addAnimation(0, 'ListeningLoop', true, 1);
+        this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
+        this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 1);
     },
 
     // fileName: str
@@ -22,7 +22,7 @@ var AudioListener = cc.Class.extend({
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
         this._playbackLength = playbackLength;
 
-        cc.eventManager.dispatchCustomEvent("chipmunkify");
+        // cc.eventManager.dispatchCustomEvent("chipmunkify");
     },
 
     onAudioChipmunkified: function(fileName) {
@@ -37,10 +37,10 @@ var AudioListener = cc.Class.extend({
                 cc.audioEngine.playEffect(fileName);
 
                 if (self._playbackLength > 0)
-                    self._talkingAdi.setAnimation(0, 'Idle', true);
+                    self._talkingAdi.setAnimation(0, 'adidog-idle', true);
                 else {
-                    self._talkingAdi.setAnimation(0, 'ListeningFinish', false);
-                    self._talkingAdi.addAnimation(0, 'Idle', true, 1);
+                    self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
+                    self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
                 }
             }),
             cc.delayTime(self._playbackLength/1000),
