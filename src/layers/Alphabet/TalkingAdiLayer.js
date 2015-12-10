@@ -12,24 +12,24 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._addCountDownClock();
         this._addNextButton();
 
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function(touch, event) {
-                var self = event.getCurrentTarget();
+        // cc.eventManager.addListener({
+        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //     swallowTouches: true,
+        //     onTouchBegan: function(touch, event) {
+        //         var self = event.getCurrentTarget();
 
-                if (self._isListening) {
-                    AudioListener.getInstance().onStoppedListening();
-                    self._isListening = false;
-                }
-                else {
-                    AudioListener.getInstance().onStartedListening();
-                    self._isListening = true;
-                }
+        //         if (self._isListening) {
+        //             AudioListener.getInstance().onStoppedListening();
+        //             self._isListening = false;
+        //         }
+        //         else {
+        //             AudioListener.getInstance().onStartedListening();
+        //             self._isListening = true;
+        //         }
 
-                return true;
-            }
-        }, this);
+        //         return true;
+        //     }
+        // }, this);
 
         NativeHelper.callNative("startBackgroundSoundDetecting");
 

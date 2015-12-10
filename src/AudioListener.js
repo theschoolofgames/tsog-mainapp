@@ -22,7 +22,7 @@ var AudioListener = cc.Class.extend({
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
         this._playbackLength = playbackLength;
 
-        // cc.eventManager.dispatchCustomEvent("chipmunkify");
+        cc.eventManager.dispatchCustomEvent("chipmunkify");
     },
 
     onAudioChipmunkified: function(fileName) {

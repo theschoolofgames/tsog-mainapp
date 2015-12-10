@@ -10,6 +10,9 @@ import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Created by nick on 12/8/15.
@@ -28,7 +31,7 @@ public class H102Record {
     private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
 
     private int bufferSize = 0;
-    private Thread mBackgroundSoundDetectingThread = null;
+    private Timer timer;
 
     private static H102Record mSharedInstance = null;
 
@@ -64,8 +67,8 @@ public class H102Record {
     }
 
     private String getAudioFilePath() {
-//        return Cocos2dxHelper.getCocos2dxWritablePath() + "/" + AUDIO_RECORDER_FILE;
-        return "/sdcard/" + AUDIO_RECORDER_FILE;
+        return Cocos2dxHelper.getCocos2dxWritablePath() + "/" + AUDIO_RECORDER_FILE;
+//        return "/sdcard/" + AUDIO_RECORDER_FILE;
     }
 
     public void startRecord() {
@@ -86,69 +89,54 @@ public class H102Record {
         initRecord();
         startRecord();
 
-        Log.w(TAG, "startBackgroundSoundDetecting");
-        mBackgroundSoundDetectingThread = new Thread(new Runnable() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+
+            long startTime = -1;
+
             @Override
             public void run() {
-                Object obj = new Object();
-                try {
-                    synchronized (obj) {
-                        long startTime = -1;
-                        long expectedtime = System.currentTimeMillis();
-                        while (true) {//Or any Loops
-                            while (System.currentTimeMillis() < expectedtime) {}
-                            expectedtime += BACKGROUND_SOUND_DETECTING_LOOP_DELAY;//Sample expectedtime += 1000; 1 second sleep
 
-                            if (startTime < 0) {
-                                Log.w(TAG, "Restart");
-                                initRecord();
-                                startRecord();
+                int maxAmplitude = mRecorder.getMaxAmplitude();
+                Log.w(TAG, "Amplitude: " + maxAmplitude);
+                if (startTime < 0) {
+                    if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
+                        Log.w(TAG, "Start");
+                        startTime = System.currentTimeMillis();
+                        app.runOnGLThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Cocos2dxJavascriptJavaBridge.evalString("AudioListener.getInstance().onStartedListening()");
                             }
-
-                            obj.wait(BACKGROUND_SOUND_DETECTING_LOOP_DELAY);//Sample obj.wait(1000); 1 second sleep
-
-                            int maxAmplitude = mRecorder.getMaxAmplitude();
-                            Log.w(TAG, "Amplitude: " + maxAmplitude);
-                            if (startTime < 0) {
-                                if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
-                                    Log.w(TAG, "Start");
-                                    startTime = System.currentTimeMillis();
-                                    app.runOnGLThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Cocos2dxJavascriptJavaBridge.evalString("AudioListener.getInstance().onStartedListening()");
-                                        }
-                                    });
-                                }
-                            } else {
-                                if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
-                                    Log.w(TAG, "Stop");
-                                    stopBackgroundSoundDetecting();
-                                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), (System.currentTimeMillis()-startTime)/1000);
-                                    app.runOnGLThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Cocos2dxJavascriptJavaBridge.evalString(command);
-                                        }
-                                    });
-                                    break;
-                                }
-                            }
-                        }
+                        });
                     }
-                } catch (InterruptedException ex) {
-                    //SomeFishCatching
+                } else {
+                    if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
+                        Log.w(TAG, "Stop");
+                        stopBackgroundSoundDetecting();
+                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), (System.currentTimeMillis()-startTime)/1000);
+                        app.runOnGLThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Cocos2dxJavascriptJavaBridge.evalString(command);
+                            }
+                        });
+                        return;
+                    }
                 }
 
+                if (startTime < 0) {
+                    Log.w(TAG, "Restart");
+                    initRecord();
+                    startRecord();
+                }
             }
-        }, "detectSoundOnBackground");
-
-        mBackgroundSoundDetectingThread.start();
+        }, 0, 1000);
     }
 
     public void stopBackgroundSoundDetecting() {
         Log.w(TAG, "stopBackgroundSoundDetecting");
-        mBackgroundSoundDetectingThread = null;
+        timer.cancel();
         stopRecord();
     }
 
