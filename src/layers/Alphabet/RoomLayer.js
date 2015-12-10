@@ -27,6 +27,8 @@ var RoomLayer = cc.Layer.extend({
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
+        cc.audioEngine.playMusic(res.background_mp3, true);
+        
         this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
@@ -54,6 +56,7 @@ var RoomLayer = cc.Layer.extend({
                 room: "room", 
                 object_num: this._numberItems 
             });
+
     },
 
     setVolume:function() {
