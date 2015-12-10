@@ -30,6 +30,8 @@ var AudioListener = cc.Class.extend({
 
         var self = this;
 
+        cc.audioEngine.setEffectsVolume(1);
+
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0.2),
             cc.callFunc(function() {
@@ -43,7 +45,7 @@ var AudioListener = cc.Class.extend({
                     self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
                 }
             }),
-            cc.delayTime(self._playbackLength/1000),
+            cc.delayTime(self._playbackLength),
             cc.callFunc(function() {
                 NativeHelper.callNative("startBackgroundSoundDetecting");
             })));

@@ -10,10 +10,19 @@
 #import <Analytics.h>
 
 #import <Crashlytics/Crashlytics.h>
+#import "ScriptingCore.h"
 
 #import "SimpleAudioRecordEngine_objc.h"
 
+static UIViewController* viewController;
+static double startTime = -1;
+static NSTimer* timer;
+
 @implementation H102Wrapper
+
++ (void)setCurrentViewController:(UIViewController *)pViewController {
+  viewController = pViewController;
+}
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
 //  NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
@@ -86,8 +95,8 @@
   return [[SimpleAudioRecordEngine sharedEngine] isRecording];
 }
 
-+ (void)initRecord:(NSString *)fileName {
-  [[SimpleAudioRecordEngine sharedEngine] initRecord:fileName];
++ (void)initRecord {
+  [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
 }
 
 + (void)startRecord {
@@ -96,6 +105,48 @@
 
 + (void)stopRecord {
   [[SimpleAudioRecordEngine sharedEngine] stopRecord];
+}
+
++ (void)startBackgroundSoundDetecting {
+  NSLog(@"startBackgroundSoundDetecting");
+  [H102Wrapper initRecord];
+  [H102Wrapper startRecord];
+  timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop) userInfo:NULL repeats:YES];
+  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+//  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
+}
+
++ (void)soundDetectingLoop {
+  
+  float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
+  NSLog(@"Amplitude: %f", maxAmplitude);
+  if (startTime < 0) {
+    if (maxAmplitude > -20) {
+      NSLog(@"Start");        startTime = [[NSDate date] timeIntervalSince1970];
+      ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
+    }
+  } else {
+    if (maxAmplitude < -20) {
+      NSLog(@"Stop");
+      double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
+      [H102Wrapper stopBackgroundSoundDetecting];
+      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
+      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+      return;
+    }
+  }
+  
+  if (startTime < 0) {
+    NSLog(@"Restart");
+    [H102Wrapper initRecord];
+    [H102Wrapper startRecord];
+  }
+}
+
++ (void)stopBackgroundSoundDetecting {
+  [timer invalidate];
+  startTime = -1;
+  [H102Wrapper stopRecord];
 }
 
 @end

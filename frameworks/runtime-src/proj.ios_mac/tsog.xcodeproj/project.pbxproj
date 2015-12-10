@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		014E46661B99448F00C94301 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
+		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
 		016A01B51C15EE8900A22838 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016A01B41C15EE8800A22838 /* AVFoundation.framework */; };
@@ -141,7 +141,6 @@
 		F78EA3416BA38EFF03FCA1F7 /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287E4C29E1EC7B92C25799 /* libPods-tsog.a */; };
 		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
-		F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = F8C057221B99385500DEB2C0 /* H102Wrapper.m */; };
 		F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727151BA2040B00223CB0 /* Alloc.c */; };
 		F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727171BA2040B00223CB0 /* LzmaDec.c */; };
 		F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E727281BA2129000223CB0 /* LWFSprite.cpp */; };
@@ -207,6 +206,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01062FC61C194E7600AB72D4 /* H102Wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = H102Wrapper.mm; path = ios/H102Wrapper.mm; sourceTree = "<group>"; };
 		016A01AC1C15E02800A22838 /* SimpleAudioRecordEngine.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine.h; sourceTree = "<group>"; tabWidth = 4; };
 		016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleAudioRecordEngine.mm; sourceTree = "<group>"; tabWidth = 4; };
 		016A01B11C15E09500A22838 /* SimpleAudioRecordEngine_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine_objc.h; sourceTree = "<group>"; };
@@ -391,7 +391,6 @@
 		EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057201B99365D00DEB2C0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
-		F8C057221B99385500DEB2C0 /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
 		F8C057241B99386D00DEB2C0 /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
 		F8E727151BA2040B00223CB0 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
 		F8E727161BA2040B00223CB0 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
@@ -691,8 +690,8 @@
 				509D4AB917EBB2AB00697056 /* Prefix.pch */,
 				509D4ABA17EBB2AB00697056 /* RootViewController.h */,
 				509D4ABB17EBB2AB00697056 /* RootViewController.mm */,
-				F8C057221B99385500DEB2C0 /* H102Wrapper.m */,
 				F8C057241B99386D00DEB2C0 /* H102Wrapper.h */,
+				01062FC61C194E7600AB72D4 /* H102Wrapper.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1069,7 +1068,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				509D4A8117EBB24E00697056 /* AppDelegate.cpp in Sources */,
-				014E46661B99448F00C94301 /* H102Wrapper.m in Sources */,
 				C06E23CC18CEFE680093C81A /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1126,13 +1124,13 @@
 				0189794C1C1016F600887F14 /* FIFOSampleBuffer.cpp in Sources */,
 				EB7B08FC1BB50D2200B36D24 /* lwf_data.cpp in Sources */,
 				EB7B08F71BB50D2200B36D24 /* lwf_bitmapex.cpp in Sources */,
-				F8C057231B99385500DEB2C0 /* H102Wrapper.m in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
 				EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */,
 				0189794A1C1016F600887F14 /* BPMDetect.cpp in Sources */,
 				018979551C1016F600887F14 /* sse_optimized.cpp in Sources */,
 				EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */,
 				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
+				01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */,
 				018979491C1016F600887F14 /* AAFilter.cpp in Sources */,
 				EB7B09051BB50D2200B36D24 /* lwf_movie.cpp in Sources */,
 				0189794E1C1016F600887F14 /* InterpolateCubic.cpp in Sources */,

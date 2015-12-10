@@ -124,7 +124,7 @@ public class H102Record {
                                 if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
                                     Log.w(TAG, "Stop");
                                     stopBackgroundSoundDetecting();
-                                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), System.currentTimeMillis()-startTime);
+                                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), (System.currentTimeMillis()-startTime)/1000);
                                     app.runOnGLThread(new Runnable() {
                                         @Override
                                         public void run() {

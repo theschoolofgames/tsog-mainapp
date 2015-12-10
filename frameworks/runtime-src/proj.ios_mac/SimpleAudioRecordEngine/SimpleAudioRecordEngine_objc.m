@@ -115,6 +115,7 @@ static SimpleAudioRecordEngine *sharedEngine = nil;
     NSError *error = nil;
     
     _recorder = [[AVAudioRecorder alloc] initWithURL:fileURL settings:settings error:&error];
+    [_recorder setMeteringEnabled:YES];
     _recorder.delegate = self;
     
     if (error)
@@ -153,6 +154,14 @@ static SimpleAudioRecordEngine *sharedEngine = nil;
     }
     
     return _documentsPath;
+}
+
+- (float)peakPowerForChannel:(NSUInteger)channelNumber {
+    if (_recorder) {
+        [_recorder updateMeters];
+        return [_recorder peakPowerForChannel:channelNumber];
+    }
+    return 0;
 }
 
 

@@ -12,6 +12,8 @@
 
 @interface H102Wrapper : NSObject
 
++ (void)setCurrentViewController:(UIViewController*)pViewController;
+
 + (void)showMessage:(NSString *)title message:(NSString *)message;
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits;
