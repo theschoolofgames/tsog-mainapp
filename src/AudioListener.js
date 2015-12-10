@@ -38,8 +38,11 @@ var AudioListener = cc.Class.extend({
                 cc.audioEngine.unloadEffect(fileName);
                 cc.audioEngine.playEffect(fileName);
 
-                if (self._playbackLength > 0)
+                if (self._playbackLength > 0) {
                     self._talkingAdi.setAnimation(0, 'adidog-talking', true);
+                    self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength);
+                }
+
                 else {
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
                     self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
