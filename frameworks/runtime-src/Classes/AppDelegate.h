@@ -10,6 +10,7 @@
 #define  _APP_DELEGATE_H_
 
 #include "platform/CCApplication.h"
+#include "../../SoundTouch/core/SoundTouch.h"
 /**
  @brief    The cocos2d Application.
  
@@ -17,6 +18,8 @@
  */
 class  AppDelegate : private cocos2d::Application
 {
+  static soundtouch::SoundTouch* st;
+  void chipmunkifySound();
 public:
     AppDelegate();
     virtual ~AppDelegate();

@@ -8,9 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
+		01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */; };
+		01062FD41C1ACC8900AB72D4 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FD21C1ACC8900AB72D4 /* OpenEars.framework */; };
+		01062FD91C1ACECC00AB72D4 /* SpeechRecognitionListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */; };
+		01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */; };
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
-		016A01B51C15EE8900A22838 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016A01B41C15EE8800A22838 /* AVFoundation.framework */; };
 		018979491C1016F600887F14 /* AAFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0189792D1C1016F500887F14 /* AAFilter.cpp */; };
 		0189794A1C1016F600887F14 /* BPMDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0189792F1C1016F500887F14 /* BPMDetect.cpp */; };
 		0189794B1C1016F600887F14 /* cpu_detect_x86.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 018979321C1016F500887F14 /* cpu_detect_x86.cpp */; };
@@ -33,7 +36,6 @@
 		01C9EA801BD50BE40062EF7D /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */; };
 		01C9EA821BD50BEC0062EF7D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */; };
 		01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA831BD50C720062EF7D /* GameController.framework */; };
-		01C9EA8A1BD50FCD0062EF7D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA891BD50FCD0062EF7D /* Foundation.framework */; };
 		01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8B1BD510B70062EF7D /* libicucore.tbd */; };
 		01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */; };
 		01EB61EC1C148E680046F7EB /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB61EB1C148E680046F7EB /* OpenAL.framework */; };
@@ -136,11 +138,7 @@
 		EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */; };
 		EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */; };
 		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; };
-		EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E3291B58AE29009F9DEB /* libiconv.dylib */; };
-		EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */; };
 		F78EA3416BA38EFF03FCA1F7 /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34287E4C29E1EC7B92C25799 /* libPods-tsog.a */; };
-		F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8C057201B99365D00DEB2C0 /* CoreData.framework */; };
 		F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727151BA2040B00223CB0 /* Alloc.c */; };
 		F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727171BA2040B00223CB0 /* LzmaDec.c */; };
 		F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E727281BA2129000223CB0 /* LWFSprite.cpp */; };
@@ -207,11 +205,15 @@
 
 /* Begin PBXFileReference section */
 		01062FC61C194E7600AB72D4 /* H102Wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = H102Wrapper.mm; path = ios/H102Wrapper.mm; sourceTree = "<group>"; };
+		01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
+		01062FD21C1ACC8900AB72D4 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
+		01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionListener.h; sourceTree = "<group>"; };
+		01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionListener.m; sourceTree = "<group>"; };
+		01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
 		016A01AC1C15E02800A22838 /* SimpleAudioRecordEngine.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine.h; sourceTree = "<group>"; tabWidth = 4; };
 		016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleAudioRecordEngine.mm; sourceTree = "<group>"; tabWidth = 4; };
 		016A01B11C15E09500A22838 /* SimpleAudioRecordEngine_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine_objc.h; sourceTree = "<group>"; };
 		016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAudioRecordEngine_objc.m; sourceTree = "<group>"; tabWidth = 4; };
-		016A01B41C15EE8800A22838 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		0189792D1C1016F500887F14 /* AAFilter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AAFilter.cpp; sourceTree = "<group>"; };
 		0189792E1C1016F500887F14 /* AAFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAFilter.h; sourceTree = "<group>"; };
 		0189792F1C1016F500887F14 /* BPMDetect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BPMDetect.cpp; sourceTree = "<group>"; };
@@ -247,13 +249,11 @@
 		01C9EA731BD50BC80062EF7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA751BD50BCD0062EF7D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA771BD50BD20062EF7D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
-		01C9EA791BD50BD70062EF7D /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA7D1BD50BDF0062EF7D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreBluetooth.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA831BD50C720062EF7D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
-		01C9EA891BD50FCD0062EF7D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA8B1BD510B70062EF7D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
 		01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		01EB61EB1C148E680046F7EB /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
@@ -306,7 +306,6 @@
 		A922754F1517C094001B78AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BA3A85EB1A724AE900924D24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		BA4E718019EB6E3E00932425 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		BA4E718219EB6E4600932425 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		BAEE4D831AC40C11003BEB0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BAF426FA19484B3E002B22EF /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; name = script; path = "../../cocos2d-x/cocos/scripting/js-bindings/script"; sourceTree = "<group>"; };
 		C03780EA18BEE0E400FE4F13 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
@@ -387,10 +386,6 @@
 		EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_cocos2dx_lwf_api.js; sourceTree = "<group>"; };
 		EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2dx_lwf.cpp; sourceTree = "<group>"; };
 		EB7B09131BB50D6B00B36D24 /* jsb_cocos2dx_lwf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_lwf.hpp; sourceTree = "<group>"; };
-		EDD7E3291B58AE29009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
-		EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
-		F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
-		F8C057201B99365D00DEB2C0 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057241B99386D00DEB2C0 /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
 		F8E727151BA2040B00223CB0 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
 		F8E727161BA2040B00223CB0 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
@@ -406,7 +401,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDD7E32C1B58AE30009F9DEB /* libiconv.dylib in Frameworks */,
 				BAEE4D841AC40C11003BEB0F /* Security.framework in Frameworks */,
 				C037820F18BF77DE00FE4F13 /* libjscocos2d Mac.a in Frameworks */,
 				1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */,
@@ -429,21 +423,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				016A01B51C15EE8900A22838 /* AVFoundation.framework in Frameworks */,
+				01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */,
 				01EB61EC1C148E680046F7EB /* OpenAL.framework in Frameworks */,
 				01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */,
 				01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */,
-				01C9EA8A1BD50FCD0062EF7D /* Foundation.framework in Frameworks */,
 				01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */,
 				01C9EA821BD50BEC0062EF7D /* QuartzCore.framework in Frameworks */,
 				01C9EA801BD50BE40062EF7D /* CoreBluetooth.framework in Frameworks */,
 				01C9EA7C1BD50BDB0062EF7D /* SystemConfiguration.framework in Frameworks */,
 				01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */,
 				01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */,
+				01062FD41C1ACC8900AB72D4 /* OpenEars.framework in Frameworks */,
 				01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */,
-				F8C057211B99365D00DEB2C0 /* CoreData.framework in Frameworks */,
-				F8C0571F1B99362A00DEB2C0 /* CoreTelephony.framework in Frameworks */,
-				EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */,
 				BA3A85EC1A724AE900924D24 /* Security.framework in Frameworks */,
 				BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */,
 				C037820C18BF77C500FE4F13 /* libjscocos2d iOS.a in Frameworks */,
@@ -623,28 +614,23 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				016A01B41C15EE8800A22838 /* AVFoundation.framework */,
+				01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */,
+				01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */,
+				01062FD21C1ACC8900AB72D4 /* OpenEars.framework */,
 				01EB61EB1C148E680046F7EB /* OpenAL.framework */,
 				01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */,
 				01C9EA8B1BD510B70062EF7D /* libicucore.tbd */,
-				01C9EA891BD50FCD0062EF7D /* Foundation.framework */,
 				01C9EA831BD50C720062EF7D /* GameController.framework */,
 				01C9EA811BD50BEC0062EF7D /* QuartzCore.framework */,
 				01C9EA7F1BD50BE40062EF7D /* CoreBluetooth.framework */,
 				01C9EA7D1BD50BDF0062EF7D /* CoreTelephony.framework */,
 				01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */,
-				01C9EA791BD50BD70062EF7D /* Security.framework */,
 				01C9EA771BD50BD20062EF7D /* CoreLocation.framework */,
 				01C9EA751BD50BCD0062EF7D /* CoreData.framework */,
 				01C9EA731BD50BC80062EF7D /* CoreMedia.framework */,
 				01C9EA711BD50BC20062EF7D /* AVFoundation.framework */,
-				F8C057201B99365D00DEB2C0 /* CoreData.framework */,
-				F8C0571E1B99362A00DEB2C0 /* CoreTelephony.framework */,
-				EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */,
-				EDD7E3291B58AE29009F9DEB /* libiconv.dylib */,
 				BAEE4D831AC40C11003BEB0F /* Security.framework */,
 				BA3A85EB1A724AE900924D24 /* Security.framework */,
-				BA4E718219EB6E4600932425 /* GameController.framework */,
 				BA4E718019EB6E3E00932425 /* MediaPlayer.framework */,
 				D6B061231803AB9F0077942B /* CoreMotion.framework */,
 				502380DB17EBB88200990C9B /* libcurl.dylib */,
@@ -692,6 +678,8 @@
 				509D4ABB17EBB2AB00697056 /* RootViewController.mm */,
 				F8C057241B99386D00DEB2C0 /* H102Wrapper.h */,
 				01062FC61C194E7600AB72D4 /* H102Wrapper.mm */,
+				01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */,
+				01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -991,6 +979,7 @@
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
+				01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
@@ -1088,6 +1077,7 @@
 				EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */,
 				EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */,
 				EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */,
+				01062FD91C1ACECC00AB72D4 /* SpeechRecognitionListener.m in Sources */,
 				EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */,
 				EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
