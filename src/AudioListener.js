@@ -51,6 +51,7 @@ var AudioListener = cc.Class.extend({
             cc.delayTime(self._playbackLength),
             cc.callFunc(function() {
                 NativeHelper.callNative("startBackgroundSoundDetecting");
+                self._talkingAdi.setAnimation(0, 'adidog-idle', true);
             })));
     }
 });
