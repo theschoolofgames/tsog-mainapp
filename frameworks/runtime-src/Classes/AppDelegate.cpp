@@ -248,6 +248,7 @@ bool AppDelegate::applicationDidFinishLaunching()
       int nSamples;
     
       SoundTouch* st = new SoundTouch();
+//    st->setSetting(SETTING_USE_QUICKSEEK, 1);
       string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
       string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
     
@@ -265,7 +266,8 @@ bool AppDelegate::applicationDidFinishLaunching()
       st->setSampleRate(sampleRate);
       st->setChannels(nChannels);
     
-      st->setPitchSemiTones(3.0);
+    st->setPitchSemiTones(6);
+//    st->setPitchSemiTones(6);
     
       int buffSizeSamples = BUFF_SIZE / nChannels;
     
@@ -306,6 +308,7 @@ bool AppDelegate::applicationDidFinishLaunching()
       } while (nSamples != 0);
     
     ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
+    delete st;
   });
   
     return true;

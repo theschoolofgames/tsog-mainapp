@@ -121,12 +121,13 @@ static NSTimer* timer;
   float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
   NSLog(@"Amplitude: %f", maxAmplitude);
   if (startTime < 0) {
-    if (maxAmplitude > -20) {
-      NSLog(@"Start");        startTime = [[NSDate date] timeIntervalSince1970];
+    if (maxAmplitude > -18) {
+      NSLog(@"Start");
+      startTime = [[NSDate date] timeIntervalSince1970];
       ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
     }
   } else {
-    if (maxAmplitude < -20) {
+    if (maxAmplitude < -18) {
       NSLog(@"Stop");
       double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
       [H102Wrapper stopBackgroundSoundDetecting];
