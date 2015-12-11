@@ -18,6 +18,23 @@ var RequestsManager = cc.Class.extend({
         });
     },
 
+    createSchool: function(name, callback) {
+        var url = BACKEND_ADDRESS + "api/schools";
+
+        var self = this;
+
+        var data = {
+            name: name
+        };
+
+        // cc.log(JSON.stringify(data));
+
+        RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
+            var data = JSON.parse(responseText);
+            callback && callback(succeed, data);
+        });
+    },
+
     getAccounts: function(schoolId, callback) {
         var url = BACKEND_ADDRESS + "api/accounts?school_id=" + schoolId;
 
@@ -109,7 +126,7 @@ var RequestHelper = {
             if (RequestHelper.isSuccessHttpRequest(request)) {
                 cb && cb(true, request.responseText)
             } else {
-                cb && cb(false, null)
+                cb && cb(false, request.responseText)
             }
         };
         request.onerror = function() {

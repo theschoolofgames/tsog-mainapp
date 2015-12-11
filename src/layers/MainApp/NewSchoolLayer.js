@@ -55,31 +55,35 @@ var NewSchoolLayer = cc.Layer.extend({
 
         btn.addClickEventListener(function() {
             var newSchoolName = tf.getString();
-            if (newSchoolName == null || newSchoolName == ""){
-                cc.log("newSchoolName must be non-null");
+            if (newSchoolName == null || newSchoolName.trim() == ""){
+                NativeHelper.callNative("showMessage", ["Missing field", "Please enter school name"]);
                 return;
             }
 
-            for (var i = 0; i < schoolData.length; i++) {
-                scName = schoolData[i].school_name.toUpperCase();
-                var scNameWithoutSpace = scName.replace(/\s+/g, '');
-                cc.log("scNameWithoutSpace: " + scNameWithoutSpace);
+            var loadingLayer = Utils.addLoadingIndicatorLayer(true);
 
-                if (scName.indexOf(newSchoolName.toUpperCase()) > -1 || scNameWithoutSpace.indexOf(newSchoolName.toUpperCase()) > -1){
-                    cc.log("");
-                    return;
-                }
+            RequestsManager.getInstance().createSchool(newSchoolName.trim(), function(succeed, data) {
+                Utils.removeLoadingIndicatorLayer();
 
-                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
-                // if (success) 
-                // NativeHelper.callNative("showMessage", ["Success", newSchoolName + " created successfully"])
-                // remove indicator
-                // Utils.removeLoadingIndicatorLayer();
-                // else
-                // NativeHelper.callNative("showMessage", ["Error", newSchoolName + " created failed"])
-                return;
-            }
+                if (succeed) {
+                    schoolData.unshift(data);
+                    DataManager.getInstance().setSchoolData(schoolData);
+                    
+                    SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
+                        { 
+                            school_id: data.school_id, 
+                            school_name: data.school_name 
+                        });
+                    
+                    KVDatabase.getInstance().set(STRING_SCHOOL_ID, data.school_id);
+                    KVDatabase.getInstance().set(STRING_SCHOOL_NAME, data.school_name);
+                    cc.director.replaceScene(new AccountSelectorScene());
+
+                    NativeHelper.callNative("showMessage", ["Created school successfully!", "Now you can create students for your new school"]);
+                } else {
+                     NativeHelper.callNative("showMessage", ["Error", data.message]);
+                 }
+            });
         });
     }
 });
