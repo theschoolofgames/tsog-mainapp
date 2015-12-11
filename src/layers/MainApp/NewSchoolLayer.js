@@ -70,8 +70,8 @@ var NewSchoolLayer = cc.Layer.extend({
                     return;
                 }
 
-                var loadingLayer = Utils.addLoadingIndicatorLayer(false);
-                loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
+                var loadingLayer = Utils.addLoadingIndicatorLayer(true);
+                loadingLayer.setIndicactorPosition(cc.winSize.width/2, cc.winSize.height/2);
                 // if (success) 
                 // NativeHelper.callNative("showMessage", ["Success", newSchoolName + " created successfully"])
                 // remove indicator

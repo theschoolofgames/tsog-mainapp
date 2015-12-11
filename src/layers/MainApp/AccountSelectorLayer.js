@@ -248,7 +248,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     createTrees: function() {
-        var treesContainer = new cc.Node();
+        this._treesContainer = new cc.Node();
         var tree, subNode, index;
         var self = this;
 
@@ -256,6 +256,10 @@ var AccountSelectorLayer = cc.Layer.extend({
         var batchWidth = 0;
         var lastTree = null;
         var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+        if (accountData.length == 0) {
+            this._addPlusSchoolButton();
+            return;
+        }
 
         for ( var i = 0; i < accountData.length; i++) {
             index = i%6;
@@ -293,19 +297,21 @@ var AccountSelectorLayer = cc.Layer.extend({
 
             this.addObjectAction(tree, delayTime);
 
-            treesContainer.addChild(subNode, 1);
+            this._treesContainer.addChild(subNode, 1);
             lastTree = tree;
         }
-        this._treesContainer = treesContainer;
-        treesContainer.setAnchorPoint(0, 0);
 
-        this._parallaxNode.addChild(treesContainer, 3, cc.p(1, 1), cc.p(0,0));
+        this._treesContainer.setAnchorPoint(0, 0);
+
+        this._parallaxNode.addChild(this._treesContainer, 3, cc.p(1, 1), cc.p(0,0));
 
         var innerWidth = lastTree.x - firstTreeX + cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
 
         this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
         this._lastTree = lastTree;
+
+        this._addPlusSchoolButton();
     },
 
     addObjectAction: function(object, delayTime, index, func) {
@@ -569,7 +575,40 @@ var AccountSelectorLayer = cc.Layer.extend({
                     cc.audioEngine.setMusicVolume(0);
                 })
             ))
-    }
+    },
+
+    _addPlusSchoolButton: function() {
+        var tree, subNode;
+        var accountData = DataManager.getInstance().getAccountData(this._schoolId);
+        var index = accountData.length%6;
+        cc.log("index: " + index);
+        tree = new cc.Sprite("#tree" + (index+1) + ".png");
+        tree.setAnchorPoint(0.5, 0);
+        tree.x = accountData.length * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
+        tree.y = this._ground.height/2 - 20;
+
+        var randBgIdx = index%2+1;
+        var plusBtnHolder = new ccui.Button("flower-avatar.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        plusBtnHolder.setAnchorPoint(0.5, 0);
+        plusBtnHolder.x = tree.x + TREE_POSITIONS[index].flowerOffsetX;
+        plusBtnHolder.y = tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY;
+
+        var plusImg = new cc.Sprite("#plus_button.png");
+        plusImg.x = plusBtnHolder.width/2;
+        plusImg.y = plusBtnHolder.height/2;
+        plusBtnHolder.addChild(plusImg);
+
+        subNode = new cc.Node();
+
+        subNode.addChild(tree, 1);
+        subNode.addChild(plusBtnHolder, 2);
+        subNode.tag = index;
+
+        this._treesContainer.addChild(subNode);
+        plusBtnHolder.addClickEventListener(function() {
+            cc.director.replaceScene(new NewAccountScene());
+        });
+    },
 
 });
 
