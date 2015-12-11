@@ -6,6 +6,7 @@ var NewSchoolLayer = cc.Layer.extend({
 
         this._addBackGround();
         this._addNewSchool();
+        this._addBackBtn();
     },
 
     _addBackGround: function() {
@@ -40,8 +41,6 @@ var NewSchoolLayer = cc.Layer.extend({
         tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
         tf.color = cc.color.RED;
         tf.setTouchAreaEnabled(true);
-        tf.setMaxLengthEnabled(true);
-        tf.setMaxLength(13);
         fieldHolder.addChild(tf);
         holder.addChild(fieldHolder);
 
@@ -85,7 +84,21 @@ var NewSchoolLayer = cc.Layer.extend({
                  }
             });
         });
-    }
+    },
+
+    _addBackBtn: function() {
+        var bb = new ccui.Button("back.png",
+                                 "back-pressed.png",
+                                 "",
+                                 ccui.Widget.PLIST_TEXTURE);
+
+        bb.x = bb.width ;
+        bb.y = cc.winSize.height - bb.height*2/3;
+        bb.addClickEventListener(function() {
+            cc.director.replaceScene(new SchoolSelectorScene());
+        });
+        this.addChild(bb);
+    },
 });
 
 var NewSchoolScene = cc.Scene.extend({

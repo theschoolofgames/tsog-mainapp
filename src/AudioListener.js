@@ -41,7 +41,7 @@ var AudioListener = cc.Class.extend({
                 if (self._playbackLength > 0) {
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
                     self._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.5);
-                    self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength);
+                    self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength+1);
                 }
 
                 else {
@@ -54,11 +54,6 @@ var AudioListener = cc.Class.extend({
                 NativeHelper.callNative("startBackgroundSoundDetecting");
                 self._talkingAdi.setAnimation(0, 'adidog-idle', true);
             })));
-    },
-
-    onExit: function() {
-        this._super();
-        NativeHelper.callNative("stopBackgroundSoundDetecting");
     }
 });
 

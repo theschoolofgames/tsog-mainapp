@@ -41,7 +41,8 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._adiDogSpine = new sp.SkeletonAnimation("adidog/adidog.json", "adidog/adidog.atlas", 0.3);
         this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
-
+        this._adiDogSpine.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
+        // this._adiDogSpine.setMix('adidog-talking', 'adidog-idle', 0);
         this._adiDogSpine.addAnimation(0, 'adidog-idle', true);
 
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
@@ -125,6 +126,11 @@ var TalkingAdiLayer = cc.Layer.extend({
             NativeHelper.callNative("stopBackgroundSoundDetecting");
             cc.director.replaceScene(new RoomScene());
         })
+    },
+
+    onExit: function() {
+        this._super();
+        NativeHelper.callNative("stopBackgroundSoundDetecting");
     }
 });
 
