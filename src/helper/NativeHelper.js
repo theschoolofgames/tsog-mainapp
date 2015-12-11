@@ -23,6 +23,18 @@ var NativeHelperConfig = {
             "()Ljava/lang/String;"
         ]
     },
+    showMessage: {
+        iOS: [
+            "H102Wrapper",
+            "showMessage:message:"
+        ], 
+        Android: [
+            "com/h102/H102Wrapper",
+            "showMessage",
+            "(Ljava/lang/String;Ljava/lang/String;)V"
+        ]
+    },
+    // Segment
     segmentIdentity: {
         iOS: [
             "H102Wrapper",
@@ -45,6 +57,7 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
+    // Sound Recording
     checkMic: {
         iOS: [
             "H102Wrapper",
@@ -112,21 +125,29 @@ var NativeHelperConfig = {
         ]
     },
     stopBackgroundSoundDetecting: {
+        iOS: [
+            "H102Wrapper",
+            "stopBackgroundSoundDetecting"
+        ],
         Android: [
             "com/h102/H102Wrapper",
             "stopBackgroundSoundDetecting",
             "()V"
         ]
     },
-    showMessage: {
-        iOS: [
-            "H102Wrapper",
-            "showMessage:message:"
-        ], 
+    // Speech Recognition
+    startSpeechRecognition: {
         Android: [
             "com/h102/H102Wrapper",
-            "showMessage",
-            "(Ljava/lang/String;Ljava/lang/String;)V"
+            "startSpeechRecognition",
+            "(I)V"   
+        ]
+    },
+    stopSpeechRecognition: {
+        Android: [
+            "com/h102/H102Wrapper",
+            "stopSpeechRecognition",
+            "()V"   
         ]
     }
 }

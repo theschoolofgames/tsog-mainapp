@@ -232,6 +232,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         // NativeHelper.callNative("initRecord");
 
         searchButton.addClickEventListener(function(){
+            NativeHelper.callNative("startSpeechRecognition", [5000]);
             // NativeHelper.callNative("startBackgroundSoundDetecting");
             // self._searchField.onTouchBegan();
             // if (NativeHelper.callNative("isRecording")) {
