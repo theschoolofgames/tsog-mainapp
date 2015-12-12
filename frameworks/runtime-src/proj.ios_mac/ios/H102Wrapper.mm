@@ -13,11 +13,12 @@
 #import "ScriptingCore.h"
 
 #import "SimpleAudioRecordEngine_objc.h"
+#import "SpeechRecognitionListener.h"
 
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL isListening = false;
-static NSTimer* timer;
+static NSTimer* timer = nil;
 
 @implementation H102Wrapper
 
@@ -147,9 +148,44 @@ static NSTimer* timer;
 }
 
 + (void)stopBackgroundSoundDetecting {
-  [timer invalidate];
+  if (timer) {
+    [timer invalidate];
+    timer = nil;
+  }
   isListening = NO;
   [H102Wrapper stopRecord];
+}
+
++ (void)startSpeechRecognition:(NSString*) serializedString timeout:(NSNumber*) timeout {
+  
+  NSData* data = [serializedString dataUsingEncoding:NSUTF8StringEncoding];
+  NSArray* array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+  
+  NSMutableArray* uppercaseArray = [[NSMutableArray alloc] init];
+  for (NSString* s in array) {
+    [uppercaseArray addObject:[s uppercaseString]];
+  }
+  
+  [[SpeechRecognitionListener sharedEngine] setLanguageData:uppercaseArray];
+  [[SpeechRecognitionListener sharedEngine] start];
+  
+  if (timeout) {
+    float delay = ([timeout floatValue] / 1000);
+    [[H102Wrapper class] performSelector:@selector(startSpeechRecognitionDelay) withObject:nil afterDelay:delay];
+  }
+}
+
++ (void)startSpeechRecognitionDelay {
+  if ([[SpeechRecognitionListener sharedEngine] isListening]) {
+    NSString* command = [NSString stringWithFormat:@"SpeechRecognitionListener.getInstance().onResult('%@')", @""];
+    ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+  }
+    
+  [H102Wrapper stopSpeechRecognition];
+}
+
++ (void)stopSpeechRecognition {
+  [[SpeechRecognitionListener sharedEngine] stop];
 }
 
 @end

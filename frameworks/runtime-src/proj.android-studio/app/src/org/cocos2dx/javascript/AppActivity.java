@@ -26,8 +26,8 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
-import com.h102.H102SpeechRecognition;
-import com.h102.H102Wrapper;
+import com.h102.SpeechRecognizer;
+import com.h102.Wrapper;
 import com.segment.analytics.Analytics;
 
 public class AppActivity extends Cocos2dxActivity {
@@ -50,8 +50,8 @@ public class AppActivity extends Cocos2dxActivity {
             }
         });
 
-        H102Wrapper.activity = this;
-        H102SpeechRecognition.setupInstance(this);
+        Wrapper.activity = this;
+        SpeechRecognizer.setupInstance(this);
 
         return glSurfaceView;
     }

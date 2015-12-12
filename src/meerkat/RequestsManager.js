@@ -35,6 +35,26 @@ var RequestsManager = cc.Class.extend({
         });
     },
 
+    createStudent: function(name, schoolId, avatar, password, callback) {
+        var url = BACKEND_ADDRESS + "api/students";
+
+        var self = this;
+
+        var data = {
+            name: name,
+            schoolId: schoolId,
+            avatar: avatar,
+            password: password
+        };
+
+        // cc.log(JSON.stringify(data));
+
+        RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
+            var data = JSON.parse(responseText);
+            callback && callback(succeed, data);
+        });
+    },
+
     getAccounts: function(schoolId, callback) {
         var url = BACKEND_ADDRESS + "api/accounts?school_id=" + schoolId;
 

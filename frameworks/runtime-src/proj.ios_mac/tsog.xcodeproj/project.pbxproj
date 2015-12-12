@@ -10,8 +10,8 @@
 		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
 		01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */; };
 		01062FD41C1ACC8900AB72D4 /* OpenEars.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FD21C1ACC8900AB72D4 /* OpenEars.framework */; };
-		01062FD91C1ACECC00AB72D4 /* SpeechRecognitionListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */; };
 		01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */; };
+		014308FD1C1C298E00F7691E /* SpeechRecognitionListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */; };
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
 		018979491C1016F600887F14 /* AAFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0189792D1C1016F500887F14 /* AAFilter.cpp */; };
@@ -208,8 +208,8 @@
 		01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
 		01062FD21C1ACC8900AB72D4 /* OpenEars.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OpenEars.framework; sourceTree = "<group>"; };
 		01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionListener.h; sourceTree = "<group>"; };
-		01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpeechRecognitionListener.m; sourceTree = "<group>"; };
 		01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
+		014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeechRecognitionListener.mm; sourceTree = "<group>"; };
 		016A01AC1C15E02800A22838 /* SimpleAudioRecordEngine.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine.h; sourceTree = "<group>"; tabWidth = 4; };
 		016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleAudioRecordEngine.mm; sourceTree = "<group>"; tabWidth = 4; };
 		016A01B11C15E09500A22838 /* SimpleAudioRecordEngine_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine_objc.h; sourceTree = "<group>"; };
@@ -679,7 +679,7 @@
 				F8C057241B99386D00DEB2C0 /* H102Wrapper.h */,
 				01062FC61C194E7600AB72D4 /* H102Wrapper.mm */,
 				01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */,
-				01062FD81C1ACECC00AB72D4 /* SpeechRecognitionListener.m */,
+				014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1077,7 +1077,6 @@
 				EB7B09011BB50D2200B36D24 /* lwf_graphic.cpp in Sources */,
 				EB7B08ED1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp in Sources */,
 				EB7B08F41BB50D2200B36D24 /* lwf_animation.cpp in Sources */,
-				01062FD91C1ACECC00AB72D4 /* SpeechRecognitionListener.m in Sources */,
 				EB7B08FB1BB50D2200B36D24 /* lwf_coredata.cpp in Sources */,
 				EB7B08FD1BB50D2200B36D24 /* lwf_event.cpp in Sources */,
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
@@ -1092,6 +1091,7 @@
 				EB7B090C1BB50D2200B36D24 /* lwf_property.cpp in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				018979541C1016F600887F14 /* SoundTouch.cpp in Sources */,
+				014308FD1C1C298E00F7691E /* SpeechRecognitionListener.mm in Sources */,
 				EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */,
 				F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */,
 				EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */,

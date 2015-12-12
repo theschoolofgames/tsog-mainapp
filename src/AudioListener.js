@@ -35,14 +35,11 @@ var AudioListener = cc.Class.extend({
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function() {
-                cc.audioEngine.unloadEffect(fileName);
-                var audio = cc.audioEngine.playEffect(fileName);
-
-
                 if (self._playbackLength > 0) {
+                    cc.audioEngine.unloadEffect(fileName);
+                    var audio = cc.audioEngine.playEffect(fileName);
                     self._talkingAdi.adiTalk();
                 }
-
                 else {
                     self._talkingAdi.onStoppedListening();
                 }

@@ -18,6 +18,8 @@ var NewSchoolLayer = cc.Layer.extend({
 
     _addNewSchool: function() {
         var holder = new cc.Layer();
+        holder.x = -100;
+        holder.y = 120;
 
         this.addChild(holder);
 

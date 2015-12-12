@@ -17,8 +17,8 @@ import java.util.TimerTask;
 /**
  * Created by nick on 12/8/15.
  */
-public class H102Record {
-    private static final String TAG = H102Record.class.getSimpleName();
+public class Recorder {
+    private static final String TAG = Recorder.class.getSimpleName();
 
     private static final String AUDIO_RECORDER_FILE = "record_sound.wav";
     private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 1000; // ms
@@ -33,17 +33,17 @@ public class H102Record {
     private int bufferSize = 0;
     private Timer timer;
 
-    private static H102Record mSharedInstance = null;
+    private static Recorder mSharedInstance = null;
 
-    public static H102Record getInstance() {
+    public static Recorder getInstance() {
         if (mSharedInstance == null) {
-            mSharedInstance = new H102Record();
+            mSharedInstance = new Recorder();
         }
 
         return mSharedInstance;
     }
 
-    public H102Record() {
+    public Recorder() {
         bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING);
     }
 

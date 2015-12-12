@@ -7,7 +7,7 @@ var NativeHelperConfig = {
             "openScheme:withData:"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "openScheme",
             "(Ljava/lang/String;Ljava/lang/String;)Z"
         ]
@@ -18,7 +18,7 @@ var NativeHelperConfig = {
             "getUniqueDeviceId"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "getId",
             "()Ljava/lang/String;"
         ]
@@ -29,7 +29,7 @@ var NativeHelperConfig = {
             "showMessage:message:"
         ], 
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "showMessage",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
@@ -41,7 +41,7 @@ var NativeHelperConfig = {
             "segmentIdentity:traits:"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "segmentIdentity",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
@@ -52,7 +52,7 @@ var NativeHelperConfig = {
             "segmentTrack:properties:"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "segmentTrack",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
@@ -64,7 +64,7 @@ var NativeHelperConfig = {
             "checkMic"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "checkMic",
             "()Z"
         ]
@@ -75,7 +75,7 @@ var NativeHelperConfig = {
             "isRecording"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "isRecording",
             "()Z"
         ]
@@ -86,7 +86,7 @@ var NativeHelperConfig = {
             "initRecord"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "initRecord",
             "()V"
         ]
@@ -97,7 +97,7 @@ var NativeHelperConfig = {
             "startRecord"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "startRecord",
             "()V"
         ]
@@ -108,7 +108,7 @@ var NativeHelperConfig = {
             "stopRecord"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "stopRecord",
             "()V"
         ]
@@ -119,7 +119,7 @@ var NativeHelperConfig = {
             "startBackgroundSoundDetecting"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "startBackgroundSoundDetecting",
             "()V"
         ]
@@ -130,22 +130,30 @@ var NativeHelperConfig = {
             "stopBackgroundSoundDetecting"
         ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "stopBackgroundSoundDetecting",
             "()V"
         ]
     },
     // Speech Recognition
     startSpeechRecognition: {
+        iOS: [
+            "H102Wrapper",
+            "startSpeechRecognition:timeout:"
+        ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "startSpeechRecognition",
-            "(I)V"   
+            "(Ljava/lang/String;I)V"   
         ]
     },
     stopSpeechRecognition: {
+        iOS: [
+            "H102Wrapper",
+            "stopSpeechRecognition"
+        ],
         Android: [
-            "com/h102/H102Wrapper",
+            "com/h102/Wrapper",
             "stopSpeechRecognition",
             "()V"   
         ]
