@@ -36,6 +36,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         this._accountData = DataManager.getInstance().getAccountData(this._schoolId);
+        this._accountData = this._accountData || [];
         if (testingUserData) {
             this._testingUserData = testingUserData;
             this._accountData.push(this._testingUserData);

@@ -34,19 +34,13 @@ var AudioListener = cc.Class.extend({
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function() {
-                cc.audioEngine.unloadEffect(fileName);
-                var audio = cc.audioEngine.playEffect(fileName);
-
-
                 if (self._playbackLength > 0) {
+                    cc.audioEngine.unloadEffect(fileName);
+                    var audio = cc.audioEngine.playEffect(fileName);
+
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
                     self._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.2);
-                    cc.audioEngine.setFinishCallback(audio, function() {
-                        self._talkingAdi.setAnimation(0, 'adidog-idle', true);
-                    })
-                    // self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength);
                 }
-
                 else {
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
                     self._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
