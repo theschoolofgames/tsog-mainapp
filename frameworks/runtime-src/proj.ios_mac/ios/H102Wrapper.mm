@@ -16,6 +16,7 @@
 
 static UIViewController* viewController;
 static double startTime = -1;
+static BOOL isListening = false;
 static NSTimer* timer;
 
 @implementation H102Wrapper
@@ -120,10 +121,10 @@ static NSTimer* timer;
   
   float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
   NSLog(@"Amplitude: %f", maxAmplitude);
-  if (startTime < 0) {
+  if (!isListening) {
     if (maxAmplitude > -18) {
       NSLog(@"Start");
-      startTime = [[NSDate date] timeIntervalSince1970];
+      isListening = YES;
       ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
     }
   } else {
@@ -137,16 +138,17 @@ static NSTimer* timer;
     }
   }
   
-  if (startTime < 0) {
+  if (!isListening) {
     NSLog(@"Restart");
     [H102Wrapper initRecord];
     [H102Wrapper startRecord];
+    startTime = [[NSDate date] timeIntervalSince1970];
   }
 }
 
 + (void)stopBackgroundSoundDetecting {
   [timer invalidate];
-  startTime = -1;
+  isListening = NO;
   [H102Wrapper stopRecord];
 }
 

@@ -89,4 +89,15 @@ public class H102Wrapper
     public static void startBackgroundSoundDetecting() {
         H102Record.getInstance().startBackgroundSoundDetecting(activity);
     }
+
+    public static void startSpeechRecognition(int timeout) {
+        if (timeout <= 0)
+            H102SpeechRecognition.getInstance().start();
+        else
+            H102SpeechRecognition.getInstance().start(timeout);
+    }
+
+    public static void stopSpeechRecognition() {
+        H102SpeechRecognition.getInstance().stop();
+    }
 }

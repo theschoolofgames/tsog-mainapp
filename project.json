@@ -18,6 +18,7 @@
         "src/AnimatedEffect.js",
         "src/Config.js",
         "src/AudioListener.js",
+        "src/SpeechRecognitionListener.js",
 
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
