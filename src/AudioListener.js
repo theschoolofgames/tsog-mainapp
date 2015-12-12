@@ -2,7 +2,7 @@ var AudioListener = cc.Class.extend({
     _talkingAdi: null,
     _playbackLength: 0,
 
-    setAdi: function(adi) {
+    setListener: function(adi) {
         if (adi == undefined || adi == null)
             return;
 
@@ -11,10 +11,7 @@ var AudioListener = cc.Class.extend({
     },
 
     onStartedListening: function() {
-        // cc.log("onStartedListening");
         this._talkingAdi.onStartedListening();
-        // this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
-        // this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 1);
     },
 
     // fileName: str

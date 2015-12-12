@@ -1,7 +1,7 @@
 var ForestLayer = cc.Layer.extend({
     _effectLayers: [],
     _objects: [],
-    _objectDisabled: [],
+    _objectDisableds: [],
     _animalNames: [],
     _kvInstance: null,
     _blockLayer: null,
@@ -61,6 +61,7 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
+        cc.audioEngine.playMusic(res.background_mp3, true);
     },
 
     setVolume:function() {
@@ -152,13 +153,13 @@ var ForestLayer = cc.Layer.extend({
         //check if touched on a disabled animal --> play its sound but not process anything
         var distance = 0;
         var objBoundingBox = null;
-        for ( var i = 0; i < this._objectDisabled.length; i++) {
+        for ( var i = 0; i < this._objectDisableds.length; i++) {
 
-            objBoundingBox = this._objectDisabled[i].getBoundingBox();
+            objBoundingBox = this._objectDisableds[i].getBoundingBox();
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
                 // cc.log("isRectContainsPoint")
-                this._objectTouching = this._objectDisabled[i];
+                this._objectTouching = this._objectDisableds[i];
                 this.playAnimalSound();
                 return true;
             }
@@ -195,7 +196,7 @@ var ForestLayer = cc.Layer.extend({
 
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
-        if (targetNode._objectDisabled.length == targetNode._numberItems) {
+        if (targetNode._objectDisableds.length == targetNode._numberItems) {
             SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
                     forest: "forest",
@@ -207,8 +208,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _isObjectDisabled: function() {
-        for (var i = 0; i < this._objectDisabled.length; i++) {
-            if (this._objectTouching === this._objectDisabled[i]) {
+        for (var i = 0; i < this._objectDisableds.length; i++) {
+            if (this._objectTouching === this._objectDisableds[i]) {
                 // cc.log("_isObjectDisabled")
                 this.playAnimalSound();
                 return true;
@@ -326,7 +327,7 @@ var ForestLayer = cc.Layer.extend({
 
     resetObjectArrays: function() {
         this._objects = [];
-        this._objectDisabled = [];
+        this._objectDisableds = [];
         this._effectLayers = [];
         this._animalNames = [];
         this._touchCounting = 0;
@@ -403,11 +404,14 @@ var ForestLayer = cc.Layer.extend({
             cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
 
         ));
+
+        var self = this;
         this.runAction(cc.sequence(
             cc.delayTime(4),
             cc.callFunc(function() {
                 warningLabel.setVisible(false);          
                 mask.setLocalZOrder(-1);
+                self._addSpeakingTest();
             })
         ));
 
@@ -435,6 +439,7 @@ var ForestLayer = cc.Layer.extend({
         var self  = this;
         
         this.createYouWin();
+
         this.runAction(cc.sequence(
             cc.delayTime(4),
             cc.callFunc(function() {
@@ -442,11 +447,6 @@ var ForestLayer = cc.Layer.extend({
                     self.showTryAnOtherGameDialog();
                     self._isWinLabel =false;
                 }
-                else {
-                    self.runObjectAction(self, CHANGE_SCENE_TIME, function() {
-                        cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
-                    })
-                };   
             })
         ));
 
@@ -621,7 +621,7 @@ var ForestLayer = cc.Layer.extend({
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
 
-        this._objectDisabled.push(this._objectTouching);
+        this._objectDisableds.push(this._objectTouching);
         this._objectTouching = null;
     },
 
@@ -789,6 +789,22 @@ var ForestLayer = cc.Layer.extend({
     isGamePlayedMatchAmountOfPlay: function() {
         if (GAME_CONFIG.amountOfPlay == Math.floor(this._numberGamePlayed / 2))
             return true;
+    },
+
+    _addSpeakingTest: function() {
+        for (var i = 0; i < this._objectDisableds.length; i++) {
+            this._objectDisableds[i].removeFromParent();
+        }
+        
+        this._hudLayer.removeFromParent();
+
+        var self = this;
+        cc.audioEngine.stopMusic();
+        var speakingTestLayer = new SpeakingTestLayer(this._animalNames, function() {
+            cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
+        });
+        speakingTestLayer.listener = this;
+        this.addChild(speakingTestLayer, 99999);
     },
 });
 var ForestScene = cc.Scene.extend({
