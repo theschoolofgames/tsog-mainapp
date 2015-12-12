@@ -25,9 +25,8 @@ var AccountSelectorLayer = cc.Layer.extend({
     _batchFirstItemXs: [],
 
     _selectedUserData: null,
-    _testingUserData: null,
 
-    ctor: function (testingUserData) {
+    ctor: function () {
         this._super();
 
         this.playBackgroundMusic();
@@ -37,12 +36,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         this._accountData = DataManager.getInstance().getAccountData(this._schoolId);
         this._accountData = this._accountData || [];
-        if (testingUserData) {
-            this._testingUserData = testingUserData;
-            this._accountData.push(this._testingUserData);
-        }
-
-
+       
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -106,11 +100,11 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createMaskLayer();
 
         // if have new account
-        var scrollToX = 0;
-        if (this._lastTree)
-            scrollToX = -this._lastTree.x + cc.winSize.width/2;
+        // var scrollToX = 0;
+        // if (this._lastTree)
+        //     scrollToX = -this._lastTree.x + cc.winSize.width/2;
         // delay i * DELTA_DELAY_TIME
-        this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
+        // this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
     },
 
     addAccountLabelName: function(account, name) {
@@ -136,8 +130,6 @@ var AccountSelectorLayer = cc.Layer.extend({
         accountNameFontDef.shadowBlur = 1;
         accountNameFontDef.shadowOpacity = 0.2;
 
-        if (this._testingUserData)
-            name = this._testingUserData.name;
         var accountName = new cc.LabelTTF(name, accountNameFontDef);
 
         fontDimensions = cc.size(accountName.width * 0.75, accountName.height);

@@ -3,7 +3,7 @@ var NewAccountLayer = cc.Layer.extend({
     _passwordScrollView: null,
     _tf: null,
     _pickedAvatar: null,
-    _pickePassword: null,
+    _pickedPassword: null,
 
     listener: null,
 
@@ -126,7 +126,6 @@ var NewAccountLayer = cc.Layer.extend({
         holder.addChild(btn);
 
         var self = this;
-        var schoolData = DataManager.getInstance().getSchoolData();
 
         btn.addClickEventListener(function() {
             self._addNewAccount(self);
@@ -136,49 +135,40 @@ var NewAccountLayer = cc.Layer.extend({
     _addNewAccount: function(self) {
         var newAccountName = self._tf.getString();
         if (newAccountName == null || newAccountName.trim() == ""){
-            NativeHelper.callNative("showMessage", ["Missing field", "Please enter school name"]);
+            NativeHelper.callNative("showMessage", ["Missing field", "Please enter student name"]);
             return;
         }
 
         var loadingLayer = Utils.addLoadingIndicatorLayer(true);
-        /*
-            create new account with 
-            name : newAccountName
-            avatar: self._pickedAvatar
-            password: self._pickedPassword
-        */
-        var testingUserData = {
-            name: newAccountName, 
-            avatar: {
-                hair_id: self._pickedAvatar.tag
-            }, 
-            password: self._pickePassword.tag
-        }
-        cc.log("testingUserData: " + JSON.stringify(testingUserData));
-        cc.director.replaceScene(new AccountSelectorScene(testingUserData));
+        var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
+        
+        RequestsManager.getInstance().createStudent(newAccountName, 
+            schoolId,
+            self._pickedAvatar.tag,
+            self._pickedPassword.tag,
+            function(succeed, data) {
+                Utils.removeLoadingIndicatorLayer();
 
-        // RequestsManager.getInstance().createSchool(newSchoolName.trim(), function(succeed, data) {
-        //     Utils.removeLoadingIndicatorLayer();
+                if (succeed) {
+                    var accountData = DataManager.getInstance().getAccountData(schoolId);
+                    accountData = accountData || [];
+                    accountData.unshift(data);
 
-        //     if (succeed) {
-        //         schoolData.unshift(data);
-        //         DataManager.getInstance().setSchoolData(schoolData);
-                
-        //         SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
-        //             { 
-        //                 school_id: data.school_id, 
-        //                 school_name: data.school_name 
-        //             });
-                
-        //         KVDatabase.getInstance().set(STRING_SCHOOL_ID, data.school_id);
-        //         KVDatabase.getInstance().set(STRING_SCHOOL_NAME, data.school_name);
-        //         cc.director.replaceScene(new AccountSelectorScene());
+                    var schoolConfig = DataManager.getInstance().getSchoolConfig(schoolId);
 
-        //         NativeHelper.callNative("showMessage", ["Created school successfully!", "Now you can create students for your new school"]);
-        //     } else {
-        //         NativeHelper.callNative("showMessage", ["Error", data.message]);
-        //     }
-        // });
+                    SegmentHelper.identity(
+                        data.user_id, 
+                        data.name, 
+                        schoolConfig.school_id, 
+                        schoolConfig.school_name);
+                    
+                    KVDatabase.getInstance().set(STRING_USER_ID, data.user_id);
+                    KVDatabase.getInstance().set(STRING_USER_NAME, data.name);
+                    cc.director.replaceScene(new WelcomeScene());
+                } else {
+                    NativeHelper.callNative("showMessage", ["Error", data.message]);
+                }
+            });
     },
 
     _createAvatarScrollView: function(fieldHolder){
@@ -239,7 +229,7 @@ var NewAccountLayer = cc.Layer.extend({
         avatarNode.y = this._avatarScrollView.getViewSize().height/2;
 
         var self = this;
-        for ( var i = 0; i < 3; i++){
+        for ( var i = 0; i < 10; i++){
             var avatarBtn = new ccui.Button("avatar-"+ (i+1) + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             avatarBtn.x = avatarBtn.width*i*1.2 + avatarBtn.width;
             avatarBtn.tag = (i+1);
@@ -257,6 +247,16 @@ var NewAccountLayer = cc.Layer.extend({
             });
 
             avatarNode.addChild(avatarBtn);
+
+            if (i == 0) {
+                self._pickedAvatar = avatarBtn;
+                avatarBtn.runAction(
+                    cc.sequence(
+                        cc.scaleTo(0.2, 0.8),
+                        cc.scaleTo(0.4, 1.2).easing(cc.easeElasticOut(0.6))
+                    )
+                );
+            }
         }
         this._avatarScrollView.addChild(avatarNode);
     },
@@ -266,17 +266,17 @@ var NewAccountLayer = cc.Layer.extend({
         passwordNode.y = this._passwordScrollView.getViewSize().height/2;
 
         var self = this;
-        for ( var i = 0; i < 5; i++){
+        for ( var i = 0; i < 10; i++){
             var passwordBtn = new ccui.Button("icon-"+ (i+1) + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             passwordBtn.x = passwordBtn.width*i*1.2 + passwordBtn.width;
             passwordBtn.tag = (i+1);
 
             passwordBtn.addClickEventListener(function(sender) {
-                if (self._pickePassword)
-                    self._pickePassword.scale = 1;
+                if (self._pickedPassword)
+                    self._pickedPassword.scale = 1;
                 
-                self._pickePassword = sender;
-                self._pickePassword.runAction(
+                self._pickedPassword = sender;
+                self._pickedPassword.runAction(
                     cc.sequence(
                         cc.scaleTo(0.2, 0.8),
                         cc.scaleTo(0.4, 1.2).easing(cc.easeElasticOut(0.6))
@@ -285,6 +285,16 @@ var NewAccountLayer = cc.Layer.extend({
             });
 
             passwordNode.addChild(passwordBtn);
+
+            if (i == 0) {
+                self._pickedPassword = passwordBtn;
+                passwordBtn.runAction(
+                    cc.sequence(
+                        cc.scaleTo(0.2, 0.8),
+                        cc.scaleTo(0.4, 1.2).easing(cc.easeElasticOut(0.6))
+                    )
+                );
+            }
         }
         this._passwordScrollView.addChild(passwordNode);
     },
