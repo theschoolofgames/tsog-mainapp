@@ -47,7 +47,7 @@ var DataManager = cc.Class.extend({
     },
 
     getAccountData: function(schoolId) {
-        return this._accountData[schoolId] || [];
+        return this._accountData[schoolId];
     },
 
     setAccountData: function(schoolId, data) {
