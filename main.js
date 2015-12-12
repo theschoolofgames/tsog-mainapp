@@ -117,8 +117,8 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         
-        cc.director.runScene(new MainScene());
-        // cc.director.runScene(new TalkingAdiScene());
+        // cc.director.runScene(new MainScene());
+        cc.director.runScene(new TalkingAdiScene());
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);

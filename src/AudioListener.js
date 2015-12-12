@@ -26,22 +26,25 @@ var AudioListener = cc.Class.extend({
     },
 
     onAudioChipmunkified: function(fileName) {
-        cc.log("onAudioChipmunkified: " + fileName);
-
         var self = this;
+        cc.log("onAudioChipmunkified: " + fileName);
 
         cc.audioEngine.setEffectsVolume(1);
 
         cc.director.getRunningScene().runAction(cc.sequence(
-            cc.delayTime(0.2),
+            cc.delayTime(0),
             cc.callFunc(function() {
                 cc.audioEngine.unloadEffect(fileName);
-                cc.audioEngine.playEffect(fileName);
+                var audio = cc.audioEngine.playEffect(fileName);
+
 
                 if (self._playbackLength > 0) {
                     self._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
-                    self._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.5);
-                    self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength+1);
+                    self._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.2);
+                    cc.audioEngine.setFinishCallback(audio, function() {
+                        self._talkingAdi.setAnimation(0, 'adidog-idle', true);
+                    })
+                    // self._talkingAdi.addAnimation(0, 'adidog-idle', true, self._playbackLength);
                 }
 
                 else {

@@ -112,7 +112,7 @@ static NSTimer* timer;
   NSLog(@"startBackgroundSoundDetecting");
   [H102Wrapper initRecord];
   [H102Wrapper startRecord];
-  timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop) userInfo:NULL repeats:YES];
+  timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(soundDetectingLoop) userInfo:NULL repeats:YES];
   [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
 }
