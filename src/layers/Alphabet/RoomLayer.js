@@ -29,7 +29,7 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         cc.audioEngine.playMusic(res.background_mp3, true);
         
-        this._numberItems = numberItems || 2//GAME_CONFIG.objectStartCount;
+        this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -261,15 +261,15 @@ var RoomLayer = cc.Layer.extend({
             this.completedScene();
     },
 
-    createWarnLabel: function(text, object) {
+    createWarnLabel: function(text, object, scale) {
         // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(1.5);
-
+        var scaleTo = scale || 1.5
+        warnLabel.setScale(scaleTo);
 
         // var warnLabel = new cc.LabelTTF(text, "Arial", 24);
         // warnLabel.setColor(cc.color.RED);
@@ -281,7 +281,7 @@ var RoomLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width / 2;
             warnLabel.y = cc.winSize.height / 2;
         }
-        this.addChild(warnLabel, 9999);
+        this.addChild(warnLabel, 10000);
 
         this._warningLabel = warnLabel;
     },
@@ -768,7 +768,7 @@ var RoomLayer = cc.Layer.extend({
             cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
         });
         speakingTestLayer.listener = this;
-        this.addChild(speakingTestLayer);
+        this.addChild(speakingTestLayer, 9999);
     },
 });
 

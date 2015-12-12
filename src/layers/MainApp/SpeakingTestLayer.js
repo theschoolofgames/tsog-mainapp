@@ -1,16 +1,18 @@
 var SpeakingTestLayer = cc.LayerColor.extend({
+    _talkingAdi: null,
     _objectsArray: [],
     _callback: null,
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
+    _remainingTime: 2,
 
     currentObjectShowUpId: 0,
     currentObjectName: null,
     listener: null,
 
     ctor: function(objectsArray, callback) {
-        this._super(cc.color(0, 0, 0, 200));
+        this._super(cc.color(0, 0, 0, 220));
 
         this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"]
             .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat","insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato","queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
@@ -33,9 +35,9 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     _addAdiDog: function() {
-        var adiDog = new AdiDogNode();
-        adiDog.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
-        this.addChild(adiDog);
+        this._talkingAdi = new AdiDogNode();
+        this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
+        this.addChild(this._talkingAdi);
     },
 
     showNextObject: function() {
@@ -54,22 +56,23 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             this._soundName = "res/sounds/" + objectName + ".mp3";
         }
         
-        this.playObjectSound();
-        
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
+       
+        this.playObjectSound();
 
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2;
         this._currentObjectShowUp.y = cc.winSize.height/2;
 
         this.addChild(this._currentObjectShowUp);
-        // this.listener.createWarnLabel(this._objectsArray[index].name);
+
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
         this.currentObjectShowUpId +=1;
     },
 
     playObjectSound: function() {
         cc.audioEngine.playEffect(this._soundName);
+        this._talkingAdi.onStoppedListening();
     },
 
     checkCompleted: function() {
@@ -88,15 +91,38 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     startSpeechRecognizing: function() {
         var self = this;
+        this._addLabel();
+        this.schedule(this._setLabelString, 1, 2);
         this.runAction(
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
+                    self._talkingAdi.onStartedListening();
                     NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(self._itemArray), 5000]);
                     KVDatabase.getInstance().set("timeUp", Date.now()/1000);
                 })
             )
         )
+    },
+
+    _addLabel: function() {
+        this._label = "";
+        font = "hud-font-export.fnt";
+        this._label = new cc.LabelBMFont(this._remainingTime, font);
+        this._label.setScale(1.5);
+    
+        this._label.x = cc.winSize.width / 2;
+        this._label.y = cc.winSize.height - this._label.height;
+        this.addChild(this._label, 10000);    
+    },
+
+    _setLabelString: function() {
+        if (this._remainingTime === 0)
+            this._label.removeFromParent();
+
+        this._label.setString(this._remainingTime);
+        if (this._remainingTime > 0)
+            this._remainingTime -= 1;
     }
 
 });

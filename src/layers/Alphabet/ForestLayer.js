@@ -358,13 +358,14 @@ var ForestLayer = cc.Layer.extend({
         });
     },
 
-    createWarnLabel: function(text, size, object) {
+    createWarnLabel: function(text, object, scale) {
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(1.5);
+        var scaleTo = scale || 1.5;
+        warnLabel.setScale(scaleTo);
         // var warnLabel = new cc.LabelTTF(text, "Arial", size);
         // warnLabel.setColor(cc.color.RED);
         if (object) {
@@ -375,7 +376,7 @@ var ForestLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width /2;
             warnLabel.y = cc.winSize.height/2;
         }
-        this.addChild(warnLabel, 9999);
+        this.addChild(warnLabel, 10000);
 
         this._warningLabel = warnLabel;
     },
@@ -394,7 +395,7 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        this.createWarnLabel(lbText, 24);
+        this.createWarnLabel(lbText);
         cc.log("warnLabel: " + this._warnLabel);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
@@ -662,7 +663,7 @@ var ForestLayer = cc.Layer.extend({
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
-                self.createWarnLabel(str, 32);
+                self.createWarnLabel(str);
                 self._blockAllObjects = true;
                 // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
@@ -804,7 +805,7 @@ var ForestLayer = cc.Layer.extend({
             cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
         });
         speakingTestLayer.listener = this;
-        this.addChild(speakingTestLayer, 99999);
+        this.addChild(speakingTestLayer, 9999);
     },
 });
 var ForestScene = cc.Scene.extend({
