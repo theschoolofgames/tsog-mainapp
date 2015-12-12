@@ -2,6 +2,7 @@ package com.h102;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -12,42 +13,42 @@ import java.io.IOException;
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
 import edu.cmu.pocketsphinx.RecognitionListener;
-import edu.cmu.pocketsphinx.SpeechRecognizer;
 
+import static android.widget.Toast.makeText;
 import static edu.cmu.pocketsphinx.SpeechRecognizerSetup.defaultSetup;
 
 /**
  * Created by nick on 12/11/15.
  */
-public class H102SpeechRecognition implements RecognitionListener {
+public class SpeechRecognizer implements RecognitionListener {
 
-    private static final String TAG = H102SpeechRecognition.class.getSimpleName();
+    private static final String TAG = SpeechRecognizer.class.getSimpleName();
 
-    private static H102SpeechRecognition mSharedInstance = null;
+    private static SpeechRecognizer mSharedInstance = null;
     private static AppActivity app;
 
-    private SpeechRecognizer recognizer;
+    private edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
 
     private static final String ANIMAL_SEARCH = "animals";
 
-    public static H102SpeechRecognition setupInstance(AppActivity app) {
+    public static SpeechRecognizer setupInstance(AppActivity app) {
         if (mSharedInstance == null) {
-            H102SpeechRecognition.app = app;
+            SpeechRecognizer.app = app;
             return getInstance();
         }
 
         return mSharedInstance;
     }
 
-    public static H102SpeechRecognition getInstance() {
+    public static SpeechRecognizer getInstance() {
         if (mSharedInstance == null) {
-            mSharedInstance = new H102SpeechRecognition();
+            mSharedInstance = new SpeechRecognizer();
         }
 
         return mSharedInstance;
     }
 
-    public H102SpeechRecognition() {
+    public SpeechRecognizer() {
         new AsyncTask<Void, Void, Exception>() {
             @Override
             protected Exception doInBackground(Void... params) {
@@ -85,11 +86,6 @@ public class H102SpeechRecognition implements RecognitionListener {
         recognizer.startListening(ANIMAL_SEARCH);
     }
 
-    public void start(int timeout) {
-        recognizer.stop();
-        recognizer.startListening(ANIMAL_SEARCH, timeout);
-    }
-
     public void stop() {
         recognizer.stop();
     }
@@ -116,6 +112,16 @@ public class H102SpeechRecognition implements RecognitionListener {
     public void onResult(Hypothesis hypothesis) {
         final String commandForm = "SpeechRecognitionListener.getInstance().onResult('%s')";
         final String text = hypothesis == null ? "" : hypothesis.getHypstr();
+
+        if (hypothesis != null) {
+            app.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    makeText(app.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
 
         app.runOnGLThread(new Runnable() {
             @Override
