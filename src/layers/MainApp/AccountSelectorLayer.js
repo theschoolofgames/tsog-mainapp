@@ -201,7 +201,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         accountButton.setSwallowTouches(false);
         accountButton.userData = userData;
 
-        this.createAvatar(userData.avatar.hair_id % 3 + 1, accountButton);
+        this.createAvatar(userData.avatar, accountButton);
 
         var self = this;
         accountButton.addClickEventListener(function(sender) {
