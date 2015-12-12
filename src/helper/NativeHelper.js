@@ -137,6 +137,10 @@ var NativeHelperConfig = {
     },
     // Speech Recognition
     startSpeechRecognition: {
+        iOS: [
+            "H102Wrapper",
+            "startSpeechRecognition:"
+        ],
         Android: [
             "com/h102/Wrapper",
             "startSpeechRecognition",
@@ -144,6 +148,10 @@ var NativeHelperConfig = {
         ]
     },
     stopSpeechRecognition: {
+        iOS: [
+            "H102Wrapper",
+            "stopSpeechRecognition"
+        ],
         Android: [
             "com/h102/Wrapper",
             "stopSpeechRecognition",

@@ -12,4 +12,12 @@
 
 @interface SpeechRecognitionListener : NSObject <OEEventsObserverDelegate>
 
++ (SpeechRecognitionListener *)sharedEngine;
+
+- (BOOL)setLanguageData:(NSArray *)array;
+- (void)start;
+- (void)stop;
+
+- (BOOL)isListening;
+
 @end
