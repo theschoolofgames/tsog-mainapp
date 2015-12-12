@@ -11,26 +11,6 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._addSettingButton();
         this._addCountDownClock();
         this._addNextButton();
-
-        // cc.eventManager.addListener({
-        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
-        //     swallowTouches: true,
-        //     onTouchBegan: function(touch, event) {
-        //         var self = event.getCurrentTarget();
-
-        //         if (self._isListening) {
-        //             AudioListener.getInstance().onStoppedListening();
-        //             self._isListening = false;
-        //         }
-        //         else {
-        //             AudioListener.getInstance().onStartedListening();
-        //             self._isListening = true;
-        //         }
-
-        //         return true;
-        //     }
-        // }, this);
-
         NativeHelper.callNative("startBackgroundSoundDetecting");
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
@@ -42,7 +22,7 @@ var TalkingAdiLayer = cc.Layer.extend({
         this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
         this._adiDogSpine.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
-        // this._adiDogSpine.setMix('adidog-talking', 'adidog-idle', 0);
+        this._adiDogSpine.setMix('adidog-talking', 'adidog-idle', 0.2);
         this._adiDogSpine.addAnimation(0, 'adidog-idle', true);
 
         //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
