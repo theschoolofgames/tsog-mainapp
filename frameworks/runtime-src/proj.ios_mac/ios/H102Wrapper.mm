@@ -156,8 +156,17 @@ static NSTimer* timer = nil;
   [H102Wrapper stopRecord];
 }
 
-+ (void)startSpeechRecognition:(NSNumber*) timeout {
-  [[SpeechRecognitionListener sharedEngine] setLanguageData:@[@"BEE", @"BIRD", @"CAT", @"COW", @"EAGLE", @"LION", @"CHICKEN"]];
++ (void)startSpeechRecognition:(NSString*) serializedString timeout:(NSNumber*) timeout {
+  
+  NSData* data = [serializedString dataUsingEncoding:NSUTF8StringEncoding];
+  NSArray* array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+  
+  NSMutableArray* uppercaseArray = [[NSMutableArray alloc] init];
+  for (NSString* s in array) {
+    [uppercaseArray addObject:[s uppercaseString]];
+  }
+  
+  [[SpeechRecognitionListener sharedEngine] setLanguageData:uppercaseArray];
   [[SpeechRecognitionListener sharedEngine] start];
   
   if (timeout) {

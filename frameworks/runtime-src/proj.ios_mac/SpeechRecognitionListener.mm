@@ -53,7 +53,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
   self.startupFailedDueToLackOfPermissions = FALSE;
   
   [self.openEarsEventsObserver setDelegate:self];
-//  [OELogging startOpenEarsLogging];
+  [OELogging startOpenEarsLogging];
   
   return self;
 }

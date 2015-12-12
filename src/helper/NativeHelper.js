@@ -139,12 +139,12 @@ var NativeHelperConfig = {
     startSpeechRecognition: {
         iOS: [
             "H102Wrapper",
-            "startSpeechRecognition:"
+            "startSpeechRecognition:timeout:"
         ],
         Android: [
             "com/h102/Wrapper",
             "startSpeechRecognition",
-            "(I)V"   
+            "(Ljava/lang/String;I)V"   
         ]
     },
     stopSpeechRecognition: {

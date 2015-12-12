@@ -92,7 +92,7 @@ public class Wrapper
         Recorder.getInstance().startBackgroundSoundDetecting(activity);
     }
 
-    public static void startSpeechRecognition(final int timeout) {
+    public static void startSpeechRecognition(String serializeString, final int timeout) {
         SpeechRecognizer.getInstance().start();
 
         if (timeout > 0) {
