@@ -4,7 +4,7 @@ var TREE_DISTANCE = 125;
 
 var AccountSelectorLayer = cc.Layer.extend({
     _schoolId: null,
-    _accountData: null,
+    _accountData: [],
     _parallaxNode: null,
     _ground: null,
     _treesContainer: null,
@@ -40,6 +40,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             this._testingUserData = testingUserData;
             this._accountData.push(this._testingUserData);
         }
+
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -102,6 +103,13 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createBush();
         this.createTrees();
         this.createMaskLayer();
+
+        // if have new account
+        var scrollToX = 0;
+        if (this._lastTree)
+            scrollToX = -this._lastTree.x + cc.winSize.width/2;
+        // delay i * DELTA_DELAY_TIME
+        this._scrollView.setContentOffsetInDuration(cc.p(scrollToX, 0), 0.25);
     },
 
     addAccountLabelName: function(account, name) {
@@ -355,7 +363,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setBounceable(true);
 
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-
+        cc.log("this._accountData: " + this._accountData.length);
         var innerWidth = this._accountData.length / 6 * cc.winSize.width;
         var innerHeight = cc.winSize.height;
 
