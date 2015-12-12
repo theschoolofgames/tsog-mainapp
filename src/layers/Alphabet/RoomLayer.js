@@ -318,12 +318,28 @@ var RoomLayer = cc.Layer.extend({
 
         this.increaseAmountGamePlayed();
 
+        for (var i = 0; i < this._objectDisableds.length; i++) {
+            this._objectDisableds[i].removeFromParent();
+            this._shadeObjects[i].removeFromParent();
+        }
+
+        warningLabel.removeFromParent();
+        this._hudLayer.removeFromParent();
+        this._objectTouching = null;
         var self = this;
-        this.runObjectAction(this, CHANGE_SCENE_TIME, 
-            function() {
-                cc.audioEngine.stopEffect(self._effectAudioID);
-                cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
-            });
+        var speakingTestLayer = new SpeakingTestLayer(this._objectNames, function() {
+            cc.audioEngine.stopEffect(self._effectAudioID);
+            cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
+        });
+        speakingTestLayer.listener = this;
+        this.addChild(speakingTestLayer);
+
+        // var self = this;
+        // this.runObjectAction(this, CHANGE_SCENE_TIME, 
+        //     function() {
+        //         cc.audioEngine.stopEffect(self._effectAudioID);
+        //         cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
+        //     });
     },
 
     _findTouchedObject: function(touchedPos) {
@@ -751,7 +767,7 @@ var RoomLayer = cc.Layer.extend({
 var RoomScene = cc.Scene.extend({
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
-
+        this.name = "room";
         var roomLayer = new RoomLayer(numberItems, numberGamePlayed);
         this.addChild(roomLayer);
     }

@@ -794,7 +794,7 @@ var ForestLayer = cc.Layer.extend({
 var ForestScene = cc.Scene.extend({
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
-
+        this.name = "forest";
         var forestLayer = new ForestLayer(numberItems, numberGamePlayed);
         this.addChild(forestLayer);
     }

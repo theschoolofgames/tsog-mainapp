@@ -17,18 +17,9 @@ var TalkingAdiLayer = cc.Layer.extend({
     },
 
     _createTalkingAdi: function() {
-        cc.log("before creating adi");
-        this._adiDogSpine = new sp.SkeletonAnimation("adidog/adidog.json", "adidog/adidog.atlas", 0.3);
-        this._adiDogSpine.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
-
-        this._adiDogSpine.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
-        this._adiDogSpine.setMix('adidog-talking', 'adidog-idle', 0.2);
-        this._adiDogSpine.addAnimation(0, 'adidog-idle', true);
-
-        //this._adiDogSpine.setAnimationListener(this, this.animationStateEvent);
-        this.addChild(this._adiDogSpine, 4);
-
-        AudioListener.getInstance().setAdi(this._adiDogSpine);
+        var adidogNode = new AdiDogNode();
+        adidogNode.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
+        this.addChild(adidogNode);
     },
 
     _createBackground: function() {
