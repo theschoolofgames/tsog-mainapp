@@ -3,6 +3,8 @@ package com.h102;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -92,7 +94,12 @@ public class Wrapper
         Recorder.getInstance().startBackgroundSoundDetecting(activity);
     }
 
-    public static void startSpeechRecognition(String serializeString, final int timeout) {
+    public static void changeSpeechLanguageArray(String serializedString) throws IOException {
+        ArrayList<String> arrayList = new Gson().fromJson(serializedString, new TypeToken<ArrayList<String>>() {}.getType());
+        SpeechRecognizer.getInstance().updateNewLanguageArray(arrayList);
+    }
+
+    public static void startSpeechRecognition(final int timeout) {
         SpeechRecognizer.getInstance().start();
 
         if (timeout > 0) {

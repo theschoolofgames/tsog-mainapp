@@ -9,6 +9,7 @@ import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -28,8 +29,10 @@ public class SpeechRecognizer implements RecognitionListener {
     private static AppActivity app;
 
     private edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
+    private JSGFGrammarBuilder grammarBuilder;
+    private File externalDir;
 
-    private static final String ANIMAL_SEARCH = "animals";
+    private static final String TSOG_SEARCH = "tsog";
 
     public static SpeechRecognizer setupInstance(AppActivity app) {
         if (mSharedInstance == null) {
@@ -83,11 +86,15 @@ public class SpeechRecognizer implements RecognitionListener {
 
     public void start() {
         recognizer.stop();
-        recognizer.startListening(ANIMAL_SEARCH);
+        recognizer.startListening(TSOG_SEARCH);
     }
 
     public void stop() {
         recognizer.stop();
+    }
+
+    public void shutdown() {
+        recognizer.shutdown();
     }
 
     @Override
@@ -111,7 +118,7 @@ public class SpeechRecognizer implements RecognitionListener {
     @Override
     public void onResult(Hypothesis hypothesis) {
         final String commandForm = "SpeechRecognitionListener.getInstance().onResult('%s')";
-        final String text = hypothesis == null ? "" : hypothesis.getHypstr();
+        final String text = hypothesis == null ? "" : hypothesis.getHypstr().toUpperCase();
 
         if (hypothesis != null) {
             app.runOnUiThread(new Runnable() {
@@ -152,6 +159,8 @@ public class SpeechRecognizer implements RecognitionListener {
         // The recognizer can be configured to perform multiple searches
         // of different kind and switch between them
 
+        externalDir = assetsDir;
+
         recognizer = defaultSetup()
                 .setAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
@@ -176,8 +185,8 @@ public class SpeechRecognizer implements RecognitionListener {
 //        recognizer.addKeyphraseSearch(KWS_SEARCH, KEYPHRASE);
 //
 //        // Create grammar-based search for selection between demos
-        File animalGrammar = new File(assetsDir, "animals.gram");
-        recognizer.addGrammarSearch(ANIMAL_SEARCH, animalGrammar);
+        File tsogGrammar = new File(assetsDir, "tsog.gram");
+        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
 //
 //        // Create grammar-based search for digit recognition
 //        File digitsGrammar = new File(assetsDir, "digits.gram");
@@ -190,5 +199,18 @@ public class SpeechRecognizer implements RecognitionListener {
 //        // Phonetic search
 //        File phoneticModel = new File(assetsDir, "en-phone.dmp");
 //        recognizer.addAllphoneSearch(PHONE_SEARCH, phoneticModel);
+
+        grammarBuilder = new JSGFGrammarBuilder(assetsDir);
+    }
+
+    public void updateNewLanguageArray(ArrayList<String> arrayList) throws IOException {
+        grammarBuilder.reset();
+
+        for(String s : arrayList) {
+            grammarBuilder.add(s);
+        }
+        grammarBuilder.saveGrammar();
+        File tsogGrammar = new File(externalDir, "tsog.gram");
+        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
     }
 }
