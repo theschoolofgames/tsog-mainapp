@@ -11,9 +11,13 @@
 
 #import <Crashlytics/Crashlytics.h>
 #import "ScriptingCore.h"
+#import "cocos2d.h"
 
 #import "SimpleAudioRecordEngine_objc.h"
 #import "SpeechRecognitionListener.h"
+
+#define kAmplitudeThreshole   -22
+#define kMaxRecordingTime     15
 
 static UIViewController* viewController;
 static double startTime = -1;
@@ -123,18 +127,17 @@ static NSTimer* timer = nil;
   float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
   NSLog(@"Amplitude: %f", maxAmplitude);
   if (!isListening) {
-    if (maxAmplitude > -18) {
+    if (maxAmplitude > kAmplitudeThreshole) {
       NSLog(@"Start");
       isListening = YES;
       ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
     }
   } else {
-    if (maxAmplitude < -18) {
-      NSLog(@"Stop");
-      double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
-      [H102Wrapper stopBackgroundSoundDetecting];
-      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
-      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+    double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
+    if (maxAmplitude <= kAmplitudeThreshole || deltaTime >= kMaxRecordingTime) {
+      [H102Wrapper soundDetectingLoopEnded];
+
+//      [[H102Wrapper class] performSelectorInBackground:@selector(soundDetectingLoopEnded) withObject:nil];
       return;
     }
   }
@@ -145,6 +148,14 @@ static NSTimer* timer = nil;
     [H102Wrapper startRecord];
     startTime = [[NSDate date] timeIntervalSince1970];
   }
+}
+
++ (void)soundDetectingLoopEnded {
+  NSLog(@"Stop");
+  double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
+  [H102Wrapper stopBackgroundSoundDetecting];
+  NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
+  ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
 }
 
 + (void)stopBackgroundSoundDetecting {

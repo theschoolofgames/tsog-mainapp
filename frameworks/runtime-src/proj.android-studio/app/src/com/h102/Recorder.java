@@ -21,8 +21,9 @@ public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
     private static final String AUDIO_RECORDER_FILE = "record_sound.wav";
-    private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 1000; // ms
+    private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 400; // ms
     private static final int AUDIO_AMPLITUDE_THRESHOLD = 15000;
+    private static final int MAX_RECORDING_TIME = 15;
 
     private ExtAudioRecorder mRecorder = null;
 
@@ -111,10 +112,11 @@ public class Recorder {
                         });
                     }
                 } else {
-                    if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD) {
+                    float deltaTime = (float)(System.currentTimeMillis() - startTime)/1000;
+                    if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
                         Log.w(TAG, "Stop");
                         stopBackgroundSoundDetecting();
-                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), (System.currentTimeMillis()-startTime)/1000);
+                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), deltaTime);
                         app.runOnGLThread(new Runnable() {
                             @Override
                             public void run() {
@@ -131,7 +133,7 @@ public class Recorder {
                     startRecord();
                 }
             }
-        }, 0, 1000);
+        }, 0, BACKGROUND_SOUND_DETECTING_LOOP_DELAY);
     }
 
     public void stopBackgroundSoundDetecting() {
