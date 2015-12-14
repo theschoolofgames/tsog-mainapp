@@ -5,7 +5,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
-    _remainingTime: 2,
+    _remainingTime: 3,
 
     currentObjectShowUpId: 0,
     currentObjectName: null,
@@ -40,14 +40,14 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         cc.log("this.listener: " + this.listener);
         
         this._addAdiDog();
+        this._addLabel();
 
         var self = this;
         this.runAction(
             cc.sequence(
-                cc.delayTime(2),
+                cc.delayTime(1),
                 cc.callFunc(function() {
                     self.showNextObject();
-                    self.startSpeechRecognizing();
                 })
             )
         )
@@ -60,6 +60,65 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     showNextObject: function() {
+        if (!this.checkCompleted()) {
+            this._showObject();
+            this._remainingTime = 3;
+            this._label.setString(this._remainingTime);
+            this._label.visible = true;
+            this.schedule(this._setLabelString, 1, 2);
+            this.startSpeechRecognizing();
+        }
+    },
+
+    playObjectSound: function() {
+        cc.audioEngine.playEffect(this._soundName);
+        this._talkingAdi.adiTalk();
+    },
+
+    checkCompleted: function() {
+        if (this.currentObjectShowUpId >= this._objectsArray.length){
+            cc.log("on callback");
+            this._callback();
+            return true;
+        }
+    },
+
+    checkTimeUp: function() {
+        var startTime = KVDatabase.getInstance().getInt("timeUp", 0);
+        var now = Date.now()/1000;
+        return (now - startTime) >= 2;
+    },
+
+    timeUp: function() {
+        this._talkingAdi.onStoppedListening();
+        this.playObjectSound();
+    },
+
+    startSpeechRecognizing: function() {
+        var self = this;
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(3),
+                cc.callFunc(function() {
+                    NativeHelper.callNative("startSpeechRecognition", [5000]);
+                    KVDatabase.getInstance().set("timeUp", Date.now()/1000);
+                    self._talkingAdi.onStartedListening();
+                })
+            )
+        )
+    },
+
+    _addLabel: function() {
+        this._label = "";
+        font = "hud-font-export.fnt";
+        this._label = new cc.LabelTTF(this._remainingTime, "Arial", 32);
+    
+        this._label.x = cc.winSize.width / 2;
+        this._label.y = cc.winSize.height - 100;
+        this.addChild(this._label, 10000);    
+    },
+
+    _showObject: function() {
         if (this._currentObjectShowUp) {
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
@@ -89,61 +148,29 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.currentObjectShowUpId +=1;
     },
 
-    playObjectSound: function() {
-        cc.audioEngine.playEffect(this._soundName);
-        this._talkingAdi.onStoppedListening();
-    },
-
-    checkCompleted: function() {
-        if (this.currentObjectShowUpId >= this._objectsArray.length){
-            cc.log("on callback");
-            this._callback();
-            return true;
-        }
-    },
-
-    checkTimeUp: function() {
-        var startTime = KVDatabase.getInstance().getInt("timeUp", 0);
-        var now = Date.now()/1000;
-        return (now - startTime) >= 2;
-    },
-
-    startSpeechRecognizing: function() {
-        var self = this;
-        this._remainingTime = 3;
-        this._addLabel();
-        this.schedule(this._setLabelString, 1, 3);
-        this.runAction(
-            cc.sequence(
-                cc.delayTime(3),
-                cc.callFunc(function() {
-                    self._talkingAdi.onStartedListening();
-                    self._setLabelString("GO!");
-                    NativeHelper.callNative("startSpeechRecognition", [5000]);
-                    KVDatabase.getInstance().set("timeUp", Date.now()/1000);
-                })
-            )
-        )
-    },
-
-    _addLabel: function() {
-        this._label = "";
-        font = "hud-font-export.fnt";
-        this._label = new cc.LabelTTF(this._remainingTime, "Arial", 32);
-        // this._label.setScale(1.5);
-    
-        this._label.x = cc.winSize.width / 2;
-        this._label.y = cc.winSize.height - this._label.height;
-        this.addChild(this._label, 10000);    
-    },
-
     _setLabelString: function() {
-        if (this._remainingTime === 0)
-            this._label.setString("");
+        if (!this._label)
+            return;
+        this._remainingTime -= 1;
+        var self = this;    
+        if (this._remainingTime == 0) {
+            cc.log("set string to GO");
+            this._label.setString("GO!");
+            this._label.runAction(
+                cc.sequence(
+                    cc.delayTime(1),
+                    cc.callFunc(function() {
+                        self._label.visible = false;
+                        return;
+                    })
+                )
+            )
+        }
 
-        this._label.setString(this._remainingTime);
-        if (this._remainingTime > 0)
-            this._remainingTime -= 1;
+        if (this._remainingTime > 0) {
+            this._label.setString(this._remainingTime);
+        }
+
     }
 
 });

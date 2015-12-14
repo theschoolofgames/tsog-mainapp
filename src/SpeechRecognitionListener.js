@@ -15,22 +15,17 @@ var SpeechRecognitionListener = cc.Class.extend({
 
         if (this._speakingLayer.currentObjectName.toUpperCase() == text) {
             cc.log("success");
-            this._speakingLayer.checkCompleted();
             this._speakingLayer.showNextObject();
-            this._speakingLayer.startSpeechRecognizing();
         } else {
             var self = this;
-            if (this._speakingLayer.checkTimeUp()) {
-                this._speakingLayer.playObjectSound();
+            if (this._speakingLayer.checkTimeUp()) {    
+                this._speakingLayer.timeUp();
                 this._speakingLayer.runAction(
                     cc.sequence(
                         cc.delayTime(3),
                         cc.callFunc(function() {
                             cc.log("inside callFunc");
-                            if (!self._speakingLayer.checkCompleted()) {
-                                self._speakingLayer.showNextObject();
-                                self._speakingLayer.startSpeechRecognizing();
-                            }
+                            self._speakingLayer.showNextObject();
                         })        
                     )
                 );

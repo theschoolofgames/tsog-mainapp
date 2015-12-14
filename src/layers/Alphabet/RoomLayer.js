@@ -29,15 +29,15 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         cc.audioEngine.playMusic(res.background_mp3, true);
         
-        this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
+        this._numberItems = numberItems || 2;//GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
         this.setVolume();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runTutorial();
         this.runHintObjectUp();
@@ -291,7 +291,7 @@ var RoomLayer = cc.Layer.extend({
         // if (this._isLevelCompleted)
         //     return;
         // this._isLevelCompleted = true;
-
+        this._hudLayer._clock.stopClock();
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = "You Win";

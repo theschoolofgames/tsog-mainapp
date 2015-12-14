@@ -42,8 +42,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        this.addBackButton();
-        this.addRefreshButton();
+        // this.addBackButton();
+        // this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runTutorial();
@@ -423,7 +423,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-
+        this._hudLayer._clock.stopClock();
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
         if (elapseTime == 120) {

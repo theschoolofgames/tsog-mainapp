@@ -35,7 +35,7 @@ var Clock = cc.Node.extend({
         this._countDownClock.setString(currentTime);
 
         if (this.callback && this._totalSeconds == 0) {
-            this.unschedule(this.countDownClockAction);
+            this.stopClock();
         	this.callback();
         }
     },
@@ -59,5 +59,9 @@ var Clock = cc.Node.extend({
 
     getRemainingTime: function() {
         return this._totalSeconds;
+    },
+
+    stopClock: function() {
+        this.unschedule(this.countDownClockAction);
     }
 })

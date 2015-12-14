@@ -15,10 +15,10 @@ var AdiDogNode = cc.Node.extend({
         // this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
-        this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningloop', 0.2);
-        this._talkingAdi.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
-        this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
-        this._talkingAdi.setMix('adidog-talking', 'adidog-idle', 0.2);
+        // this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningloop', 0.2);
+        // this._talkingAdi.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
+        // this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
+        // this._talkingAdi.setMix('adidog-talking', 'adidog-idle', 0.2);
         // this._talkingAdi.setMix('adidog-talking', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
 
@@ -28,19 +28,18 @@ var AdiDogNode = cc.Node.extend({
     },
 
     onStartedListening: function() {
+        cc.log("onStartedListening");
         this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
-        this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 0.5);
+        this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 0.2);
     },
 
     onStoppedListening: function() {
-        this._talkingAdi.addAnimation(0, 'adidog-listeningfinish', false, 0.5);
-        this._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.2);
-        this._talkingAdi.addAnimation(0, 'adidog-idle', true, 2);
+        cc.log("onStoppedListening");
+        this._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
     },
 
     adiTalk: function() {
-        this._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
-        this._talkingAdi.addAnimation(0, 'adidog-idle', true, 1);
+        this._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.3);
     },
 
     adiIdling: function() {
