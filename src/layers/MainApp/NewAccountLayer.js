@@ -64,7 +64,10 @@ var NewAccountLayer = cc.Layer.extend({
 
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height*2/3;
+        
+        var self = this;
         bb.addClickEventListener(function() {
+            self._tf.didNotSelectSelf();
             cc.director.replaceScene(new AccountSelectorScene());
         });
         this.addChild(bb);
@@ -123,11 +126,13 @@ var NewAccountLayer = cc.Layer.extend({
         var btn = new ccui.Button("create-button.png","","");
         btn.x = holder.width/2;
         btn.y = holder.height/2 - btn.height*2;
+        btn.setSwallowTouches(false);
         holder.addChild(btn);
 
         var self = this;
 
         btn.addClickEventListener(function() {
+            self._tf.didNotSelectSelf();
             self._addNewAccount(self);
         });
     },
@@ -184,12 +189,18 @@ var NewAccountLayer = cc.Layer.extend({
         this._avatarScrollView.setClippingToBounds(false);
         this._avatarScrollView.setBounceable(true);
 
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: false,
+            onTouchBegan: function(touch, event) { return true; }
+        }, this._avatarScrollView);
+
         // var avatarData = DataManager.getInstance().getAccountData(this._schoolId);
         var avatarData = 6;
 
         var innerWidth = avatarData / 6 * cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
-        this._avatarScrollView.setContentSize(cc.size(innerWidth, innerHeight));
+        this._avatarScrollView.setContentSize(cc.size(cc.winSize.width, 120));
 
         // var layer = new cc.LayerColor(cc.color.RED);
         // layer.width = this._avatarScrollView.getViewSize().width;

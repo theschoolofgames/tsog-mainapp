@@ -118,9 +118,10 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         
-        // cc.director.runScene(new MaixnScene());
+        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());
-        cc.director.runScene(new RoomScene());
+        // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
         // cc.director.runScene(new SpeakingTestScene());
 

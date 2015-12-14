@@ -1,6 +1,6 @@
 // var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-// var BACKEND_ADDRESS = "http://130.211.178.51/";
-var BACKEND_ADDRESS = "http://localhost:3000/";
+var BACKEND_ADDRESS = "http://130.211.178.51/";
+// var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
 var MOVE_DELAY_TIME = 1.5;

@@ -34,7 +34,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         var self = this;
         var schoolData = DataManager.getInstance().getSchoolData();
-
+        cc.log("schoolData: " + JSON.stringify(schoolData));
         if (schoolData != null) {
             this.createSearchArea();
             this.createSchoolButton();
@@ -331,7 +331,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.y = 0;
         self.addChild(this._scrollView);
 
-        var innerWidth = Math.ceil(this.schoolBtn.length / 2) * cc.winSize.width/2;
+        var innerWidth = Math.ceil((this.schoolBtn.length+1) / 2) * cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
 
         this._scrollView.setBounceEnabled(true);

@@ -29,7 +29,7 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         cc.audioEngine.playMusic(res.background_mp3, true);
         
-        this._numberItems = numberItems || 2;//GAME_CONFIG.objectStartCount;
+        this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();

@@ -43,6 +43,7 @@ var NewSchoolLayer = cc.Layer.extend({
         tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
         tf.color = cc.color.RED;
         tf.setTouchAreaEnabled(true);
+        this._tf = tf;
         fieldHolder.addChild(tf);
         holder.addChild(fieldHolder);
 
@@ -55,6 +56,7 @@ var NewSchoolLayer = cc.Layer.extend({
         var schoolData = DataManager.getInstance().getSchoolData();
 
         btn.addClickEventListener(function() {
+            tf.didNotSelectSelf();
             var newSchoolName = tf.getString();
             if (newSchoolName == null || newSchoolName.trim() == ""){
                 NativeHelper.callNative("showMessage", ["Missing field", "Please enter school name"]);
@@ -78,6 +80,7 @@ var NewSchoolLayer = cc.Layer.extend({
                     
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, data.school_id);
                     KVDatabase.getInstance().set(STRING_SCHOOL_NAME, data.school_name);
+                    tf.didNotSelectSelf();
                     cc.director.replaceScene(new AccountSelectorScene());
 
                     NativeHelper.callNative("showMessage", ["Created school successfully!", "Now you can create students for your new school"]);
@@ -96,7 +99,10 @@ var NewSchoolLayer = cc.Layer.extend({
 
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height*2/3;
+
+        var self = this;
         bb.addClickEventListener(function() {
+            self._tf.didNotSelectSelf();
             cc.director.replaceScene(new SchoolSelectorScene());
         });
         this.addChild(bb);
