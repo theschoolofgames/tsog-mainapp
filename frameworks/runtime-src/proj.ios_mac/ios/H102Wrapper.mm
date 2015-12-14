@@ -156,8 +156,7 @@ static NSTimer* timer = nil;
   [H102Wrapper stopRecord];
 }
 
-+ (void)startSpeechRecognition:(NSString*) serializedString timeout:(NSNumber*) timeout {
-  
++ (void)changeSpeechLanguageArray:(NSString *)serializedString {
   NSData* data = [serializedString dataUsingEncoding:NSUTF8StringEncoding];
   NSArray* array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
   
@@ -167,6 +166,9 @@ static NSTimer* timer = nil;
   }
   
   [[SpeechRecognitionListener sharedEngine] setLanguageData:uppercaseArray];
+}
+
++ (void)startSpeechRecognition:(NSNumber*) timeout {
   [[SpeechRecognitionListener sharedEngine] start];
   
   if (timeout) {

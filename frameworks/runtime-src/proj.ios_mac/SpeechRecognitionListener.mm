@@ -15,6 +15,7 @@
 #import <OpenEars/OELogging.h>
 
 #import "ScriptingCore.h"
+#import "H102Wrapper.h"
 
 //#define kGetNbest // Uncomment this if you want to try out nbest
 
@@ -71,6 +72,8 @@ static SpeechRecognitionListener *sharedEngine = nil;
     self.pathToDynamicallyGeneratedDictionary = [languageModelGenerator pathToSuccessfullyGeneratedDictionaryWithRequestedName:@"DynamicLanguageModel"];
   }
   
+  [[OEPocketsphinxController sharedInstance] changeLanguageModelToFile:self.pathToDynamicallyGeneratedLanguageModel withDictionary:self.pathToDynamicallyGeneratedDictionary];
+  
   return YES;
 }
 
@@ -80,12 +83,14 @@ static SpeechRecognitionListener *sharedEngine = nil;
 //  [OEPocketsphinxController sharedInstance].returnNbest = TRUE;
   if(![OEPocketsphinxController sharedInstance].isListening) {
     [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't already listening.
-  }
+  } else
+    [[OEPocketsphinxController sharedInstance] resumeRecognition];
 }
 
 - (void)stop {
   [[OEPocketsphinxController sharedInstance] setActive:FALSE error:nil];
-  [[OEPocketsphinxController sharedInstance] stopListening];
+  [[OEPocketsphinxController sharedInstance] suspendRecognition];
+  [NSObject cancelPreviousPerformRequestsWithTarget:[H102Wrapper class]];
 }
 
 - (BOOL)isListening {

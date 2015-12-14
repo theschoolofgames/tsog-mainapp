@@ -232,9 +232,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
         // NativeHelper.callNative("initRecord");
 
         searchButton.addClickEventListener(function(){
-            var itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"];
+            // var itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"];
 
-            NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(itemArray), 5000]);
+            // NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(itemArray), 5000]);
             // NativeHelper.callNative("startBackgroundSoundDetecting");
             // self._searchField.onTouchBegan();
             // if (NativeHelper.callNative("isRecording")) {

@@ -14,18 +14,24 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     ctor: function(objectsArray, callback) {
         this._super(cc.color(0, 0, 0, 220));
 
-        this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
-        "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
-        "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", 
-        "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"]
-            .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat",
-                "insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato",
-                "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
+        // this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
+        // "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
+        // "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", 
+        // "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebra"]
+        //     .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat",
+        //         "insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato",
+        //         "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
+
+        this._itemArray = objectsArray.map(function(obj) {
+            return obj.name;
+        });
 
         this._callback = callback;
         this._objectsArray = objectsArray || [];
         cc.log("this._objectsArray" + JSON.stringify(this._objectsArray));
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
+
+        NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
 
     onEnter: function() {
@@ -113,7 +119,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
                 cc.callFunc(function() {
                     self._talkingAdi.onStartedListening();
                     self._setLabelString("GO!");
-                    NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(self._itemArray), 5000]);
+                    NativeHelper.callNative("startSpeechRecognition", [5000]);
                     KVDatabase.getInstance().set("timeUp", Date.now()/1000);
                 })
             )

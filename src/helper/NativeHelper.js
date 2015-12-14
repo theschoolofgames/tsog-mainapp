@@ -136,10 +136,16 @@ var NativeHelperConfig = {
         ]
     },
     // Speech Recognition
+    changeSpeechLanguageArray: {
+        iOS: [
+            "H102Wrapper",
+            "changeSpeechLanguageArray:"
+        ]
+    },
     startSpeechRecognition: {
         iOS: [
             "H102Wrapper",
-            "startSpeechRecognition:timeout:"
+            "startSpeechRecognition:"
         ],
         Android: [
             "com/h102/Wrapper",
