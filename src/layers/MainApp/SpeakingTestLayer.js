@@ -14,8 +14,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     ctor: function(objectsArray, callback) {
         this._super(cc.color(0, 0, 0, 220));
 
-        this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"]
-            .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat","insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato","queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
+        this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
+        "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
+        "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", 
+        "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"]
+            .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat",
+                "insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato",
+                "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
 
         this._callback = callback;
         this._objectsArray = objectsArray || [];
@@ -30,8 +35,16 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         
         this._addAdiDog();
 
-        this.showNextObject();
-        this.startSpeechRecognizing();
+        var self = this;
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(2),
+                cc.callFunc(function() {
+                    self.showNextObject();
+                    self.startSpeechRecognizing();
+                })
+            )
+        )
     },
 
     _addAdiDog: function() {
@@ -91,13 +104,15 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     startSpeechRecognizing: function() {
         var self = this;
+        this._remainingTime = 3;
         this._addLabel();
-        this.schedule(this._setLabelString, 1, 2);
+        this.schedule(this._setLabelString, 1, 3);
         this.runAction(
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
                     self._talkingAdi.onStartedListening();
+                    self._setLabelString("GO!");
                     NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(self._itemArray), 5000]);
                     KVDatabase.getInstance().set("timeUp", Date.now()/1000);
                 })
@@ -108,8 +123,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _addLabel: function() {
         this._label = "";
         font = "hud-font-export.fnt";
-        this._label = new cc.LabelBMFont(this._remainingTime, font);
-        this._label.setScale(1.5);
+        this._label = new cc.LabelTTF(this._remainingTime, "Arial", 32);
+        // this._label.setScale(1.5);
     
         this._label.x = cc.winSize.width / 2;
         this._label.y = cc.winSize.height - this._label.height;
@@ -118,7 +133,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _setLabelString: function() {
         if (this._remainingTime === 0)
-            this._label.removeFromParent();
+            this._label.setString("");
 
         this._label.setString(this._remainingTime);
         if (this._remainingTime > 0)

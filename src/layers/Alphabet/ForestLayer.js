@@ -423,8 +423,6 @@ var ForestLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        if (this._warningLabel)
-            this._warningLabel.removeFromParent();
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
