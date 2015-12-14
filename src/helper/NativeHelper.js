@@ -140,6 +140,11 @@ var NativeHelperConfig = {
         iOS: [
             "H102Wrapper",
             "changeSpeechLanguageArray:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "changeSpeechLanguageArray",
+            "(Ljava/lang/String;)V" 
         ]
     },
     startSpeechRecognition: {
@@ -150,7 +155,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/Wrapper",
             "startSpeechRecognition",
-            "(Ljava/lang/String;I)V"   
+            "(I)V"   
         ]
     },
     stopSpeechRecognition: {

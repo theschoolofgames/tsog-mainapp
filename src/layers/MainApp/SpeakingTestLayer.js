@@ -23,6 +23,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         //         "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
 
         this._itemArray = objectsArray.map(function(obj) {
+            if (obj.name == "toytrain")
+                return "toy train";
             return obj.name;
         });
 

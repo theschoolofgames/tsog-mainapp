@@ -10,6 +10,7 @@ var SpeechRecognitionListener = cc.Class.extend({
     },
 
     onResult: function(text) {
+        text = text.replace(/ /g,'')
         cc.log("onResult: " + text);
         cc.log("currentObjectName." + this._speakingLayer.currentObjectName.toUpperCase());
 

@@ -57,6 +57,12 @@ public class AppActivity extends Cocos2dxActivity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        SpeechRecognizer.getInstance().shutdown();
+        super.onDestroy();
+    }
+
 //    public static boolean openScheme(String bundleId, String data) {
 //        PackageManager manager = app.getPackageManager();
 //
