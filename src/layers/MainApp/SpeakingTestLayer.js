@@ -49,10 +49,55 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             cc.sequence(
                 cc.delayTime(1),
                 cc.callFunc(function() {
-                    self.showNextObject();
+                    self._showNextObject();
                 })
             )
         )
+    },
+
+    incorrectAction: function() {
+        var self = this;
+
+        if (this._checkTimeUp()) {    
+            this._timeUp();
+            this.runAction(
+                cc.sequence(
+                    cc.delayTime(4),
+                    cc.callFunc(function() {
+                        self._showNextObject();
+                    })        
+                )
+            );   
+        }
+    },
+
+    correctAction: function() {
+        var self = this;
+
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                self._talkingAdi.adiJump();
+            }),
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                self._talkingAdi.adiHifi();
+            }),
+            cc.delayTime(2),
+            cc.callFunc(function() {
+                self._showNextObject();
+            })
+        ))
+    },
+
+    _showNextObject: function() {
+        if (!this._checkCompleted()) {
+            this._showObject();
+            this._remainingTime = 3;
+            this._label.setString(this._remainingTime);
+            this._label.visible = true;
+            this.schedule(this._setLabelString, 1, 2);
+            this._startSpeechRecognizing();
+        }
     },
 
     _addAdiDog: function() {
@@ -61,23 +106,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.addChild(this._talkingAdi);
     },
 
-    showNextObject: function() {
-        if (!this.checkCompleted()) {
-            this._showObject();
-            this._remainingTime = 3;
-            this._label.setString(this._remainingTime);
-            this._label.visible = true;
-            this.schedule(this._setLabelString, 1, 2);
-            this.startSpeechRecognizing();
-        }
-    },
-
-    playObjectSound: function() {
+    _playObjectSound: function() {
         cc.audioEngine.playEffect(this._soundName);
         this._talkingAdi.adiTalk();
     },
 
-    checkCompleted: function() {
+    _checkCompleted: function() {
         if (this.currentObjectShowUpId >= this._objectsArray.length){
             cc.log("on callback");
             this._callback();
@@ -85,18 +119,25 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }
     },
 
-    checkTimeUp: function() {
+    _checkTimeUp: function() {
         var startTime = KVDatabase.getInstance().getInt("timeUp", 0);
         var now = Date.now()/1000;
         return (now - startTime) >= 2;
     },
 
-    timeUp: function() {
+    _timeUp: function() {
+        var self = this;
         this._talkingAdi.onStoppedListening();
-        this.playObjectSound();
+        this._talkingAdi.adiShakeHead();
+        this.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function() {    
+                self._playObjectSound();
+            })
+        )) 
     },
 
-    startSpeechRecognizing: function() {
+    _startSpeechRecognizing: function() {
         var self = this;
         this.runAction(
             cc.sequence(
@@ -138,7 +179,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
        
-        this.playObjectSound();
+        this._playObjectSound();
 
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2;
@@ -156,7 +197,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._remainingTime -= 1;
         var self = this;    
         if (this._remainingTime == 0) {
-            cc.log("set string to GO");
             this._label.setString("GO!");
             this._label.runAction(
                 cc.sequence(
@@ -174,5 +214,4 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }
 
     }
-
 });
