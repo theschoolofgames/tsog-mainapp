@@ -14,7 +14,7 @@ var MainScreenLayer = cc.Layer.extend({
         Utils.delayOneFrame(this, function() {
             if (self._isLoggedIn == 0) {
                 cc.director.replaceScene(new SchoolSelectorScene());
-                // self.playBackgroundMusic();
+                self.playBackgroundMusic();
             }
             else
                 cc.director.replaceScene(new WelcomeScene());
