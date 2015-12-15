@@ -323,7 +323,8 @@ var RoomLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
-                    warningLabel.removeFromParent();
+                    if (warningLabel)
+                        warningLabel.removeFromParent();
                     self._addSpeakingTest();
                 })
             )
@@ -547,9 +548,8 @@ var RoomLayer = cc.Layer.extend({
 
     playObjectSound: function(isDragging){
         var self = this;
-        if (!this._objectTouching || this._objectTouching==null)
+        if (!this._objectTouching)
             return;
-        cc.log("in playObjectSound");
 
         var objectName = this.getObjectName(this._objectTouching);
         var object = this._objectTouching;
@@ -583,7 +583,8 @@ var RoomLayer = cc.Layer.extend({
                         mask.removeFromParent();
                         self._mask = null;
 
-                        object.setLocalZOrder(oldZOrder);
+                        if (object)
+                            object.setLocalZOrder(oldZOrder);
                     }
                 }
             }, mask);
@@ -610,7 +611,8 @@ var RoomLayer = cc.Layer.extend({
                             self._maskLayer.removeFromParent();
                             self._maskLayer = null;
                         }
-                        object.setLocalZOrder(oldZOrder);
+                        if (object)
+                            object.setLocalZOrder(oldZOrder);
 
                         self.checkWonGame();
                     }

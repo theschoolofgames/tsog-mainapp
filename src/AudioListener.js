@@ -10,13 +10,23 @@ var AudioListener = cc.Class.extend({
         cc.log("adi: " + this._talkingAdi);
     },
 
+    removeListener: function() {
+        this._talkingAdi = null;
+    },
+
     onStartedListening: function() {
+        if (!this._talkingAdi)
+            return;
+
         this._talkingAdi.onStartedListening();
     },
 
     // fileName: str
     // playbackLength: long (second)
     onStoppedListening: function(fileName, playbackLength) {
+        if (!this._talkingAdi)
+            return;
+
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
         this._playbackLength = playbackLength;
 
@@ -24,6 +34,9 @@ var AudioListener = cc.Class.extend({
     },
 
     onAudioChipmunkified: function(fileName) {
+        if (!this._talkingAdi)
+            return;
+
         var self = this;
         cc.log("onAudioChipmunkified: " + fileName);
 

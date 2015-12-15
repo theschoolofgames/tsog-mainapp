@@ -36,6 +36,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         this._accountData = DataManager.getInstance().getAccountData(this._schoolId);
         this._accountData = this._accountData || [];
+        cc.log("school_id: " + JSON.stringify(this._schoolId));
+        cc.log("ctor _accountData: " + this._accountData.length);
        
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -52,6 +54,7 @@ var AccountSelectorLayer = cc.Layer.extend({
 
         // If school has been choosen before and has account data in localstorage
         if (this._accountData != null && this._accountData.length > 0) {
+            cc.log("onEnterTransitionDidFinish accountData : " + this._accountData.length);
             self.initObjects();  
 
             // Check if this School data has been loaded
@@ -79,8 +82,11 @@ var AccountSelectorLayer = cc.Layer.extend({
         else {
             Utils.addLoadingIndicatorLayer(true);
             RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
+                cc.log("succeed? : " + succeed);
+                cc.log("data: " + JSON.stringify(data));
                 Utils.removeLoadingIndicatorLayer();
                 if (succeed) {
+                    self._accountData = data.accounts;
                     DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
                     self.initObjects();
                 } else {
@@ -92,6 +98,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     },
 
     initObjects: function() {
+        cc.log("initObjects");
         this.createScrollView();
         this.createParallaxNode();
         this.createForeGround();

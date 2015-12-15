@@ -16,6 +16,7 @@ var DataManager = cc.Class.extend({
         }
 
         var accountDataString = KVDatabase.getInstance().getString(STRING_ACCOUNT_DATA);
+        cc.log("DataManager accountDataString: " + JSON.stringify(accountDataString));
         if (accountDataString != "")
             this._accountData = JSON.parse(accountDataString);
 

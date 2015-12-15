@@ -101,7 +101,9 @@ var TalkingAdiLayer = cc.Layer.extend({
 
     onExit: function() {
         this._super();
+        AudioListener.getInstance().removeListener();
         NativeHelper.callNative("stopBackgroundSoundDetecting");
+        cc.log("onExit");
     }
 });
 
