@@ -155,6 +155,11 @@ public class SpeechRecognizer implements RecognitionListener {
         recognizer.stop();
     }
 
+    @Override
+    public void onReceivedMaxAmplitude(int amplitude) {
+
+    }
+
     private void setupRecognizer(File assetsDir) throws IOException {
         // The recognizer can be configured to perform multiple searches
         // of different kind and switch between them

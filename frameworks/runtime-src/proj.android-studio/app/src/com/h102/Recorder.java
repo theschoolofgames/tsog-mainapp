@@ -116,7 +116,7 @@ public class Recorder {
                     if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
                         Log.w(TAG, "Stop");
                         stopBackgroundSoundDetecting();
-                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), deltaTime);
+                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
                         app.runOnGLThread(new Runnable() {
                             @Override
                             public void run() {

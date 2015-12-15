@@ -64,4 +64,6 @@ public interface RecognitionListener {
      * Called after timeout expired
      */
     public void onTimeout();
+
+    public void onReceivedMaxAmplitude(int amplitude);
 }
