@@ -57,6 +57,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     incorrectAction: function() {
         var self = this;
+        cc.audioEngine.playEffect(res.Failed_sfx);
 
         if (this._checkTimeUp()) {    
             this._timeUp();
@@ -73,7 +74,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     correctAction: function() {
         var self = this;
-
+        cc.audioEngine.playEffect(res.Succeed_sfx);
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._talkingAdi.adiJump();

@@ -349,6 +349,10 @@ var res = {
     JUICE_2_mp3: "res/sounds/things/juice-2.mp3",
     TOYTRAIN_1_mp3: "res/sounds/things/toytrain-1.mp3",
     TOYTRAIN_2_mp3: "res/sounds/things/toytrain-2.mp3",
+
+    // speaking effect
+    Succeed_sfx: "res/sounds/speaking-success.mp3",
+    Failed_sfx: "res/sounds/speaking-failure.mp3",
  
     //countdown
     COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",

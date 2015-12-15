@@ -18,8 +18,8 @@ var SpeechRecognitionListener = cc.Class.extend({
             cc.log("success");
             this._speakingLayer.correctAction();
         } else {
-            this._speakingLayer.correctAction();
-            // this._speakingLayer.incorrectAction();
+            // this._speakingLayer.correctAction();
+            this._speakingLayer.incorrectAction();
         }
     },
 
