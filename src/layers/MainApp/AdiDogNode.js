@@ -17,12 +17,12 @@ var AdiDogNode = cc.Node.extend({
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningloop', 0.2);
         this._talkingAdi.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
-        this._talkingAdi.setMix('adidog-listeningloop', 'adidog-lacdau', 0.3);
+        this._talkingAdi.setMix('adidog-listeningloop', 'adidog-shake', 0.3);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-jump', 0.3);
         this._talkingAdi.setMix('adidog-jump', 'adidog-hifi', 0.2);
         this._talkingAdi.setMix('adidog-hifi', 'adidog-jump', 0.2);
-        this._talkingAdi.setMix('adidog-lacdau', 'adidog-talking', 0.5);
+        this._talkingAdi.setMix('adidog-shake', 'adidog-talking', 0.5);
         this._talkingAdi.setMix('adidog-talking', 'adidog-idle', 0.2);
         this._talkingAdi.setMix('adidog-talking', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
@@ -48,7 +48,7 @@ var AdiDogNode = cc.Node.extend({
     },
 
     adiShakeHead: function() {
-        this._talkingAdi.setAnimation(0, 'adidog-lacdau', false);  
+        this._talkingAdi.setAnimation(0, 'adidog-shake', false);  
     },
 
     adiSneeze: function() {
