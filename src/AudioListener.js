@@ -15,7 +15,7 @@ var AudioListener = cc.Class.extend({
     },
 
     // fileName: str
-    // playbackLength: long (milisecond)
+    // playbackLength: long (second)
     onStoppedListening: function(fileName, playbackLength) {
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);
         this._playbackLength = playbackLength;

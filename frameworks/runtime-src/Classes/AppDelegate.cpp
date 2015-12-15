@@ -183,9 +183,9 @@ bool AppDelegate::applicationDidFinishLaunching()
       std::stringstream msg;
       bool isWarning = JSREPORT_IS_WARNING(report->flags);
       msg << (isWarning ? "JavaScript warning: " : "JavaScript error: ");
+      msg << message << " ";
       if (report->filename)
       {
-          msg << message << " ";
           msg << report->filename;
           msg << " line " << report->lineno << ":" << report->column << "\n";
       }
@@ -246,6 +246,9 @@ bool AppDelegate::applicationDidFinishLaunching()
   director->getEventDispatcher()->addCustomEventListener("chipmunkify", [=](EventCustom* event) {
     std::thread t(&AppDelegate::chipmunkifySound, this);
     t.join();
+//    this->chipmunkifySound();
+//    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
+//    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
   });
   
     return true;
