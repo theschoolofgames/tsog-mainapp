@@ -35,8 +35,8 @@ var Clock = cc.Node.extend({
         this._countDownClock.setString(currentTime);
 
         if (this.callback && this._totalSeconds == 0) {
-            this.stopClock();
         	this.callback();
+            this.stopClock();
         }
     },
 

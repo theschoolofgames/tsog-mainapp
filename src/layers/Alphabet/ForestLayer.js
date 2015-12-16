@@ -376,7 +376,7 @@ var ForestLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width /2;
             warnLabel.y = cc.winSize.height/2;
         }
-        this.addChild(warnLabel, 10000);
+        this.addChild(warnLabel, 1000);
 
         this._warningLabel = warnLabel;
     },

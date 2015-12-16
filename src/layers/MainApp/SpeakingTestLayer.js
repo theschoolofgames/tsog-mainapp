@@ -12,7 +12,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     listener: null,
 
     ctor: function(objectsArray, callback) {
-        this._super(cc.color(0, 0, 0, 220));
+        this._super(cc.color(255, 255, 255, 255));
 
         // this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
         // "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
@@ -27,6 +27,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         //         return "toy train";
         //     return obj.name;
         // });
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: function(touch, event) {return true;}
+        }, this);
+
 
         this._callback = callback;
         this._objectsArray = objectsArray || [];

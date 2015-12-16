@@ -84,7 +84,7 @@ var RoomLayer = cc.Layer.extend({
     runTutorial: function() {
         this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
         if(this._numberGamePlayed < 2)
-            this.addChild(this._tutorial, 10000)
+            this.addChild(this._tutorial, 1000)
     },
 
     addRefreshButton: function() {
