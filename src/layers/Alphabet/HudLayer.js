@@ -105,14 +105,14 @@ var HudLayer = cc.Layer.extend({
 
     addProgressLabel: function(object, text) {
         // cc.log("text: " + text);
-        font =  "hud-font-export.fnt";
+        font =  "hud-font.fnt";
 
         var label = new cc.LabelBMFont(text, font);
         // label.scale = 0.5;
         // var label = new cc.LabelTTF(text, "Arial", 32);
         label.color = cc.color("#ffd902");
         label.x = object.width/2 + 10;
-        label.y = object.height + 12;
+        label.y = object.height - 12;
         object.addChild(label);
 
         this._progressLabel = label;

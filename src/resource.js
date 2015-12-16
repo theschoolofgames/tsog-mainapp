@@ -52,6 +52,8 @@ var res = {
     // plist file
     Forest_plist: "forest.plist",
     Forest_png: "forest.png",
+    NewAccount_Plist: "newaccount.plist",
+    NewAccount_Png: "newaccount.png",
  
     // Animals
  
@@ -161,7 +163,7 @@ var res = {
     Hud_png: "hud/hud.png",
     Hud_progress_bar_png: "hud/progress-bar.jpg",
     Hud_progress_bar_alpha_png: "hud/progress-bar-alpha.jpg",
-    HudFont_fnt: "hud-font-export.fnt",
+    HudFont_fnt: "hud-font.fnt",
     HudFont_png: "hud-font.png",
  
     // Shader
@@ -243,9 +245,6 @@ var res = {
     WOLF_mp3: "sounds/animals/wolf.mp3",
     LOBSTER_mp3: "sounds/animals/lobster.mp3",
     SNAKE_mp3: "sounds/animals/snake.mp3",
- 
- 
- 
  
     // Things sound
     APPLE_1_mp3: "res/sounds/things/apple-1.mp3",

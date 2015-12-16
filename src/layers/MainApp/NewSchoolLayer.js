@@ -17,14 +17,15 @@ var NewSchoolLayer = cc.Layer.extend({
     },
 
     _addNewSchool: function() {
-        var holder = new cc.Layer();
-        holder.x = -100;
-        holder.y = 120;
+        var holder = new cc.Sprite("#cloud-holder.png");
+        holder.x = cc.winSize.width/2;
+        holder.y = cc.winSize.height/2 + 100;
 
         this.addChild(holder);
 
-        var lb = new cc.LabelTTF("School Name", "Arial", 32);
-        lb.color = cc.color.ORANGE;
+        font =  "hud-font.fnt";
+
+        var label = new cc.LabelBMFont("School Name", font);
         lb.x = holder.width/2 - lb.width;
         lb.y = holder.height/2 + lb.height;
         holder.addChild(lb);

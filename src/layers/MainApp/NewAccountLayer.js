@@ -78,29 +78,30 @@ var NewAccountLayer = cc.Layer.extend({
         holder.x = -100;
         this.addChild(holder);
 
-        var lbName = new cc.LabelTTF("Student Name", "Arial", 32);
-        lbName.color = cc.color.ORANGE;
-        lbName.x = holder.width/2 - 200;
+        font =  "hud-font.fnt";
+
+        var lbName = new cc.LabelBMFont("Student Name", font);
+        lbName.setAnchorPoint(1, 0.5);
+        lbName.x = holder.width/2;
         lbName.y = holder.height/2 + 150;
         holder.addChild(lbName);
 
-        var lbAvatar = new cc.LabelTTF("Avatar", "Arial", 32);
-        lbAvatar.setAnchorPoint(0, 0.5);
-        lbAvatar.color = cc.color.ORANGE;
-        lbAvatar.x = lbName.x - lbName.width/2;
-        lbAvatar.y = holder.height/2 + 100;
+        var lbAvatar = new cc.LabelBMFont("Avatar", font);
+        lbAvatar.setAnchorPoint(1, 0.5);
+        lbAvatar.x = lbName.x;
+        lbAvatar.y = holder.height/2 + 70;
         holder.addChild(lbAvatar);
 
-        var lbPassword = new cc.LabelTTF("Password", "Arial", 32);
-        lbPassword.setAnchorPoint(0, 0.5);
-        lbPassword.color = cc.color.ORANGE;
-        lbPassword.x = lbName.x - lbName.width/2;
-        lbPassword.y = holder.height/2;
+        var lbPassword = new cc.LabelBMFont("Password", font);
+        lbPassword.setAnchorPoint(1, 0.5);
+        lbPassword.x = lbName.x;
+        lbPassword.y = holder.height/2 - 30;
         holder.addChild(lbPassword);
 
         var fieldHolder = new cc.Sprite("#search_field.png");
-        fieldHolder.x = holder.width/2 + fieldHolder.width/2;
-        fieldHolder.y = lbName.y;
+        fieldHolder.setAnchorPoint(0, 0.5);
+        fieldHolder.x = holder.width/2 + 50;
+        fieldHolder.y = lbName.y - 5;
 
         this._tf = new ccui.TextField("Your Name Here", "Arial", 26);
 
@@ -123,9 +124,9 @@ var NewAccountLayer = cc.Layer.extend({
         this._createAvatarNode();
         this._createPassWordNode();
 
-        var btn = new ccui.Button("create-button.png","","");
-        btn.x = holder.width/2;
-        btn.y = holder.height/2 - btn.height*2;
+        var btn = new ccui.Button("create-btn.png","create-btn-pressed.png","",ccui.Widget.PLIST_TEXTURE);
+        btn.x = fieldHolder.x;
+        btn.y = lbPassword.y - btn.height*2;
         btn.setSwallowTouches(false);
         holder.addChild(btn);
 
@@ -182,10 +183,10 @@ var NewAccountLayer = cc.Layer.extend({
         this._avatarScrollView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         this._avatarScrollView.setTouchEnabled(true);
 
-        this._avatarScrollView.x = fieldHolder.x - fieldHolder.width/2;
+        this._avatarScrollView.x = fieldHolder.x - 50;
         this._avatarScrollView.y = fieldHolder.y - 140;
 
-        this._avatarScrollView.setViewSize(cc.size(cc.winSize.width/2+10, 120));
+        this._avatarScrollView.setViewSize(cc.size(cc.winSize.width/2-10, 120));
         this._avatarScrollView.setClippingToBounds(true);
         this._avatarScrollView.setBounceable(true);
 
@@ -194,19 +195,6 @@ var NewAccountLayer = cc.Layer.extend({
             swallowTouches: false,
             onTouchBegan: function(touch, event) { return true; }
         }, this._avatarScrollView);
-
-        // var avatarData = DataManager.getInstance().getAccountData(this._schoolId);
-        var avatarData = 6;
-
-        var innerWidth = avatarData / 6 * cc.winSize.width/2;
-        var innerHeight = cc.winSize.height;
-        
-
-        // var layer = new cc.LayerColor(cc.color.RED);
-        // layer.width = this._avatarScrollView.getViewSize().width;
-        // layer.height = this._avatarScrollView.getViewSize().height;
-        // this._avatarScrollView.addChild(layer);
-
     },
 
     _createPasswordScrollView: function(fieldHolder){
@@ -216,23 +204,12 @@ var NewAccountLayer = cc.Layer.extend({
 
         this._passwordScrollView.setTouchEnabled(true);
 
-        this.v.x = fieldHolder.x - fieldHolder.width/2;
+        this._passwordScrollView.x = fieldHolder.x - 50;
         this._passwordScrollView.y = fieldHolder.y - 250;
 
         this._passwordScrollView.setViewSize(cc.size(cc.winSize.width/2-10, 120));
         this._passwordScrollView.setClippingToBounds(true);
         this._passwordScrollView.setBounceable(true);
-
-        var passwordData = 6;
-
-        var innerWidth = passwordData / 6 * cc.winSize.width/2;
-        var innerHeight = cc.winSize.height;
-        // this._passwordScrollView.setContentSize(cc.size(innerWidth, innerHeight));
-
-        // var layer = new cc.LayerColor(cc.color.RED);
-        // layer.width = this._passwordScrollView.getViewSize().width;
-        // layer.height = this._passwordScrollView.getViewSize().height;
-        // this._passwordScrollView.addChild(layer,9);
     },
 
     _createAvatarNode: function() {
@@ -245,7 +222,7 @@ var NewAccountLayer = cc.Layer.extend({
         var self = this;
         for ( var i = 0; i < 10; i++){
             var avatarBtn = new ccui.Button("avatar-"+ (i+1) + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
-            avatarBtn.x = avatarBtn.width*i*1.2 + avatarBtn.width;
+            avatarBtn.x = avatarBtn.width + 110*i;
             avatarBtn.tag = (i+1);
             avatarBtn.setSwallowTouches(false);
             avatarBtn.addClickEventListener(function(sender) {

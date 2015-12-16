@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>3.9.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog/_sourceart/account-screen/account.tps</string>
+        <string>/Users/Tony/dev/project/tsog/_sourceart/new-account/newAccount.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -55,7 +55,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../res/{v}/account.png</filename>
+        <filename>../../res/{v}/newaccount.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -164,7 +164,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/account.plist</filename>
+                <filename>../../res/{v}/newaccount.plist</filename>
             </struct>
             <key>java</key>
             <struct type="DataFile">

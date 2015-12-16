@@ -154,7 +154,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _addLabel: function() {
         this._label = "";
-        font = "hud-font-export.fnt";
+        font = "hud-font.fnt";
         this._label = new cc.LabelTTF(this._remainingTime, "Arial", 32);
     
         this._label.x = cc.winSize.width / 2;
