@@ -185,8 +185,8 @@ var NewAccountLayer = cc.Layer.extend({
         this._avatarScrollView.x = fieldHolder.x - fieldHolder.width/2;
         this._avatarScrollView.y = fieldHolder.y - 140;
 
-        this._avatarScrollView.setViewSize(cc.size(cc.winSize.width, 120));
-        this._avatarScrollView.setClippingToBounds(false);
+        this._avatarScrollView.setViewSize(cc.size(cc.winSize.width/2+10, 120));
+        this._avatarScrollView.setClippingToBounds(true);
         this._avatarScrollView.setBounceable(true);
 
         cc.eventManager.addListener({
@@ -200,7 +200,7 @@ var NewAccountLayer = cc.Layer.extend({
 
         var innerWidth = avatarData / 6 * cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
-        this._avatarScrollView.setContentSize(cc.size(cc.winSize.width, 120));
+        
 
         // var layer = new cc.LayerColor(cc.color.RED);
         // layer.width = this._avatarScrollView.getViewSize().width;
@@ -216,34 +216,38 @@ var NewAccountLayer = cc.Layer.extend({
 
         this._passwordScrollView.setTouchEnabled(true);
 
-        this._passwordScrollView.x = fieldHolder.x - fieldHolder.width/2;
+        this.v.x = fieldHolder.x - fieldHolder.width/2;
         this._passwordScrollView.y = fieldHolder.y - 250;
 
-        this._passwordScrollView.setViewSize(cc.size(cc.winSize.width, 120));
-        this._passwordScrollView.setClippingToBounds(false);
+        this._passwordScrollView.setViewSize(cc.size(cc.winSize.width/2-10, 120));
+        this._passwordScrollView.setClippingToBounds(true);
         this._passwordScrollView.setBounceable(true);
 
         var passwordData = 6;
 
         var innerWidth = passwordData / 6 * cc.winSize.width/2;
         var innerHeight = cc.winSize.height;
-        this._passwordScrollView.setContentSize(cc.size(innerWidth, innerHeight));
+        // this._passwordScrollView.setContentSize(cc.size(innerWidth, innerHeight));
 
         // var layer = new cc.LayerColor(cc.color.RED);
         // layer.width = this._passwordScrollView.getViewSize().width;
         // layer.height = this._passwordScrollView.getViewSize().height;
-        // this._passwordScrollView.addChild(layer);
+        // this._passwordScrollView.addChild(layer,9);
     },
 
     _createAvatarNode: function() {
         var avatarNode = new cc.Node();
         avatarNode.y = this._avatarScrollView.getViewSize().height/2;
+        avatarNode.width = this._avatarScrollView.getViewSize().width/2;
+        avatarNode.height = this._avatarScrollView.getViewSize().height/2;
 
+        var innerWidth;
         var self = this;
         for ( var i = 0; i < 10; i++){
             var avatarBtn = new ccui.Button("avatar-"+ (i+1) + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             avatarBtn.x = avatarBtn.width*i*1.2 + avatarBtn.width;
             avatarBtn.tag = (i+1);
+            avatarBtn.setSwallowTouches(false);
             avatarBtn.addClickEventListener(function(sender) {
                 if (self._pickedAvatar)
                     self._pickedAvatar.scale = 1;
@@ -268,20 +272,24 @@ var NewAccountLayer = cc.Layer.extend({
                     )
                 );
             }
+            innerWidth = avatarBtn.width*i + cc.winSize.width/4;
         }
+        this._avatarScrollView.setContentSize(cc.size(innerWidth, 120));
         this._avatarScrollView.addChild(avatarNode);
     },
 
     _createPassWordNode: function() {
         var passwordNode = new cc.Node();
         passwordNode.y = this._passwordScrollView.getViewSize().height/2;
+        passwordNode.width = this._passwordScrollView.getViewSize().width/2;
+        passwordNode.height = this._passwordScrollView.getViewSize().height/2;
 
         var self = this;
         for ( var i = 0; i < 10; i++){
             var passwordBtn = new ccui.Button("icon-"+ (i+1) + ".png", "", "", ccui.Widget.PLIST_TEXTURE);
             passwordBtn.x = passwordBtn.width*i*1.2 + passwordBtn.width;
             passwordBtn.tag = (i+1);
-
+            passwordBtn.setSwallowTouches(false);
             passwordBtn.addClickEventListener(function(sender) {
                 if (self._pickedPassword)
                     self._pickedPassword.scale = 1;
@@ -306,7 +314,9 @@ var NewAccountLayer = cc.Layer.extend({
                     )
                 );
             }
+            innerWidth = passwordBtn.width*i + cc.winSize.width/4;
         }
+        this._passwordScrollView.setContentSize(cc.size(innerWidth, 120));
         this._passwordScrollView.addChild(passwordNode);
     },
 });
