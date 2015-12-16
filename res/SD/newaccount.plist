@@ -7,20 +7,20 @@
             <key>cloud-holder.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{483,328}}</string>
+                <string>{{2,2},{483,329}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{483,328}}</string>
+                <string>{{0,0},{483,329}}</string>
                 <key>sourceSize</key>
-                <string>{483,328}</string>
+                <string>{483,329}</string>
             </dict>
             <key>create-btn-pressed.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,331},{174,57}}</string>
+                <string>{{2,332},{174,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>create-btn.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{177,331},{174,57}}</string>
+                <string>{{177,332},{174,57}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>newaccount.png</string>
             <key>size</key>
-            <string>{487,390}</string>
+            <string>{487,391}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6e89467e32f572b7dd3790b5f482be2e:353561d1eaea165f99ffae7a88707417:1abf863523300ed99f378b9f125fb266$</string>
+            <string>$TexturePacker:SmartUpdate:75ca4c04275a1bcb529e5fe874a54201:d0380eaff88cc904934235ff49af4f6e:1abf863523300ed99f378b9f125fb266$</string>
             <key>textureFileName</key>
             <string>newaccount.png</string>
         </dict>

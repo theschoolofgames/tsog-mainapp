@@ -23,34 +23,33 @@ var NewSchoolLayer = cc.Layer.extend({
 
         this.addChild(holder);
 
-        font =  "hud-font.fnt";
+        // font =  res.YellowFont_fnt;
 
-        var label = new cc.LabelBMFont("School Name", font);
-        lb.x = holder.width/2 - lb.width;
-        lb.y = holder.height/2 + lb.height;
-        holder.addChild(lb);
-        cc.log("lb width", lb.width/2);
+        // var lb = new cc.LabelBMFont("School Name", font);
+        // lb.x = holder.width/2;
+        // lb.y = holder.height/2 + lb.height + 20;
+        // holder.addChild(lb);
+        // cc.log("lb width", lb.width/2);
 
         var fieldHolder = new cc.Sprite("#search_field.png");
-        fieldHolder.x = holder.width/2 + fieldHolder.width/2;
-        fieldHolder.y = lb.y;
+        fieldHolder.x = holder.width/2;
+        fieldHolder.y = holder.height/2- fieldHolder.height/2;
 
         var tf = new ccui.TextField("Your School Name", "Arial", 26);
 
         tf.x = fieldHolder.width / 2;
         tf.y = fieldHolder.height / 2;
-
-        tf.setTextColor(cc.color.GREEN);
+        
         tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
-        tf.color = cc.color.RED;
+        tf.color = cc.color.YELLOW;
         tf.setTouchAreaEnabled(true);
         this._tf = tf;
         fieldHolder.addChild(tf);
         holder.addChild(fieldHolder);
 
-        var btn = new ccui.Button("create-button.png","","");
+        var btn = new ccui.Button("create-btn.png","create-btn-pressed.png","", ccui.Widget.PLIST_TEXTURE);
         btn.x = holder.width/2;
-        btn.y = holder.height/2 - btn.height;
+        btn.y = holder.height/2 - btn.height*1.5;
         holder.addChild(btn);
 
         var self = this;
