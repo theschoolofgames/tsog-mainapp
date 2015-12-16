@@ -140,7 +140,11 @@ public class Recorder {
     public void stopBackgroundSoundDetecting() {
         Log.w(TAG, "stopBackgroundSoundDetecting");
         timer.cancel();
-        stopRecord();
+        try {
+            stopRecord();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

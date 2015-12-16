@@ -30,7 +30,9 @@ public class SpeechRecognizer implements RecognitionListener {
 
     private edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
     private JSGFGrammarBuilder grammarBuilder;
-    private File externalDir;
+    private File externalDir = null;
+
+    private ArrayList<String> cachedArrayList = null;
 
     private static final String TSOG_SEARCH = "tsog";
 
@@ -67,6 +69,13 @@ public class SpeechRecognizer implements RecognitionListener {
 
             @Override
             protected void onPostExecute(Exception result) {
+                if (cachedArrayList != null)
+                    try {
+                        updateNewLanguageArray(cachedArrayList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
 //                String commandForm = "SpeechRecognitionListener.getInstance().onSetupComplete(%b, '%s')";
 //                if (result == null) {
 //                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, true, ""));
@@ -112,7 +121,7 @@ public class SpeechRecognizer implements RecognitionListener {
         if (hypothesis == null)
             return;
 
-        Log.w(TAG, hypothesis.getHypstr());
+        Log.w(TAG, hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
     }
 
     @Override
@@ -128,6 +137,8 @@ public class SpeechRecognizer implements RecognitionListener {
 //                }
 //            });
 //        }
+
+        Log.w(TAG, "Final: " + hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
 
 
         app.runOnGLThread(new Runnable() {
@@ -209,6 +220,11 @@ public class SpeechRecognizer implements RecognitionListener {
     }
 
     public void updateNewLanguageArray(ArrayList<String> arrayList) throws IOException {
+        if (grammarBuilder == null) {
+            cachedArrayList = arrayList;
+            return;
+        }
+
         grammarBuilder.reset();
 
         for(String s : arrayList) {
