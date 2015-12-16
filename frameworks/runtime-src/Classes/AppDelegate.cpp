@@ -244,11 +244,11 @@ bool AppDelegate::applicationDidFinishLaunching()
   });
   
   director->getEventDispatcher()->addCustomEventListener("chipmunkify", [=](EventCustom* event) {
-    std::thread t(&AppDelegate::chipmunkifySound, this);
-    t.join();
+//    std::thread t(&AppDelegate::chipmunkifySound, this);
+//    t.join();
 //    this->chipmunkifySound();
-//    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
-//    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
+    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
+    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
   });
   
     return true;

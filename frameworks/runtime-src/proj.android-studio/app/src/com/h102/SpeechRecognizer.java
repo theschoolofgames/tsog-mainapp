@@ -30,7 +30,9 @@ public class SpeechRecognizer implements RecognitionListener {
 
     private edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
     private JSGFGrammarBuilder grammarBuilder;
-    private File externalDir;
+    private File externalDir = null;
+
+    private ArrayList<String> cachedArrayList = null;
 
     private static final String TSOG_SEARCH = "tsog";
 
@@ -67,6 +69,13 @@ public class SpeechRecognizer implements RecognitionListener {
 
             @Override
             protected void onPostExecute(Exception result) {
+                if (cachedArrayList != null)
+                    try {
+                        updateNewLanguageArray(cachedArrayList);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
 //                String commandForm = "SpeechRecognitionListener.getInstance().onSetupComplete(%b, '%s')";
 //                if (result == null) {
 //                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, true, ""));
@@ -112,7 +121,16 @@ public class SpeechRecognizer implements RecognitionListener {
         if (hypothesis == null)
             return;
 
-        Log.w(TAG, hypothesis.getHypstr());
+        Log.w(TAG, hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
+
+        final String commandForm = "SpeechRecognitionListener.getInstance().onPartialResult('%s')";
+        final String text = hypothesis.getHypstr().toUpperCase();
+        app.runOnGLThread(new Runnable() {
+            @Override
+            public void run() {
+                Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, text));
+            }
+        });
     }
 
     @Override
@@ -120,14 +138,16 @@ public class SpeechRecognizer implements RecognitionListener {
         final String commandForm = "SpeechRecognitionListener.getInstance().onResult('%s')";
         final String text = hypothesis == null ? "" : hypothesis.getHypstr().toUpperCase();
 
-        if (hypothesis != null) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    makeText(app.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        if (hypothesis != null) {
+//            app.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    makeText(app.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+
+        Log.w(TAG, "Final: " + hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
 
 
         app.runOnGLThread(new Runnable() {
@@ -153,6 +173,11 @@ public class SpeechRecognizer implements RecognitionListener {
     @Override
     public void onTimeout() {
         recognizer.stop();
+    }
+
+    @Override
+    public void onReceivedMaxAmplitude(int amplitude) {
+
     }
 
     private void setupRecognizer(File assetsDir) throws IOException {
@@ -204,6 +229,11 @@ public class SpeechRecognizer implements RecognitionListener {
     }
 
     public void updateNewLanguageArray(ArrayList<String> arrayList) throws IOException {
+        if (grammarBuilder == null) {
+            cachedArrayList = arrayList;
+            return;
+        }
+
         grammarBuilder.reset();
 
         for(String s : arrayList) {

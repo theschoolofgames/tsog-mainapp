@@ -124,25 +124,14 @@ var NativeHelperConfig = {
             "()V"
         ]
     },
-    soundDetectingLoopEnded: {
+    stopBackgroundSoundDetecting: {
         iOS: [
             "H102Wrapper",
-            "soundDetectingLoopEnded"
+            "stopBackgroundSoundDetecting"
         ],
         Android: [
             "com/h102/Wrapper",
-            "soundDetectingLoopEnded",
-            "()V"
-        ]
-    },
-    soundDetectingLoopEnded: {
-        iOS: [
-            "H102Wrapper",
-            "soundDetectingLoopEnded"
-        ],
-        Android: [
-            "com/h102/Wrapper",
-            "soundDetectingLoopEnded",
+            "stopBackgroundSoundDetecting",
             "()V"
         ]
     },

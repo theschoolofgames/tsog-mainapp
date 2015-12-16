@@ -94,6 +94,10 @@ public class Wrapper
         Recorder.getInstance().startBackgroundSoundDetecting(activity);
     }
 
+    public static void stopBackgroundSoundDetecting() {
+        Recorder.getInstance().stopBackgroundSoundDetecting();
+    }
+
     public static void changeSpeechLanguageArray(String serializedString) throws IOException {
         ArrayList<String> arrayList = new Gson().fromJson(serializedString, new TypeToken<ArrayList<String>>() {}.getType());
         SpeechRecognizer.getInstance().updateNewLanguageArray(arrayList);

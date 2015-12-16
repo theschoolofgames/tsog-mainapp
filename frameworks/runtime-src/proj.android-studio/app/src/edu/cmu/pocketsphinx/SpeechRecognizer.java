@@ -336,11 +336,12 @@ public class SpeechRecognizer {
                 } else if (nread > 0) {
                     decoder.processRaw(buffer, nread, false, false);
 
-                    // int max = 0;
-                    // for (int i = 0; i < nread; i++) {
-                    //     max = Math.max(max, Math.abs(buffer[i]));
-                    // }
-                    // Log.e("!!!!!!!!", "Level: " + max);
+                    int max = 0;
+                    for (int i = 0; i < nread; i++) {
+                        max = Math.max(max, Math.abs(buffer[i]));
+                    }
+                    Log.e("!!!!!!!!", "Level: " + max);
+                    mainHandler.post(new OnReceiveMaxAmplitudeEvent(max));
                     
                     if (decoder.getInSpeech() != inSpeech) {
                         inSpeech = decoder.getInSpeech();
@@ -433,6 +434,19 @@ public class SpeechRecognizer {
         @Override
         protected void execute(RecognitionListener listener) {
             listener.onTimeout();
+        }
+    }
+
+    private class OnReceiveMaxAmplitudeEvent extends RecognitionEvent {
+        private final int amplitude;
+
+        public OnReceiveMaxAmplitudeEvent(int amplitude) {
+            this.amplitude = amplitude;
+        }
+
+        @Override
+        protected void execute(RecognitionListener listener) {
+            listener.onReceivedMaxAmplitude(amplitude);
         }
     }
 }

@@ -22,18 +22,18 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         //         "insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato",
         //         "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
 
-        this._itemArray = objectsArray.map(function(obj) {
-            if (obj.name == "toytrain")
-                return "toy train";
-            return obj.name;
-        });
+        // this._itemArray = objectsArray.map(function(obj) {
+        //     if (obj.name == "toytrain")
+        //         return "toy train";
+        //     return obj.name;
+        // });
 
         this._callback = callback;
         this._objectsArray = objectsArray || [];
         cc.log("this._objectsArray" + JSON.stringify(this._objectsArray));
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
-        NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
+        // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
 
     onEnter: function() {

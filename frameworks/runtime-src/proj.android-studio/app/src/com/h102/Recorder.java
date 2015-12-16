@@ -21,17 +21,17 @@ public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
     private static final String AUDIO_RECORDER_FILE = "record_sound.wav";
-    private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 400; // ms
+    private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 800; // ms
     private static final int AUDIO_AMPLITUDE_THRESHOLD = 15000;
     private static final int MAX_RECORDING_TIME = 15;
 
     private ExtAudioRecorder mRecorder = null;
 
-    private static final int RECORDER_SAMPLERATE = 44100;
-    private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
-    private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
+//    private static final int RECORDER_SAMPLERATE = 44100;
+//    private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
+//    private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
 
-    private int bufferSize = 0;
+//    private int bufferSize = 0;
     private Timer timer;
 
     private static Recorder mSharedInstance = null;
@@ -45,7 +45,7 @@ public class Recorder {
     }
 
     public Recorder() {
-        bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING);
+//        bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING);
     }
 
     public boolean checkMic() {
@@ -90,6 +90,7 @@ public class Recorder {
         initRecord();
         startRecord();
 
+
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -116,7 +117,7 @@ public class Recorder {
                     if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
                         Log.w(TAG, "Stop");
                         stopBackgroundSoundDetecting();
-                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %d)", getAudioFilePath(), deltaTime);
+                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
                         app.runOnGLThread(new Runnable() {
                             @Override
                             public void run() {
@@ -139,7 +140,11 @@ public class Recorder {
     public void stopBackgroundSoundDetecting() {
         Log.w(TAG, "stopBackgroundSoundDetecting");
         timer.cancel();
-        stopRecord();
+        try {
+            stopRecord();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
