@@ -120,14 +120,14 @@ public class SpeechRecognizer implements RecognitionListener {
         final String commandForm = "SpeechRecognitionListener.getInstance().onResult('%s')";
         final String text = hypothesis == null ? "" : hypothesis.getHypstr().toUpperCase();
 
-        if (hypothesis != null) {
-            app.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    makeText(app.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+//        if (hypothesis != null) {
+//            app.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    makeText(app.getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
 
 
         app.runOnGLThread(new Runnable() {

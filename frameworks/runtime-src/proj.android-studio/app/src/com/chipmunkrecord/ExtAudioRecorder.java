@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class ExtAudioRecorder 
 {
-	private final static int[] sampleRates = {44100, 22050, 11025, 8000};
+	private final static int[] sampleRates = {44100, 22050, 16000, 11025, 8000};
 	
 	public static ExtAudioRecorder getInstanse(Boolean recordingCompressed)
 	{
@@ -20,17 +20,17 @@ public class ExtAudioRecorder
 		
 		if(recordingCompressed){
 			result = new ExtAudioRecorder(	true,
-											AudioSource.MIC, 
+											AudioSource.VOICE_RECOGNITION,
 											sampleRates[1], 
-											AudioFormat.CHANNEL_CONFIGURATION_MONO,
+											AudioFormat.CHANNEL_IN_MONO,
 											AudioFormat.ENCODING_PCM_16BIT);
 		}else{
 			int i=0;
 			do{
 				result = new ExtAudioRecorder(	true, 
-												AudioSource.MIC, 
+												AudioSource.VOICE_RECOGNITION,
 												sampleRates[i], 
-												AudioFormat.CHANNEL_CONFIGURATION_MONO,
+												AudioFormat.CHANNEL_IN_MONO,
 												AudioFormat.ENCODING_PCM_16BIT);
 				
 			} while((++i<sampleRates.length) & !(result.getState() == ExtAudioRecorder.State.INITIALIZING));
@@ -400,10 +400,11 @@ public class ExtAudioRecorder
 		{
 			if (audioRecorder != null)
 			{
+				audioRecorder.setRecordPositionUpdateListener(null);
 				audioRecorder.release();
+				audioRecorder = null;
 			}
-		}
-		else
+		} else
 		{
 			if (mediaRecorder != null)
 			{
