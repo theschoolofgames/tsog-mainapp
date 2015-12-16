@@ -122,6 +122,15 @@ public class SpeechRecognizer implements RecognitionListener {
             return;
 
         Log.w(TAG, hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
+
+        final String commandForm = "SpeechRecognitionListener.getInstance().onPartialResult('%s')";
+        final String text = hypothesis.getHypstr().toUpperCase();
+        app.runOnGLThread(new Runnable() {
+            @Override
+            public void run() {
+                Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, text));
+            }
+        });
     }
 
     @Override

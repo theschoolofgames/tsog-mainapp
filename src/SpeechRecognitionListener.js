@@ -28,7 +28,7 @@ var SpeechRecognitionListener = cc.Class.extend({
     },
 
     onResult: function(text) {
-        text = text.replace(/ /g,'')
+        text = text.replace(/ /g,'');
         cc.log("onResult: " + text);
         cc.log("currentObjectName." + this._speakingLayer.currentObjectName.toUpperCase());
 
@@ -43,7 +43,15 @@ var SpeechRecognitionListener = cc.Class.extend({
 
     onError: function(message) {
         cc.log("onError: " + message);
-    }
+    },
+
+    // For Android only
+    onPartialResult: function(text) {
+        text = text.replace(/ /g,'');
+        if (this._speakingLayer.currentObjectName.toUpperCase() == text) {
+            NativeHelper.callNative("stopSpeechRecognition");
+        }
+    },
 });
 
 SpeechRecognitionListener._instance = null;
