@@ -78,7 +78,7 @@ var NewAccountLayer = cc.Layer.extend({
         holder.x = -100;
         this.addChild(holder);
 
-        font =  res.YellowFont_fnt;
+        font =  "hud-font.fnt";
 
         var lbName = new cc.LabelBMFont("Student Name", font);
         lbName.setAnchorPoint(1, 0.5);
