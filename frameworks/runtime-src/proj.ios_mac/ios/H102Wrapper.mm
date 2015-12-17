@@ -113,15 +113,19 @@ static BOOL isListening = false;
 }
 
 + (void)startBackgroundSoundDetecting {
-  NSLog(@"startBackgroundSoundDetecting");
-  [H102Wrapper initRecord];
-  [H102Wrapper startRecord];
-  
-  startTime = [[NSDate date] timeIntervalSince1970];
-  
-  NSTimer* timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
-  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-//  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
+  dispatch_queue_t thread = dispatch_queue_create("startBackgroundSoundDetecting", NULL);
+  dispatch_async(thread, ^{
+    NSLog(@"startBackgroundSoundDetecting");
+    [H102Wrapper initRecord];
+    [H102Wrapper startRecord];
+    
+    startTime = [[NSDate date] timeIntervalSince1970];
+    
+    NSTimer* timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+  });
+  dispatch_release(thread);
+  //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
 }
 
 + (void)soundDetectingLoop:(NSTimer*) timer {
@@ -139,9 +143,9 @@ static BOOL isListening = false;
     NSLog(@"deltaTime: %f", deltaTime);
     if (maxAmplitude <= kAmplitudeThreshole || deltaTime >= kMaxRecordingTime) {
       [timer invalidate];
-      [H102Wrapper soundDetectingLoopEnded];
+//      [H102Wrapper soundDetectingLoopEnded];
 
-//      [[H102Wrapper class] performSelectorInBackground:@selector(soundDetectingLoopEnded) withObject:nil];
+      [[H102Wrapper class] performSelectorInBackground:@selector(soundDetectingLoopEnded) withObject:nil];
       return;
     }
   }
@@ -155,11 +159,19 @@ static BOOL isListening = false;
 }
 
 + (void)soundDetectingLoopEnded {
-  NSLog(@"Stop");
-  NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
-  [H102Wrapper stopBackgroundSoundDetecting];
-  NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
-  ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+  dispatch_queue_t thread = dispatch_queue_create("soundDetectingLoopEnded", NULL);
+  dispatch_async(thread, ^{
+    NSLog(@"Stop");
+    NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
+    [H102Wrapper stopBackgroundSoundDetecting];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      //Your main thread code goes in here
+      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
+      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+    });
+  });
+  dispatch_release(thread);
 }
 
 + (void)stopBackgroundSoundDetecting {
@@ -198,7 +210,7 @@ static BOOL isListening = false;
   [H102Wrapper stopSpeechRecognition];
 }
 
-+ (void)stopSpeechRecognition {
++ (void)stopSpeechRecognition {\
   [[SpeechRecognitionListener sharedEngine] stop];
 }
 

@@ -49,6 +49,7 @@ var AudioListener = cc.Class.extend({
                     cc.log("_playbackLength: " + self._playbackLength);
                     cc.audioEngine.unloadEffect(fileName);
                     var audio = cc.audioEngine.playEffect(fileName);
+                    self._talkingAdi.onStoppedListening();
                     self._talkingAdi.adiTalk();
                 }
                 else {
