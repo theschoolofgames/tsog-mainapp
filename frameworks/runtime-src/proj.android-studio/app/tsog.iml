@@ -91,7 +91,7 @@
     <orderEntry type="library" exported="" name="commons-io-2.4" level="project" />
     <orderEntry type="library" exported="" name="gson-2.4" level="project" />
     <orderEntry type="library" exported="" name="play-services-analytics-8.3.0" level="project" />
-    <orderEntry type="library" exported="" name="analytics-4.0.1" level="project" />
+    <orderEntry type="library" exported="" name="analytics-4.0.2" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="module" module-name="libcocos2dx" exported="" />

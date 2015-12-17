@@ -28,27 +28,35 @@ public class Wrapper
         return Settings.System.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
-    public static void segmentIdentity(String userId, String traits) {
-        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
-        }.getType());
+    public static void segmentIdentity(final String userId, final String traits) {
+        new Thread() {
+            public void run() {
+                Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
+                }.getType());
 
-        Traits t = new Traits();
-        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-            t.putValue(entry.getKey(), entry.getValue());
-        }
+                Traits t = new Traits();
+                for (Map.Entry<String, Object> entry : retMap.entrySet()) {
+                    t.putValue(entry.getKey(), entry.getValue());
+                }
 
-        Analytics.with(activity).identify(userId, t, null);
+                Analytics.with(activity).identify(userId, t, null);
+            }
+        }.start();
     }
 
-    public static void segmentTrack(String event, String properties) {
-        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
-        }.getType());
+    public static void segmentTrack(final String event, final String properties) {
+        new Thread() {
+            public void run() {
+                Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
+                }.getType());
 
-        Properties p = new Properties();
-        for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-            p.putValue(entry.getKey(), entry.getValue());
-        }
-        Analytics.with(activity).track(event, p);
+                Properties p = new Properties();
+                for (Map.Entry<String, Object> entry : retMap.entrySet()) {
+                    p.putValue(entry.getKey(), entry.getValue());
+                }
+                Analytics.with(activity).track(event, p);
+            }
+        }.start();
     }
 
     public static void showMessage(String title, String message) {
