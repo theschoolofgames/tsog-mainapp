@@ -68,8 +68,8 @@ public class Recorder {
     }
 
     private String getAudioFilePath() {
-//        return Cocos2dxHelper.getCocos2dxWritablePath() + "/" + AUDIO_RECORDER_FILE;
-        return "/sdcard/" + AUDIO_RECORDER_FILE;
+        return Cocos2dxHelper.getCocos2dxWritablePath() + "/" + AUDIO_RECORDER_FILE;
+//        return "/sdcard/" + AUDIO_RECORDER_FILE;
     }
 
     public void startRecord() {
@@ -92,7 +92,7 @@ public class Recorder {
                 initRecord();
                 startRecord();
                 timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
+                timer.schedule(new TimerTask() {
 
                     long startTime = -1;
 
@@ -116,7 +116,7 @@ public class Recorder {
                             float deltaTime = (float)(System.currentTimeMillis() - startTime)/1000;
                             if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
                                 Log.w(TAG, "Stop");
-                                stopBackgroundSoundDetecting();
+                                stopBackgroundSoundDetectingFunc();
                                 final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
                                 app.runOnGLThread(new Runnable() {
                                     @Override
@@ -142,15 +142,19 @@ public class Recorder {
     public void stopBackgroundSoundDetecting() {
         new Thread() {
             public void run() {
-                Log.w(TAG, "stopBackgroundSoundDetecting");
-                timer.cancel();
-                try {
-                    stopRecord();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                stopBackgroundSoundDetectingFunc();
             }
         }.start();
+    }
+
+    private void stopBackgroundSoundDetectingFunc() {
+        Log.w(TAG, "stopBackgroundSoundDetecting");
+        timer.cancel();
+        try {
+            stopRecord();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
