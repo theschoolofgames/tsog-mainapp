@@ -1,12 +1,44 @@
+
+var ADI_HEAD = "bone4";
+var ADI_NOSE = "mui2";
+var ADI_HAND_LEFT = "hand L 2";
+var ADI_HAND_RIGHT = "hand R2";
+var ADI_BELLY = "body2";
+var ADI_SLOTS = [ADI_HEAD, ADI_NOSE, ADI_HAND_LEFT, ADI_HAND_RIGHT, ADI_BELLY];
+
 var AdiDogNode = cc.Node.extend({
     _talkingAdi: null,
+    _slots: [],
 
     listener: null,
 
-    ctor: function() {
+    ctor: function(setActive) {
         this._super();
 
         this._createTalkingAdi();
+
+        for( var i = 0; i < ADI_SLOTS.length; i++) {
+            var slot = this._talkingAdi.findSlot(ADI_SLOTS[i]); 
+            cc.log("slot: " + JSON.stringify(slot));
+
+            this._slots.push();
+        }
+
+        if(setActive)
+            this._addTouchEvent();
+    },
+
+    _addTouchEvent: function() {
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) {
+                var self = event.getCurrentTarget();
+
+
+                return true;
+            }
+        }, this);
     },
 
     _createTalkingAdi: function() {
