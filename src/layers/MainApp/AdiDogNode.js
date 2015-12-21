@@ -47,6 +47,7 @@ var AdiDogNode = cc.Node.extend({
         // this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
+        this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
         this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningloop', 0.2);
         this._talkingAdi.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
         this._talkingAdi.setMix('adidog-listeningloop', 'adidog-shake', 0.3);

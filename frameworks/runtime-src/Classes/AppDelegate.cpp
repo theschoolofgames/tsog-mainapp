@@ -43,12 +43,13 @@
 #include "platform/ios/JavaScriptObjCBridge.h"
 #endif
 
-#include "../../lwf/cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
+#include "cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
 
 #include "SimpleAudioEngine.h"
 
 #include <thread>
-#include "../../SoundTouch/core/WavFile.h"
+//#include "../../SoundTouch/core/WavFile.h"
+#include "SoundStretch.h"
 
 #define ARRAY_SIZE(a)                               \
 ((sizeof(a) / sizeof(*(a))) /                     \
@@ -56,9 +57,6 @@ static_cast<size_t>(!(sizeof(a) % sizeof(*(a)))))
 
 USING_NS_CC;
 using namespace CocosDenshion;
-using namespace soundtouch;
-
-SoundTouch* AppDelegate::st = new SoundTouch();
 
 AppDelegate::AppDelegate()
 {
@@ -244,11 +242,11 @@ bool AppDelegate::applicationDidFinishLaunching()
   });
   
   director->getEventDispatcher()->addCustomEventListener("chipmunkify", [=](EventCustom* event) {
-//    std::thread t(&AppDelegate::chipmunkifySound, this);
-//    t.join();
+    std::thread t(&AppDelegate::chipmunkifySound, this);
+    t.join();
 //    this->chipmunkifySound();
-    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
-    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
+//    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
+//    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
   });
   
     return true;
@@ -256,75 +254,16 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 void AppDelegate::chipmunkifySound()
 {
-#define BUFF_SIZE 4096
-  
-  SAMPLETYPE sampleBuffer[BUFF_SIZE];
-  int nSamples;
-  
-  st->clear();
-  //    st->setSetting(SETTING_USE_QUICKSEEK, 1);
   string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
   string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
   
-  CCLOG("Path1: %s", inFileDir.c_str());
+  SoundStretch soundStretch;
   
-  WavInFile inFile(inFileDir.c_str());
-  int sampleRate = inFile.getSampleRate();
-  int bits = inFile.getNumBits();
-  int nChannels = inFile.getNumChannels();
-  
-  CCLOG("Channels: %d", nChannels);
-  
-  WavOutFile outFile(outFileDir.c_str(), sampleRate, bits, nChannels);
-  
-  st->setSampleRate(sampleRate);
-  st->setChannels(nChannels);
-  
-  st->setPitchSemiTones(6);
-  //    st->setPitchSemiTones(6);
-  
-  int buffSizeSamples = BUFF_SIZE / nChannels;
-  
-  // Process samples read from the input file
-  while (inFile.eof() == 0)
-  {
-    int num;
-    
-    // Read a chunk of samples from the input file
-    num = inFile.read(sampleBuffer, BUFF_SIZE);
-    nSamples = num / nChannels;
-    
-    // Feed the samples into SoundTouch processor
-    st->putSamples(sampleBuffer, nSamples);
-    
-    // Read ready samples from SoundTouch processor & write them output file.
-    // NOTES:
-    // - 'receiveSamples' doesn't necessarily return any samples at all
-    //   during some rounds!
-    // - On the other hand, during some round 'receiveSamples' may have more
-    //   ready samples than would fit into 'sampleBuffer', and for this reason
-    //   the 'receiveSamples' call is iterated for as many times as it
-    //   outputs samples.
-    do
-    {
-      nSamples = st->receiveSamples(sampleBuffer, buffSizeSamples);
-      outFile.write(sampleBuffer, nSamples * nChannels);
-    } while (nSamples != 0);
-  }
-  
-  // Now the input file is processed, yet 'flush' few last samples that are
-  // hiding in the SoundTouch's internal processing pipeline.
-  st->flush();
-  do
-  {
-    nSamples = st->receiveSamples(sampleBuffer, buffSizeSamples);
-    outFile.write(sampleBuffer, nSamples * nChannels);
-  } while (nSamples != 0);
-  
-  Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
-                                                                         CallFunc::create([=](){
-      ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
-  }), NULL));
+  soundStretch.process(inFileDir.c_str(), outFileDir.c_str(), 0, 10, 0);
+
+  Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
+  });
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too

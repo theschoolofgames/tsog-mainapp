@@ -147,7 +147,7 @@ public class SpeechRecognizer implements RecognitionListener {
 //            });
 //        }
 
-        Log.w(TAG, "Final: " + hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
+//        Log.w(TAG, "Final: " + hypothesis.getHypstr() + " " + hypothesis.getProb() + " " + hypothesis.getBestScore());
 
 
         app.runOnGLThread(new Runnable() {

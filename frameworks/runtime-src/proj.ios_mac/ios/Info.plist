@@ -34,7 +34,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>11.14</string>
+	<string>12.18</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>

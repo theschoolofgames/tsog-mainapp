@@ -65,7 +65,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         var self = this;
         cc.audioEngine.playEffect(res.Failed_sfx);
 
-        if (this._checkTimeUp()) {    
+        // if (this._checkTimeUp()) {    
             this._timeUp();
             this.runAction(
                 cc.sequence(
@@ -75,7 +75,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
                     })        
                 )
             );   
-        }
+        // }
     },
 
     correctAction: function() {
@@ -124,6 +124,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             this._callback();
             return true;
         }
+        return false;
     },
 
     _checkTimeUp: function() {

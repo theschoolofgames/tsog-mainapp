@@ -82,62 +82,72 @@ public class Recorder {
         if (mRecorder != null) {
             mRecorder.stop();
             mRecorder.release();
-            mRecorder = null;
+//            mRecorder = null;
         }
     }
 
     public void startBackgroundSoundDetecting(final AppActivity app) {
-        initRecord();
-        startRecord();
-
-
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-
-            long startTime = -1;
-
-            @Override
+        new Thread() {
             public void run() {
+                initRecord();
+                startRecord();
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
 
-                int maxAmplitude = mRecorder.getMaxAmplitude();
-                Log.w(TAG, "Amplitude: " + maxAmplitude);
-                if (startTime < 0) {
-                    if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
-                        Log.w(TAG, "Start");
-                        startTime = System.currentTimeMillis();
-                        app.runOnGLThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Cocos2dxJavascriptJavaBridge.evalString("AudioListener.getInstance().onStartedListening()");
-                            }
-                        });
-                    }
-                } else {
-                    float deltaTime = (float)(System.currentTimeMillis() - startTime)/1000;
-                    if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
-                        Log.w(TAG, "Stop");
-                        stopBackgroundSoundDetecting();
-                        final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
-                        app.runOnGLThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Cocos2dxJavascriptJavaBridge.evalString(command);
-                            }
-                        });
-                        return;
-                    }
-                }
+                    long startTime = -1;
 
-                if (startTime < 0) {
-                    Log.w(TAG, "Restart");
-                    initRecord();
-                    startRecord();
-                }
+                    @Override
+                    public void run() {
+
+                        int maxAmplitude = mRecorder.getMaxAmplitude();
+                        Log.w(TAG, "Amplitude: " + maxAmplitude);
+                        if (startTime < 0) {
+                            if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
+                                Log.w(TAG, "Start");
+                                startTime = System.currentTimeMillis();
+                                app.runOnGLThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Cocos2dxJavascriptJavaBridge.evalString("AudioListener.getInstance().onStartedListening()");
+                                    }
+                                });
+                            }
+                        } else {
+                            float deltaTime = (float)(System.currentTimeMillis() - startTime)/1000;
+                            if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
+                                Log.w(TAG, "Stop");
+                                stopBackgroundSoundDetectingFunc();
+                                final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
+                                app.runOnGLThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Cocos2dxJavascriptJavaBridge.evalString(command);
+                                    }
+                                });
+                                return;
+                            }
+                        }
+
+                        if (startTime < 0) {
+                            Log.w(TAG, "Restart");
+                            initRecord();
+                            startRecord();
+                        }
+                    }
+                }, 0, BACKGROUND_SOUND_DETECTING_LOOP_DELAY);
             }
-        }, 0, BACKGROUND_SOUND_DETECTING_LOOP_DELAY);
+        }.start();
     }
 
     public void stopBackgroundSoundDetecting() {
+        new Thread() {
+            public void run() {
+                stopBackgroundSoundDetectingFunc();
+            }
+        }.start();
+    }
+
+    private void stopBackgroundSoundDetectingFunc() {
         Log.w(TAG, "stopBackgroundSoundDetecting");
         timer.cancel();
         try {

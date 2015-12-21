@@ -366,9 +366,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
+        var beginTime = Date.now();
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-
         targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
         if (!targetNode._objectTouching)
             return false;
@@ -385,8 +385,8 @@ var RoomLayer = cc.Layer.extend({
             if(targetNode._tutorial != null) {
                 targetNode._tutorial.removeFromParent();
                 targetNode._tutorial = null;
-            };
-        };
+            }
+        }
         var oldScale = targetNode._objectTouching.scale;
         targetNode._objectTouching.setScale(0.7 * oldScale);
         targetNode._objectTouching.runAction(cc.sequence(
@@ -398,7 +398,6 @@ var RoomLayer = cc.Layer.extend({
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
-
         return true;
     },
 
