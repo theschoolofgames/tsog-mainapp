@@ -17,7 +17,7 @@ var TalkingAdiLayer = cc.Layer.extend({
     },
 
     _createTalkingAdi: function() {
-        var adidogNode = new AdiDogNode();
+        var adidogNode = new AdiDogNode(true);
         adidogNode.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
         this.addChild(adidogNode);
     },

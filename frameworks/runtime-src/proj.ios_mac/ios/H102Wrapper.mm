@@ -131,16 +131,16 @@ static BOOL isListening = false;
 + (void)soundDetectingLoop:(NSTimer*) timer {
   
   float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
-  NSLog(@"Amplitude: %f", maxAmplitude);
+//  NSLog(@"Amplitude: %f", maxAmplitude);
   if (!isListening) {
     if (maxAmplitude > kAmplitudeThreshole) {
-      NSLog(@"Start");
+//      NSLog(@"Start");
       isListening = YES;
       ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
     }
   } else {
     NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
-    NSLog(@"deltaTime: %f", deltaTime);
+//    NSLog(@"deltaTime: %f", deltaTime);
     if (maxAmplitude <= kAmplitudeThreshole || deltaTime >= kMaxRecordingTime) {
       [timer invalidate];
 //      [H102Wrapper soundDetectingLoopEnded];
@@ -151,7 +151,7 @@ static BOOL isListening = false;
   }
   
   if (!isListening) {
-    NSLog(@"Restart");
+//    NSLog(@"Restart");
     [H102Wrapper initRecord];
     [H102Wrapper startRecord];
     startTime = [[NSDate date] timeIntervalSince1970];
@@ -161,7 +161,7 @@ static BOOL isListening = false;
 + (void)soundDetectingLoopEnded {
   dispatch_queue_t thread = dispatch_queue_create("soundDetectingLoopEnded", NULL);
   dispatch_async(thread, ^{
-    NSLog(@"Stop");
+//    NSLog(@"Stop");
     NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
     [H102Wrapper stopBackgroundSoundDetecting];
     

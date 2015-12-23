@@ -8,7 +8,7 @@ var ADI_SLOTS = [ADI_HEAD, ADI_NOSE, ADI_HAND_LEFT, ADI_HAND_RIGHT, ADI_BELLY];
 
 var AdiDogNode = cc.Node.extend({
     _talkingAdi: null,
-    _slots: [],
+    _isAdiIdling: false,
 
     listener: null,
 
@@ -16,13 +16,6 @@ var AdiDogNode = cc.Node.extend({
         this._super();
 
         this._createTalkingAdi();
-
-        for( var i = 0; i < ADI_SLOTS.length; i++) {
-            var slot = this._talkingAdi.findSlot(ADI_SLOTS[i]); 
-            cc.log("slot: " + JSON.stringify(slot));
-
-            this._slots.push();
-        }
 
         if(setActive)
             this._addTouchEvent();
@@ -34,7 +27,50 @@ var AdiDogNode = cc.Node.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) {
                 var self = event.getCurrentTarget();
+                var touchPos = touch.getLocation();
+                cc.log("self._isAdiIdling: " + self._isAdiIdling);
+                if (!self._isAdiIdling)
+                    return true;
 
+                self.stopAllActions();
+
+                var bbox = self._talkingAdi.getBoundingBox();
+                cc.log("bbox: " + JSON.stringify(bbox));
+                bbox.x += self.x;
+                bbox.y += self.y;
+
+                if (cc.rectContainsPoint(bbox, touchPos)) {
+                    cc.log("touchPos.x: " + touchPos.x);
+                    cc.log("touchPos.y: " + touchPos.y);
+                    cc.log("bbox.x: " + bbox.x);
+                    cc.log("bbox.y: " + bbox.y);
+                    cc.log("bbox.width: " + bbox.width);
+                    cc.log("bbox.height: " + bbox.height);
+
+                    if (touchPos.y > bbox.height*0.95) {
+                        cc.log("touched head");
+                        self.adiSitdown();
+                    }
+                    if (touchPos.y < bbox.height*0.98 && touchPos.y > bbox.height*0.9 ){
+                        cc.log("touched nose");
+                        self.adiSneeze();
+                    }
+                    if ((touchPos.x < (bbox.x+bbox.width*0.3) || touchPos.x > (bbox.x+bbox.width*0.7)) && touchPos.y > (bbox.y+bbox.height*0.3) && touchPos.y < (bbox.y+bbox.height*0.6)) {
+                        cc.log("touched hand");
+                        self.adiHifi();
+                    }
+                    
+                    if (touchPos.y < (bbox.y+bbox.height*0.4) && touchPos.x > (bbox.x+bbox.width*0.3) && touchPos.x < (bbox.x+bbox.width*0.7) ) {
+                        cc.log("touch belly");
+                        self.adiJump();
+                    }
+                    self.runAction(cc.sequence(
+                            cc.delayTime(1.5),
+                            cc.callFunc(function() {
+                                self.adiIdling();
+                            })
+                        ))
+                }
 
                 return true;
             }
@@ -44,7 +80,6 @@ var AdiDogNode = cc.Node.extend({
     _createTalkingAdi: function() {
         cc.log("before creating adi");
         this._talkingAdi = new sp.SkeletonAnimation("adidog/adidog.json", "adidog/adidog.atlas", 0.3);
-        // this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
@@ -58,15 +93,24 @@ var AdiDogNode = cc.Node.extend({
         this._talkingAdi.setMix('adidog-shake', 'adidog-talking', 0.5);
         this._talkingAdi.setMix('adidog-talking', 'adidog-idle', 0.2);
         this._talkingAdi.setMix('adidog-talking', 'adidog-listeningstart', 0.2);
+
+        this._talkingAdi.setMix('adidog-jump', 'adidog-idle', 0.2);
+        this._talkingAdi.setMix('adidog-sneeze', 'adidog-idle', 0.2);
+        this._talkingAdi.setMix('adidog-sitdown', 'adidog-idle', 0.2);
+        this._talkingAdi.setMix('adidog-shake', 'adidog-idle', 0.2);
+
+        // this._talkingAdi.setDebugSlotsEnabled(true);
+
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
 
         this.addChild(this._talkingAdi, 4);
-
+        this._isAdiIdling = true;
         AudioListener.getInstance().setListener(this);
     },
 
     onStartedListening: function() {
         cc.log("onStartedListening");
+        this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
         this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 0.5);
     },
@@ -81,14 +125,17 @@ var AdiDogNode = cc.Node.extend({
     },
 
     adiShakeHead: function() {
+        this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-shake', false);  
     },
 
     adiSneeze: function() {
-        this._talkingAdi.setAnimation(0, 'adidog-hatxi', false);  
+        this._isAdiIdling = false;
+        this._talkingAdi.setAnimation(0, 'adidog-sneeze', false);  
     },
 
     adiHifi: function() {
+        this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-hifi', false);  
     },
 
@@ -97,10 +144,19 @@ var AdiDogNode = cc.Node.extend({
     },
 
     adiJump: function() {
+        this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-jump', false);  
     },
 
     adiIdling: function() {
+        this._isAdiIdling = true;
+        cc.log("setidling: " + this._isAdiIdling);
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
+    },
+
+    adiSitdown: function() {
+        cc.log("adiSitdown");
+        this._isAdiIdling = false;
+        this._talkingAdi.setAnimation(0, 'adidog-sitdown', false);
     }
 });
