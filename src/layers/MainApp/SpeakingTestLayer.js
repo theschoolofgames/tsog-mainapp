@@ -9,11 +9,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     currentObjectShowUpId: 0,
     currentObjectName: null,
+    resultText: null,
     listener: null,
 
     ctor: function(objectsArray, callback) {
         this._super(cc.color(255, 255, 255, 255));
-
+        this.font = "hud-font.fnt";
         // this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
         // "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
         // "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", 
@@ -61,6 +62,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         )
     },
 
+    addResultText: function() {
+        this._resultTextLb = new cc.LabelBMFont(this.resultText, this.font);
+        this._resultTextLb.x = this._talkingAdi.x - this._resultTextLb.width/2;
+        this._resultTextLb.y = this._talkingAdi.y + 400;
+        this.addChild(this._resultTextLb);
+    },  
+
     incorrectAction: function() {
         var self = this;
         cc.audioEngine.playEffect(res.Failed_sfx);
@@ -98,6 +106,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _showNextObject: function() {
         if (!this._checkCompleted()) {
+            if (this._resultTextLb)
+                this._resultTextLb.setString("");
             this._showObject();
             this._remainingTime = 3;
             this._label.setString(this._remainingTime);
@@ -161,8 +171,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _addLabel: function() {
         this._label = "";
-        font = "hud-font.fnt";
-        this._label = new cc.LabelTTF(this._remainingTime, "Arial", 32);
+        this._label = new cc.LabelBMFont(this._remainingTime, this.font);
     
         this._label.x = cc.winSize.width / 2;
         this._label.y = cc.winSize.height - 100;

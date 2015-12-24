@@ -23,7 +23,7 @@ var Clock = cc.Node.extend({
         var countDownClockLabel = new cc.LabelBMFont(text, font);
 
         countDownClockLabel.color = cc.color("#ffd902");
-        countDownClockLabel.y = this.height + 8;
+        countDownClockLabel.y = this.height + 2;
         this._countDownClock = countDownClockLabel;
         this.addChild(countDownClockLabel);
     },

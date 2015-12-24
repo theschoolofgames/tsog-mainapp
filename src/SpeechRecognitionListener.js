@@ -31,7 +31,7 @@ var SpeechRecognitionListener = cc.Class.extend({
         text = text.replace(/ /g,'');
         cc.log("onResult: " + text);
         cc.log("currentObjectName." + this._speakingLayer.currentObjectName.toUpperCase());
-
+        this._speakingLayer.resultText = text.toUpperCase();
         if (this._speakingLayer.currentObjectName.toUpperCase() == text) {
             cc.log("success");
             this._speakingLayer.correctAction();
@@ -39,6 +39,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             // this._speakingLayer.correctAction();
             this._speakingLayer.incorrectAction();
         }
+        this._speakingLayer.addResultText();
     },
 
     onError: function(message) {

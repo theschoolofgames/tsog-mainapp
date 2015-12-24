@@ -49,25 +49,30 @@ var AdiDogNode = cc.Node.extend({
 
                     if (touchPos.y > bbox.height*0.95) {
                         cc.log("touched head");
+                        NativeHelper.callNative("stopBackgroundSoundDetecting");
                         self.adiSitdown();
                     }
                     if (touchPos.y < bbox.height*0.98 && touchPos.y > bbox.height*0.9 ){
                         cc.log("touched nose");
+                        NativeHelper.callNative("stopBackgroundSoundDetecting");
                         self.adiSneeze();
                     }
                     if ((touchPos.x < (bbox.x+bbox.width*0.3) || touchPos.x > (bbox.x+bbox.width*0.7)) && touchPos.y > (bbox.y+bbox.height*0.3) && touchPos.y < (bbox.y+bbox.height*0.6)) {
                         cc.log("touched hand");
+                        NativeHelper.callNative("stopBackgroundSoundDetecting");
                         self.adiHifi();
                     }
                     
                     if (touchPos.y < (bbox.y+bbox.height*0.4) && touchPos.x > (bbox.x+bbox.width*0.3) && touchPos.x < (bbox.x+bbox.width*0.7) ) {
                         cc.log("touch belly");
+                        NativeHelper.callNative("stopBackgroundSoundDetecting");
                         self.adiJump();
                     }
                     self.runAction(cc.sequence(
                             cc.delayTime(1.5),
                             cc.callFunc(function() {
                                 self.adiIdling();
+                                NativeHelper.callNative("startBackgroundSoundDetecting");
                             })
                         ))
                 }
@@ -151,6 +156,7 @@ var AdiDogNode = cc.Node.extend({
     adiIdling: function() {
         this._isAdiIdling = true;
         cc.log("setidling: " + this._isAdiIdling);
+        AudioListener.getInstance().setListener(this);
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
     },
 

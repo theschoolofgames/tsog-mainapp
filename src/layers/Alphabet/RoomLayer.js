@@ -23,6 +23,7 @@ var RoomLayer = cc.Layer.extend({
     _numberItems: 0,
     _numberGamePlayed: 0,
     _tutorial: null,
+    _completedObj: null,
 
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
@@ -178,14 +179,15 @@ var RoomLayer = cc.Layer.extend({
     addObjectButton: function(objPosition, imageName, index) {
         // cc.log("imageName: " + imageName);
         NativeHelper.callNative("customLogging", ["Sprite", "things/" + imageName + ".png"]);
-        var object = new cc.Sprite("things/" + imageName + ".png");
+        var objImageName = "things/" + imageName + ".png";
+        var object = new cc.Sprite(objImageName);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
         object.x = objPosition.x;
         object.y = objPosition.y;
         object.tag = index;
-        object.userData = { scaleFactor: 1 }
+        object.userData = { scaleFactor: 1, imageName: objImageName}
         object.scale = this._allScale * object.userData.scaleFactor;
         this.addChild(object, 2);
 
@@ -272,19 +274,18 @@ var RoomLayer = cc.Layer.extend({
         var scaleTo = scale || 1.5
         warnLabel.setScale(scaleTo);
 
-        // var warnLabel = new cc.LabelTTF(text, "Arial", 24);
-        // warnLabel.setColor(cc.color.RED);
-        if (object) {
-            warnLabel.x = object.x;
-            warnLabel.y = object.y + object.height + 10;
-        }
-        else {
-            warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height / 2;
-        }
+        warnLabel.x = cc.winSize.width / 2;
+        warnLabel.y = cc.winSize.height / 2 - 100;
         this.addChild(warnLabel, 10000);
 
         this._warningLabel = warnLabel;
+    },
+
+    createCompletedObject: function() {
+        this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
+        this._completedObj.x = cc.winSize.width/2;
+        this._completedObj.y = this._warningLabel.y + this._completedObj.height;
+        this.addChild(this._completedObj, 10000);
     },
 
     completedScene: function() {
@@ -598,6 +599,7 @@ var RoomLayer = cc.Layer.extend({
         {
             self._blockAllObjects = true;
             self.createWarnLabel(str);
+            self.createCompletedObject();
             self.runAction(cc.sequence(
                 cc.delayTime(Math.max(soundConfig.length, 3)),
                 cc.callFunc(function() {
@@ -606,6 +608,8 @@ var RoomLayer = cc.Layer.extend({
                     } else {
                         self._blockAllObjects = false;
                         self._removeWarnLabel();
+                        self._completedObj.removeFromParent();
+                        self._completedObj = null;
 
                         if (self._maskLayer) {
                             self._maskLayer.removeFromParent();

@@ -11,7 +11,6 @@ var ForestLayer = cc.Layer.extend({
     _dsInstance: null,
     _background: null,
     _warningLabel: null,
-    _warningLabel : null,
     _objectTouching: null,
     _countDownClock: null,
     _totalSeconds: 0,
@@ -28,6 +27,7 @@ var ForestLayer = cc.Layer.extend({
     _tutorial:null,
     _shadeObjects:null,
     _isWinLabel: false,
+    _completedObj: null,
 
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
@@ -227,12 +227,13 @@ var ForestLayer = cc.Layer.extend({
     createAnimal : function(position, animalObject, i) {
 
         NativeHelper.callNative("customLogging", ["Sprite", "animals/" + animalObject.imageName + ".png"]);
-        var animal =  new cc.Sprite("animals/" + animalObject.imageName + ".png");
+        var objImageName = "animals/" + animalObject.imageName + ".png";
+        var animal =  new cc.Sprite(objImageName);
         animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
         animal.y = position.y;
         animal.tag = i;
-        animal.userData = animalObject;
+        animal.userData = {imageName: objImageName};
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
@@ -366,19 +367,19 @@ var ForestLayer = cc.Layer.extend({
         var warnLabel = new cc.LabelBMFont(text, font);
         var scaleTo = scale || 1.5;
         warnLabel.setScale(scaleTo);
-        // var warnLabel = new cc.LabelTTF(text, "Arial", size);
-        // warnLabel.setColor(cc.color.RED);
-        if (object) {
-            warnLabel.x = object.x;
-            warnLabel.y = object.y;
-        }
-        else {
-            warnLabel.x = cc.winSize.width /2;
-            warnLabel.y = cc.winSize.height/2;
-        }
+
+        warnLabel.x = cc.winSize.width /2;
+        warnLabel.y = cc.winSize.height/2 - 100;
         this.addChild(warnLabel, 1000);
 
         this._warningLabel = warnLabel;
+    },
+
+    createCompletedObject: function(imgName) {
+        this._completedObj = new cc.Sprite(imgName);
+        this._completedObj.x = cc.winSize.width/2;
+        this._completedObj.y = this._warningLabel.y + this._completedObj.height;
+        this.addChild(this._completedObj, 10000);
     },
 
     checkWonGame: function() {
@@ -662,6 +663,7 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
                 self.createWarnLabel(str);
+                self.createCompletedObject("animals/" + animalName + ".png");
                 self._blockAllObjects = true;
                 // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
@@ -674,6 +676,8 @@ var ForestLayer = cc.Layer.extend({
                 } else {
                     self._blockAllObjects = false;
                     self._removeWarnLabel();
+                    self._completedObj.removeFromParent();
+                    self._completedObj = null;
 
                     mask.removeFromParent();
                     // animal.stopAllActions();
