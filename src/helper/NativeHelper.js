@@ -168,6 +168,17 @@ var NativeHelperConfig = {
             "stopSpeechRecognition",
             "()V"   
         ]
+    },
+    startRestClock: {
+        iOS: [
+            "H102Wrapper",
+            "startRestClock:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "startRestClock",
+            "()V"   
+        ]
     }
 }
 

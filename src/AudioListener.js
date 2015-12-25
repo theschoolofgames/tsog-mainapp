@@ -59,17 +59,15 @@ var AudioListener = cc.Class.extend({
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function() {
+                self._talkingAdi.onStoppedListening();
                 if (self._playbackLength > 0) {
                     cc.log("_playbackLength: " + self._playbackLength);
                     cc.audioEngine.unloadEffect(fileName);
                     var audio = cc.audioEngine.playEffect(fileName);
-                    self._talkingAdi.onStoppedListening();
                     self._talkingAdi.adiTalk();
                 }
-                else {
-                    self._talkingAdi.onStoppedListening();
+                else
                     self._talkingAdi.adiIdling();
-                }
             }),
             cc.delayTime(self._playbackLength),
             cc.callFunc(function() {

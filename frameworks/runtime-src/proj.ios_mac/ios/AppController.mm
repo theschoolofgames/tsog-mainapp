@@ -36,6 +36,7 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <Optimizely/Optimizely.h>
+#import <H102Wrapper.h>
 
 @implementation AppController
 
@@ -89,11 +90,11 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
   
-  [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
+    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
 //   [SEGAnalytics debug:YES];
   
-  [Fabric with:@[[Crashlytics class], [Optimizely class]]];
-  
+    [Fabric with:@[[Crashlytics class], [Optimizely class]]];
+
     return YES;
 }
 

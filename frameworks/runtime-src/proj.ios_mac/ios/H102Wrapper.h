@@ -18,6 +18,7 @@
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits;
 + (void)segmentTrack:(NSString *)event properties:(NSString *)traits;
++ (void)startRestClock:(NSNumber *)timeToPauseGame;
 
 @end
 

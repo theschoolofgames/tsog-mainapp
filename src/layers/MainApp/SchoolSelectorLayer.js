@@ -17,6 +17,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
 
+        this.tag = 1;
         this.createBackground();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";

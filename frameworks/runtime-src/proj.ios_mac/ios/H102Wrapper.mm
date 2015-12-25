@@ -210,8 +210,23 @@ static BOOL isListening = false;
   [H102Wrapper stopSpeechRecognition];
 }
 
-+ (void)stopSpeechRecognition {\
++ (void)stopSpeechRecognition {
   [[SpeechRecognitionListener sharedEngine] stop];
+}
+
++ (void)startRestClock:(NSNumber *)timeToPauseGame {
+    NSLog(@"startRestClock");
+    float time = [timeToPauseGame floatValue];
+    [self performSelector:@selector(pauseGame) withObject:nil afterDelay:time];
+}
+
++ (void)pauseGame {
+    NSLog(@"game is paused");
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //Your main thread code goes in here
+        NSString* command = [NSString stringWithFormat:@"TimerListener.getInstance().pauseGame()"];
+        ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+    });
 }
 
 @end

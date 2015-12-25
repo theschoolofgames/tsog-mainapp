@@ -28,12 +28,8 @@ var RoomLayer = cc.Layer.extend({
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
-
-        // check how much time user played 
-        var timePlayed = KVDatabase.getInstance().getInt("timeToPauseGame", 0);
-        if (timePlayed == 0)
-            KVDatabase.getInstance().set("timeToPauseGame", Date.now()/1000);
         
+        this.tag = 1;
         this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
@@ -62,7 +58,7 @@ var RoomLayer = cc.Layer.extend({
                 object_num: this._numberItems 
             });
         cc.audioEngine.playMusic(res.background_mp3, true);
-        this.scheduleUpdate();
+        // this.scheduleUpdate();
     },
 
     setVolume:function() {
@@ -767,20 +763,6 @@ var RoomLayer = cc.Layer.extend({
         speakingTestLayer.listener = this;
         this.addChild(speakingTestLayer, 9999);
     },
-
-    update: function(deltaTime) {
-        // var timePlayed = Date.now()/1000 - KVDatabase.getInstance().getInt("timeToPauseGame", Date.now()/1000);
-        // cc.log("timePlayed: " + timePlayed);
-        // cc.log("GAME_CONFIG.timeToPauseGame: " + GAME_CONFIG.timeToPauseGame);
-        // if ( timePlayed > GAME_CONFIG.timeToPauseGame) {
-        //     this._hudLayer.pauseClock();
-        //     var self = this;
-        //     var pauseLayer = new PauseLayer(function() {
-        //         self._hudLayer.resumeClock();
-        //     });
-        //     this.addChild(pauseLayer, 1000000);
-        // }
-    }
 });
 
 var RoomScene = cc.Scene.extend({

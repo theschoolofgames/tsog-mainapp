@@ -32,6 +32,7 @@ var ForestLayer = cc.Layer.extend({
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
 
+        this.tag = 1;
         this._numberItems = numberItems || NUMBER_ITEMS;
         this._numberGamePlayed = numberGamePlayed;
 
@@ -63,7 +64,7 @@ var ForestLayer = cc.Layer.extend({
         }, this);
         cc.audioEngine.playMusic(res.background_mp3, true);
 
-        this.scheduleUpdate();
+        // this.scheduleUpdate();
     },
 
     setVolume:function() {
@@ -811,19 +812,6 @@ var ForestLayer = cc.Layer.extend({
         speakingTestLayer.listener = this;
         this.addChild(speakingTestLayer, 9999);
     },
-
-    update: function(deltaTime) {
-        // var timePlayed = KVDatabase.getInstance().getInt("timeToPauseGame", 0);
-        // cc.log("timePlayed: " + timePlayed);
-        // if (timePlayed > GAME_CONFIG.timeToPauseGame) {
-        //     this._hudLayer.pauseClock();
-        //     var self = this;
-        //     var pauseLayer = new PauseLayer(function() {
-        //         self._hudLayer.resumeClock();
-        //     });
-        //     this.addChild(pauseLayer);
-        // }
-    }
 });
 var ForestScene = cc.Scene.extend({
     ctor: function(numberItems, numberGamePlayed) {

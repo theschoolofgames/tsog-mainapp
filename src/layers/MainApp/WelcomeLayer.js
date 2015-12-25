@@ -3,6 +3,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 	ctor: function() {
 		this._super(cc.color(255, 255, 255, 255));
 
+        this.tag = 1;
 		this.addWelcomeCutscene();
 		this.moveToMainScene();
 

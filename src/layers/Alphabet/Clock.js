@@ -6,12 +6,15 @@ var Clock = cc.Node.extend({
 
 	ctor: function(totalTimes, callback) {
 		this._super();
-
 		this._totalSeconds = totalTimes;
 		this.callback = callback;
 		this.createCountDownClockLabel();
 		this.activeCountDownClock();
 	},
+
+    setClockScale: function(scale) {
+        this._countDownClock.scale = scale;
+    },
 
     activeCountDownClock: function() {
         this.schedule(this.countDownClockAction, CLOCK_INTERVAL, this._totalSeconds);
@@ -35,8 +38,8 @@ var Clock = cc.Node.extend({
         this._countDownClock.setString(currentTime);
 
         if (this.callback && this._totalSeconds == 0) {
-        	this.callback();
             this.stopClock();
+            this.callback();
         }
     },
 
