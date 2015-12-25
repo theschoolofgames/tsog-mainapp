@@ -17,13 +17,11 @@ var AudioListener = cc.Class.extend({
 
     pauseListening: function() {
         cc.log("pauseListening");
-        // NativeHelper.callNative("stopBackgroundSoundDetecting");
         this._pauseListening = true;
     },
 
     resumeListening: function() {
         cc.log("resumeListening");
-        // NativeHelper.callNative("startBackgroundSoundDetecting");
         this._pauseListening = false;
     },
 

@@ -72,9 +72,8 @@ var AdiDogNode = cc.Node.extend({
                     self.runAction(cc.sequence(
                             cc.delayTime(1.5),
                             cc.callFunc(function() {
-                                AudioListener.getInstance().resumeListening();
-                                // NativeHelper.callNative("startBackgroundSoundDetecting");
                                 self.adiIdling();
+                                NativeHelper.callNative("startBackgroundSoundDetecting");
                             })
                         ))
                 }
@@ -158,7 +157,7 @@ var AdiDogNode = cc.Node.extend({
     adiIdling: function() {
         this._isAdiIdling = true;
         cc.log("setidling: " + this._isAdiIdling);
-        AudioListener.getInstance().setListener(this);
+        AudioListener.getInstance().resumeListening();
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
     },
 

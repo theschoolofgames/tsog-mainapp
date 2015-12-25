@@ -224,7 +224,7 @@ static BOOL isListening = false;
     NSLog(@"game is paused");
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
-        NSString* command = [NSString stringWithFormat:@"TimerListener.getInstance().pauseGame()"];
+        NSString* command = [NSString stringWithFormat:@"GameListener.getInstance().pauseGame()"];
         ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
     });
 }
