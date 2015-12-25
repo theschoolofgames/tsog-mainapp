@@ -6,6 +6,8 @@ var TalkingAdiLayer = cc.Layer.extend({
     
     ctor:function() {
         this._super();
+
+        this.tag = 1;
         this._createBackground();
         this._createTalkingAdi();
         this._addSettingButton();
