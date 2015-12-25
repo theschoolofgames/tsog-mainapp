@@ -144,6 +144,14 @@ var HudLayer = cc.Layer.extend({
         return this._clock.getRemainingTime();
     },
 
+    pauseClock: function() {
+        this._clock.stopClock();
+    },
+
+    resumeClock: function() {
+        this._clock.activeCountDownClock();
+    },
+
     setProgressLabelStr: function(text) {
         var numItems = this._layer._numberItems;
         this._progressLabel.setString(text + "/" + numItems);

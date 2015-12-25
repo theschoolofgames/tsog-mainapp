@@ -28,7 +28,11 @@ var RoomLayer = cc.Layer.extend({
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
-        cc.audioEngine.playMusic(res.background_mp3, true);
+
+        // check how much time user played 
+        var timePlayed = KVDatabase.getInstance().getInt("timeToPauseGame", 0);
+        if (timePlayed == 0)
+            KVDatabase.getInstance().set("timeToPauseGame", Date.now()/1000);
         
         this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
@@ -58,6 +62,7 @@ var RoomLayer = cc.Layer.extend({
                 object_num: this._numberItems 
             });
         cc.audioEngine.playMusic(res.background_mp3, true);
+        this.scheduleUpdate();
     },
 
     setVolume:function() {
@@ -293,7 +298,7 @@ var RoomLayer = cc.Layer.extend({
         // if (this._isLevelCompleted)
         //     return;
         // this._isLevelCompleted = true;
-        this._hudLayer._clock.stopClock();
+        this._hudLayer.pauseClock();
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = "You Win";
@@ -640,7 +645,6 @@ var RoomLayer = cc.Layer.extend({
         if (objectCorrected >= starGoals.starGoal3)
             starEarned = 3;
 
-        // cc.log("starEarned: " + starEarned);
         this._hudLayer.setStarEarned(starEarned);
 
         if (starEarned > 0)
@@ -717,25 +721,12 @@ var RoomLayer = cc.Layer.extend({
                                         )                 
                 );
             }
-            // this.runSparklesEffect();
         }
     },
 
     increaseAmountGamePlayed: function() {
-        // var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed", 0);
-        // numberGamePlayed += 1;
-        // cc.log("numberGamePlayed : %d", numberGamePlayed)
-        // this.setNumberOfObjects(numberGamePlayed);
         this._numberGamePlayed += 1;
     },
-
-    // getNumberOfObjects: function() {
-    //     return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
-    // },
-
-    // setNumberOfObjects: function(numberGamePlayed) {
-    //     this._kvInstance.set("amountGamePlayed", numberGamePlayed);
-    // },
 
     hadObjectRequired: function() {
         var requireObjectsToHideAllShadow = GAME_CONFIG.requireObjectsToHideAllShadow;
@@ -776,6 +767,20 @@ var RoomLayer = cc.Layer.extend({
         speakingTestLayer.listener = this;
         this.addChild(speakingTestLayer, 9999);
     },
+
+    update: function(deltaTime) {
+        // var timePlayed = Date.now()/1000 - KVDatabase.getInstance().getInt("timeToPauseGame", Date.now()/1000);
+        // cc.log("timePlayed: " + timePlayed);
+        // cc.log("GAME_CONFIG.timeToPauseGame: " + GAME_CONFIG.timeToPauseGame);
+        // if ( timePlayed > GAME_CONFIG.timeToPauseGame) {
+        //     this._hudLayer.pauseClock();
+        //     var self = this;
+        //     var pauseLayer = new PauseLayer(function() {
+        //         self._hudLayer.resumeClock();
+        //     });
+        //     this.addChild(pauseLayer, 1000000);
+        // }
+    }
 });
 
 var RoomScene = cc.Scene.extend({

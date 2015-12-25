@@ -49,30 +49,32 @@ var AdiDogNode = cc.Node.extend({
 
                     if (touchPos.y > bbox.height*0.95) {
                         cc.log("touched head");
-                        NativeHelper.callNative("stopBackgroundSoundDetecting");
+                        AudioListener.getInstance().pauseListening();
                         self.adiSitdown();
                     }
                     if (touchPos.y < bbox.height*0.98 && touchPos.y > bbox.height*0.9 ){
                         cc.log("touched nose");
-                        NativeHelper.callNative("stopBackgroundSoundDetecting");
+                        AudioListener.getInstance().pauseListening();
                         self.adiSneeze();
                     }
                     if ((touchPos.x < (bbox.x+bbox.width*0.3) || touchPos.x > (bbox.x+bbox.width*0.7)) && touchPos.y > (bbox.y+bbox.height*0.3) && touchPos.y < (bbox.y+bbox.height*0.6)) {
                         cc.log("touched hand");
-                        NativeHelper.callNative("stopBackgroundSoundDetecting");
+                        AudioListener.getInstance().pauseListening();
                         self.adiHifi();
                     }
                     
                     if (touchPos.y < (bbox.y+bbox.height*0.4) && touchPos.x > (bbox.x+bbox.width*0.3) && touchPos.x < (bbox.x+bbox.width*0.7) ) {
                         cc.log("touch belly");
-                        NativeHelper.callNative("stopBackgroundSoundDetecting");
+                        AudioListener.getInstance().pauseListening();
                         self.adiJump();
                     }
+                    
                     self.runAction(cc.sequence(
                             cc.delayTime(1.5),
                             cc.callFunc(function() {
+                                AudioListener.getInstance().resumeListening();
+                                // NativeHelper.callNative("startBackgroundSoundDetecting");
                                 self.adiIdling();
-                                NativeHelper.callNative("startBackgroundSoundDetecting");
                             })
                         ))
                 }

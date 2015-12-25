@@ -1,5 +1,6 @@
 var AudioListener = cc.Class.extend({
     _talkingAdi: null,
+    _pauseListening: false,
     _playbackLength: 0,
 
     setListener: function(adi) {
@@ -14,8 +15,21 @@ var AudioListener = cc.Class.extend({
         this._talkingAdi = null;
     },
 
+    pauseListening: function() {
+        cc.log("pauseListening");
+        // NativeHelper.callNative("stopBackgroundSoundDetecting");
+        this._pauseListening = true;
+    },
+
+    resumeListening: function() {
+        cc.log("resumeListening");
+        // NativeHelper.callNative("startBackgroundSoundDetecting");
+        this._pauseListening = false;
+    },
+
     onStartedListening: function() {
-        if (!this._talkingAdi)
+        cc.log("this._pauseListening: " + this._pauseListening);
+        if (!this._talkingAdi || this._pauseListening)
             return;
 
         this._talkingAdi.onStartedListening();

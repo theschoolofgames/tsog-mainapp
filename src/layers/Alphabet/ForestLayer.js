@@ -62,6 +62,8 @@ var ForestLayer = cc.Layer.extend({
             onTouchBegan: this.onTouchBegan
         }, this);
         cc.audioEngine.playMusic(res.background_mp3, true);
+
+        this.scheduleUpdate();
     },
 
     setVolume:function() {
@@ -424,7 +426,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        this._hudLayer._clock.stopClock();
+        this._hudLayer.pauseClock();
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
         if (elapseTime == 120) {
@@ -809,6 +811,19 @@ var ForestLayer = cc.Layer.extend({
         speakingTestLayer.listener = this;
         this.addChild(speakingTestLayer, 9999);
     },
+
+    update: function(deltaTime) {
+        // var timePlayed = KVDatabase.getInstance().getInt("timeToPauseGame", 0);
+        // cc.log("timePlayed: " + timePlayed);
+        // if (timePlayed > GAME_CONFIG.timeToPauseGame) {
+        //     this._hudLayer.pauseClock();
+        //     var self = this;
+        //     var pauseLayer = new PauseLayer(function() {
+        //         self._hudLayer.resumeClock();
+        //     });
+        //     this.addChild(pauseLayer);
+        // }
+    }
 });
 var ForestScene = cc.Scene.extend({
     ctor: function(numberItems, numberGamePlayed) {

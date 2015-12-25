@@ -63,5 +63,5 @@ var Clock = cc.Node.extend({
 
     stopClock: function() {
         this.unschedule(this.countDownClockAction);
-    }
+    },
 })

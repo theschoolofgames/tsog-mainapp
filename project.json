@@ -46,6 +46,7 @@
         "src/layers/Alphabet/SettingDialog.js",
         "src/layers/Alphabet/TalkingAdiLayer.js",
         "src/layers/Alphabet/TutorialLayer.js",
+        "src/layers/Alphabet/PauseLayer.js",
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js"
