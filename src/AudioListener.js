@@ -36,7 +36,7 @@ var AudioListener = cc.Class.extend({
     // fileName: str
     // playbackLength: long (second)
     onStoppedListening: function(fileName, playbackLength) {
-        if (!this._talkingAdi)
+        if (!this._talkingAdi || this._pauseListening)
             return;
 
         cc.log("onStoppedListening: " + fileName + " " + playbackLength);

@@ -1,7 +1,6 @@
 var PauseLayer = cc.LayerColor.extend({
     ctor: function(callback) {
         this._super(cc.color.WHITE);
-        AudioListener.getInstance().pauseListening();
 
         var self = this;
         var clockInitTime = GAME_CONFIG.timeToResumeGame;
