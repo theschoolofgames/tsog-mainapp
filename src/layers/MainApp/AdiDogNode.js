@@ -28,7 +28,7 @@ var AdiDogNode = cc.Node.extend({
             onTouchBegan: function(touch, event) {
                 var self = event.getCurrentTarget();
                 var touchPos = touch.getLocation();
-                cc.log("self._isAdiIdling: " + self._isAdiIdling);
+                // cc.log("self._isAdiIdling: " + self._isAdiIdling);
                 if (!self._isAdiIdling)
                     return true;
 
@@ -40,12 +40,12 @@ var AdiDogNode = cc.Node.extend({
                 bbox.y += self.y;
 
                 if (cc.rectContainsPoint(bbox, touchPos)) {
-                    cc.log("touchPos.x: " + touchPos.x);
-                    cc.log("touchPos.y: " + touchPos.y);
-                    cc.log("bbox.x: " + bbox.x);
-                    cc.log("bbox.y: " + bbox.y);
-                    cc.log("bbox.width: " + bbox.width);
-                    cc.log("bbox.height: " + bbox.height);
+                    // cc.log("touchPos.x: " + touchPos.x);
+                    // cc.log("touchPos.y: " + touchPos.y);
+                    // cc.log("bbox.x: " + bbox.x);
+                    // cc.log("bbox.y: " + bbox.y);
+                    // cc.log("bbox.width: " + bbox.width);
+                    // cc.log("bbox.height: " + bbox.height);
 
                     if (touchPos.y > bbox.height*0.95) {
                         // cc.log("touched head");
@@ -157,12 +157,12 @@ var AdiDogNode = cc.Node.extend({
 
     adiIdling: function() {
         this._isAdiIdling = true;
-        cc.log("setidling: " + this._isAdiIdling);
+        // cc.log("setidling: " + this._isAdiIdling);
         this._talkingAdi.setAnimation(0, 'adidog-idle', true);
     },
 
     adiSitdown: function() {
-        cc.log("adiSitdown");
+        // cc.log("adiSitdown");
         this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-sitdown', false);
     }

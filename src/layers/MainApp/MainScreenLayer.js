@@ -12,6 +12,7 @@ var MainScreenLayer = cc.Layer.extend({
         */
         var self = this;
         Utils.delayOneFrame(this, function() {
+            NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
             if (self._isLoggedIn == 0) {
                 cc.director.replaceScene(new SchoolSelectorScene());
                 self.playBackgroundMusic();

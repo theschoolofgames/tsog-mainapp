@@ -109,7 +109,7 @@ cc.game.onStart = function(){
         SpeechRecognitionListener.setupInstance();
         GameListener.setupInstance();
 
-        NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
+        // NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);

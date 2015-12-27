@@ -1,12 +1,7 @@
 var PauseLayer = cc.LayerColor.extend({
     ctor: function(callback) {
         this._super(cc.color.WHITE);
-
-        var font = "hud-font.fnt";
-        var lb = new cc.LabelBMFont("PLEASE REST YOUR EYES FOR 02:00", font);
-        lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height/2 - 50;
-        this.addChild(lb);
+        AudioListener.getInstance().pauseListening();
 
         var self = this;
         var clockInitTime = GAME_CONFIG.timeToResumeGame;
@@ -20,6 +15,16 @@ var PauseLayer = cc.LayerColor.extend({
         clock.x = cc.winSize.width/2;
         clock.y = cc.winSize.height/2 + 50;
         this.addChild(clock);
+
+        var font = "hud-font.fnt";
+        var minutes = Math.floor(clockInitTime / 60);
+        var seconds = (clockInitTime%60) > 9 ? (":" + clockInitTime%60) : (":0" + (clockInitTime%60));
+        var text = "PLEASE REST YOUR EYES FOR " + minutes + seconds;
+        cc.log("text: " + text);
+        var lb = new cc.LabelBMFont(text, font);
+        lb.x = cc.winSize.width/2;
+        lb.y = cc.winSize.height/2 - 50;
+        this.addChild(lb);
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,

@@ -266,40 +266,48 @@ var RoomLayer = cc.Layer.extend({
             this.completedScene();
     },
 
-    createWarnLabel: function(text, object, scale) {
-        // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
+    createWarnLabel: function(text, object, x, y) {
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        var scaleTo = scale || 1.5
+        var scaleTo = 1.5;
         warnLabel.setScale(scaleTo);
 
-        warnLabel.x = cc.winSize.width / 2;
-        warnLabel.y = cc.winSize.height / 2 - 100;
+        warnLabel.x = x || cc.winSize.width / 2;
+        warnLabel.y = y || cc.winSize.height / 2 - 100;
         this.addChild(warnLabel, 10000);
 
         this._warningLabel = warnLabel;
     },
 
-    createCompletedObject: function() {
+    createCompletedObject: function(lbName) {
+        if (!this._maskLayer)
+            return;
+
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        font = FONT_COLOR[randSchoolIdx];
+        lbName = lbName.toUpperCase();
+        var objLabel = new cc.LabelBMFont(lbName, font);
+        objLabel.scale = 1.5;
+        objLabel.x = cc.winSize.width/2;
+        objLabel.y = cc.winSize.height/2 - 100;
+        this._maskLayer.addChild(objLabel);
+
         this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
         this._completedObj.x = cc.winSize.width/2;
-        this._completedObj.y = this._warningLabel.y + this._completedObj.height;
-        this.addChild(this._completedObj, 10000);
+        this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
+        this._maskLayer.addChild(this._completedObj);
     },
 
     completedScene: function() {
-        // printStackTrace();
-        // if (this._isLevelCompleted)
-        //     return;
-        // this._isLevelCompleted = true;
+        if (this._mask)
         this._hudLayer.pauseClock();
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = "You Win";
-        this.createWarnLabel(lbText);
+        this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
@@ -602,8 +610,8 @@ var RoomLayer = cc.Layer.extend({
         if (!isDragging)
         {
             self._blockAllObjects = true;
-            self.createWarnLabel(str);
-            self.createCompletedObject();
+            // self.createWarnLabel(str);
+            self.createCompletedObject(str);
             self.runAction(cc.sequence(
                 cc.delayTime(Math.max(soundConfig.length, 3)),
                 cc.callFunc(function() {
@@ -611,9 +619,9 @@ var RoomLayer = cc.Layer.extend({
                         blockFlag = false;
                     } else {
                         self._blockAllObjects = false;
-                        self._removeWarnLabel();
-                        self._completedObj.removeFromParent();
-                        self._completedObj = null;
+                        // self._removeWarnLabel();
+                        // self._completedObj.removeFromParent();
+                        // self._completedObj = null;
 
                         if (self._maskLayer) {
                             self._maskLayer.removeFromParent();
@@ -764,7 +772,7 @@ var RoomLayer = cc.Layer.extend({
             cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
         });
         speakingTestLayer.listener = this;
-        this.addChild(speakingTestLayer, 9999);
+        this.addChild(speakingTestLayer, 999999);
     },
 });
 

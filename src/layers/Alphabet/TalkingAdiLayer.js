@@ -80,7 +80,7 @@ var TalkingAdiLayer = cc.Layer.extend({
         var self = this;
         var clockInitTime = GAME_CONFIG.talkingAdiTime;
         var clock = new Clock(clockInitTime, function(){
-            NativeHelper.callNative("stopBackgroundSoundDetecting");
+            self._stopBackgroundSoundDetecting();
             cc.director.replaceScene(new RoomScene());
         });
         clock.visible = false;
@@ -95,18 +95,23 @@ var TalkingAdiLayer = cc.Layer.extend({
         nextBtn.y = cc.winSize.height/2;
         this.addChild(nextBtn);
 
+        var self = this;
         nextBtn.addClickEventListener(function() {
-            NativeHelper.callNative("stopBackgroundSoundDetecting");
+            self._stopBackgroundSoundDetecting();
             cc.director.replaceScene(new RoomScene());
         })
     },
 
     onExit: function() {
-        AudioListener.getInstance().removeListener();
-        NativeHelper.callNative("stopBackgroundSoundDetecting");
+        this._super();
+        this._stopBackgroundSoundDetecting();
         cc.log("onExit");
 
-        this._super();
+    },
+
+    _stopBackgroundSoundDetecting: function() {
+        AudioListener.getInstance().removeListener();
+        NativeHelper.callNative("stopBackgroundSoundDetecting");
     }
 });
 

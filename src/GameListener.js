@@ -12,6 +12,7 @@ var GameListener = cc.Class.extend({
         cc.director.getRunningScene().addChild(new PauseLayer(function() {
             self.resumeGameElements(currentLayer);
             NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
+            AudioListener.getInstance().resumeListening();
         }));
     },
 

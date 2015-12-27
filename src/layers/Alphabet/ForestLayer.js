@@ -28,6 +28,7 @@ var ForestLayer = cc.Layer.extend({
     _shadeObjects:null,
     _isWinLabel: false,
     _completedObj: null,
+    _maskLayer: null,
 
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
@@ -362,27 +363,38 @@ var ForestLayer = cc.Layer.extend({
         });
     },
 
-    createWarnLabel: function(text, object, scale) {
+    createWarnLabel: function(text, object, x, y) {
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        var scaleTo = scale || 1.5;
+        var scaleTo = 1.5;
         warnLabel.setScale(scaleTo);
 
-        warnLabel.x = cc.winSize.width /2;
-        warnLabel.y = cc.winSize.height/2 - 100;
+        warnLabel.x = x || cc.winSize.width / 2;
+        warnLabel.y = y || cc.winSize.height / 2 - 100;
         this.addChild(warnLabel, 1000);
 
         this._warningLabel = warnLabel;
     },
 
-    createCompletedObject: function(imgName) {
-        this._completedObj = new cc.Sprite(imgName);
+    createCompletedObject: function(animalName) {
+        if (!this._maskLayer)
+            return;
+
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        font = FONT_COLOR[randSchoolIdx];
+        var objLabel = new cc.LabelBMFont(animalName.toUpperCase(), font);
+        objLabel.scale = 1.5;
+        objLabel.x = cc.winSize.width/2;
+        objLabel.y = cc.winSize.height/2 - 100;
+        this._maskLayer.addChild(objLabel);
+
+        this._completedObj = new cc.Sprite("animals/" + animalName + ".png");
         this._completedObj.x = cc.winSize.width/2;
-        this._completedObj.y = this._warningLabel.y + this._completedObj.height;
-        this.addChild(this._completedObj, 10000);
+        this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
+        this._maskLayer.addChild(this._completedObj);
     },
 
     checkWonGame: function() {
@@ -399,8 +411,9 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        this.createWarnLabel(lbText);
-        cc.log("warnLabel: " + this._warnLabel);
+
+        this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
+
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
@@ -641,6 +654,8 @@ var ForestLayer = cc.Layer.extend({
         this.addChild(mask, 100);
         animal.setLocalZOrder(101);
 
+        this._maskLayer = mask;
+
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -665,8 +680,8 @@ var ForestLayer = cc.Layer.extend({
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
-                self.createWarnLabel(str);
-                self.createCompletedObject("animals/" + animalName + ".png");
+                // self.createWarnLabel(str);
+                self.createCompletedObject(animalName);
                 self._blockAllObjects = true;
                 // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
@@ -678,9 +693,9 @@ var ForestLayer = cc.Layer.extend({
                     blockFlag = false;
                 } else {
                     self._blockAllObjects = false;
-                    self._removeWarnLabel();
-                    self._completedObj.removeFromParent();
-                    self._completedObj = null;
+                    // self._removeWarnLabel();
+                    // self._completedObj.removeFromParent();
+                    // self._completedObj = null;
 
                     mask.removeFromParent();
                     // animal.stopAllActions();
@@ -810,7 +825,7 @@ var ForestLayer = cc.Layer.extend({
             cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
         });
         speakingTestLayer.listener = this;
-        this.addChild(speakingTestLayer, 9999);
+        this.addChild(speakingTestLayer, 999999);
     },
 });
 var ForestScene = cc.Scene.extend({
