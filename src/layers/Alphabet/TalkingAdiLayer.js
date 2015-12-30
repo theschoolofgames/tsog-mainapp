@@ -13,7 +13,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this._addSettingButton();
         this._addCountDownClock();
         this._addNextButton();
-        NativeHelper.callNative("startBackgroundSoundDetecting");
+        NativeHelper.callNative("startFetchingAudio");
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
     },

@@ -16,6 +16,8 @@
 #import "SimpleAudioRecordEngine_objc.h"
 #import "SpeechRecognitionListener.h"
 
+#import "Recorder.h"
+
 #define kAmplitudeThreshole   -22
 #define kMaxRecordingTime     15
 
@@ -92,92 +94,21 @@ static BOOL isListening = false;
     [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
 }
 
-+ (BOOL)checkMic {
-  return [[SimpleAudioRecordEngine sharedEngine] checkMic];
-}
-
 + (BOOL)isRecording {
-  return [[SimpleAudioRecordEngine sharedEngine] isRecording];
+  return [Recorder sharedEngine].isRecording;
 }
 
 + (void)initRecord {
-  [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
+//  [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
 }
 
-+ (void)startRecord {
-  [[SimpleAudioRecordEngine sharedEngine] startRecord];
++ (void)startFetchingAudio {
+//  [[SimpleAudioRecordEngine sharedEngine] startRecord];
+  [[Recorder sharedEngine] startFetchingAudio];
 }
 
 + (void)stopRecord {
   [[SimpleAudioRecordEngine sharedEngine] stopRecord];
-}
-
-+ (void)startBackgroundSoundDetecting {
-  dispatch_queue_t thread = dispatch_queue_create("startBackgroundSoundDetecting", NULL);
-  dispatch_async(thread, ^{
-    NSLog(@"startBackgroundSoundDetecting");
-    [H102Wrapper initRecord];
-    [H102Wrapper startRecord];
-    
-    startTime = [[NSDate date] timeIntervalSince1970];
-    
-    NSTimer* timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
-  });
-  dispatch_release(thread);
-  //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
-}
-
-+ (void)soundDetectingLoop:(NSTimer*) timer {
-  
-  float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
-//  NSLog(@"Amplitude: %f", maxAmplitude);
-  if (!isListening) {
-    if (maxAmplitude > kAmplitudeThreshole) {
-//      NSLog(@"Start");
-      isListening = YES;
-      ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
-    }
-  } else {
-    NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
-//    NSLog(@"deltaTime: %f", deltaTime);
-    if (maxAmplitude <= kAmplitudeThreshole || deltaTime >= kMaxRecordingTime) {
-      [timer invalidate];
-//      [H102Wrapper soundDetectingLoopEnded];
-
-      [[H102Wrapper class] performSelectorInBackground:@selector(soundDetectingLoopEnded) withObject:nil];
-      return;
-    }
-  }
-  
-  if (!isListening) {
-//    NSLog(@"Restart");
-    [H102Wrapper initRecord];
-    [H102Wrapper startRecord];
-    startTime = [[NSDate date] timeIntervalSince1970];
-  }
-}
-
-+ (void)soundDetectingLoopEnded {
-  dispatch_queue_t thread = dispatch_queue_create("soundDetectingLoopEnded", NULL);
-  dispatch_async(thread, ^{
-    NSLog(@"Stop");
-    NSTimeInterval deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
-    [H102Wrapper stopBackgroundSoundDetecting];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-      //Your main thread code goes in here
-      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
-      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
-    });
-  });
-  dispatch_release(thread);
-}
-
-+ (void)stopBackgroundSoundDetecting {
-  isListening = NO;
-  startTime = -1;
-  [H102Wrapper stopRecord];
 }
 
 + (void)changeSpeechLanguageArray:(NSString *)serializedString {

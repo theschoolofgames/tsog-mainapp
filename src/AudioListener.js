@@ -69,7 +69,7 @@ var AudioListener = cc.Class.extend({
             }),
             cc.delayTime(self._playbackLength),
             cc.callFunc(function() {
-                NativeHelper.callNative("startBackgroundSoundDetecting");
+                NativeHelper.callNative("startFetchingAudio");
                 self._talkingAdi.adiIdling();
             })));
     }

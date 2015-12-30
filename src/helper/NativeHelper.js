@@ -80,21 +80,10 @@ var NativeHelperConfig = {
             "()Z"
         ]
     },
-    initRecord: {
+    startFetchingAudio: {
         iOS: [
             "H102Wrapper",
-            "initRecord"
-        ],
-        Android: [
-            "com/h102/Wrapper",
-            "initRecord",
-            "()V"
-        ]
-    },
-    startRecord: {
-        iOS: [
-            "H102Wrapper",
-            "startRecord"
+            "startFetchingAudio"
         ],
         Android: [
             "com/h102/Wrapper",
@@ -110,28 +99,6 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/Wrapper",
             "stopRecord",
-            "()V"
-        ]
-    },
-    startBackgroundSoundDetecting: {
-        iOS: [
-            "H102Wrapper",
-            "startBackgroundSoundDetecting"
-        ],
-        Android: [
-            "com/h102/Wrapper",
-            "startBackgroundSoundDetecting",
-            "()V"
-        ]
-    },
-    stopBackgroundSoundDetecting: {
-        iOS: [
-            "H102Wrapper",
-            "stopBackgroundSoundDetecting"
-        ],
-        Android: [
-            "com/h102/Wrapper",
-            "stopBackgroundSoundDetecting",
             "()V"
         ]
     },
