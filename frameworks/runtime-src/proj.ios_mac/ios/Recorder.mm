@@ -60,6 +60,14 @@ static Recorder *sharedEngine = nil;
   [self.microphone startFetchingAudio];
 }
 
+- (void)stopFetchingAudio {
+  [self.microphone stopFetchingAudio];
+  
+  if (self.isRecording) {
+    self.isRecording = NO;
+    [self.recorder closeAudioFile];
+  }
+}
 
 //------------------------------------------------------------------------------
 #pragma mark - EZMicrophoneDelegate
@@ -67,6 +75,7 @@ static Recorder *sharedEngine = nil;
 
 - (void)microphone:(EZMicrophone *)microphone changedPlayingState:(BOOL)isPlaying
 {
+  NSLog(@"%@", isPlaying ? @"Microphone On" : @"Microphone Off");
 }
 
 //------------------------------------------------------------------------------
@@ -98,7 +107,7 @@ static Recorder *sharedEngine = nil;
       float duration = self.recorder.duration;
       
       [self.recorder closeAudioFile];
-      self.recorder.delegate = nil;
+      [self.microphone stopFetchingAudio];
       
       dispatch_async(dispatch_get_main_queue(), ^{
         NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@', %f)", [[self testFilePathURL] path], duration];

@@ -8,14 +8,14 @@ var GameListener = cc.Class.extend({
         var currentLayer = this.getCurrentLayer();
         this.pauseGameElements(currentLayer);
         AudioListener.getInstance().pauseListening();
-        NativeHelper.callNative("stopBackgroundSoundDetecting");
+        NativeHelper.callNative("stopFetchingAudio");
 
         var self = this;
         cc.director.getRunningScene().addChild(new PauseLayer(function() {
             self.resumeGameElements(currentLayer);
             NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
             AudioListener.getInstance().resumeListening();
-            NativeHelper.callNative("startBackgroundSoundDetecting");
+            NativeHelper.callNative("startFetchingAudio");
         }));
     },
 

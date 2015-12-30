@@ -91,10 +91,10 @@ var NativeHelperConfig = {
             "()V"
         ]
     },
-    stopRecord: {
+    stopFetchingAudio: {
         iOS: [
             "H102Wrapper",
-            "stopRecord"
+            "stopFetchingAudio"
         ],
         Android: [
             "com/h102/Wrapper",

@@ -108,7 +108,7 @@ PODS:
   - EZAudio/Core (1.1.2)
   - EZAudio/Full (1.1.2):
     - EZAudio/Core
-    - TPCircularBuffer (~> 0.0)
+    - TPCircularBuffer (~> 1.1)
   - Fabric (1.6.1)
   - Flurry-iOS-SDK/FlurrySDK (7.1.0)
   - FMDB/common (2.5)
@@ -129,16 +129,25 @@ PODS:
   - Quantcast-Measure/Core (1.4.7)
   - Taplytics (2.7.14)
   - Tapstream (2.9.0)
-  - TPCircularBuffer (0.0.1)
+  - TPCircularBuffer (1.3)
   - TRVSDictionaryWithCaseInsensitivity (0.0.2)
   - UXCam (2.3.2)
 
 DEPENDENCIES:
   - Analytics
   - Crashlytics
-  - EZAudio
+  - EZAudio (from `git@github.com:thuydx55/EZAudio.git`)
   - Fabric
   - PDKeychainBindingsController
+
+EXTERNAL SOURCES:
+  EZAudio:
+    :git: git@github.com:thuydx55/EZAudio.git
+
+CHECKOUT OPTIONS:
+  EZAudio:
+    :commit: 086d627c8ce288101a4ba2c549b695f281845278
+    :git: git@github.com:thuydx55/EZAudio.git
 
 SPEC CHECKSUMS:
   Amplitude-iOS: 6f82e97de436fd145ae9a205933b350fcdfbcddc
@@ -149,7 +158,7 @@ SPEC CHECKSUMS:
   Countly: 2151c5286995b84972ba4a92c3fba6b5fafce6bb
   Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
   CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
-  EZAudio: 01373de2b1257b77be1bf13753fb1c4ea8a9777e
+  EZAudio: 9d03bc21577de307de51b9a6f40d7129353d218f
   Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
   Flurry-iOS-SDK: 7b3fe6c3344c82b73c4c84163652eada84fbfcf4
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
@@ -164,7 +173,7 @@ SPEC CHECKSUMS:
   Quantcast-Measure: de15122f2b48380afe42443d132f40f382df8ae7
   Taplytics: 6e3caed75f08caefb91daa6eeb25c9832ce555c3
   Tapstream: e07f84d53c17a8a2ab53f81d2372299e786617aa
-  TPCircularBuffer: 949e9632b9fb99b7274d7b2296ee22bff5841e35
+  TPCircularBuffer: d2f604324ce1d293175046db3f67420be1091994
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   UXCam: b4914853e5512ac16a3e4a33499cd470230d7a6e
 

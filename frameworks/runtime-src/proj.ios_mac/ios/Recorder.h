@@ -24,5 +24,6 @@
 + (Recorder *)sharedEngine;
 
 - (void)startFetchingAudio;
+- (void)stopFetchingAudio;
 
 @end

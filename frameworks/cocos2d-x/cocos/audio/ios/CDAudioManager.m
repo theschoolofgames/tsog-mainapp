@@ -283,7 +283,7 @@ static BOOL configured = FALSE;
         if (!sharedManager) {
             if (!configured) {
                 //Set defaults here
-                configuredMode = kAMM_FxPlusMusicIfNoOtherAudio;
+                configuredMode = kAMM_PlayAndRecord;
             }
             sharedManager = [[CDAudioManager alloc] init:configuredMode];
             _sharedManagerState = kAMStateInitialised;//This is only really relevant when using asynchronous initialisation

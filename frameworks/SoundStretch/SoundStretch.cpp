@@ -314,6 +314,7 @@ int run(RunParameters *params)
     catch (const runtime_error &e) 
     {
         // An exception occurred during processing, display an error message
+        fprintf(stderr, "Error: %s", e.what());
         return -1;
     }
 

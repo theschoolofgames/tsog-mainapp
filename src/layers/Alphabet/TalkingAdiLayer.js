@@ -111,7 +111,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
     _stopBackgroundSoundDetecting: function() {
         AudioListener.getInstance().removeListener();
-        NativeHelper.callNative("stopBackgroundSoundDetecting");
+        NativeHelper.callNative("stopFetchingAudio");
     }
 });
 

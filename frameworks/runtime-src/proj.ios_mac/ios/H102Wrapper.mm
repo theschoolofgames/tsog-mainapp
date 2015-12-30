@@ -107,8 +107,8 @@ static BOOL isListening = false;
   [[Recorder sharedEngine] startFetchingAudio];
 }
 
-+ (void)stopRecord {
-  [[SimpleAudioRecordEngine sharedEngine] stopRecord];
++ (void)stopFetchingAudio {
+  [[Recorder sharedEngine] stopFetchingAudio];
 }
 
 + (void)changeSpeechLanguageArray:(NSString *)serializedString {
