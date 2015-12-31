@@ -54,7 +54,8 @@ var SEGMENT = {
     LEVEL_INCOMPLETE: "level_incomplete",
     OBJECT_PICK_START: "object_pick_start",
     OBJECT_PICK_END: "object_pick_end",
-    ANIMAL_CLICK: "animal_click"
+    ANIMAL_CLICK: "animal_click",
+    SPEAK_TEST: "speak_test"
 }
 
 

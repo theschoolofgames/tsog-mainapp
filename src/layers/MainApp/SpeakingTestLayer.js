@@ -10,7 +10,10 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     currentObjectShowUpId: 0,
     currentObjectName: null,
     resultText: null,
-    listener: null,
+    listener: null, 
+    _userId:null,
+    checkCorrectAction:0,
+    _objectName: "",
 
     ctor: function(objectsArray, callback) {
         this._super(cc.color(255, 255, 255, 255));
@@ -28,6 +31,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         //         return "toy train";
         //     return obj.name;
         // });
+
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -50,6 +54,9 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         
         this._addAdiDog();
         this._addLabel();
+        this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+        KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
+
 
         var self = this;
         this.runAction(
@@ -80,10 +87,21 @@ var SpeakingTestLayer = cc.LayerColor.extend({
                     cc.delayTime(4),
                     cc.callFunc(function() {
                         self._showNextObject();
+                        this.checkCorrectAction = 0;
                     })        
                 )
             );   
         // }
+        var now = Date.now()/1000;
+        var deltaTime = now - KVDatabase.getInstance().getInt("startSceneTime", 0);
+        SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
+            player_id: this._userId, 
+            Correct: "incorrectAction",
+            objectName: this._objectName,
+            timestamp: deltaTime,
+            actual_spoken_word:this.resultText
+        });
+        return false;
     },
 
     correctAction: function() {
@@ -99,9 +117,21 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             }),
             cc.delayTime(2),
             cc.callFunc(function() {
+                this.checkCorrectAction = 1;
                 self._showNextObject();
             })
-        ))
+        ));
+        var now = Date.now()/1000;
+        var deltaTime = now - KVDatabase.getInstance().getInt("startSceneTime", 0);
+        SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
+            player_id: this._userId, 
+            Correct: "correctAction",
+            objectName: this._objectName,
+            timestamp: deltaTime,
+            actual_spoken_word:this.resultText
+
+        });
+        return false;
     },
 
     _showNextObject: function() {
@@ -113,7 +143,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             this._label.setString(this._remainingTime);
             this._label.visible = true;
             this.schedule(this._setLabelString, 1, 2);
-            this._startSpeechRecognizing();
+            this._startSpeechRecognizing();    
         }
     },
 
@@ -134,7 +164,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             this._callback();
             return true;
         }
-        return false;
+
+        
     },
 
     _checkTimeUp: function() {
@@ -188,10 +219,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         if (cc.director.getRunningScene().name == "room") {
             objectName = "things/" + this._objectsArray[this.currentObjectShowUpId].name;
             this._soundName = "res/sounds/" + objectName + "-2.mp3";
+            this._objectName = objectName;
         }
         else if (cc.director.getRunningScene().name == "forest") {
             objectName = "animals/" + this._objectsArray[this.currentObjectShowUpId].name;
             this._soundName = "res/sounds/" + objectName + ".mp3";
+            this._objectName = objectName;
+
         }
         
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;

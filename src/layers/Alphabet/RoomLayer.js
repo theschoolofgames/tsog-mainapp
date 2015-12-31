@@ -24,6 +24,7 @@ var RoomLayer = cc.Layer.extend({
     _numberGamePlayed: 0,
     _tutorial: null,
     _completedObj: null,
+    _userId:null,
 
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
@@ -43,7 +44,6 @@ var RoomLayer = cc.Layer.extend({
         this.runTutorial();
         this.runHintObjectUp();
         this.runSoundCountDown();
-
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -225,7 +225,7 @@ var RoomLayer = cc.Layer.extend({
 
             var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
             shadeObject.shaderProgram = shader;
-            shadeObject.color = cc.color(40, 190, 240);
+            shadeObject.color = cc.color(140, 130, 200);
             // shadeObject.color = cc.color(6, 66, 94);
 
             shadeObject.setLocalZOrder(3);
