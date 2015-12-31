@@ -18,12 +18,7 @@
 
 #import "Recorder.h"
 
-#define kAmplitudeThreshole   -22
-#define kMaxRecordingTime     15
-
 static UIViewController* viewController;
-static NSTimeInterval startTime = -1;
-static BOOL isListening = false;
 
 @implementation H102Wrapper
 
@@ -98,12 +93,7 @@ static BOOL isListening = false;
   return [Recorder sharedEngine].isRecording;
 }
 
-+ (void)initRecord {
-//  [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
-}
-
 + (void)startFetchingAudio {
-//  [[SimpleAudioRecordEngine sharedEngine] startRecord];
   [[Recorder sharedEngine] startFetchingAudio];
 }
 

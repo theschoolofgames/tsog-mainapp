@@ -78,23 +78,15 @@ public class Wrapper
         });
     }
 
-    public static boolean checkMic() {
-        return Recorder.getInstance().checkMic();
-    }
-
     public static boolean isRecording() {
         return Recorder.getInstance().isRecording();
     }
 
-    public static void initRecord() {
-        Recorder.getInstance().initRecord();
-    }
-
-    public static void startRecord() {
+    public static void startFetchingAudio() {
         Recorder.getInstance().startRecord();
     }
 
-    public static void stopRecord() {
+    public static void stopFetchingAudio() {
         Recorder.getInstance().stopRecord();
     }
 

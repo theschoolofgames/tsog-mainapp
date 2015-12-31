@@ -33,19 +33,6 @@ static Recorder *sharedEngine = nil;
 }
 
 - (instancetype)init {
-
-  AVAudioSession *session = [AVAudioSession sharedInstance];
-  NSError *error;
-  [session setCategory:AVAudioSessionCategoryPlayAndRecord error:&error];
-  if (error)
-  {
-    NSLog(@"Error setting up audio session category: %@", error.localizedDescription);
-  }
-  [session setActive:YES error:&error];
-  if (error)
-  {
-    NSLog(@"Error setting up audio session active: %@", error.localizedDescription);
-  }
   
   self.microphone = [EZMicrophone microphoneWithDelegate:self];
   self.isRecording = NO;
@@ -57,6 +44,10 @@ static Recorder *sharedEngine = nil;
 }
 
 - (void)startFetchingAudio {
+  AVAudioSession *session = [AVAudioSession sharedInstance];
+  [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+  [session setActive:YES error:nil];
+  
   [self.microphone startFetchingAudio];
 }
 
@@ -67,6 +58,10 @@ static Recorder *sharedEngine = nil;
     self.isRecording = NO;
     [self.recorder closeAudioFile];
   }
+  
+  AVAudioSession *session = [AVAudioSession sharedInstance];
+  [session setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+  [session setActive:YES error:nil];
 }
 
 //------------------------------------------------------------------------------
@@ -100,11 +95,13 @@ static Recorder *sharedEngine = nil;
   
   [self.cachedBuffer enqueue:self.cachedBufferData maxPeak:maxPeak length:bufferSize];
   
+//  NSLog(@"%f", [self.cachedBuffer getMaxPeak]);
+  
   if (self.isRecording) {
-    if ([self.cachedBuffer getMaxPeak] < kPeakThreshold) {
+    float duration = self.recorder.duration;
+    
+    if ([self.cachedBuffer getMaxPeak] < kPeakThreshold || duration > kMaxRecordTime) {
       self.isRecording = NO;
-      
-      float duration = self.recorder.duration;
       
       [self.recorder closeAudioFile];
       [self.microphone stopFetchingAudio];

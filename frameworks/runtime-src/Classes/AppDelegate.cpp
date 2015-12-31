@@ -260,6 +260,9 @@ void AppDelegate::chipmunkifySound()
   SoundStretch soundStretch;
   
   soundStretch.process(inFileDir.c_str(), outFileDir.c_str(), 0, 10, 0);
+  
+  SimpleAudioEngine::getInstance()->unloadEffect("record_sound.wav");
+  SimpleAudioEngine::getInstance()->preloadEffect("record_sound.wav");
 
   Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
     ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);

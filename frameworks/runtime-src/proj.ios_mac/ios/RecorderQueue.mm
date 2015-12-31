@@ -46,6 +46,7 @@
                           @"length": @(length),
                           @"maxPeak": @(maxPeak)
                           }];
+  NSLog(@"%f", maxPeak);
   
   if (self.maxCapacity > 0 && self.currentCapacity > self.maxCapacity)
     while (self.currentCapacity > self.maxCapacity) {
