@@ -40,6 +40,8 @@ static Recorder *sharedEngine = nil;
   self.cachedBuffer = [[RecorderQueue alloc] init];
   self.cachedBuffer.maxCapacity = [[AVAudioSession sharedInstance] sampleRate] * self.secondOfSilence;
   
+  [EZAudioUtilities setShouldExitOnCheckResultFail:NO];
+  
   return self;
 }
 
@@ -97,14 +99,20 @@ static Recorder *sharedEngine = nil;
   
 //  NSLog(@"%f", [self.cachedBuffer getMaxPeak]);
   
+  float bufferMaxPeak = [self.cachedBuffer getMaxPeak];
+  
   if (self.isRecording) {
     float duration = self.recorder.duration;
     
-    if ([self.cachedBuffer getMaxPeak] < kPeakThreshold || duration > kMaxRecordTime) {
+    if (bufferMaxPeak < kPeakThresholdEnded || duration > kMaxRecordTime) {
+      NSLog(@"%f", bufferMaxPeak);
       self.isRecording = NO;
       
       [self.recorder closeAudioFile];
       [self.microphone stopFetchingAudio];
+      
+      while ([self.cachedBuffer.queue count] > 0)
+        [self.cachedBuffer dequeue];
       
       dispatch_async(dispatch_get_main_queue(), ^{
         NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@', %f)", [[self testFilePathURL] path], duration];
@@ -114,7 +122,7 @@ static Recorder *sharedEngine = nil;
     }
   }
   else {
-    if ([self.cachedBuffer getMaxPeak] > kPeakThreshold) {
+    if (bufferMaxPeak > kPeakThresholdBegan) {
       dispatch_async(dispatch_get_main_queue(), ^{
 
       self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
@@ -122,6 +130,7 @@ static Recorder *sharedEngine = nil;
                                          fileType:EZRecorderFileTypeWAV
                                          delegate:self];
       self.isRecording = YES;
+        NSLog(@"%f", bufferMaxPeak);
       
       for (int i = 0; i < [self.cachedBuffer.queue count]; i++) {
         NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
@@ -140,8 +149,8 @@ static Recorder *sharedEngine = nil;
                                  withBufferSize:[[dict objectForKey:@"length"] intValue]];
       }
       
-      while ([self.cachedBuffer.queue count] > 0)
-        [self.cachedBuffer dequeue];
+//      while ([self.cachedBuffer.queue count] > 0)
+//        [self.cachedBuffer dequeue];
 
       
         ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
@@ -165,8 +174,13 @@ static Recorder *sharedEngine = nil;
   // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
   if (self.isRecording)
   {
-    [self.recorder appendDataFromBufferList:bufferList
-                             withBufferSize:bufferSize];
+    @try {
+      [self.recorder appendDataFromBufferList:bufferList
+                               withBufferSize:bufferSize];
+    }
+    @catch (NSException *exception) {
+      NSLog(@"%@", exception.reason);
+    }
   }
 }
 
