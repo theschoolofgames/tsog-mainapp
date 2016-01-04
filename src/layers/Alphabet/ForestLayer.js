@@ -652,7 +652,7 @@ var ForestLayer = cc.Layer.extend({
         var oldZOrder = animal.getLocalZOrder();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
         this.addChild(mask, 100);
-        animal.setLocalZOrder(101);
+        // animal.setLocalZOrder(101);
 
         this._maskLayer = mask;
 
