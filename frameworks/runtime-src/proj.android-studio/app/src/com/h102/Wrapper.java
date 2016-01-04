@@ -78,16 +78,16 @@ public class Wrapper
         });
     }
 
-    public static boolean isRecording() {
-        return Recorder.getInstance().isRecording();
-    }
+//    public static boolean isRecording() {
+//        return Recorder.getInstance().isRecording();
+//    }
 
     public static void startFetchingAudio() {
-        Recorder.getInstance().startBackgroundSoundDetecting(activity);
+        Recorder.getInstance().startFetchingAudio();
     }
 
     public static void stopFetchingAudio() {
-        Recorder.getInstance().stopBackgroundSoundDetecting();
+        Recorder.getInstance().stopFetchingAudio();
     }
 
     public static void changeSpeechLanguageArray(String serializedString) throws IOException {

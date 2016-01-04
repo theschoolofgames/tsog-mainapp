@@ -2,16 +2,19 @@ package com.h102;
 
 import android.media.AudioFormat;
 import android.media.AudioRecord;
+import android.media.MediaRecorder;
+import android.util.Base64;
 import android.util.Log;
 
 import com.chipmunkrecord.ExtAudioRecorder;
 
-import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -20,141 +23,372 @@ import java.util.TimerTask;
 public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
-    private static final String AUDIO_RECORDER_FILE = "record_sound.wav";
-    private static final int BACKGROUND_SOUND_DETECTING_LOOP_DELAY = 800; // ms
-    private static final int AUDIO_AMPLITUDE_THRESHOLD = 15000;
-    private static final int MAX_RECORDING_TIME = 15;
-
-    private ExtAudioRecorder mRecorder = null;
-
-//    private static final int RECORDER_SAMPLERATE = 44100;
-//    private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
-//    private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-
-//    private int bufferSize = 0;
-    private Timer timer;
+    private final static int PEAK_THRESHOLD_BEGAN = 15000;
+    private final static int PEAK_THRESHOLD_ENDED = 15000;
+    private final static float MAX_RECORD_TIME = 15.0f;
 
     private static Recorder mSharedInstance = null;
+    private final static int[] sampleRates = {44100, 22050, 11025, 8000};
+
+    private final static String FILE_NAME = "record_sound.wav";
+    private final static float SECOND_OF_SILENCE = 1.0f;
+
+    /**
+     * INITIALIZING : recorder is initializing;
+     * READY : recorder has been initialized, recorder not yet started
+     * RECORDING : recording
+     * ERROR : reconstruction needed
+     * STOPPED: reset needed
+     */
+    public enum State {INITIALIZING, READY, RECORDING, ERROR, STOPPED};
+
+    // The interval in which the recorded samples are output to the file
+    private static final int TIMER_INTERVAL = 120;
+
+
+    private boolean isRecording = false;
+
+    // Recorder used for uncompressed recording
+    private AudioRecord     audioRecorder = null;
+
+    // Stores current amplitude (only in uncompressed mode)
+    private int             cAmplitude= 0;
+
+    // Output file path
+    private String          filePath = null;
+
+    // Recorder state; see State
+    private State          	state;
+
+    // File writer (only in uncompressed mode)
+    private RandomAccessFile randomAccessWriter;
+
+    // Number of channels, sample rate, sample size(size in bits), buffer size, audio source, sample size(see AudioFormat)
+    private short                    nChannels;
+    private int                      sRate;
+    private short                    bSamples;
+    private int                      bufferSize;
+    private int                      aSource;
+    private int                      aFormat;
+
+    // Number of frames written to file on each output(only in uncompressed mode)
+    private int                      framePeriod;
+
+    // Buffer for output(only in uncompressed mode)
+    private byte[]                   buffer;
+
+    // Number of bytes written to file after header(only in uncompressed mode)
+    // after stop() is called, this size is written to the header/data chunk in the wave file
+    private int                      payloadSize;
+
+    private RecorderQueue            cachedBuffer;
 
     public static Recorder getInstance() {
         if (mSharedInstance == null) {
-            mSharedInstance = new Recorder();
+            int i=0;
+            do{
+                mSharedInstance = new Recorder(sampleRates[i]);
+
+            } while((++i<sampleRates.length) & !(mSharedInstance.getState() == Recorder.State.INITIALIZING));
         }
 
         return mSharedInstance;
     }
 
-    public Recorder() {
-//        bufferSize = AudioRecord.getMinBufferSize(RECORDER_SAMPLERATE,RECORDER_CHANNELS,RECORDER_AUDIO_ENCODING);
-    }
+    /*
+	*
+	* Method used for recording.
+	*
+	*/
+    private AudioRecord.OnRecordPositionUpdateListener updateListener = new AudioRecord.OnRecordPositionUpdateListener()
+    {
+        public void onPeriodicNotification(AudioRecord recorder)
+        {
+            audioRecorder.read(buffer, 0, buffer.length); // Fill buffer
+            if (isRecording) {
+                try
+                {
+                    randomAccessWriter.write(buffer); // Write buffer to file
+                    payloadSize += buffer.length;
+                }
+                catch (IOException e)
+                {
+                    Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
+                    //stop();
+                }
+            }
 
-    public boolean checkMic() {
-        return true;
-    }
+            int maxPeak = 0;
 
-    public boolean isRecording() {
-        return mRecorder != null && mRecorder.getState() == ExtAudioRecorder.State.RECORDING;
-    }
+            for (int i=0; i<buffer.length/2; i++)
+            { // 16bit sample size
+                short curSample = getShort(buffer[i*2], buffer[i*2+1]);
+                if (curSample > maxPeak)
+                { // Check amplitude
+                    maxPeak = curSample;
+                }
+            }
 
-    public void initRecord() {
-        if (mRecorder != null) {
-            mRecorder.release();
-        }
+            cachedBuffer.enqueue(buffer, maxPeak, buffer.length);
 
-        mRecorder = ExtAudioRecorder.getInstanse(false);
-        mRecorder.setOutputFile(getAudioFilePath());
+            int bufferMaxPeak = cachedBuffer.getMaxPeak();
 
-        mRecorder.prepare();
-    }
+            if (isRecording) {
+                float duration = (float)(payloadSize) / sRate;
 
-    private String getAudioFilePath() {
-        return Cocos2dxHelper.getCocos2dxWritablePath() + "/" + AUDIO_RECORDER_FILE;
-//        return "/sdcard/" + AUDIO_RECORDER_FILE;
-    }
+                if (bufferMaxPeak < PEAK_THRESHOLD_ENDED || duration > MAX_RECORD_TIME) {
+                    isRecording = false;
 
-    public void startRecord() {
-        if (mRecorder != null) {
-            mRecorder.start();
-        }
-    }
+                    stopFetchingAudio();
 
-    public void stopRecord() {
-        if (mRecorder != null) {
-            mRecorder.stop();
-            mRecorder.release();
-//            mRecorder = null;
-        }
-    }
+                    while (cachedBuffer.size() > 0)
+                        cachedBuffer.dequeue();
 
-    public void startBackgroundSoundDetecting(final AppActivity app) {
-        new Thread() {
-            public void run() {
-                initRecord();
-                startRecord();
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-
-                    long startTime = -1;
-
-                    @Override
-                    public void run() {
-
-                        int maxAmplitude = mRecorder.getMaxAmplitude();
-                        Log.w(TAG, "Amplitude: " + maxAmplitude);
-                        if (startTime < 0) {
-                            if (maxAmplitude > AUDIO_AMPLITUDE_THRESHOLD) {
-                                Log.w(TAG, "Start");
-                                startTime = System.currentTimeMillis();
-                                app.runOnGLThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Cocos2dxJavascriptJavaBridge.evalString("AudioListener.getInstance().onStartedListening()");
-                                    }
-                                });
-                            }
-                        } else {
-                            float deltaTime = (float)(System.currentTimeMillis() - startTime)/1000;
-                            if (maxAmplitude < AUDIO_AMPLITUDE_THRESHOLD || deltaTime >= MAX_RECORDING_TIME ) {
-                                Log.w(TAG, "Stop");
-                                stopBackgroundSoundDetectingFunc();
-                                final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", getAudioFilePath(), deltaTime);
-                                app.runOnGLThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Cocos2dxJavascriptJavaBridge.evalString(command);
-                                    }
-                                });
-                                return;
-                            }
+                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, duration);
+                    Wrapper.activity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString(command);
                         }
+                    });
+                }
+            } else {
+                if (bufferMaxPeak > PEAK_THRESHOLD_BEGAN) {
+                    isRecording = true;
 
-                        if (startTime < 0) {
-                            Log.w(TAG, "Restart");
-                            initRecord();
-                            startRecord();
+                    for (int i = 0; i < cachedBuffer.size(); i++) {
+                        Map<String, Object> dict = cachedBuffer.get(i);
+                        String stringData = (String)dict.get("data");
+                        byte[] data = Base64.decode(stringData, Base64.DEFAULT);
+
+                        try {
+                            randomAccessWriter.write(data);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                }, 0, BACKGROUND_SOUND_DETECTING_LOOP_DELAY);
-            }
-        }.start();
-    }
 
-    public void stopBackgroundSoundDetecting() {
-        new Thread() {
-            public void run() {
-                stopBackgroundSoundDetectingFunc();
+                    final String command = String.format("AudioListener.getInstance().onStartedListening()");
+                    Wrapper.activity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString(command);
+                        }
+                    });
+                }
             }
-        }.start();
-    }
+        }
 
-    private void stopBackgroundSoundDetectingFunc() {
-        Log.w(TAG, "stopBackgroundSoundDetecting");
-        timer.cancel();
+        public void onMarkerReached(AudioRecord recorder)
+        {
+            // NOT USED
+        }
+    };
+
+    public Recorder(int sampleRate) {
+
         try {
-            stopRecord();
-        } catch (Exception e) {
-            e.printStackTrace();
+            bSamples = 16;
+            nChannels = 1;
+
+            aSource = MediaRecorder.AudioSource.MIC;
+            sRate   = sampleRate;
+            aFormat = AudioFormat.ENCODING_PCM_16BIT;
+
+            framePeriod = sampleRate * TIMER_INTERVAL / 1000;
+            bufferSize = framePeriod * 2 * bSamples * nChannels / 8;
+            if (bufferSize < AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat))
+            { // Check to make sure buffer size is not smaller than the smallest allowed one
+                bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
+                // Set frame period and timer interval accordingly
+                framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
+                Log.w(ExtAudioRecorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
+            }
+
+            audioRecorder = new AudioRecord(aSource, sampleRate, nChannels, aFormat, bufferSize);
+
+            if (audioRecorder.getState() != AudioRecord.STATE_INITIALIZED){
+                Log.w(Recorder.class.getName(), "AudioRecord initialization failed");
+                throw new Exception("AudioRecord initialization failed");
+            }
+            audioRecorder.setRecordPositionUpdateListener(null);
+            audioRecorder.setPositionNotificationPeriod(framePeriod);
+
+            cAmplitude = 0;
+            filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
+//            filePath = "/sdcard/" + FILE_NAME;
+
+            state = State.INITIALIZING;
+
+            cachedBuffer = new RecorderQueue();
+            cachedBuffer.setMaxCapacity((int)(sampleRate * SECOND_OF_SILENCE));
+        }
+        catch (Exception e)
+        {
+            if (e.getMessage() != null)
+            {
+                Log.e(Recorder.class.getName(), e.getMessage());
+            }
+            else
+            {
+                Log.e(Recorder.class.getName(), "Unknown error occured while initializing recording");
+            }
+            state = State.ERROR;
         }
     }
 
+    public State getState()
+    {
+        return state;
+    }
+
+    /**
+     *
+     * Prepares the recorder for recording, in case the recorder is not in the INITIALIZING state and the file path was not set
+     * the recorder is set to the ERROR state, which makes a reconstruction necessary.
+     * In case uncompressed recording is toggled, the header of the wave file is written.
+     * In case of an exception, the state is changed to ERROR
+     *
+     */
+    public void prepare()
+    {
+        try
+        {
+            if (state == State.INITIALIZING || state == State.STOPPED)
+        {
+                if ((audioRecorder.getState() == AudioRecord.STATE_INITIALIZED) & (filePath != null))
+                {
+                    // write file header
+
+                    randomAccessWriter = new RandomAccessFile(filePath, "rw");
+
+                    randomAccessWriter.setLength(0); // Set file length to 0, to prevent unexpected behavior in case the file already existed
+                    randomAccessWriter.writeBytes("RIFF");
+                    randomAccessWriter.writeInt(0); // Final file size not known yet, write 0
+                    randomAccessWriter.writeBytes("WAVE");
+                    randomAccessWriter.writeBytes("fmt ");
+                    randomAccessWriter.writeInt(Integer.reverseBytes(16)); // Sub-chunk size, 16 for PCM
+                    randomAccessWriter.writeShort(Short.reverseBytes((short) 1)); // AudioFormat, 1 for PCM
+                    randomAccessWriter.writeShort(Short.reverseBytes(nChannels));// Number of channels, 1 for mono, 2 for stereo
+                    randomAccessWriter.writeInt(Integer.reverseBytes(sRate)); // Sample rate
+                    randomAccessWriter.writeInt(Integer.reverseBytes(sRate*bSamples*nChannels/8)); // Byte rate, SampleRate*NumberOfChannels*BitsPerSample/8
+                    randomAccessWriter.writeShort(Short.reverseBytes((short)(nChannels*bSamples/8))); // Block align, NumberOfChannels*BitsPerSample/8
+                    randomAccessWriter.writeShort(Short.reverseBytes(bSamples)); // Bits per sample
+                    randomAccessWriter.writeBytes("data");
+                    randomAccessWriter.writeInt(0); // Data chunk size not known yet, write 0
+
+                    buffer = new byte[framePeriod*bSamples/8*nChannels];
+                    state = State.READY;
+                }
+                else
+                {
+                    Log.e(Recorder.class.getName(), "prepare() method called on uninitialized recorder");
+                    state = State.ERROR;
+                }
+            }
+            else
+            {
+                Log.e(Recorder.class.getName(), "prepare() method called on illegal state");
+//                release();
+                state = State.ERROR;
+            }
+        }
+        catch(Exception e)
+        {
+            if (e.getMessage() != null)
+            {
+                Log.e(Recorder.class.getName(), e.getMessage());
+            }
+            else
+            {
+                Log.e(Recorder.class.getName(), "Unknown error occured in prepare()");
+            }
+            state = State.ERROR;
+        }
+    }
+
+    /**
+     *
+     *
+     * Starts the recording, and sets the state to RECORDING.
+     * Call after prepare().
+     *
+     */
+    public void start()
+    {
+        if (state == State.READY)
+        {
+            payloadSize = 0;
+            audioRecorder.startRecording();
+            audioRecorder.read(buffer, 0, buffer.length);
+            state = State.RECORDING;
+        }
+        else
+        {
+            Log.e(ExtAudioRecorder.class.getName(), "start() called on illegal state");
+            state = State.ERROR;
+        }
+    }
+
+    /**
+     *
+     *
+     *  Stops the recording, and sets the state to STOPPED.
+     * In case of further usage, a reset is needed.
+     * Also finalizes the wave file in case of uncompressed recording.
+     *
+     */
+    public void stop()
+    {
+        if (state == State.RECORDING)
+        {
+            audioRecorder.stop();
+
+            try
+            {
+                randomAccessWriter.seek(4); // Write size to RIFF header
+                randomAccessWriter.writeInt(Integer.reverseBytes(36+payloadSize));
+
+                randomAccessWriter.seek(40); // Write size to Subchunk2Size field
+                randomAccessWriter.writeInt(Integer.reverseBytes(payloadSize));
+
+                randomAccessWriter.close();
+            }
+            catch(IOException e)
+            {
+                Log.e(ExtAudioRecorder.class.getName(), "I/O exception occured while closing output file");
+                state = State.ERROR;
+            }
+            state = State.STOPPED;
+        }
+        else
+        {
+            Log.e(ExtAudioRecorder.class.getName(), "stop() called on illegal state");
+            state = State.ERROR;
+        }
+    }
+
+    public void startFetchingAudio() {
+        audioRecorder.setRecordPositionUpdateListener(updateListener);
+
+        prepare();
+        start();
+    }
+
+    public void stopFetchingAudio() {
+        audioRecorder.setRecordPositionUpdateListener(null);
+
+        stop();
+        payloadSize = 0;
+    }
+
+    /*
+	 *
+	 * Converts a byte[2] to a short, in LITTLE_ENDIAN format
+	 *
+	 */
+    private short getShort(byte argB1, byte argB2)
+    {
+        return (short)(argB1 | (argB2 << 8));
+    }
 }

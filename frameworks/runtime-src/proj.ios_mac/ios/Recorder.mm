@@ -125,29 +125,29 @@ static Recorder *sharedEngine = nil;
     if (bufferMaxPeak > kPeakThresholdBegan) {
       dispatch_async(dispatch_get_main_queue(), ^{
 
-      self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
-                                     clientFormat:[self.microphone audioStreamBasicDescription]
-                                         fileType:EZRecorderFileTypeWAV
-                                         delegate:self];
-      self.isRecording = YES;
-        NSLog(@"%f", bufferMaxPeak);
-      
-      for (int i = 0; i < [self.cachedBuffer.queue count]; i++) {
-        NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
-        NSData* data = [dict objectForKey:@"data"];
+        self.recorder = [EZRecorder recorderWithURL:[self testFilePathURL]
+                                       clientFormat:[self.microphone audioStreamBasicDescription]
+                                           fileType:EZRecorderFileTypeWAV
+                                           delegate:self];
+        self.isRecording = YES;
+          NSLog(@"%f", bufferMaxPeak);
         
-        AudioBufferList* audio = (AudioBufferList*)malloc(sizeof(AudioBufferList));
-        int bytesPerBuffer = [data length];
-        
-        audio->mNumberBuffers = 1;
-        audio->mBuffers[0].mData = malloc(bytesPerBuffer);
-        memcpy(audio->mBuffers[0].mData, [data bytes], bytesPerBuffer);
-        audio->mBuffers[0].mDataByteSize = bytesPerBuffer;
-        audio->mBuffers[0].mNumberChannels = 1;
-        
-        [self.recorder appendDataFromBufferList:audio
-                                 withBufferSize:[[dict objectForKey:@"length"] intValue]];
-      }
+        for (int i = 0; i < [self.cachedBuffer.queue count]; i++) {
+          NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
+          NSData* data = [dict objectForKey:@"data"];
+          
+          AudioBufferList* audio = (AudioBufferList*)malloc(sizeof(AudioBufferList));
+          int bytesPerBuffer = [data length];
+          
+          audio->mNumberBuffers = 1;
+          audio->mBuffers[0].mData = malloc(bytesPerBuffer);
+          memcpy(audio->mBuffers[0].mData, [data bytes], bytesPerBuffer);
+          audio->mBuffers[0].mDataByteSize = bytesPerBuffer;
+          audio->mBuffers[0].mNumberChannels = 1;
+          
+          [self.recorder appendDataFromBufferList:audio
+                                   withBufferSize:[[dict objectForKey:@"length"] intValue]];
+        }
       
 //      while ([self.cachedBuffer.queue count] > 0)
 //        [self.cachedBuffer dequeue];
