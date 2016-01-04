@@ -435,7 +435,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._shadeObjects[index].stopAllActions();
         targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
         // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
-        // targetNode._objectTouching.setLocalZOrder(2);
+        targetNode._objectTouching.setLocalZOrder(1);
         targetNode.handleObjectCorrectPos(index);
 
         var shader = targetNode._objectTouching.shaderProgram;
@@ -575,7 +575,7 @@ var RoomLayer = cc.Layer.extend({
         if (!isDragging) {
             str = objectName;
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-            this.addChild(mask, 100);
+            this.addChild(mask, 10000);
             this._maskLayer = mask;
 
             object.setLocalZOrder(101);
