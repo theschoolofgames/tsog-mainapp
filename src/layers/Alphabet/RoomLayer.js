@@ -433,7 +433,7 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
         targetNode._shadeObjects[index].stopAllActions();
-        targetNode._shadeObjects[index].setColor(cc.color(40, 190, 240));
+        targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
         // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
         targetNode._objectTouching.setLocalZOrder(2);
         targetNode.handleObjectCorrectPos(index);
@@ -499,7 +499,7 @@ var RoomLayer = cc.Layer.extend({
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
         shadeObject.shaderProgram = shader;
         shadeObject.runAction(cc.repeatForever(cc.sequence(
-            cc.tintTo(0.25, 40, 190, 240),
+            cc.tintTo(0.25, 140, 130, 200),
             // cc.tintTo(0.25, 6, 66, 94),
             cc.tintTo(0.25, 186, 186, 186))));
 
