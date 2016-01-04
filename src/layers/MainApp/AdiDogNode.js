@@ -90,9 +90,9 @@ var AdiDogNode = cc.Node.extend({
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
-        this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningloop', 0.2);
-        this._talkingAdi.setMix('adidog-listeningloop', 'adidog-listeningfinish', 0.2);
-        this._talkingAdi.setMix('adidog-listeningloop', 'adidog-shake', 0.3);
+        this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningl-still', 0.2);
+        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-listeningfinish', 0.2);
+        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-shake', 0.3);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-jump', 0.3);
         this._talkingAdi.setMix('adidog-jump', 'adidog-hifi', 0.2);
@@ -119,7 +119,7 @@ var AdiDogNode = cc.Node.extend({
         cc.log("onStartedListening");
         this._isAdiIdling = false;
         this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
-        this._talkingAdi.addAnimation(0, 'adidog-listeningloop', true, 0.5);
+        this._talkingAdi.addAnimation(0, 'adidog-listeningl-still', true, 0.2);
     },
 
     onStoppedListening: function() {

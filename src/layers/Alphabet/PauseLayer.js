@@ -12,17 +12,16 @@ var PauseLayer = cc.LayerColor.extend({
         clock.setClockScale(2); 
 
         clock.x = cc.winSize.width/2;
-        clock.y = cc.winSize.height/2 + 50;
+        clock.y = cc.winSize.height/2 - 50;
         this.addChild(clock);
 
         var font = "hud-font.fnt";
-        var minutes = Math.floor(clockInitTime / 60);
-        var seconds = (clockInitTime%60) > 9 ? (":" + clockInitTime%60) : (":0" + (clockInitTime%60));
-        var text = "PLEASE REST YOUR EYES FOR " + minutes + seconds;
-        cc.log("text: " + text);
+        // var minutes = Math.floor(clockInitTime / 60);
+        // var seconds = (clockInitTime%60) > 9 ? (":" + clockInitTime%60) : (":0" + (clockInitTime%60));
+        var text = "PLEASE REST YOUR EYES FOR ";
         var lb = new cc.LabelBMFont(text, font);
         lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height/2 - 50;
+        lb.y = cc.winSize.height/2 + 50;
         this.addChild(lb);
 
         cc.eventManager.addListener({
