@@ -45,6 +45,8 @@
 #include "BPMDetect.h"
 #include "SoundStretch.h"
 
+#include "cocos2d.h"
+
 using namespace soundtouch;
 using namespace std;
 
@@ -141,34 +143,34 @@ static void setup(SoundTouch *pSoundTouch, const WavInFile *inFile, const RunPar
         pSoundTouch->setSetting(SETTING_SEQUENCE_MS, 40);
         pSoundTouch->setSetting(SETTING_SEEKWINDOW_MS, 15);
         pSoundTouch->setSetting(SETTING_OVERLAP_MS, 8);
-        fprintf(stderr, "Tune processing parameters for speech processing.\n");
+        CCLOG("Tune processing parameters for speech processing.\n");
     }
 
     // print processing information
     if (params->outFileName)
     {
 #ifdef SOUNDTOUCH_INTEGER_SAMPLES
-        fprintf(stderr, "Uses 16bit integer sample type in processing.\n\n");
+        CCLOG("Uses 16bit integer sample type in processing.\n\n");
 #else
     #ifndef SOUNDTOUCH_FLOAT_SAMPLES
         #error "Sampletype not defined"
     #endif
-        fprintf(stderr, "Uses 32bit floating point sample type in processing.\n\n");
+        CCLOG("Uses 32bit floating point sample type in processing.\n\n");
 #endif
         // print processing information only if outFileName given i.e. some processing will happen
-        fprintf(stderr, "Processing the file with the following changes:\n");
-        fprintf(stderr, "  tempo change = %+g %%\n", params->tempoDelta);
-        fprintf(stderr, "  pitch change = %+g semitones\n", params->pitchDelta);
-        fprintf(stderr, "  rate change  = %+g %%\n\n", params->rateDelta);
-        fprintf(stderr, "Working...");
+        CCLOG("Processing the file with the following changes:\n");
+        CCLOG("  tempo change = %+g %%\n", params->tempoDelta);
+        CCLOG("  pitch change = %+g semitones\n", params->pitchDelta);
+        CCLOG("  rate change  = %+g %%\n\n", params->rateDelta);
+        CCLOG("Working...");
     }
     else
     {
         // outFileName not given
-        fprintf(stderr, "Warning: output file name missing, won't output anything.\n\n");
+        CCLOG("Warning: output file name missing, won't output anything.\n\n");
     }
 
-    fflush(stderr);
+    
 }
 
 
@@ -236,8 +238,8 @@ static void detectBPM(WavInFile *inFile, RunParameters *params)
     SAMPLETYPE sampleBuffer[BUFF_SIZE];
 
     // detect bpm rate
-    fprintf(stderr, "Detecting BPM rate...");
-    fflush(stderr);
+    CCLOG("Detecting BPM rate...");
+    
 
     nChannels = (int)inFile->getNumChannels();
     assert(BUFF_SIZE % nChannels == 0);
@@ -258,18 +260,18 @@ static void detectBPM(WavInFile *inFile, RunParameters *params)
 
     // Now the whole song data has been analyzed. Read the resulting bpm.
     bpmValue = bpm.getBpm();
-    fprintf(stderr, "Done!\n");
+    CCLOG("Done!\n");
 
     // rewind the file after bpm detection
     inFile->rewind();
 
     if (bpmValue > 0)
     {
-        fprintf(stderr, "Detected BPM rate %.1f\n\n", bpmValue);
+        CCLOG("Detected BPM rate %.1f\n\n", bpmValue);
     }
     else
     {
-        fprintf(stderr, "Couldn't detect BPM rate.\n\n");
+        CCLOG("Couldn't detect BPM rate.\n\n");
         return;
     }
 
@@ -277,7 +279,7 @@ static void detectBPM(WavInFile *inFile, RunParameters *params)
     {
         // adjust tempo to given bpm
         params->tempoDelta = (params->goalBPM / bpmValue - 1.0f) * 100.0f;
-        fprintf(stderr, "The file will be converted to %.1f BPM\n\n", params->goalBPM);
+        CCLOG("The file will be converted to %.1f BPM\n\n", params->goalBPM);
     }
 }
 
@@ -314,7 +316,7 @@ int run(RunParameters *params)
     catch (const runtime_error &e) 
     {
         // An exception occurred during processing, display an error message
-        fprintf(stderr, "Error: %s", e.what());
+        CCLOG("Error: %s", e.what());
         return -1;
     }
 

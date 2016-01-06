@@ -60,7 +60,7 @@ var AudioListener = cc.Class.extend({
                 self._talkingAdi.onStoppedListening();
                 if (self._playbackLength > 0) {
                     cc.log("_playbackLength: " + self._playbackLength);
-                    var audio = cc.audioEngine.playEffect(fileName);
+                    var audio = jsb.AudioEngine.play2d(fileName);
                     self._talkingAdi.adiTalk();
                 }
                 else

@@ -159,10 +159,12 @@ public class Recorder {
                     for (int i = 0; i < cachedBuffer.size(); i++) {
                         Map<String, Object> dict = cachedBuffer.get(i);
                         String stringData = (String)dict.get("data");
+                        int length = (int)dict.get("length");
                         byte[] data = Base64.decode(stringData, Base64.DEFAULT);
 
                         try {
                             randomAccessWriter.write(data);
+                            payloadSize += length;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -186,42 +188,47 @@ public class Recorder {
     };
 
     public Recorder(int sampleRate) {
+        bSamples = 16;
+        nChannels = 1;
 
+        aSource = MediaRecorder.AudioSource.MIC;
+        sRate   = sampleRate;
+        aFormat = AudioFormat.ENCODING_PCM_16BIT;
+
+        framePeriod = sampleRate * TIMER_INTERVAL / 1000;
+        bufferSize = framePeriod * 2 * bSamples * nChannels / 8;
+        if (bufferSize < AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat))
+        { // Check to make sure buffer size is not smaller than the smallest allowed one
+            bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
+            // Set frame period and timer interval accordingly
+            framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
+            Log.w(ExtAudioRecorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
+        }
+
+
+
+        cAmplitude = 0;
+//        filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
+            filePath = "/sdcard/" + FILE_NAME;
+
+        this.initRecorder();
+
+        cachedBuffer = new RecorderQueue();
+        cachedBuffer.setMaxCapacity((int)(sampleRate * SECOND_OF_SILENCE));
+    }
+
+    private void initRecorder() {
         try {
-            bSamples = 16;
-            nChannels = 1;
-
-            aSource = MediaRecorder.AudioSource.MIC;
-            sRate   = sampleRate;
-            aFormat = AudioFormat.ENCODING_PCM_16BIT;
-
-            framePeriod = sampleRate * TIMER_INTERVAL / 1000;
-            bufferSize = framePeriod * 2 * bSamples * nChannels / 8;
-            if (bufferSize < AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat))
-            { // Check to make sure buffer size is not smaller than the smallest allowed one
-                bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
-                // Set frame period and timer interval accordingly
-                framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
-                Log.w(ExtAudioRecorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
-            }
-
-            audioRecorder = new AudioRecord(aSource, sampleRate, nChannels, aFormat, bufferSize);
+            audioRecorder = new AudioRecord(aSource, sRate, nChannels+1, aFormat, bufferSize);
 
             if (audioRecorder.getState() != AudioRecord.STATE_INITIALIZED){
                 Log.w(Recorder.class.getName(), "AudioRecord initialization failed");
                 throw new Exception("AudioRecord initialization failed");
             }
-            audioRecorder.setRecordPositionUpdateListener(null);
+            audioRecorder.setRecordPositionUpdateListener(updateListener);
             audioRecorder.setPositionNotificationPeriod(framePeriod);
 
-            cAmplitude = 0;
-            filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
-//            filePath = "/sdcard/" + FILE_NAME;
-
             state = State.INITIALIZING;
-
-            cachedBuffer = new RecorderQueue();
-            cachedBuffer.setMaxCapacity((int)(sampleRate * SECOND_OF_SILENCE));
         }
         catch (Exception e)
         {
@@ -254,7 +261,7 @@ public class Recorder {
     {
         try
         {
-            if (state == State.INITIALIZING || state == State.STOPPED)
+            if (state == State.INITIALIZING)
         {
                 if ((audioRecorder.getState() == AudioRecord.STATE_INITIALIZED) & (filePath != null))
                 {
@@ -369,17 +376,13 @@ public class Recorder {
     }
 
     public void startFetchingAudio() {
-        audioRecorder.setRecordPositionUpdateListener(updateListener);
-
+        initRecorder();
         prepare();
         start();
     }
 
     public void stopFetchingAudio() {
-        audioRecorder.setRecordPositionUpdateListener(null);
-
         stop();
-        payloadSize = 0;
     }
 
     /*
