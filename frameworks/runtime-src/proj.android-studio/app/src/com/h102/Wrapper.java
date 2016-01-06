@@ -83,18 +83,10 @@ public class Wrapper
     }
 
     public static void startFetchingAudio() {
-        Recorder.getInstance().startRecord();
-    }
-
-    public static void stopFetchingAudio() {
-        Recorder.getInstance().stopRecord();
-    }
-
-    public static void startBackgroundSoundDetecting() {
         Recorder.getInstance().startBackgroundSoundDetecting(activity);
     }
 
-    public static void stopBackgroundSoundDetecting() {
+    public static void stopFetchingAudio() {
         Recorder.getInstance().stopBackgroundSoundDetecting();
     }
 

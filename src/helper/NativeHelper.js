@@ -87,7 +87,7 @@ var NativeHelperConfig = {
         ],
         Android: [
             "com/h102/Wrapper",
-            "startRecord",
+            "startFetchingAudio",
             "()V"
         ]
     },
@@ -98,7 +98,7 @@ var NativeHelperConfig = {
         ],
         Android: [
             "com/h102/Wrapper",
-            "stopRecord",
+            "stopFetchingAudio",
             "()V"
         ]
     },
