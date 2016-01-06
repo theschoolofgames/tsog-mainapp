@@ -23,8 +23,7 @@ import java.util.Map;
 public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
-    private final static int PEAK_THRESHOLD_BEGAN = 15000;
-    private final static int PEAK_THRESHOLD_ENDED = 15000;
+    private final static int PEAK_THRESHOLD_BEGAN = 38;
     private final static float MAX_RECORD_TIME = 15.0f;
 
     private static Recorder mSharedInstance = null;
@@ -83,6 +82,8 @@ public class Recorder {
 
     private RecorderQueue            cachedBuffer;
 
+    private float                    silenceTime = 0;
+
     public static Recorder getInstance() {
         if (mSharedInstance == null) {
             int i=0;
@@ -104,8 +105,19 @@ public class Recorder {
     {
         public void onPeriodicNotification(AudioRecord recorder)
         {
-            audioRecorder.read(buffer, 0, buffer.length); // Fill buffer
+            int readAudio = audioRecorder.read(buffer, 0, buffer.length); // Fill buffer
+            double fN = (double)readAudio;
+
+            double accum = 0;
+            for (int i = 0; i < readAudio; i ++)
+            {
+                accum += Math.abs((double)buffer[i]);
+            }
+
+            double soundLevel = accum/fN;
+
             if (isRecording) {
+
                 try
                 {
                     randomAccessWriter.write(buffer); // Write buffer to file
@@ -116,33 +128,17 @@ public class Recorder {
                     Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
                     //stop();
                 }
-            }
 
-            int maxPeak = 0;
+                float duration = (float)payloadSize / sRate;
 
-            for (int i=0; i<buffer.length/2; i++)
-            { // 16bit sample size
-                short curSample = getShort(buffer[i*2], buffer[i*2+1]);
-                if (curSample > maxPeak)
-                { // Check amplitude
-                    maxPeak = curSample;
-                }
-            }
+                if (soundLevel < PEAK_THRESHOLD_BEGAN)
+                    silenceTime += (float)buffer.length / sRate;
+                else
+                    silenceTime = 0;
 
-            cachedBuffer.enqueue(buffer, maxPeak, buffer.length);
-
-            int bufferMaxPeak = cachedBuffer.getMaxPeak();
-
-            if (isRecording) {
-                float duration = (float)(payloadSize) / sRate;
-
-                if (bufferMaxPeak < PEAK_THRESHOLD_ENDED || duration > MAX_RECORD_TIME) {
+                if (silenceTime > SECOND_OF_SILENCE) {
                     isRecording = false;
-
                     stopFetchingAudio();
-
-                    while (cachedBuffer.size() > 0)
-                        cachedBuffer.dequeue();
 
                     final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, duration);
                     Wrapper.activity.runOnGLThread(new Runnable() {
@@ -152,24 +148,10 @@ public class Recorder {
                         }
                     });
                 }
-            } else {
-                if (bufferMaxPeak > PEAK_THRESHOLD_BEGAN) {
+            }
+            else {
+                if (soundLevel > PEAK_THRESHOLD_BEGAN) {
                     isRecording = true;
-
-                    for (int i = 0; i < cachedBuffer.size(); i++) {
-                        Map<String, Object> dict = cachedBuffer.get(i);
-                        String stringData = (String)dict.get("data");
-                        int length = (int)dict.get("length");
-                        byte[] data = Base64.decode(stringData, Base64.DEFAULT);
-
-                        try {
-                            randomAccessWriter.write(data);
-                            payloadSize += length;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
                     final String command = String.format("AudioListener.getInstance().onStartedListening()");
                     Wrapper.activity.runOnGLThread(new Runnable() {
                         @Override
@@ -383,6 +365,7 @@ public class Recorder {
 
     public void stopFetchingAudio() {
         stop();
+        silenceTime = 0;
     }
 
     /*
