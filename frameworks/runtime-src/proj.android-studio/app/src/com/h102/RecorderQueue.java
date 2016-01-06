@@ -26,13 +26,12 @@ public class RecorderQueue extends ArrayList<Map<String, Object>> {
         return dict;
     }
 
-    public void enqueue(byte[] buffer, int maxPeak, int length) {
+    public void enqueue(byte[] buffer, int length) {
         this.currentCapacity += length;
 
         Map<String, Object> obj = new HashMap<>();
         obj.put("data", Base64.encodeToString(buffer, Base64.DEFAULT));
         obj.put("length", length);
-        obj.put("maxPeak", maxPeak);
 
         this.add(obj);
 

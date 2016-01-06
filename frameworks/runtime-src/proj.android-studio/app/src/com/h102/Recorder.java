@@ -30,7 +30,7 @@ public class Recorder {
     private final static int[] sampleRates = {44100, 22050, 11025, 8000};
 
     private final static String FILE_NAME = "record_sound.wav";
-    private final static float SECOND_OF_SILENCE = 1.0f;
+    private final static float SECOND_OF_SILENCE = 1.5f;
 
     /**
      * INITIALIZING : recorder is initializing;
@@ -106,6 +106,10 @@ public class Recorder {
         public void onPeriodicNotification(AudioRecord recorder)
         {
             int readAudio = audioRecorder.read(buffer, 0, buffer.length); // Fill buffer
+
+            if (readAudio == AudioRecord.ERROR_BAD_VALUE || readAudio == AudioRecord.ERROR_INVALID_OPERATION)
+                return;
+
             double fN = (double)readAudio;
 
             double accum = 0;
@@ -136,11 +140,11 @@ public class Recorder {
                 else
                     silenceTime = 0;
 
-                if (silenceTime > SECOND_OF_SILENCE) {
+                if (silenceTime > SECOND_OF_SILENCE || duration > MAX_RECORD_TIME) {
                     isRecording = false;
                     stopFetchingAudio();
 
-                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, duration);
+                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, Math.max(duration - SECOND_OF_SILENCE * 2, 0.5));
                     Wrapper.activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
@@ -150,8 +154,29 @@ public class Recorder {
                 }
             }
             else {
+
+                cachedBuffer.enqueue(buffer, buffer.length);
+
                 if (soundLevel > PEAK_THRESHOLD_BEGAN) {
                     isRecording = true;
+
+                    while (cachedBuffer.size() > 0) {
+                        Map<String, Object> dict = cachedBuffer.dequeue();
+                        byte[] data = Base64.decode((String) dict.get("data"), Base64.DEFAULT);
+                        int length = (int)dict.get("length");
+
+                        try
+                        {
+                            randomAccessWriter.write(data); // Write buffer to file
+                            payloadSize += length;
+                        }
+                        catch (IOException e)
+                        {
+                            Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
+                            //stop();
+                        }
+                    }
+
                     final String command = String.format("AudioListener.getInstance().onStartedListening()");
                     Wrapper.activity.runOnGLThread(new Runnable() {
                         @Override
@@ -358,9 +383,14 @@ public class Recorder {
     }
 
     public void startFetchingAudio() {
-        initRecorder();
-        prepare();
-        start();
+        final Recorder self = this;
+        new Thread() {
+            public void run() {
+                self.initRecorder();
+                self.prepare();
+                self.start();
+            }
+        }.start();
     }
 
     public void stopFetchingAudio() {
