@@ -21,6 +21,13 @@ var MainScreenLayer = cc.Layer.extend({
                 cc.director.replaceScene(new WelcomeScene());
         });
 
+        RequestsManager.getInstance().getGame(GAME_ID, function(succeed, data) {
+            if (succeed) {
+                KVDatabase.getInstance().set(STRING_GAME_CONFIG, data.config);
+                ConfigStore.setupInstance(false);
+            }
+        });
+
         this.downloadAssets();
     },
 
@@ -35,7 +42,7 @@ var MainScreenLayer = cc.Layer.extend({
     },
 
     downloadAssets: function() {
-        var manifestPath = Utils.useHDAssets ? "projectHD.manifest" : "projectSD.manifest";
+        var manifestPath = "project.manifest";
         var manager = new jsb.AssetsManager(manifestPath, Utils.getAssetsManagerPath());
 
         cc.log("Storage path for this test : " + Utils.getAssetsManagerPath());

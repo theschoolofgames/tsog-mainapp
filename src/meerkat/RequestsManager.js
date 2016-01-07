@@ -81,6 +81,19 @@ var RequestsManager = cc.Class.extend({
         });
     },
 
+    getGame: function(gameId, callback) {
+        var url = BACKEND_ADDRESS + "api/game?game_id=" + gameId;
+
+        RequestHelper.get(url, function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+                callback && callback(false, null);
+        });
+    },
+
     postGameProgress: function(userId, gameId, star, timeTaken, callback) {
         var url = BACKEND_ADDRESS + "api/gameProgress";
         var self = this;

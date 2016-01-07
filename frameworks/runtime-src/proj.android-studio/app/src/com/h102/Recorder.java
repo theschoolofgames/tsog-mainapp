@@ -13,7 +13,6 @@ import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.Locale;
 import java.util.Map;
 
 

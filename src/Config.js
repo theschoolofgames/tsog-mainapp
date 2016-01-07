@@ -297,10 +297,6 @@ ConfigStore.setupInstance = function (configOnce) {
             FOREST_FLY_POSITION = preProcessData(data.fly);
             FOREST_EAGLE_POSITION = preProcessData(data.eagle);
             FOREST_SHARK_POSITION = preProcessData(data.shark);
-
-
-
-            forestLoaded = true;
         } else {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Forest_Config_JSON);
             cc.loader.loadJson(res.Forest_Config_JSON, function(err, data) {
@@ -319,7 +315,6 @@ ConfigStore.setupInstance = function (configOnce) {
                 FOREST_BIRD_POSITION = preProcessData(data.bird);
                 FOREST_EAGLE_POSITION = preProcessData(data.eagle);
                 FOREST_SHARK_POSITION = preProcessData(data.shark);
-                forestLoaded = true;
             });
         }
     });
@@ -331,8 +326,6 @@ ConfigStore.setupInstance = function (configOnce) {
             BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = preProcessData(data.heavyweight);
 
             BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
-
-            roomLoaded = true;
         } else {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Room_Config_JSON);
             cc.loader.loadJson(res.Room_Config_JSON, function(err, data) {
@@ -340,8 +333,6 @@ ConfigStore.setupInstance = function (configOnce) {
                 BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = preProcessData(data.lightweight);
                 BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = preProcessData(data.heavyweight);
                 BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
-
-                roomLoaded = true;
             });
         }
     });
@@ -370,10 +361,8 @@ ConfigStore.setupInstance = function (configOnce) {
         preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
     }
 
-    while(forestLoaded && roomLoaded) {
-        ConfigStore._instance = new ConfigStore();
-        return ConfigStore._instance;
-    }
+    ConfigStore._instance = new ConfigStore();
+    return ConfigStore._instance;
 };
 
 function preProcessData(data) {
