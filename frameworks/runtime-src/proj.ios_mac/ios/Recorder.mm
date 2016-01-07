@@ -9,6 +9,8 @@
 #import "Recorder.h"
 #import "RecorderQueue.h"
 
+#import <AudioToolbox/AudioServices.h>
+
 #import "ScriptingCore.h"
 
 static Recorder *sharedEngine = nil;
@@ -40,14 +42,19 @@ static Recorder *sharedEngine = nil;
   self.cachedBuffer = [[RecorderQueue alloc] init];
   self.cachedBuffer.maxCapacity = [[AVAudioSession sharedInstance] sampleRate] * self.secondOfSilence;
   
+//  UInt32 audioRouteOverride = kAudioSessionOverrideAudioRoute_Speaker;
+//  AudioSessionSetProperty (kAudioSessionProperty_OverrideAudioRoute,
+//                           sizeof (audioRouteOverride),&audioRouteOverride);
+  
   [EZAudioUtilities setShouldExitOnCheckResultFail:NO];
   
   return self;
 }
 
 - (void)startFetchingAudio {
+  
   AVAudioSession *session = [AVAudioSession sharedInstance];
-  [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+  [session setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
   [session setActive:YES error:nil];
   
   [self.microphone startFetchingAudio];
