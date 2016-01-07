@@ -130,7 +130,7 @@ static Recorder *sharedEngine = nil;
                                            fileType:EZRecorderFileTypeWAV
                                            delegate:self];
         self.isRecording = YES;
-          NSLog(@"%f", bufferMaxPeak);
+        NSLog(@"%f", bufferMaxPeak);
         
         for (int i = 0; i < [self.cachedBuffer.queue count]; i++) {
           NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
