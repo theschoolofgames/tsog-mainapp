@@ -9,8 +9,8 @@
 #import <EZAudio/EZAudio.h>
 
 #define kSecondOfSilence      1.0
-#define kPeakThresholdBegan   0.2
-#define kPeakThresholdEnded   0.15
+#define kPeakThresholdBegan   0.15
+#define kPeakThresholdEnded   0.1
 #define kMaxRecordTime        15
 
 #define kAudioFilePath @"record_sound.wav"

@@ -23,14 +23,14 @@ import java.util.Map;
 public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
-    private final static int PEAK_THRESHOLD_BEGAN = 38;
+    private final static int PEAK_THRESHOLD_BEGAN = 36;
     private final static float MAX_RECORD_TIME = 15.0f;
 
     private static Recorder mSharedInstance = null;
     private final static int[] sampleRates = {44100, 22050, 11025, 8000};
 
     private final static String FILE_NAME = "record_sound.wav";
-    private final static float SECOND_OF_SILENCE = 1.5f;
+    private final static float SECOND_OF_SILENCE = 1f;
 
     /**
      * INITIALIZING : recorder is initializing;
@@ -49,9 +49,6 @@ public class Recorder {
 
     // Recorder used for uncompressed recording
     private AudioRecord     audioRecorder = null;
-
-    // Stores current amplitude (only in uncompressed mode)
-    private int             cAmplitude= 0;
 
     // Output file path
     private String          filePath = null;
@@ -84,6 +81,8 @@ public class Recorder {
 
     private float                    silenceTime = 0;
 
+    private long startRecordTime = 0;
+
     public static Recorder getInstance() {
         if (mSharedInstance == null) {
             int i=0;
@@ -110,6 +109,9 @@ public class Recorder {
             if (readAudio == AudioRecord.ERROR_BAD_VALUE || readAudio == AudioRecord.ERROR_INVALID_OPERATION)
                 return;
 
+            if (state == State.STOPPED)
+                return;
+
             double fN = (double)readAudio;
 
             double accum = 0;
@@ -119,6 +121,8 @@ public class Recorder {
             }
 
             double soundLevel = accum/fN;
+
+//            Log.e("123", String.format("%f %f", soundLevel, accum));
 
             if (isRecording) {
 
@@ -133,7 +137,7 @@ public class Recorder {
                     //stop();
                 }
 
-                float duration = (float)payloadSize / sRate;
+                float duration = (float)(System.currentTimeMillis() - startRecordTime)/1000;
 
                 if (soundLevel < PEAK_THRESHOLD_BEGAN)
                     silenceTime += (float)buffer.length / sRate;
@@ -143,8 +147,8 @@ public class Recorder {
                 if (silenceTime > SECOND_OF_SILENCE || duration > MAX_RECORD_TIME) {
                     isRecording = false;
                     stopFetchingAudio();
-
-                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, Math.max(duration - SECOND_OF_SILENCE * 2, 0.5));
+                    Log.w("Duration", duration + "");
+                    final String command = String.format("AudioListener.getInstance().onStoppedListening('%s', %f)", filePath, duration + SECOND_OF_SILENCE/2);
                     Wrapper.activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
@@ -159,6 +163,8 @@ public class Recorder {
 
                 if (soundLevel > PEAK_THRESHOLD_BEGAN) {
                     isRecording = true;
+
+                    startRecordTime = System.currentTimeMillis();
 
                     while (cachedBuffer.size() > 0) {
                         Map<String, Object> dict = cachedBuffer.dequeue();
@@ -212,11 +218,8 @@ public class Recorder {
             Log.w(ExtAudioRecorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
         }
 
-
-
-        cAmplitude = 0;
-//        filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
-            filePath = "/sdcard/" + FILE_NAME;
+        filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
+//            filePath = "/sdcard/" + FILE_NAME;
 
         this.initRecorder();
 
@@ -268,7 +271,7 @@ public class Recorder {
     {
         try
         {
-            if (state == State.INITIALIZING)
+            if (state == State.INITIALIZING || state == State.STOPPED)
         {
                 if ((audioRecorder.getState() == AudioRecord.STATE_INITIALIZED) & (filePath != null))
                 {
@@ -386,7 +389,7 @@ public class Recorder {
         final Recorder self = this;
         new Thread() {
             public void run() {
-                self.initRecorder();
+//                self.initRecorder();
                 self.prepare();
                 self.start();
             }

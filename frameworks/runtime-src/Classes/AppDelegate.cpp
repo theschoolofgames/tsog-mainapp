@@ -254,18 +254,18 @@ bool AppDelegate::applicationDidFinishLaunching()
 
 void AppDelegate::chipmunkifySound()
 {
-//  string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
-//  string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
+  string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "record_sound.wav");
+  string outFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), "out.wav");
   
-  string inFileDir = StringUtils::format("%s%s", "/sdcard/", "record_sound.wav");
-  string outFileDir = StringUtils::format("%s%s", "/sdcard/", "out.wav");
+//  string inFileDir = StringUtils::format("%s%s", "/sdcard/", "record_sound.wav");
+//  string outFileDir = StringUtils::format("%s%s", "/sdcard/", "out.wav");
   
   SoundStretch soundStretch;
   
   soundStretch.process(inFileDir.c_str(), outFileDir.c_str(), 0, 10, 0);
   
-//  SimpleAudioEngine::getInstance()->unloadEffect(outFileDir.c_str());
-//  SimpleAudioEngine::getInstance()->preloadEffect(outFileDir.c_str());
+  SimpleAudioEngine::getInstance()->unloadEffect(outFileDir.c_str());
+  SimpleAudioEngine::getInstance()->preloadEffect(outFileDir.c_str());
 
   Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
     ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
