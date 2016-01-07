@@ -99,6 +99,7 @@ var res = {
     Fox_png: "animals/fox.png",
     Shark_png: "animals/shark.png",
     Camel_png: "animals/camel.png",
+    New_theme_joselito_png:"new_therme_joselito.png",
     // Cheetah_png: "animals/cheetah.png",
     // Chicken_png: "animals/chicken.png",
     // Kangaroo_png: "animals/kangaroo.png",
@@ -106,7 +107,7 @@ var res = {
     // Scorpion_png:"animals/scorpion.png",
     // Seal_png: "animals/seal.png",
     // Wolf_png: "animals/wolf.png",
- 
+    
  
     // Things
     Map_png: "things/map.png",
@@ -187,7 +188,9 @@ var res = {
     DROP_mp3: "sounds/drop.mp3",
     PICKUP_mp3: "sounds/pickup.mp3",
     SMOKE_mp3: "sounds/smoke.mp3",
- 
+    BEGIN_BEDROOM_mp3: "sounds/beginroom-sound.mp3",
+    BEGIN_FOREST_mp3: "sounds/beginforest-sound.mp3",
+    SPEAK_AFTER_mp3: "sounds/speak-after.mp3",
  
     // Animal Sound
     ANT_mp3: "sounds/animals/ant.mp3",

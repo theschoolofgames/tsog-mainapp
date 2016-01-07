@@ -38,7 +38,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
                 onTouchBegan: function(touch, event) {return true;}
         }, this);
 
-
+        
         this._callback = callback;
         this._objectsArray = objectsArray || [];
         cc.log("this._objectsArray" + JSON.stringify(this._objectsArray));
@@ -53,20 +53,41 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         cc.log("this.listener: " + this.listener);
         
         this._addAdiDog();
-        this._addLabel();
+        
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
-
+        this.playBeginSound();
 
         var self = this;
         this.runAction(
             cc.sequence(
-                cc.delayTime(1),
+                cc.delayTime(4),
                 cc.callFunc(function() {
+                    self._addLabel();
                     self._showNextObject();
                 })
             )
         )
+    },
+
+    playBeginSound: function(){
+        self = this;
+        cc.audioEngine.playMusic(res.SPEAK_AFTER_mp3, false);
+        this._talkingAdi.adiTalk();
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
+        this.addChild(mask, 1000);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; }
+        }, mask);
+        mask.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                mask.removeFromParent();
+                // self._talkingAdi.adiIdling();
+            })
+        ))
     },
 
     addResultText: function() {

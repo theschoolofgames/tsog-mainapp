@@ -63,9 +63,27 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
-        cc.audioEngine.playMusic(res.background_mp3, true);
-
+        // cc.audioEngine.playMusic(res.background_mp3, true);
+        this.playBeginSound();
         // this.scheduleUpdate();
+    },
+
+    playBeginSound: function(){
+        cc.audioEngine.playMusic(res.BEGIN_FOREST_mp3, false);
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
+        this.addChild(mask, 1000);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; }
+        }, mask);
+        mask.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                mask.removeFromParent();
+                cc.audioEngine.playMusic(res.background_mp3, true);
+            })
+        ))
     },
 
     setVolume:function() {

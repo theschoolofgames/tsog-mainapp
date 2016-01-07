@@ -57,13 +57,32 @@ var RoomLayer = cc.Layer.extend({
                 room: "room", 
                 object_num: this._numberItems 
             });
-        cc.audioEngine.playMusic(res.background_mp3, true);
+        this.playBeginSound();
+        // cc.audioEngine.playMusic(res.background_mp3, true);
         // this.scheduleUpdate();
     },
 
     setVolume:function() {
         cc.audioEngine.setMusicVolume(0.1);
         cc.audioEngine.setEffectsVolume(0.7);
+    },
+
+    playBeginSound: function(){
+        cc.audioEngine.playMusic(res.BEGIN_BEDROOM_mp3, false);
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
+        this.addChild(mask, 1000);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; }
+        }, mask);
+        mask.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                mask.removeFromParent();
+                cc.audioEngine.playMusic(res.background_mp3, true);
+            })
+        ))
     },
 
     resetAllArrays: function() {
