@@ -20,7 +20,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
     _createTalkingAdi: function() {
         var adidogNode = new AdiDogNode(true);
-        adidogNode.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
+        adidogNode.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 6));
         this.addChild(adidogNode);
     },
 
