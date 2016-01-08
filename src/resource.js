@@ -191,7 +191,7 @@ var res = {
     BEGIN_BEDROOM_mp3: "sounds/beginroom-sound.mp3",
     BEGIN_FOREST_mp3: "sounds/beginforest-sound.mp3",
     SPEAK_AFTER_mp3: "sounds/speak-after.mp3",
- 
+    BEGIN_SPEAKING_ADI_mp3: "sounds/begin-talkingAdi.mp3",
     // Animal Sound
     ANT_mp3: "sounds/animals/ant.mp3",
     BEAR_mp3: "sounds/animals/bear.mp3",
