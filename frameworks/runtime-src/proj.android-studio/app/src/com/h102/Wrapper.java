@@ -1,5 +1,6 @@
 package com.h102;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +24,10 @@ import org.cocos2dx.javascript.AppActivity;
 public class Wrapper
 {
     public static AppActivity activity;
+
+    public static void fabricCustomLogging(String key, String value) {
+        Crashlytics.getInstance().core.setString(key, value);
+    }
 
     public static String getId() {
         return Settings.System.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);

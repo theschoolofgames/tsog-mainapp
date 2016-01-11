@@ -26,11 +26,14 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
 import com.segment.analytics.Analytics;
 
 import java.util.Locale;
+
+import io.fabric.sdk.android.Fabric;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -55,6 +58,12 @@ public class AppActivity extends Cocos2dxActivity {
 
         Wrapper.activity = this;
         SpeechRecognizer.setupInstance(this);
+
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
 
         return glSurfaceView;
     }

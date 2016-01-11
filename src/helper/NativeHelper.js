@@ -34,6 +34,17 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
+    customLogging: {
+        iOS: [
+            "H102Wrapper",
+            "fabricCustomLoggingWithKey:andValue:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "fabricCustomLogging",
+            "(Ljava/lang/String;Ljava/lang/String;)V"
+        ]
+    },
     // Segment
     segmentIdentity: {
         iOS: [
