@@ -74,7 +74,7 @@ var AdiDogNode = cc.Node.extend({
                             cc.callFunc(function() {
                                 self.adiIdling();
                                 AudioListener.getInstance().resumeListening();
-                                AudioListener.getInstance().onStartedListening();
+                                // AudioListener.getInstance().onStartedListening();
                             })
                         ))
                 }

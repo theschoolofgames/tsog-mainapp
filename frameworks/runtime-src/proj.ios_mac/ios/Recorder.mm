@@ -112,7 +112,7 @@ static Recorder *sharedEngine = nil;
     float duration = self.recorder.duration;
     
     if (bufferMaxPeak < kPeakThresholdEnded || duration > kMaxRecordTime) {
-      NSLog(@"%f", bufferMaxPeak);
+//      NSLog(@"%f", bufferMaxPeak);
       self.isRecording = NO;
       
       [self.recorder closeAudioFile];
@@ -158,7 +158,7 @@ static Recorder *sharedEngine = nil;
       
 //      while ([self.cachedBuffer.queue count] > 0)
 //        [self.cachedBuffer dequeue];
-
+  
       
         ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
       });

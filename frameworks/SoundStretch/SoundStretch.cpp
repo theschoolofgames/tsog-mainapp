@@ -345,7 +345,7 @@ void SoundStretch::process(
     params->tempoDelta = tempoDelta; //-95.0f, 5000.0f
     params->pitchDelta = pitchDelta; //-60.0f, 60.0f
     params->rateDelta = rateDelta; //-95.0f, 5000.0f
-    params->detectBPM = true;
+    params->detectBPM = false;
     params->quick = 0;
     params->noAntiAlias = 0;
     params->speech = true;
