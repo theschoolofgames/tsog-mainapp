@@ -26,6 +26,9 @@ var RoomLayer = cc.Layer.extend({
     _completedObj: null,
     _userId:null,
 
+    _selectedShadeShader: null,
+    _totalAngle: 0,
+
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
@@ -59,7 +62,16 @@ var RoomLayer = cc.Layer.extend({
             });
         this.playBeginSound();
         // cc.audioEngine.playMusic(res.background_mp3, true);
-        // this.scheduleUpdate();
+        this.scheduleUpdate();
+    },
+
+    update: function(pDt) {
+        this._totalAngle += pDt;
+        if(this._totalAngle >= 180)
+            this._totalAngle -= 180;
+
+        if (this._selectedShadeShader)
+            this._selectedShadeShader.setUniformFloat("eTime", this._totalAngle);
     },
 
     setVolume:function() {
@@ -213,7 +225,7 @@ var RoomLayer = cc.Layer.extend({
 
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        shaderState.setUniformInt("useDistrort", 0);
+        // shaderState.setUniformInt("useDistrort", 0);
         object.shaderProgram = shader;
 
         this._objectNames.push({name: imageName, tag: object.tag});
@@ -457,9 +469,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.setLocalZOrder(1);
         targetNode.handleObjectCorrectPos(index);
 
-        var shader = targetNode._objectTouching.shaderProgram;
-        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        shaderState.setUniformInt("useDistrort", 0);
+        targetNode._selectedShadeShader = null;
 
         targetNode._objectTouching.stopAllActions();
         targetNode._objectTouching.runAction(cc.sequence(
@@ -492,7 +502,7 @@ var RoomLayer = cc.Layer.extend({
         // this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
         var shader = this._objectTouching.shaderProgram;
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        shaderState.setUniformInt("useDistrort", 1);
+        this._selectedShadeShader = shaderState;
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);

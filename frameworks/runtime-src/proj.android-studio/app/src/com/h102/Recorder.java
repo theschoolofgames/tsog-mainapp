@@ -6,8 +6,6 @@ import android.media.MediaRecorder;
 import android.util.Base64;
 import android.util.Log;
 
-import com.chipmunkrecord.ExtAudioRecorder;
-
 import org.cocos2dx.lib.Cocos2dxHelper;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
@@ -132,7 +130,7 @@ public class Recorder {
                 }
                 catch (IOException e)
                 {
-                    Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
+                    Log.e(Recorder.class.getName(), "Error occured in updateListener, recording is aborted");
                     //stop();
                 }
 
@@ -177,7 +175,7 @@ public class Recorder {
                         }
                         catch (IOException e)
                         {
-                            Log.e(ExtAudioRecorder.class.getName(), "Error occured in updateListener, recording is aborted");
+                            Log.e(Recorder.class.getName(), "Error occured in updateListener, recording is aborted");
                             //stop();
                         }
                     }
@@ -214,7 +212,7 @@ public class Recorder {
             bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
             // Set frame period and timer interval accordingly
             framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
-            Log.w(ExtAudioRecorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
+            Log.w(Recorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
         }
 
         filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
@@ -341,7 +339,7 @@ public class Recorder {
         }
         else
         {
-            Log.e(ExtAudioRecorder.class.getName(), "start() called on illegal state");
+            Log.e(Recorder.class.getName(), "start() called on illegal state");
             state = State.ERROR;
         }
     }
@@ -372,14 +370,14 @@ public class Recorder {
             }
             catch(IOException e)
             {
-                Log.e(ExtAudioRecorder.class.getName(), "I/O exception occured while closing output file");
+                Log.e(Recorder.class.getName(), "I/O exception occured while closing output file");
                 state = State.ERROR;
             }
             state = State.STOPPED;
         }
         else
         {
-            Log.e(ExtAudioRecorder.class.getName(), "stop() called on illegal state");
+            Log.e(Recorder.class.getName(), "stop() called on illegal state");
             state = State.ERROR;
         }
     }
