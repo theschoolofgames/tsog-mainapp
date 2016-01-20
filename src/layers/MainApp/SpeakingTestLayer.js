@@ -92,7 +92,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     addResultText: function() {
         this._resultTextLb = new cc.LabelBMFont(this.resultText, this.font);
-        this._resultTextLb.x = this._talkingAdi.x - this._resultTextLb.width/2;
+        this._resultTextLb.x = this._talkingAdi.x - this._resultTextLb.width/2 - 100;
         this._resultTextLb.y = this._talkingAdi.y + 400;
         this.addChild(this._resultTextLb);
     },  
@@ -170,6 +170,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _addAdiDog: function() {
         this._talkingAdi = new AdiDogNode();
+        this._talkingAdi.scale = 1.5;
         this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
         this.addChild(this._talkingAdi);
     },
@@ -254,9 +255,9 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._playObjectSound();
 
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
-        this._currentObjectShowUp.x = cc.winSize.width/3*2;
+        this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
         this._currentObjectShowUp.y = cc.winSize.height/2;
-
+        this._currentObjectShowUp.scale = 1.8;
         this.addChild(this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
