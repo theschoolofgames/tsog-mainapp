@@ -197,11 +197,13 @@ var RoomLayer = cc.Layer.extend({
         // cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
         var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+        var shuffledPositionIndex = 0, heavyObjPosIndex = 0;
+
         for ( var i = 0; i < this._numberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
-                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
+                this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
             else
-                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
+                this.addObjectButton(heavyObjectPositions[heavyObjPosIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
 
             this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName, bedroomObjects[i].z);
         }
@@ -256,6 +258,8 @@ var RoomLayer = cc.Layer.extend({
 
             var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
             shadeObject.shaderProgram = shader;
+            var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+            shaderState.setUniformInt("enabled", 0);
             shadeObject.color = cc.color(140, 130, 200);
             // shadeObject.color = cc.color(6, 66, 94);
 
@@ -469,6 +473,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.setLocalZOrder(1);
         targetNode.handleObjectCorrectPos(index);
 
+        targetNode._selectedShadeShader.setUniformInt("enabled", 0);
         targetNode._selectedShadeShader = null;
 
         targetNode._objectTouching.stopAllActions();
@@ -502,6 +507,7 @@ var RoomLayer = cc.Layer.extend({
         // this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
         var shader = this._objectTouching.shaderProgram;
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        shaderState.setUniformInt("enabled", 1);
         this._selectedShadeShader = shaderState;
 
         //set shadeObject to visible
