@@ -27,6 +27,14 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");
+        var soundDuration = 0;
+        for (var i = 0; i < TALKING_ADI_LANGUAGE_SOUND_DURATION.length; i++) {
+            var item = TALKING_ADI_LANGUAGE_SOUND_DURATION[i];
+            if (item.lang.toLowerCase() == nation) {
+                soundDuration = item.soundDuration;
+                break;
+            }
+        };
         cc.audioEngine.playMusic("res/sounds/begin-talkingAdi_"+ nation + ".mp3", false);
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
@@ -37,7 +45,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
         mask.runAction(cc.sequence(
-            cc.delayTime(5),
+            cc.delayTime(soundDuration),
             cc.callFunc(function(){
                 mask.removeFromParent();
                 self._talkingAdi.adiIdling();

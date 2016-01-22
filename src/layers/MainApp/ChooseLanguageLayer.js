@@ -70,6 +70,7 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
                 button.addClickEventListener(function() {
                     var language = this.getUserData().toLowerCase();
                     KVDatabase.getInstance().set("language", language);
+
                     cc.log("language: --> %s", language);
                     self._callback();
                 });
