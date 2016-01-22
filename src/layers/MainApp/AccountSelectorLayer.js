@@ -473,17 +473,19 @@ var AccountSelectorLayer = cc.Layer.extend({
             pwItem.runAction(cc.sequence(
                 cc.moveTo(1, moveToPos).easing(cc.easeElasticInOut(0.9)),
                 cc.callFunc(function(){
-                    var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
+                    self.addChild(new ChooseLanguageLayer(function(){
+                        var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
-                    SegmentHelper.identity(
-                        self._selectedUserData.user_id, 
-                        self._selectedUserData.name, 
-                        schoolConfig.school_id, 
-                        schoolConfig.school_name);
-                    
-                    KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
-                    KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
-                    cc.director.replaceScene(new WelcomeScene());
+                        SegmentHelper.identity(
+                            self._selectedUserData.user_id, 
+                            self._selectedUserData.name, 
+                            schoolConfig.school_id, 
+                            schoolConfig.school_name);
+                        
+                        KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
+                        KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
+                        cc.director.replaceScene(new WelcomeScene());
+                    }));
                 })
             ));
         } else {
