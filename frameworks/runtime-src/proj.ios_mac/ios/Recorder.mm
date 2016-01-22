@@ -143,14 +143,35 @@ static Recorder *sharedEngine = nil;
           NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
           NSData* data = [dict objectForKey:@"data"];
           
-          AudioBufferList* audio = (AudioBufferList*)malloc(sizeof(AudioBufferList));
-          int bytesPerBuffer = [data length];
+          dict = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
           
-          audio->mNumberBuffers = 1;
-          audio->mBuffers[0].mData = malloc(bytesPerBuffer);
-          memcpy(audio->mBuffers[0].mData, [data bytes], bytesPerBuffer);
-          audio->mBuffers[0].mDataByteSize = bytesPerBuffer;
-          audio->mBuffers[0].mNumberChannels = 1;
+          
+          int numberOfBuffers = [dict[@"buffersCount"] intValue];
+          
+          AudioBufferList *audio = (AudioBufferList*)malloc(sizeof(AudioBufferList) + (numberOfBuffers-1)*sizeof(AudioBuffer));
+          if ( !audio ) {
+            return;
+          }
+          audio->mNumberBuffers = numberOfBuffers;
+          NSArray *channels = dict[@"buffers"];
+          for ( int i = 0; i < numberOfBuffers; i++ ) {
+            NSData *data = channels[i][@"data"];
+            int channelsPerBuffer = [channels[i][@"channels"] intValue];
+            int bytesPerBuffer = [data length];
+            if ( bytesPerBuffer > 0 ) {
+              audio->mBuffers[i].mData = malloc(bytesPerBuffer);
+              if ( !audio->mBuffers[i].mData ) {
+//                for ( int j=0; jmBuffers[j].mData);
+                free(audio);
+                return;
+              }
+              memcpy(audio->mBuffers[i].mData, [data bytes], [data length]);
+            } else {
+              audio->mBuffers[i].mData = NULL;
+            }
+            audio->mBuffers[i].mDataByteSize = bytesPerBuffer;
+            audio->mBuffers[i].mNumberChannels = channelsPerBuffer;
+          }
           
           [self.recorder appendDataFromBufferList:audio
                                    withBufferSize:[[dict objectForKey:@"length"] intValue]];
@@ -176,7 +197,20 @@ static Recorder *sharedEngine = nil;
   if (self.cachedBufferData)
     [self.cachedBufferData release];
   
-  self.cachedBufferData = [[NSData dataWithBytes:bufferList->mBuffers[0].mData length:bufferList->mBuffers[0].mDataByteSize] retain];
+//  self.cachedBufferData = [[NSData dataWithBytes:bufferList->mBuffers[0].mData length:bufferList->mBuffers[0].mDataByteSize] retain];
+  NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:@(bufferList->mNumberBuffers) forKey:@"buffersCount"];
+  
+  
+  NSMutableArray *buffers = [NSMutableArray array];
+  for ( int i=0; i< bufferList->mNumberBuffers; i++ ) {
+    NSData *data = [NSData dataWithBytes:bufferList->mBuffers[i].mData length:bufferList->mBuffers[i].mDataByteSize];
+    NSDictionary *obj = @{@"data":data, @"channels":@(bufferList->mBuffers[i].mNumberChannels)};
+    [buffers addObject:obj];
+  }
+  [dict setValue:buffers forKey:@"buffers"];
+  
+  NSData *data = [[NSKeyedArchiver archivedDataWithRootObject:dict] retain];
+  self.cachedBufferData = data;
   
   // Getting audio data as a buffer list that can be directly fed into the EZRecorder. This is happening on the audio thread - any UI updating needs a GCD main queue block. This will keep appending data to the tail of the audio file.
   if (self.isRecording)
