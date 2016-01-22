@@ -81,7 +81,16 @@ var RoomLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var nation = KVDatabase.getInstance().getString("language", "");
-
+        
+        var soundDuration = 0;
+        for (var i = 0; i < ROOM_LANGUAGE_SOUND_DURATION.length; i++) {
+            var item = ROOM_LANGUAGE_SOUND_DURATION[i];
+            if (item.lang.toLowerCase() == nation) {
+                soundDuration = item.soundDuration;
+                break;
+            }
+        };
+        
         cc.audioEngine.playMusic("res/sounds/beginroom-sound_" + nation + ".mp3", false);
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
@@ -91,7 +100,7 @@ var RoomLayer = cc.Layer.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
         mask.runAction(cc.sequence(
-            cc.delayTime(6),
+            cc.delayTime(soundDuration),
             cc.callFunc(function(){
                 mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);

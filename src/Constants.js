@@ -350,3 +350,172 @@ var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";
 var STRING_SCHOOL_ID = "self_school_id";
 var STRING_GAME_CONFIG = "self_game_config";
+["English", "Chinese"], ["French", "Hindi"], ["Japanese", "Kannada"], ["Korean", "Philipino"], ["Swahili", "Spanish"]
+var TALKING_ADI_LANGUAGE_SOUND_DURATION = [
+    {
+        lang: "English",
+        soundDuration: 2
+    },
+    {
+        lang: "Chinese",
+        soundDuration: 4
+    },
+    {
+        lang: "French",
+        soundDuration: 4
+    },
+    {
+        lang: "Hindi",
+        soundDuration: 5
+    },
+    {
+        lang: "Japanese",
+        soundDuration: 7
+    },
+    {
+        lang: "Kannada",
+        soundDuration: 5
+    },
+    {
+        lang: "Korean",
+        soundDuration: 5
+    },
+    {
+        lang: "Philipino",
+        soundDuration: 3
+    },
+    {
+        lang: "Swahili",
+        soundDuration: 5
+    },
+    {
+        lang: "Spanish",
+        soundDuration: 5
+    }
+];
+var ROOM_LANGUAGE_SOUND_DURATION = [
+    {
+        lang: "English",
+        soundDuration: 2
+    },
+    {
+        lang: "Chinese",
+        soundDuration: 5
+    },
+    {
+        lang: "French",
+        soundDuration: 4
+    },
+    {
+        lang: "Hindi",
+        soundDuration: 5
+    },
+    {
+        lang: "Japanese",
+        soundDuration: 6
+    },
+    {
+        lang: "Kannada",
+        soundDuration: 3
+    },
+    {
+        lang: "Korean",
+        soundDuration: 5
+    },
+    {
+        lang: "Philipino",
+        soundDuration: 4
+    },
+    {
+        lang: "Swahili",
+        soundDuration: 2
+    },
+    {
+        lang: "Spanish",
+        soundDuration: 4
+    }
+];
+var FOREST_LANGUAGE_SOUND_DURATION = [
+    {
+        lang: "English",
+        soundDuration: 2
+    },
+    {
+        lang: "Chinese",
+        soundDuration: 3
+    },
+    {
+        lang: "French",
+        soundDuration: 3
+    },
+    {
+        lang: "Hindi",
+        soundDuration: 6
+    },
+    {
+        lang: "Japanese",
+        soundDuration: 5
+    },
+    {
+        lang: "Kannada",
+        soundDuration: 2
+    },
+    {
+        lang: "Korean",
+        soundDuration: 4
+    },
+    {
+        lang: "Philipino",
+        soundDuration: 4
+    },
+    {
+        lang: "Swahili",
+        soundDuration: 3
+    },
+    {
+        lang: "Spanish",
+        soundDuration: 3
+    }
+];
+var SPEAKING_TEST_LANGUAGE_SOUND_DURATION = [
+    {
+        lang: "English",
+        soundDuration: 4
+    },
+    {
+        lang: "Chinese",
+        soundDuration: 5
+    },
+    {
+        lang: "French",
+        soundDuration: 3
+    },
+    {
+        lang: "Hindi",
+        soundDuration: 6
+    },
+    {
+        lang: "Japanese",
+        soundDuration: 8
+    },
+    {
+        lang: "Kannada",
+        soundDuration: 4
+    },
+    {
+        lang: "Korean",
+        soundDuration: 6
+    },
+    {
+        lang: "Philipino",
+        soundDuration: 4
+    },
+    {
+        lang: "Swahili",
+        soundDuration: 3
+    },
+    {
+        lang: "Spanish",
+        soundDuration: 5
+    }
+];

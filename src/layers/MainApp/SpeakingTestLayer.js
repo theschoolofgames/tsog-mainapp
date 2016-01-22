@@ -5,7 +5,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
-    _remainingTime: 3,
+    _remainingTime: 2,
 
     currentObjectShowUpId: 0,
     currentObjectName: null,
@@ -73,6 +73,16 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");
+        
+        var soundDuration = 0;
+        for (var i = 0; i < SPEAKING_TEST_LANGUAGE_SOUND_DURATION.length; i++) {
+            var item = SPEAKING_TEST_LANGUAGE_SOUND_DURATION[i];
+            if (item.lang.toLowerCase() == nation) {
+                soundDuration = item.soundDuration;
+                break;
+            }
+        };
+
         cc.audioEngine.playMusic("res/sounds/speak-after_" + nation + ".mp3", false);
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
@@ -83,7 +93,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
         mask.runAction(cc.sequence(
-            cc.delayTime(2),
+            cc.delayTime(soundDuration),
             cc.callFunc(function(){
                 mask.removeFromParent();
                 // self._talkingAdi.adiIdling();
@@ -161,10 +171,10 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
             this._showObject();
-            this._remainingTime = 3;
+            this._remainingTime = 2;
             this._label.setString(this._remainingTime);
             this._label.visible = true;
-            this.schedule(this._setLabelString, 1, 2);
+            this.schedule(this._setLabelString, 1, 1);
             this._startSpeechRecognizing();    
         }
     },
