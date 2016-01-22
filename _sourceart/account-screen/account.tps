@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.9.2</string>
+        <string>4.0.1</string>
         <key>fileName</key>
         <string>/Users/Tony/dev/project/tsog/_sourceart/account-screen/account.tps</string>
         <key>autoSDSettings</key>
@@ -197,14 +197,16 @@
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
-            <key>innerPadding</key>
-            <uint>0</uint>
             <key>extrude</key>
             <uint>0</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
+            <key>trimMargin</key>
+            <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <key>tracerTolerance</key>
+            <int>200</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>
@@ -212,7 +214,7 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>./</filename>
+            <filename>.</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
