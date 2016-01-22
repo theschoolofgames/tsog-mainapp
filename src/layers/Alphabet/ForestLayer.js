@@ -69,7 +69,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        cc.audioEngine.playMusic(res.BEGIN_FOREST_mp3, false);
+        var nation = KVDatabase.getInstance().getString("language", "");
+        cc.audioEngine.playMusic("sounds/beginforest-sound_" + nation + ".mp3", false);
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
