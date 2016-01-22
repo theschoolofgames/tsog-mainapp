@@ -10,7 +10,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.tag = 1;
 
         this._createTalkingAdi();
-        this._addSettingButton();
+        // this._addSettingButton();
         this.playBeginSound();
         this.runAction(cc.sequence(
             cc.delayTime(5),

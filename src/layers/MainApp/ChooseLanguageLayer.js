@@ -18,15 +18,13 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
     _addDialog: function() {
         this._popupDialog = new cc.Sprite("#popup.png");
         this._popupDialog.x = cc.winSize.width/2;
-        // this._popupDialog.y = cc.winSize.height/2 - this._popupDialog.height/4;
-        this._popupDialog.y = 0;
-        // this._popupDialog.scale = 0;
-        var moveYBy = cc.winSize.height/2 - this._popupDialog.height/4 - 10;
+        this._popupDialog.y = cc.winSize.height/2;
+        this._popupDialog.scale = 0;
+
         this._popupDialog.runAction(
             cc.sequence(
-                cc.moveBy(0.5, cc.p(0, moveYBy)).easing(cc.easeElasticInOut(0.6))
-                // cc.scaleTo(0.5, 1.1),
-                // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
+                cc.scaleTo(0.2, 1.1),
+                cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
             )
         );
         this.addChild(this._popupDialog);
@@ -72,7 +70,6 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
                 button.addClickEventListener(function() {
                     var language = this.getUserData().toLowerCase();
                     KVDatabase.getInstance().set("language", language);
-
                     cc.log("language: --> %s", language);
                     self._callback();
                 });

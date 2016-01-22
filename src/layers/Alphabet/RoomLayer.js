@@ -81,7 +81,6 @@ var RoomLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var nation = KVDatabase.getInstance().getString("language", "");
-        
         var soundDuration = 0;
         for (var i = 0; i < ROOM_LANGUAGE_SOUND_DURATION.length; i++) {
             var item = ROOM_LANGUAGE_SOUND_DURATION[i];

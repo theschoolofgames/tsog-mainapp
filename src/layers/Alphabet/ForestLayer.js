@@ -70,7 +70,6 @@ var ForestLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var nation = KVDatabase.getInstance().getString("language", "");
-
         var soundDuration = 0;
         for (var i = 0; i < FOREST_LANGUAGE_SOUND_DURATION.length; i++) {
             var item = FOREST_LANGUAGE_SOUND_DURATION[i];

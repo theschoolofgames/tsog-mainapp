@@ -73,7 +73,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");
-        
         var soundDuration = 0;
         for (var i = 0; i < SPEAKING_TEST_LANGUAGE_SOUND_DURATION.length; i++) {
             var item = SPEAKING_TEST_LANGUAGE_SOUND_DURATION[i];
@@ -82,7 +81,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
                 break;
             }
         };
-
         cc.audioEngine.playMusic("res/sounds/speak-after_" + nation + ".mp3", false);
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
