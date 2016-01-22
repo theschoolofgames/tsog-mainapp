@@ -80,7 +80,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        cc.audioEngine.playMusic(res.BEGIN_BEDROOM_mp3, false);
+        var nation = KVDatabase.getInstance().getString("language", "");
+
+        cc.audioEngine.playMusic("res/sounds/beginroom-sound_" + nation + ".mp3", false);
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -89,7 +91,7 @@ var RoomLayer = cc.Layer.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
         mask.runAction(cc.sequence(
-            cc.delayTime(2),
+            cc.delayTime(6),
             cc.callFunc(function(){
                 mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);

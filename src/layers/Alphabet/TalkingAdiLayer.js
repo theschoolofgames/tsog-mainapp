@@ -10,7 +10,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.tag = 1;
 
         this._createTalkingAdi();
-        this._addSettingButton();
+        // this._addSettingButton();
         this.playBeginSound();
         this.runAction(cc.sequence(
             cc.delayTime(5),
@@ -26,7 +26,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     },
     playBeginSound: function(){
         self = this;
-        cc.audioEngine.playMusic(res.BEGIN_SPEAKING_ADI_mp3, false);
+        var nation = KVDatabase.getInstance().getString("language", "");
+        cc.audioEngine.playMusic("res/sounds/begin-talkingAdi_"+ nation + ".mp3", false);
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);

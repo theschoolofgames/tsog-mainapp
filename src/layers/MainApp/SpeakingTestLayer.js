@@ -72,7 +72,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     playBeginSound: function(){
         self = this;
-        cc.audioEngine.playMusic(res.SPEAK_AFTER_mp3, false);
+        var nation = KVDatabase.getInstance().getString("language", "");
+        cc.audioEngine.playMusic("res/sounds/speak-after_" + nation + ".mp3", false);
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);

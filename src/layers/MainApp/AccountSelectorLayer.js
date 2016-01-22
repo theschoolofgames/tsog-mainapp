@@ -485,7 +485,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
                         KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
                         cc.director.replaceScene(new WelcomeScene());
-                    }));
+                    }), 9999);
                 })
             ));
         } else {
