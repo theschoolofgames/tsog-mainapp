@@ -140,10 +140,10 @@ static Recorder *sharedEngine = nil;
         NSLog(@"%f", bufferMaxPeak);
         
         for (int i = 0; i < [self.cachedBuffer.queue count]; i++) {
-          NSDictionary* dict = [self.cachedBuffer.queue objectAtIndex:i];
-          NSData* data = [dict objectForKey:@"data"];
+          NSDictionary* dictData = [self.cachedBuffer.queue objectAtIndex:i];
+          NSData* data = [dictData objectForKey:@"data"];
           
-          dict = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
+          NSDictionary* dict = (NSDictionary*) [NSKeyedUnarchiver unarchiveObjectWithData:data];
           
           
           int numberOfBuffers = [dict[@"buffersCount"] intValue];
@@ -174,7 +174,11 @@ static Recorder *sharedEngine = nil;
           }
           
           [self.recorder appendDataFromBufferList:audio
-                                   withBufferSize:[[dict objectForKey:@"length"] intValue]];
+                                   withBufferSize:[[dictData objectForKey:@"length"] intValue]];
+          
+          for (int i = 0; i < numberOfBuffers; i++)
+            free(audio->mBuffers[i].mData);
+          free(audio);
         }
       
 //      while ([self.cachedBuffer.queue count] > 0)
