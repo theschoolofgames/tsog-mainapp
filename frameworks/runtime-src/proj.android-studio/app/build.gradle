@@ -13,7 +13,7 @@ android {
         applicationId "com.hub102.tsog"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 15111400
+        versionCode 15112300
         versionName "0.1"
     }
 
