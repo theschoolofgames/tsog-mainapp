@@ -14,23 +14,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _userId:null,
     checkCorrectAction:0,
     _objectName: "",
+    _currentScene: "",
 
-    ctor: function(objectsArray, callback) {
+    ctor: function(objectsArray, callback, currentScene) {
         this._super(cc.color(255, 255, 255, 255));
         this.font = "hud-font.fnt";
-        // this._itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", 
-        // "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", 
-        // "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", 
-        // "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebra"]
-        //     .concat(["abacus","apple","banana","book","chair","computer","desk","duster","egg","eraser","feather","flag","gift","grape","hat",
-        //         "insect","jar","joker","juice","key","kite","lamp","lemon","map","medicine","nail","nest","onion","orange","pen","pencils","potato",
-        //         "queen","raspberry","sock","strawberry","table","tomato","towel","toytrain","umbrella","uniform","vegetable","vehicle","watch","watermelon","xylophone"]);
-
-        // this._itemArray = objectsArray.map(function(obj) {
-        //     if (obj.name == "toytrain")
-        //         return "toy train";
-        //     return obj.name;
-        // });
+        this._currentScene = currentScene;
+        cc.log("currentScene: %s", currentScene); 
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -192,11 +182,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _checkCompleted: function() {
         if (this.currentObjectShowUpId >= this._objectsArray.length){
             cc.log("on callback");
-            this._callback();
+            if (this._currentScene == "forest")
+                cc.director.replaceScene(new TalkingAdiScene(this._callback));
+            else
+                this._callback();
+
             return true;
         }
-
-        
     },
 
     _checkTimeUp: function() {

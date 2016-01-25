@@ -4,11 +4,13 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     _settingBtn: null,
     _isListening: false,
     _talkingAdi: null,
-    ctor:function() {
+    _callback: null,
+
+    ctor:function(callback) {
         this._super(cc.color(255,255,255));
         var self= this;
         this.tag = 1;
-
+        this._callback = callback || null;
         this._createTalkingAdi();
         this._addSettingButton();
         this.playBeginSound();
@@ -116,8 +118,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var self = this;
         var clockInitTime = GAME_CONFIG.talkingAdiTime;
         var clock = new Clock(clockInitTime, function(){
-            self._stopBackgroundSoundDetecting();
-            cc.director.replaceScene(new RoomScene());
+            self._moveToNextScene();
         });
         clock.visible = false;
         this.addChild(clock, 99);
@@ -133,8 +134,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         var self = this;
         nextBtn.addClickEventListener(function() {
-            self._stopBackgroundSoundDetecting();
-            cc.director.replaceScene(new RoomScene());
+            self._moveToNextScene();
         })
     },
 
@@ -148,14 +148,22 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     _stopBackgroundSoundDetecting: function() {
         AudioListener.getInstance().removeListener();
         NativeHelper.callNative("stopFetchingAudio");
-    }
+    },
+
+    _moveToNextScene : function(){
+        this._stopBackgroundSoundDetecting();
+        if (this._callback)
+            this._callback();
+        else
+            cc.director.replaceScene(new RoomScene());
+    },
 });
 
 var TalkingAdiScene = cc.Scene.extend({
-    ctor: function(){
+    ctor: function(callback){
         this._super();
 
-        var talkingAdiLayer = new TalkingAdiLayer();
+        var talkingAdiLayer = new TalkingAdiLayer(callback);
         this.addChild(talkingAdiLayer);
     }
 });

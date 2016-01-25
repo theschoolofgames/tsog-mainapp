@@ -851,7 +851,7 @@ var ForestLayer = cc.Layer.extend({
         cc.audioEngine.stopMusic();
         var speakingTestLayer = new SpeakingTestLayer(this._animalNames, function() {
             cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
-        });
+        }, cc.director.getRunningScene().name);
         speakingTestLayer.listener = this;
         this.addChild(speakingTestLayer, 999999);
     },
