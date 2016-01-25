@@ -350,7 +350,7 @@ var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";
 var STRING_SCHOOL_ID = "self_school_id";
 var STRING_GAME_CONFIG = "self_game_config";
-["English", "Chinese"], ["French", "Hindi"], ["Japanese", "Kannada"], ["Korean", "Philipino"], ["Swahili", "Spanish"]
+// ["English", "Chinese"], ["French", "Hindi"], ["Japanese", "Kannada"], ["Korean", "Philipino"], ["Swahili", "Spanish"]
 var TALKING_ADI_LANGUAGE_SOUND_DURATION = [
     {
         lang: "English",

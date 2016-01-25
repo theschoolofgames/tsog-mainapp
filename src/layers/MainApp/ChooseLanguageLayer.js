@@ -18,13 +18,15 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
     _addDialog: function() {
         this._popupDialog = new cc.Sprite("#popup.png");
         this._popupDialog.x = cc.winSize.width/2;
-        this._popupDialog.y = cc.winSize.height/2;
-        this._popupDialog.scale = 0;
+        // this._popupDialog.y = cc.winSize.height/2;
+        this._popupDialog.y = -this._popupDialog.height/2;
+        // this._popupDialog.scale = 0;
 
         this._popupDialog.runAction(
             cc.sequence(
-                cc.scaleTo(0.2, 1.1),
-                cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
+                cc.moveBy(0.5, cc.p(0, this._popupDialog.height)).easing(cc.easeElasticInOut(0.6))
+                // cc.scaleTo(0.2, 1.1),
+                // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
             )
         );
         this.addChild(this._popupDialog);
