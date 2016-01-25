@@ -47,31 +47,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
         this.playBeginSound();
-
-        var self = this;
-        this.runAction(
-            cc.sequence(
-                cc.delayTime(4),
-                cc.callFunc(function() {
-                    self._addLabel();
-                    self._showNextObject();
-                })
-            )
-        )
     },
 
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");
-        var soundDuration = 0;
-        for (var i = 0; i < SPEAKING_TEST_LANGUAGE_SOUND_DURATION.length; i++) {
-            var item = SPEAKING_TEST_LANGUAGE_SOUND_DURATION[i];
-            if (item.lang.toLowerCase() == nation) {
-                soundDuration = item.soundDuration;
-                break;
-            }
-        };
-        cc.audioEngine.playMusic("res/sounds/speak-after_" + nation + ".mp3", false);
+        
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
@@ -80,13 +61,14 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        mask.runAction(cc.sequence(
-            cc.delayTime(soundDuration),
-            cc.callFunc(function(){
-                mask.removeFromParent();
-                // self._talkingAdi.adiIdling();
-            })
-        ))
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/speak-after_" + nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            mask.removeFromParent();
+
+            self._addLabel();
+            self._showNextObject();
+        });
     },
 
     addResultText: function() {
@@ -98,7 +80,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     incorrectAction: function() {
         var self = this;
-        cc.audioEngine.playEffect(res.Failed_sfx);
+        jsb.AudioEngine.play2d(res.Failed_sfx);
 
         // if (this._checkTimeUp()) {    
             this._timeUp();
@@ -126,7 +108,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     correctAction: function() {
         var self = this;
-        cc.audioEngine.playEffect(res.Succeed_sfx);
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._talkingAdi.adiJump();
@@ -175,7 +157,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     _playObjectSound: function() {
-        cc.audioEngine.playEffect(this._soundName);
+        jsb.AudioEngine.play2d(this._soundName);
         this._talkingAdi.adiTalk();
     },
 

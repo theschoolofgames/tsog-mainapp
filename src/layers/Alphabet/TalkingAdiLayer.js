@@ -14,14 +14,14 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this._createTalkingAdi();
         this._addSettingButton();
         this.playBeginSound();
-        this.runAction(cc.sequence(
-            cc.delayTime(5),
-            cc.callFunc(function(){
-                self._addCountDownClock();
-                self._addNextButton();
-                NativeHelper.callNative("startFetchingAudio");
-            })
-        ));
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(5),
+        //     cc.callFunc(function(){
+        //         self._addCountDownClock();
+        //         self._addNextButton();
+        //         NativeHelper.callNative("startFetchingAudio");
+        //     })
+        // ));
         // this._createBackground();
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
@@ -29,15 +29,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");
-        var soundDuration = 0;
-        for (var i = 0; i < TALKING_ADI_LANGUAGE_SOUND_DURATION.length; i++) {
-            var item = TALKING_ADI_LANGUAGE_SOUND_DURATION[i];
-            if (item.lang.toLowerCase() == nation) {
-                soundDuration = item.soundDuration;
-                break;
-            }
-        };
-        cc.audioEngine.playMusic("res/sounds/begin-talkingAdi_"+ nation + ".mp3", false);
+        
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
@@ -46,13 +38,16 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        mask.runAction(cc.sequence(
-            cc.delayTime(soundDuration),
-            cc.callFunc(function(){
-                mask.removeFromParent();
-                self._talkingAdi.adiIdling();
-            })
-        ))
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/begin-talkingAdi_"+ nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            mask.removeFromParent();
+            self._talkingAdi.adiIdling();
+
+            self._addCountDownClock();
+            self._addNextButton();
+            NativeHelper.callNative("startFetchingAudio");
+        });
     },
 
     _createTalkingAdi: function() {

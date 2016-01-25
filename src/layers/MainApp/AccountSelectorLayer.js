@@ -313,7 +313,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 var delayTime = i * DELTA_DELAY_TIME;
                 this.addObjectAction(accountButton, delayTime, i, function(index){
                     if (index < 7)
-                        cc.audioEngine.playEffect(res.rustle_sound_mp3);
+                        jsb.AudioEngine.play2d(res.rustle_sound_mp3);
                 });
 
                 this.addObjectAction(tree, delayTime);
@@ -453,7 +453,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         if (this._passwordItems[passwordIndex] === pwItem) {
             // stop background music and play effect sound
             this.turnDownMusicVolume();
-            cc.audioEngine.playEffect(res.right_password_mp3);
+            jsb.AudioEngine.play2d(res.right_password_mp3);
 
             this._isActionRunning = true;
             pwItem.cleanup();
@@ -492,7 +492,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 })
             ));
         } else {
-            cc.audioEngine.playEffect(res.wrong_password_mp3);
+            jsb.AudioEngine.play2d(res.wrong_password_mp3);
             // shake password image if its not the right one
             pwItem.runAction(cc.sequence(
                     cc.moveBy(0.1, cc.p(10,0)),
@@ -505,7 +505,7 @@ var AccountSelectorLayer = cc.Layer.extend({
     onAvatarClicked: function(accountButton) {
         // scroll to start of batch
         var accountContainer = accountButton.parent;
-        cc.audioEngine.playEffect(res.rustle_sound_mp3);
+        jsb.AudioEngine.play2d(res.rustle_sound_mp3);
         // check if clicked account is in left-right border of screen
         var safeWidth = 200;
 

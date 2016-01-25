@@ -46,6 +46,7 @@
 #include "cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
 
 #include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 
 #include <thread>
 //#include "../../SoundTouch/core/WavFile.h"
@@ -57,6 +58,7 @@ static_cast<size_t>(!(sizeof(a) % sizeof(*(a)))))
 
 USING_NS_CC;
 using namespace CocosDenshion;
+using namespace cocos2d::experimental;
 
 AppDelegate::AppDelegate()
 {
@@ -264,8 +266,8 @@ void AppDelegate::chipmunkifySound()
   
   soundStretch.process(inFileDir.c_str(), outFileDir.c_str(), 0, 10, 0);
   
-  SimpleAudioEngine::getInstance()->unloadEffect(outFileDir.c_str());
-  SimpleAudioEngine::getInstance()->preloadEffect(outFileDir.c_str());
+  AudioEngine::uncache(outFileDir.c_str());
+  AudioEngine::preload(outFileDir.c_str());
 
   Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
     ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);

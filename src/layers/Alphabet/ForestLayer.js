@@ -70,16 +70,7 @@ var ForestLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var nation = KVDatabase.getInstance().getString("language", "");
-        var soundDuration = 0;
-        for (var i = 0; i < FOREST_LANGUAGE_SOUND_DURATION.length; i++) {
-            var item = FOREST_LANGUAGE_SOUND_DURATION[i];
-            if (item.lang.toLowerCase() == nation) {
-                soundDuration = item.soundDuration;
-                break;
-            }
-        };
         
-        cc.audioEngine.playMusic("sounds/beginforest-sound_" + nation + ".mp3", false);
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -87,13 +78,12 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        mask.runAction(cc.sequence(
-            cc.delayTime(soundDuration),
-            cc.callFunc(function(){
-                mask.removeFromParent();
-                cc.audioEngine.playMusic(res.background_mp3, true);
-            })
-        ))
+
+        var audioId = jsb.AudioEngine.play2d("sounds/beginforest-sound_" + nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            mask.removeFromParent();
+            cc.audioEngine.playMusic(res.background_mp3, true);
+        });
     },
 
     setVolume:function() {
@@ -607,7 +597,7 @@ var ForestLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
-                    cc.audioEngine.playEffect( "sounds/smoke.mp3"),
+                    jsb.AudioEngine.play2d( "sounds/smoke.mp3"),
                     AnimatedEffect.create(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9)),
@@ -704,7 +694,7 @@ var ForestLayer = cc.Layer.extend({
             }
         }, mask);
 
-        cc.audioEngine.playEffect("sounds/animals/" + animalName + ".mp3");
+        jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -776,7 +766,7 @@ var ForestLayer = cc.Layer.extend({
 
     addSoundCountDown: function() {
         if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
-            cc.audioEngine.playEffect( "res/sounds/Countdown.mp3")
+            jsb.AudioEngine.play2d( "res/sounds/Countdown.mp3")
         }
     },
 

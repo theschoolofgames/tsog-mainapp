@@ -159,7 +159,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             var delayTime = i * DELTA_DELAY_TIME;
             this.addObjectAction(schoolButton, delayTime, i, function(index){
                 if (index < 4)
-                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
+                    jsb.AudioEngine.play2d(res.bubble_sound_mp3);
             });
 
             schoolButton.runAction(
@@ -176,7 +176,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
             //add event listener
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
-                    cc.audioEngine.playEffect(res.bubble_sound_mp3);
+                    jsb.AudioEngine.play2d(res.bubble_sound_mp3);
 
                     SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
                         { 

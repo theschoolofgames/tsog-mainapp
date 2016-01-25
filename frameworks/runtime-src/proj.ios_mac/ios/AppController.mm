@@ -38,6 +38,8 @@
 #import <Optimizely/Optimizely.h>
 #import <H102Wrapper.h>
 
+#import "AudioEngine.h"
+
 @implementation AppController
 
 #pragma mark -
@@ -95,6 +97,8 @@ static AppDelegate s_sharedApplication;
 //   [SEGAnalytics debug:YES];
   
     [Fabric with:@[[Crashlytics class], [Optimizely class]]];
+  
+  cocos2d::experimental::AudioEngine::lazyInit();
 
     return YES;
 }

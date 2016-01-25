@@ -14,6 +14,7 @@
 		014308FD1C1C298E00F7691E /* SpeechRecognitionListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */; };
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
+		0178BCF41C55EEB000018225 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0178BCF31C55EEB000018225 /* OpenAL.framework */; };
 		019CD9D81C32938C00B8848B /* RecorderQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019CD9D71C32938C00B8848B /* RecorderQueue.mm */; };
 		01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA711BD50BC20062EF7D /* AVFoundation.framework */; };
 		01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA731BD50BC80062EF7D /* CoreMedia.framework */; };
@@ -24,7 +25,6 @@
 		01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA831BD50C720062EF7D /* GameController.framework */; };
 		01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8B1BD510B70062EF7D /* libicucore.tbd */; };
 		01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */; };
-		01EB61EC1C148E680046F7EB /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB61EB1C148E680046F7EB /* OpenAL.framework */; };
 		01F481A21C23FAE200FCE13D /* RunParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F4819C1C23FAE200FCE13D /* RunParameters.cpp */; };
 		01F481A31C23FAE200FCE13D /* SoundStretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F4819E1C23FAE200FCE13D /* SoundStretch.cpp */; };
 		01F481A41C23FAE200FCE13D /* WavFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481A01C23FAE200FCE13D /* WavFile.cpp */; };
@@ -219,6 +219,7 @@
 		016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleAudioRecordEngine.mm; sourceTree = "<group>"; tabWidth = 4; };
 		016A01B11C15E09500A22838 /* SimpleAudioRecordEngine_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine_objc.h; sourceTree = "<group>"; };
 		016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAudioRecordEngine_objc.m; sourceTree = "<group>"; tabWidth = 4; };
+		0178BCF31C55EEB000018225 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		019CD9D61C32938C00B8848B /* RecorderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecorderQueue.h; path = ios/RecorderQueue.h; sourceTree = "<group>"; };
 		019CD9D71C32938C00B8848B /* RecorderQueue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RecorderQueue.mm; path = ios/RecorderQueue.mm; sourceTree = "<group>"; };
 		01C9EA711BD50BC20062EF7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -232,7 +233,6 @@
 		01C9EA831BD50C720062EF7D /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA8B1BD510B70062EF7D /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
 		01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
-		01EB61EB1C148E680046F7EB /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		01F4819C1C23FAE200FCE13D /* RunParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunParameters.cpp; sourceTree = "<group>"; };
 		01F4819D1C23FAE200FCE13D /* RunParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunParameters.h; sourceTree = "<group>"; };
 		01F4819E1C23FAE200FCE13D /* SoundStretch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundStretch.cpp; sourceTree = "<group>"; };
@@ -437,9 +437,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0178BCF41C55EEB000018225 /* OpenAL.framework in Frameworks */,
 				01FDB8931C32773200D21971 /* CoreAudio.framework in Frameworks */,
 				01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */,
-				01EB61EC1C148E680046F7EB /* OpenAL.framework in Frameworks */,
 				01C9EA8E1BD510BF0062EF7D /* libstdc++.tbd in Frameworks */,
 				01C9EA8C1BD510B70062EF7D /* libicucore.tbd in Frameworks */,
 				01C9EA841BD50C720062EF7D /* GameController.framework in Frameworks */,
@@ -626,11 +626,11 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0178BCF31C55EEB000018225 /* OpenAL.framework */,
 				01FDB8921C32773200D21971 /* CoreAudio.framework */,
 				01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */,
 				01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */,
 				01062FD21C1ACC8900AB72D4 /* OpenEars.framework */,
-				01EB61EB1C148E680046F7EB /* OpenAL.framework */,
 				01C9EA8D1BD510BF0062EF7D /* libstdc++.tbd */,
 				01C9EA8B1BD510B70062EF7D /* libicucore.tbd */,
 				01C9EA831BD50C720062EF7D /* GameController.framework */,

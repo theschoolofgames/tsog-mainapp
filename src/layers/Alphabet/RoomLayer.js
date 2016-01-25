@@ -81,16 +81,7 @@ var RoomLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var nation = KVDatabase.getInstance().getString("language", "");
-        var soundDuration = 0;
-        for (var i = 0; i < ROOM_LANGUAGE_SOUND_DURATION.length; i++) {
-            var item = ROOM_LANGUAGE_SOUND_DURATION[i];
-            if (item.lang.toLowerCase() == nation) {
-                soundDuration = item.soundDuration;
-                break;
-            }
-        };
-        
-        cc.audioEngine.playMusic("res/sounds/beginroom-sound_" + nation + ".mp3", false);
+
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -98,13 +89,12 @@ var RoomLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        mask.runAction(cc.sequence(
-            cc.delayTime(soundDuration),
-            cc.callFunc(function(){
-                mask.removeFromParent();
-                cc.audioEngine.playMusic(res.background_mp3, true);
-            })
-        ))
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/beginroom-sound_" + nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            mask.removeFromParent();
+            cc.audioEngine.playMusic(res.background_mp3, true);
+        });
     },
 
     resetAllArrays: function() {
@@ -293,7 +283,7 @@ var RoomLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
-                    cc.audioEngine.playEffect("sounds/smoke.mp3"),
+                    jsb.AudioEngine.play2d("sounds/smoke.mp3"),
                     AnimatedEffect.create(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
@@ -438,7 +428,7 @@ var RoomLayer = cc.Layer.extend({
                 object_name: targetNode.getObjectName(targetNode._objectTouching)
             });
         
-        cc.audioEngine.playEffect("sounds/pickup.mp3");
+        jsb.AudioEngine.play2d("sounds/pickup.mp3");
         targetNode.processGameLogic();
         if (targetNode._numberGamePlayed < 2) {
             if(targetNode._tutorial != null) {
@@ -473,7 +463,7 @@ var RoomLayer = cc.Layer.extend({
         var targetNode = event.getCurrentTarget();
 
         if (targetNode._effectAudioID)
-            cc.audioEngine.stopEffect(targetNode._effectAudioID);
+            jsb.AudioEngine.stop(targetNode._effectAudioID);
         targetNode._effectAudioID = null;
 
         //set shadeObject visible to false
@@ -506,7 +496,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
 
-        cc.audioEngine.playEffect("sounds/drop.mp3");
+        jsb.AudioEngine.play2d("sounds/drop.mp3");
     },
 
     processGameLogic: function() {
@@ -652,8 +642,8 @@ var RoomLayer = cc.Layer.extend({
         }
 
         if (this._effectAudioID)
-            cc.audioEngine.stopEffect(this._effectAudioID);
-        this._effectAudioID = cc.audioEngine.playEffect("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3", isDragging);
+            jsb.AudioEngine.stop(this._effectAudioID);
+        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3", isDragging);
 
         if (!isDragging)
         {
@@ -721,7 +711,7 @@ var RoomLayer = cc.Layer.extend({
 
     addSoundCountDown: function() {
         if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
-            cc.audioEngine.playEffect("res/sounds/Countdown.mp3")
+            jsb.AudioEngine.play2d("res/sounds/Countdown.mp3")
         }
     },
 

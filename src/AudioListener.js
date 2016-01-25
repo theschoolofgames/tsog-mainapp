@@ -52,15 +52,13 @@ var AudioListener = cc.Class.extend({
         var self = this;
         cc.log("onAudioChipmunkified: " + fileName);
 
-        cc.audioEngine.setEffectsVolume(1);
-
         cc.director.getRunningScene().runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function() {
                 self._talkingAdi.onStoppedListening();
                 if (self._playbackLength > 0) {
                     cc.log("_playbackLength: " + self._playbackLength);
-                    cc.audioEngine.playEffect(fileName);
+                    jsb.AudioEngine.play2d(fileName);
                     self._talkingAdi.adiTalk();
                 }
                 else
