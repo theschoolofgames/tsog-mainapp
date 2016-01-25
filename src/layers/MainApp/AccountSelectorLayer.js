@@ -475,7 +475,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 cc.callFunc(function(){
                     self.onCancelChoosePassword();
                     self._treesContainer.visible = false;
-                    self._scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_NONE);
+                    self._scrollView.setTouchEnabled(false);
                     self._parallaxNode.addChild(new ChooseLanguageLayer(function(){
                         var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 

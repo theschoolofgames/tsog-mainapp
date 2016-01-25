@@ -4,6 +4,7 @@ var LANGUAGE = [
 var ChooseLanguageLayer = cc.Layer.extend({
     _popupDialog: null,
     _callback: null,
+    _fontDef: null,
 
     ctor: function(callback) {
         this._super();
@@ -35,11 +36,18 @@ var ChooseLanguageLayer = cc.Layer.extend({
     },
 
     _addLangLabel: function() {
-        var font = "hud-font.fnt";
-        var lb = new cc.LabelBMFont("LANGUAGE", font);
+        // var fontDef = new cc.FontDefinition();
+        // fontDef.fontName = "Arial";
+        // fontDef.fontWeight = "bold";
+        // fontDef.fontSize = 30;
+        // this._fontDef = fontDef;
+        // var lb = new cc.LabelTTF("LANGUAGE", fontDef);
+        this._fontDef = "yellow-font-export.fnt";
+        var lb = new cc.LabelBMFont("LANGUAGE", this._fontDef);
+        lb.scale = 0.6;
         lb.x = this._popupDialog.width/2;
-        lb.y = this._popupDialog.height - lb.height*2.5;
-        this._popupDialog.addChild(lb);
+        lb.y = this._popupDialog.height - lb.height - 10;
+        // this._popupDialog.addChild(lb);
     },
 
     _addLangButtonToDialog: function() {
@@ -74,7 +82,8 @@ var ChooseLanguageLayer = cc.Layer.extend({
                 lp.setMargin(new ccui.Margin(marginL, 0, 0, 0));
                 button.setLayoutParameter(lp);
 
-                var lb = new cc.LabelBMFont(langName, "hud-font.fnt");
+                var lb = new cc.LabelBMFont(langName.toUpperCase(), this._fontDef);
+                lb.scale = 0.6;
                 lb.x = button.width/2;
                 lb.y = button.height/2;
                 button.getRendererNormal().addChild(lb);
