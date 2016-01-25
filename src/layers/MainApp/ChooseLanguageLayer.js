@@ -1,16 +1,18 @@
 var LANGUAGE = [
  ["English", "Chinese"], ["French", "Hindi"], ["Japanese", "Kannada"], ["Korean", "Philipino"], ["Swahili", "Spanish"]
 ];
-var ChooseLanguageLayer = cc.LayerColor.extend({
+var ChooseLanguageLayer = cc.Layer.extend({
     _popupDialog: null,
     _callback: null,
 
     ctor: function(callback) {
-        this._super(cc.color(0, 0, 0, 200));
+        this._super();
+        // this._super(cc.color(0, 0, 0, 200));
 
-        this.y = -55;
+        // this.y = -55;
         this._callback = callback;
         this._addDialog();
+        this._addLangLabel();
         this._addLangButtonToDialog();
 
     },
@@ -24,12 +26,20 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
 
         this._popupDialog.runAction(
             cc.sequence(
-                cc.moveBy(0.5, cc.p(0, this._popupDialog.height)).easing(cc.easeElasticInOut(0.6))
+                cc.moveBy(0.5, cc.p(0, this._popupDialog.height+50)).easing(cc.easeElasticInOut(0.6))
                 // cc.scaleTo(0.2, 1.1),
                 // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
             )
         );
         this.addChild(this._popupDialog);
+    },
+
+    _addLangLabel: function() {
+        var font = "hud-font.fnt";
+        var lb = new cc.LabelBMFont("LANGUAGE", font);
+        lb.x = this._popupDialog.width/2;
+        lb.y = this._popupDialog.height - lb.height*2.5;
+        this._popupDialog.addChild(lb);
     },
 
     _addLangButtonToDialog: function() {
@@ -38,7 +48,7 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
         scrollView.setTouchEnabled(true);
         scrollView.setSwallowTouches(false);
         scrollView.setContentSize(cc.size(this._popupDialog.width - 20, this._popupDialog.height/2));
-
+        scrollView.setScrollBarAutoHideEnabled(false);
         var innerWidth, innerHeight;
         innerWidth = this._popupDialog.width;
 
@@ -49,7 +59,7 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
         var self = this;
         for (var i = 0; i < rowCount; i++) {
             var box = new ccui.HBox();
-            box.setContentSize(cc.size(this._popupDialog.width - 40, 110));
+            box.setContentSize(cc.size(this._popupDialog.width - 60, 80));
 
             for (var j = 0; j < itemPerRow; j++) {
                 var langName = LANGUAGE[i][j];
@@ -64,10 +74,11 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
                 lp.setMargin(new ccui.Margin(marginL, 0, 0, 0));
                 button.setLayoutParameter(lp);
 
-                var lb = new cc.LabelTTF(langName, "Arial", 28);
+                var lb = new cc.LabelBMFont(langName, "hud-font.fnt");
                 lb.x = button.width/2;
                 lb.y = button.height/2;
-                button.addChild(lb);
+                button.getRendererNormal().addChild(lb);
+
                 button.setUserData(langName);
                 button.addClickEventListener(function() {
                     var language = this.getUserData().toLowerCase();

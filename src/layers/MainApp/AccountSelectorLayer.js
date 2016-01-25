@@ -30,16 +30,16 @@ var AccountSelectorLayer = cc.Layer.extend({
         this._super();
 
         this.tag = 1;
-        this.playBackgroundMusic();
+        // this.playBackgroundMusic();
         this.createBackground();
         this.createBackButton();
 
         this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
         this._accountData = DataManager.getInstance().getAccountData(this._schoolId);
         this._accountData = this._accountData || [];
-        cc.log("school_id: " + JSON.stringify(this._schoolId));
-        cc.log("ctor _accountData: " + this._accountData.length);
-       
+        // cc.log("school_id: " + JSON.stringify(this._schoolId));
+        // cc.log("ctor _accountData: " + this._accountData.length);
+        
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -469,11 +469,14 @@ var AccountSelectorLayer = cc.Layer.extend({
             var differentPos = cc.p(HINT_OFFSET[pwContainerTag].x, -54);
             var moveToPos = cc.pAdd(pos, differentPos);
 
-            // move to welcome scene
+            // show choose language dialog up
             pwItem.runAction(cc.sequence(
                 cc.moveTo(1, moveToPos).easing(cc.easeElasticInOut(0.9)),
                 cc.callFunc(function(){
-                    self.addChild(new ChooseLanguageLayer(function(){
+                    self.onCancelChoosePassword();
+                    self._treesContainer.visible = false;
+                    self._scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_NONE);
+                    self._parallaxNode.addChild(new ChooseLanguageLayer(function(){
                         var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
                         SegmentHelper.identity(
@@ -485,7 +488,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
                         KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
                         cc.director.replaceScene(new WelcomeScene());
-                    }), 9999);
+                    }), 3, cc.p(1, 1), cc.p(0, 0));
                 })
             ));
         } else {

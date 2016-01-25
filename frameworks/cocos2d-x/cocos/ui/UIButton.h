@@ -274,6 +274,8 @@ public:
      * @since v3.3
      */
     float getZoomScale()const;
+  
+    Scale9Sprite* getRendererNormal() const { return _buttonNormalRenderer; }
 
 CC_CONSTRUCTOR_ACCESS:
     virtual bool init() override;

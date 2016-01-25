@@ -209,6 +209,7 @@ bool js_cocos2dx_ui_Button_setZoomScale(JSContext *cx, uint32_t argc, jsval *vp)
 bool js_cocos2dx_ui_Button_create(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_ui_Button_createInstance(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_cocos2dx_ui_Button_Button(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_cocos2dx_ui_Button_getRendererNormal(JSContext *cx, uint32_t argc, jsval *vp);
 
 extern JSClass  *jsb_cocos2d_ui_AbstractCheckButton_class;
 extern JSObject *jsb_cocos2d_ui_AbstractCheckButton_prototype;

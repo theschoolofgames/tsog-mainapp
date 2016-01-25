@@ -2251,6 +2251,31 @@ bool js_cocos2dx_ui_Widget_constructor(JSContext *cx, uint32_t argc, jsval *vp)
     args.rval().setUndefined();
     return true;
 }
+bool js_cocos2dx_ui_Button_getRendererNormal(JSContext *cx, uint32_t argc, jsval *vp)
+{
+  JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
+  JS::RootedObject obj(cx, args.thisv().toObjectOrNull());
+  js_proxy_t *proxy = jsb_get_js_proxy(obj);
+  cocos2d::ui::Button* cobj = (cocos2d::ui::Button *)(proxy ? proxy->ptr : NULL);
+  JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_ui_Button_getRendererNormal : Invalid Native Object");
+  if (argc == 0) {
+    cocos2d::ui::Scale9Sprite* ret = cobj->getRendererNormal();
+    jsval jsret = JSVAL_NULL;
+    do {
+      if (ret) {
+        js_proxy_t *jsProxy = js_get_or_create_proxy<cocos2d::ui::Scale9Sprite>(cx, (cocos2d::ui::Scale9Sprite*)ret);
+        jsret = OBJECT_TO_JSVAL(jsProxy->obj);
+      } else {
+        jsret = JSVAL_NULL;
+      }
+    } while (0);
+    args.rval().set(jsret);
+    return true;
+  }
+  
+  JS_ReportError(cx, "js_cocos2dx_ui_Button_getRendererNormal : wrong number of arguments: %d, was expecting %d", argc, 0);
+  return false;
+}
 
 extern JSObject *jsb_cocos2d_ProtectedNode_prototype;
 
@@ -2347,6 +2372,7 @@ void js_register_cocos2dx_ui_Widget(JSContext *cx, JS::HandleObject global) {
         JS_FN("setCallbackType", js_cocos2dx_ui_Widget_setCallbackType, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("isSwallowTouches", js_cocos2dx_ui_Widget_isSwallowTouches, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FN("ctor", js_cocos2dx_ui_Widget_ctor, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+        JS_FN("getRendererNormal", js_cocos2dx_ui_Button_getRendererNormal, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_FS_END
     };
 
