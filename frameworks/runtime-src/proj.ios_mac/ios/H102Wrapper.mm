@@ -127,7 +127,7 @@ static UIViewController* viewController;
     NSString* command = [NSString stringWithFormat:@"SpeechRecognitionListener.getInstance().onResult('%@')", @""];
     ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
   }
-    
+  
   [H102Wrapper stopSpeechRecognition];
 }
 

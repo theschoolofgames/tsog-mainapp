@@ -66,7 +66,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             mask.removeFromParent();
 
-            self._addLabel();
+            // self._addLabel();
             self._showNextObject();
         });
     },
@@ -141,11 +141,11 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
             this._showObject();
-            this._remainingTime = 2;
-            this._label.setString(this._remainingTime);
-            this._label.visible = true;
-            this.schedule(this._setLabelString, 1, 1);
-            this._startSpeechRecognizing();    
+            // this._remainingTime = 2;
+            // this._label.setString(this._remainingTime);
+            // this._label.visible = true;
+            // this.schedule(this._setLabelString, 1, 1);
+            // this._startSpeechRecognizing();    
         }
     },
 
@@ -156,8 +156,11 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.addChild(this._talkingAdi);
     },
 
-    _playObjectSound: function() {
-        jsb.AudioEngine.play2d(this._soundName);
+    _playObjectSound: function(callback) {
+        var audioId = jsb.AudioEngine.play2d(this._soundName);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            callback && callback(audioId);
+        });
         this._talkingAdi.adiTalk();
     },
 
@@ -191,28 +194,28 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         )) 
     },
 
-    _startSpeechRecognizing: function() {
-        var self = this;
-        this.runAction(
-            cc.sequence(
-                cc.delayTime(3),
-                cc.callFunc(function() {
-                    NativeHelper.callNative("startSpeechRecognition", [5000]);
-                    KVDatabase.getInstance().set("timeUp", Date.now()/1000);
-                    self._talkingAdi.onStartedListening();
-                })
-            )
-        )
-    },
+    // _startSpeechRecognizing: function() {
+    //     var self = this;
+    //     this.runAction(
+    //         cc.sequence(
+    //             cc.delayTime(3),
+    //             cc.callFunc(function() {
+    //                 NativeHelper.callNative("startSpeechRecognition", [5000]);
+    //                 KVDatabase.getInstance().set("timeUp", Date.now()/1000);
+    //                 self._talkingAdi.onStartedListening();
+    //             })
+    //         )
+    //     )
+    // },
 
-    _addLabel: function() {
-        this._label = "";
-        this._label = new cc.LabelBMFont(this._remainingTime, this.font);
+    // _addLabel: function() {
+    //     this._label = "";
+    //     this._label = new cc.LabelBMFont(this._remainingTime, this.font);
     
-        this._label.x = cc.winSize.width / 2;
-        this._label.y = cc.winSize.height - 100;
-        this.addChild(this._label, 10000);    
-    },
+    //     this._label.x = cc.winSize.width / 2;
+    //     this._label.y = cc.winSize.height - 100;
+    //     this.addChild(this._label, 10000);    
+    // },
 
     _showObject: function() {
         if (this._currentObjectShowUp) {
@@ -234,8 +237,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }
         
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
-       
-        this._playObjectSound();
+        var self = this;
+        this._playObjectSound(function(audioId) {
+            NativeHelper.callNative("startSpeechRecognition", [5000]);
+            KVDatabase.getInstance().set("timeUp", Date.now()/1000);
+            self._talkingAdi.onStartedListening();
+        });
 
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
@@ -247,27 +254,27 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.currentObjectShowUpId +=1;
     },
 
-    _setLabelString: function() {
-        if (!this._label)
-            return;
-        this._remainingTime -= 1;
-        var self = this;    
-        if (this._remainingTime == 0) {
-            this._label.setString("GO!");
-            this._label.runAction(
-                cc.sequence(
-                    cc.delayTime(1),
-                    cc.callFunc(function() {
-                        self._label.visible = false;
-                        return;
-                    })
-                )
-            )
-        }
+    // _setLabelString: function() {
+    //     if (!this._label)
+    //         return;
+    //     this._remainingTime -= 1;
+    //     var self = this;    
+    //     if (this._remainingTime == 0) {
+    //         this._label.setString("GO!");
+    //         this._label.runAction(
+    //             cc.sequence(
+    //                 cc.delayTime(1),
+    //                 cc.callFunc(function() {
+    //                     self._label.visible = false;
+    //                     return;
+    //                 })
+    //             )
+    //         )
+    //     }
 
-        if (this._remainingTime > 0) {
-            this._label.setString(this._remainingTime);
-        }
+    //     if (this._remainingTime > 0) {
+    //         this._label.setString(this._remainingTime);
+    //     }
 
-    }
+    // }
 });
