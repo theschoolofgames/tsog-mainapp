@@ -57,6 +57,7 @@ var ChooseLanguageLayer = cc.Layer.extend({
         scrollView.setSwallowTouches(false);
         scrollView.setContentSize(cc.size(this._popupDialog.width - 20, this._popupDialog.height/2));
         scrollView.setScrollBarAutoHideEnabled(false);
+        scrollView.setBounceEnabled(true);
         var innerWidth, innerHeight;
         innerWidth = this._popupDialog.width;
 
