@@ -80,19 +80,19 @@ var RoomLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        var nation = KVDatabase.getInstance().getString("language", "");
-
-        var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
-        this.addChild(mask, 1000);
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: function(touch, event) { return true; }
-        }, mask);
+        var nation = KVDatabase.getInstance().getString("language", "english");
+        cc.log("nation: %s", nation);
+        // var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
+        // this.addChild(mask, 1000);
+        // cc.eventManager.addListener({
+        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //     swallowTouches: true,
+        //     onTouchBegan: function(touch, event) { return true; }
+        // }, mask);
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/beginroom-sound_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            mask.removeFromParent();
+            // mask.removeFromParent();
             cc.audioEngine.playMusic(res.background_mp3, true);
         });
     },

@@ -126,7 +126,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         nextBtn.x = cc.winSize.width - nextBtn.width/2 - 20;
         nextBtn.y = cc.winSize.height/2;
         this.addChild(nextBtn);
-
+        nextBtn.scale = 0.5;
         var self = this;
         nextBtn.addClickEventListener(function() {
             self._moveToNextScene();

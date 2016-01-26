@@ -208,14 +208,23 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     //     )
     // },
 
-    // _addLabel: function() {
-    //     this._label = "";
-    //     this._label = new cc.LabelBMFont(this._remainingTime, this.font);
-    
-    //     this._label.x = cc.winSize.width / 2;
-    //     this._label.y = cc.winSize.height - 100;
-    //     this.addChild(this._label, 10000);    
-    // },
+    _addLabel: function(text) {
+        text = text || "";
+        this._label = "";
+        this._label = new cc.LabelBMFont(text, this.font);
+        
+        this._label.x = cc.winSize.width / 2;
+        this._label.y = cc.winSize.height - 100;
+        this.addChild(this._label, 10000);    
+
+        var self = this;
+        this._label.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                self._label.removeFromParent();
+            })
+        ))
+    },
 
     _showObject: function() {
         if (this._currentObjectShowUp) {
@@ -239,6 +248,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
         var self = this;
         this._playObjectSound(function(audioId) {
+            self._addLabel("GO");
             NativeHelper.callNative("startSpeechRecognition", [5000]);
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
             self._talkingAdi.onStartedListening();
