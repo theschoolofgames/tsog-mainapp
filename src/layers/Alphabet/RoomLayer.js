@@ -41,7 +41,7 @@ var RoomLayer = cc.Layer.extend({
         this.setVolume();
         this.createBackground();
         this.addObjects();
-        // this.addRefreshButton();
+        this.addRefreshButton();
         // this.addBackButton();
         this.addHud();
         this.runTutorial();
@@ -473,7 +473,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._shadeObjects[index].stopAllActions();
         targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
         // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
-        targetNode._objectTouching.setLocalZOrder(1);
+        targetNode._objectTouching.setLocalZOrder(2);
         targetNode.handleObjectCorrectPos(index);
 
         targetNode._selectedShadeShader.setUniformInt("enabled", 0);
