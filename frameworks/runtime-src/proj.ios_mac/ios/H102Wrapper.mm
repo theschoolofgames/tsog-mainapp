@@ -16,9 +16,10 @@
 #import "SimpleAudioRecordEngine_objc.h"
 #import "SpeechRecognitionListener.h"
 
-#import "Recorder.h"
-
 static UIViewController* viewController;
+static double startTime = -1;
+static BOOL invalidateTimer = NO;
+static NSTimer* timer;
 
 @implementation H102Wrapper
 
@@ -89,16 +90,64 @@ static UIViewController* viewController;
     [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
 }
 
-+ (BOOL)isRecording {
-  return [Recorder sharedEngine].isRecording;
++ (void)initRecord {
+  [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
+}
+
++ (void)startRecord {
+  [[SimpleAudioRecordEngine sharedEngine] startRecord];
+}
+
++ (void)stopRecord {
+  [[SimpleAudioRecordEngine sharedEngine] stopRecord];
 }
 
 + (void)startFetchingAudio {
-  [[Recorder sharedEngine] startFetchingAudio];
+  NSLog(@"startBackgroundSoundDetecting");
+  [H102Wrapper initRecord];
+  [H102Wrapper startRecord];
+  startTime = -1;
+  invalidateTimer = NO;
+  timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
+  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+  //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
+}
+
++ (void)soundDetectingLoop:(NSTimer*) timer {
+  if (invalidateTimer) {
+    [timer invalidate];
+    return;
+  }
+  
+  float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
+  NSLog(@"Amplitude: %f", maxAmplitude);
+  if (startTime < 0) {
+    if (maxAmplitude > -20) {
+      NSLog(@"Start");
+      startTime = [[NSDate date] timeIntervalSince1970];
+      ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
+    }
+  } else {
+    if (maxAmplitude < -20) {
+      NSLog(@"Stop");
+      double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
+      [H102Wrapper stopFetchingAudio];
+      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
+      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+      return;
+    }
+  }
+  
+  if (startTime < 0) {
+    NSLog(@"Restart");
+    [H102Wrapper initRecord];
+    [H102Wrapper startRecord];
+  }
 }
 
 + (void)stopFetchingAudio {
-  [[Recorder sharedEngine] stopFetchingAudio];
+  invalidateTimer = YES;
+  [H102Wrapper stopRecord];
 }
 
 + (void)changeSpeechLanguageArray:(NSString *)serializedString {
@@ -128,7 +177,7 @@ static UIViewController* viewController;
     ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
   }
   
-  [H102Wrapper stopSpeechRecognition];
+  [[SpeechRecognitionListener sharedEngine] suspend];
 }
 
 + (void)stopSpeechRecognition {

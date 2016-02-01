@@ -15,7 +15,6 @@
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
 		0178BCF41C55EEB000018225 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0178BCF31C55EEB000018225 /* OpenAL.framework */; };
-		019CD9D81C32938C00B8848B /* RecorderQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 019CD9D71C32938C00B8848B /* RecorderQueue.mm */; };
 		01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA711BD50BC20062EF7D /* AVFoundation.framework */; };
 		01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA731BD50BC80062EF7D /* CoreMedia.framework */; };
 		01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA771BD50BD20062EF7D /* CoreLocation.framework */; };
@@ -42,7 +41,6 @@
 		01F481CD1C23FFE300FCE13D /* SoundTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481BC1C23FFE300FCE13D /* SoundTouch.cpp */; };
 		01F481CE1C23FFE300FCE13D /* sse_optimized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481BE1C23FFE300FCE13D /* sse_optimized.cpp */; };
 		01F481CF1C23FFE300FCE13D /* TDStretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481C01C23FFE300FCE13D /* TDStretch.cpp */; };
-		01FDB88E1C31303100D21971 /* Recorder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01FDB88D1C31303100D21971 /* Recorder.mm */; };
 		01FDB8931C32773200D21971 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FDB8921C32773200D21971 /* CoreAudio.framework */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
@@ -220,8 +218,6 @@
 		016A01B11C15E09500A22838 /* SimpleAudioRecordEngine_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine_objc.h; sourceTree = "<group>"; };
 		016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleAudioRecordEngine_objc.m; sourceTree = "<group>"; tabWidth = 4; };
 		0178BCF31C55EEB000018225 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
-		019CD9D61C32938C00B8848B /* RecorderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RecorderQueue.h; path = ios/RecorderQueue.h; sourceTree = "<group>"; };
-		019CD9D71C32938C00B8848B /* RecorderQueue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RecorderQueue.mm; path = ios/RecorderQueue.mm; sourceTree = "<group>"; };
 		01C9EA711BD50BC20062EF7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA731BD50BC80062EF7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA751BD50BCD0062EF7D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -268,8 +264,6 @@
 		01F481BF1C23FFE300FCE13D /* STTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTypes.h; sourceTree = "<group>"; };
 		01F481C01C23FFE300FCE13D /* TDStretch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDStretch.cpp; sourceTree = "<group>"; };
 		01F481C11C23FFE300FCE13D /* TDStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStretch.h; sourceTree = "<group>"; };
-		01FDB88C1C31303100D21971 /* Recorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Recorder.h; path = ios/Recorder.h; sourceTree = "<group>"; };
-		01FDB88D1C31303100D21971 /* Recorder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Recorder.mm; path = ios/Recorder.mm; sourceTree = "<group>"; };
 		01FDB8921C32773200D21971 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
@@ -693,10 +687,6 @@
 				01062FC61C194E7600AB72D4 /* H102Wrapper.mm */,
 				01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */,
 				014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */,
-				01FDB88C1C31303100D21971 /* Recorder.h */,
-				01FDB88D1C31303100D21971 /* Recorder.mm */,
-				019CD9D61C32938C00B8848B /* RecorderQueue.h */,
-				019CD9D71C32938C00B8848B /* RecorderQueue.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -1109,8 +1099,6 @@
 				EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */,
 				F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */,
 				EB7B090B1BB50D2200B36D24 /* lwf_programobj.cpp in Sources */,
-				01FDB88E1C31303100D21971 /* Recorder.mm in Sources */,
-				019CD9D81C32938C00B8848B /* RecorderQueue.mm in Sources */,
 				EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */,
 				EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */,
 				01F481C21C23FFE300FCE13D /* AAFilter.cpp in Sources */,

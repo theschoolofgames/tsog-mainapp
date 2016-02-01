@@ -17,6 +17,7 @@
 - (BOOL)setLanguageData:(NSArray *)array;
 - (void)start;
 - (void)stop;
+- (void)suspend;
 
 - (BOOL)isListening;
 

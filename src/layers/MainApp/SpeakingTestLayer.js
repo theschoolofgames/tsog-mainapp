@@ -166,6 +166,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     _checkCompleted: function() {
         if (this.currentObjectShowUpId >= this._objectsArray.length){
+            // NativeHelper.callNative("stopSpeechRecognition");
             cc.log("on callback");
             if (this._currentScene == "forest")
                 cc.director.replaceScene(new TalkingAdiScene(this._callback));

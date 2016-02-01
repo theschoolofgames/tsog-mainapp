@@ -87,9 +87,15 @@ static SpeechRecognitionListener *sharedEngine = nil;
     [[OEPocketsphinxController sharedInstance] resumeRecognition];
 }
 
-- (void)stop {
+- (void)suspend {
   [[OEPocketsphinxController sharedInstance] setActive:FALSE error:nil];
   [[OEPocketsphinxController sharedInstance] suspendRecognition];
+  [NSObject cancelPreviousPerformRequestsWithTarget:[H102Wrapper class]];
+}
+
+- (void)stop {
+  [[OEPocketsphinxController sharedInstance] setActive:FALSE error:nil];
+  [[OEPocketsphinxController sharedInstance] stopListening];
   [NSObject cancelPreviousPerformRequestsWithTarget:[H102Wrapper class]];
 }
 
@@ -108,7 +114,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
     ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
   }
   
-  [self stop];
+  [self suspend];
 }
 
 #ifdef kGetNbest
