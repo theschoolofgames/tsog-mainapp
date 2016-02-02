@@ -39,7 +39,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             // this._speakingLayer.correctAction();
             this._speakingLayer.incorrectAction();
         }
-        this._speakingLayer.addResultText(this._speakingLayer.resultText);
+        // this._speakingLayer.addResultText(this._speakingLayer.resultText);
     },
 
     onError: function(message) {

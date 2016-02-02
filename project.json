@@ -31,7 +31,6 @@
         "src/layers/MainApp/SignUpLayer.js",
         "src/layers/MainApp/MainScreenLayer.js",
         "src/layers/MainApp/SchoolSelectorLayer.js",
-        "src/layers/MainApp/GameSelectorLayer.js",
         "src/layers/MainApp/LoginSucceedLayer.js",
         "src/layers/MainApp/WelcomeLayer.js",
         "src/layers/MainApp/LoadingIndicatorLayer.js",

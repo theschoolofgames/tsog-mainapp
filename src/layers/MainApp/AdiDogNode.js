@@ -24,7 +24,7 @@ var AdiDogNode = cc.Node.extend({
     _addTouchEvent: function() {
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
+            swallowTouches: false,
             onTouchBegan: function(touch, event) {
                 var self = event.getCurrentTarget();
                 var touchPos = touch.getLocation();

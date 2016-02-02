@@ -269,7 +269,7 @@ public class Recorder {
         try
         {
             if (state == State.INITIALIZING || state == State.STOPPED)
-        {
+            {
                 if ((audioRecorder.getState() == AudioRecord.STATE_INITIALIZED) & (filePath != null))
                 {
                     // write file header
@@ -386,7 +386,8 @@ public class Recorder {
         final Recorder self = this;
         new Thread() {
             public void run() {
-//                self.initRecorder();
+                if (state == Recorder.State.ERROR)
+                    self.initRecorder();
                 self.prepare();
                 self.start();
             }

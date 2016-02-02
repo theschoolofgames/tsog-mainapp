@@ -45,8 +45,19 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             self._talkingAdi.adiIdling();
 
             self._addCountDownClock();
-            self._addNextButton();
+            // self._addNextButton();
             NativeHelper.callNative("startFetchingAudio");
+
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: function(touch, event) { 
+                    var touchedPos = touch.getLocation();
+                    if (touchedPos.x > self._clock.x - 50)
+                        self._moveToNextScene();
+                    return true; 
+                }
+            }, self);
         });
     },
 
@@ -115,7 +126,9 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var clock = new Clock(clockInitTime, function(){
             self._moveToNextScene();
         });
-        clock.visible = false;
+        clock.visible = true;
+        clock.x = cc.winSize.width - 60;
+        clock.y = 100;
         this.addChild(clock, 99);
 
         this._clock = clock;

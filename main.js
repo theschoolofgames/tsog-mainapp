@@ -118,14 +118,13 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
         cc.spriteFrameCache.addSpriteFrames(res.School_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
-        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new MainScene());
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
-        // cc.director.runScene(new TalkingAdiScene());
+        cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
         // cc.director.runScene(new SpeakingTestScene());
@@ -138,7 +137,6 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
             cc.spriteFrameCache.addSpriteFrames(res.School_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
-            cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
             cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         });

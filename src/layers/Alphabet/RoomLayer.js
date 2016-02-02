@@ -41,7 +41,7 @@ var RoomLayer = cc.Layer.extend({
         this.setVolume();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
+        // this.addRefreshButton();
         // this.addBackButton();
         this.addHud();
         this.runTutorial();
@@ -455,6 +455,10 @@ var RoomLayer = cc.Layer.extend({
         var touchedPos = touch.getLocation();
 
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
+        if (objectPosition == null) {
+            onTouchEnded(touch, event);
+            return;
+        }
 
         targetNode._objectTouching.setPosition(objectPosition);
     },
@@ -465,6 +469,11 @@ var RoomLayer = cc.Layer.extend({
         if (targetNode._effectAudioID)
             jsb.AudioEngine.stop(targetNode._effectAudioID);
         targetNode._effectAudioID = null;
+
+        if (targetNode._objectTouching.x < 0)
+            targetNode._objectTouching.x = 0;
+        if (targetNode._objectTouching.y > cc.winSize.height)
+            targetNode._objectTouching.y = cc.winSize.height;
 
         //set shadeObject visible to false
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
@@ -569,6 +578,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {
+        if (this._objectTouching == null)
+            return null;
+
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
         var objectSize = this._objectTouching.getContentSize();
 

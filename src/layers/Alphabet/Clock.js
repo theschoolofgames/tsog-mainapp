@@ -21,11 +21,16 @@ var Clock = cc.Node.extend({
     },
 
     createCountDownClockLabel: function() {
+        var clock = new cc.Sprite("timer.png");
+        // clock.x = -clock.width;
+        clock.y = 20 + clock.height/2;
+        this.addChild(clock);
+
         font = res.HudFont_fnt;
         var text = this.getCurrentTime();
-        var countDownClockLabel = new cc.LabelBMFont(text, font);
+        var countDownClockLabel = new cc.LabelTTF(text, "Arial", 20);
 
-        countDownClockLabel.color = cc.color("#ffd902");
+        countDownClockLabel.color = cc.color.BLACK;
         countDownClockLabel.y = this.height + 2;
         this._countDownClock = countDownClockLabel;
         this.addChild(countDownClockLabel);

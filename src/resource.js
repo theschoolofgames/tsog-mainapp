@@ -3,8 +3,6 @@ var res = {
     Account_png: "account.png",
     School_plist: "school.plist",
     School_png: "school.png",
-    Game_plist: "game.plist",
-    Game_png: "game.png",
     Loading_plist: "loading.plist",
     Loading_png: "loading.png",
     // Temporary
