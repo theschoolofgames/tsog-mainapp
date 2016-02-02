@@ -126,6 +126,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var clock = new Clock(clockInitTime, function(){
             self._moveToNextScene();
         });
+        clock.setIsClockInTalkingAdi(true);
         clock.visible = true;
         clock.x = cc.winSize.width - 60;
         clock.y = 100;

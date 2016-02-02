@@ -20,17 +20,29 @@ var Clock = cc.Node.extend({
         this.schedule(this.countDownClockAction, CLOCK_INTERVAL, this._totalSeconds);
     },
 
-    createCountDownClockLabel: function() {
-        var clock = new cc.Sprite("timer.png");
-        // clock.x = -clock.width;
-        clock.y = 20 + clock.height/2;
-        this.addChild(clock);
+    setIsClockInTalkingAdi: function(value) {
+        if (value) {
+            this.removeChild(this._countDownClock);
 
+            var clock = new cc.Sprite("timer.png");
+            // clock.x = -clock.width;
+            clock.y = 20 + clock.height/2;
+            this.addChild(clock);
+
+            var text = this.getCurrentTime();
+            var countDownClockLabel = new cc.LabelTTF(text, "Arial", 20);
+            countDownClockLabel.color = cc.color.BLACK;
+            this._countDownClock = countDownClockLabel;
+            this.addChild(countDownClockLabel);
+        }
+    },
+
+    createCountDownClockLabel: function() {
         font = res.HudFont_fnt;
         var text = this.getCurrentTime();
-        var countDownClockLabel = new cc.LabelTTF(text, "Arial", 20);
+        var countDownClockLabel = new cc.LabelBMFont(text, font);
 
-        countDownClockLabel.color = cc.color.BLACK;
+        countDownClockLabel.color = cc.color("#ffd902");
         countDownClockLabel.y = this.height + 2;
         this._countDownClock = countDownClockLabel;
         this.addChild(countDownClockLabel);
