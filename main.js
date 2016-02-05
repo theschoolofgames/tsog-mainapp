@@ -109,6 +109,8 @@ cc.game.onStart = function(){
         SpeechRecognitionListener.setupInstance();
         GameListener.setupInstance();
 
+        input.SingleTouch.setEnable (true);
+
         // NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
@@ -121,10 +123,10 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
-        // cc.director.runScene(new MainScene());
+        cc.director.runScene(new MainScene());
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
-        cc.director.runScene(new TalkingAdiScene());
+        // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
         // cc.director.runScene(new SpeakingTestScene());
