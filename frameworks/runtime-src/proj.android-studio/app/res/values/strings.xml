@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TSOG</string>
+    <string name="app_name">The School of Games</string>
 
     <string-array name="lib_names">
         <item>pocketsphinx_jni</item>
