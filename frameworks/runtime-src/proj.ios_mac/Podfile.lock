@@ -100,10 +100,10 @@ PODS:
     - Bugsnag/no-arc (= 4.0.7)
   - Bugsnag/no-arc (4.0.7)
   - Countly (15.06.01)
-  - Crashlytics (3.6.0):
+  - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CrittercismSDK (5.2.0)
-  - Fabric (1.6.4)
+  - Fabric (1.6.6)
   - Flurry-iOS-SDK/FlurrySDK (7.1.0)
   - FMDB/standard (2.6)
   - GoogleAnalytics (3.13.0)
@@ -137,9 +137,9 @@ SPEC CHECKSUMS:
   Apptimize: f187322af7163fe27dd3b3520d94d445680bec45
   Bugsnag: 5861d8519d30063abe7b3fcdcf4114a6dddab27a
   Countly: 2151c5286995b84972ba4a92c3fba6b5fafce6bb
-  Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
-  Fabric: ed41fd62173c6bdea24ab02c9d7707161eabb750
+  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
   Flurry-iOS-SDK: 7b3fe6c3344c82b73c4c84163652eada84fbfcf4
   FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
   GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49

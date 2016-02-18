@@ -55,6 +55,9 @@ var AudioListener = cc.Class.extend({
         var audioId = jsb.AudioEngine.play2d(fileName);
         self._talkingAdi.adiTalk();
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            if (!self._talkingAdi)
+                return;
+            
             NativeHelper.callNative("startFetchingAudio");
             self._talkingAdi.adiIdling();
         });
