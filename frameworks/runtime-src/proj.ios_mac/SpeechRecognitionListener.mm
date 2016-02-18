@@ -8,11 +8,11 @@
 
 #import "SpeechRecognitionListener.h"
 
-#import <OpenEars/OEAcousticModel.h>
-#import <OpenEars/OEPocketsphinxController.h>
-#import <OpenEars/OEFliteController.h>
-#import <OpenEars/OELanguageModelGenerator.h>
-#import <OpenEars/OELogging.h>
+#import "OEAcousticModel.h"
+#import "OEPocketsphinxController.h"
+#import "OEFliteController.h"
+#import "OELanguageModelGenerator.h"
+#import "OELogging.h"
 
 #import "ScriptingCore.h"
 #import "H102Wrapper.h"

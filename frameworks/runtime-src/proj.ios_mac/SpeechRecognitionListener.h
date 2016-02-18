@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import <OpenEars/OEEventsObserver.h>
+#import "OEEventsObserver.h"
 
 @interface SpeechRecognitionListener : NSObject <OEEventsObserverDelegate>
 
