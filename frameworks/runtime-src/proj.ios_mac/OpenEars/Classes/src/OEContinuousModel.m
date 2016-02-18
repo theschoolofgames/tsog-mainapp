@@ -929,9 +929,9 @@ extern int returner;
         [self.smartCMN finalizeCmn:MFCC2FLOAT(self.pocketSphinxDecoder->acmod->fcb->cmn_struct->cmn_mean[0]) atRoute:[self.audioDriver getCurrentRoute] forAcousticModelAtPath:self.acousticModelPath withModelName:NSStringFromClass([self class])]; // If we have a cmn value here at the end, it is always going to be a better value for this particular device, user and route than the naive init value, so we will save it for the next session run with this route and acoustic model and use it as the init value
     } // This must, must, must be done before resigning the audio session or it will never have relevant routing values in it so it won't do anything.
     
-    error = [self.audioDriver teardownAudioSession];    
-    if(error) [self announceTeardownFailureForReason:[NSString stringWithFormat:@"Error: there was a problem tearing down the audio session: %@.", error]]; // Not a stopping error since a leftover audio session isn't really an issue.
-    
+//    error = [self.audioDriver teardownAudioSession];    
+//    if(error) [self announceTeardownFailureForReason:[NSString stringWithFormat:@"Error: there was a problem tearing down the audio session: %@.", error]]; // Not a stopping error since a leftover audio session isn't really an issue.
+  
     @synchronized(self) {
         [self.bufferAccumulator setLength:0];
     }

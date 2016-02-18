@@ -16,6 +16,8 @@
 #import "SimpleAudioRecordEngine_objc.h"
 #import "SpeechRecognitionListener.h"
 
+#import "AudioEngine.h"
+
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL invalidateTimer = NO;
@@ -125,15 +127,19 @@ static NSTimer* timer;
     if (maxAmplitude > -20) {
       NSLog(@"Start");
       startTime = [[NSDate date] timeIntervalSince1970];
-      ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
+      cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
+        ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
+      });
     }
   } else {
     if (maxAmplitude < -20) {
       NSLog(@"Stop");
       double deltaTime = [[NSDate date] timeIntervalSince1970] - startTime;
       [H102Wrapper stopFetchingAudio];
-      NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
-      ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+      cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
+        NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
+        ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+      });
       return;
     }
   }
@@ -182,6 +188,9 @@ static NSTimer* timer;
 
 + (void)stopSpeechRecognition {
   [[SpeechRecognitionListener sharedEngine] stop];
+//  cocos2d::experimental::AudioEngine::end();
+//  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategorySoloAmbient error:nil];
+//  [[AVAudioSession sharedInstance] setActive:YES error:nil];
 }
 
 + (void)startRestClock:(NSNumber *)timeToPauseGame {

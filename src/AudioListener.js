@@ -52,25 +52,30 @@ var AudioListener = cc.Class.extend({
         var self = this;
         cc.log("onAudioChipmunkified: " + fileName);
 
-        cc.director.getRunningScene().runAction(cc.sequence(
-            cc.delayTime(0),
-            cc.callFunc(function() {
-                self._talkingAdi.onStoppedListening();
-                if (self._playbackLength > 0) {
-                    cc.log("_playbackLength: " + self._playbackLength);
-                    jsb.AudioEngine.play2d(fileName);
-                    self._talkingAdi.adiTalk();
-                }
-                else
-                    self._talkingAdi.adiIdling();
-            }),
-            cc.delayTime(self._playbackLength),
-            cc.callFunc(function() {
-                NativeHelper.callNative("startFetchingAudio");
-                self._talkingAdi.adiIdling();
-            })));
+        var audioId = jsb.AudioEngine.play2d(fileName);
+        self._talkingAdi.adiTalk();
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            NativeHelper.callNative("startFetchingAudio");
+            self._talkingAdi.adiIdling();
+        });
 
-        this._isListening = false;
+        // cc.director.getRunningScene().runAction(cc.sequence(
+        //     // cc.delayTime(0),
+        //     cc.callFunc(function() {
+        //         self._talkingAdi.onStoppedListening();
+        //         if (self._playbackLength > 0) {
+        //             cc.log("_playbackLength: " + self._playbackLength);
+        //             jsb.AudioEngine.play2d(fileName);
+        //             self._talkingAdi.adiTalk();
+        //         }
+        //         else
+        //             self._talkingAdi.adiIdling();
+        //     }),
+        //     cc.delayTime(self._playbackLength),
+        //     cc.callFunc(function() {
+        //         NativeHelper.callNative("startFetchingAudio");
+        //         self._talkingAdi.adiIdling();
+        //     })));
     }
 });
 
