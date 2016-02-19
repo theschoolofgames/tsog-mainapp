@@ -105,13 +105,15 @@ static NSTimer* timer;
 }
 
 + (void)startFetchingAudio {
-  NSLog(@"startBackgroundSoundDetecting");
-  [H102Wrapper initRecord];
-  [H102Wrapper startRecord];
-  startTime = -1;
-  invalidateTimer = NO;
-  timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
-  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+  dispatch_async(dispatch_get_main_queue(), ^{
+    NSLog(@"startBackgroundSoundDetecting");
+    [H102Wrapper initRecord];
+    [H102Wrapper startRecord];
+    startTime = -1;
+    invalidateTimer = NO;
+    timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+  });
   //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];
 }
 

@@ -3,6 +3,8 @@ var AudioListener = cc.Class.extend({
     _pauseListening: false,
     _playbackLength: 0,
 
+    _playingAudioId: null,
+
     setListener: function(adi) {
         if (adi == undefined || adi == null)
             return;
@@ -13,6 +15,7 @@ var AudioListener = cc.Class.extend({
 
     removeListener: function() {
         this._talkingAdi = null;
+        jsb.AudioEngine.stop(this._playingAudioId);
     },
 
     pauseListening: function() {
@@ -52,12 +55,13 @@ var AudioListener = cc.Class.extend({
         var self = this;
         cc.log("onAudioChipmunkified: " + fileName);
 
-        var audioId = jsb.AudioEngine.play2d(fileName);
-        self._talkingAdi.adiTalk();
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+        this._playingAudioId = jsb.AudioEngine.play2d(fileName);
+        this._talkingAdi.onStoppedListening();
+        this._talkingAdi.adiTalk();
+        jsb.AudioEngine.setFinishCallback(this._playingAudioId, function(audioId, audioPath) {
             if (!self._talkingAdi)
                 return;
-            
+
             NativeHelper.callNative("startFetchingAudio");
             self._talkingAdi.adiIdling();
         });

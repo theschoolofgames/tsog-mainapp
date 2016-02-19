@@ -26,6 +26,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
     },
+
     playBeginSound: function(){
         self = this;
         var nation = KVDatabase.getInstance().getString("language", "");

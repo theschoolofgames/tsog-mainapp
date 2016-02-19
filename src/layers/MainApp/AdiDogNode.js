@@ -93,6 +93,7 @@ var AdiDogNode = cc.Node.extend({
         this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningl-still', 0.2);
         this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-listeningfinish', 0.2);
         this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-shake', 0.3);
+        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-talking', 0.3);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
         this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-jump', 0.3);
         this._talkingAdi.setMix('adidog-jump', 'adidog-hifi', 0.2);
