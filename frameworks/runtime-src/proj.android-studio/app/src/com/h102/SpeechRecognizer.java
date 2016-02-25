@@ -28,7 +28,7 @@ public class SpeechRecognizer implements RecognitionListener {
     private static SpeechRecognizer mSharedInstance = null;
     private static AppActivity app;
 
-    private edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
+    public edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
     private JSGFGrammarBuilder grammarBuilder;
     private File externalDir = null;
 

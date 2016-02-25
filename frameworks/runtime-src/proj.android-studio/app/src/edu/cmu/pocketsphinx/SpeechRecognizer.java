@@ -57,10 +57,10 @@ public class SpeechRecognizer {
 
     private final Decoder decoder;
 
-    private final int sampleRate;        
+    public final int sampleRate;
     private final static float BUFFER_SIZE_SECONDS = 0.4f;
-    private int bufferSize;
-    private final AudioRecord recorder;
+    public int bufferSize;
+    public final AudioRecord recorder;
     
     private Thread recognizerThread;
 

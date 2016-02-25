@@ -107,11 +107,12 @@ static NSTimer* timer;
 + (void)startFetchingAudio {
   dispatch_async(dispatch_get_main_queue(), ^{
     NSLog(@"startBackgroundSoundDetecting");
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [H102Wrapper initRecord];
     [H102Wrapper startRecord];
     startTime = -1;
     invalidateTimer = NO;
-    timer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
+    timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(soundDetectingLoop:) userInfo:NULL repeats:YES];
     [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
   });
   //  [viewController performSelector:@selector(soundDetectingLoop) withObject:NULL afterDelay:0.3];

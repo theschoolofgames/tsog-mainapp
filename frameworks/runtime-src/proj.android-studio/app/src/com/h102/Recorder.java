@@ -24,7 +24,7 @@ public class Recorder {
     private final static float MAX_RECORD_TIME = 15.0f;
 
     private static Recorder mSharedInstance = null;
-    private final static int[] sampleRates = {44100, 22050, 11025, 8000};
+    private final static int[] sampleRates = {44100, 22050, 16000, 11025, 8000};
 
     private final static String FILE_NAME = "record_sound.wav";
     private final static float SECOND_OF_SILENCE = 1f;
@@ -45,7 +45,7 @@ public class Recorder {
     private boolean isRecording = false;
 
     // Recorder used for uncompressed recording
-    private AudioRecord     audioRecorder = null;
+    public AudioRecord     audioRecorder = null;
 
     // Output file path
     private String          filePath = null;
@@ -82,11 +82,11 @@ public class Recorder {
 
     public static Recorder getInstance() {
         if (mSharedInstance == null) {
-            int i=0;
-            do{
-                mSharedInstance = new Recorder(sampleRates[i]);
+//            int i=0;
+//            do{
+                mSharedInstance = new Recorder();
 
-            } while((++i<sampleRates.length) & !(mSharedInstance.getState() == Recorder.State.INITIALIZING));
+//            } while((++i<sampleRates.length) & !(mSharedInstance.getState() == Recorder.State.INITIALIZING));
         }
 
         return mSharedInstance;
@@ -197,59 +197,66 @@ public class Recorder {
         }
     };
 
-    public Recorder(int sampleRate) {
+    public Recorder() {
         bSamples = 16;
         nChannels = 1;
 
-        aSource = MediaRecorder.AudioSource.MIC;
-        sRate   = sampleRate;
-        aFormat = AudioFormat.ENCODING_PCM_16BIT;
+        audioRecorder = SpeechRecognizer.getInstance().recognizer.recorder;
+
+        aSource = audioRecorder.getAudioSource();
+        sRate   = audioRecorder.getSampleRate();
+        aFormat = audioRecorder.getAudioFormat();
+        int sampleRate = audioRecorder.getSampleRate();
 
         framePeriod = sampleRate * TIMER_INTERVAL / 1000;
-        bufferSize = framePeriod * 2 * bSamples * nChannels / 8;
-        if (bufferSize < AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat))
-        { // Check to make sure buffer size is not smaller than the smallest allowed one
-            bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
-            // Set frame period and timer interval accordingly
-            framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
-            Log.w(Recorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
-        }
+//        bufferSize = framePeriod * 2 * bSamples * nChannels / 8;
+//        if (bufferSize < AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat))
+//        { // Check to make sure buffer size is not smaller than the smallest allowed one
+//            bufferSize = AudioRecord.getMinBufferSize(sampleRate, nChannels, aFormat);
+//            // Set frame period and timer interval accordingly
+//            framePeriod = bufferSize / ( 2 * bSamples * nChannels / 8 );
+//            Log.w(Recorder.class.getName(), "Increasing buffer size to " + Integer.toString(bufferSize));
+//        }
 
         filePath = Cocos2dxHelper.getCocos2dxWritablePath() + "/" + FILE_NAME;
 //            filePath = "/sdcard/" + FILE_NAME;
 
-        this.initRecorder();
+//        this.initRecorder();
 
+        audioRecorder.setRecordPositionUpdateListener(updateListener);
+        audioRecorder.setPositionNotificationPeriod(framePeriod);
+
+        state = State.INITIALIZING;
         cachedBuffer = new RecorderQueue();
         cachedBuffer.setMaxCapacity((int)(sampleRate * SECOND_OF_SILENCE));
     }
 
-    private void initRecorder() {
-        try {
-            audioRecorder = new AudioRecord(aSource, sRate, nChannels+1, aFormat, bufferSize);
-
-            if (audioRecorder.getState() != AudioRecord.STATE_INITIALIZED){
-                Log.w(Recorder.class.getName(), "AudioRecord initialization failed");
-                throw new Exception("AudioRecord initialization failed");
-            }
-            audioRecorder.setRecordPositionUpdateListener(updateListener);
-            audioRecorder.setPositionNotificationPeriod(framePeriod);
-
-            state = State.INITIALIZING;
-        }
-        catch (Exception e)
-        {
-            if (e.getMessage() != null)
-            {
-                Log.e(Recorder.class.getName(), e.getMessage());
-            }
-            else
-            {
-                Log.e(Recorder.class.getName(), "Unknown error occured while initializing recording");
-            }
-            state = State.ERROR;
-        }
-    }
+//    private void initRecorder() {
+//        try {
+//            audioRecorder = new AudioRecord(aSource, sRate, nChannels+1, aFormat, bufferSize);
+//
+//            if (audioRecorder.getState() != AudioRecord.STATE_INITIALIZED){
+//                Log.w(Recorder.class.getName(), "AudioRecord initialization failed");
+//                throw new Exception("AudioRecord initialization failed");
+//            }
+//            audioRecorder.setRecordPositionUpdateListener(updateListener);
+//            audioRecorder.setPositionNotificationPeriod(framePeriod);
+//
+//            state = State.INITIALIZING;
+//        }
+//        catch (Exception e)
+//        {
+//            if (e.getMessage() != null)
+//            {
+//                Log.e(Recorder.class.getName(), e.getMessage());
+//            }
+//            else
+//            {
+//                Log.e(Recorder.class.getName(), "Unknown error occured while initializing recording");
+//            }
+//            state = State.ERROR;
+//        }
+//    }
 
     public State getState()
     {
@@ -387,7 +394,7 @@ public class Recorder {
         new Thread() {
             public void run() {
                 if (state == Recorder.State.ERROR)
-                    self.initRecorder();
+                    state = Recorder.State.INITIALIZING;
                 self.prepare();
                 self.start();
             }
