@@ -38,7 +38,6 @@ var MainScreenLayer = cc.Layer.extend({
         // play background music
         cc.audioEngine.setMusicVolume(0.2);
         cc.audioEngine.playMusic(res.background_mp3, true);
-        SegmentHelper.track(SEGMENT.ENTER_GAME, null );
     },
 
     downloadAssets: function() {
