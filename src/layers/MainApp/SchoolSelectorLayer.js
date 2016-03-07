@@ -60,8 +60,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
                         self._rightArrowImg.removeFromParent();
                         self._leftArrowImg.removeFromParent();
 
-                        self.refreshSchoolList();
                         self.createScrollView();
+                        self.refreshSchoolList();
                         self.addArrowImage();
                     }
                 });
