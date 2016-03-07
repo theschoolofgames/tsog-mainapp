@@ -11,8 +11,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
     _rightArrowImg: null,
     _isTouchMoved: false,
 
-    _cols: 2,
     _rows: 2,
+
+    _vBoxes: [],
 
     ctor: function () {
         this._super();
@@ -35,13 +36,12 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         var self = this;
         var schoolData = DataManager.getInstance().getSchoolData();
-        cc.log("schoolData: " + JSON.stringify(schoolData));
+        // cc.log("schoolData: " + JSON.stringify(schoolData));
         if (schoolData != null) {
             this.createSearchArea();
-            this.createSchoolButton();
             this.createScrollView();
+            this.refreshSchoolList();
             this.addArrowImage();
-            this._addPlusSchoolButton();
             if (!SchoolSelectorLayer.loadedData) {
                 var loadingLayer = Utils.addLoadingIndicatorLayer(false);
                 loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
@@ -60,10 +60,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
                         self._rightArrowImg.removeFromParent();
                         self._leftArrowImg.removeFromParent();
 
-                        self.createSchoolButton();
+                        self.refreshSchoolList();
                         self.createScrollView();
                         self.addArrowImage();
-                        self._addPlusSchoolButton();
                     }
                 });
             }
@@ -75,10 +74,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 if (succeed) {
                     DataManager.getInstance().setSchoolData(data);
                     self.createSearchArea();
-                    self.createSchoolButton();
                     self.createScrollView();
+                    self.refreshSchoolList();
                     self.addArrowImage();
-                    self._addPlusSchoolButton();
                 }
             });
         }
@@ -115,34 +113,44 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this.addChild(bg);
     },
 
-    createSchoolHolder: function(){
-        this.schHolder = new cc.Layer();
-
-        this.schHolder.width = this.schoolBtn[this.schoolBtn.length-1].y + this.schoolBtn[this.schoolBtn.length-1].width;
-        this.schHolder.height = cc.winSize.height;
-        for (var i = 0; i < this.schoolBtn.length; i++) {
-            this.schHolder.addChild(this.schoolBtn[i]);
-        }
-    },
-
-    createSchoolButton: function() {
+    refreshSchoolList: function(data, animated) {
         var self = this;
-        var scale, width, font;
 
-        var schoolData = DataManager.getInstance().getSchoolData();
+        animated = animated == null ? true : animated;
+
+        this._scrollView.removeAllItems();
+        this._vBoxes = [];
+        this._addPlusSchoolButton(animated);
+        
+        var currentItemCount = this._scrollView.getItems().length;
+        var schoolData = data || DataManager.getInstance().getSchoolData();
 
         var itemIndex = 0;
         for (var i = 0; i < schoolData.length; i++) {
+            var schoolIndex = schoolData[i].index || i;
+            var vBox = this.createOrGetVBox(i + currentItemCount);
+
             var randBgIdx = i%2+1;
             var schoolButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-            schoolButton.setPosition(this._getBtnPosition(i));
             schoolButton.tag = i;
             schoolButton.setSwallowTouches(false);
 
-            this.schoolBtn.push(schoolButton);
+            var lp = new ccui.LinearLayoutParameter();
+            lp.setGravity(ccui.LinearLayoutParameter.RIGHT);
+            if ((i + currentItemCount)%2 == 0)
+                lp.setMargin(new ccui.Margin(
+                    0, 
+                    vBox.height/3 - schoolButton.height/2, 
+                    vBox.width/2 - schoolButton.width/2, 
+                    vBox.height/3 - schoolButton.height));
+            schoolButton.setLayoutParameter(lp);
 
-            // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
-            font = SCHOOL_NAME_COLOR[i%4];
+            vBox.addChild(schoolButton);
+
+            if (!vBox.parent)
+                this._scrollView.addChild(vBox);
+
+            var font = SCHOOL_NAME_COLOR[schoolIndex%4];
 
             var schoolName = new cc.LabelBMFont(schoolData[i].school_name.toUpperCase(),
                 font,
@@ -153,26 +161,24 @@ var SchoolSelectorLayer = cc.Layer.extend({
             schoolName.y = schoolButton.height / 2;
             schoolButton.addChild(schoolName);
 
-            this.schoolName.push(i);
+            // this.schoolName.push(i);
 
             // add bubble effect
-            var delayTime = i * DELTA_DELAY_TIME;
-            this.addObjectAction(schoolButton, delayTime, i, function(index){
-                if (index < 4)
-                    jsb.AudioEngine.play2d(res.bubble_sound_mp3);
-            });
-
+            if (animated) {
+                var delayTime = (i + currentItemCount) * DELTA_DELAY_TIME;
+                this.addObjectAction(schoolButton, delayTime, (i + currentItemCount), function(index){
+                    if (index < 4)
+                        jsb.AudioEngine.play2d(res.bubble_sound_mp3);
+                });
+            }
             schoolButton.runAction(
-                cc.repeatForever(
                     cc.sequence(
                         cc.delayTime(0),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(schoolButton)),
-                        cc.moveTo(MOVE_DELAY_TIME, schoolButton.getPosition())
+                        cc.callFunc(function(sender) {
+                            self.runBubbleAnimation(sender);
+                        })
                     )
                 )
-            )
             //add event listener
             schoolButton.addClickEventListener(function(sender) {
                 if (!self._isTouchMoved) {
@@ -191,8 +197,20 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
             });
         }
+        this._scrollView.requestRefreshView();
+    },
 
-        this.createSchoolHolder();
+    createOrGetVBox: function(index) {
+        var boxIdx = Math.floor(index/2);
+        var vbox = this._vBoxes[boxIdx];
+
+        if (vbox == null) {
+            vbox = new ccui.VBox();
+            vbox.setContentSize(cc.size(cc.winSize.width*0.4, cc.winSize.height))
+            this._vBoxes[boxIdx] = vbox;
+        }
+
+        return vbox;
     },
 
     addObjectAction: function(object, delayTime, index, func) {
@@ -227,24 +245,9 @@ var SchoolSelectorLayer = cc.Layer.extend({
             ccui.Widget.PLIST_TEXTURE);
         searchButton.x = searchButton.width;
         searchButton.y = searchButton.height/2;
-        // searchButton.setTouchEnabled(false);
-
-        // cc.log("checkMic: " + NativeHelper.callNative("checkMic"));
-        // NativeHelper.callNative("initRecord");
 
         searchButton.addClickEventListener(function(){
             NativeHelper.callNative("startRecord");
-            // var itemArray = ["ant", "bear", "bee", "bird", "camel", "cat", "cheetah", "chicken", "cow", "crocodile", "deer", "dolphin", "duck", "eagle", "elephant", "fish", "fly", "fox", "frog", "giraffe", "goat", "goldfish", "hamster", "horse", "insect", "kangaroo", "kitten", "lion", "lobster", "monkey", "nest", "octopus", "owl", "panda", "pig", "puppy", "rabbit", "rat", "scorpion", "seal", "shark", "sheep", "snail", "snake", "squirrel", "tiger", "turtle", "wolf", "zebr"];
-
-            // NativeHelper.callNative("startSpeechRecognition", [JSON.stringify(itemArray), 5000]);
-            // NativeHelper.callNative("startBackgroundSoundDetecting");
-            // self._searchField.onTouchBegan();
-            // if (NativeHelper.callNative("isRecording")) {
-            //     NativeHelper.callNative("stopRecord")
-            //     cc.eventManager.dispatchCustomEvent("chipmunkify");
-            // }
-            // else
-            //     NativeHelper.callNative("startRecord");
         });
 
         this._searchArea.addChild(searchButton, 9);
@@ -262,33 +265,20 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var schoolData = DataManager.getInstance().getSchoolData();
 
         if (newStr == "") {
-            for ( var i = 0; i < this.schoolBtn.length; i++) {
-                this.schoolBtn[i].setPosition(this._getBtnPosition(i));
-                this.schoolBtn[i].setVisible(true);
-            }
-            var innerWidth = Math.ceil(((this.schoolBtn.length - 1) / 2) * cc.winSize.width / 2);
-            this._scrollView.setInnerContainerSize(cc.size(innerWidth, cc.winSize.height));
+            this.refreshSchoolList(null, false);
             return;
         }
 
-        for ( var i = 0; i < this.schoolBtn.length; i++) {
-            var id = this.schoolName[i];
-            scName = schoolData[id].school_name.toUpperCase();
-            if (newStr != "") {
-                result = scName.search(newStr);
+        var data = DataManager.getInstance().getSchoolData();
+        data.forEach(function(elem, i) {
+            elem.index = i;
+        });
+        data = data.filter(function(obj){
+            if (obj.school_name.toUpperCase().search(newStr) >= 0)
+                return obj;
+        });        
 
-                if ( result >= 0 ){
-                    count++;
-                    this.schoolBtn[i].setPosition(this._getBtnPosition(count));
-                    this.schoolBtn[i].setVisible(true);
-                } else {
-                    this.schoolBtn[i].setVisible(false);
-                }
-            }
-        }
-        // reset scroll container size
-        var innerWidth = Math.ceil((count - 1) / 2) * cc.winSize.width / 2;
-        this._scrollView.setInnerContainerSize(cc.size(innerWidth, cc.winSize.height));
+        this.refreshSchoolList(data, false);
     },
 
     createSearchField: function() {
@@ -312,12 +302,16 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
     createScrollView: function(){
         var self = this;
-        this._scrollView = new ccui.ScrollView();
+
+        this._vBoxes = [];
+
+        this._scrollView = new ccui.ListView();
         this._scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         this._scrollView.setTouchEnabled(true);
         this._scrollView.setSwallowTouches(false);
+        this._scrollView.setBounceEnabled(true);
         this._scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
-        this._scrollView.addEventListener(function(pScrollView, event) {
+        this._scrollView.addEventListenerScrollView(function(pScrollView, event) {
             if (event == ccui.ScrollView.EVENT_SCROLL_TO_RIGHT || event == ccui.ScrollView.EVENT_BOUNCE_RIGHT)
                 self._rightArrowImg.setVisible(false);
             else
@@ -333,12 +327,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
         this._scrollView.y = 0;
         self.addChild(this._scrollView);
 
-        var innerWidth = Math.ceil((this.schoolBtn.length+1) / 2) * cc.winSize.width/2;
-        var innerHeight = cc.winSize.height;
+        // var innerWidth = Math.ceil((this.schoolBtn.length+1) / 2) * cc.winSize.width/2;
+        // var innerHeight = cc.winSize.height;
 
-        this._scrollView.setBounceEnabled(true);
-        this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
-        this._scrollView.addChild(this.schHolder);
+        // this._scrollView.setInnerContainerSize(cc.size(innerWidth, innerHeight));
+        // this._scrollView.addChild(this.schHolder);
     },
 
     isWideScreen: function(){
@@ -365,32 +358,70 @@ var SchoolSelectorLayer = cc.Layer.extend({
         return randomedPos;
     },
 
-    _addPlusSchoolButton: function() {
-        var index = DataManager.getInstance().getSchoolData().length;
+    _addPlusSchoolButton: function(animated) {
+        var index = this._scrollView.getItems().length;
         var randBgIdx = index%2+1;
+
+        var vBox = this.createOrGetVBox(index);
+
         var plusBtn = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        plusBtn.setSwallowTouches(false);
+
         var plusImg = new cc.Sprite("plus.png");
         plusImg.x = plusBtn.width/2;
         plusImg.y = plusBtn.height/2;
         plusBtn.addChild(plusImg);
-        plusBtn.setPosition(this._getBtnPosition(index));
 
+        var lp = new ccui.LinearLayoutParameter();
+        lp.setGravity(ccui.LinearLayoutParameter.RIGHT);
+        if (index%2 == 0)
+            lp.setMargin(new ccui.Margin(
+                    0, 
+                    vBox.height/3 - plusBtn.height/2, 
+                    vBox.width/2 - plusBtn.width/2, 
+                    vBox.height/3 - plusBtn.height));
+        plusBtn.setLayoutParameter(lp);
+
+        vBox.addChild(plusBtn);
+
+        if (!vBox.parent)
+            this._scrollView.addChild(vBox);
+
+        // plusBtn.setPosition(this._getBtnPosition(index));
+
+        if (animated) {
+            var delayTime = index * DELTA_DELAY_TIME;
+            this.addObjectAction(plusBtn, delayTime, index, function(index){
+                if (index < 4)
+                    jsb.AudioEngine.play2d(res.bubble_sound_mp3);
+            });
+        }
+        var self = this;
         plusBtn.runAction(
-            cc.repeatForever(
-                cc.sequence(
-                    cc.delayTime(0),
-                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
-                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
-                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(plusBtn)),
-                    cc.moveTo(MOVE_DELAY_TIME, plusBtn.getPosition())
-                )
+            cc.sequence(
+                cc.delayTime(0),
+                cc.callFunc(function() {
+                    self.runBubbleAnimation(plusBtn);
+                })
             )
         )
-        this.schHolder.addChild(plusBtn);
 
         plusBtn.addClickEventListener(function() {
             cc.director.replaceScene(new NewSchoolScene());
         });
+    },
+
+    runBubbleAnimation: function(button) {
+        button.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, button.getPosition())
+                )
+            )
+        )
     },
 
     onTouchBegan: function(touch, event) {
