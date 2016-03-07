@@ -28,8 +28,8 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this.runAction(cc.sequence(
 			cc.delayTime(7),
 			cc.callFunc(function() {
-                cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
-                // cc.director.runScene(new cc.TransitionFade(1, new RoomScene(), cc.color(255, 255, 255, 255)));
+                // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
+                cc.director.runScene(new cc.TransitionFade(1, new RoomScene(), cc.color(255, 255, 255, 255)));
 			}, this)
 		));
 	}

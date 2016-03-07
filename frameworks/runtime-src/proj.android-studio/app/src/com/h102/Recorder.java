@@ -223,9 +223,6 @@ public class Recorder {
 
 //        this.initRecorder();
 
-        audioRecorder.setRecordPositionUpdateListener(updateListener);
-        audioRecorder.setPositionNotificationPeriod(framePeriod);
-
         state = State.INITIALIZING;
         cachedBuffer = new RecorderQueue();
         cachedBuffer.setMaxCapacity((int)(sampleRate * SECOND_OF_SILENCE));
@@ -395,6 +392,8 @@ public class Recorder {
             public void run() {
                 if (state == Recorder.State.ERROR)
                     state = Recorder.State.INITIALIZING;
+                audioRecorder.setRecordPositionUpdateListener(updateListener);
+                audioRecorder.setPositionNotificationPeriod(framePeriod);
                 self.prepare();
                 self.start();
             }
@@ -402,6 +401,7 @@ public class Recorder {
     }
 
     public void stopFetchingAudio() {
+        audioRecorder.setRecordPositionUpdateListener(null);
         stop();
         silenceTime = 0;
     }
