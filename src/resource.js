@@ -5,6 +5,9 @@ var res = {
     School_png: "school.png",
     Loading_plist: "loading.plist",
     Loading_png: "loading.png",
+    Abc_plist: "abc.plist",
+    Abc_png: "abc.png",
+
     // Temporary
     LoginSucceed_png: "login-succeed.png",
     Welcome_jpg:"welcome.jpg",
@@ -54,7 +57,6 @@ var res = {
     NewAccount_Png: "newaccount.png",
  
     // Animals
- 
     Ant_png: "animals/ant.png",
     Fish_png: "animals/fish.png",
     Bear_png: "animals/bear.png",
@@ -365,7 +367,10 @@ var res = {
     Adidog_png2: "AdiDog/ConCho.png",
  
     Plus_png: "plus.png",
-    Create_png: "create-button.png"
+    Create_png: "create-button.png",
+
+    // TMX
+    ABC_TMX: "res/abc.tmx"
 };
 
 var g_resources = [];
