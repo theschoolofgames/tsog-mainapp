@@ -8,7 +8,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _currentCharConfig: null,
     _baseRender: null,
     _tmpRender: null,
-    _charPoints: [],
+    _emptyFillCharacter: null,
 
     _nameIdx: -1,
     _charIdx: -1,
@@ -22,8 +22,6 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._names = objNames;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        this.fetchCharacterConfig();
-
         this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         // this._baseRender.retain();
         this._baseRender.x = cc.winSize.width/2;
@@ -35,10 +33,7 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._tmpRender.setPosition(this._baseRender.getPosition());
         this.addChild(this._tmpRender, 3);        
 
-        var character = new cc.Sprite("#W.png");
-        character.x = this._baseRender.width/2 + this._baseRender.x;
-        character.y = this._baseRender.height/2 + this._baseRender.y;
-        this.addChild(character, 1);
+        this.displayNewCharacter();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -105,6 +100,8 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self._baseRender.end();
 
                     self._tmpRender.clear(0,0,0,0);
+
+                    self.checkChangingCharacter();
                 })
             ));
         } else {
@@ -133,6 +130,34 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     fetchCharacterConfig: function() {
         this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._names[this._nameIdx][this._charIdx]];
+    },
+
+    checkChangingCharacter: function() {
+        if (this._pathIdx >= this._currentCharConfig.paths.length)
+        {
+            // next char
+            this._charIdx++;
+            this._pathIdx = 0;
+            if (this._charIdx >= this._names[this._nameIdx].length) {
+                this._charIdx = 0;
+                this._nameIdx++;
+            }
+            
+            this.displayNewCharacter();
+            this._baseRender.clear(0,0,0,0);
+        }
+    },
+
+    displayNewCharacter: function() {
+        if (this._emptyFillCharacter)
+            this._emptyFillCharacter.removeFromParent();
+
+        this._emptyFillCharacter = new cc.Sprite("#" + this._names[this._nameIdx].toUpperCase()[this._charIdx] + ".png");
+        this._emptyFillCharacter.x = this._baseRender.width/2 + this._baseRender.x;
+        this._emptyFillCharacter.y = this._baseRender.height/2 + this._baseRender.y;
+        this.addChild(this._emptyFillCharacter, 1);
+
+        this.fetchCharacterConfig();
     }
 });
 

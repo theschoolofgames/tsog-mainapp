@@ -4,6 +4,96 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>0.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,-8}</string>
+                <key>spriteSize</key>
+                <string>{210,250}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{427,259},{210,250}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>4.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,-7}</string>
+                <key>spriteSize</key>
+                <string>{218,252}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{1,259},{218,252}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,-8}</string>
+                <key>spriteSize</key>
+                <string>{210,250}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{639,249},{210,250}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>A.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{1,-5}</string>
+                <key>spriteSize</key>
+                <string>{234,256}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{309,1},{234,256}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>F.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{11,-7}</string>
+                <key>spriteSize</key>
+                <string>{204,252}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{221,259},{204,252}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>G.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,-5}</string>
+                <key>spriteSize</key>
+                <string>{246,258}</string>
+                <key>spriteSourceSize</key>
+                <string>{320,320}</string>
+                <key>textureRect</key>
+                <string>{{545,1},{246,258}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>W.png</key>
             <dict>
                 <key>aliases</key>
@@ -17,7 +107,7 @@
                 <key>textureRect</key>
                 <string>{{1,1},{306,256}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -27,9 +117,9 @@
             <key>realTextureFileName</key>
             <string>abc.png</string>
             <key>size</key>
-            <string>{258,308}</string>
+            <string>{850,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7e13abe87bee5179670d6e119252cd50:a894e7ab3b06e1520365d9ebb3b5d3f1:e426ac7cfdec758f5e7aefbb318c1c95$</string>
+            <string>$TexturePacker:SmartUpdate:ae6e69b2beca3d27dcd7b583e8b0c754:7af3b04bfa48c7dbc541dd322fa386e5:e426ac7cfdec758f5e7aefbb318c1c95$</string>
             <key>textureFileName</key>
             <string>abc.png</string>
         </dict>
