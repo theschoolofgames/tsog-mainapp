@@ -44,6 +44,7 @@
 #endif
 
 #include "cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
+#include "jsb_h102.hpp"
 
 #include "SimpleAudioEngine.h"
 #include "AudioEngine.h"
@@ -117,8 +118,10 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // LWF
     sc->addRegisterCallback(register_all_cocos2dx_lwf);
-
-    // studio can be commented out to reduce the package, 
+  
+    // H02
+    sc->addRegisterCallback(register_all_h102);
+    // studio can be commented out to reduce the package,
 //    sc->addRegisterCallback(register_all_cocos2dx_studio);
 //    sc->addRegisterCallback(register_all_cocos2dx_studio_manual);
     

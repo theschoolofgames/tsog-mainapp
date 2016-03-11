@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="31">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="35">
  <tileset firstgid="1" name="W" tilewidth="320" tileheight="320" tilecount="1" columns="1">
-  <image source="../_sourceart/abc/W.png" width="320" height="320"/>
+  <image source="../_sourceart/ABC/W.png" width="320" height="320"/>
  </tileset>
  <objectgroup name="W">
-  <object id="28" name="Char" gid="1" x="0" y="320" width="320" height="320"/>
-  <object id="29" name="Path" x="51" y="64.5">
-   <polyline points="0,0 48.5,195 109,0.5 169,195.5 220,-1"/>
+  <object id="28" name="W" gid="1" x="0" y="320" width="320" height="320"/>
+  <object id="31" name="Path1" x="45" y="66">
+   <polyline points="0,0 55.5,190.5"/>
+  </object>
+  <object id="32" name="Path2" x="101" y="256.5">
+   <polyline points="0,0 59.5,-192.5"/>
+  </object>
+  <object id="33" name="Path3" x="161" y="65">
+   <polyline points="0,0 59,191"/>
+  </object>
+  <object id="34" name="Path4" x="221" y="257.5">
+   <polyline points="0,0 52.5,-193"/>
   </object>
  </objectgroup>
 </map>

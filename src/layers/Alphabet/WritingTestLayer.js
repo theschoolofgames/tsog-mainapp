@@ -3,35 +3,15 @@ var RENDER_TEXTURE_HEIGHT = 320;
 
 var WritingTestLayer = cc.LayerColor.extend({
 
-    _tmx: null,
+    _currentCharConfig: null,
     _baseRender: null,
     _tmpRender: null,
     _charPoints: [],
 
     ctor: function() {
         this._super(cc.color(128, 128, 128, 255));
-
-        var csf = cc.director.getContentScaleFactor();
-        // cc.log("csf: " + csf);
-
-        this._tmx = new cc.TMXTiledMap();
-        this._tmx.initWithTMXFile(res.ABC_TMX);
-
-        var mapSize = this._tmx.getMapSize();
-        var tileSize = this._tmx.getTileSize();
-
-        var wChar = this._tmx.getObjectGroup("W");
-        var wPath = wChar.getObject("Path");
         
-        var offsetX = wPath.x * csf;
-        var offsetY = (mapSize.height * tileSize.height - wPath.y) * csf;
-
-        for (var i = 0; i < wPath.polylinePoints.length; i++) {
-            var x = wPath.polylinePoints[i].x * csf + offsetX;
-            var y = mapSize.height * tileSize.height - (wPath.polylinePoints[i].y * csf + offsetY);
-
-            this._charPoints.push(cc.p(x, y));
-        }
+        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG["W"];
 
         this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         // this._baseRender.retain();
@@ -95,17 +75,32 @@ var WritingTestLayer = cc.LayerColor.extend({
 
             var brush = new cc.Sprite("brush.png");
             brush.color = cc.color.GREEN;
-            brush.setPosition(renderPos);
+            brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
             brush.visit();
         }
         this._tmpRender.end();
+        // cc.director.pause();
+        // cc.director.drawScene();
+        // cc.director.resume();
     },
 
     onTouchEnded: function(touch, event) {
-        this._baseRender.begin();
+        var self = this;
+        
         var sprite = new cc.Sprite(this._tmpRender.getSprite().getTexture());
         sprite.flippedY = true;
         sprite.setPosition(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2);
+
+        var image = this._tmpRender.newImage();
+
+        this._currentCharConfig.paths.forEach(function(path) {
+            path.forEach(function(point) {
+                cc.log(self.isSpriteTransparentInPoint(image, point));
+            });
+        });
+
+
+        this._baseRender.begin();
         sprite.visit();
         this._baseRender.end();
 
@@ -114,14 +109,70 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     convertToRTSpace: function(p) {
         return cc.pSub(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2)));
+    },
+
+    isSpriteTransparentInPoint: function(image, point) {
+        return h102.Utils.isPixelTransparent(image, point.x, point.y);
     }
 });
+
+WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
     ctor: function(){
         this._super();
 
+        if (WritingTestLayer.CHAR_CONFIG == null) {
+            WritingTestLayer.CHAR_CONFIG = {};
+
+            var csf = cc.director.getContentScaleFactor();
+            var tiledMap = new cc.TMXTiledMap();
+            tiledMap.initWithTMXFile(res.ABC_TMX);
+
+            var mapSize = tiledMap.getMapSize();
+            var tileSize = tiledMap.getTileSize();
+
+            tiledMap.getObjectGroups().forEach(function(group) {
+                var config = {
+                    paths: [],
+                    includedPoints: []
+                };
+
+                group.getObjects().forEach(function(obj) {
+                    if (obj.name.startsWith("Path")) {
+                        var pathIdx = parseInt(obj.name.substring(4));
+                        config.paths[pathIdx-1] = [];
+
+                        var offsetX = obj.x * csf;
+                        var offsetY = (mapSize.height * tileSize.height - obj.y) * csf;
+
+                        for (var i = 0; i < obj.polylinePoints.length; i++) {
+                            var x = obj.polylinePoints[i].x * csf + offsetX;
+                            var y = mapSize.height * tileSize.height - (obj.polylinePoints[i].y * csf + offsetY);
+
+                            config.paths[pathIdx-1].push(cc.p(x, y));
+                        }
+                    }
+                });
+
+                WritingTestLayer.CHAR_CONFIG[group.getGroupName()] = config;
+            });
+            
+            // var wChar = tiledMap.getObjectGroup("W");
+            // var wPath = wChar.getObject("Path");
+            
+            // var offsetX = wPath.x * csf;
+            // var offsetY = (mapSize.height * tileSize.height - wPath.y) * csf;
+
+            // for (var i = 0; i < wPath.polylinePoints.length; i++) {
+            //     var x = wPath.polylinePoints[i].x * csf + offsetX;
+            //     var y = mapSize.height * tileSize.height - (wPath.polylinePoints[i].y * csf + offsetY);
+
+            //     this._charPoints.push(cc.p(x, y));
+            // }
+        }
+
         var layer = new WritingTestLayer();
         this.addChild(layer);
-    }
+    },
 });
