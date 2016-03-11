@@ -13,6 +13,8 @@ namespace h102 {
   
   bool Utils::isPixelTransparent(cocos2d::Image* image, int x, int y)
   {
+//    image->saveToFile(StringUtils::format("%sabc.png", FileUtils::getInstance()->getWritablePath().c_str()));
+    
     if (!image->hasAlpha())
       return false;
 

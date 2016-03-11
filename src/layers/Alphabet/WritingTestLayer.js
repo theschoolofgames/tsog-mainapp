@@ -3,48 +3,42 @@ var RENDER_TEXTURE_HEIGHT = 320;
 
 var WritingTestLayer = cc.LayerColor.extend({
 
+    _names: null,
+
     _currentCharConfig: null,
     _baseRender: null,
     _tmpRender: null,
     _charPoints: [],
 
-    ctor: function() {
+    _nameIdx: -1,
+    _charIdx: -1,
+    _pathIdx: -1,
+
+    _blockTouch: false,
+
+    ctor: function(objNames) {
         this._super(cc.color(128, 128, 128, 255));
-        
-        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG["W"];
+
+        this._names = objNames;
+        this._nameIdx = this._charIdx = this._pathIdx = 0;
+
+        this.fetchCharacterConfig();
 
         this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         // this._baseRender.retain();
         this._baseRender.x = cc.winSize.width/2;
         this._baseRender.y = cc.winSize.height/2;
-        this.addChild(this._baseRender, 3);
+        this._baseRender.getSprite().color = cc.color.GREEN;
+        this.addChild(this._baseRender, 2);
 
         this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         this._tmpRender.setPosition(this._baseRender.getPosition());
-        this.addChild(this._tmpRender, 2);        
+        this.addChild(this._tmpRender, 3);        
 
         var character = new cc.Sprite("#W.png");
         character.x = this._baseRender.width/2 + this._baseRender.x;
         character.y = this._baseRender.height/2 + this._baseRender.y;
         this.addChild(character, 1);
-
-        // this._renderTexture.begin();
-        // for (var i = 0; i < this._charPoints.length-1; i++) {
-        //     var distance = cc.pDistance(this._charPoints[i], this._charPoints[i+1]);
-        //     var dif = cc.pSub(this._charPoints[i+1], this._charPoints[i]);
-
-        //     cc.log(JSON.stringify(dif) + " " + distance);
-        //     for (var j = 0; j < distance; j++) {
-        //         var delta = j / distance;
-
-        //         var brush = new cc.Sprite("brush.png");
-        //         brush.color = cc.color.GREEN;
-        //         brush.setPosition(this._charPoints[i].x + (dif.x * delta), this._charPoints[i].y + (dif.y * delta));
-        //         // this.addChild(brush);
-        //         brush.visit();
-        //     }
-        // }
-        // this._renderTexture.end();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -56,7 +50,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        return true;
+        return !this._blockTouch;
     },
 
     onTouchMoved: function(touch, event) {
@@ -74,37 +68,59 @@ var WritingTestLayer = cc.LayerColor.extend({
             var delta = i / distance;
 
             var brush = new cc.Sprite("brush.png");
-            brush.color = cc.color.GREEN;
+            // brush.color = cc.color.BLACK;
             brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
             brush.visit();
         }
         this._tmpRender.end();
-        // cc.director.pause();
-        // cc.director.drawScene();
-        // cc.director.resume();
+        this._tmpRender.getSprite().color = cc.color.WHITE;
     },
 
     onTouchEnded: function(touch, event) {
         var self = this;
-        
-        var sprite = new cc.Sprite(this._tmpRender.getSprite().getTexture());
-        sprite.flippedY = true;
-        sprite.setPosition(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2);
 
-        var image = this._tmpRender.newImage();
+        var image = this._tmpRender.newImage(); 
 
-        this._currentCharConfig.paths.forEach(function(path) {
-            path.forEach(function(point) {
-                cc.log(self.isSpriteTransparentInPoint(image, point));
-            });
+        var pathCfg = this._currentCharConfig.paths[this._pathIdx];
+        var matched = true;
+        pathCfg.forEach(function(point) {
+            matched &= !self.isSpriteTransparentInPoint(image, point);
         });
 
+        this._blockTouch = true;
+        if (matched) {
+            this._pathIdx++;
 
-        this._baseRender.begin();
-        sprite.visit();
-        this._baseRender.end();
+            this._tmpRender.getSprite().runAction(cc.sequence(
+                cc.tintTo(0.3, 0, 255, 0),
+                cc.callFunc(function() {
+                    self._blockTouch = false;
 
-        this._tmpRender.clear(0,0,0,0);
+                    var sprite = new cc.Sprite(self._tmpRender.getSprite().getTexture());
+                    sprite.flippedY = true;
+                    sprite.setPosition(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2);
+
+                    self._baseRender.begin();
+                    sprite.visit();
+                    self._baseRender.end();
+
+                    self._tmpRender.clear(0,0,0,0);
+                })
+            ));
+        } else {
+            this._tmpRender.getSprite().runAction(cc.sequence(
+                cc.tintTo(0.15, 255, 0, 0),
+                cc.tintTo(0.15, 255, 255, 255),
+                cc.tintTo(0.15, 255, 0, 0),
+                cc.tintTo(0.15, 255, 255, 255),
+                cc.tintTo(0.15, 255, 0, 0),
+                cc.tintTo(0.15, 255, 255, 255),
+                cc.callFunc(function() {
+                    self._blockTouch = false;
+                    self._tmpRender.clear(0,0,0,0);
+                })
+            ));
+        }
     },   
 
     convertToRTSpace: function(p) {
@@ -113,13 +129,17 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     isSpriteTransparentInPoint: function(image, point) {
         return h102.Utils.isPixelTransparent(image, point.x, point.y);
+    },
+
+    fetchCharacterConfig: function() {
+        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._names[this._nameIdx][this._charIdx]];
     }
 });
 
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(){
+    ctor: function(objNames){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -172,7 +192,7 @@ var WritingTestScene = cc.Scene.extend({
             // }
         }
 
-        var layer = new WritingTestLayer();
+        var layer = new WritingTestLayer(objNames);
         this.addChild(layer);
     },
 });
