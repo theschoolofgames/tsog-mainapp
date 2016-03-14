@@ -6,6 +6,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _adiDog: null,
 
     _names: null,
+    _nameNode: null,
 
     _currentCharConfig: null,
     _baseRender: null,
@@ -25,7 +26,8 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
         this._addRenderTextures();
-        this.displayNewCharacter();
+        this._displayNewCharacter();
+        this._displayCurrentName();
         this._addAdiDog();
 
         cc.eventManager.addListener({
@@ -131,19 +133,21 @@ var WritingTestLayer = cc.LayerColor.extend({
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
             // next char
+            this._nameNode.getLetter(this._charIdx).opacity = 255;
             this._charIdx++;
             this._pathIdx = 0;
             if (this._charIdx >= this._names[this._nameIdx].length) {
                 this._charIdx = 0;
                 this._nameIdx++;
+                this._displayCurrentName();
             }
             
-            this.displayNewCharacter();
+            this._displayNewCharacter();
             this._baseRender.clear(0,0,0,0);
         }
     },
 
-    displayNewCharacter: function() {
+    _displayNewCharacter: function() {
         if (this._emptyFillCharacter)
             this._emptyFillCharacter.removeFromParent();
 
@@ -153,6 +157,19 @@ var WritingTestLayer = cc.LayerColor.extend({
         this.addChild(this._emptyFillCharacter, 1);
 
         this.fetchCharacterConfig();
+    },
+
+    _displayCurrentName: function() {
+        if (this._nameNode)
+            this._nameNode.removeFromParent();
+
+        this._nameNode = new cc.LabelBMFont(this._names[this._nameIdx], "hud-font.fnt");
+        this._nameNode.x = cc.winSize.width/4;
+        this._nameNode.y = cc.winSize.height - 50;
+        this.addChild(this._nameNode);
+
+        for (var i = 0; i < this._names[this._nameIdx].length; i++)
+            this._nameNode.getLetter(i).opacity = 128;
     },
 
     _addAdiDog: function() {
