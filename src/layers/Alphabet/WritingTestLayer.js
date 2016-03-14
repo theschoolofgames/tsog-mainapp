@@ -3,6 +3,8 @@ var RENDER_TEXTURE_HEIGHT = 320;
 
 var WritingTestLayer = cc.LayerColor.extend({
 
+    _adiDog: null,
+
     _names: null,
 
     _currentCharConfig: null,
@@ -22,18 +24,9 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._names = objNames;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
-        // this._baseRender.retain();
-        this._baseRender.x = cc.winSize.width/2;
-        this._baseRender.y = cc.winSize.height/2;
-        this._baseRender.getSprite().color = cc.color.GREEN;
-        this.addChild(this._baseRender, 2);
-
-        this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
-        this._tmpRender.setPosition(this._baseRender.getPosition());
-        this.addChild(this._tmpRender, 3);        
-
+        this._addRenderTextures();
         this.displayNewCharacter();
+        this._addAdiDog();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -104,6 +97,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self.checkChangingCharacter();
                 })
             ));
+            this._correctAction();
         } else {
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.tintTo(0.15, 255, 0, 0),
@@ -117,6 +111,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self._tmpRender.clear(0,0,0,0);
                 })
             ));
+            this._incorrectAction();
         }
     },   
 
@@ -158,6 +153,58 @@ var WritingTestLayer = cc.LayerColor.extend({
         this.addChild(this._emptyFillCharacter, 1);
 
         this.fetchCharacterConfig();
+    },
+
+    _addAdiDog: function() {
+        this._adiDog = new AdiDogNode();
+        // this._adiDog.scale = 1.5;
+        this._adiDog.setPosition(cc.p(cc.winSize.width / 4, cc.winSize.height / 6));
+        this.addChild(this._adiDog);
+    },
+
+    _addRenderTextures: function() {
+        this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
+        // this._baseRender.retain();
+        this._baseRender.x = cc.winSize.width/8 * 5;
+        this._baseRender.y = cc.winSize.height/2;
+        this._baseRender.getSprite().color = cc.color.GREEN;
+        this.addChild(this._baseRender, 2);
+
+        this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
+        this._tmpRender.setPosition(this._baseRender.getPosition());
+        this.addChild(this._tmpRender, 3);        
+    },
+
+    _correctAction: function() {
+        var self = this;
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                self._adiDog.adiJump();
+            }),
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                self._adiDog.adiHifi();
+            }),
+            cc.delayTime(2),
+            cc.callFunc(function() {
+                self._adiDog.adiIdling();
+            })
+        ));
+    },
+
+    _incorrectAction: function() {
+        var self = this;
+        jsb.AudioEngine.play2d(res.Failed_sfx);
+        this._adiDog.adiShakeHead();
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(4),
+                cc.callFunc(function() {
+                    self._adiDog.adiIdling();
+                })        
+            )
+        );
     }
 });
 
@@ -202,22 +249,9 @@ var WritingTestScene = cc.Scene.extend({
 
                 WritingTestLayer.CHAR_CONFIG[group.getGroupName()] = config;
             });
-            
-            // var wChar = tiledMap.getObjectGroup("W");
-            // var wPath = wChar.getObject("Path");
-            
-            // var offsetX = wPath.x * csf;
-            // var offsetY = (mapSize.height * tileSize.height - wPath.y) * csf;
-
-            // for (var i = 0; i < wPath.polylinePoints.length; i++) {
-            //     var x = wPath.polylinePoints[i].x * csf + offsetX;
-            //     var y = mapSize.height * tileSize.height - (wPath.polylinePoints[i].y * csf + offsetY);
-
-            //     this._charPoints.push(cc.p(x, y));
-            // }
         }
 
         var layer = new WritingTestLayer(objNames);
         this.addChild(layer);
-    },
+    }
 });

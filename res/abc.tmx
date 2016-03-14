@@ -378,12 +378,12 @@
    <polyline points="0,0 62,0 79,9 86,24 86,40 81,53 71,66 32,79 70,89 83,99 88,113 87,127 79,141 61,160 0,160"/>
   </object>
  </objectgroup>
- <objectgroup name="A" visible="0">
+ <objectgroup name="A">
   <object id="36" name="Path1" x="45" y="66">
    <polyline points="38.5,190 114.5,-4"/>
   </object>
   <object id="37" name="Path3" x="101" y="256.5">
-   <polyline points="-2.5,-32.5 121.5,-33"/>
+   <polyline points="25.5,-33.5 95.5,-32"/>
   </object>
   <object id="38" name="Path2" x="161" y="65">
    <polyline points="0,0 74,190.5"/>
