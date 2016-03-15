@@ -12,6 +12,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _baseRender: null,
     _tmpRender: null,
     _emptyFillCharacter: null,
+    _dashedLine: null,
 
     _nameIdx: -1,
     _charIdx: -1,
@@ -63,7 +64,7 @@ var WritingTestLayer = cc.LayerColor.extend({
             brush.visit();
         }
         this._tmpRender.end();
-        this._tmpRender.getSprite().color = cc.color.WHITE;
+        this._tmpRender.getSprite().color = cc.color.WHITE;;
     },
 
     onTouchEnded: function(touch, event) {
@@ -97,6 +98,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self._tmpRender.clear(0,0,0,0);
 
                     self.checkChangingCharacter();
+                    self._displayNewDashedLine();
                 })
             ));
             this._correctAction();
@@ -157,6 +159,23 @@ var WritingTestLayer = cc.LayerColor.extend({
         this.addChild(this._emptyFillCharacter, 1);
 
         this.fetchCharacterConfig();
+        this._displayNewDashedLine();
+    },
+
+    _displayNewDashedLine: function() {
+        if (this._dashedLine)
+            this._dashedLine.removeFromParent();
+
+        cc.log(JSON.stringify(this._currentCharConfig));
+        var dashCfg = this._currentCharConfig.dashedLines[this._pathIdx];
+        this._dashedLine = new cc.Sprite("#" + dashCfg.sprite);
+        this._dashedLine.x = dashCfg.x + this._emptyFillCharacter.x - this._emptyFillCharacter.width/2;
+        this._dashedLine.y = dashCfg.y + this._emptyFillCharacter.y - this._emptyFillCharacter.height/2;
+        this._dashedLine.scaleX = dashCfg.w / this._dashedLine.width;
+        this._dashedLine.scaleY = dashCfg.h / this._dashedLine.height;
+        this._dashedLine.rotation = dashCfg.rotation;
+        this._dashedLine.anchorX = this._dashedLine.anchorY = 0;
+        this.addChild(this._dashedLine, 1);
     },
 
     _displayCurrentName: function() {
@@ -185,10 +204,12 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._baseRender.x = cc.winSize.width/8 * 5;
         this._baseRender.y = cc.winSize.height/2;
         this._baseRender.getSprite().color = cc.color.GREEN;
+        this._baseRender.getSprite().opacity = 128;
         this.addChild(this._baseRender, 2);
 
         this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         this._tmpRender.setPosition(this._baseRender.getPosition());
+        this._tmpRender.getSprite().opacity = 128;
         this.addChild(this._tmpRender, 3);        
     },
 
@@ -244,6 +265,7 @@ var WritingTestScene = cc.Scene.extend({
             tiledMap.getObjectGroups().forEach(function(group) {
                 var config = {
                     paths: [],
+                    dashedLines: [],
                     includedPoints: []
                 };
 
@@ -261,6 +283,21 @@ var WritingTestScene = cc.Scene.extend({
 
                             config.paths[pathIdx-1].push(cc.p(x, y));
                         }
+                    }
+
+                    if (obj.name.startsWith("Dash")) {
+                        var dashIdx = parseInt(obj.name.substring(4));
+
+                        var dashCfg = {};
+
+                        dashCfg.x = obj.x * csf;
+                        dashCfg.y = (obj.y + obj.height) * csf; 
+                        dashCfg.w = obj.width;
+                        dashCfg.h = obj.height;
+                        dashCfg.sprite = obj.sprite;
+                        dashCfg.rotation = obj.rotation || 0;
+
+                        config.dashedLines[dashIdx-1] = dashCfg;
                     }
                 });
 

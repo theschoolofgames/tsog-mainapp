@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="212">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="235">
  <tileset firstgid="1" name="A" tilewidth="320" tileheight="320" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/A.png" width="320" height="320"/>
  </tileset>
@@ -108,6 +108,27 @@
  <tileset firstgid="36" name="9" tilewidth="320" tileheight="320" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/9.png" width="320" height="320"/>
  </tileset>
+ <tileset firstgid="37" name="dash-1" tilewidth="200" tileheight="8" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-1.png" width="200" height="8"/>
+ </tileset>
+ <tileset firstgid="38" name="dash-2" tilewidth="161" tileheight="178" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-2.png" width="161" height="178"/>
+ </tileset>
+ <tileset firstgid="39" name="dash-3" tilewidth="166" tileheight="186" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-3.png" width="166" height="186"/>
+ </tileset>
+ <tileset firstgid="40" name="dash-4" tilewidth="106" tileheight="102" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-4.png" width="106" height="102"/>
+ </tileset>
+ <tileset firstgid="41" name="dash-5" tilewidth="99" tileheight="175" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-5.png" width="99" height="175"/>
+ </tileset>
+ <tileset firstgid="42" name="dash-6" tilewidth="156" tileheight="191" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-6.png" width="156" height="191"/>
+ </tileset>
+ <tileset firstgid="43" name="dash-7" tilewidth="123" tileheight="185" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/dash-7.png" width="123" height="185"/>
+ </tileset>
  <objectgroup name="8" visible="0">
   <object id="76" name="8" gid="35" x="0" y="320" width="320" height="320"/>
   <object id="77" name="Path1" x="163.5" y="80">
@@ -145,7 +166,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Y" visible="0">
-  <object id="196" name="Y" gid="25" x="0" y="320" width="320" height="320"/>
+  <object id="196" name="Y" gid="25" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="199" name="Path1" x="101" y="78">
    <polyline points="0,0 57,98"/>
   </object>
@@ -154,6 +175,21 @@
   </object>
   <object id="202" name="Path3" x="161" y="206">
    <polyline points="0,0 -1,50"/>
+  </object>
+  <object id="221" name="Dash1" gid="37" x="94.9616" y="77.9684" width="116.787" height="8" rotation="-300.048">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="222" name="Dash2" gid="37" x="179.968" y="157.705" width="92.6766" height="8" rotation="-57.1726">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="223" name="Dash3" gid="37" x="158.351" y="191.917" width="62.9874" height="8" rotation="91.1455">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup name="X" visible="0">
@@ -194,6 +230,11 @@
   <object id="183" name="Path1" x="93" y="81">
    <polyline points="0,0 0,122 5,138 14,154 35,166 52,174 69,176 89,174 108,168 127,157 141,147 146,121 146,1"/>
   </object>
+  <object id="233" name="Dash1" gid="42" x="87" y="260.5" width="156" height="191">
+   <properties>
+    <property name="sprite" value="dash-6.png"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="T" visible="0">
   <object id="176" name="T" gid="20" x="0" y="320" width="320" height="320"/>
@@ -203,15 +244,30 @@
   <object id="179" name="Path2" x="161" y="110">
    <polyline points="0,0 1,134"/>
   </object>
+  <object id="218" name="Dash1" gid="37" x="84.5" y="87.5" width="155" height="8">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="219" name="Dash2" gid="37" x="166.668" y="258" width="151" height="8" rotation="-90">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="S" visible="0">
-  <object id="171" name="S" gid="19" x="0" y="320" width="320" height="320"/>
+  <object id="171" name="S" gid="19" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="175" name="Path1" x="224" y="99">
    <polyline points="0,0 -20,-13 -44,-22 -72,-24 -105,-17 -121,1 -119,28 -106,46 -85,59 -54,70 -20,84 0,107 -3,134 -26,149 -57,156 -84,151 -116,140 -129,130"/>
   </object>
+  <object id="234" name="Dash1" gid="43" x="99" y="256.5" width="123" height="185">
+   <properties>
+    <property name="sprite" value="dash-7.png"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="R" visible="0">
-  <object id="162" name="R" gid="18" x="0" y="320" width="320" height="320"/>
+  <object id="162" name="R" gid="18" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="166" name="Path1" x="101" y="81">
    <polyline points="0,0 0,163"/>
   </object>
@@ -220,6 +276,21 @@
   </object>
   <object id="170" name="Path3" x="205" y="187">
    <polyline points="0,0 29,70"/>
+  </object>
+  <object id="224" name="Dash1" gid="37" x="97.448" y="78.9559" width="166.001" height="8" rotation="90.6241">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="225" name="Dash2" gid="40" x="124" y="177" width="106" height="102">
+   <properties>
+    <property name="sprite" value="dash-4.png"/>
+   </properties>
+  </object>
+  <object id="226" name="Dash3" gid="37" x="199.801" y="185.687" width="78.3154" height="8" rotation="67.1465">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup name="Q" visible="0">
@@ -245,17 +316,37 @@
   <object id="149" name="Path1" x="161" y="79">
    <polyline points="0,0 -19,3 -43,11 -62,31 -71,68 -71,99 -61,132 -44,157 -18,173 -3,177 21,174 40,164 53,151 66,125 75,98 75,72 64,39 54,27 42,16 14,5 3,3"/>
   </object>
+  <object id="220" name="Dash1" gid="39" x="76.5" y="256.5" width="166" height="186">
+   <properties>
+    <property name="sprite" value="dash-3.png"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="N" visible="0">
-  <object id="134" name="N" gid="14" x="0" y="320" width="320" height="320"/>
+ <objectgroup name="N">
+  <object id="134" name="N" gid="14" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="139" name="Path1" x="95" y="79">
    <polyline points="0,0 0,162"/>
   </object>
   <object id="142" name="Path2" x="113" y="93">
    <polyline points="0,0 95,148"/>
   </object>
-  <object id="144" name="Path3" x="232" y="255">
-   <polyline points="0,0 1,-177"/>
+  <object id="144" name="Path3" x="232" y="223">
+   <polyline points="0,0 1,-145"/>
+  </object>
+  <object id="228" name="Dash1" gid="37" x="91.5307" y="75.4991" width="166.499" height="8" rotation="90.0207">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="229" name="Dash2" gid="37" x="108.61" y="95.7862" width="177.666" height="8" rotation="57.5963">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="230" name="Dash3" gid="37" x="228.744" y="75.9868" width="148.998" height="8" rotation="-269.856">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup name="M" visible="0">
@@ -301,6 +392,11 @@
   <object id="108" name="I" gid="9" x="0" y="320" width="320" height="320"/>
   <object id="112" name="Path1" x="164" y="66">
    <polyline points="0,0 0,190"/>
+  </object>
+  <object id="227" name="Dash1" gid="37" x="159.675" y="66.5135" width="192.482" height="8" rotation="89.8135">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
   </object>
  </objectgroup>
  <objectgroup name="H" visible="0">
@@ -368,6 +464,11 @@
   <object id="89" name="Path1" x="239" y="117">
    <polyline points="0,0 -17,-21 -46,-38 -76,-40 -103,-33 -124,-13 -136,13 -140,41 -138,68 -129,91 -112,116 -91,131 -62,135 -30,126 1,99"/>
   </object>
+  <object id="215" name="Dash1" gid="38" x="86" y="254" width="161" height="178">
+   <properties>
+    <property name="sprite" value="dash-2.png"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="B" visible="0">
   <object id="81" name="B" gid="2" x="0" y="320" width="320" height="320"/>
@@ -377,8 +478,18 @@
   <object id="84" name="Path2" x="130" y="82">
    <polyline points="0,0 62,0 79,9 86,24 86,40 81,53 71,66 32,79 70,89 83,99 88,113 87,127 79,141 61,160 0,160"/>
   </object>
+  <object id="231" name="Dash1" gid="37" x="102.563" y="80.496" width="165.001" height="8" rotation="90.0417">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="232" name="Dash2" gid="41" x="126" y="252.5" width="99" height="175">
+   <properties>
+    <property name="sprite" value="dash-5.png"/>
+   </properties>
+  </object>
  </objectgroup>
- <objectgroup name="A">
+ <objectgroup name="A" visible="0">
   <object id="36" name="Path1" x="45" y="66">
    <polyline points="38.5,190 114.5,-4"/>
   </object>
@@ -388,6 +499,21 @@
   <object id="38" name="Path2" x="161" y="65">
    <polyline points="0,0 74,190.5"/>
   </object>
-  <object id="40" name="A" gid="1" x="0" y="320" width="320" height="320"/>
+  <object id="40" name="A" gid="1" x="0" y="320" width="320" height="320" visible="0"/>
+  <object id="212" name="Dash1" gid="37" x="89.1646" y="254.54" width="200" height="8" rotation="-68.5564">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="213" name="Dash2" gid="37" x="237.938" y="252.766" width="200" height="8" rotation="-111.229">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
+  <object id="214" name="Dash3" gid="37" x="214.531" y="219.768" width="115.001" height="8" rotation="180.338">
+   <properties>
+    <property name="sprite" value="dash-1.png"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
