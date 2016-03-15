@@ -20,8 +20,6 @@ var RoomLayer = cc.Layer.extend({
     _effectAudioID: null,
 
     _isLevelCompleted: false,
-    _numberItems: 0,
-    _numberGamePlayed: 0,
     _tutorial: null,
     _completedObj: null,
     _userId:null,
@@ -34,8 +32,6 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         
         this.tag = 1;
-        this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
-        this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
         this.setVolume();
@@ -58,7 +54,7 @@ var RoomLayer = cc.Layer.extend({
         SegmentHelper.track(SEGMENT.LEVEL_START, 
             { 
                 room: "room", 
-                object_num: this._numberItems 
+                object_num: Global.NumberItems
             });
         this.playBeginSound();
         // cc.audioEngine.playMusic(res.background_mp3, true);
@@ -116,7 +112,7 @@ var RoomLayer = cc.Layer.extend({
 
     runTutorial: function() {
         this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
-        if(this._numberGamePlayed < 2)
+        if(Global.NumberGamePlayed < 2)
             this.addChild(this._tutorial, 1000)
     },
 
@@ -128,7 +124,7 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(refreshButton);
         var self = this;
         refreshButton.addClickEventListener(function() {
-            cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
+            cc.director.replaceScene(new RoomScene());
         });
     },
 
@@ -142,7 +138,7 @@ var RoomLayer = cc.Layer.extend({
 
         var self = this;
         backButton.addClickEventListener(function() {
-            cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
+            cc.director.replaceScene(new ForestScene());
         });
     },
 
@@ -193,16 +189,16 @@ var RoomLayer = cc.Layer.extend({
         var dsInstance = ConfigStore.getInstance();
         // this._numberItems = this.getNumberOfObjects();
 
-        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._numberItems);
+        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, Global.NumberItems);
         while (bedroomObjects.map(function(obj) {return obj.type == "HEAVY_WEIGHT_ITEM"}).length > BEDROOM_HEAVYWEIGHT_ITEMS_POSITION.length)
-            var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._numberItems);
+            var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, Global.NumberItems);
         
         // cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
         var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         var shuffledPositionIndex = 0, heavyObjPosIndex = 0;
 
-        for ( var i = 0; i < this._numberItems; i++) {
+        for ( var i = 0; i < Global.NumberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
             else
@@ -239,7 +235,7 @@ var RoomLayer = cc.Layer.extend({
         this._objects.push(object);
         this.runObjectAction(this, 0,
             function(){
-                if (this._numberGamePlayed)
+                if (Global.NumberGamePlayed)
                 self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
@@ -292,7 +288,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.runObjectAction(this, 0,
             function(){
-                if (this._numberGamePlayed > 1)
+                if (Global.NumberGamePlayed > 1)
                 self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
@@ -300,7 +296,7 @@ var RoomLayer = cc.Layer.extend({
 
     checkWonGame: function() {
         // win condition
-        if (this._objectDisableds.length == this._numberItems)
+        if (this._objectDisableds.length == Global.NumberItems)
             this.completedScene();
     },
 
@@ -430,7 +426,7 @@ var RoomLayer = cc.Layer.extend({
         
         jsb.AudioEngine.play2d("sounds/pickup.mp3");
         targetNode.processGameLogic();
-        if (targetNode._numberGamePlayed < 2) {
+        if (Global.NumberGamePlayed < 2) {
             if(targetNode._tutorial != null) {
                 targetNode._tutorial.removeFromParent();
                 targetNode._tutorial = null;
@@ -688,7 +684,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._objectDisableds.length / this._numberItems;
+        var percent = this._objectDisableds.length / Global.NumberItems;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
 
@@ -709,9 +705,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     countingStars: function() {
-        var starGoal1 = Math.ceil(this._numberItems/3);
-        var starGoal2 = Math.ceil(this._numberItems/3 * 2);
-        var starGoal3 = this._numberItems;
+        var starGoal1 = Math.ceil(Global.NumberItems/3);
+        var starGoal2 = Math.ceil(Global.NumberItems/3 * 2);
+        var starGoal3 = Global.NumberItems;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -782,12 +778,12 @@ var RoomLayer = cc.Layer.extend({
     },
 
     increaseAmountGamePlayed: function() {
-        this._numberGamePlayed += 1;
+        Global.NumberGamePlayed += 1;
     },
 
     hadObjectRequired: function() {
         var requireObjectsToHideAllShadow = GAME_CONFIG.requireObjectsToHideAllShadow;
-        if (this._numberItems >= requireObjectsToHideAllShadow)
+        if (Global.NumberItems >= requireObjectsToHideAllShadow)
             return true;
         else
             return false;
@@ -818,11 +814,8 @@ var RoomLayer = cc.Layer.extend({
 
         var self = this;
         cc.audioEngine.stopMusic();
-        var speakingTestLayer = new SpeakingTestLayer(this._objectNames, function() {
-            cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
-        });
-        speakingTestLayer.listener = this;
-        this.addChild(speakingTestLayer, 999999);
+        var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
+        cc.director.replaceScene(speakingTestScene);
     },
 });
 

@@ -1,7 +1,6 @@
 var SpeakingTestLayer = cc.LayerColor.extend({
     _talkingAdi: null,
     _objectsArray: [],
-    _callback: null,
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
@@ -10,17 +9,19 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     currentObjectShowUpId: 0,
     currentObjectName: null,
     resultText: null,
-    listener: null, 
     _userId:null,
     checkCorrectAction:0,
     _objectName: "",
-    _currentScene: "",
+    _nextSceneName: null,
+    _oldSceneName: null,
 
-    ctor: function(objectsArray, callback, currentScene) {
+    ctor: function(objectsArray, nextSceneName, oldSceneName) {
         this._super(cc.color(255, 255, 255, 255));
         this.font = "hud-font.fnt";
-        this._currentScene = currentScene;
-        cc.log("currentScene: %s", currentScene); 
+        this._nextSceneName = nextSceneName;
+        this._oldSceneName = oldSceneName;
+        // this._currentScene = currentScene;
+        // cc.log("currentScene: %s", currentScene); 
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -29,7 +30,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }, this);
 
         
-        this._callback = callback;
         this._objectsArray = objectsArray || [];
         cc.log("this._objectsArray" + JSON.stringify(this._objectsArray));
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
@@ -39,8 +39,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     onEnter: function() {
         this._super();
-
-        cc.log("this.listener: " + this.listener);
         
         this._addAdiDog();
         
@@ -168,13 +166,11 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         if (this.currentObjectShowUpId >= this._objectsArray.length){
             NativeHelper.callNative("stopSpeechRecognition");
             cc.log("on callback");
-            if (this._currentScene == "forest")
-                cc.director.replaceScene(new TalkingAdiScene(this._callback));
-            else
-                this._callback();
+            cc.director.replaceScene(new window[this._nextSceneName]());
 
             return true;
         }
+        return false;
     },
 
     _checkTimeUp: function() {
@@ -234,12 +230,12 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }
         var objectName = "";
         this._soundName = "";
-        if (cc.director.getRunningScene().name == "room") {
+        if (this._oldSceneName == "RoomScene") {
             objectName = "things/" + this._objectsArray[this.currentObjectShowUpId].name;
             this._soundName = "res/sounds/" + objectName + "-2.mp3";
             this._objectName = objectName;
         }
-        else if (cc.director.getRunningScene().name == "forest") {
+        else if (this._oldSceneName == "ForestScene") {
             objectName = "animals/" + this._objectsArray[this.currentObjectShowUpId].name;
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
@@ -288,4 +284,13 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     //     }
 
     // }
+});
+
+var SpeakingTestScene = cc.Scene.extend({
+    ctor: function(objectsArray, nextSceneName, oldSceneName){
+        this._super();
+
+        var layer = new SpeakingTestLayer(objectsArray, nextSceneName, oldSceneName);
+        this.addChild(layer);
+    }
 });

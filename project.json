@@ -52,6 +52,8 @@
         "src/layers/Alphabet/WritingTestLayer.js",
 
         "src/helper/SegmentHelper.js",
-        "src/helper/NativeHelper.js"
+        "src/helper/NativeHelper.js",
+
+        "src/Global.js"
     ]
 }
