@@ -29,6 +29,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._addAdiDog();
         this._showObject();
         this._displayCurrentName();
+        this._addCountDownClock();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -76,6 +77,21 @@ var ListeningTestLayer = cc.LayerColor.extend({
         // this._adiDog.scale = 1.5;
         this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height / 6));
         this.addChild(this._adiDog);
+    },
+
+    _addCountDownClock: function() {
+        var self = this;
+        var clockInitTime = GAME_CONFIG.listeningTestTime || 120;
+        var clock = new Clock(clockInitTime, function(){
+            self._moveToNextScene();
+        });
+        clock.setIsClockInTalkingAdi(true);
+        clock.visible = true;
+        clock.x = cc.winSize.width - 60;
+        clock.y = 100;
+        this.addChild(clock, 99);
+
+        this._clock = clock;
     },
 
     _showObject: function() {
