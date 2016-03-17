@@ -20,10 +20,17 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _blockTouch: false,
 
-    ctor: function(objNames) {
+    _nextSceneName: null,
+    _oldSceneName: null,
+
+    ctor: function(objectsArray, nextSceneName, oldSceneName) {
         this._super(cc.color(128, 128, 128, 255));
 
-        this._names = objNames;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
+        this._nextSceneName = nextSceneName;
+        this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
         this._addRenderTextures();
@@ -78,7 +85,7 @@ var WritingTestLayer = cc.LayerColor.extend({
             matched &= !self.isSpriteTransparentInPoint(image, point);
         });
 
-        this._blockTouch = true;
+        // this._blockTouch = true;
         if (matched) {
             this._pathIdx++;
 
@@ -141,6 +148,11 @@ var WritingTestLayer = cc.LayerColor.extend({
             if (this._charIdx >= this._names[this._nameIdx].length) {
                 this._charIdx = 0;
                 this._nameIdx++;
+                if (this._nameIdx >= this._names.length) {
+                    var self = this;
+                    this.runAction(cc.sequence(cc.delayTime(0), cc.callFunc(function() {cc.director.replaceScene(new window[self._nextSceneName]());})));
+                    return;
+                }
                 this._displayCurrentName();
             }
             
@@ -163,11 +175,15 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     _displayNewDashedLine: function() {
-        if (this._dashedLine)
+        if (this._dashedLine) {
             this._dashedLine.removeFromParent();
+            this._dashedLine = null;
+        }
 
-        cc.log(JSON.stringify(this._currentCharConfig));
         var dashCfg = this._currentCharConfig.dashedLines[this._pathIdx];
+        if (!dashCfg)
+            return;
+
         this._dashedLine = new cc.Sprite("#" + dashCfg.sprite);
         this._dashedLine.x = dashCfg.x + this._emptyFillCharacter.x - this._emptyFillCharacter.width/2;
         this._dashedLine.y = dashCfg.y + this._emptyFillCharacter.y - this._emptyFillCharacter.height/2;
@@ -249,7 +265,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(objNames){
+    ctor: function(objectsArray, nextSceneName, oldSceneName){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -305,7 +321,7 @@ var WritingTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new WritingTestLayer(objNames);
+        var layer = new WritingTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
     }
 });

@@ -157,3 +157,5 @@ Utils.receiveData = function(data) {
     }
     cc.eventManager.dispatchCustomEvent(STRING_EVENT_MAIN_APP_CALLED, receivedData);
 }
+
+

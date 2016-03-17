@@ -27,7 +27,7 @@ var RoomLayer = cc.Layer.extend({
     _selectedShadeShader: null,
     _totalAngle: 0,
 
-    ctor: function(numberItems, numberGamePlayed) {
+    ctor: function() {
         // cc.log("Dev: " + whoAmI);
         this._super();
         
@@ -814,16 +814,17 @@ var RoomLayer = cc.Layer.extend({
 
         var self = this;
         cc.audioEngine.stopMusic();
-        var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
+        // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
+        var speakingTestScene = new WritingTestScene(this._objectNames, "ForestScene", "RoomScene");
         cc.director.replaceScene(speakingTestScene);
     },
 });
 
 var RoomScene = cc.Scene.extend({
-    ctor: function(numberItems, numberGamePlayed) {
+    ctor: function() {
         this._super();
         this.name = "room";
-        var roomLayer = new RoomLayer(numberItems, numberGamePlayed);
+        var roomLayer = new RoomLayer();
         this.addChild(roomLayer);
     }
 });

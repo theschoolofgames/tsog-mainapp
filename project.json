@@ -50,6 +50,7 @@
         "src/layers/Alphabet/TutorialLayer.js",
         "src/layers/Alphabet/PauseLayer.js",
         "src/layers/Alphabet/WritingTestLayer.js",
+        "src/layers/Alphabet/ListeningTestLayer.js",
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",

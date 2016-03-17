@@ -835,15 +835,16 @@ var ForestLayer = cc.Layer.extend({
 
         var self = this;
         cc.audioEngine.stopMusic();
-        var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
+        // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
+        var speakingTestScene = new WritingTestScene(this._animalNames, "RoomScene", "ForestScene");
         cc.director.replaceScene(speakingTestScene);
     },
 });
 var ForestScene = cc.Scene.extend({
-    ctor: function(numberItems, numberGamePlayed) {
+    ctor: function() {
         this._super();
         this.name = "forest";
-        var forestLayer = new ForestLayer(numberItems, numberGamePlayed);
+        var forestLayer = new ForestLayer();
         this.addChild(forestLayer);
     }
 });
