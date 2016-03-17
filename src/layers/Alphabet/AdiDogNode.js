@@ -21,6 +21,11 @@ var AdiDogNode = cc.Node.extend({
             this._addTouchEvent();
     },
 
+    getBoundingBox: function() {
+        var bb = this._talkingAdi.getBoundingBox();
+        return cc.rect(bb.x + this.x, bb.y + this.y, bb.width, bb.height);
+    },
+
     _addTouchEvent: function() {
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,

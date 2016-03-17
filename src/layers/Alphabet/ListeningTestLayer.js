@@ -14,6 +14,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _objCenter: null,
     _objSoundPath: null,
 
+    _objSoundIsPlaying: false,
+
     ctor: function(objectsArray, nextSceneName, oldSceneName) {
         this._super(cc.color(128, 128, 128, 255));
 
@@ -38,15 +40,22 @@ var ListeningTestLayer = cc.LayerColor.extend({
     },
 
     onTouchBegan: function(touch, event) {
+        cc.log("TOUCH");
         var self = this;
         var touchedPos = touch.getLocation();
+
+        if (cc.rectContainsPoint(this._adiDog.getBoundingBox(), touchedPos) || 
+            cc.rectContainsPoint(this._nameNode.getBoundingBox(), touchedPos)) {
+            this._playObjSound();
+            return true;
+        }
 
         this._objectNodes.forEach(function(obj) {
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
                 if (obj.name == self._names[self._nameIdx]) {
                     self._celebrateCorrectObj(obj);
                 } else {
-
+                    self._incorrectAction();
                 }
             }
         });
@@ -136,8 +145,23 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
             cc.callFunc(function() {
-                jsb.AudioEngine.play2d(self._objSoundPath);
+                self._playObjSound();
             }))); 
+    },
+
+    _playObjSound: function() {
+        var self = this;
+
+        if (self._objSoundIsPlaying)
+            return;
+
+        self._objSoundIsPlaying = true;
+        self._adiDog.adiTalk();
+        var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            self._adiDog.adiIdling();
+            self._objSoundIsPlaying = false;
+        });
     },
 
     _animateObjectIn: function(object, delay) {
@@ -162,6 +186,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._correctAction();
         this._objectNodes.forEach(function(obj) {
             if (obj == correctedObj) {
+                obj.setLocalZOrder(10);
                 obj.runAction(cc.sequence(
                     cc.spawn(
                         cc.moveTo(0.5, self._objCenter),
