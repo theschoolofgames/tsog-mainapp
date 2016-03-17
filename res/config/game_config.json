@@ -7,9 +7,11 @@
     },
     "requireObjectsToHideAllShadow": 6,
     "levelTime": 120,
-    "talkingAdiTime": 120,
-    "listeningTestTime": 120,
+    "talkingAdiTime": 120,    
     "timeToPauseGame": 900,
     "timeToResumeGame": 120,
-    "amountOfPlay": 4
+    "amountOfPlay": 4,
+
+    "listeningTestTime": 120,
+    "listeningTestWaitToShowHand": 5,
 }

@@ -16,6 +16,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _objSoundIsPlaying: false,
 
+    _tutorial: null,
+
     ctor: function(objectsArray, nextSceneName, oldSceneName) {
         this._super(cc.color(128, 128, 128, 255));
 
@@ -127,6 +129,15 @@ var ListeningTestLayer = cc.LayerColor.extend({
             this.addChild(sprite);
 
             totalWidth += sprite.width + spriteGap;
+
+            if (sprite.name == this._names[this._nameIdx]) {
+                sprite.runAction(cc.sequence(
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || 5),
+                    cc.callFunc(function(sender) {
+                        self._tutorial = new TutorialLayer([sender]);
+                        self.addChild(self._tutorial);
+                    })));
+            }
         }
         totalWidth -= spriteGap;
         var centerPoint = cc.p(this._objCenter);
@@ -199,9 +210,16 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _celebrateCorrectObj: function(correctedObj) {
         var self = this;
         this._nameIdx++;
+
+        if (this._tutorial) {
+            this._tutorial.removeFromParent();
+            this._tutorial = null;
+        }
+
         this._correctAction();
         this._objectNodes.forEach(function(obj) {
             if (obj == correctedObj) {
+                obj.stopAllActions();
                 obj.setLocalZOrder(10);
                 obj.runAction(cc.sequence(
                     cc.spawn(

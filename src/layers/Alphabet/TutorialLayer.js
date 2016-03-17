@@ -41,7 +41,7 @@ var TutorialLayer = cc.Layer.extend({
     showTappingTutorial: function() {
         this._addAnimationFrames();
         this._addEffectNode();
-        cc.log("this._animFrames: " + JSON.stringify(this._animFrames))
+        // cc.log("this._animFrames: " + JSON.stringify(this._animFrames))
         var effectAnimation = new cc.Animation(this._animFrames ,0.5);        
         var effectNodeAction = cc.repeatForever(
                                     cc.sequence(
