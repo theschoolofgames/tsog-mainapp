@@ -136,7 +136,23 @@ var ListeningTestLayer = cc.LayerColor.extend({
                     cc.callFunc(function(sender) {
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial);
-                    })));
+                    }),
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || 10),
+                    cc.callFunc(function(sender) {
+                        if (self._tutorial) {
+                            self._tutorial.removeFromParent();
+                            self._tutorial = null;
+                        }
+
+                        self._nameIdx++;
+                        if (self._nameIdx >= self._names.length) {
+                            self._moveToNextScene();
+                        } else {
+                            self._showObject();
+                            self._displayCurrentName();
+                        }
+                    })
+                ));
             }
         }
         totalWidth -= spriteGap;
