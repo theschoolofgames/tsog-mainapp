@@ -24,7 +24,9 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._nextSceneName = nextSceneName;
         this._oldSceneName = oldSceneName;
 
-        this._names = objectsArray;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
@@ -43,7 +45,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        cc.log("TOUCH");
         var self = this;
         var touchedPos = touch.getLocation();
 
@@ -114,7 +115,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         shownObjNames = shuffle(shownObjNames);
 
         var totalWidth = 0;
-        var spriteGap = -20;
+        var spriteGap = -10;
         for (var i = 0; i < 3; i++) {
             var spritePath
             if (this._oldSceneName == "RoomScene") {

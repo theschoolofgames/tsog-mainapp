@@ -836,7 +836,7 @@ var ForestLayer = cc.Layer.extend({
         var self = this;
         cc.audioEngine.stopMusic();
         // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
-        var speakingTestScene = new WritingTestScene(this._animalNames, "RoomScene", "ForestScene");
+        var speakingTestScene = new ListeningTestScene(this._animalNames, "RoomScene", "ForestScene");
         cc.director.replaceScene(speakingTestScene);
     },
 });
