@@ -19,11 +19,12 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _tutorial: null,
 
     ctor: function(objectsArray, nextSceneName, oldSceneName) {
-        this._super(cc.color(128, 128, 128, 255));
+        this._super(cc.color(255, 255, 255, 255));
 
         this._nextSceneName = nextSceneName;
         this._oldSceneName = oldSceneName;
 
+        // this._names = objectsArray;
         this._names = objectsArray.map(function(obj) {
             return obj.name.toUpperCase();
         });
@@ -114,8 +115,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
         shownObjNames = shuffle(shownObjNames);
 
-        var totalWidth = 0;
-        var spriteGap = -10;
         for (var i = 0; i < 3; i++) {
             var spritePath
             if (this._oldSceneName == "RoomScene") {
@@ -126,19 +125,23 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
             var sprite = new cc.Sprite(spritePath);
             sprite.name = shownObjNames[i];
+            sprite.scale = Math.min(200 / sprite.width, 350 / sprite.height);;
+            sprite.x = this._objCenter.x + (i-1) * 225;
+            sprite.y = this._objCenter.y;
             this._objectNodes.push(sprite);
             this.addChild(sprite);
 
-            totalWidth += sprite.width + spriteGap;
+            this._animateObject(sprite, i);
+            this._animateObjectIn(sprite, i);
 
             if (sprite.name == this._names[this._nameIdx]) {
                 sprite.runAction(cc.sequence(
-                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || 5),
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || 10),
                     cc.callFunc(function(sender) {
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial);
                     }),
-                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || 10),
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || 20),
                     cc.callFunc(function(sender) {
                         if (self._tutorial) {
                             self._tutorial.removeFromParent();
@@ -156,17 +159,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
                 ));
             }
         }
-        totalWidth -= spriteGap;
-        var centerPoint = cc.p(this._objCenter);
-
-        for (var i = 0; i < 3; i++) {
-            this._objectNodes[i].x = centerPoint.x - totalWidth/2 + this._objectNodes[i].width/2 + spriteGap * i;
-            this._objectNodes[i].y = centerPoint.y;
-
-            centerPoint.x += this._objectNodes[i].width;
-
-            this._animateObjectIn(this._objectNodes[i], i);
-        }
     },
 
     _displayCurrentName: function() {
@@ -177,7 +169,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
         this._nameNode = new cc.LabelBMFont(this._names[this._nameIdx], "hud-font.fnt");
         this._nameNode.x = cc.winSize.width * 0.15;
-        this._nameNode.y = cc.winSize.height - 50;
+        this._nameNode.y = cc.winSize.height - 150;
         this.addChild(this._nameNode);
 
         var objName = this._names[this._nameIdx].toLowerCase();
@@ -224,6 +216,21 @@ var ListeningTestLayer = cc.LayerColor.extend({
         );
     },
 
+    _animateObject: function(obj, delay) {
+        var oldScale = obj.scale;
+        obj.runAction(cc.sequence(
+            cc.delayTime(3 + delay * ANIMATE_DELAY_TIME * 1.5),
+            cc.callFunc(function() {
+                obj.runAction(cc.repeatForever(cc.sequence(
+                    cc.scaleTo(0.1, 0.7 * oldScale),
+                    cc.scaleTo(0.3, 1.05 * oldScale),
+                    cc.scaleTo(0.1, 1 * oldScale),
+                    cc.delayTime(5)
+                )))
+            })
+        ));     
+    },
+
     _celebrateCorrectObj: function(correctedObj) {
         var self = this;
         this._nameIdx++;
@@ -241,7 +248,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
                 obj.runAction(cc.sequence(
                     cc.spawn(
                         cc.moveTo(0.5, self._objCenter),
-                        cc.scaleTo(0.5, 1.5)
+                        cc.scaleTo(0.5, obj.scale * 1.5)
                     ),
                     cc.delayTime(0.5),
                     cc.callFunc(function() {

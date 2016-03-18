@@ -13,6 +13,6 @@
     "amountOfPlay": 4,
 
     "listeningTestTime": 120,
-    "listeningTestWaitToShowHand": 5,
-    "listeningTestWaitToShowNextObj": 10,
+    "listeningTestWaitToShowHand": 10,
+    "listeningTestWaitToShowNextObj": 20
 }
