@@ -157,6 +157,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
 ];
 
 var GAME_CONFIG = {};
+var UPDATED_CONFIG = {};
 
 var ConfigStore = cc.Class.extend({
     positionSets: [],
@@ -359,6 +360,11 @@ ConfigStore.setupInstance = function (configOnce) {
             }
         });
     }
+
+    cc.loader.loadJson(res.Updated_config_JSON, function(err, data) {
+        if (!err)
+            UPDATED_CONFIG = data;
+    });
 
     if (configOnce) {
         preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);

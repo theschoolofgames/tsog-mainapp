@@ -15,10 +15,9 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _nextSceneName: null,
     _oldSceneName: null,
 
-    ctor: function(objectsArray, nextSceneName, oldSceneName) {
+    ctor: function(objectsArray, oldSceneName) {
         this._super(cc.color(255, 255, 255, 255));
         this.font = "hud-font.fnt";
-        this._nextSceneName = nextSceneName;
         this._oldSceneName = oldSceneName;
         // this._currentScene = currentScene;
         // cc.log("currentScene: %s", currentScene); 
@@ -165,8 +164,14 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _checkCompleted: function() {
         if (this.currentObjectShowUpId >= this._objectsArray.length){
             NativeHelper.callNative("stopSpeechRecognition");
-            cc.log("on callback");
-            cc.director.replaceScene(new window[this._nextSceneName]());
+            
+            var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+            var scene;
+            if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+                scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+            else
+                scene = new window[nextSceneName]();
+            cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
 
             return true;
         }

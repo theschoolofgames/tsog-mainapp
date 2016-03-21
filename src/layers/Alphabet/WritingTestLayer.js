@@ -23,13 +23,15 @@ var WritingTestLayer = cc.LayerColor.extend({
     _nextSceneName: null,
     _oldSceneName: null,
 
-    ctor: function(objectsArray, nextSceneName, oldSceneName) {
+    _objectsArray: null,
+
+    ctor: function(objectsArray, oldSceneName) {
         this._super(cc.color(128, 128, 128, 255));
 
+        this._objectsArray = objectsArray;
         this._names = objectsArray.map(function(obj) {
             return obj.name.toUpperCase();
         });
-        this._nextSceneName = nextSceneName;
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -150,7 +152,9 @@ var WritingTestLayer = cc.LayerColor.extend({
                 this._nameIdx++;
                 if (this._nameIdx >= this._names.length) {
                     var self = this;
-                    this.runAction(cc.sequence(cc.delayTime(0), cc.callFunc(function() {cc.director.replaceScene(new window[self._nextSceneName]());})));
+                    this.runAction(cc.sequence(cc.delayTime(0), cc.callFunc(function() {
+                        self._nextScene();
+                    })));
                     return;
                 }
                 this._displayCurrentName();
@@ -159,6 +163,16 @@ var WritingTestLayer = cc.LayerColor.extend({
             this._displayNewCharacter();
             this._baseRender.clear(0,0,0,0);
         }
+    },
+
+    _nextScene: function() {
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        var scene;
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+        else
+            scene = new window[nextSceneName]();
+        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _displayNewCharacter: function() {

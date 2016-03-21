@@ -29,7 +29,13 @@ var WelcomeLayer = cc.LayerColor.extend({
 			cc.delayTime(7),
 			cc.callFunc(function() {
                 // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
-                cc.director.runScene(new cc.TransitionFade(1, new RoomScene(), cc.color(255, 255, 255, 255)));
+                var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+                var scene;
+                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+                    scene = new RoomScene();
+                else
+                    scene = new window[nextSceneName]();
+                cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
 			}, this)
 		));
 	}

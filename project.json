@@ -52,6 +52,8 @@
         "src/layers/Alphabet/WritingTestLayer.js",
         "src/layers/Alphabet/ListeningTestLayer.js",
 
+        "src/layers/SceneFlowController.js",
+
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
 

@@ -371,7 +371,7 @@ var RoomLayer = cc.Layer.extend({
                 cc.callFunc(function() {
                     if (warningLabel)
                         warningLabel.removeFromParent();
-                    self._addSpeakingTest();
+                    self._moveToNextScene();
                 })
             )
         )
@@ -804,7 +804,7 @@ var RoomLayer = cc.Layer.extend({
             }
     },
 
-    _addSpeakingTest: function() {
+    _moveToNextScene: function() {
         for (var i = 0; i < this._objectDisableds.length; i++) {
             this._objectDisableds[i].removeFromParent();
             this._shadeObjects[i].removeFromParent();
@@ -815,8 +815,13 @@ var RoomLayer = cc.Layer.extend({
         var self = this;
         cc.audioEngine.stopMusic();
         // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
-        var speakingTestScene = new ListeningTestScene(this._objectNames, "ForestScene", "RoomScene");
-        cc.director.replaceScene(speakingTestScene);
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        var scene;
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+            scene = new window[nextSceneName](this._objectNames, "RoomScene");
+        else
+            scene = new window[nextSceneName]();
+        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 });
 

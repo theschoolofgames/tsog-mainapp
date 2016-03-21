@@ -18,13 +18,14 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _tutorial: null,
 
-    ctor: function(objectsArray, nextSceneName, oldSceneName) {
+    _objectsArray: null,
+
+    ctor: function(objectsArray, oldSceneName) {
         this._super(cc.color(255, 255, 255, 255));
 
-        this._nextSceneName = nextSceneName;
         this._oldSceneName = oldSceneName;
 
-        // this._names = objectsArray;
+        this._objectsArray = objectsArray;
         this._names = objectsArray.map(function(obj) {
             return obj.name.toUpperCase();
         });
@@ -85,7 +86,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _addCountDownClock: function() {
         var self = this;
-        var clockInitTime = GAME_CONFIG.listeningTestTime || 120;
+        var clockInitTime = GAME_CONFIG.listeningTestTime || UPDATED_CONFIG.listeningTestTime;
         var clock = new Clock(clockInitTime, function(){
             self._moveToNextScene();
         });
@@ -136,12 +137,12 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
             if (sprite.name == this._names[this._nameIdx]) {
                 sprite.runAction(cc.sequence(
-                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || 10),
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || UPDATED_CONFIG.listeningTestWaitToShowHand),
                     cc.callFunc(function(sender) {
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial);
                     }),
-                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || 20),
+                    cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || UPDATED_CONFIG.listeningTestWaitToShowNextObj),
                     cc.callFunc(function(sender) {
                         if (self._tutorial) {
                             self._tutorial.removeFromParent();
@@ -303,7 +304,13 @@ var ListeningTestLayer = cc.LayerColor.extend({
     },
 
     _moveToNextScene: function() {
-        cc.director.replaceScene(new window[this._nextSceneName]());
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        var scene;
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+        else
+            scene = new window[nextSceneName]();
+        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     }
 });
 
