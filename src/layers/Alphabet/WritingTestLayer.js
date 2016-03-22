@@ -26,12 +26,13 @@ var WritingTestLayer = cc.LayerColor.extend({
     _objectsArray: null,
 
     ctor: function(objectsArray, oldSceneName) {
-        this._super(cc.color(128, 128, 128, 255));
+        this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -63,17 +64,25 @@ var WritingTestLayer = cc.LayerColor.extend({
         var distance = cc.pDistance(renderPos, prevRenderPos);
         var dif = cc.pSub(renderPos, prevRenderPos);
 
+        var convertedEmptyFillCharPos = this.convertToRTSpace(this._emptyFillCharacter.getPosition());
+        var emptyFillCharBoundingBox = cc.rect(
+            convertedEmptyFillCharPos.x - this._emptyFillCharacter.width/2,
+            convertedEmptyFillCharPos.y - this._emptyFillCharacter.height/2,
+            this._emptyFillCharacter.width,
+            this._emptyFillCharacter.height);
+
         this._tmpRender.begin();
         for (var i = 0; i < distance; i++) {
             var delta = i / distance;
-
-            var brush = new cc.Sprite("brush.png");
-            // brush.color = cc.color.BLACK;
-            brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
-            brush.visit();
+            var newPos = cc.p(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
+            if (cc.rectContainsPoint(emptyFillCharBoundingBox, newPos)) {
+                var brush = new cc.Sprite("brush.png");            
+                brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
+                brush.visit();
+            }
         }
         this._tmpRender.end();
-        this._tmpRender.getSprite().color = cc.color.WHITE;;
+        this._tmpRender.getSprite().color = cc.color("#333333");;
     },
 
     onTouchEnded: function(touch, event) {
@@ -100,17 +109,18 @@ var WritingTestLayer = cc.LayerColor.extend({
                     sprite.flippedY = true;
                     sprite.setPosition(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2);
 
+                    self._tmpRender.getSprite().color = cc.color.WHITE;
                     self._baseRender.begin();
                     sprite.visit();
                     self._baseRender.end();
 
                     self._tmpRender.clear(0,0,0,0);
+                    self._tmpRender.getSprite().color = cc.color("#333333");
 
                     self.checkChangingCharacter();
                     self._displayNewDashedLine();
                 })
             ));
-            this._correctAction();
         } else {
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.tintTo(0.15, 255, 0, 0),
@@ -162,6 +172,7 @@ var WritingTestLayer = cc.LayerColor.extend({
             
             this._displayNewCharacter();
             this._baseRender.clear(0,0,0,0);
+            this._correctAction();
         }
     },
 
@@ -189,6 +200,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     _displayNewDashedLine: function() {
+        return;
         if (this._dashedLine) {
             this._dashedLine.removeFromParent();
             this._dashedLine = null;
@@ -240,6 +252,7 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
         this._tmpRender.setPosition(this._baseRender.getPosition());
         this._tmpRender.getSprite().opacity = 128;
+        this._tmpRender.getSprite().color = cc.color("#333333");
         this.addChild(this._tmpRender, 3);        
     },
 
