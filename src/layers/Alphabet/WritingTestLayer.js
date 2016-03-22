@@ -1,12 +1,17 @@
 var RENDER_TEXTURE_WIDTH = 320;
 var RENDER_TEXTURE_HEIGHT = 320;
 
+var CHAR_SPACE = 10;
+var MAX_AVAILABLE_WIDTH = 850;
+
 var WritingTestLayer = cc.LayerColor.extend({
 
     _adiDog: null,
 
     _names: null,
     _nameNode: null,
+
+    _characterNodes: [],
 
     _currentCharConfig: null,
     _baseRender: null,
@@ -36,10 +41,11 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        this._addRenderTextures();
-        this._displayNewCharacter();
-        this._displayCurrentName();
+        // this._addRenderTextures();
+        // this._displayNewCharacter();
+        // this._displayCurrentName();
         this._addAdiDog();
+        this._displayWord();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -184,6 +190,53 @@ var WritingTestLayer = cc.LayerColor.extend({
         else
             scene = new window[nextSceneName]();
         cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    },
+
+    _displayWord: function() {
+        if (this._characterNodes.length > 0) {
+            this._characterNodes.forEach(function(obj) {obj.removeFromParent();});
+        }
+        this._characterNodes = [];
+
+        var objName = this._names[this._nameIdx];
+
+        var lines = Math.ceil(objName.length / 5);
+        var maxCharsPerLine = Math.ceil(objName.length / lines);
+        var charsPerLine = [];
+
+        var nameLength = objName.length;
+        while(nameLength > maxCharsPerLine) {
+            charsPerLine.push(maxCharsPerLine);
+            nameLength -= maxCharsPerLine;
+        }
+        charsPerLine.push(nameLength);
+
+        for (var i = 0; i < charsPerLine.length; i++) {
+            var tempArr = [];
+            var totalWidth = 0;
+
+            for (var j = 0; j < charsPerLine[i]; j++) {
+                var charIndex = i * charsPerLine[0] + j;
+                if (charIndex > objName.length)
+                    break;
+
+                var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + ".png");
+                this.addChild(s);
+
+                this._characterNodes.push(s);
+                tempArr.push(s);
+
+                totalWidth += s.width + CHAR_SPACE;
+            }
+            totalWidth -= CHAR_SPACE;
+            tempArr[0].x = cc.winSize.width/2 - totalWidth/2 + tempArr[0].width/2;
+            tempArr[0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300;
+
+            for (var j = 1; j < tempArr.length; j++) {
+                tempArr[j].x = tempArr[j-1].x + tempArr[j-1].width/2 + CHAR_SPACE + tempArr[j].width/2;
+                tempArr[j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300;                
+            }
+        }
     },
 
     _displayNewCharacter: function() {
