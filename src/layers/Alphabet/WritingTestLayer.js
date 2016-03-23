@@ -12,6 +12,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _nameNode: null,
 
     _characterNodes: [],
+    _wordScale: 1,
 
     _currentCharConfig: null,
     _baseRender: null,
@@ -41,11 +42,11 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        // this._addRenderTextures();
-        // this._displayNewCharacter();
         // this._displayCurrentName();
         this._addAdiDog();
         this._displayWord();
+        this._addRenderTextures();
+        this._moveToNextCharacter();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -70,22 +71,23 @@ var WritingTestLayer = cc.LayerColor.extend({
         var distance = cc.pDistance(renderPos, prevRenderPos);
         var dif = cc.pSub(renderPos, prevRenderPos);
 
-        var convertedEmptyFillCharPos = this.convertToRTSpace(this._emptyFillCharacter.getPosition());
-        var emptyFillCharBoundingBox = cc.rect(
-            convertedEmptyFillCharPos.x - this._emptyFillCharacter.width/2,
-            convertedEmptyFillCharPos.y - this._emptyFillCharacter.height/2,
-            this._emptyFillCharacter.width,
-            this._emptyFillCharacter.height);
+        // var convertedEmptyFillCharPos = this.convertToRTSpace(this._emptyFillCharacter.getPosition());
+        // var emptyFillCharBoundingBox = cc.rect(
+        //     convertedEmptyFillCharPos.x - this._emptyFillCharacter.width/2,
+        //     convertedEmptyFillCharPos.y - this._emptyFillCharacter.height/2,
+        //     this._emptyFillCharacter.width,
+        //     this._emptyFillCharacter.height);
 
         this._tmpRender.begin();
         for (var i = 0; i < distance; i++) {
             var delta = i / distance;
             var newPos = cc.p(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
-            if (cc.rectContainsPoint(emptyFillCharBoundingBox, newPos)) {
-                var brush = new cc.Sprite("brush.png");            
+            // if (cc.rectContainsPoint(emptyFillCharBoundingBox, newPos)) {
+                var brush = new cc.Sprite("brush.png");  
+                brush.scale = this._wordScale * 0.9;          
                 brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
                 brush.visit();
-            }
+            // }
         }
         this._tmpRender.end();
         this._tmpRender.getSprite().color = cc.color("#333333");;
@@ -99,7 +101,9 @@ var WritingTestLayer = cc.LayerColor.extend({
         var pathCfg = this._currentCharConfig.paths[this._pathIdx];
         var matched = true;
         pathCfg.forEach(function(point) {
-            matched &= !self.isSpriteTransparentInPoint(image, point);
+            var p = cc.pAdd(cc.pMult(point, self._wordScale), cc.p(RENDER_TEXTURE_WIDTH * (1 - self._wordScale) / 2, RENDER_TEXTURE_HEIGHT * (1 - self._wordScale) / 2))
+            cc.log(JSON.stringify(p));
+            matched &= !self.isSpriteTransparentInPoint(image, p);
         });
 
         // this._blockTouch = true;
@@ -113,7 +117,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 
                     var sprite = new cc.Sprite(self._tmpRender.getSprite().getTexture());
                     sprite.flippedY = true;
-                    sprite.setPosition(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2);
+                    sprite.setPosition(self._tmpRender.getPosition());
 
                     self._tmpRender.getSprite().color = cc.color.WHITE;
                     self._baseRender.begin();
@@ -160,7 +164,7 @@ var WritingTestLayer = cc.LayerColor.extend({
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
             // next char
-            this._nameNode.getLetter(this._charIdx).opacity = 255;
+            // this._nameNode.getLetter(this._charIdx).opacity = 255;
             this._charIdx++;
             this._pathIdx = 0;
             if (this._charIdx >= this._names[this._nameIdx].length) {
@@ -173,11 +177,12 @@ var WritingTestLayer = cc.LayerColor.extend({
                     })));
                     return;
                 }
-                this._displayCurrentName();
+                this._displayWord();
+
+                this._baseRender.clear(0,0,0,0);
             }
             
-            this._displayNewCharacter();
-            this._baseRender.clear(0,0,0,0);
+            this._moveToNextCharacter();
             this._correctAction();
         }
     },
@@ -211,6 +216,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         }
         charsPerLine.push(nameLength);
 
+        var charArrays = [];
+        var totalWidths = [];
+        this._wordScale = 1;
+
         for (var i = 0; i < charsPerLine.length; i++) {
             var tempArr = [];
             var totalWidth = 0;
@@ -229,24 +238,30 @@ var WritingTestLayer = cc.LayerColor.extend({
                 totalWidth += s.width + CHAR_SPACE;
             }
             totalWidth -= CHAR_SPACE;
-            tempArr[0].x = cc.winSize.width/2 - totalWidth/2 + tempArr[0].width/2;
-            tempArr[0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300;
+            totalWidths.push(totalWidth);
+            if (totalWidth > cc.winSize.width * 0.7)
+                this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
 
-            for (var j = 1; j < tempArr.length; j++) {
-                tempArr[j].x = tempArr[j-1].x + tempArr[j-1].width/2 + CHAR_SPACE + tempArr[j].width/2;
-                tempArr[j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300;                
+            charArrays.push(tempArr);
+        }
+
+        cc.log("wordScale: " + this._wordScale);
+
+        for (var i = 0; i < charArrays.length; i++) {
+            charArrays[i][0].scale = this._wordScale;
+            charArrays[i][0].x = cc.winSize.width * 0.65 - totalWidths[i]/2 * this._wordScale + charArrays[i][0].width/2 * this._wordScale - 10;
+            charArrays[i][0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale;
+
+            for (var j = 1; j < charArrays[i].length; j++) {
+                charArrays[i][j].scale = this._wordScale;
+                charArrays[i][j].x = charArrays[i][j-1].x + (charArrays[i][j-1].width/2 + CHAR_SPACE + charArrays[i][j].width/2) * this._wordScale;
+                charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale;
             }
         }
     },
 
-    _displayNewCharacter: function() {
-        if (this._emptyFillCharacter)
-            this._emptyFillCharacter.removeFromParent();
-
-        this._emptyFillCharacter = new cc.Sprite("#" + this._names[this._nameIdx].toUpperCase()[this._charIdx] + ".png");
-        this._emptyFillCharacter.x = this._baseRender.width/2 + this._baseRender.x;
-        this._emptyFillCharacter.y = this._baseRender.height/2 + this._baseRender.y;
-        this.addChild(this._emptyFillCharacter, 1);
+    _moveToNextCharacter: function() {
+        this._tmpRender.setPosition(this._characterNodes[this._charIdx].getPosition());
 
         this.fetchCharacterConfig();
         this._displayNewDashedLine();
@@ -288,22 +303,22 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        // this._adiDog.scale = 1.5;
-        this._adiDog.setPosition(cc.p(cc.winSize.width / 4, cc.winSize.height / 6));
+        this._adiDog.scale = 0.8;
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height / 4));
         this.addChild(this._adiDog);
     },
 
     _addRenderTextures: function() {
-        this._baseRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
+        this._baseRender = new cc.RenderTexture(cc.winSize.width, cc.winSize.height);
         // this._baseRender.retain();
-        this._baseRender.x = cc.winSize.width/8 * 5;
+        this._baseRender.x = cc.winSize.width/2;
         this._baseRender.y = cc.winSize.height/2;
         this._baseRender.getSprite().color = cc.color.GREEN;
         this._baseRender.getSprite().opacity = 128;
         this.addChild(this._baseRender, 2);
 
         this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
-        this._tmpRender.setPosition(this._baseRender.getPosition());
+        // this._tmpRender.setPosition(this._baseRender.getPosition());
         this._tmpRender.getSprite().opacity = 128;
         this._tmpRender.getSprite().color = cc.color("#333333");
         this.addChild(this._tmpRender, 3);        
