@@ -9,9 +9,9 @@ var WritingTestLayer = cc.LayerColor.extend({
     _adiDog: null,
 
     _names: null,
-    _nameNode: null,
 
     _characterNodes: [],
+    _finger: null,
     _wordScale: 1,
 
     _currentCharConfig: null,
@@ -35,10 +35,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray;
-        // this._names = objectsArray.map(function(obj) {
-        //     return obj.name.toUpperCase();
-        // });
+        // this._names = objectsArray;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -47,6 +47,7 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._displayWord();
         this._addRenderTextures();
         this._moveToNextCharacter();
+        this._displayFinger();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -58,6 +59,8 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     onTouchBegan: function(touch, event) {
+        this._finger.stopAllActions();
+        this._finger.opacity = 0;
         return !this._blockTouch;
     },
 
@@ -98,16 +101,8 @@ var WritingTestLayer = cc.LayerColor.extend({
 
         var image = this._tmpRender.newImage(); 
 
-        var pathCfg = this._currentCharConfig.paths[this._pathIdx];
-        var matched = true;
-        pathCfg.forEach(function(point) {
-            var p = cc.pAdd(cc.pMult(point, self._wordScale), cc.p(RENDER_TEXTURE_WIDTH * (1 - self._wordScale) / 2, RENDER_TEXTURE_HEIGHT * (1 - self._wordScale) / 2))
-            cc.log(JSON.stringify(p));
-            matched &= !self.isSpriteTransparentInPoint(image, p);
-        });
-
         // this._blockTouch = true;
-        if (matched) {
+        if (this.imageMatched(image)) {
             this._pathIdx++;
 
             this._tmpRender.getSprite().runAction(cc.sequence(
@@ -129,9 +124,11 @@ var WritingTestLayer = cc.LayerColor.extend({
 
                     self.checkChangingCharacter();
                     self._displayNewDashedLine();
+                    self._displayFinger();
                 })
             ));
         } else {
+            this._displayFinger();
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.tintTo(0.15, 255, 0, 0),
                 cc.tintTo(0.15, 255, 255, 255),
@@ -146,10 +143,53 @@ var WritingTestLayer = cc.LayerColor.extend({
             ));
             this._incorrectAction();
         }
-    },   
+    },  
+
+    imageMatched: function(image) {
+        var self = this;
+
+        var includedCoverPercentage = GAME_CONFIG.writingTestIncludedCoverPercentage || UPDATED_CONFIG.writingTestIncludedCoverPercentage;
+        var excludedCoverPercentage = GAME_CONFIG.writingTestExcludedCoverPercentage || UPDATED_CONFIG.writingTestExcludedCoverPercentage;
+
+        for (var i = 0; i < this._currentCharConfig.paths.length; i++) {
+            var pathCfg = this._currentCharConfig.paths[i];
+
+            var matchedCount = 0;
+            pathCfg.forEach(function(point) {
+                var p = self.convertScaledPath(point);
+                if (!self.isSpriteTransparentInPoint(image, p))
+                    matchedCount++;
+            });
+
+            var coverPercentage = matchedCount / pathCfg.length * 100;
+
+            if (((i == this._pathIdx) && (coverPercentage < includedCoverPercentage)) ||    // Included Point
+                ((i != this._pathIdx) && (coverPercentage > excludedCoverPercentage)))      // Excluded Point
+                return false;
+        }
+        
+        return true;
+
+        // var pathCfg = this._currentCharConfig.paths[this._pathIdx];
+        // var matched = true;
+        // pathCfg.forEach(function(point) {
+        //     var p = self.convertScaledPath(point);
+        //     matched &= !self.isSpriteTransparentInPoint(image, p);
+        // });
+
+        // return matched;
+    },
 
     convertToRTSpace: function(p) {
         return cc.pSub(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2)));
+    },
+
+    convertToWSpace: function(p) {
+        return cc.pAdd(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2)));
+    },
+
+    convertScaledPath: function(p) {
+        return cc.pAdd(cc.pMult(p, this._wordScale), cc.p(RENDER_TEXTURE_WIDTH * (1 - this._wordScale) / 2, RENDER_TEXTURE_HEIGHT * (1 - this._wordScale) / 2));
     },
 
     isSpriteTransparentInPoint: function(image, point) {
@@ -164,7 +204,6 @@ var WritingTestLayer = cc.LayerColor.extend({
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
             // next char
-            // this._nameNode.getLetter(this._charIdx).opacity = 255;
             this._charIdx++;
             this._pathIdx = 0;
             if (this._charIdx >= this._names[this._nameIdx].length) {
@@ -288,19 +327,6 @@ var WritingTestLayer = cc.LayerColor.extend({
         this.addChild(this._dashedLine, 1);
     },
 
-    _displayCurrentName: function() {
-        if (this._nameNode)
-            this._nameNode.removeFromParent();
-
-        this._nameNode = new cc.LabelBMFont(this._names[this._nameIdx], "hud-font.fnt");
-        this._nameNode.x = cc.winSize.width/4;
-        this._nameNode.y = cc.winSize.height - 50;
-        this.addChild(this._nameNode);
-
-        for (var i = 0; i < this._names[this._nameIdx].length; i++)
-            this._nameNode.getLetter(i).opacity = 128;
-    },
-
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
         this._adiDog.scale = 0.8;
@@ -322,6 +348,33 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._tmpRender.getSprite().opacity = 128;
         this._tmpRender.getSprite().color = cc.color("#333333");
         this.addChild(this._tmpRender, 3);        
+    },
+
+    _displayFinger: function() {
+        if (!this._finger) {
+            this._finger = new cc.Sprite("#finger-1.png");
+            this._finger.anchorX = 0.26;
+            this._finger.anchorY = 0.77; 
+            this.addChild(this._finger, 5);
+        }
+
+        this._finger.stopAllActions();
+        this._finger.opacity = 0;
+
+        var pathCfg = this._currentCharConfig.paths[this._pathIdx];
+
+        var actions = [];
+
+        actions.push(cc.moveTo(0, this.convertToWSpace(this.convertScaledPath(pathCfg[0]))));
+        actions.push(cc.fadeIn(0.15));
+        for (var i = 1; i < pathCfg.length; i++) {
+            var distToPrevPoint = cc.pDistance(this.convertScaledPath(pathCfg[i]), this.convertScaledPath(pathCfg[i-1]));
+            actions.push(cc.moveTo(distToPrevPoint * 0.005, this.convertToWSpace(this.convertScaledPath(pathCfg[i]))));
+        }
+        actions.push(cc.fadeOut(0.15));
+        actions.push(cc.delayTime(0.3));
+
+        this._finger.runAction(cc.repeatForever(cc.sequence(actions)));
     },
 
     _correctAction: function() {
@@ -386,7 +439,7 @@ var WritingTestScene = cc.Scene.extend({
                         config.paths[pathIdx-1] = [];
 
                         var offsetX = obj.x * csf;
-                        var offsetY = (mapSize.height * tileSize.height - obj.y) * csf;
+                        var offsetY = mapSize.height * tileSize.height - obj.y * csf;
 
                         for (var i = 0; i < obj.polylinePoints.length; i++) {
                             var x = obj.polylinePoints[i].x * csf + offsetX;

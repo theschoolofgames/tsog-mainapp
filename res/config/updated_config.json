@@ -2,6 +2,10 @@
     "listeningTestTime": 120,
     "listeningTestWaitToShowHand": 10,
     "listeningTestWaitToShowNextObj": 20,
+
+    "writingTestIncludedCoverPercentage": 80,
+    "writingTestExcludedCoverPercentage": 40,
+
     "sceneFlow": {
         "preLoopScreens": [
 
