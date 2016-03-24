@@ -26,9 +26,10 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._oldSceneName = oldSceneName;
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
@@ -80,7 +81,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
         // this._adiDog.scale = 1.5;
-        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height / 6));
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/4));
         this.addChild(this._adiDog);
     },
 
@@ -169,8 +170,9 @@ var ListeningTestLayer = cc.LayerColor.extend({
             this._nameNode.removeFromParent();
 
         this._nameNode = new cc.LabelBMFont(this._names[this._nameIdx], "hud-font.fnt");
-        this._nameNode.x = cc.winSize.width * 0.15;
+        this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
+        this._nameNode.scale = 1.5;
         this.addChild(this._nameNode);
 
         var objName = this._names[this._nameIdx].toLowerCase();
@@ -241,6 +243,9 @@ var ListeningTestLayer = cc.LayerColor.extend({
             this._tutorial = null;
         }
 
+        var effect = AnimatedEffect.create(correctedObj, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+        effect.scale = 3;
+
         this._correctAction();
         this._objectNodes.forEach(function(obj) {
             if (obj == correctedObj) {
@@ -251,11 +256,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
                         cc.moveTo(0.5, self._objCenter),
                         cc.scaleTo(0.5, obj.scale * 1.5)
                     ),
-                    cc.delayTime(0.5),
-                    cc.callFunc(function() {
-                        jsb.AudioEngine.play2d(self._objSoundPath);
-                    }),
-                    cc.delayTime(1.5),
+                    // cc.delayTime(0.5),
+                    cc.delayTime(2.0),
                     cc.callFunc(function() {
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
