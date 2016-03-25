@@ -101,7 +101,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 
         var image = this._tmpRender.newImage(); 
 
-        // this._blockTouch = true;
+        this._blockTouch = true;
         if (this.imageMatched(image)) {
             this._pathIdx++;
 

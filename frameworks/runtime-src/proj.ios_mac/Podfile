@@ -8,6 +8,7 @@ target 'tsog' do
   pod 'Analytics'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'ATAppUpdater'
 end
 
 target 'tsog-desktop' do

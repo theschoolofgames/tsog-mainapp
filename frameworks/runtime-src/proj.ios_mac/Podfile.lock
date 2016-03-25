@@ -96,6 +96,7 @@ PODS:
     - UXCam (= 2.3.2)
   - AppsFlyer-SDK (2.5.3.15.1)
   - Apptimize (2.14.2)
+  - ATAppUpdater (1.7)
   - Bugsnag (4.0.7):
     - Bugsnag/no-arc (= 4.0.7)
   - Bugsnag/no-arc (4.0.7)
@@ -103,9 +104,9 @@ PODS:
   - Crashlytics (3.7.0):
     - Fabric (~> 1.6.3)
   - CrittercismSDK (5.2.0)
-  - Fabric (1.6.6)
+  - Fabric (1.6.7)
   - Flurry-iOS-SDK/FlurrySDK (7.1.0)
-  - FMDB/standard (2.6)
+  - FMDB/standard (2.6.2)
   - GoogleAnalytics (3.13.0)
   - GoogleIDFASupport (3.12.0)
   - Kahuna (2.0.3)
@@ -126,6 +127,7 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
+  - ATAppUpdater
   - Crashlytics
   - Fabric
   - PDKeychainBindingsController
@@ -135,13 +137,14 @@ SPEC CHECKSUMS:
   Analytics: 51d6163cb568c8ede69f2b92ef4779d91e1524e2
   AppsFlyer-SDK: 34670f7a518e82cfba54dc8ad7738bacf4117b9c
   Apptimize: f187322af7163fe27dd3b3520d94d445680bec45
+  ATAppUpdater: 4dea317a34210ad4f26c316d2d97afc4ff5077f3
   Bugsnag: 5861d8519d30063abe7b3fcdcf4114a6dddab27a
   Countly: 2151c5286995b84972ba4a92c3fba6b5fafce6bb
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
   CrittercismSDK: b22f9541803c2babb1c8996862b097dc47ec7105
-  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Flurry-iOS-SDK: 7b3fe6c3344c82b73c4c84163652eada84fbfcf4
-  FMDB: c1968bab3ab0aed38f66cb778ae1e7fa9a652b6e
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GoogleAnalytics: fcf1f1cad57ae1a9a53520018f0f680ceeeb8b49
   GoogleIDFASupport: 0dd25ffdd152fd8e3deefd72978b42ef818ef0fa
   Kahuna: 06c3dea6aee22f5ae9c3eb6a6b9ae703cd5dd5cb

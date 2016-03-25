@@ -40,6 +40,8 @@
 
 #import "AudioEngine.h"
 
+#import <ATAppUpdater.h>
+
 @implementation AppController
 
 #pragma mark -
@@ -99,6 +101,8 @@ static AppDelegate s_sharedApplication;
     [Fabric with:@[[Crashlytics class], [Optimizely class]]];
   
   cocos2d::experimental::AudioEngine::lazyInit();
+  
+  [[ATAppUpdater sharedUpdater] showUpdateWithConfirmation];
 
     return YES;
 }
