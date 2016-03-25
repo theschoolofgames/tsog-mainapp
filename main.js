@@ -72,15 +72,15 @@ cc.game.onStart = function(){
     if (cc.sys.isNative) {
         var searchPaths = jsb.fileUtils.getSearchPaths();
 
-        if (frameSize.height >= largeResource.size.height) {
-            searchPaths.push(largeResource.directory);
-            cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
-            cc.log("Use largeResource");
-        } else {//if (frameSize.height >= mediumResource.size.height) {
+        // if (frameSize.height >= largeResource.size.height) {
+        //     searchPaths.push(largeResource.directory);
+        //     cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
+        //     cc.log("Use largeResource");
+        // } else {//if (frameSize.height >= mediumResource.size.height) {
             searchPaths.push(mediumResource.directory);
             cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
-            cc.log("Use mediumResource");
-        } //else {
+        //     cc.log("Use mediumResource");
+        // } else {
         //     searchPaths.push(smallResource.directory);
         //     cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
         //     cc.log("Use smallResource");
