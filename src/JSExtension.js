@@ -8,3 +8,19 @@ var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456
 function showNativeMessage(title, message) {
     NativeHelper.callNative("showMessage", [title, message]);
 }
+
+function cmpVersions (a, b) {
+    var i, l, diff, segmentsA, segmentsB;
+
+    segmentsA = a.replace(/(\.0+)+$/, '').split('.');
+    segmentsB = b.replace(/(\.0+)+$/, '').split('.');
+    l = Math.min(segmentsA.length, segmentsB.length);
+
+    for (i = 0; i < l; i++) {
+        diff = parseInt(segmentsA[i], 10) - parseInt(segmentsB[i], 10);
+        if (diff !== 0) {
+            return diff;
+        }
+    }
+    return segmentsA.length - segmentsB.length;
+}

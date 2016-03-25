@@ -11,6 +11,11 @@
     "timeToPauseGame": 900,
     "timeToResumeGame": 120,
     "amountOfPlay": 4,
+
+    "androidVersionName": "1.0",
+    "androidForceUpdate": false,
+    "iosVersionName": "1.0",
+    "iosForceUpdate": false,
     
     "listeningTestTime": 120,
     "listeningTestWaitToShowHand": 10,

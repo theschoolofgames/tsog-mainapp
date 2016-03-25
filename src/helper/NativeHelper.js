@@ -45,6 +45,28 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
+    getVersionName: {
+        iOS: [
+            "H102Wrapper",
+            "getVersionName"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "getVersionName",
+            "()Ljava/lang/String;"
+        ]
+    },
+    showUpdateDialog: {
+        iOS: [
+            "H102Wrapper",
+            "showUpdateDialog:forceUpdate:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "showUpdateDialog",
+            "(Ljava/lang/String;Z)V"
+        ]
+    },
     // Segment
     segmentIdentity: {
         iOS: [

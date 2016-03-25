@@ -16,6 +16,7 @@
 		016CBB871C9282FF00EBDF8D /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 016CBB851C9282FF00EBDF8D /* Utils.cpp */; };
 		016CBB8B1C92832900EBDF8D /* jsb_h102.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 016CBB891C92832900EBDF8D /* jsb_h102.cpp */; };
 		0178BCF41C55EEB000018225 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0178BCF31C55EEB000018225 /* OpenAL.framework */; };
+		01C6E51E1CA5516E003C043B /* Dialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C6E51D1CA5516E003C043B /* Dialog.m */; };
 		01C9EA721BD50BC20062EF7D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA711BD50BC20062EF7D /* AVFoundation.framework */; };
 		01C9EA741BD50BC80062EF7D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA731BD50BC80062EF7D /* CoreMedia.framework */; };
 		01C9EA781BD50BD20062EF7D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01C9EA771BD50BD20062EF7D /* CoreLocation.framework */; };
@@ -476,6 +477,8 @@
 		016CBB891C92832900EBDF8D /* jsb_h102.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_h102.cpp; sourceTree = "<group>"; };
 		016CBB8A1C92832900EBDF8D /* jsb_h102.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_h102.hpp; sourceTree = "<group>"; };
 		0178BCF31C55EEB000018225 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		01C6E51C1CA5516E003C043B /* Dialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Dialog.h; sourceTree = "<group>"; };
+		01C6E51D1CA5516E003C043B /* Dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dialog.m; sourceTree = "<group>"; };
 		01C9EA711BD50BC20062EF7D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA731BD50BC80062EF7D /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		01C9EA751BD50BCD0062EF7D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
@@ -2209,6 +2212,8 @@
 				01062FC61C194E7600AB72D4 /* H102Wrapper.mm */,
 				01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */,
 				014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */,
+				01C6E51C1CA5516E003C043B /* Dialog.h */,
+				01C6E51D1CA5516E003C043B /* Dialog.m */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -2889,6 +2894,7 @@
 				01F093CF1C75965D00B4892E /* fe_warp_affine.c in Sources */,
 				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
 				01F093671C75965D00B4892E /* us_text.c in Sources */,
+				01C6E51E1CA5516E003C043B /* Dialog.m in Sources */,
 				01F481C71C23FFE300FCE13D /* InterpolateCubic.cpp in Sources */,
 				01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */,
 				01F093241C75965D00B4892E /* short_indices.c in Sources */,

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+import com.hub102.tsog.BuildConfig;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
@@ -24,6 +25,19 @@ import org.cocos2dx.javascript.AppActivity;
 public class Wrapper
 {
     public static AppActivity activity;
+
+    public static String getVersionName() {
+        return BuildConfig.VERSION_NAME;
+    }
+
+    public static void showUpdateDialog(final String version, final boolean forceUpdate) {
+        activity.runOnUiThread(new Runnable() {
+           @Override
+           public void run() {
+               Dialog.show(activity, version, 0, forceUpdate);
+           }
+        });
+    }
 
     public static void fabricCustomLogging(String key, String value) {
         Crashlytics.getInstance().core.setString(key, value);

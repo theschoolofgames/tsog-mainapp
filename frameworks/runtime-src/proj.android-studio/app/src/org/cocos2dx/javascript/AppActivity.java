@@ -29,6 +29,7 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
+import com.rampo.updatechecker.UpdateChecker;
 import com.segment.analytics.Analytics;
 
 import java.util.Locale;

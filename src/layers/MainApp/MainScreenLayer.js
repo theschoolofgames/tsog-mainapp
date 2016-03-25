@@ -29,6 +29,7 @@ var MainScreenLayer = cc.Layer.extend({
         });
 
         this.downloadAssets();
+        this.checkNewVersion(); 
     },
 
 
@@ -93,6 +94,21 @@ var MainScreenLayer = cc.Layer.extend({
 
             cc.eventManager.addListener(listener, 1);
             manager.update();
+        }
+    },
+
+    checkNewVersion: function() {
+        var currentVersionName = NativeHelper.callNative("getVersionName");
+
+        var configableVersionName = GAME_CONFIG[cc.sys.os.toLowerCase() + "VersionName"] || UPDATED_CONFIG[cc.sys.os.toLowerCase() + "VersionName"];
+        var configableForceUpdate = GAME_CONFIG[cc.sys.os.toLowerCase() + "ForceUpdate"] || UPDATED_CONFIG[cc.sys.os.toLowerCase() + "ForceUpdate"];
+
+        cc.log(currentVersionName + " " + configableVersionName);
+
+        if (cmpVersions(configableVersionName, currentVersionName) > 0) {
+            // Show dialog
+            cc.log("Show Dialog");
+            NativeHelper.callNative("showUpdateDialog", [configableVersionName, configableForceUpdate]);
         }
     }
 });

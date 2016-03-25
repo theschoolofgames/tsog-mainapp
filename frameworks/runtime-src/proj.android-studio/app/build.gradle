@@ -13,8 +13,8 @@ android {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 16030700
-        versionName "1.0"
+        versionCode 16032500
+        versionName "0.1"
     }
 
     sourceSets.main {
@@ -60,7 +60,6 @@ dependencies {
     compile 'com.segment.analytics.android:analytics:4.+'
     compile 'com.google.code.gson:gson:2.4'
     compile 'commons-io:commons-io:2.4'
-    compile 'com.github.rampo.updatechecker:library:2.1.8'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
         transitive = true

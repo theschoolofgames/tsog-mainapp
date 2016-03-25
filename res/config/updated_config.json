@@ -6,6 +6,11 @@
     "writingTestIncludedCoverPercentage": 80,
     "writingTestExcludedCoverPercentage": 40,
 
+    "androidVersionName": "1.0",
+    "androidForceUpdate": true,
+    "iosVersionName": "1.0",
+    "iosForceUpdate": false,
+
     "sceneFlow": {
         "preLoopScreens": [
 

@@ -6,7 +6,9 @@ LOCAL_MODULE := cocos2djs_shared
 
 LOCAL_MODULE_FILENAME := libcocos2djs
 
-FILE_LIST := $(wildcard $(LOCAL_PATH)/../../../Classes/*.cpp) 
+FILE_LIST := $(wildcard $(LOCAL_PATH)/../../../Classes/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../../Classes/h102/*.cpp)
+FILE_LIST += $(wildcard $(LOCAL_PATH)/../../../Classes/h102/js-bindings/*.cpp)
 
 LOCAL_SRC_FILES := hellojavascript/main.cpp
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
@@ -14,6 +16,8 @@ LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 LOCAL_WHOLE_STATIC_LIBRARIES := pocketsphinx
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
+                    $(LOCAL_PATH)/../../../Classes/h102 \
+                    $(LOCAL_PATH)/../../../Classes/h102/js-bindings \
                     $(LOCAL_PATH)/../../../../lwf \
                     $(LOCAL_PATH)/../../../../SoundTouch \
                     $(LOCAL_PATH)/../../../../SoundStretch

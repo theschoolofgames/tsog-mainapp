@@ -18,6 +18,8 @@
 
 #import "AudioEngine.h"
 
+#import "Dialog.h"
+
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL invalidateTimer = NO;
@@ -27,6 +29,20 @@ static NSTimer* timer;
 
 + (void)setCurrentViewController:(UIViewController *)pViewController {
   viewController = pViewController;
+}
+
++ (NSString*)getVersionName {
+  NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+  return version;
+}
+
++ (void)showUpdateDialog:(NSString*)version forceUpdate:(BOOL) forceUpdate {
+  Dialog* dialog = [[Dialog alloc] initWithTitle:@"New update found"
+                                         message:[NSString stringWithFormat:@"Check out the new update for %@!\nAvailable now on %@", version, @"AppStore"]
+                               cancelButtonTitle:forceUpdate ? nil : @"OK"
+                               otherButtonTitles:forceUpdate ? nil : @"No, thanks"];
+  dialog.appStoreURL = @"itms://itunes.apple.com/us/app/apple-store/id1090937711?mt=8";
+  [dialog show];
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
