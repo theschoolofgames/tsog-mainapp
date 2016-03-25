@@ -60,6 +60,7 @@ dependencies {
     compile 'com.segment.analytics.android:analytics:4.+'
     compile 'com.google.code.gson:gson:2.4'
     compile 'commons-io:commons-io:2.4'
+    compile 'com.github.rampo.updatechecker:library:2.1.8'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
         transitive = true
