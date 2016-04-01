@@ -9,6 +9,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _adiDog: null,
 
     _names: null,
+    _writingWords: null,
 
     _characterNodes: [],
     _finger: null,
@@ -35,12 +36,17 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
+
+        this._writingWords = this._names.map(function(obj) {
+            cc.log(obj);
+            return WRITING_TEST_CONFIG[obj.toLowerCase()].toUpperCase();
+        });
 
         // this._displayCurrentName();
         this._addAdiDog();
@@ -122,9 +128,13 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self._tmpRender.clear(0,0,0,0);
                     self._tmpRender.getSprite().color = cc.color("#333333");
 
-                    self.checkChangingCharacter();
-                    self._displayNewDashedLine();
-                    self._displayFinger();
+                    if (self.checkChangingCharacter()) {
+                        if (self.checkChangingWord())
+                            self._changeWord();
+                        else
+                            self._moveToNextCharacter();
+                        self._correctAction();
+                    }
                 })
             ));
         } else {
@@ -197,7 +207,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     fetchCharacterConfig: function() {
-        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._names[this._nameIdx][this._charIdx]];
+        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._writingWords[this._nameIdx][this._charIdx]];
     },
 
     checkChangingCharacter: function() {
@@ -206,24 +216,102 @@ var WritingTestLayer = cc.LayerColor.extend({
             // next char
             this._charIdx++;
             this._pathIdx = 0;
-            if (this._charIdx >= this._names[this._nameIdx].length) {
-                this._charIdx = 0;
-                this._nameIdx++;
-                if (this._nameIdx >= this._names.length) {
-                    var self = this;
-                    this.runAction(cc.sequence(cc.delayTime(0), cc.callFunc(function() {
-                        self._nextScene();
-                    })));
-                    return;
-                }
-                this._displayWord();
-
-                this._baseRender.clear(0,0,0,0);
-            }
-            
-            this._moveToNextCharacter();
-            this._correctAction();
+            return true;
         }
+
+        return false;
+    },
+
+    checkChangingWord: function() {
+        if (this._charIdx >= this._writingWords[this._nameIdx].length) {
+            this._charIdx = 0;
+            this._nameIdx++;
+            return true;
+        }
+        return false;
+    },
+
+    _changeWord: function() {
+        var self = this;
+        var sprite;
+
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                self._characterNodes.forEach(function(obj) {
+                    obj.runAction(cc.fadeOut(0.5));
+                });
+
+                self._baseRender.getSprite().runAction(cc.fadeOut(0.5));
+            }),
+            cc.delayTime(0.25),
+            cc.callFunc(function() {
+                sprite = self._addObjImage(self._names[self._nameIdx-1]);
+                sprite.runAction(cc.fadeIn(0.5));
+            }),
+            cc.delayTime(0.5),
+            cc.callFunc(function() {
+                self._playObjSound(self._names[self._nameIdx-1], function() {
+                    self.runAction(cc.sequence(
+                        cc.delayTime(1),
+                        cc.callFunc(function() {
+                            sprite.runAction(cc.sequence(
+                                cc.fadeOut(0.3),
+                                cc.callFunc(function() {
+                                    if (self._nameIdx >= self._writingWords.length) {
+                                        self._nextScene();
+                                        return;
+                                    }
+
+                                    sprite.removeFromParent();
+                                    self._baseRender.getSprite().opacity = 128;
+
+                                    self._displayWord();
+                                    self._baseRender.clear(0,0,0,0);
+                                    self._moveToNextCharacter();
+                                })
+                            ));
+                        })
+                    ));
+                });
+            })
+        ));
+    },
+
+    _addObjImage: function(name) {
+        var spritePath
+        if (this._oldSceneName == "RoomScene") {
+            spritePath = "things/" + name.toLowerCase() + ".png";
+        } else {
+            spritePath = "animals/" + name.toLowerCase() + ".png";
+        }
+
+        var s = new cc.Sprite(spritePath);
+        s.x = cc.winSize.width * 0.65;
+        s.y = cc.winSize.height * 0.5;
+        s.opacity = 0;
+        this.addChild(s, 2);
+
+        return s;
+    },
+
+    _playObjSound: function(name, cb) {
+        var soundPath;
+        if (this._oldSceneName == "RoomScene") {
+            soundPath = "sounds/writingTest/things/" + name.toLowerCase() + ".mp3";
+        } else {
+            soundPath = "sounds/writingTest/animals/" + name.toLowerCase() + ".mp3";
+        }
+
+        if (jsb.fileUtils.isFileExist(soundPath)) {
+            var audioId = jsb.AudioEngine.play2d(soundPath, false);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                cb && cb();
+            });
+        } else {
+            cb && cb();
+        }
+
+        
     },
 
     _nextScene: function() {
@@ -242,7 +330,7 @@ var WritingTestLayer = cc.LayerColor.extend({
         }
         this._characterNodes = [];
 
-        var objName = this._names[this._nameIdx];
+        var objName = this._writingWords[this._nameIdx];
 
         var lines = Math.ceil(objName.length / 5);
         var maxCharsPerLine = Math.ceil(objName.length / lines);
@@ -284,7 +372,7 @@ var WritingTestLayer = cc.LayerColor.extend({
             charArrays.push(tempArr);
         }
 
-        cc.log("wordScale: " + this._wordScale);
+        // cc.log("wordScale: " + this._wordScale);
 
         for (var i = 0; i < charArrays.length; i++) {
             charArrays[i][0].scale = this._wordScale;
@@ -304,6 +392,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 
         this.fetchCharacterConfig();
         this._displayNewDashedLine();
+        this._displayFinger();
     },
 
     _displayNewDashedLine: function() {
@@ -329,8 +418,8 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        this._adiDog.scale = 0.8;
-        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height / 4));
+        // this._adiDog.scale = 0.8;
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.25, cc.winSize.height / 4));
         this.addChild(this._adiDog);
     },
 

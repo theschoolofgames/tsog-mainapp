@@ -159,6 +159,8 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
 var GAME_CONFIG = {};
 var UPDATED_CONFIG = {};
 
+var WRITING_TEST_CONFIG = {};
+
 var ConfigStore = cc.Class.extend({
     positionSets: [],
     objectSets: [],
@@ -334,6 +336,17 @@ ConfigStore.setupInstance = function (configOnce) {
                 BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = preProcessData(data.lightweight);
                 BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = preProcessData(data.heavyweight);
                 BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+            });
+        }
+    });
+
+    cc.loader.loadJson(res.Writing_config_JSON, function(err, data) {
+        if (!err) {
+            WRITING_TEST_CONFIG = data;
+        } else {
+            cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Writing_config_JSON);
+            cc.loader.loadJson(res.Writing_config_JSON, function(err, data) {
+                WRITING_TEST_CONFIG = data;
             });
         }
     });

@@ -37,6 +37,7 @@ var res = {
     Forest_Config_JSON: "config/forest_config.json",
     Game_Config_JSON: "config/game_config.json",
     Room_Config_JSON: "config/room_config.json",
+    Writing_config_JSON: "config/writing_test.json",
     Updated_config_JSON: "config/updated_config.json",
 
     forest_jpg : "res/forest.jpg",
