@@ -1,5 +1,5 @@
 var LANGUAGE = [
- ["English", "Chinese"], ["French", "Hindi"], ["Japanese", "Kannada"], ["Korean", "Philipino"], ["Swahili", "Spanish"]
+ ["English", "Hindi"], ["Spanish"]
 ];
 var ChooseLanguageLayer = cc.Layer.extend({
     _popupDialog: null,

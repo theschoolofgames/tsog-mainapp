@@ -48,7 +48,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     playBeginSound: function(){
         self = this;
-        var nation = KVDatabase.getInstance().getString("language", "");
+        var nation = Utils.getLanguage();
         
         this._talkingAdi.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));

@@ -65,7 +65,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        var nation = KVDatabase.getInstance().getString("language", "english");
+        var nation = Utils.getLanguage();
         
         // var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         // this.addChild(mask, 1000);

@@ -131,4 +131,13 @@ Utils.screenRatioTo43 = function() {
     return (cc.winSize.width / cc.winSize.height) / (4/3);
 }
 
+Utils.getLanguage = function() {
+    var lang = KVDatabase.getInstance().getString("language", "english");
+
+    if (lang != "english" && language != "hindi" && lang != spanish)
+        return "english";
+
+    return lang;
+}
+
 
