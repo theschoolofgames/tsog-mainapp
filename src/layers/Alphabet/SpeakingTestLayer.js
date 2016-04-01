@@ -259,7 +259,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
         this._currentObjectShowUp.y = cc.winSize.height/2;
-        this._currentObjectShowUp.scale = 1.8;
+        this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;
         this.addChild(this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);

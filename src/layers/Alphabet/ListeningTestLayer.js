@@ -34,7 +34,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-        this._showObject();
+        this._showObjects();
         this._displayCurrentName();
         this._addCountDownClock();
 
@@ -80,8 +80,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        // this._adiDog.scale = 1.5;
-        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/4));
+        this._adiDog.scale = Utils.screenRatioTo43();
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/6));
         this.addChild(this._adiDog);
     },
 
@@ -100,7 +100,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._clock = clock;
     },
 
-    _showObject: function() {
+    _showObjects: function() {
         this._objectNodes.forEach(function(obj) { obj.removeFromParent(); });
         this._objectNodes = [];
 
@@ -127,8 +127,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
             var sprite = new cc.Sprite(spritePath);
             sprite.name = shownObjNames[i];
-            sprite.scale = Math.min(200 / sprite.width, 350 / sprite.height);;
-            sprite.x = this._objCenter.x + (i-1) * 225;
+            sprite.scale = Math.min(200 / sprite.width, 350 / sprite.height) * Utils.screenRatioTo43();
+            sprite.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43();
             sprite.y = this._objCenter.y;
             this._objectNodes.push(sprite);
             this.addChild(sprite);
@@ -154,7 +154,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
                         } else {
-                            self._showObject();
+                            self._showObjects();
                             self._displayCurrentName();
                         }
                     })
@@ -262,7 +262,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
                         } else {
-                            self._showObject();
+                            self._showObjects();
                             self._displayCurrentName();
                         }
                     })
