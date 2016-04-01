@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="302">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="305">
  <tileset firstgid="1" name="A" tilewidth="231" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/A.png" width="231" height="254"/>
  </tileset>
@@ -274,7 +274,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="N">
+ <objectgroup name="N" visible="0">
   <object id="134" name="N" gid="14" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="228" name="Dash1" gid="36" x="91.5307" y="75.4991" width="166.499" height="8" rotation="90.0207" visible="0">
    <properties>
@@ -316,10 +316,10 @@
    <polyline points="0,0 -0.5,17.5 -0.5,35.5 -0.5,52.5 -0.5,69.5 -0.5,85.5 -0.5,104 -0.5,120.5 -0.5,139 -0.5,154.5 -0.5,165"/>
   </object>
  </objectgroup>
- <objectgroup name="L" visible="0">
-  <object id="122" name="L" gid="12" x="0" y="320" width="320" height="320"/>
-  <object id="127" name="Path1" x="122" y="73">
-   <polyline points="0,0 0,168 105,168"/>
+ <objectgroup name="L">
+  <object id="122" name="L" gid="12" x="0" y="320" width="320" height="320" visible="0"/>
+  <object id="304" name="Path1" x="123" y="74">
+   <polyline points="0,0 0,16.5 0,28 0,39.5 0,50.5 0,63.5 -0.5,76 -1,90 -1,99 -1,110 -1,119.5 -1,129.5 -1,141.5 -1,153 -1,167.5 16.5,167.5 34,167.5 47.5,167.5 60.5,167.5 71.5,167.5 84.5,167 94.5,167 105,167"/>
   </object>
  </objectgroup>
  <objectgroup name="K" visible="0">
@@ -364,16 +364,16 @@
   </object>
  </objectgroup>
  <objectgroup name="G" visible="0">
-  <object id="45" name="G" gid="7" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="47" name="Path1" x="225.5" y="115.5">
-   <polyline points="0,0 -16,-17 -31,-28.5 -49.5,-34 -72.5,-34.5 -94.5,-27 -111,-17 -127.5,3 -134,22.5 -138.5,43.5 -137.5,66 -128.5,88 -115.5,111 -99,124.5 -78.5,133 -58.5,135 -36,129.5 -17,119.5 0,108"/>
+   <polyline points="0,0 -16,-17 -31,-28.5 -49.5,-34 -72.5,-34.5 -94.5,-27 -111,-17 -127.5,3 -134,22.5 -138.5,43.5 -137.5,66 -128.5,88 -115.5,111 -99,124.5 -78.5,133 -58.5,135 -36,129.5 -17,119.5 -12,115.5"/>
   </object>
   <object id="255" name="Path2" x="237.667" y="199.333">
-   <polyline points="0,0 0,10.3333 -0.333333,19.3333 -0.333333,33 -0.333333,40.6667 -0.333333,50 -0.333333,63.3333"/>
+   <polyline points="0,0 -0.333333,55 -0.333333,63.3333"/>
   </object>
   <object id="256" name="Path3" x="181" y="179.333">
-   <polyline points="0,0 17.3333,0 30.6667,0.333333 43.3333,0.333333 50,0.333333 58,0.333333"/>
+   <polyline points="0,0 17.3333,0 58,0.333333"/>
   </object>
+  <object id="302" name="G" gid="7" x="38" y="288" width="244" height="256" visible="0"/>
  </objectgroup>
  <objectgroup name="F" visible="0">
   <object id="54" name="F" gid="6" x="0" y="320" width="320" height="320" visible="0"/>
