@@ -838,7 +838,7 @@ var ForestLayer = cc.Layer.extend({
         // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
             scene = new window[nextSceneName](this._animalNames, "ForestScene");
         else
             scene = new window[nextSceneName]();

@@ -31,7 +31,7 @@ var WelcomeLayer = cc.LayerColor.extend({
                 // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
                 var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
                 var scene;
-                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
                     scene = new RoomScene();
                 else
                     scene = new window[nextSceneName]();

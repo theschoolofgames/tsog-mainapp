@@ -4,13 +4,11 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     _settingBtn: null,
     _isListening: false,
     _talkingAdi: null,
-    _callback: null,
 
-    ctor:function(callback) {
+    ctor:function() {
         this._super(cc.color(255,255,255));
         var self= this;
         this.tag = 1;
-        this._callback = callback || null;
         this._createTalkingAdi();
         this._addSettingButton();
         this.playBeginSound();
@@ -162,18 +160,21 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
     _moveToNextScene : function(){
         this._stopBackgroundSoundDetecting();
-        if (this._callback)
-            this._callback();
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        var scene;
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+            scene = new RoomScene();
         else
-            cc.director.replaceScene(new RoomScene());
+            scene = new window[nextSceneName]();
+        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 });
 
 var TalkingAdiScene = cc.Scene.extend({
-    ctor: function(callback){
+    ctor: function(){
         this._super();
 
-        var talkingAdiLayer = new TalkingAdiLayer(callback);
+        var talkingAdiLayer = new TalkingAdiLayer();
         this.addChild(talkingAdiLayer);
     }
 });

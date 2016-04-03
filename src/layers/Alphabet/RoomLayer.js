@@ -817,7 +817,7 @@ var RoomLayer = cc.Layer.extend({
         // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
             scene = new window[nextSceneName](this._objectNames, "RoomScene");
         else
             scene = new window[nextSceneName]();

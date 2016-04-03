@@ -318,7 +318,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _nextScene: function() {
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene")
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
             scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
         else
             scene = new window[nextSceneName]();
