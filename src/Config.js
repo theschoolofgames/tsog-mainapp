@@ -164,6 +164,7 @@ var WRITING_TEST_CONFIG = {};
 var ConfigStore = cc.Class.extend({
     positionSets: [],
     objectSets: [],
+    objectIds: [],
 
     ctor: function() {
         this._fillDataStore();
@@ -224,6 +225,10 @@ var ConfigStore = cc.Class.extend({
         for ( var i = 0; i < BEDROOM_ITEMS.length; i++) {
             this._addObject(BEDROOM_ID, BEDROOM_ITEMS[i])
         }
+        this.objectSets[BEDROOM_ID] = shuffle(this.objectSets[BEDROOM_ID]).sort(function(a, b) {
+            return a.imageName.length - b.imageName.length;
+        });
+        this.objectIds[BEDROOM_ID] = 0;
         // ------------------------------ FOREST
         this.positionSets[FOREST_ID] = [];
         this.objectSets[FOREST_ID] = [];
@@ -231,6 +236,10 @@ var ConfigStore = cc.Class.extend({
         for ( var i = 0; i < FOREST_ITEMS.length; i++) {
             this._addObject(FOREST_ID, FOREST_ITEMS[i]);
         }
+        this.objectSets[FOREST_ID] = shuffle(this.objectSets[FOREST_ID]).sort(function(a, b) {
+            return a.imageName.length - b.imageName.length;
+        });
+        this.objectIds[FOREST_ID] = 0;
         // ------------------------------ FOREST BACKGROUND
         this.positionSets[FOREST_BACKGROUND_ID] = [];
         this.objectSets[FOREST_BACKGROUND_ID] = [];
@@ -257,10 +266,17 @@ var ConfigStore = cc.Class.extend({
 
     getRandomItems: function(array, setId, numItems) {
         var items = array[setId];
-        var shuffledItems = shuffle(items);
         var randomedItems = [];
-        for ( i = 0; i < numItems; i++)
-            randomedItems.push(shuffledItems[i]);
+        for ( i = this.objectIds[setId]; i < this.objectIds[setId] + numItems; i++) {
+            var j = i;
+            if (i >= items.length)
+                j = i - items.length;
+            randomedItems.push(items[j]);
+        }
+
+        this.objectIds[setId] += numItems;
+        if (this.objectIds[setId] >= items.length)
+            this.objectIds[setId] -= items.length;
 
         return randomedItems;
     },
