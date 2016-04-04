@@ -247,7 +247,10 @@ var WritingTestLayer = cc.LayerColor.extend({
             cc.delayTime(0.25),
             cc.callFunc(function() {
                 sprite = self._addObjImage(self._names[self._nameIdx-1]);
-                sprite.runAction(cc.fadeIn(0.5));
+                sprite.runAction(cc.spawn(
+                    cc.fadeIn(0.5),
+                    cc.scaleTo(2, 0.5)
+                ));
             }),
             cc.delayTime(0.5),
             cc.callFunc(function() {
