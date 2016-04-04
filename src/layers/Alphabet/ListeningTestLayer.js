@@ -20,34 +20,50 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _objectsArray: null,
 
+    _blockTouch: false,
+
     ctor: function(objectsArray, oldSceneName) {
         this._super(cc.color(255, 255, 255, 255));
 
         this._oldSceneName = oldSceneName;
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-        this._showObjects();
-        this._displayCurrentName();
-        this._addCountDownClock();
+        this._playBeginSound();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            onTouchBegan: this.onTouchBegan.bind(this),
-            onTouchMoved: this.onTouchMoved.bind(this),
-            onTouchEnded: this.onTouchEnded.bind(this)
+            onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
     },
 
+    _playBeginSound: function() {
+        var self = this;
+        var nation = Utils.getLanguage();
+
+        this._blockTouch = true;
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            self._blockTouch = false;
+            self._addCountDownClock();
+            self._showObjects();
+            self._displayCurrentName();
+        });
+    },
+
     onTouchBegan: function(touch, event) {
+        if (this._blockTouch)
+            return false;
+
         var self = this;
         var touchedPos = touch.getLocation();
 
@@ -68,14 +84,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
         });
 
         return true;
-    },
-
-    onTouchMoved: function(touch, event) {
-        
-    },
-
-    onTouchEnded: function(touch, event) {
-        
     },
 
     _addAdiDog: function() {

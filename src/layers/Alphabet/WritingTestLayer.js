@@ -36,10 +36,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -52,8 +52,8 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._addAdiDog();
         this._displayWord();
         this._addRenderTextures();
-        this._moveToNextCharacter();
-        this._displayFinger();
+        
+        this._playBeginSound();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -64,10 +64,28 @@ var WritingTestLayer = cc.LayerColor.extend({
         }, this);
     },
 
+    _playBeginSound: function() {
+        var self = this;
+        var nation = Utils.getLanguage();
+
+        this._blockTouch = true;
+        this._adiDog.adiTalk();
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            self._blockTouch = false;
+            self._moveToNextCharacter();
+            self._adiDog.adiIdling();
+        });
+    },
+
     onTouchBegan: function(touch, event) {
+        if (this._blockTouch)
+            return false;
+
         this._finger.stopAllActions();
         this._finger.opacity = 0;
-        return !this._blockTouch;
+        return true;
     },
 
     onTouchMoved: function(touch, event) {
@@ -235,6 +253,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     _changeWord: function() {
         var self = this;
         var sprite;
+        self._blockTouch = true;
 
         this.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -249,7 +268,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                 sprite = self._addObjImage(self._names[self._nameIdx-1]);
                 sprite.runAction(cc.spawn(
                     cc.fadeIn(0.5),
-                    cc.scaleTo(2, 0.5)
+                    cc.scaleTo(0.5, 1.5)
                 ));
             }),
             cc.delayTime(0.5),
@@ -272,6 +291,8 @@ var WritingTestLayer = cc.LayerColor.extend({
                                     self._displayWord();
                                     self._baseRender.clear(0,0,0,0);
                                     self._moveToNextCharacter();
+
+                                    self._blockTouch = false;
                                 })
                             ));
                         })
