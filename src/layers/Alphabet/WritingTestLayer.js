@@ -36,10 +36,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -74,8 +74,9 @@ var WritingTestLayer = cc.LayerColor.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            self._moveToNextCharacter();
             self._adiDog.adiIdling();
+            
+            self._moveToNextCharacter();
         });
     },
 
@@ -252,7 +253,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _changeWord: function() {
         var self = this;
-        var sprite;
+        var sprite, objName;
         self._blockTouch = true;
 
         this.runAction(cc.sequence(
@@ -270,6 +271,10 @@ var WritingTestLayer = cc.LayerColor.extend({
                     cc.fadeIn(0.5),
                     cc.scaleTo(0.5, 1.5)
                 ));
+
+                objName = self._addObjName(self._names[self._nameIdx-1], self._writingWords[self._nameIdx-1].length);
+                objName.opacity = 0;
+                objName.runAction(cc.fadeIn(0.5));
             }),
             cc.delayTime(0.5),
             cc.callFunc(function() {
@@ -286,6 +291,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                                     }
 
                                     sprite.removeFromParent();
+                                    objName.removeFromParent();
                                     self._baseRender.getSprite().opacity = 128;
 
                                     self._displayWord();
@@ -317,6 +323,20 @@ var WritingTestLayer = cc.LayerColor.extend({
         this.addChild(s, 2);
 
         return s;
+    },
+
+    _addObjName: function(name, writingLength) {
+        var nameNode = new cc.LabelBMFont(name, "hud-font.fnt");
+        nameNode.x = cc.winSize.width * 0.65
+        nameNode.y = cc.winSize.height - 120;
+        nameNode.scale = 1.5;
+        this.addChild(nameNode);
+
+        for (var i = writingLength; i < name.length; i++) {
+            nameNode.getLetter(i).opacity = 128;
+        }
+
+        return nameNode;
     },
 
     _playObjSound: function(name, cb) {

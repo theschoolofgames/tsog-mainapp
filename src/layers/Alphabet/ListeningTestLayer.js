@@ -28,10 +28,10 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._oldSceneName = oldSceneName;
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
@@ -50,10 +50,13 @@ var ListeningTestLayer = cc.LayerColor.extend({
         var nation = Utils.getLanguage();
 
         this._blockTouch = true;
+        this._adiDog.adiTalk();
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             self._blockTouch = false;
+            self._adiDog.adiIdling();
+            
             self._addCountDownClock();
             self._showObjects();
             self._displayCurrentName();
@@ -257,11 +260,14 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._correctAction();
         this._objectNodes.forEach(function(obj) {
             if (obj == correctedObj) {
+
+                var targetPosY = Math.min(self._objCenter.y, self._nameNode.y - self._nameNode.height/2 - obj.height/2 * obj.scale * 1.5 - 20);
+
                 obj.stopAllActions();
                 obj.setLocalZOrder(10);
                 obj.runAction(cc.sequence(
                     cc.spawn(
-                        cc.moveTo(0.5, self._objCenter),
+                        cc.moveTo(0.5, cc.p(self._objCenter.x, targetPosY)),
                         cc.scaleTo(0.5, obj.scale * 1.5)
                     ),
                     // cc.delayTime(0.5),

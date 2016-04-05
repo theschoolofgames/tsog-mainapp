@@ -1,0 +1,29 @@
+{
+    "project_name": "tsog",
+    "build": {
+        "ios": {
+            "mode": "release",
+            "sign_identity": "iPhone Developer: Son Tung Nguyen (2248KN5M9U)",
+            "target": "tsog",
+            "compile-script": 1,
+            "jobs": 4,
+            "addition_flags": [
+                "--pod"
+            ]
+        },
+        "android": {
+            "mode": "release",
+            "compile-script": 1,
+            "jobs": 4,
+            "app-abi": "armeabi:x86",
+            "addition_flags": [
+                "--android-studio"
+            ]
+        }
+    },
+    "slack": {
+        "channel": "#tsog",
+        "username": "OZT Builder",
+        "webhook": "https://hooks.slack.com/services/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"
+    }
+}
