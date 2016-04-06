@@ -28,21 +28,25 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._oldSceneName = oldSceneName;
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray;
-        // this._names = objectsArray.map(function(obj) {
-        //     return obj.name.toUpperCase();
-        // });
+        // this._names = objectsArray;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-        this._playBeginSound();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this._playBeginSound();
     },
 
     _playBeginSound: function() {

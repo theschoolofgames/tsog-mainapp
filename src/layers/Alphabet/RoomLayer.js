@@ -56,9 +56,13 @@ var RoomLayer = cc.Layer.extend({
                 room: "room", 
                 object_num: Global.NumberItems
             });
-        this.playBeginSound();
         // cc.audioEngine.playMusic(res.background_mp3, true);
         this.scheduleUpdate();
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this.playBeginSound();
     },
 
     update: function(pDt) {

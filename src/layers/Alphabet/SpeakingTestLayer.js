@@ -43,6 +43,10 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
         this.playBeginSound();
     },
 

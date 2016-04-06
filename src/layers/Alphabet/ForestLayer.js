@@ -60,8 +60,12 @@ var ForestLayer = cc.Layer.extend({
             onTouchBegan: this.onTouchBegan
         }, this);
         // cc.audioEngine.playMusic(res.background_mp3, true);
-        this.playBeginSound();
         // this.scheduleUpdate();
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this.playBeginSound();
     },
 
     playBeginSound: function(){
