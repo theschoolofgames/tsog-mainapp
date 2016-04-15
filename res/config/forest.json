@@ -5,35 +5,11 @@
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "monkey",
-            "type": "MONKEY_ITEM"
-        },
-        {
-            "imageName": "owl",
-            "type": "OWL_ITEM"
-        },
-        {
-            "imageName" : "nest",
-            "type" : "NEST_ITEM"
-        },
-        {
-            "imageName": "frog",
-            "type": "FROG_ITEM"
-        },
-        {
-            "imageName": "bird",
-            "type": "BIRD_ITEM"
-        },
-        {
-            "imageName": "bee",
+            "imageName": "cat",
             "type": "LIE_ITEM"
         },
         {
-            "imageName": "bear",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "cat",
+            "imageName": "bee",
             "type": "LIE_ITEM"
         },
         {
@@ -41,152 +17,56 @@
             "type": "LIE_ITEM"
         },
         {
-            "imageName": "duck",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "elephant",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "fish",
-            "type": "WATER_ITEM"
-        },
-        {
-            "imageName": "horse",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "insect",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "lion",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "tiger",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "rat",
-            "type" : "LIE_ITEM"
-        },
-        {
-            "imageName" : "panda",
-            "type" : "STAND_ITEM"
-        },
-        {
-            "imageName" : "sheep",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "puppy",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "rabbit",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "pig",
-            "type":"STAND_ITEM"
-        },
-        {
-            "imageName": "snail",
-            "type": "SNAIL_ITEM"
-        },
-        {
-            "imageName" : "zebra",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "crocodile",
-            "type": "CROCODILE_ITEM"
-        },
-        {
-            "imageName": "dolphin",
-            "type": "DOLPHIN_ITEM"
-        },
-        {
-            "imageName": "octopus",
-            "type": "OCTOPUS_ITEM"
-        },
-        {
-            "imageName" :"hamster",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "goat",
-            "type" : "STAND_ITEM"
-        },
-        {
-            "imageName": "giraffe",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "deer",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "kitten",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "snake",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "turtle",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "squirrel",
-            "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "goldfish",
-            "type": "WATER_ITEM"
-        },
-        {
             "imageName": "fly",
             "type": "FLY_ITEM"
-        },
-        {
-            "imageName": "eagle",
-            "type": "EAGLE_ITEM"
-        },
-        {
-            "imageName": "shark",
-            "type": "SHARK_ITEM"
         },
         {
             "imageName" : "fox",
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "camel",
+            "imageName": "pig",
+            "type":"STAND_ITEM"
+        },
+        {
+            "imageName": "rat",
+            "type" : "LIE_ITEM"
+        },
+        {
+            "imageName": "owl",
+            "type": "OWL_ITEM"
+        },
+        {
+            "imageName": "bear",
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "cheetah",
+            "imageName": "bird",
+            "type": "BIRD_ITEM"
+        },
+        {
+            "imageName": "deer",
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "chicken",
+            "imageName": "duck",
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "kangaroo",
+            "imageName": "fish",
+            "type": "WATER_ITEM"
+        },
+        {
+            "imageName": "frog",
+            "type": "FROG_ITEM"
+        },
+        {
+            "imageName": "goat",
+            "type" : "STAND_ITEM"
+        },
+        {
+            "imageName": "lion",
             "type": "STAND_ITEM"
-        },
-        {
-            "imageName": "lobster",
-            "type": "LIE_ITEM"
-        },
-        {
-            "imageName": "scorpion",
-            "type": "LIE_ITEM"
         },
         {
             "imageName": "seal",
@@ -195,8 +75,127 @@
         {
             "imageName": "wolf",
             "type": "STAND_ITEM"
+        },
+        {
+            "imageName" : "nest",
+            "type" : "NEST_ITEM"
+        },
+        {
+            "imageName": "camel",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "eagle",
+            "type": "EAGLE_ITEM"
+        },
+        {
+            "imageName": "horse",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "puppy",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "tiger",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "shark",
+            "type": "SHARK_ITEM"
+        },
+        {
+            "imageName" : "sheep",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "snail",
+            "type": "SNAIL_ITEM"
+        },
+        {
+            "imageName" : "panda",
+            "type" : "STAND_ITEM"
+        },
+        {
+            "imageName": "snake",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName" : "zebra",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "rabbit",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "insect",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "cheetah",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "monkey",
+            "type": "MONKEY_ITEM"
+        },
+        {
+            "imageName": "dolphin",
+            "type": "DOLPHIN_ITEM"
+        },
+        {
+            "imageName": "kitten",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "giraffe",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "goldfish",
+            "type": "WATER_ITEM"
+        },
+        {
+            "imageName" :"hamster",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "kangaroo",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "turtle",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "chicken",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "lobster",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "octopus",
+            "type": "OCTOPUS_ITEM"
+        },
+        {
+            "imageName": "crocodile",
+            "type": "CROCODILE_ITEM"
+        },
+        {
+            "imageName": "scorpion",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "elephant",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "squirrel",
+            "type": "STAND_ITEM"
         }
-
     ],
     "shark" :[
         {

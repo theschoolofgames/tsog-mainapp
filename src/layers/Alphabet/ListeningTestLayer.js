@@ -51,6 +51,12 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._playBeginSound();
     },
 
+    onExit: function() {
+        this._super();
+
+        this._adiDog = null;
+    },
+
     _playBeginSound: function() {
         var self = this;
         var nation = Utils.getLanguage();
@@ -215,6 +221,9 @@ var ListeningTestLayer = cc.LayerColor.extend({
         self._adiDog.adiTalk();
         var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            if (!self._adiDog)
+                return;
+            
             self._adiDog.adiIdling();
             self._objSoundIsPlaying = false;
         });

@@ -225,9 +225,9 @@ var ConfigStore = cc.Class.extend({
         for ( var i = 0; i < BEDROOM_ITEMS.length; i++) {
             this._addObject(BEDROOM_ID, BEDROOM_ITEMS[i])
         }
-        this.objectSets[BEDROOM_ID] = shuffle(this.objectSets[BEDROOM_ID]).sort(function(a, b) {
-            return a.imageName.length - b.imageName.length;
-        });
+        // this.objectSets[BEDROOM_ID] = shuffle(this.objectSets[BEDROOM_ID]).sort(function(a, b) {
+        //     return a.imageName.length - b.imageName.length;
+        // });
         this.objectIds[BEDROOM_ID] = 0;
         // ------------------------------ FOREST
         this.positionSets[FOREST_ID] = [];
@@ -236,9 +236,9 @@ var ConfigStore = cc.Class.extend({
         for ( var i = 0; i < FOREST_ITEMS.length; i++) {
             this._addObject(FOREST_ID, FOREST_ITEMS[i]);
         }
-        this.objectSets[FOREST_ID] = shuffle(this.objectSets[FOREST_ID]).sort(function(a, b) {
-            return a.imageName.length - b.imageName.length;
-        });
+        // this.objectSets[FOREST_ID] = shuffle(this.objectSets[FOREST_ID]).sort(function(a, b) {
+        //     return a.imageName.length - b.imageName.length;
+        // });
         this.objectIds[FOREST_ID] = 0;
         // ------------------------------ FOREST BACKGROUND
         this.positionSets[FOREST_BACKGROUND_ID] = [];

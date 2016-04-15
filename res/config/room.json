@@ -1,143 +1,10 @@
 {
     "items": [
         {
-            "imageName": "key",
+            "imageName": "egg",
             "type": "LIGHT_WEIGHT_ITEM",
-            "x": 849.6,
-            "y": 430.83333,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-
-        {
-            "imageName": "kite",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 117.1,
-            "y": 185.5,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :4
-        },
-
-        {
-            "imageName": "desk",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 667.5,
-            "y": 264.75,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 3
-        },
-
-        {
-            "imageName": "joker",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 392.1,
-            "y": 312.1,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" : 5
-        },
-        {
-            "imageName": "onion",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1108,
-            "y": 280,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "medicine",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 922,
-            "y": 433,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "feather",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 947,
-            "y": 172,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "tomato",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1074,
-            "y": 286,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "abacus",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 1095   ,
-            "y": 290,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "flag",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 1080,
-            "y": 290,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :19
-        },
-        {
-            "imageName": "pen",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1089.25,
-            "y": 236.29166667,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 11
-        },
-
-        {
-            "imageName": "strawberry",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 252.08333333,
-            "y": 277.08333333,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 19
-        },
-
-        {
-            "imageName": "sock",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 475,
-            "y": 272.08333333,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z" :12
-        },
-
-        {
-            "imageName": "duster",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 217.5,
-            "y": 220,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 8
-        },
-
-        {
-            "imageName": "grape",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 267.25,
-            "y": 283.75,
+            "x": 824,
+            "y": 445,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 18
@@ -151,7 +18,7 @@
             "anchorY": 0.5,
             "z": 14
         },
-            {
+        {
             "imageName": "jar",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 916.25,
@@ -161,13 +28,13 @@
             "z":15
         },
         {
-            "imageName": "lamp",
-            "type": "HEAVY_WEIGHT_ITEM",
-            "x": 1096.25,
-            "y": 299.50,
+            "imageName": "key",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 849.6,
+            "y": 430.83333,
             "anchorX": 0.5,
             "anchorY": 0.5,
-            "z":10
+            "z" :19
         },
         {
             "imageName": "map",
@@ -179,40 +46,13 @@
             "z": 12
         },
         {
-            "imageName": "orange",
+            "imageName": "pen",
             "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1040.25,
-            "y": 273.5,
+            "x": 1089.25,
+            "y": 236.29166667,
             "anchorX": 0.5,
             "anchorY": 0.5,
-            "z": 18
-        },
-        {
-            "imageName": "watch",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 876.25,
-            "y": 277.5,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 16
-        },
-        {
-            "imageName": "apple",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1076,
-            "y": 288,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 18
-        },
-        {
-            "imageName": "banana",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 251,
-            "y": 282,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 17
+            "z": 11
         },
         {
             "imageName": "book",
@@ -224,112 +64,22 @@
             "z": 10
         },
         {
-            "imageName": "chair",
+            "imageName": "desk",
             "type": "HEAVY_WEIGHT_ITEM",
-            "x": 936,
-            "y": 158,
+            "x": 667.5,
+            "y": 264.75,
             "anchorX": 0.5,
             "anchorY": 0.5,
-            "z": 4
+            "z": 3
         },
         {
-            "imageName": "pencils",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1065,
-            "y": 257,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 17
-        },
-        {
-            "imageName": "egg",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 824,
-            "y": 445,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 18
-        },
-        {
-            "imageName": "potato",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1104,
-            "y": 279,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 18
-        },
-        {
-            "imageName": "towel",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 837,
-            "y": 374,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 13
-        },
-        {
-            "imageName": "umbrella",
+            "imageName": "flag",
             "type": "HEAVY_WEIGHT_ITEM",
-            "x": 969,
-            "y": 273,
+            "x": 1080,
+            "y": 290,
             "anchorX": 0.5,
             "anchorY": 0.5,
-            "z" : 6
-        },
-        {
-            "imageName" : "queen",
-            "type":"HEAVY_WEIGHT_ITEM",
-            "x": 409,
-            "y": 295,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 6
-        },
-        {
-            "imageName" : "xylophone",
-            "type":"HEAVY_WEIGHT_ITEM",
-            "x": 488,
-            "y": 264,
-            "anchorX": 0.5 ,
-            "anchorY": 0.5,
-            "z":6 
-        },
-        {
-            "imageName" : "computer",
-            "type":"LIGHT_WEIGHT_ITEM",
-            "x": 678,
-            "y": 124,
-            "anchorX":0.5 ,
-            "anchorY": 0.5,
-            "z": 6
-        },
-        {
-            "imageName" : "insect",
-            "type":"",
-            "x": 768,
-            "y": 196,
-            "anchorX":0.5 ,
-            "anchorY":0.5 ,
-            "z": 6
-        },
-        {
-            "imageName" : "vegetable",
-            "type":"LIGHT_WEIGHT_ITEM",
-            "x": 261,
-            "y": 284,
-            "anchorX":0.5 ,
-            "anchorY": 0.5,
-            "z": 6
-        },
-        {
-            "imageName" : "watermelon",
-            "type":"LIGHT_WEIGHT_ITEM",
-            "x": 259,
-            "y": 296,
-            "anchorX":0.5 ,
-            "anchorY": 0.5,
-            "z": 6
+            "z" :19
         },
         {
             "imageName" : "gift",
@@ -341,19 +91,28 @@
             "z": 6
         },
         {
-            "imageName" : "vehicle",
-            "type":"HEAVY_WEIGHT_ITEM",
-            "x": 243,
-            "y": 78,
-            "anchorX":0.5 ,
+            "imageName": "kite",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 117.1,
+            "y": 185.5,
+            "anchorX": 0.5,
             "anchorY": 0.5,
-            "z": 6
+            "z" :4
         },
         {
-            "imageName" : "toytrain",
-            "type":"HEAVY_WEIGHT_ITEM",
-            "x": 182 ,
-            "y": 133,
+            "imageName": "lamp",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 1096.25,
+            "y": 299.50,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z":10
+        },
+        {
+            "imageName" : "nail",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 919,
+            "y": 352,
             "anchorX":0.5 ,
             "anchorY": 0.5,
             "z": 6
@@ -368,31 +127,58 @@
             "z": 6
         },
         {
-            "imageName" : "juice",
+            "imageName": "sock",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 475,
+            "y": 272.08333333,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :12
+        },
+        {
+            "imageName" : "gift",
             "type":"LIGHT_WEIGHT_ITEM",
-            "x": 866,
-            "y": 302,
+            "x": 289,
+            "y": 180,
             "anchorX":0.5 ,
             "anchorY": 0.5,
             "z": 6
         },
         {
-            "imageName" : "nail",
-            "type":"LIGHT_WEIGHT_ITEM",
-            "x": 919,
-            "y": 352,
-            "anchorX":0.5 ,
+            "imageName": "apple",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1076,
+            "y": 288,
+            "anchorX": 0.5,
             "anchorY": 0.5,
-            "z": 6
+            "z": 18
         },
         {
-            "imageName" : "uniform",
-            "type":"HEAVY_WEIGHT_ITEM",
-            "x": 963,
-            "y": 425,
-            "anchorX":0.5 ,
+            "imageName": "chair",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 936,
+            "y": 158,
+            "anchorX": 0.5,
             "anchorY": 0.5,
-            "z": 6
+            "z": 4
+        },
+        {
+            "imageName": "grape",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 267.25,
+            "y": 283.75,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 18
+        },
+        {
+            "imageName": "joker",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 392.1,
+            "y": 312.1,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" : 5
         },
         {
             "imageName" : "lemon",
@@ -404,6 +190,78 @@
             "z": 6
         },
         {
+            "imageName": "onion",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1108,
+            "y": 280,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName" : "queen",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 409,
+            "y": 295,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName": "towel",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 837,
+            "y": 374,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 13
+        },
+        {
+            "imageName": "watch",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 876.25,
+            "y": 277.5,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 16
+        },
+        {
+            "imageName": "abacus",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 1095   ,
+            "y": 290,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName" : "juice",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 866,
+            "y": 302,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName": "banana",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 251,
+            "y": 282,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 17
+        },
+        {
+            "imageName": "duster",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 217.5,
+            "y": 220,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 8
+        },
+        {
             "imageName" : "eraser",
             "type":"LIGHT_WEIGHT_ITEM",
             "x": 1096,
@@ -413,6 +271,123 @@
             "z": 6
         },
         {
+            "imageName" : "insect",
+            "type":"",
+            "x": 768,
+            "y": 196,
+            "anchorX":0.5 ,
+            "anchorY":0.5 ,
+            "z": 6
+        },
+        {
+            "imageName": "orange",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1040.25,
+            "y": 273.5,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 18
+        },
+        {
+            "imageName": "pencils",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1065,
+            "y": 257,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 17
+        },
+        {
+            "imageName": "potato",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1104,
+            "y": 279,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 18
+        },
+        {
+            "imageName": "tomato",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1074,
+            "y": 286,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "umbrella",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 969,
+            "y": 273,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" : 6
+        },
+        {
+            "imageName" : "uniform",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 963,
+            "y": 425,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName" : "vegetable",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 261,
+            "y": 284,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName" : "computer",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 678,
+            "y": 124,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName" : "toytrain",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 182 ,
+            "y": 133,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName": "feather",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 947,
+            "y": 172,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName" : "vehicle",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 243,
+            "y": 78,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName": "medicine",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 922,
+            "y": 433,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
             "imageName": "raspberry",
             "type": "LIGHT_WEIGHT_ITEM",
             "x":243,
@@ -420,6 +395,33 @@
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 6
+        },
+        {
+            "imageName" : "watermelon",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 259,
+            "y": 296,
+            "anchorX":0.5 ,
+            "anchorY": 0.5,
+            "z": 6
+        },
+        {
+            "imageName": "strawberry",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 252.08333333,
+            "y": 277.08333333,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 19
+        },
+        {
+            "imageName" : "xylophone",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 488,
+            "y": 264,
+            "anchorX": 0.5 ,
+            "anchorY": 0.5,
+            "z":6 
         }
     ],
     "heavyweight": [

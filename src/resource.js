@@ -34,11 +34,11 @@ var res = {
     wrong_password_mp3: "res/sound/wrong-pass.mp3",
     background_mp3: "res/sound/background.mp3",
 
-    Forest_Config_JSON: "config/forest_config.json",
-    Game_Config_JSON: "config/game_config.json",
-    Room_Config_JSON: "config/room_config.json",
+    Forest_Config_JSON: "config/forest.json",
+    Game_Config_JSON: "config/game.json",
+    Room_Config_JSON: "config/room.json",
     Writing_config_JSON: "config/writing_test.json",
-    Updated_config_JSON: "config/updated_config.json",
+    Updated_config_JSON: "config/updated.json",
 
     forest_jpg : "res/forest.jpg",
     room_jpg: "Bedroom-screen.jpg",
