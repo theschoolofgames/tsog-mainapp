@@ -60,6 +60,8 @@ var WritingTestLayer = cc.LayerColor.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
+
+        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {

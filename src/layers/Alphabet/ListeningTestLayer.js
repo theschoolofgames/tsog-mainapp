@@ -42,6 +42,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
+
+        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {

@@ -7,6 +7,8 @@ var NewSchoolLayer = cc.Layer.extend({
         this._addBackGround();
         this._addNewSchool();
         this._addBackBtn();
+
+        Utils.showVersionLabel(this);
     },
 
     _addBackGround: function() {

@@ -58,6 +58,8 @@ var RoomLayer = cc.Layer.extend({
             });
         // cc.audioEngine.playMusic(res.background_mp3, true);
         this.scheduleUpdate();
+
+        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {

@@ -46,6 +46,8 @@ var AccountSelectorLayer = cc.Layer.extend({
             onTouchBegan: this.onTouchBegan,
             onTouchMoved: this.onTouchMoved
         }, this);
+
+        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {

@@ -13,6 +13,8 @@ var NewAccountLayer = cc.Layer.extend({
         this._addBackGround();
         this._addNewAccountFormLayer();
         this._addBackBtn();
+
+        Utils.showVersionLabel(this);
     },
 
     _addAvatar: function(avatarID, parent) {

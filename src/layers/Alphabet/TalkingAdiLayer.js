@@ -22,6 +22,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         // this._createBackground();
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
+
+        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {

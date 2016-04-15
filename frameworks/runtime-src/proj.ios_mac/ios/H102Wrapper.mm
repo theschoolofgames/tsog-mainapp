@@ -36,6 +36,11 @@ static NSTimer* timer;
   return version;
 }
 
++ (NSString*)getBuildNumber {
+  NSString *build = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+  return build;
+}
+
 + (void)showUpdateDialog:(NSString*)version forceUpdate:(BOOL) forceUpdate {
   Dialog* dialog = [[Dialog alloc] initWithTitle:@"New update found"
                                          message:[NSString stringWithFormat:@"Check out the new update for %@!\nAvailable now on %@", version, @"AppStore"]

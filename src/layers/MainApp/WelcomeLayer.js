@@ -12,6 +12,8 @@ var WelcomeLayer = cc.LayerColor.extend({
 	    cc.audioEngine.playMusic(res.welcome_sound_mp3);
 
         SegmentHelper.track(SEGMENT.TALKING_ADI, null );
+
+        Utils.showVersionLabel(this);
 	},
 
 	addWelcomeCutscene: function() {

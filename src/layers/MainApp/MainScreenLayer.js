@@ -103,7 +103,7 @@ var MainScreenLayer = cc.Layer.extend({
         var configableVersionName = GAME_CONFIG[cc.sys.os.toLowerCase() + "VersionName"] || UPDATED_CONFIG[cc.sys.os.toLowerCase() + "VersionName"];
         var configableForceUpdate = GAME_CONFIG[cc.sys.os.toLowerCase() + "ForceUpdate"] || UPDATED_CONFIG[cc.sys.os.toLowerCase() + "ForceUpdate"];
 
-        cc.log(currentVersionName + " " + configableVersionName);
+        // cc.log(currentVersionName + " " + configableVersionName);
 
         if (cmpVersions(configableVersionName, currentVersionName) > 0) {
             // Show dialog

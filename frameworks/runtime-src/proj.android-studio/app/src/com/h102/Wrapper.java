@@ -30,6 +30,10 @@ public class Wrapper
         return BuildConfig.VERSION_NAME;
     }
 
+    public static String getVersionCode() {
+        return BuildConfig.VERSION_CODE + "";
+    }
+
     public static void showUpdateDialog(final String version, final boolean forceUpdate) {
         activity.runOnUiThread(new Runnable() {
            @Override

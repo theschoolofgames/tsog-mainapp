@@ -34,6 +34,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
+        Utils.showVersionLabel(this);
     },
 
     onEnter: function() {

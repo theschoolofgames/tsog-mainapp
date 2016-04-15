@@ -3,10 +3,12 @@ var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 
+var SHOW_VERSION_LABEL = false;
+
 var TAG_LOADING_INDICATOR_LAYER = 717;
 var MOVE_DELAY_TIME = 1.5;
 
-RATIO_BETWEEN_MAX_AND_MIN_SCREEN_RATIO = ((16/9) / (4/3));
+var RATIO_BETWEEN_MAX_AND_MIN_SCREEN_RATIO = ((16/9) / (4/3));
 
 SCHOOL_NAME_COLOR = [
     res.RedFont_fnt,

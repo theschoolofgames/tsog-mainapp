@@ -6,6 +6,22 @@ Utils.delayOneFrame = function(target, callback) {
         cc.callFunc(callback)));
 }
 
+Utils.showVersionLabel = function(parent) {
+    if (parent && SHOW_VERSION_LABEL) {
+        var lb = cc.Label.create();
+        lb.setString(NativeHelper.callNative("getVersionName") + "(" + NativeHelper.callNative("getBuildNumber") + ")");
+        // lb.enableOutline(cc.color.WHITE, 2);
+        lb.color = cc.color.BLACK;
+        lb.setSystemFontSize(20);
+        lb.x = cc.winSize.width - 20;
+        lb.y = cc.winSize.height - 20;
+        lb.anchorX = lb.anchorY = 1;
+        parent.addChild(lb, 9999);
+
+        cc.log(NativeHelper.callNative("getVersionName"));
+    }
+}
+
 Utils.addLoadingIndicatorLayer = function(block) {
     var currentScene = cc.director.getRunningScene();
 

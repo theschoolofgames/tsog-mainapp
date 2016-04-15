@@ -56,6 +56,17 @@ var NativeHelperConfig = {
             "()Ljava/lang/String;"
         ]
     },
+    getBuildNumber: {
+        iOS: [
+            "H102Wrapper",
+            "getBuildNumber"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "getVersionCode",
+            "()Ljava/lang/String;"
+        ]
+    },
     showUpdateDialog: {
         iOS: [
             "H102Wrapper",
