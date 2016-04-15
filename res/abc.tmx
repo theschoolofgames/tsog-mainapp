@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="305">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="307">
  <tileset firstgid="1" name="A" tilewidth="231" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/A.png" width="231" height="254"/>
  </tileset>
@@ -375,17 +375,17 @@
   </object>
   <object id="302" name="G" gid="7" x="38" y="288" width="244" height="256" visible="0"/>
  </objectgroup>
- <objectgroup name="F" visible="0">
-  <object id="54" name="F" gid="6" x="0" y="320" width="320" height="320" visible="0"/>
-  <object id="252" name="Path1" x="135.999" y="60.333">
+ <objectgroup name="F">
+  <object id="252" name="Path1" x="110.499" y="76.833">
    <polyline points="0,0 -0.333333,10.6667 -0.333333,20 -0.333333,29.3333 -0.333333,39.3333 -0.333333,55 -0.333333,68 -0.333333,79 -0.333333,92 -0.333333,102 -0.333333,114.667 -0.333333,127.667 -0.333333,138.333 -0.333333,150.667 0,161.667 0,171.333"/>
   </object>
-  <object id="253" name="Path2" x="161.666" y="59.6663">
+  <object id="253" name="Path2" x="129.166" y="76.1663">
    <polyline points="0,0 16.3333,-0.333333 30,-0.333333 39,-0.333333 47.3333,-0.333333 55.6667,-0.333333 64.3333,-0.333333 73,-0.333333 81,-0.333333 89.6667,-0.333333 94.6667,-0.333333 99,-0.333333"/>
   </object>
-  <object id="254" name="Path3" x="162.333" y="154">
+  <object id="254" name="Path3" x="131.333" y="163">
    <polyline points="0,0 13,0 20,0 30.6667,0 40.3333,0 47.6667,0 52,0 57,0 62,0 67.6667,0 76,0"/>
   </object>
+  <object id="305" name="F" gid="6" x="59" y="285" width="201" height="250" visible="0"/>
  </objectgroup>
  <objectgroup name="E" visible="0">
   <object id="95" name="E" gid="5" x="0" y="320" width="320" height="320" visible="0"/>
@@ -422,7 +422,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="B">
+ <objectgroup name="B" visible="0">
   <object id="81" name="B" gid="2" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="84" name="Path2" x="130" y="82">
    <polyline points="19.5,0.5 62,0 79,9 86,24 86,40 81,53 71,66 32,79 70,89 83,99 88,113 87,127 79,141 61,160 17.5,160"/>

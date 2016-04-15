@@ -70,8 +70,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
             self._adiDog.adiIdling();
             
             self._addCountDownClock();
-            self._showObjects();
             self._displayCurrentName();
+            self._showObjects();
         });
     },
 
@@ -148,11 +148,18 @@ var ListeningTestLayer = cc.LayerColor.extend({
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
             }
 
+            var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
+
             var sprite = new cc.Sprite(spritePath);
             sprite.name = shownObjNames[i];
             sprite.scale = Math.min(200 / sprite.width, 350 / sprite.height) * Utils.screenRatioTo43();
             sprite.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43();
             sprite.y = this._objCenter.y;
+
+            if (cc.rectGetMaxY(sprite.getBoundingBox()) > mostTopY) {
+                sprite.scale = (mostTopY - this._objCenter.y) / sprite.height * 2;
+            }
+
             this._objectNodes.push(sprite);
             this.addChild(sprite);
 
@@ -177,8 +184,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
                         } else {
-                            self._showObjects();
                             self._displayCurrentName();
+                            self._showObjects();
                         }
                     })
                 ));
@@ -223,7 +230,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             if (!self._adiDog)
                 return;
-            
+
             self._adiDog.adiIdling();
             self._objSoundIsPlaying = false;
         });
@@ -291,8 +298,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
                         } else {
-                            self._showObjects();
                             self._displayCurrentName();
+                            self._showObjects();
                         }
                     })
                 ));

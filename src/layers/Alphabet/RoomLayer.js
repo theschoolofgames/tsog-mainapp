@@ -67,6 +67,12 @@ var RoomLayer = cc.Layer.extend({
         this.playBeginSound();
     },
 
+    onExit: function() {
+        this._super();
+
+        this._objectTouching = null;
+    },
+
     update: function(pDt) {
         this._totalAngle += pDt;
         if(this._totalAngle >= 180)
@@ -648,8 +654,8 @@ var RoomLayer = cc.Layer.extend({
                         mask.removeFromParent();
                         self._mask = null;
 
-                        if (object)
-                            object.setLocalZOrder(oldZOrder);
+                        if (self._objectTouching)
+                            self._objectTouching.setLocalZOrder(oldZOrder);
                     }
                 }
             }, mask);
@@ -679,8 +685,8 @@ var RoomLayer = cc.Layer.extend({
                             self._maskLayer.removeFromParent();
                             self._maskLayer = null;
                         }
-                        if (object)
-                            object.setLocalZOrder(oldZOrder);
+                        if (self._objectTouching)
+                            self._objectTouching.setLocalZOrder(oldZOrder);
 
                         self.checkWonGame();
                     }
