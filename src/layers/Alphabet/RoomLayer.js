@@ -40,7 +40,7 @@ var RoomLayer = cc.Layer.extend({
         // this.addRefreshButton();
         // this.addBackButton();
         this.addHud();
-        this.runTutorial();
+        this.runTutorial(false);
         this.runHintObjectUp();
         this.runSoundCountDown();
         cc.eventManager.addListener({
@@ -122,8 +122,8 @@ var RoomLayer = cc.Layer.extend({
         this._hudLayer = hudLayer;
     },
 
-    runTutorial: function() {
-        this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
+    runTutorial: function(shouldShuffle) {
+        this._tutorial = new TutorialLayer(this._objects, this._shadeObjects, shouldShuffle);
         if(Global.NumberGamePlayed < 2)
             this.addChild(this._tutorial, 1000)
     },
@@ -508,6 +508,8 @@ var RoomLayer = cc.Layer.extend({
                     room: "room", 
                     object_name:  targetNode.getObjectName(targetNode._objectTouching)
                 });
+        } else {
+            targetNode.runTutorial(false);
         }
 
         targetNode._objectTouching = null;

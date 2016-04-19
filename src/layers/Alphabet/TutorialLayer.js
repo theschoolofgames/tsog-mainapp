@@ -5,11 +5,13 @@ var TutorialLayer = cc.Layer.extend({
 	_shadeObject: null,
 	_animFrames: null,
 	_effectNode:null,
+    _shouldShuffle: false,
 
-	ctor: function(objects, shadeObjects) {
+	ctor: function(objects, shadeObjects, shouldShuffle /* = false*/) {
 		this._super();
 		this._objects = objects;
 		this._shadeObjects = shadeObjects;
+        this._shouldShuffle = shouldShuffle;
 		this.getRandomObject();
 		if (this._shadeObjects == null)
 			this.showTappingTutorial();
@@ -84,10 +86,16 @@ var TutorialLayer = cc.Layer.extend({
  	},
 
 	getRandomObject: function(){
-		var i = Math.floor(Math.random() * (this._objects.length - 1));
-		this._object = this._objects[i];
-		if(this._shadeObjects)
-			this._shadeObject = this._shadeObjects[i]
+        if (this._shouldShuffle) {
+            var i = Math.floor(Math.random() * (this._objects.length - 1));
+            this._object = this._objects[i];
+            if(this._shadeObjects)
+                this._shadeObject = this._shadeObjects[i]
+        } else {
+            this._object = this._objects[0];
+            if(this._shadeObjects)
+                this._shadeObject = this._shadeObjects[0];
+        }
 	},
 
 
