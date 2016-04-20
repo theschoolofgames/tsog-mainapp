@@ -21,6 +21,10 @@ var SceneFlowController = cc.Class.extend({
 
         var sceneName = this._loopScenes[this._currentLoopSceneIdx % this._loopScenes.length];
         this._currentLoopSceneIdx++;
+
+        if (SpeakingTestLayer.shouldSkipTest && sceneName == "SpeakingTestScene")
+            return this.getNextSceneName();
+
         return sceneName;
     },
 

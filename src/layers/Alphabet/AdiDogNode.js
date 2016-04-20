@@ -40,7 +40,7 @@ var AdiDogNode = cc.Node.extend({
                 self.stopAllActions();
 
                 var bbox = self._talkingAdi.getBoundingBox();
-                cc.log("bbox: " + JSON.stringify(bbox));
+                // cc.log("bbox: " + JSON.stringify(bbox));
                 bbox.x += self.x;
                 bbox.y += self.y;
 

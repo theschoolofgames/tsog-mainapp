@@ -11,6 +11,8 @@
     "iosVersionName": "1.0",
     "iosForceUpdate": false,
 
+    "speakingTestNoiseDetectingTime": 5,
+
     "sceneFlow": {
         "preLoopScreens": [
 

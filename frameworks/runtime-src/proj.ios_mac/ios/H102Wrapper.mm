@@ -25,6 +25,9 @@ static double startTime = -1;
 static BOOL invalidateTimer = NO;
 static NSTimer* timer;
 
+static int noiseDetectionLoopCount = 0;
+static NSMutableArray* noiseDetectionArray = nil;
+
 @implementation H102Wrapper
 
 + (void)setCurrentViewController:(UIViewController *)pViewController {
@@ -231,5 +234,55 @@ static NSTimer* timer;
         ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
     });
 }
+
++ (void)startDetectingNoiseLevel:(NSNumber*)t {
+  float detectingTime = [t floatValue];
+  
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+  [H102Wrapper initRecord];
+  [H102Wrapper startRecord];
+  
+  noiseDetectionLoopCount = detectingTime / 0.1;
+  if (noiseDetectionArray)
+      [noiseDetectionArray release];
+  noiseDetectionArray = [NSMutableArray new];
+  invalidateTimer = NO;
+  
+  timer = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(noiseDetectingLoop:) userInfo:nil repeats:YES];
+  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+}
+
++ (void)noiseDetectingLoop:(NSTimer*) theTimer {
+  if (invalidateTimer) {
+    [theTimer invalidate];
+    return;
+  }
+  
+  noiseDetectionLoopCount--;
+  
+  if (noiseDetectionLoopCount < 0) {
+    [H102Wrapper stopRecord];
+    [timer invalidate];
+    timer = nil;
+    
+    float avgAmpl = [[noiseDetectionArray valueForKeyPath:@"@avg.floatValue"] floatValue];
+    NSLog(@"avgAmpl: %f", avgAmpl);
+    if (avgAmpl > -25)
+      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=true", NULL);
+    else
+      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=false", NULL);
+  } else {
+    float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
+//    NSLog(@"%f", maxAmplitude);
+    [noiseDetectionArray addObject:[NSNumber numberWithFloat:maxAmplitude]];
+  }
+}
+
++ (void)cancelNoiseDetecting {
+  [H102Wrapper stopRecord];
+  invalidateTimer = YES;
+  timer = nil;
+}
+
 
 @end

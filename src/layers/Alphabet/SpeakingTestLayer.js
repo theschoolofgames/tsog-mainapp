@@ -44,11 +44,44 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
+
+        this.testBackgroundNoise();
     },
 
     onEnterTransitionDidFinish: function() {
         this._super();
-        this.playBeginSound();
+        // this.playBeginSound();
+    },
+
+    testBackgroundNoise: function() {
+        var self = this;
+
+        var forcePlayBtn = new ccui.Button("timer.png", "", "");
+        forcePlayBtn.x = cc.winSize.width - 60;
+        forcePlayBtn.y = 120 + forcePlayBtn.height/2;
+        forcePlayBtn.addClickEventListener(function() {
+            NativeHelper.callNative("cancelNoiseDetecting");
+            self.stopAllActions();
+            self.playBeginSound();
+            forcePlayBtn.removeFromParent();
+        });
+        this.addChild(forcePlayBtn);      
+
+        var noiseDetectingTime = GAME_CONFIG.speakingTestNoiseDetectingTime || UPDATED_CONFIG.speakingTestNoiseDetectingTime;  
+
+        NativeHelper.callNative("noiseDetectingLoop", [noiseDetectingTime]);
+
+        this.runAction(cc.sequence(
+            cc.delayTime(noiseDetectingTime + 0.15),
+            cc.callFunc(function() {
+                if (SpeakingTestLayer.shouldSkipTest)
+                    self._moveToNextScene();
+                else {
+                    self.playBeginSound();
+                    forcePlayBtn.removeFromParent();
+                }
+            })
+        ))
     },
 
     playBeginSound: function(){
@@ -155,6 +188,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._talkingAdi = new AdiDogNode();
         this._talkingAdi.scale = 1.5;
         this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
+        this._talkingAdi.onStartedListening();
         this.addChild(this._talkingAdi);
     },
 
@@ -170,17 +204,21 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         if (this.currentObjectShowUpId >= this._objectsArray.length){
             NativeHelper.callNative("stopSpeechRecognition");
             
-            var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-            var scene;
-            if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-                scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
-            else
-                scene = new window[nextSceneName]();
-            cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            this._moveToNextScene();
 
             return true;
         }
         return false;
+    },
+
+    _moveToNextScene: function() {
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        var scene;
+        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+        else
+            scene = new window[nextSceneName]();
+        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _checkTimeUp: function() {
@@ -295,6 +333,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
 
     // }
 });
+
+SpeakingTestLayer.shouldSkipTest = null;
 
 var SpeakingTestScene = cc.Scene.extend({
     ctor: function(objectsArray, nextSceneName, oldSceneName){

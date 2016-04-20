@@ -24,6 +24,8 @@
     "writingTestIncludedCoverPercentage": 80,
     "writingTestExcludedCoverPercentage": 40,
 
+    "speakingTestNoiseDetectingTime": 5,
+
     "sceneFlow": {
         "preLoopScreens": [
 

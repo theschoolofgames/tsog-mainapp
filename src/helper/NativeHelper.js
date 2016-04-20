@@ -190,6 +190,29 @@ var NativeHelperConfig = {
             "startRestClock",
             "()V"   
         ]
+    },
+    // Noise Detection
+    noiseDetectingLoop: {
+        iOS: [
+            "H102Wrapper",
+            "startDetectingNoiseLevel:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "startDetectingNoiseLevel",
+            "(F)V"   
+        ]
+    },
+    cancelNoiseDetecting: {
+        iOS: [
+            "H102Wrapper",
+            "cancelNoiseDetecting"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "cancelNoiseDetecting",
+            "()V"   
+        ]
     }
 }
 
