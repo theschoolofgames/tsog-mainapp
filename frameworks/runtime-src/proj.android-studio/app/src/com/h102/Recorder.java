@@ -68,7 +68,7 @@ public class Recorder {
     private int                      framePeriod;
 
     // Buffer for output(only in uncompressed mode)
-    private byte[]                   buffer;
+    public byte[]                   buffer;
 
     // Number of bytes written to file after header(only in uncompressed mode)
     // after stop() is called, this size is written to the header/data chunk in the wave file
@@ -388,16 +388,16 @@ public class Recorder {
 
     public void startFetchingAudio() {
         final Recorder self = this;
-        new Thread() {
-            public void run() {
+//        new Thread() {
+//            public void run() {
                 if (state == Recorder.State.ERROR)
                     state = Recorder.State.INITIALIZING;
                 audioRecorder.setRecordPositionUpdateListener(updateListener);
                 audioRecorder.setPositionNotificationPeriod(framePeriod);
                 self.prepare();
                 self.start();
-            }
-        }.start();
+//            }
+//        }.start();
     }
 
     public void stopFetchingAudio() {
