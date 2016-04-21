@@ -34,7 +34,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 			cc.delayTime(7.5),
 			cc.callFunc(function() {
                 cc.audioEngine.stopMusic();
-                cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)))
+                cc.director.replaceScene(new MainScene());
 			})
 		));
 	}

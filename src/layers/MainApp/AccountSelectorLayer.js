@@ -489,7 +489,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         
                         KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
                         KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
-                        cc.director.replaceScene(new WelcomeScene());
+                        self._moveToMainScene();
                     }), 3, cc.p(1, 1), cc.p(0, 0));
                 })
             ));
@@ -502,6 +502,21 @@ var AccountSelectorLayer = cc.Layer.extend({
                     cc.moveBy(0.1, cc.p(10,0))
                 ));
         }
+    },
+
+    _moveToMainScene: function() {
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                // cc.director.replaceScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
+                var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+                var scene;
+                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+                    scene = new RoomScene();
+                else
+                    scene = new window[nextSceneName]();
+                cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            }, this)
+        ));
     },
 
     onAvatarClicked: function(accountButton) {

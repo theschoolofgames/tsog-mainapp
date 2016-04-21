@@ -18,16 +18,14 @@ var MainScreenLayer = cc.Layer.extend({
 
     onEnter: function() {
         this._super();
-        // this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
-        // if (this._isLoggedIn == 0) {
-        //     cc.director.replaceScene(new SchoolSelectorScene());
-        //     this.playBackgroundMusic();
-        // }
-        // else
-        //     cc.director.replaceScene(new WelcomeScene());
-        this._createBackground();
-        this._addButtons();
-        this._playBackgroundMusic();
+        this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
+        if (this._isLoggedIn == 0) {
+            this._createBackground();
+            this._addButtons();
+            this._playBackgroundMusic();
+        }
+        else
+            this._moveToMainScene();
     },
 
     _createBackground: function() {
@@ -67,7 +65,7 @@ var MainScreenLayer = cc.Layer.extend({
         loginButton.x = cc.winSize.width/2 + 200;
         loginButton.y = cc.winSize.height/2;
         loginButton.addClickEventListener(function() {
-            cc.director.runScene(new cc.TransitionFade(1, new SchoolSelectorScene(), cc.color(255, 255, 255, 255)));
+            cc.director.replaceScene(new cc.TransitionFade(1, new SchoolSelectorScene(), cc.color(255, 255, 255, 255)));
         });
         this.addChild(loginButton);
         this._runBubbleAnimation(loginButton);
@@ -115,15 +113,17 @@ var MainScreenLayer = cc.Layer.extend({
     _moveToMainScene: function() {
 
         this.runAction(cc.sequence(
+            cc.delayTime(0),
             cc.callFunc(function() {
-                // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
+                // cc.director.replaceScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
                 var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
                 var scene;
                 if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
                     scene = new RoomScene();
                 else
                     scene = new window[nextSceneName]();
-                cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+                cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+                // cc.director.replaceScene(scene);
             }, this)
         ));
     },

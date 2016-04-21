@@ -87,6 +87,8 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
+  
+  cocos2d::experimental::AudioEngine::lazyInit();
 
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
@@ -99,8 +101,6 @@ static AppDelegate s_sharedApplication;
 //   [SEGAnalytics debug:YES];
   
     [Fabric with:@[[Crashlytics class], [Optimizely class]]];
-  
-  cocos2d::experimental::AudioEngine::lazyInit();
 
     return YES;
 }

@@ -45,7 +45,10 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
 
-        this.testBackgroundNoise();
+        if (SpeakingTestLayer.shouldSkipTest != null)
+            this.playBeginSound();
+        else
+            this.testBackgroundNoise();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -218,7 +221,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
         else
             scene = new window[nextSceneName]();
-        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _checkTimeUp: function() {

@@ -835,7 +835,7 @@ var RoomLayer = cc.Layer.extend({
             scene = new window[nextSceneName](this._objectNames, "RoomScene");
         else
             scene = new window[nextSceneName]();
-        cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 });
 
