@@ -7,14 +7,17 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this.addWelcomeCutscene();
 		this.moveToMainScene();
 
-        //reset music volume
-        cc.audioEngine.setMusicVolume(1);
-	    cc.audioEngine.playMusic(res.welcome_sound_mp3);
-
         SegmentHelper.track(SEGMENT.TALKING_ADI, null );
 
         Utils.showVersionLabel(this);
 	},
+
+    onEnter: function() {
+        this._super();
+
+        cc.audioEngine.setMusicVolume(1);
+        cc.audioEngine.playMusic(res.welcome_sound_mp3);
+    },
 
 	addWelcomeCutscene: function() {
         var lwfSprite = cc.LWFSprite.create("welcome.lwf");
@@ -28,17 +31,11 @@ var WelcomeLayer = cc.LayerColor.extend({
 	moveToMainScene: function() {
 
 		this.runAction(cc.sequence(
-			cc.delayTime(7),
+			cc.delayTime(7.5),
 			cc.callFunc(function() {
-                // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
-                var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-                var scene;
-                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-                    scene = new RoomScene();
-                else
-                    scene = new window[nextSceneName]();
-                cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
-			}, this)
+                cc.audioEngine.stopMusic();
+                cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)))
+			})
 		));
 	}
 });

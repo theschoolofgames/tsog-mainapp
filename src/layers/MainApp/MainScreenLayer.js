@@ -5,22 +5,6 @@ var MainScreenLayer = cc.Layer.extend({
     ctor: function () {
         this._super();
 
-        this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
-        /*
-            this._isLoggedIn = 0 is not logged in,
-            1 is logged in
-        */
-        var self = this;
-        Utils.delayOneFrame(this, function() {
-            // NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
-            if (self._isLoggedIn == 0) {
-                cc.director.replaceScene(new SchoolSelectorScene());
-                self.playBackgroundMusic();
-            }
-            else
-                cc.director.replaceScene(new WelcomeScene());
-        });
-
         RequestsManager.getInstance().getGame(GAME_ID, function(succeed, data) {
             if (succeed) {
                 KVDatabase.getInstance().set(STRING_GAME_CONFIG, data.config);
@@ -32,13 +16,116 @@ var MainScreenLayer = cc.Layer.extend({
         this.checkNewVersion(); 
     },
 
+    onEnter: function() {
+        this._super();
+        // this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
+        // if (this._isLoggedIn == 0) {
+        //     cc.director.replaceScene(new SchoolSelectorScene());
+        //     this.playBackgroundMusic();
+        // }
+        // else
+        //     cc.director.replaceScene(new WelcomeScene());
+        this._createBackground();
+        this._addButtons();
+        this._playBackgroundMusic();
+    },
 
-    playBackgroundMusic: function() {
-        if (cc.audioEngine.isMusicPlaying())
-            return
+    _createBackground: function() {
+        var bg = new cc.Sprite(res.Bg_school_jpg);
+        bg.x = cc.winSize.width / 2;
+        bg.y = cc.winSize.height / 2;
+        this.addChild(bg);
+    },
+
+    _addButtons: function() {
+        var self = this;
+
+        var randBgIdx = Math.floor(Math.random()*2) + 1;
+        var playButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        playButton.x = cc.winSize.width/2 - 200;
+        playButton.y = cc.winSize.height/2;
+        playButton.addClickEventListener(function() {
+            // cc.log("PLAY");
+            cc.audioEngine.stopMusic();
+            self._moveToMainScene();
+        });
+        this.addChild(playButton);
+        this._runBubbleAnimation(playButton);
+
+        var font = SCHOOL_NAME_COLOR[Math.floor(Math.random()*4)];
+        var playButtonLb = new cc.LabelBMFont("PLAY",
+            font,
+            playButton.width*1.5,
+            cc.TEXT_ALIGNMENT_CENTER);
+        playButtonLb.setScale(0.5);
+        playButtonLb.x = playButton.width / 2;
+        playButtonLb.y = playButton.height / 2;
+        playButton.addChild(playButtonLb);
+
+        randBgIdx = Math.floor(Math.random()*2) + 1;
+        var loginButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
+        loginButton.x = cc.winSize.width/2 + 200;
+        loginButton.y = cc.winSize.height/2;
+        loginButton.addClickEventListener(function() {
+            cc.director.runScene(new cc.TransitionFade(1, new SchoolSelectorScene(), cc.color(255, 255, 255, 255)));
+        });
+        this.addChild(loginButton);
+        this._runBubbleAnimation(loginButton);
+
+        font = SCHOOL_NAME_COLOR[Math.floor(Math.random()*4)];
+        var loginButtonLb = new cc.LabelBMFont("LOGIN",
+            font,
+            loginButton.width*1.5,
+            cc.TEXT_ALIGNMENT_CENTER);
+        loginButtonLb.setScale(0.5);
+        loginButtonLb.x = loginButton.width / 2;
+        loginButtonLb.y = loginButton.height / 2;
+        loginButton.addChild(loginButtonLb);
+    },
+
+    _playBackgroundMusic: function() {
+        // if (cc.audioEngine.isMusicPlaying())
+        //     return
         // play background music
         cc.audioEngine.setMusicVolume(0.2);
         cc.audioEngine.playMusic(res.background_mp3, true);
+    },
+
+    _runBubbleAnimation: function(button) {
+        button.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, this.getRandomedPosition(button)),
+                    cc.moveTo(MOVE_DELAY_TIME, button.getPosition())
+                )
+            )
+        )
+    },
+
+    getRandomedPosition: function(obj) {
+        var randomedValueX = Math.random() * 20 - 10;
+        var randomedValueY = Math.random() * 20 - 10;
+        var randomedPos =  cc.p(obj.x + randomedValueX, obj.y + randomedValueY);
+
+        return randomedPos;
+    },
+
+    _moveToMainScene: function() {
+
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                // cc.director.runScene(new cc.TransitionFade(1, new TalkingAdiScene(), cc.color(255, 255, 255, 255)));
+                var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+                var scene;
+                if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+                    scene = new RoomScene();
+                else
+                    scene = new window[nextSceneName]();
+                cc.director.runScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            }, this)
+        ));
     },
 
     downloadAssets: function() {

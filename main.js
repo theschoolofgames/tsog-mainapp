@@ -125,6 +125,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
         // cc.director.runScene(new MainScene());
+        cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new WritingTestScene(["LAMP", "TOYTRAIN", "ABACUS"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene(["ANT", "CAT", "BEE"], "ForestScene"));
         // cc.director.runScene(new SchoolSelectorScene());
@@ -132,7 +133,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
-        cc.director.runScene(new SpeakingTestScene());
+        // cc.director.runScene(new SpeakingTestScene());
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);

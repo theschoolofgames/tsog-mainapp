@@ -13,7 +13,7 @@ android {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 16041500
+        versionCode 16042000
         versionName "1.0"
     }
 

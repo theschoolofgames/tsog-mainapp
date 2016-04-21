@@ -16,6 +16,7 @@ SegmentHelper.track = function(event, properties) {
     var userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
     var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
     var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
+    var udid = NativeHelper.callNative("getUDID");
 
     properties = properties || {};
     if (userId && userId != "")
@@ -26,6 +27,7 @@ SegmentHelper.track = function(event, properties) {
         properties.school_id = schoolId;
     if (schoolName && schoolName != "")
         properties.school_name = schoolName;
+    properties.udid = udid;
 
     NativeHelper.callNative("segmentTrack", [event, JSON.stringify(properties)]);
 }
