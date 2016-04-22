@@ -23,6 +23,7 @@ var AdiDogNode = cc.Node.extend({
 
     getBoundingBox: function() {
         var bb = this._talkingAdi.getBoundingBox();
+        // cc.log("bbox: " + JSON.stringify(bb));
         return cc.rect(bb.x + this.x, bb.y + this.y, bb.width, bb.height);
     },
 

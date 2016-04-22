@@ -36,17 +36,18 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        this._writingWords = this._names.map(function(obj) {
-            cc.log(obj);
-            return WRITING_TEST_CONFIG[obj.toLowerCase()].toUpperCase();
-        });
+        this._writingWords = this._names;
+        // this._writingWords = this._names.map(function(obj) {
+        //     cc.log(obj);
+        //     return WRITING_TEST_CONFIG[obj.toLowerCase()].toUpperCase();
+        // });
 
         // this._displayCurrentName();
         this._addAdiDog();
@@ -468,8 +469,8 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        // this._adiDog.scale = 0.8;
-        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.25, cc.winSize.height / 4));
+        this._adiDog.scale = Utils.screenRatioTo43() * 0.9;
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/2 - 150 * this._adiDog.scale));
         this.addChild(this._adiDog);
     },
 
