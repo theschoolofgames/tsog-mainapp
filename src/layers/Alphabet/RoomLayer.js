@@ -508,9 +508,10 @@ var RoomLayer = cc.Layer.extend({
                     room: "room", 
                     object_name:  targetNode.getObjectName(targetNode._objectTouching)
                 });
-        } else {
-            targetNode.runTutorial(false);
         }
+
+        if (targetNode._objectDisableds.indexOf(targetNode._objects[0]) < 0)
+            targetNode.runTutorial(false);
 
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();

@@ -36,10 +36,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray;
-        // this._names = objectsArray.map(function(obj) {
-        //     return obj.name.toUpperCase();
-        // });
+        // this._names = objectsArray;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
