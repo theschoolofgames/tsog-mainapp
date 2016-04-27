@@ -16,7 +16,7 @@ var SettingDialog = cc.Layer.extend({
         this._logoutBtnXRatio = 0;
         if (!text) {
             this._logoutBtnXRatio = 1;
-            this._textFieldLabel = Utils.getUserName();
+            this._textFieldLabel = Utils.getUserName() || "Anonymous";
             this._dialogBgLabel = Utils.getSchoolName();
             this._addResumeButton();
             this._addTextField();

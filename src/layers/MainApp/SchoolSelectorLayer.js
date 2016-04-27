@@ -20,6 +20,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
 
         this.tag = 1;
         this.createBackground();
+        this.createBackButton();
         this.resetAllChildren();
         this.name = "SchoolSelectorLayer";
 
@@ -113,6 +114,20 @@ var SchoolSelectorLayer = cc.Layer.extend({
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
+    },
+
+    createBackButton: function() {
+        var bb = new ccui.Button("back.png",
+                                 "back-pressed.png",
+                                 "",
+                                 ccui.Widget.PLIST_TEXTURE);
+
+        bb.x = bb.width ;
+        bb.y = cc.winSize.height - bb.height*2/3;
+        bb.addClickEventListener(function() {
+            cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
+        });
+        this.addChild(bb);
     },
 
     refreshSchoolList: function(data, animated) {
