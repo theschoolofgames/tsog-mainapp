@@ -21,64 +21,90 @@ var MainScreenLayer = cc.Layer.extend({
         this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
         if (this._isLoggedIn == 0) {
             this._createBackground();
-            this._addButtons();
+            this._addDialog();
+            this._addDialogButtons();
             this._playBackgroundMusic();
         }
         else
             this._moveToMainScene();
     },
 
-    _createBackground: function() {
-        var bg = new cc.Sprite(res.Bg_school_jpg);
-        bg.x = cc.winSize.width / 2;
-        bg.y = cc.winSize.height / 2;
-        this.addChild(bg);
+    _addDialog: function() {
+        this._popupDialog = new cc.Sprite("#popup.png");
+        this._popupDialog.x = cc.winSize.width/2;
+        // this._popupDialog.y = cc.winSize.height/2;
+        this._popupDialog.y = -this._popupDialog.height/2;
+        // this._popupDialog.scale = 0;
+
+        this._popupDialog.runAction(
+            cc.sequence(
+                cc.moveBy(0.5, cc.p(0, this._popupDialog.height+50)).easing(cc.easeElasticInOut(0.6))
+                // cc.scaleTo(0.2, 1.1),
+                // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
+            )
+        );
+        this.addChild(this._popupDialog);
     },
 
-    _addButtons: function() {
+    _addDialogButtons: function() {
         var self = this;
-
-        var randBgIdx = Math.floor(Math.random()*2) + 1;
-        var playButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-        playButton.x = cc.winSize.width/2 - 200;
-        playButton.y = cc.winSize.height/2;
-        playButton.addClickEventListener(function() {
+        // PLAY
+        var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnPlay.x = this._popupDialog.width/2 - 150;
+        btnPlay.y = this._popupDialog.height/2;
+        this._popupDialog.addChild(btnPlay);
+        btnPlay.addClickEventListener(function() {
             // cc.log("PLAY");
             cc.audioEngine.stopMusic();
             self._moveToMainScene();
         });
-        this.addChild(playButton);
-        this._runBubbleAnimation(playButton);
 
-        var font = SCHOOL_NAME_COLOR[Math.floor(Math.random()*4)];
-        var playButtonLb = new cc.LabelBMFont("PLAY",
-            font,
-            playButton.width*1.5,
-            cc.TEXT_ALIGNMENT_CENTER);
-        playButtonLb.setScale(0.5);
-        playButtonLb.x = playButton.width / 2;
-        playButtonLb.y = playButton.height / 2;
-        playButton.addChild(playButtonLb);
+        var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
+        lbPlay.scale = 0.6;
+        lbPlay.x = btnPlay.width/2;
+        lbPlay.y = btnPlay.height/2;
+        btnPlay.getRendererNormal().addChild(lbPlay);
 
-        randBgIdx = Math.floor(Math.random()*2) + 1;
-        var loginButton = new ccui.Button("school_bg-"+ randBgIdx +".png", "", "", ccui.Widget.PLIST_TEXTURE);
-        loginButton.x = cc.winSize.width/2 + 200;
-        loginButton.y = cc.winSize.height/2;
-        loginButton.addClickEventListener(function() {
+        // LOGIN
+        var btnLogin = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnLogin.x = this._popupDialog.width/2 + 150;
+        btnLogin.y = this._popupDialog.height/2;
+        this._popupDialog.addChild(btnLogin);
+        btnLogin.addClickEventListener(function() {
             cc.director.replaceScene(new cc.TransitionFade(1, new SchoolSelectorScene(), cc.color(255, 255, 255, 255)));
         });
-        this.addChild(loginButton);
-        this._runBubbleAnimation(loginButton);
 
-        font = SCHOOL_NAME_COLOR[Math.floor(Math.random()*4)];
-        var loginButtonLb = new cc.LabelBMFont("LOGIN",
-            font,
-            loginButton.width*1.5,
-            cc.TEXT_ALIGNMENT_CENTER);
-        loginButtonLb.setScale(0.5);
-        loginButtonLb.x = loginButton.width / 2;
-        loginButtonLb.y = loginButton.height / 2;
-        loginButton.addChild(loginButtonLb);
+        var lbLogin = new cc.LabelBMFont("LOGIN", "yellow-font-export.fnt");
+        lbLogin.scale = 0.6;
+        lbLogin.x = btnLogin.width/2;
+        lbLogin.y = btnLogin.height/2;
+        btnLogin.getRendererNormal().addChild(lbLogin);
+    },
+
+    _createBackground: function() {
+        var bg = new cc.Sprite(res.Bg_account_jpg);
+        bg.x = cc.winSize.width / 2;
+        bg.y = cc.winSize.height / 2;
+        this.addChild(bg);
+
+        var bush = new cc.Sprite("#grass.png");
+        bush.anchorY = bush.anchorX = 0;
+        this.addChild(bush);
+        bush = new cc.Sprite("#grass.png");
+        bush.anchorY = bush.anchorX = 0;
+        bush.x = bush.width-1;
+        bush.flippedX = true;
+        this.addChild(bush, 0);
+
+        var ground = new cc.Sprite("#Mainground.png");
+        ground.anchorX = 0;
+        this.addChild(ground, 1);
+        ground = new cc.Sprite("#Mainground.png");
+        ground.anchorX = 0;
+        ground.x = ground.width-1;
+        ground.flippedX = true;
+        this.addChild(ground, 1);
+
     },
 
     _playBackgroundMusic: function() {

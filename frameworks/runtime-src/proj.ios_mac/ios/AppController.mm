@@ -40,8 +40,6 @@
 
 #import "AudioEngine.h"
 
-#import <ATAppUpdater.h>
-
 @implementation AppController
 
 #pragma mark -
@@ -101,6 +99,7 @@ static AppDelegate s_sharedApplication;
 //   [SEGAnalytics debug:YES];
   
     [Fabric with:@[[Crashlytics class], [Optimizely class]]];
+  [[Fabric sharedSDK] setDebug: YES];
 
     return YES;
 }

@@ -96,7 +96,6 @@ PODS:
     - UXCam (= 2.3.2)
   - AppsFlyer-SDK (2.5.3.15.1)
   - Apptimize (2.14.2)
-  - ATAppUpdater (1.7)
   - Bugsnag (4.0.7):
     - Bugsnag/no-arc (= 4.0.7)
   - Bugsnag/no-arc (4.0.7)
@@ -127,7 +126,6 @@ PODS:
 
 DEPENDENCIES:
   - Analytics
-  - ATAppUpdater
   - Crashlytics
   - Fabric
   - PDKeychainBindingsController
@@ -137,7 +135,6 @@ SPEC CHECKSUMS:
   Analytics: 51d6163cb568c8ede69f2b92ef4779d91e1524e2
   AppsFlyer-SDK: 34670f7a518e82cfba54dc8ad7738bacf4117b9c
   Apptimize: f187322af7163fe27dd3b3520d94d445680bec45
-  ATAppUpdater: 4dea317a34210ad4f26c316d2d97afc4ff5077f3
   Bugsnag: 5861d8519d30063abe7b3fcdcf4114a6dddab27a
   Countly: 2151c5286995b84972ba4a92c3fba6b5fafce6bb
   Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d

@@ -13,8 +13,11 @@ android {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 16042500
+        versionCode 16042900
         versionName "1.0"
+        ndk {
+            abiFilters "armeabi", "x86"
+        }
     }
 
     sourceSets.main {
@@ -53,6 +56,13 @@ android {
     }
 }
 
+crashlytics {
+    enableNdk true
+    androidNdkOut 'obj'
+    androidNdkLibsOut 'libs'
+}
+
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
@@ -62,6 +72,9 @@ dependencies {
     compile 'commons-io:commons-io:2.4'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
+        transitive = true
+    }
+    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') {
         transitive = true
     }
 }
