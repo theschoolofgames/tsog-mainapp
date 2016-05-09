@@ -254,6 +254,14 @@ bool AppDelegate::applicationDidFinishLaunching()
 //    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", inFileDir.c_str()).c_str(), nullptr);
   });
   
+//  SoundStretch soundStretch;
+//  string fileNames[] = {"listeningTest_english.wav", "listeningTest_hindi.wav", "listeningTest_spanish.wav", "writingTest_english.wav", "writingTest_hindi.wav", "writingTest_spanish.wav"};
+//  for (int i = 0; i < 6; i++) {
+//    string inFileDir = StringUtils::format("%s%s", FileUtils::getInstance()->getWritablePath().c_str(), fileNames[i].c_str());
+//    string outFileDir = StringUtils::format("%s1-%s", FileUtils::getInstance()->getWritablePath().c_str(), fileNames[i].c_str());
+//      soundStretch.process(inFileDir.c_str(), outFileDir.c_str(), 0, 10, 0);
+//  }
+  
     return true;
 }
 

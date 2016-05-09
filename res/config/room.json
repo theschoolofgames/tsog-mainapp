@@ -1,15 +1,6 @@
 {
     "items": [
         {
-            "imageName": "egg",
-            "type": "LIGHT_WEIGHT_ITEM",
-            "x": 824,
-            "y": 445,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 18
-        },
-        {
             "imageName": "hat",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 882.5,
@@ -89,6 +80,15 @@
             "anchorX":0.5 ,
             "anchorY": 0.5,
             "z": 6
+        },
+        {
+            "imageName": "egg",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 824,
+            "y": 445,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 18
         },
         {
             "imageName": "kite",
