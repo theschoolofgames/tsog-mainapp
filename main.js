@@ -126,8 +126,8 @@ cc.game.onStart = function(){
         
         cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new MainScene());
-        // cc.director.runScene(new WritingTestScene(["WATERMELON", "TOYTRAIN", "ABACUS"], "RoomScene"));
-        // cc.director.runScene(new ListeningTestScene(["ANT", "CAT", "BEE"], "ForestScene"));
+        // cc.director.runScene(new WritingTestScene(["DESK", "TOYTRAIN", "ABACUS"], "RoomScene"));
+        // cc.director.runScene(new ListeningTestScene(["DESK", "FLAG", "HAT"], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());

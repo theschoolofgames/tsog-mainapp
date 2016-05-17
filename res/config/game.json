@@ -7,7 +7,7 @@
     },
     "requireObjectsToHideAllShadow": 6,
     "levelTime": 120,
-    "talkingAdiTime": 120,    
+    "talkingAdiTime": 60,    
     "timeToPauseGame": 900,
     "timeToResumeGame": 120,
     "amountOfPlay": 4,
