@@ -25,6 +25,8 @@ var WritingTestLayer = cc.LayerColor.extend({
     _charIdx: -1,
     _pathIdx: -1,
 
+    _writeFailCount: 0,
+
     _blockTouch: false,
 
     _nextSceneName: null,
@@ -37,10 +39,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._names = objectsArray;
+        // this._names = objectsArray.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -117,26 +119,17 @@ var WritingTestLayer = cc.LayerColor.extend({
         var distance = cc.pDistance(renderPos, prevRenderPos);
         var dif = cc.pSub(renderPos, prevRenderPos);
 
-        // var convertedEmptyFillCharPos = this.convertToRTSpace(this._emptyFillCharacter.getPosition());
-        // var emptyFillCharBoundingBox = cc.rect(
-        //     convertedEmptyFillCharPos.x - this._emptyFillCharacter.width/2,
-        //     convertedEmptyFillCharPos.y - this._emptyFillCharacter.height/2,
-        //     this._emptyFillCharacter.width,
-        //     this._emptyFillCharacter.height);
-
         this._tmpRender.begin();
         for (var i = 0; i < distance; i++) {
             var delta = i / distance;
             var newPos = cc.p(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
-            // if (cc.rectContainsPoint(emptyFillCharBoundingBox, newPos)) {
-                var brush = new cc.Sprite("brush.png");  
-                brush.scale = this._wordScale * 0.9;          
-                brush.setPosition(renderPos.x + (dif.x * delta), renderPos.y + (dif.y * delta));
-                brush.visit();
-            // }
+            var brush = new cc.Sprite("brush.png");  
+            brush.scale = this._wordScale * 0.9;          
+            brush.setPosition(newPos);
+            brush.visit();
         }
         this._tmpRender.end();
-        this._tmpRender.getSprite().color = cc.color("#333333");;
+        this._tmpRender.getSprite().color = cc.color("#333333");
     },
 
     onTouchEnded: function(touch, event) {
@@ -179,7 +172,10 @@ var WritingTestLayer = cc.LayerColor.extend({
                 })
             ));
         } else {
+            this._writeFailCount++;
             this._displayFinger();
+            var failTimes = GAME_CONFIG.writingTestFailTimesToNextCharacter || UPDATED_CONFIG.writingTestFailTimesToNextCharacter;
+
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.tintTo(0.15, 255, 0, 0),
                 cc.tintTo(0.15, 255, 255, 255),
@@ -190,6 +186,10 @@ var WritingTestLayer = cc.LayerColor.extend({
                 cc.callFunc(function() {
                     self._blockTouch = false;
                     self._tmpRender.clear(0,0,0,0);
+
+                    if (self._writeFailCount >= failTimes) {
+                        self._finishAndMoveToNextChar();
+                    }
                 })
             ));
             this._incorrectAction();
@@ -220,15 +220,6 @@ var WritingTestLayer = cc.LayerColor.extend({
         }
         
         return true;
-
-        // var pathCfg = this._currentCharConfig.paths[this._pathIdx];
-        // var matched = true;
-        // pathCfg.forEach(function(point) {
-        //     var p = self.convertScaledPath(point);
-        //     matched &= !self.isSpriteTransparentInPoint(image, p);
-        // });
-
-        // return matched;
     },
     updateProgressBar: function() {
         var percent = this._touchCounting / this._objectsArray.length;
@@ -279,12 +270,81 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._writingWords[this._nameIdx][this._charIdx]];
     },
 
+    _finishAndMoveToNextChar: function() {
+        var self = this;
+        // this._tmpRender.getSprite().color = cc.color.GREEN;
+        this._tmpRender.begin();
+        while (this._pathIdx < this._currentCharConfig.paths.length) {
+            var pathCfg = this._currentCharConfig.paths[this._pathIdx];
+            // cc.log(JSON.stringify(pathCfg));
+            // var prevPoint = self.convertScaledPath(pathCfg[pathCfg.length-1]);
+            var prevPoint = self.convertScaledPath(pathCfg[0]);
+
+            for (var j = 1; j < pathCfg.length; j++) {
+            // for (var j = pathCfg.length-1; j >= 0; j--) {
+                var p = self.convertScaledPath(pathCfg[j]);
+
+                var distance = cc.pDistance(p, prevPoint);
+                var dif = cc.pSub(p, prevPoint);
+
+                for (var i = 0; i < distance; i++) {
+                    var delta = i / distance;
+                    var newPos = cc.p(p.x + (dif.x * delta), p.y + (dif.y * delta));
+                    var brush = new cc.Sprite("brush.png");  
+                    brush.color = cc.color.GREEN;
+                    brush.scale = self._wordScale * 0.9;          
+                    brush.setPosition(newPos);
+                    brush.visit();
+                }
+
+                prevPoint = p;
+            }
+
+            // for (var j = 0; j < pathCfg.length; j++) {
+            //     var p = self.convertScaledPath(pathCfg[j]);
+
+            //     var brush = new cc.Sprite("brush.png");  
+            //     brush.color = cc.color.RED;
+            //     brush.scale = self._wordScale * 0.1;          
+            //     brush.setPosition(p);
+            //     brush.visit();
+            // }
+
+            this._pathIdx++;
+        }
+        this._tmpRender.end();
+
+        this.runAction(cc.sequence(
+            cc.delayTime(0),
+            cc.callFunc(function() {
+                var sprite = new cc.Sprite(self._tmpRender.getSprite().getTexture());
+                // sprite.color = cc.color.GREEN;
+                sprite.flippedY = true;
+                sprite.setPosition(self._tmpRender.getPosition());
+                
+                self._baseRender.begin();
+                sprite.visit();
+                self._baseRender.end();
+
+                self._tmpRender.clear(0,0,0,0);
+                self._tmpRender.getSprite().color = cc.color("#333333");
+
+                self.checkChangingCharacter();
+                if (self.checkChangingWord())
+                    self._changeWord();
+                else
+                    self._moveToNextCharacter();
+            })
+        ))
+    },
+
     checkChangingCharacter: function() {
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
             // next char
             this._charIdx++;
             this._pathIdx = 0;
+            this._writeFailCount = 0;
             return true;
         }
 

@@ -22,7 +22,6 @@ namespace h102 {
     y = image->getHeight() - y;
     
     unsigned char *data = image->getData();
-    
     unsigned char *pixel = data + (x + y * image->getWidth()) * channels;
     
 //    unsigned char r = *pixel;

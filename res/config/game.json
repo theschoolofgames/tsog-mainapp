@@ -23,6 +23,7 @@
 
     "writingTestIncludedCoverPercentage": 80,
     "writingTestExcludedCoverPercentage": 40,
+    "writingTestFailTimesToNextCharacter": 3,
 
     "speakingTestNoiseDetectingTime": 5,
 

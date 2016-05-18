@@ -5,6 +5,7 @@
 
     "writingTestIncludedCoverPercentage": 80,
     "writingTestExcludedCoverPercentage": 40,
+    "writingTestFailTimesToNextCharacter": 3,
 
     "androidVersionName": "1.0",
     "androidForceUpdate": true,
