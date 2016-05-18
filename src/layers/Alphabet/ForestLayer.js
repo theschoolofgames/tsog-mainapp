@@ -747,9 +747,9 @@ var ForestLayer = cc.Layer.extend({
         if (objectCorrected >= starGoals.starGoal3)
             starEarned = 3;
 
+        if (starEarned > 0)
         this._hudLayer.setStarEarned(starEarned);
 
-        if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
 

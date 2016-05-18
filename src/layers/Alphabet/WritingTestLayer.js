@@ -29,7 +29,8 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _nextSceneName: null,
     _oldSceneName: null,
-
+    _touchCounting:0,
+    _hudLayer:null,
     _objectsArray: null,
 
     ctor: function(objectsArray, oldSceneName) {
@@ -51,6 +52,7 @@ var WritingTestLayer = cc.LayerColor.extend({
 
         // this._displayCurrentName();
         this._addAdiDog();
+        this._addHudLayer();
         this._displayWord();
         this._addRenderTextures();
 
@@ -68,6 +70,14 @@ var WritingTestLayer = cc.LayerColor.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this._playBeginSound();
+    },
+
+    _addHudLayer: function(){
+        var hudLayer = new HudLayer(this);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
     },
 
     _playBeginSound: function() {
@@ -154,8 +164,11 @@ var WritingTestLayer = cc.LayerColor.extend({
                     self._tmpRender.getSprite().color = cc.color("#333333");
 
                     if (self.checkChangingCharacter()) {
-                        if (self.checkChangingWord())
+                        if (self.checkChangingWord()){
                             self._changeWord();
+                            self._touchCounting++;
+                            self.updateProgressBar();
+                        }
                         else
                             self._moveToNextCharacter();
                         self._correctAction();
@@ -214,6 +227,34 @@ var WritingTestLayer = cc.LayerColor.extend({
         // });
 
         // return matched;
+    },
+    updateProgressBar: function() {
+        var percent = this._touchCounting / this._objectsArray.length;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._touchCounting);
+
+        var starEarned = 0;
+        var objectCorrected = this._touchCounting;
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
+            starEarned = 1;
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
+            starEarned = 2;
+        if (objectCorrected >= starGoals.starGoal3)
+            starEarned = 3;
+        cc.log("starEarned" + starEarned);
+
+        this._hudLayer.setStarEarned(this._objectsArray.length);
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
+    },
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._objectsArray.length/3);
+        var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
+        var starGoal3 = this._objectsArray.length;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
     },
 
     convertToRTSpace: function(p) {
@@ -518,6 +559,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     },
 
     _correctAction: function() {
+
         var self = this;
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(

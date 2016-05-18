@@ -5,7 +5,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _itemArray: [],
     _soundName: null,
     _remainingTime: 2,
-
+    _hudLayer:null,
+    _touchCounting:0,
     currentObjectShowUpId: 0,
     currentObjectName: null,
     resultText: null,
@@ -41,7 +42,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this._super();
         
         this._addAdiDog();
-        
+        this._addHudLayer();
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
 
@@ -56,6 +57,41 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         // this.playBeginSound();
     },
 
+    _addHudLayer: function(){
+        var hudLayer = new HudLayer(this);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
+    },
+    updateProgressBar: function() {
+        var percent = this._touchCounting / this._objectsArray.length;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._touchCounting);
+
+        var starEarned = 0;
+        var objectCorrected = this._touchCounting;
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
+            starEarned = 1;
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
+            starEarned = 2;
+        if (objectCorrected >= starGoals.starGoal3)
+            starEarned = 3;
+
+        this._hudLayer.setStarEarned(starEarned);
+
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
+    },
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._objectsArray.length/3);
+        var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
+        var starGoal3 = this._objectsArray.length;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
+    },
     testBackgroundNoise: function() {
         var self = this;
 
@@ -145,6 +181,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     correctAction: function() {
+        this._touchCounting++;
+        this.updateProgressBar();
         var self = this;
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(

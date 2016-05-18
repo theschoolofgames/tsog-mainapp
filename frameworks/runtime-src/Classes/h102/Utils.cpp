@@ -21,8 +21,7 @@ namespace h102 {
     int channels = 4;
     y = image->getHeight() - y;
     
-    unsigned char *data = new unsigned char[image->getDataLen()*channels];
-    data = image->getData();
+    unsigned char *data = image->getData();
     
     unsigned char *pixel = data + (x + y * image->getWidth()) * channels;
     

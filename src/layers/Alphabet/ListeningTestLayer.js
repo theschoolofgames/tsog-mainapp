@@ -17,9 +17,9 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _objSoundIsPlaying: false,
 
     _tutorial: null,
-
+    _hudLayer:null,
     _objectsArray: null,
-
+    _touchCounting:0,
     _blockTouch: false,
 
     ctor: function(objectsArray, oldSceneName) {
@@ -36,6 +36,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
+        this._addHudLayer();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -92,6 +93,8 @@ var ListeningTestLayer = cc.LayerColor.extend({
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
                 if (obj.name == self._names[self._nameIdx]) {
                     self._celebrateCorrectObj(obj);
+                    self._touchCounting ++;
+                    self.updateProgressBar();
                 } else {
                     self._incorrectAction();
                 }
@@ -99,6 +102,43 @@ var ListeningTestLayer = cc.LayerColor.extend({
         });
 
         return true;
+    },
+
+    _addHudLayer: function(){
+        var hudLayer = new HudLayer(this);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
+    },
+
+    updateProgressBar: function() {
+        var percent = this._touchCounting / this._names.length;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._touchCounting);
+
+        var starEarned = 0;
+        var objectCorrected = this._touchCounting;
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
+            starEarned = 1;
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
+            starEarned = 2;
+        if (objectCorrected >= starGoals.starGoal3)
+            starEarned = 3;
+
+        this._hudLayer.setStarEarned(starEarned);
+
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
+    },
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._names.length/3);
+        var starGoal2 = Math.ceil(this._names.length/3 * 2);
+        var starGoal3 = this._names.length;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
     },
 
     _addAdiDog: function() {
