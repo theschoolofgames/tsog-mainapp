@@ -27,6 +27,9 @@
 
     "speakingTestNoiseDetectingTime": 5,
 
+    "bringback1stNextLvl": 1,
+    "bringback2rdNextLvl": 3,
+
     "sceneFlow": {
         "preLoopScreens": [
 
