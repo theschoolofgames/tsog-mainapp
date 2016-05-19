@@ -105,17 +105,19 @@ var ListeningTestLayer = cc.LayerColor.extend({
     },
 
     _addHudLayer: function(){
-        var hudLayer = new HudLayer(this);
+        var hudLayer = new HudLayer(this, true);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
+        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
+
     },
 
     updateProgressBar: function() {
         var percent = this._touchCounting / this._names.length;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting);
+        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
         var starEarned = 0;
         var objectCorrected = this._touchCounting;

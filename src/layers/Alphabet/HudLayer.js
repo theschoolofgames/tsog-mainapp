@@ -10,19 +10,21 @@ var HudLayer = cc.Layer.extend({
     _progressPercentage: 0,
     _starEarned: 0,
 
-    ctor: function(layer) {
+    ctor: function(layer, withoutClock) {
         this._super();
 
         this._layer = layer;
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
-        this.addClockImage();
+        if(withoutClock == false || withoutClock == null )
+            this.addClockImage(true);
+        else this.addClockImage(false);
 
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
-
         this.scheduleUpdate();
+
     },
 
     addSettingButton: function() {
@@ -89,7 +91,7 @@ var HudLayer = cc.Layer.extend({
         this.addProgressLabel(goalBg, "0/" + numItems);
     },
 
-    addClockImage: function() {
+    addClockImage: function(visible) {
         var clockBg = new cc.Sprite("#whitespace.png");
         clockBg.x = this._goalImg.x + this._goalImg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
         clockBg.y = this._goalImg.y;
@@ -99,6 +101,7 @@ var HudLayer = cc.Layer.extend({
         clockImg.x = 0;
         clockImg.y = clockImg.height/2 - 5;
         clockBg.addChild(clockImg);
+        clockBg.setVisible(visible);
         this._clockImg = clockBg;
         this.addCountDownClock();
     },
@@ -153,9 +156,12 @@ var HudLayer = cc.Layer.extend({
         this._clock.activeCountDownClock();
     },
 
-    setProgressLabelStr: function(text) {
-        var numItems = Global.NumberItems;
-        this._progressLabel.setString(text + "/" + numItems);
+    setProgressLabelStr: function(text, numItems) {
+        var numberItems = 0;
+        if (numItems == null)
+            numberItems = Global.NumberItems
+        else numberItems = numItems;
+        this._progressLabel.setString(text + "/" + numberItems);
     },
 
     setProgressBarPercentage: function(percent){
