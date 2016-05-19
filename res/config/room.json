@@ -118,15 +118,6 @@
             "z": 6
         },
         {
-            "imageName" : "nest",
-            "type":"LIGHT_WEIGHT_ITEM",
-            "x": 848,
-            "y": 230,
-            "anchorX":0.5 ,
-            "anchorY": 0.5,
-            "z": 6
-        },
-        {
             "imageName": "sock",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 475,
