@@ -65,6 +65,16 @@ var RoomLayer = cc.Layer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
+        this.runAction(
+            cc.sequence(    
+                cc.delayTime(0.1),
+                cc.callFunc(
+                    function() {
+                        Utils.startCountDownTimePlayed();
+                    }
+                )
+            )
+        )
     },
 
     onExit: function() {
@@ -846,6 +856,5 @@ var RoomScene = cc.Scene.extend({
         this.name = "room";
         var roomLayer = new RoomLayer();
         this.addChild(roomLayer);
-        Utils.startCountDownTimePlayed();
     }
 });

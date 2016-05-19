@@ -55,6 +55,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         // this.playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     _addHudLayer: function(){
@@ -385,6 +386,5 @@ var SpeakingTestScene = cc.Scene.extend({
 
         var layer = new SpeakingTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
-        Utils.startCountDownTimePlayed();
     }
 });

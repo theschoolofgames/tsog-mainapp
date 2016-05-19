@@ -29,6 +29,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     playBeginSound: function(){
@@ -182,6 +183,5 @@ var TalkingAdiScene = cc.Scene.extend({
 
         var talkingAdiLayer = new TalkingAdiLayer();
         this.addChild(talkingAdiLayer);
-        Utils.startCountDownTimePlayed();
     }
 });

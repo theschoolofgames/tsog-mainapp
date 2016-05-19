@@ -70,6 +70,7 @@ var WritingTestLayer = cc.LayerColor.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this._playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     _addHudLayer: function(){
@@ -655,6 +656,5 @@ var WritingTestScene = cc.Scene.extend({
         var layer = new WritingTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
 
-        Utils.startCountDownTimePlayed();
     }
 });

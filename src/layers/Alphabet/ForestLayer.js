@@ -68,6 +68,7 @@ var ForestLayer = cc.Layer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     playBeginSound: function(){
@@ -857,6 +858,5 @@ var ForestScene = cc.Scene.extend({
         this.name = "forest";
         var forestLayer = new ForestLayer();
         this.addChild(forestLayer);
-        Utils.startCountDownTimePlayed();
     }
 });

@@ -50,6 +50,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this._playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     onExit: function() {
@@ -399,6 +400,5 @@ var ListeningTestScene = cc.Scene.extend({
         this._super();
         var layer = new ListeningTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
-        Utils.startCountDownTimePlayed();
     }
 });
