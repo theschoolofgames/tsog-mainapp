@@ -387,7 +387,7 @@
   </object>
   <object id="305" name="F" gid="6" x="59" y="285" width="201" height="250" visible="0"/>
  </objectgroup>
- <objectgroup name="E">
+ <objectgroup name="E" visible="0">
   <object id="95" name="E" gid="5" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="245" name="Path1" x="109.333" y="82">
    <polyline points="0,0 -0.333333,10.6667 -0.333333,20 -0.333333,29.3333 -0.333333,39.3333 -0.333333,55 -0.333333,68 -0.333333,79 -0.333333,92 -0.333333,102 -0.333333,114.667 -0.333333,127.667 -0.333333,138.333 -0.333333,150.667 0,161.667 0,171.333"/>
@@ -402,7 +402,7 @@
    <polyline points="0,0 13.6667,0 23.3333,0 31,0 40.6667,0 51.6667,0 61.6667,0 70,0 78.3333,0 86,0 95.6667,0"/>
   </object>
  </objectgroup>
- <objectgroup name="D" visible="0">
+ <objectgroup name="D">
   <object id="90" name="D" gid="4" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="94" name="Path2" x="122" y="82">
    <polyline points="14,0 30,0 52,9 73,26 87,49 90.5,81 90,108 75,138 43,157 14,156.5"/>

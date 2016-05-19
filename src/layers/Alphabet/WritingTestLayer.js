@@ -39,10 +39,10 @@ var WritingTestLayer = cc.LayerColor.extend({
         this._super(cc.color(255, 255, 255, 255));
 
         this._objectsArray = objectsArray;
-        this._names = objectsArray;
-        // this._names = objectsArray.map(function(obj) {
-        //     return obj.name.toUpperCase();
-        // });
+        // this._names = objectsArray;
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -51,6 +51,8 @@ var WritingTestLayer = cc.LayerColor.extend({
         //     cc.log(obj);
         //     return WRITING_TEST_CONFIG[obj.toLowerCase()].toUpperCase();
         // });
+
+        // cc.log(JSON.stringify(this._writingWords));
 
         // this._displayCurrentName();
         this._addAdiDog();
@@ -272,70 +274,82 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _finishAndMoveToNextChar: function() {
         var self = this;
-        // this._tmpRender.getSprite().color = cc.color.GREEN;
-        this._tmpRender.begin();
-        while (this._pathIdx < this._currentCharConfig.paths.length) {
-            var pathCfg = this._currentCharConfig.paths[this._pathIdx];
-            // cc.log(JSON.stringify(pathCfg));
-            // var prevPoint = self.convertScaledPath(pathCfg[pathCfg.length-1]);
-            var prevPoint = self.convertScaledPath(pathCfg[0]);
+        this._finger.stopAllActions();
+        this._finger.opacity = 0;
 
-            for (var j = 1; j < pathCfg.length; j++) {
-            // for (var j = pathCfg.length-1; j >= 0; j--) {
-                var p = self.convertScaledPath(pathCfg[j]);
+        this._characterNodes[this._charIdx].runAction(cc.fadeTo(0.5, 64));
+        this._charIdx++;
+        this._pathIdx = 0;
+        this._writeFailCount = 0;
 
-                var distance = cc.pDistance(p, prevPoint);
-                var dif = cc.pSub(p, prevPoint);
+        if (self.checkChangingWord())
+            self._changeWord();
+        else
+            self._moveToNextCharacter();
 
-                for (var i = 0; i < distance; i++) {
-                    var delta = i / distance;
-                    var newPos = cc.p(p.x + (dif.x * delta), p.y + (dif.y * delta));
-                    var brush = new cc.Sprite("brush.png");  
-                    brush.color = cc.color.GREEN;
-                    brush.scale = self._wordScale * 0.9;          
-                    brush.setPosition(newPos);
-                    brush.visit();
-                }
+        // this._tmpRender.begin();
+        // while (this._pathIdx < this._currentCharConfig.paths.length) {
+        //     var pathCfg = this._currentCharConfig.paths[this._pathIdx];
+        //     // cc.log(JSON.stringify(pathCfg));
+        //     // var prevPoint = self.convertScaledPath(pathCfg[pathCfg.length-1]);
+        //     var prevPoint = self.convertScaledPath(pathCfg[0]);
 
-                prevPoint = p;
-            }
+        //     for (var j = 1; j < pathCfg.length; j++) {
+        //     // for (var j = pathCfg.length-1; j >= 0; j--) {
+        //         var p = self.convertScaledPath(pathCfg[j]);
 
-            // for (var j = 0; j < pathCfg.length; j++) {
-            //     var p = self.convertScaledPath(pathCfg[j]);
+        //         var distance = cc.pDistance(p, prevPoint);
+        //         var dif = cc.pSub(p, prevPoint);
 
-            //     var brush = new cc.Sprite("brush.png");  
-            //     brush.color = cc.color.RED;
-            //     brush.scale = self._wordScale * 0.1;          
-            //     brush.setPosition(p);
-            //     brush.visit();
-            // }
+        //         for (var i = 0; i < distance; i++) {
+        //             var delta = i / distance;
+        //             var newPos = cc.p(p.x + (dif.x * delta), p.y + (dif.y * delta));
+        //             var brush = new cc.Sprite("brush.png");  
+        //             brush.color = cc.color.GREEN;
+        //             brush.scale = self._wordScale * 0.9;          
+        //             brush.setPosition(newPos);
+        //             brush.visit();
+        //         }
 
-            this._pathIdx++;
-        }
-        this._tmpRender.end();
+        //         prevPoint = p;
+        //     }
 
-        this.runAction(cc.sequence(
-            cc.delayTime(0),
-            cc.callFunc(function() {
-                var sprite = new cc.Sprite(self._tmpRender.getSprite().getTexture());
-                // sprite.color = cc.color.GREEN;
-                sprite.flippedY = true;
-                sprite.setPosition(self._tmpRender.getPosition());
+        //     // for (var j = 0; j < pathCfg.length; j++) {
+        //     //     var p = self.convertScaledPath(pathCfg[j]);
+
+        //     //     var brush = new cc.Sprite("brush.png");  
+        //     //     brush.color = cc.color.RED;
+        //     //     brush.scale = self._wordScale * 0.1;          
+        //     //     brush.setPosition(p);
+        //     //     brush.visit();
+        //     // }
+
+        //     this._pathIdx++;
+        // }
+        // this._tmpRender.end();
+
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(0),
+        //     cc.callFunc(function() {
+        //         var sprite = new cc.Sprite(self._tmpRender.getSprite().getTexture());
+        //         // sprite.color = cc.color.GREEN;
+        //         sprite.flippedY = true;
+        //         sprite.setPosition(self._tmpRender.getPosition());
                 
-                self._baseRender.begin();
-                sprite.visit();
-                self._baseRender.end();
+        //         self._baseRender.begin();
+        //         sprite.visit();
+        //         self._baseRender.end();
 
-                self._tmpRender.clear(0,0,0,0);
-                self._tmpRender.getSprite().color = cc.color("#333333");
+        //         self._tmpRender.clear(0,0,0,0);
+        //         self._tmpRender.getSprite().color = cc.color("#333333");
 
-                self.checkChangingCharacter();
-                if (self.checkChangingWord())
-                    self._changeWord();
-                else
-                    self._moveToNextCharacter();
-            })
-        ))
+        //         self.checkChangingCharacter();
+        //         if (self.checkChangingWord())
+        //             self._changeWord();
+        //         else
+        //             self._moveToNextCharacter();
+        //     })
+        // ))
     },
 
     checkChangingCharacter: function() {
@@ -525,8 +539,6 @@ var WritingTestLayer = cc.LayerColor.extend({
 
             charArrays.push(tempArr);
         }
-
-        // cc.log("wordScale: " + this._wordScale);
 
         for (var i = 0; i < charArrays.length; i++) {
             charArrays[i][0].scale = this._wordScale;
