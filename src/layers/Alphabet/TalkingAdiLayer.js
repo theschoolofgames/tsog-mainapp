@@ -182,5 +182,6 @@ var TalkingAdiScene = cc.Scene.extend({
 
         var talkingAdiLayer = new TalkingAdiLayer();
         this.addChild(talkingAdiLayer);
+        Utils.startCountDownTimePlayed();
     }
 });

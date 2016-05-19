@@ -524,3 +524,5 @@ var SPEAKING_TEST_LANGUAGE_SOUND_DURATION = [
         soundDuration: 5
     }
 ];
+
+var TIME_TO_PAUSE_GAME = 60;

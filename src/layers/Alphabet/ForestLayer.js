@@ -857,5 +857,6 @@ var ForestScene = cc.Scene.extend({
         this.name = "forest";
         var forestLayer = new ForestLayer();
         this.addChild(forestLayer);
+        Utils.startCountDownTimePlayed();
     }
 });

@@ -653,5 +653,7 @@ var WritingTestScene = cc.Scene.extend({
 
         var layer = new WritingTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
+
+        Utils.startCountDownTimePlayed();
     }
 });

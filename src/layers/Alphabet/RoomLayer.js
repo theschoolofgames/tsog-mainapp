@@ -846,5 +846,6 @@ var RoomScene = cc.Scene.extend({
         this.name = "room";
         var roomLayer = new RoomLayer();
         this.addChild(roomLayer);
+        Utils.startCountDownTimePlayed();
     }
 });

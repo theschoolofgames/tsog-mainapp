@@ -397,5 +397,6 @@ var ListeningTestScene = cc.Scene.extend({
         this._super();
         var layer = new ListeningTestLayer(objectsArray, nextSceneName, oldSceneName);
         this.addChild(layer);
+        Utils.startCountDownTimePlayed();
     }
 });
