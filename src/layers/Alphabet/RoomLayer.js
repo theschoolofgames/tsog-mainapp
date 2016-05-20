@@ -804,6 +804,7 @@ var RoomLayer = cc.Layer.extend({
 
     increaseAmountGamePlayed: function() {
         Global.NumberGamePlayed += 1;
+        Global.NumberRoomPlayed++;
     },
 
     hadObjectRequired: function() {

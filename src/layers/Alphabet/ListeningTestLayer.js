@@ -383,7 +383,10 @@ var ListeningTestLayer = cc.LayerColor.extend({
             )
         );
 
-        ConfigStore.getInstance().setBringBackObj(this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, this._names[this._nameIdx], Global.NumberItems);
+        ConfigStore.getInstance().setBringBackObj(
+            this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
+            this._names[this._nameIdx], 
+            this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
     },
 
     _moveToNextScene: function() {

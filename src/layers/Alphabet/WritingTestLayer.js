@@ -274,7 +274,10 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _finishAndMoveToNextChar: function() {
         var self = this;
-        ConfigStore.getInstance().setBringBackObj(this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, this._names[this._nameIdx], Global.NumberItems);
+        ConfigStore.getInstance().setBringBackObj(
+            this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
+            this._names[this._nameIdx], 
+            this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
         
         this._finger.stopAllActions();
         this._finger.opacity = 0;

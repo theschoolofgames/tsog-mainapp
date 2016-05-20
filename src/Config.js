@@ -274,12 +274,14 @@ var ConfigStore = cc.Class.extend({
 
         var items = array[setId];
         var bringbackItems = this.bringbackObj[setId];
+        var currentScenePlayed = (setId == BEDROOM_ID ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
 
-        // var randomedItems = bringbackItems.slice();
+        cc.log("currentScenePlayed: " + currentScenePlayed);
+        
         var randomedItems = [];
         bringbackItems.forEach(function(bbItem) {
-            if ((bbItem.firstFail && Global.NumberItems - bbItem.idx == bringback1stNextLvl) ||
-                (!bbItem.firstFail && Global.NumberItems - bbItem.idx == bringback2rdNextLvl)) {
+            if ((bbItem.firstFail && currentScenePlayed - bbItem.idx == bringback1stNextLvl) ||
+                (!bbItem.firstFail && currentScenePlayed - bbItem.idx == bringback2rdNextLvl)) {
                 var item = items.filter(function(a) {return a.imageName.toUpperCase() == bbItem.name})[0];
 
                 if (item)

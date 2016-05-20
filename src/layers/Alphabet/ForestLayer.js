@@ -804,6 +804,7 @@ var ForestLayer = cc.Layer.extend({
         // numberGamePlayed += 1;
         // this.setAmountGamePlayeds(numberGamePlayed);
         Global.NumberGamePlayed += 1;
+        Global.NumberForestPlayed++;
     },
 
     increaseObjectAmountBaseOnPlay: function() {
