@@ -15,6 +15,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _objectName: "",
     _nextSceneName: null,
     _oldSceneName: null,
+    _wrongAnswerTime: 0,
 
     ctor: function(objectsArray, oldSceneName) {
         this._super(cc.color(255, 255, 255, 255));
@@ -158,18 +159,26 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     incorrectAction: function() {
         var self = this;
         jsb.AudioEngine.play2d(res.Failed_sfx);
+        cc.log("_wrongAnswerTime -> " + this._wrongAnswerTime);
 
         // if (this._checkTimeUp()) {    
-            this._timeUp();
-            this.runAction(
-                cc.sequence(
-                    cc.delayTime(4),
-                    cc.callFunc(function() {
+        this._timeUp();
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(4),
+                cc.callFunc(function() {
+                    if (self._wrongAnswerTime < 3) {
+                        self._wrongAnswerTime++;
+                        self._showObject();
+                    }else { 
                         self._showNextObject();
-                        this.checkCorrectAction = 0;
-                    })        
-                )
-            );   
+                        self.checkCorrectAction = 0;
+                        self._wrongAnswerTime = 0;
+                    }
+                })        
+            )
+        ); 
+          
         // }
         var now = Date.now()/1000;
         var deltaTime = now - KVDatabase.getInstance().getInt("startSceneTime", 0);
@@ -316,6 +325,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     _showObject: function() {
+        
         if (this._currentObjectShowUp) {
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
@@ -331,7 +341,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             objectName = "animals/" + this._objectsArray[this.currentObjectShowUpId].name;
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
-
         }
         
         this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
@@ -350,7 +359,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.addChild(this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
-        this.currentObjectShowUpId +=1;
+        if (this._wrongAnswerTime > 2)
+            this.currentObjectShowUpId +=1;
     },
 
     // _setLabelString: function() {

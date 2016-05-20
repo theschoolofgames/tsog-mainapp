@@ -163,22 +163,23 @@ Utils.resumeCallback = function (){cc.director.resume();};
 
 Utils.startCountDownTimePlayed = function() {
     if (Utils.timeToShowPauseScreen <= 0)
-        Utils.timeToShowPauseScreen = TIME_TO_PAUSE_GAME;
+        Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
     cc.log("startCountDownTimePlayed");
     cc.log("runningScene: " + cc.director.getRunningScene());
     cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
 }
 
 Utils.countdownTimePlayed = function() {
-    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+    cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
     
     if (Utils.timeToShowPauseScreen === 0) {
         if (Utils.startCallback)
             Utils.startCallback();
+        
         cc.director.getRunningScene().addChild(new PauseLayer(function() {
             Utils.resumeCallback();
-            Utils.startCountDownTimePlayed(TIME_TO_PAUSE_GAME, Utils.startCallback, Utils.resumeCallback);
-        }), 9999999);    
+            Utils.startCountDownTimePlayed(GAME_CONFIG.timeToPauseGame, Utils.startCallback, Utils.resumeCallback);
+        }));
     }
     else
         Utils.timeToShowPauseScreen--;

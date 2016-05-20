@@ -133,7 +133,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
-        // cc.director.runScene(new SpeakingTestScene());
+        // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
