@@ -5,6 +5,7 @@
 
     "writingTestIncludedCoverPercentage": 80,
     "writingTestExcludedCoverPercentage": 40,
+    "writingTestFailTimesToNextCharacter": 3,
 
     "androidVersionName": "1.0",
     "androidForceUpdate": true,
@@ -12,6 +13,9 @@
     "iosForceUpdate": false,
 
     "speakingTestNoiseDetectingTime": 5,
+
+    "bringback1stNextLvl": 1,
+    "bringback2rdNextLvl": 3,
 
     "sceneFlow": {
         "preLoopScreens": [

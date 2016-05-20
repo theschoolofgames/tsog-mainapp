@@ -298,7 +298,7 @@
 		01F481CE1C23FFE300FCE13D /* sse_optimized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481BE1C23FFE300FCE13D /* sse_optimized.cpp */; };
 		01F481CF1C23FFE300FCE13D /* TDStretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481C01C23FFE300FCE13D /* TDStretch.cpp */; };
 		01FDB8931C32773200D21971 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FDB8921C32773200D21971 /* CoreAudio.framework */; };
-		095B43662F4559726A313DCE /* libPods-tsog-desktop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 886F6CEF913B870CB0ABFE36 /* libPods-tsog-desktop.a */; };
+		0E2FBDC543AD873F5FF8A206 /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21D0215E856CF5D813EC66B2 /* libPods-tsog.a */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -306,7 +306,6 @@
 		1AD7E0A818C9DB93004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AD7E0A918C9DBE3004817A6 /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 1A6BF21418C9DB5900FB0E1C /* main.js */; };
 		1AE159EC18C9DF3600FCA372 /* project.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A081B18C9DF05005C6854 /* project.json */; };
-		409BA88E11837A25ABAFDD2A /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF6071EA6D2EF530E665089 /* libPods-tsog.a */; };
 		502380DC17EBB88200990C9B /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 502380DB17EBB88200990C9B /* libcurl.dylib */; };
 		5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731417ECDF7A00D62437 /* Icon-29.png */; };
 		5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 5091731517ECDF7A00D62437 /* Icon-40.png */; };
@@ -340,6 +339,7 @@
 		509D4AE717EBB81800697056 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE617EBB81800697056 /* OpenGL.framework */; };
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
+		95941E5BB992FFFF8846A598 /* libPods-tsog-desktop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEEE34DD36B05E3AB083B10 /* libPods-tsog-desktop.a */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
 		A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275431517C094001B78AA /* OpenGLES.framework */; };
 		A92275461517C094001B78AA /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275451517C094001B78AA /* OpenAL.framework */; };
@@ -979,7 +979,8 @@
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
-		48D85AE175E8125ECFCADF59 /* Pods-tsog-desktop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-desktop.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop.release.xcconfig"; sourceTree = "<group>"; };
+		1EEEE34DD36B05E3AB083B10 /* libPods-tsog-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21D0215E856CF5D813EC66B2 /* libPods-tsog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -1011,9 +1012,8 @@
 		509D4AE617EBB81800697056 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		509D4AE817EBB82000697056 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		886F6CEF913B870CB0ABFE36 /* libPods-tsog-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FF6071EA6D2EF530E665089 /* libPods-tsog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A0EF290D0B31B853D7C521 /* Pods-tsog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.release.xcconfig"; sourceTree = "<group>"; };
+		51BBFCC3E5D8F70BB71769BD /* Pods-tsog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.debug.xcconfig"; sourceTree = "<group>"; };
+		628924BE667DB5D0110D229A /* Pods-tsog-desktop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-desktop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop.debug.xcconfig"; sourceTree = "<group>"; };
 		A922753D1517C094001B78AA /* tsog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tsog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -1023,6 +1023,7 @@
 		A922754B1517C094001B78AA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A922754D1517C094001B78AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A922754F1517C094001B78AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A99ACB2D6EF2E86FAD743E04 /* Pods-tsog-desktop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-desktop.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop.release.xcconfig"; sourceTree = "<group>"; };
 		BA3A85EB1A724AE900924D24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		BA4E718019EB6E3E00932425 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		BAEE4D831AC40C11003BEB0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -1035,8 +1036,6 @@
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D4545216156E28EF00887EB5 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6B061231803AB9F0077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
-		DF54476FF35E6E24A93C54C2 /* Pods-tsog.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.debug.xcconfig"; sourceTree = "<group>"; };
-		E981B33AEEAEFB633DB31B9D /* Pods-tsog-desktop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-desktop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop.debug.xcconfig"; sourceTree = "<group>"; };
 		EB7B08AA1BB50D2200B36D24 /* lwf_cocos2dx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx.h; sourceTree = "<group>"; };
 		EB7B08AB1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lwf_cocos2dx_bitmap.cpp; sourceTree = "<group>"; };
 		EB7B08AC1BB50D2200B36D24 /* lwf_cocos2dx_bitmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lwf_cocos2dx_bitmap.h; sourceTree = "<group>"; };
@@ -1114,6 +1113,7 @@
 		F8E727191BA2040B00223CB0 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		F8E727281BA2129000223CB0 /* LWFSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LWFSprite.cpp; sourceTree = "<group>"; };
 		F8E727291BA2129000223CB0 /* LWFSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LWFSprite.h; sourceTree = "<group>"; };
+		FEBCBFC312E8C6253621FB88 /* Pods-tsog.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog/Pods-tsog.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1136,7 +1136,7 @@
 				509D4A8E17EBB24E00697056 /* AVFoundation.framework in Frameworks */,
 				509D4A9017EBB24E00697056 /* Foundation.framework in Frameworks */,
 				509D4A9117EBB24E00697056 /* CoreGraphics.framework in Frameworks */,
-				095B43662F4559726A313DCE /* libPods-tsog-desktop.a in Frameworks */,
+				95941E5BB992FFFF8846A598 /* libPods-tsog-desktop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1171,7 +1171,7 @@
 				A922754C1517C094001B78AA /* UIKit.framework in Frameworks */,
 				A922754E1517C094001B78AA /* Foundation.framework in Frameworks */,
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
-				409BA88E11837A25ABAFDD2A /* libPods-tsog.a in Frameworks */,
+				0E2FBDC543AD873F5FF8A206 /* libPods-tsog.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2109,17 +2109,6 @@
 			path = mac;
 			sourceTree = "<group>";
 		};
-		9A409EE7FB7F4679F5329602 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DF54476FF35E6E24A93C54C2 /* Pods-tsog.debug.xcconfig */,
-				93A0EF290D0B31B853D7C521 /* Pods-tsog.release.xcconfig */,
-				E981B33AEEAEFB633DB31B9D /* Pods-tsog-desktop.debug.xcconfig */,
-				48D85AE175E8125ECFCADF59 /* Pods-tsog-desktop.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
@@ -2137,7 +2126,7 @@
 				509D4ACA17EBB2BE00697056 /* mac */,
 				A922753E1517C094001B78AA /* Products */,
 				15628F5B15F0F5C2000CF24B /* Resources */,
-				9A409EE7FB7F4679F5329602 /* Pods */,
+				D19C3CF9BF54C05B8FE08AE3 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2187,8 +2176,8 @@
 				A922754B1517C094001B78AA /* UIKit.framework */,
 				A922754D1517C094001B78AA /* Foundation.framework */,
 				A922754F1517C094001B78AA /* CoreGraphics.framework */,
-				8FF6071EA6D2EF530E665089 /* libPods-tsog.a */,
-				886F6CEF913B870CB0ABFE36 /* libPods-tsog-desktop.a */,
+				21D0215E856CF5D813EC66B2 /* libPods-tsog.a */,
+				1EEEE34DD36B05E3AB083B10 /* libPods-tsog-desktop.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2200,6 +2189,17 @@
 				C037820918BF76AF00FE4F13 /* libjscocos2d iOS.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D19C3CF9BF54C05B8FE08AE3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51BBFCC3E5D8F70BB71769BD /* Pods-tsog.debug.xcconfig */,
+				FEBCBFC312E8C6253621FB88 /* Pods-tsog.release.xcconfig */,
+				628924BE667DB5D0110D229A /* Pods-tsog-desktop.debug.xcconfig */,
+				A99ACB2D6EF2E86FAD743E04 /* Pods-tsog-desktop.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		D45446CC156DE73F00887EB5 /* ios */ = {
@@ -2377,12 +2377,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 509D4AA717EBB24E00697056 /* Build configuration list for PBXNativeTarget "tsog-desktop" */;
 			buildPhases = (
-				10B638FCD00CBB96D4D744CA /* 📦 Check Pods Manifest.lock */,
+				C7B208E2065CE7BF20807ACE /* 📦 Check Pods Manifest.lock */,
 				509D4A8017EBB24E00697056 /* Sources */,
 				509D4A9317EBB24E00697056 /* Resources */,
 				509D4A8217EBB24E00697056 /* Frameworks */,
-				81A8D492F20B01F477E46F12 /* 📦 Embed Pods Frameworks */,
-				DD8EB601989BFF8FFC902D10 /* 📦 Copy Pods Resources */,
+				4653D0A2065F2FC69D30F1CC /* 📦 Embed Pods Frameworks */,
+				ADDC2292FD525600CFA13D5B /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2399,13 +2399,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog" */;
 			buildPhases = (
-				A9CE9A3BE2A2108072F31E9A /* 📦 Check Pods Manifest.lock */,
+				64A79AB4032444D76BEA82C3 /* 📦 Check Pods Manifest.lock */,
 				A92275391517C094001B78AA /* Sources */,
 				A922753A1517C094001B78AA /* Frameworks */,
 				A922753B1517C094001B78AA /* Resources */,
 				0165B8D01BF1AA9F0066A39C /* ShellScript */,
-				FBDC136A3373E7FA18FF6560 /* 📦 Embed Pods Frameworks */,
-				A8ED3772F77107B9EB5327AA /* 📦 Copy Pods Resources */,
+				25DBE6BA0A71AB9D87EF673E /* 📦 Embed Pods Frameworks */,
+				617BCA0540D86EF27001C2D6 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2553,22 +2553,22 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" f7ff6b169a623e6d5927af62fd29ce11144ff325 715f72c04f4915fd7e789344dbf6b52ce07fd0cf1eba4129717c31c7cba26154";
 		};
-		10B638FCD00CBB96D4D744CA /* 📦 Check Pods Manifest.lock */ = {
+		25DBE6BA0A71AB9D87EF673E /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog/Pods-tsog-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		81A8D492F20B01F477E46F12 /* 📦 Embed Pods Frameworks */ = {
+		4653D0A2065F2FC69D30F1CC /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2583,7 +2583,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A8ED3772F77107B9EB5327AA /* 📦 Copy Pods Resources */ = {
+		617BCA0540D86EF27001C2D6 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2598,7 +2598,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog/Pods-tsog-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A9CE9A3BE2A2108072F31E9A /* 📦 Check Pods Manifest.lock */ = {
+		64A79AB4032444D76BEA82C3 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2613,7 +2613,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DD8EB601989BFF8FFC902D10 /* 📦 Copy Pods Resources */ = {
+		ADDC2292FD525600CFA13D5B /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2628,19 +2628,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FBDC136A3373E7FA18FF6560 /* 📦 Embed Pods Frameworks */ = {
+		C7B208E2065CE7BF20807ACE /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog/Pods-tsog-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3007,7 +3007,7 @@
 /* Begin XCBuildConfiguration section */
 		509D4AA817EBB24E00697056 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E981B33AEEAEFB633DB31B9D /* Pods-tsog-desktop.debug.xcconfig */;
+			baseConfigurationReference = 628924BE667DB5D0110D229A /* Pods-tsog-desktop.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -3032,7 +3032,7 @@
 		};
 		509D4AA917EBB24E00697056 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 48D85AE175E8125ECFCADF59 /* Pods-tsog-desktop.release.xcconfig */;
+			baseConfigurationReference = A99ACB2D6EF2E86FAD743E04 /* Pods-tsog-desktop.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -3105,7 +3105,7 @@
 		};
 		A92277011517C097001B78AA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF54476FF35E6E24A93C54C2 /* Pods-tsog.debug.xcconfig */;
+			baseConfigurationReference = 51BBFCC3E5D8F70BB71769BD /* Pods-tsog.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3143,7 +3143,7 @@
 		};
 		A92277021517C097001B78AA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93A0EF290D0B31B853D7C521 /* Pods-tsog.release.xcconfig */;
+			baseConfigurationReference = FEBCBFC312E8C6253621FB88 /* Pods-tsog.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

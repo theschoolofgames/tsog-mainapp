@@ -124,8 +124,8 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
-        cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new MainScene());
+        // cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene(["DESK", "TOYTRAIN", "ABACUS"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene(["DESK", "FLAG", "HAT"], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());

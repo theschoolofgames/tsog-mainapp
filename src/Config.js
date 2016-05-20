@@ -166,6 +166,8 @@ var ConfigStore = cc.Class.extend({
     objectSets: [],
     objectIds: [],
 
+    bringbackObj: [],
+
     ctor: function() {
         this._fillDataStore();
     },
@@ -221,6 +223,7 @@ var ConfigStore = cc.Class.extend({
         // ------------------------------ BED ROOM
         this.positionSets[BEDROOM_ID] = [];
         this.objectSets[BEDROOM_ID] = [];
+        this.bringbackObj[BEDROOM_ID] = [];
 
         for ( var i = 0; i < BEDROOM_ITEMS.length; i++) {
             this._addObject(BEDROOM_ID, BEDROOM_ITEMS[i])
@@ -232,6 +235,7 @@ var ConfigStore = cc.Class.extend({
         // ------------------------------ FOREST
         this.positionSets[FOREST_ID] = [];
         this.objectSets[FOREST_ID] = [];
+        this.bringbackObj[FOREST_ID] = [];
 
         for ( var i = 0; i < FOREST_ITEMS.length; i++) {
             this._addObject(FOREST_ID, FOREST_ITEMS[i]);
@@ -265,8 +269,25 @@ var ConfigStore = cc.Class.extend({
     },
 
     getRandomItems: function(array, setId, numItems) {
+        var bringback1stNextLvl = GAME_CONFIG.bringback1stNextLvl || UPDATED_CONFIG.bringback1stNextLvl;
+        var bringback2rdNextLvl = GAME_CONFIG.bringback2rdNextLvl || UPDATED_CONFIG.bringback2rdNextLvl;
+
         var items = array[setId];
+        var bringbackItems = this.bringbackObj[setId];
+
+        // var randomedItems = bringbackItems.slice();
         var randomedItems = [];
+        bringbackItems.forEach(function(bbItem) {
+            if ((bbItem.firstFail && Global.NumberItems - bbItem.idx == bringback1stNextLvl) ||
+                (!bbItem.firstFail && Global.NumberItems - bbItem.idx == bringback2rdNextLvl)) {
+                var item = items.filter(function(a) {return a.imageName.toUpperCase() == bbItem.name})[0];
+
+                if (item)
+                    randomedItems.push(item);
+            }
+        });
+
+        numItems -= randomedItems.length;
         for ( i = this.objectIds[setId]; i < this.objectIds[setId] + numItems; i++) {
             var j = i;
             if (i >= items.length)
@@ -287,6 +308,27 @@ var ConfigStore = cc.Class.extend({
 
     getRandomObjects: function(setId, numItems) {
         return this.getRandomItems(this.objectSets, setId, numItems);
+    },
+
+    setBringBackObj: function(setId, itemName, sceneIdx) {
+        var oldSavedIdx = this.bringbackObj[setId].map(function(a) {return a.name}).indexOf(itemName.toUpperCase());
+
+        if (oldSavedIdx >= 0) {
+            if (this.bringbackObj[setId][oldSavedIdx].idx != sceneIdx) {
+                if (this.bringbackObj[setId][oldSavedIdx].firstFail = true)
+                    this.bringbackObj[setId][oldSavedIdx].firstFail = false;
+                else
+                    this.bringbackObj[setId].splice(oldSavedIdx, 1);
+            }
+        } else {
+            this.bringbackObj[setId].push({
+                name: itemName.toUpperCase(),
+                idx: sceneIdx,
+                firstFail: true
+            });
+        }
+
+        cc.log(JSON.stringify(this.bringbackObj));
     }
 });
 

@@ -161,6 +161,8 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         jsb.AudioEngine.play2d(res.Failed_sfx);
         cc.log("_wrongAnswerTime -> " + this._wrongAnswerTime);
 
+        ConfigStore.getInstance().setBringBackObj(this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, this.currentObjectName, Global.NumberItems);
+
         // if (this._checkTimeUp()) {    
         this._timeUp();
         this.runAction(
