@@ -44,6 +44,19 @@ var HudLayer = cc.Layer.extend({
                 self._layer._moveToNextScene();
             });
 
+            var winToRoomOrForestBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            winToRoomOrForestBtn.x = cc.winSize.width - 30;
+            winToRoomOrForestBtn.y = 50;
+            winToRoomOrForestBtn.anchorX = winToRoomOrForestBtn.anchorY = 1;
+            winToRoomOrForestBtn.titleText = "Win To Room/Forest";
+            winToRoomOrForestBtn.setTitleColor(cc.color.BLACK);
+            winToRoomOrForestBtn.setTitleFontSize(16);
+            this.addChild(winToRoomOrForestBtn);
+            winToRoomOrForestBtn.addClickEventListener(function() {
+                var nextSceneName = SceneFlowController.getInstance().getNextRoomOrForestScene();
+                var scene = new window[nextSceneName]();
+                cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            });
         }
     },
 

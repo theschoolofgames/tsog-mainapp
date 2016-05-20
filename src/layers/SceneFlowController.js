@@ -28,6 +28,14 @@ var SceneFlowController = cc.Class.extend({
         return sceneName;
     },
 
+    getNextRoomOrForestScene: function() {
+        var sceneName = this.getNextSceneName();
+        while(sceneName != "RoomScene" && sceneName != "ForestScene")
+            sceneName = this.getNextSceneName();
+
+        return sceneName;
+    },
+
     resetFlow: function() {
         this._currentLoopSceneIdx = this._currentPreLoopSceneIdx = 0;
     }
