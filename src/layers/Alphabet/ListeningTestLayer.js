@@ -312,6 +312,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
 
     _celebrateCorrectObj: function(correctedObj) {
         var self = this;
+        self._blockTouch = true;
         this._nameIdx++;
 
         if (this._tutorial) {
@@ -338,6 +339,7 @@ var ListeningTestLayer = cc.LayerColor.extend({
                     // cc.delayTime(0.5),
                     cc.delayTime(2.0),
                     cc.callFunc(function() {
+                        self._blockTouch = false;
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
                         } else {
