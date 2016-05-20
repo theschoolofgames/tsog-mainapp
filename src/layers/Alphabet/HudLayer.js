@@ -17,6 +17,7 @@ var HudLayer = cc.Layer.extend({
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
+        this.addDebugButtons();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true);
         else this.addClockImage(false);
@@ -28,10 +29,21 @@ var HudLayer = cc.Layer.extend({
     },
 
     addDebugButtons: function() {
+        var self = this;
+        
         if (TSOG_DEBUG) {
-            var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            
-            
+            var winCurTestBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            winCurTestBtn.x = cc.winSize.width - 30;
+            winCurTestBtn.y = 80;
+            winCurTestBtn.anchorX = winCurTestBtn.anchorY = 1;
+            winCurTestBtn.titleText = "Win Current Test";
+            winCurTestBtn.setTitleColor(cc.color.BLACK);
+            winCurTestBtn.setTitleFontSize(16);
+            this.addChild(winCurTestBtn);
+            winCurTestBtn.addClickEventListener(function() {
+                self._layer._moveToNextScene();
+            });
+
         }
     },
 

@@ -14,8 +14,9 @@ Utils.showVersionLabel = function(parent) {
         lb.color = cc.color.BLACK;
         lb.setSystemFontSize(20);
         lb.x = cc.winSize.width - 20;
-        lb.y = cc.winSize.height - 20;
-        lb.anchorX = lb.anchorY = 1;
+        lb.y = 20;
+        lb.anchorX = 1;
+        lb.anchorY = 0;
         parent.addChild(lb, 9999);
 
         cc.log(NativeHelper.callNative("getVersionName"));

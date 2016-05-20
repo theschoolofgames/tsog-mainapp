@@ -17,7 +17,6 @@ var TestLayer = cc.LayerColor.extend({
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
         this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
-
     },
 
     _moveToNextScene: function() {

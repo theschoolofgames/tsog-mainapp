@@ -844,6 +844,10 @@ var ForestLayer = cc.Layer.extend({
         var self = this;
         cc.audioEngine.stopMusic();
         // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
+        this._moveToNextScene();
+    },
+
+    _moveToNextScene: function() {
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
         if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
@@ -851,7 +855,7 @@ var ForestLayer = cc.Layer.extend({
         else
             scene = new window[nextSceneName]();
         cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
-    },
+    }
 });
 var ForestScene = cc.Scene.extend({
     ctor: function() {
