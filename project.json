@@ -39,6 +39,7 @@
         "src/layers/MainApp/NewAccountLayer.js",
         "src/layers/MainApp/ChooseLanguageLayer.js",
 
+        "src/layers/Alphabet/TestLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",
         "src/layers/Alphabet/SpeakingTestLayer.js",
         "src/layers/Alphabet/Clock.js",

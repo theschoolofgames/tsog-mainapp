@@ -1,11 +1,9 @@
-var SpeakingTestLayer = cc.LayerColor.extend({
+var SpeakingTestLayer = TestLayer.extend({
     _talkingAdi: null,
-    _objectsArray: [],
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
     _remainingTime: 2,
-    _hudLayer:null,
     _touchCounting:0,
     currentObjectShowUpId: 0,
     currentObjectName: null,
@@ -18,7 +16,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     _wrongAnswerTime: 0,
 
     ctor: function(objectsArray, oldSceneName) {
-        this._super(cc.color(255, 255, 255, 255));
+        this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = oldSceneName;
         // this._currentScene = currentScene;
@@ -31,19 +29,18 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         }, this);
 
         
-        this._objectsArray = objectsArray || [];
-        cc.log("this._objectsArray" + JSON.stringify(this._objectsArray));
+        this._names = objectsArray.map(function(obj) {
+            return obj.name.toUpperCase();
+        });
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
-        Utils.showVersionLabel(this);
     },
 
     onEnter: function() {
         this._super();
         
         this._addAdiDog();
-        this._addHudLayer();
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
 
@@ -59,19 +56,10 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
-    _addHudLayer: function(){
-        var hudLayer = new HudLayer(this, true);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._objectsArray.length);
-
-    },
     updateProgressBar: function() {
-        var percent = this._touchCounting / this._objectsArray.length;
+        var percent = this._touchCounting / this._names.length;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._objectsArray.length);
+        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
         var starEarned = 0;
         var objectCorrected = this._touchCounting;
@@ -89,9 +77,9 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             this._hudLayer.addStar("light", starEarned);
     },
     countingStars: function() {
-        var starGoal1 = Math.ceil(this._objectsArray.length/3);
-        var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
-        var starGoal3 = this._objectsArray.length;
+        var starGoal1 = Math.ceil(this._names.length/3);
+        var starGoal2 = Math.ceil(this._names.length/3 * 2);
+        var starGoal3 = this._names.length;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -259,7 +247,7 @@ var SpeakingTestLayer = cc.LayerColor.extend({
     },
 
     _checkCompleted: function() {
-        if (this.currentObjectShowUpId >= this._objectsArray.length){
+        if (this.currentObjectShowUpId >= this._names.length){
             NativeHelper.callNative("stopSpeechRecognition");
             
             this._moveToNextScene();
@@ -267,16 +255,6 @@ var SpeakingTestLayer = cc.LayerColor.extend({
             return true;
         }
         return false;
-    },
-
-    _moveToNextScene: function() {
-        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
-        else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _checkTimeUp: function() {
@@ -338,17 +316,17 @@ var SpeakingTestLayer = cc.LayerColor.extend({
         var objectName = "";
         this._soundName = "";
         if (this._oldSceneName == "RoomScene") {
-            objectName = "things/" + this._objectsArray[this.currentObjectShowUpId].name;
+            objectName = "things/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + "-2.mp3";
             this._objectName = objectName;
         }
         else if (this._oldSceneName == "ForestScene") {
-            objectName = "animals/" + this._objectsArray[this.currentObjectShowUpId].name;
+            objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         }
         
-        this.currentObjectName = this._objectsArray[this.currentObjectShowUpId].name;
+        this.currentObjectName = this._names[this.currentObjectShowUpId];
         var self = this;
         this._playObjectSound(function(audioId) {
             self._addLabel("GO");

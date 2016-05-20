@@ -4,11 +4,10 @@ var RENDER_TEXTURE_HEIGHT = 320;
 var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
 
-var WritingTestLayer = cc.LayerColor.extend({
+var WritingTestLayer = TestLayer.extend({
 
     _adiDog: null,
 
-    _names: null,
     _writingWords: null,
 
     _characterNodes: [],
@@ -31,12 +30,10 @@ var WritingTestLayer = cc.LayerColor.extend({
 
     _nextSceneName: null,
     _oldSceneName: null,
-    _touchCounting:0,
-    _hudLayer:null,
     _objectsArray: null,
 
     ctor: function(objectsArray, oldSceneName) {
-        this._super(cc.color(255, 255, 255, 255));
+        this._super();
 
         this._objectsArray = objectsArray;
         // this._names = objectsArray;
@@ -56,7 +53,6 @@ var WritingTestLayer = cc.LayerColor.extend({
 
         // this._displayCurrentName();
         this._addAdiDog();
-        this._addHudLayer();
         this._displayWord();
         this._addRenderTextures();
 
@@ -67,23 +63,12 @@ var WritingTestLayer = cc.LayerColor.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
-
-        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {
         this._super();
         this._playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-    },
-
-    _addHudLayer: function(){
-        var hudLayer = new HudLayer(this, true);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
     },
 
     _playBeginSound: function() {
@@ -414,7 +399,7 @@ var WritingTestLayer = cc.LayerColor.extend({
                                 cc.fadeOut(0.3),
                                 cc.callFunc(function() {
                                     if (self._nameIdx >= self._writingWords.length) {
-                                        self._nextScene();
+                                        self._moveToNextScene();
                                         return;
                                     }
 
@@ -485,16 +470,6 @@ var WritingTestLayer = cc.LayerColor.extend({
         }
 
         
-    },
-
-    _nextScene: function() {
-        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
-        else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _displayWord: function() {

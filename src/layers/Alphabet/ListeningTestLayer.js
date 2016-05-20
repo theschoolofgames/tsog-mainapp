@@ -1,8 +1,7 @@
-var ListeningTestLayer = cc.LayerColor.extend({
+var ListeningTestLayer = TestLayer.extend({
 
     _adiDog: null,
 
-    _names: null,
     _nameNode: null,
     _objectNodes: [],
     _nameIdx: 0,
@@ -17,13 +16,11 @@ var ListeningTestLayer = cc.LayerColor.extend({
     _objSoundIsPlaying: false,
 
     _tutorial: null,
-    _hudLayer:null,
     _objectsArray: null,
-    _touchCounting:0,
     _blockTouch: false,
 
     ctor: function(objectsArray, oldSceneName) {
-        this._super(cc.color(255, 255, 255, 255));
+        this._super();
 
         this._oldSceneName = oldSceneName;
 
@@ -36,15 +33,12 @@ var ListeningTestLayer = cc.LayerColor.extend({
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-        this._addHudLayer();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
-
-        Utils.showVersionLabel(this);
     },
 
     onEnterTransitionDidFinish: function() {
@@ -103,16 +97,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
         });
 
         return true;
-    },
-
-    _addHudLayer: function(){
-        var hudLayer = new HudLayer(this, true);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
-
     },
 
     updateProgressBar: function() {
@@ -389,16 +373,6 @@ var ListeningTestLayer = cc.LayerColor.extend({
             this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
             this._names[this._nameIdx], 
             this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
-    },
-
-    _moveToNextScene: function() {
-        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
-        else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     }
 });
 

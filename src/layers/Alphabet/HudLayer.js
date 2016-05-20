@@ -27,6 +27,14 @@ var HudLayer = cc.Layer.extend({
 
     },
 
+    addDebugButtons: function() {
+        if (TSOG_DEBUG) {
+            var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            
+            
+        }
+    },
+
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
