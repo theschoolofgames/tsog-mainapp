@@ -286,6 +286,9 @@ var ConfigStore = cc.Class.extend({
 
                 if (item)
                     randomedItems.push(item);
+
+                if (!bbItem.firstFail)
+                    bringbackItems.splice(bringbackItems.indexOf(bbItem), 1);
             }
         });
 
@@ -319,8 +322,6 @@ var ConfigStore = cc.Class.extend({
             if (this.bringbackObj[setId][oldSavedIdx].idx != sceneIdx) {
                 if (this.bringbackObj[setId][oldSavedIdx].firstFail = true)
                     this.bringbackObj[setId][oldSavedIdx].firstFail = false;
-                else
-                    this.bringbackObj[setId].splice(oldSavedIdx, 1);
             }
         } else {
             this.bringbackObj[setId].push({

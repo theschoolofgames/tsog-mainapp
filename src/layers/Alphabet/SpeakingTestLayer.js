@@ -152,7 +152,7 @@ var SpeakingTestLayer = TestLayer.extend({
         ConfigStore.getInstance().setBringBackObj(
             this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
             this.currentObjectName, 
-            this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
+            (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
 
         // if (this._checkTimeUp()) {    
         this._timeUp();

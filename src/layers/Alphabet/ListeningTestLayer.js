@@ -63,7 +63,8 @@ var ListeningTestLayer = TestLayer.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            self._adiDog.adiIdling();
+            if (self._adiDog)
+                self._adiDog.adiIdling();
             
             self._addCountDownClock();
             self._displayCurrentName();
@@ -372,7 +373,7 @@ var ListeningTestLayer = TestLayer.extend({
         ConfigStore.getInstance().setBringBackObj(
             this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
             this._names[this._nameIdx], 
-            this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
+            (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
     }
 });
 

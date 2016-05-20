@@ -6,9 +6,13 @@ var TestLayer = cc.LayerColor.extend({
 
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
-        this._addHudLayer();
         Utils.showVersionLabel(this);
     },
+
+    onEnter: function() {
+        this._super();
+        this._addHudLayer();
+    }, 
 
     _addHudLayer: function(){
         var hudLayer = new HudLayer(this, true);
