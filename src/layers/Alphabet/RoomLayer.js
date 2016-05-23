@@ -1,3 +1,8 @@
+var Z_OBJECT = 4;
+var Z_SHADE = 3;
+var Z_OBJECT_SELECTED = 10;
+var Z_SHADE_SELECTED = 9;
+
 var RoomLayer = cc.Layer.extend({
     _kvInstance: null,
     _hudLayer: null,
@@ -244,7 +249,7 @@ var RoomLayer = cc.Layer.extend({
         object.tag = index;
         object.userData = { scaleFactor: 1, imageName: objImageName}
         object.scale = this._allScale * object.userData.scaleFactor;
-        this.addChild(object, 2);
+        this.addChild(object, Z_OBJECT);
 
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
@@ -284,12 +289,10 @@ var RoomLayer = cc.Layer.extend({
             shadeObject.color = cc.color(140, 130, 200);
             // shadeObject.color = cc.color(6, 66, 94);
 
-            shadeObject.setLocalZOrder(3);
-
             this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         }
 
-        this.addChild(shadeObject, 1);
+        this.addChild(shadeObject, Z_SHADE);
         this._shadeObjects.push(shadeObject);
     },
 
@@ -465,6 +468,11 @@ var RoomLayer = cc.Layer.extend({
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
+
+        var index = targetNode.getObjectIndex(targetNode._objectTouching);
+        targetNode._shadeObjects[index].setLocalZOrder(Z_SHADE_SELECTED);
+        targetNode._objectTouching.setLocalZOrder(Z_OBJECT_SELECTED);
+
         return true;
     },
 
@@ -499,8 +507,9 @@ var RoomLayer = cc.Layer.extend({
         targetNode._shadeObjects[index].visible = false;
         targetNode._shadeObjects[index].stopAllActions();
         targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
+        targetNode._shadeObjects[index].setLocalZOrder(Z_SHADE);
         // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
-        targetNode._objectTouching.setLocalZOrder(2);
+        targetNode._objectTouching.setLocalZOrder(Z_OBJECT);
         targetNode.handleObjectCorrectPos(index);
 
         targetNode._selectedShadeShader.setUniformInt("enabled", 0);
@@ -532,7 +541,7 @@ var RoomLayer = cc.Layer.extend({
     processGameLogic: function() {
         this._removeWarnLabel();
 
-        this._objectTouching.setLocalZOrder(6);
+        this._objectTouching.setLocalZOrder(Z_OBJECT_SELECTED);
         this._objectTouching.stopAllActions();
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
@@ -571,7 +580,7 @@ var RoomLayer = cc.Layer.extend({
             // cc.tintTo(0.25, 6, 66, 94),
             cc.tintTo(0.25, 186, 186, 186))));
 
-        shadeObject.setLocalZOrder(5);
+        shadeObject.setLocalZOrder(Z_SHADE_SELECTED);
 
         this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
     },
@@ -585,7 +594,7 @@ var RoomLayer = cc.Layer.extend({
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos);
-            this._objectTouching.setLocalZOrder(1);
+            this._objectTouching.setLocalZOrder(Z_OBJECT);
             this._objectTouching.userData.scaleFactor = 0.5;
             this._objectDisableds.push(this._objectTouching);
 
@@ -649,7 +658,7 @@ var RoomLayer = cc.Layer.extend({
             this.addChild(mask, 10000);
             this._maskLayer = mask;
 
-            object.setLocalZOrder(101);
+            object.setLocalZOrder(Z_OBJECT);
 
             var blockFlag = true;
             cc.eventManager.addListener({
@@ -819,7 +828,7 @@ var RoomLayer = cc.Layer.extend({
         if (this._shadeObjects.length > 0)
             for ( var i = 0; i< this._shadeObjects.length; i++) {
                 this._shadeObjects[i].visible = true;
-                this._shadeObjects[i].setLocalZOrder(1);
+                this._shadeObjects[i].setLocalZOrder(Z_SHADE);
             }
     },
 
