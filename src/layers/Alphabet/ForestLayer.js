@@ -151,6 +151,8 @@ var ForestLayer = cc.Layer.extend({
     createAnimals: function() {
         // this._numberItems = this.getNumberOfObjects();
         // cc.log("this._numberItems: %d, ", this._numberItems)
+        
+        
         var animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         for ( var i = 0; i < Global.NumberItems; i++) {

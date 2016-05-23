@@ -38,6 +38,24 @@ var SceneFlowController = cc.Class.extend({
 
     resetFlow: function() {
         this._currentLoopSceneIdx = this._currentPreLoopSceneIdx = 0;
+    },
+
+    cacheData: function() {
+        KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
+            currentPreLoopSceneIdx: this._currentPreLoopSceneIdx,
+            currentLoopSceneIdx: this._currentLoopSceneIdx
+        }));
+    },
+
+    populateData: function() {
+        var data = KVDatabase.getInstance().getString("sceneFlowCache");
+        if (data == null || data == "")
+            return;
+
+        data = JSON.parse(data);
+
+        this._currentPreLoopSceneIdx = data.currentPreLoopSceneIdx || 0;
+        this._currentLoopSceneIdx = data.currentLoopSceneIdx || 0;
     }
 });
 

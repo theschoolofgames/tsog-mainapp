@@ -109,6 +109,8 @@ cc.game.onStart = function(){
         SpeechRecognitionListener.setupInstance();
         GameListener.setupInstance();
 
+        Global.restoreCachedState();
+
         input.SingleTouch.setEnable (true);
 
         // NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);

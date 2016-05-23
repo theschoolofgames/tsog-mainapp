@@ -63,12 +63,12 @@ var ListeningTestLayer = TestLayer.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            if (self._adiDog)
+            if (self._adiDog) {
                 self._adiDog.adiIdling();
-            
-            self._addCountDownClock();
-            self._displayCurrentName();
-            self._showObjects();
+                self._addCountDownClock();
+                self._displayCurrentName();
+                self._showObjects();
+            }
         });
     },
 

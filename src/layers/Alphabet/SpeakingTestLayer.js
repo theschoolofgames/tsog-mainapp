@@ -56,6 +56,11 @@ var SpeakingTestLayer = TestLayer.extend({
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
+    onExit: function() {
+        this._super();
+        this._talkingAdi = null;
+    },
+
     updateProgressBar: function() {
         var percent = this._touchCounting / this._names.length;
         this._hudLayer.setProgressBarPercentage(percent);
@@ -146,6 +151,10 @@ var SpeakingTestLayer = TestLayer.extend({
 
     incorrectAction: function() {
         var self = this;
+
+        if (!this._talkingAdi)
+            return;
+
         jsb.AudioEngine.play2d(res.Failed_sfx);
         cc.log("_wrongAnswerTime -> " + this._wrongAnswerTime);
 

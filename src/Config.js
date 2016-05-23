@@ -165,7 +165,6 @@ var ConfigStore = cc.Class.extend({
     positionSets: [],
     objectSets: [],
     objectIds: [],
-
     bringbackObj: [],
 
     ctor: function() {
@@ -277,6 +276,7 @@ var ConfigStore = cc.Class.extend({
         var currentScenePlayed = (setId == BEDROOM_ID ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
 
         cc.log("currentScenePlayed: " + currentScenePlayed);
+        cc.log("objectIds: " + JSON.stringify(this.objectIds));
         
         var randomedItems = [];
         bringbackItems.forEach(function(bbItem) {
@@ -307,11 +307,8 @@ var ConfigStore = cc.Class.extend({
         return randomedItems;
     },
 
-    getRandomPositions: function(setId, numItems) {
-        return this.getRandomItems(this.positionSets, setId, numItems);
-    },
-
     getRandomObjects: function(setId, numItems) {
+        Global.saveCurrentState();
         return this.getRandomItems(this.objectSets, setId, numItems);
     },
 
@@ -330,8 +327,26 @@ var ConfigStore = cc.Class.extend({
                 firstFail: true
             });
         }
+    },
 
-        cc.log(JSON.stringify(this.bringbackObj));
+    cacheData: function() {
+        KVDatabase.getInstance().set("configStoreCache", JSON.stringify({
+            objectIds: this.objectIds,
+            bringbackObj: this.bringbackObj
+        }));
+    },
+
+    populateData: function() {
+        var data = KVDatabase.getInstance().getString("configStoreCache");
+        if (data == null || data == "")
+            return;
+
+        data = JSON.parse(data);
+
+        cc.log(JSON.stringify(data));
+
+        this.objectIds = data.objectIds.slice() || [];
+        this.bringbackObj = data.bringbackObj.slice() || [];
     }
 });
 
@@ -442,9 +457,9 @@ ConfigStore.setupInstance = function (configOnce) {
 
     if (configOnce) {
         preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
+        ConfigStore._instance = new ConfigStore();
     }
 
-    ConfigStore._instance = new ConfigStore();
     return ConfigStore._instance;
 };
 
