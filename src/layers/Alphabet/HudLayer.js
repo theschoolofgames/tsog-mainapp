@@ -57,6 +57,19 @@ var HudLayer = cc.Layer.extend({
                 var scene = new window[nextSceneName]();
                 cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
             });
+
+            var resetBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            resetBtn.x = cc.winSize.width - 30;
+            resetBtn.y = 20;
+            resetBtn.anchorX = resetBtn.anchorY = 1;
+            resetBtn.titleText = "Reset Progress";
+            resetBtn.setTitleColor(cc.color.BLACK);
+            resetBtn.setTitleFontSize(16);
+            this.addChild(resetBtn);
+            resetBtn.addClickEventListener(function() {
+                Global.clearCachedState();
+                cc.director.replaceScene(new SchoolSelectorScene());
+            });
         }
     },
 

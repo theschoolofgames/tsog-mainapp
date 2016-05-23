@@ -346,12 +346,12 @@ var ConfigStore = cc.Class.extend({
         cc.log(JSON.stringify(data));
 
         this.objectIds = data.objectIds.slice() || [];
-        this.bringbackObj = data.bringbackObj.slice() || [];
+        this.bringbackObj = data.bringbackObj.slice() || [[], []];
     },
 
     clearData: function() {
-        this.objectIds = [];
-        this.bringbackObj = [];
+        this.objectIds = [0, 0];
+        this.bringbackObj = [[], []];
         KVDatabase.getInstance().remove("configStoreCache");
     }
 });

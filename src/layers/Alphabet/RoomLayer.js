@@ -220,7 +220,7 @@ var RoomLayer = cc.Layer.extend({
         while (bedroomObjects.map(function(obj) {return obj.type == "HEAVY_WEIGHT_ITEM"}).length > BEDROOM_HEAVYWEIGHT_ITEMS_POSITION.length)
             var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, Global.NumberItems);
         
-        // cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
+        cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
         var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         var shuffledPositionIndex = 0, heavyObjPosIndex = 0;

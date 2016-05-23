@@ -77,6 +77,7 @@ var SettingDialog = cc.Layer.extend({
             KVDatabase.getInstance().remove("amountGamePlayed");
             KVDatabase.getInstance().set("isLoggedIn", 0);
             SceneFlowController.getInstance().resetFlow();
+            Global.clearCachedState();
             cc.director.replaceScene(new SchoolSelectorScene());
             // NativeHelper.callNative("moveToMainApp");
         })
