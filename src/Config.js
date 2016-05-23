@@ -347,6 +347,12 @@ var ConfigStore = cc.Class.extend({
 
         this.objectIds = data.objectIds.slice() || [];
         this.bringbackObj = data.bringbackObj.slice() || [];
+    },
+
+    clearData: function() {
+        this.objectIds = [];
+        this.bringbackObj = [];
+        KVDatabase.getInstance().remove("configStoreCache");
     }
 });
 

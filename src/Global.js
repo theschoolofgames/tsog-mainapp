@@ -17,6 +17,12 @@ Global.restoreCachedState = function() {
     SceneFlowController.getInstance().populateData();
 }
 
+Global.clearCachedState = function() {
+    Global.clearData();
+    ConfigStore.getInstance().clearData();
+    SceneFlowController.getInstance().clearData();
+}
+
 Global.cacheData = function() {
     KVDatabase.getInstance().set("globalCache", JSON.stringify({
         numberItems: Global.NumberItems,
@@ -37,4 +43,13 @@ Global.populateData = function() {
     Global.NumberGamePlayed = data.numberGamePlayed || 0;
     Global.NumberRoomPlayed = data.numberRoomPlayed || 0;
     Global.NumberForestPlayed = data.numberForestPlayed || 0;
+}
+
+Global.clearData = function() {
+    Global.NumberItems = null;
+    Global.NumberGamePlayed = 0;
+    Global.NumberRoomPlayed = 0;
+    Global.NumberForestPlayed = 0;
+
+    KVDatabase.getInstance().remove("globalCache");
 }

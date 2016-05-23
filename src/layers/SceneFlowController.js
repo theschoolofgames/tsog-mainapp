@@ -42,8 +42,8 @@ var SceneFlowController = cc.Class.extend({
 
     cacheData: function() {
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
-            currentPreLoopSceneIdx: this._currentPreLoopSceneIdx,
-            currentLoopSceneIdx: this._currentLoopSceneIdx
+            currentPreLoopSceneIdx: this._currentPreLoopSceneIdx == 0 ? 0 : this._currentPreLoopSceneIdx-1,
+            currentLoopSceneIdx: this._currentLoopSceneIdx == 0 ? 0 : this._currentLoopSceneIdx-1
         }));
     },
 
@@ -51,11 +51,17 @@ var SceneFlowController = cc.Class.extend({
         var data = KVDatabase.getInstance().getString("sceneFlowCache");
         if (data == null || data == "")
             return;
-
+        cc.log("SceneFlowController: " + data);
         data = JSON.parse(data);
 
         this._currentPreLoopSceneIdx = data.currentPreLoopSceneIdx || 0;
         this._currentLoopSceneIdx = data.currentLoopSceneIdx || 0;
+    },
+
+    clearData: function() {
+        KVDatabase.getInstance().remove("sceneFlowCache");
+        this._currentPreLoopSceneIdx = 0;
+        this._currentLoopSceneIdx = 0;
     }
 });
 
