@@ -68,7 +68,7 @@ var HudLayer = cc.Layer.extend({
             this.addChild(resetBtn);
             resetBtn.addClickEventListener(function() {
                 Global.clearCachedState();
-                cc.director.replaceScene(new SchoolSelectorScene());
+                cc.director.replaceScene(new MainScene());
             });
         }
     },
