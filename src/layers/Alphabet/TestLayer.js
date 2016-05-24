@@ -4,6 +4,8 @@ var TestLayer = cc.LayerColor.extend({
     _touchCounting:0,
     _hudLayer:null,
 
+    _adiDog: null,
+
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
         Utils.showVersionLabel(this);
@@ -13,6 +15,11 @@ var TestLayer = cc.LayerColor.extend({
         this._super();
         this._addHudLayer();
     }, 
+
+    onExit: function() {
+        this._super();
+        this._adiDog = null;
+    },
 
     _addHudLayer: function(){
         var hudLayer = new HudLayer(this, true);

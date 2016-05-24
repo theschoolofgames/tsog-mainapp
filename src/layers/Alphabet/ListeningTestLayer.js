@@ -1,7 +1,4 @@
 var ListeningTestLayer = TestLayer.extend({
-
-    _adiDog: null,
-
     _nameNode: null,
     _objectNodes: [],
     _nameIdx: 0,
@@ -45,12 +42,6 @@ var ListeningTestLayer = TestLayer.extend({
         this._super();
         this._playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-    },
-
-    onExit: function() {
-        this._super();
-
-        this._adiDog = null;
     },
 
     _playBeginSound: function() {

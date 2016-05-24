@@ -720,7 +720,7 @@ var RoomLayer = cc.Layer.extend({
     updateProgressBar: function() {
         var percent = this._objectDisableds.length / Global.NumberItems;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, this._objects.length);
+        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, Global.NumberItems);
 
         var starEarned = 0;
         var objectCorrected = this._objectDisableds.length;

@@ -738,7 +738,7 @@ var ForestLayer = cc.Layer.extend({
     updateProgressBar: function() {
         var percent = this._touchCounting / Global.NumberItems;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._objects.length);
+        this._hudLayer.setProgressLabelStr(this._touchCounting, Global.NumberItems);
 
         var starEarned = 0;
         var objectCorrected = this._touchCounting;
