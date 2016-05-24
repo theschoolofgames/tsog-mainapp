@@ -8,6 +8,7 @@ target 'tsog' do
   pod 'Analytics'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Amplitude-iOS', :git => 'git@github.com:thuydx55/Amplitude-iOS.git', :branch => 'fix_sqlite_importing_3.2.0'
 end
 
 target 'tsog-desktop' do

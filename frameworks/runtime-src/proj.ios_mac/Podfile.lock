@@ -125,10 +125,21 @@ PODS:
   - UXCam (2.3.2)
 
 DEPENDENCIES:
+  - Amplitude-iOS (from `git@github.com:thuydx55/Amplitude-iOS.git`, branch `fix_sqlite_importing_3.2.0`)
   - Analytics
   - Crashlytics
   - Fabric
   - PDKeychainBindingsController
+
+EXTERNAL SOURCES:
+  Amplitude-iOS:
+    :branch: fix_sqlite_importing_3.2.0
+    :git: git@github.com:thuydx55/Amplitude-iOS.git
+
+CHECKOUT OPTIONS:
+  Amplitude-iOS:
+    :commit: a3c6b6b61de9ab33d09a28e22cf58a0f673ffa08
+    :git: git@github.com:thuydx55/Amplitude-iOS.git
 
 SPEC CHECKSUMS:
   Amplitude-iOS: 6f82e97de436fd145ae9a205933b350fcdfbcddc
@@ -156,6 +167,6 @@ SPEC CHECKSUMS:
   TRVSDictionaryWithCaseInsensitivity: 51d2ccf52c6d645d27b63467a98fa02c556e01b0
   UXCam: b4914853e5512ac16a3e4a33499cd470230d7a6e
 
-PODFILE CHECKSUM: f1964ddf5dc39e06fce6559c14f5b72d6c346e6b
+PODFILE CHECKSUM: 10e66e0a7f4455b7987dcb119248b68c209c1091
 
 COCOAPODS: 1.0.0
