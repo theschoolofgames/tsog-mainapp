@@ -171,7 +171,7 @@ Utils.startCountDownTimePlayed = function() {
 }
 
 Utils.countdownTimePlayed = function() {
-    cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
     
     if (Utils.timeToShowPauseScreen === 0) {
         if (Utils.startCallback)

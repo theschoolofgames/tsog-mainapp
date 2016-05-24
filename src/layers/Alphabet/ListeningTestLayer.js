@@ -122,8 +122,8 @@ var ListeningTestLayer = TestLayer.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        this._adiDog.scale = Utils.screenRatioTo43() * 0.9;
-        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/6));
+        this._adiDog.scale = Utils.screenRatioTo43() * 0.6;
+        this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/3));
         this.addChild(this._adiDog);
     },
 

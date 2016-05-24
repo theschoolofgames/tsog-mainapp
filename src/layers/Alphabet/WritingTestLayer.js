@@ -563,7 +563,7 @@ var WritingTestLayer = TestLayer.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        this._adiDog.scale = Utils.screenRatioTo43() * 0.9;
+        this._adiDog.scale = Utils.screenRatioTo43() * 0.5;
         this._adiDog.setPosition(cc.p(cc.winSize.width * 0.15, cc.winSize.height/2 - 150 * this._adiDog.scale));
         this.addChild(this._adiDog);
     },

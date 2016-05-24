@@ -128,8 +128,8 @@ cc.game.onStart = function(){
         
         // cc.director.runScene(new WelcomeScene());
         cc.director.runScene(new MainScene());
-        // cc.director.runScene(new WritingTestScene(["DESK", "TOYTRAIN", "ABACUS"], "RoomScene"));
-        // cc.director.runScene(new ListeningTestScene(["DESK", "FLAG", "HAT"], "RoomScene"));
+        // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());
