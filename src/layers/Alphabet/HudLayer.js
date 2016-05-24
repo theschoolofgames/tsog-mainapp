@@ -17,7 +17,6 @@ var HudLayer = cc.Layer.extend({
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
-        this.addDebugButtons();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true);
         else this.addClockImage(false);
@@ -26,51 +25,6 @@ var HudLayer = cc.Layer.extend({
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
 
-    },
-
-    addDebugButtons: function() {
-        var self = this;
-        
-        if (TSOG_DEBUG) {
-            var winCurTestBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            winCurTestBtn.x = cc.winSize.width - 30;
-            winCurTestBtn.y = 80;
-            winCurTestBtn.anchorX = winCurTestBtn.anchorY = 1;
-            winCurTestBtn.titleText = "Win Current Test";
-            winCurTestBtn.setTitleColor(cc.color.BLACK);
-            winCurTestBtn.setTitleFontSize(16);
-            this.addChild(winCurTestBtn);
-            winCurTestBtn.addClickEventListener(function() {
-                self._layer._moveToNextScene();
-            });
-
-            var winToRoomOrForestBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            winToRoomOrForestBtn.x = cc.winSize.width - 30;
-            winToRoomOrForestBtn.y = 50;
-            winToRoomOrForestBtn.anchorX = winToRoomOrForestBtn.anchorY = 1;
-            winToRoomOrForestBtn.titleText = "Win To Room/Forest";
-            winToRoomOrForestBtn.setTitleColor(cc.color.BLACK);
-            winToRoomOrForestBtn.setTitleFontSize(16);
-            this.addChild(winToRoomOrForestBtn);
-            winToRoomOrForestBtn.addClickEventListener(function() {
-                var nextSceneName = SceneFlowController.getInstance().getNextRoomOrForestScene();
-                var scene = new window[nextSceneName]();
-                cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
-            });
-
-            var resetBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            resetBtn.x = cc.winSize.width - 30;
-            resetBtn.y = 20;
-            resetBtn.anchorX = resetBtn.anchorY = 1;
-            resetBtn.titleText = "Reset Progress";
-            resetBtn.setTitleColor(cc.color.BLACK);
-            resetBtn.setTitleFontSize(16);
-            this.addChild(resetBtn);
-            resetBtn.addClickEventListener(function() {
-                Global.clearCachedState();
-                cc.director.replaceScene(new MainScene());
-            });
-        }
     },
 
     addSettingButton: function() {

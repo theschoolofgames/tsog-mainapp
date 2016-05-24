@@ -481,15 +481,15 @@ var ForestLayer = cc.Layer.extend({
         
         this.createYouWin();
 
-        this.runAction(cc.sequence(
-            cc.delayTime(4),
-            cc.callFunc(function() {
-                if (self.isGamePlayedMatchAmountOfPlay()) {
-                    self.showTryAnOtherGameDialog();
-                    self._isWinLabel =false;
-                }
-            })
-        ));
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(4),
+        //     cc.callFunc(function() {
+        //         if (self.isGamePlayedMatchAmountOfPlay()) {
+        //             self.showTryAnOtherGameDialog();
+        //             self._isWinLabel =false;
+        //         }
+        //     })
+        // ));
 
     },
 

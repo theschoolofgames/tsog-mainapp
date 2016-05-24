@@ -52,7 +52,6 @@
         "src/layers/Alphabet/PauseLayer.js",
         "src/layers/Alphabet/WritingTestLayer.js",
         "src/layers/Alphabet/ListeningTestLayer.js",
-        "src/layers/Alphabet/DebugDialog.js",
 
         "src/layers/SceneFlowController.js",
 

@@ -11,6 +11,7 @@ var SettingDialog = cc.Layer.extend({
 
         this._addMask();
         this._addDialogBg();
+        this._addDebugButtons();
 
         this._dialogBgLabel = text;
         this._logoutBtnXRatio = 0;
@@ -109,4 +110,51 @@ var SettingDialog = cc.Layer.extend({
         dialogBgLabel.y = this._dialogBg.height/2 + 10;
         this._dialogBg.addChild(dialogBgLabel);
     },
+
+    _addDebugButtons: function() {
+        var self = this;
+        
+        if (TSOG_DEBUG) {
+            var winCurTestBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            winCurTestBtn.x = cc.winSize.width - 150;
+            winCurTestBtn.y = cc.winSize.height/2 + 80;
+            winCurTestBtn.anchorX = winCurTestBtn.anchorY = 1;
+            winCurTestBtn.titleText = "Win Current Test";
+            winCurTestBtn.setTitleColor(cc.color.BLACK);
+            winCurTestBtn.setTitleFontSize(16);
+            this.addChild(winCurTestBtn);
+            winCurTestBtn.addClickEventListener(function() {
+                cc.log(cc.director.getRunningScene().getChildrenCount());
+                cc.director.getRunningScene().getChildren()[1]._moveToNextScene();
+                // self._layer._moveToNextScene();
+            });
+
+            var winToRoomOrForestBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            winToRoomOrForestBtn.x = cc.winSize.width - 150;
+            winToRoomOrForestBtn.y = cc.winSize.height/2;
+            winToRoomOrForestBtn.anchorX = winToRoomOrForestBtn.anchorY = 1;
+            winToRoomOrForestBtn.titleText = "Win To Room/Forest";
+            winToRoomOrForestBtn.setTitleColor(cc.color.BLACK);
+            winToRoomOrForestBtn.setTitleFontSize(16);
+            this.addChild(winToRoomOrForestBtn);
+            winToRoomOrForestBtn.addClickEventListener(function() {
+                var nextSceneName = SceneFlowController.getInstance().getNextRoomOrForestScene();
+                var scene = new window[nextSceneName]();
+                cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            });
+
+            var resetBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            resetBtn.x = cc.winSize.width - 150;
+            resetBtn.y = cc.winSize.height/2 - 80;
+            resetBtn.anchorX = resetBtn.anchorY = 1;
+            resetBtn.titleText = "Reset Progress";
+            resetBtn.setTitleColor(cc.color.BLACK);
+            resetBtn.setTitleFontSize(16);
+            this.addChild(resetBtn);
+            resetBtn.addClickEventListener(function() {
+                Global.clearCachedState();
+                cc.director.replaceScene(new MainScene());
+            });
+        }
+    }
 })
