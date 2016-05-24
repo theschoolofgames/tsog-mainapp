@@ -149,7 +149,7 @@ var HudLayer = cc.Layer.extend({
         clockBg.addChild(clockImg);
         clockBg.setVisible(visible);
         this._clockImg = clockBg;
-        this.addCountDownClock();
+        this.addCountDownClock(visible);
     },
 
     addProgressLabel: function(object, text) {
@@ -173,15 +173,16 @@ var HudLayer = cc.Layer.extend({
             star.x = (this._progressBarBg.width - 30)/3 * (i+1);
             star.y = this._progressBarBg.height/2 + 5;
             this._progressBarBg.addChild(star);
-            cc.log("david add Strar");
+            cc.log("david add Star");
         }
     },
 
-    addCountDownClock: function() {
+    addCountDownClock: function(withClock) {
         var self = this;
         var clockInitTime = GAME_CONFIG.levelTime;
         var clock = new Clock(clockInitTime, function(){
-            self._layer.completedScene();
+            if(withClock == true)
+                self._layer.completedScene();
         });
         clock.x = this._clockImg.width / 2 + 10;
         clock.y = this._clockImg.height / 2;
