@@ -172,19 +172,17 @@ var SpeakingTestLayer = TestLayer.extend({
             this.currentObjectName, 
             (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
 
-        // if (this._checkTimeUp()) {    
         this._timeUp();
         this.runAction(
             cc.sequence(
                 cc.delayTime(4),
                 cc.callFunc(function() {
-                    if (self._wrongAnswerTime < 3) {
+                    if (self._wrongAnswerTime < 3)
                         self._wrongAnswerTime++;
-                        self._showNextObject();
-                    }else { 
-                        self._showNextObject();
+                    else
                         self.checkCorrectAction = 0;
-                    }
+
+                    self._showNextObject();
                 })        
             )
         ); 
@@ -219,6 +217,7 @@ var SpeakingTestLayer = TestLayer.extend({
             cc.callFunc(function() {
                 self.checkCorrectAction = 1;
                 self.currentObjectShowUpId++;
+                self._wrongAnswerTime = 0;
                 self._showNextObject();
             })
         ));
