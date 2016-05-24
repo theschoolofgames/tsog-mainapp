@@ -421,6 +421,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     checkWonGame: function() {
+        cc.log("checkWonGame");
         if (this._touchCounting == Global.NumberItems)
             this.completedScene();
     },
@@ -445,7 +446,7 @@ var ForestLayer = cc.Layer.extend({
             cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
 
         ));
-
+        cc.log("createYouWin");
         var self = this;
         this.runAction(cc.sequence(
             cc.delayTime(4),
@@ -473,6 +474,7 @@ var ForestLayer = cc.Layer.extend({
                             time_taken: elapseTime 
                         });
         };
+        cc.log("completedScene");
         var starEarned = this._hudLayer.getStarEarned();
         // var str = (starEarned > 1) ? " stars" : " star";
         var self  = this;
@@ -818,8 +820,8 @@ var ForestLayer = cc.Layer.extend({
         if ((Global.NumberGamePlayed % baseObjectAmounts) == 0)
             Global.NumberItems += increaseObjectAmounts;
 
-        // cc.log("numberItems: %d", this._numberItems);
-        // cc.log("numberGamePlayed: %d", numberGamePlayed);
+        cc.log("numberItems: %d", Global.NumberItems);
+        cc.log("numberGamePlayed: %d", Global.NumberGamePlayed);
         // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
         // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
         // this.setNumberOfObjects(this._numberItems);

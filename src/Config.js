@@ -436,7 +436,7 @@ ConfigStore.setupInstance = function (configOnce) {
     GAME_CONFIG = KVDatabase.getInstance().getString(STRING_GAME_CONFIG);
     try {
         GAME_CONFIG = JSON.parse(GAME_CONFIG);
-        Global.NumberItems = Global.NumberItems || GAME_CONFIG.objectStartCount;
+        Global.NumberItems = GAME_CONFIG.objectStartCount;
     } catch(e) {
         GAME_CONFIG = "";
     }
