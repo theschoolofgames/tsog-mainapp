@@ -274,9 +274,6 @@ var ConfigStore = cc.Class.extend({
         var items = array[setId];
         var bringbackItems = this.bringbackObj[setId];
         var currentScenePlayed = (setId == BEDROOM_ID ? Global.NumberRoomPlayed : Global.NumberForestPlayed);
-
-        cc.log("currentScenePlayed: " + currentScenePlayed);
-        cc.log("objectIds: " + JSON.stringify(this.objectIds));
         
         var randomedItems = [];
         bringbackItems.forEach(function(bbItem) {
@@ -303,6 +300,9 @@ var ConfigStore = cc.Class.extend({
         this.objectIds[setId] += numItems;
         if (this.objectIds[setId] >= items.length)
             this.objectIds[setId] -= items.length;
+
+        cc.log("numItems: " + JSON.stringify(numItems));
+        cc.log("randomedItems: " + JSON.stringify(randomedItems));
 
         return randomedItems;
     },

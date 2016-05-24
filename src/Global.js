@@ -39,14 +39,14 @@ Global.populateData = function() {
 
     data = JSON.parse(data);
 
-    Global.NumberItems = data.numberItems || 0;
+    Global.NumberItems = data.numberItems || GAME_CONFIG.objectStartCount;
     Global.NumberGamePlayed = data.numberGamePlayed || 0;
     Global.NumberRoomPlayed = data.numberRoomPlayed || 0;
     Global.NumberForestPlayed = data.numberForestPlayed || 0;
 }
 
 Global.clearData = function() {
-    Global.NumberItems = null;
+    Global.NumberItems = GAME_CONFIG.objectStartCount;
     Global.NumberGamePlayed = 0;
     Global.NumberRoomPlayed = 0;
     Global.NumberForestPlayed = 0;
