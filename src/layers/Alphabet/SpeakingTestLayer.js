@@ -85,7 +85,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
     testBackgroundNoise: function() {
         var self = this;
-        var adiBBox = this._talkingAdi.getBoundingBox();
+        var adiBBox = this._adiDog.getBoundingBox();
         var checkingText = new cc.LabelBMFont("CHECKING NOISE...", this.font);
         checkingText.scale = 0.8;
         checkingText.x = adiBBox.x + adiBBox.width/2;
