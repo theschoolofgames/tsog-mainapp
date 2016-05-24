@@ -5,9 +5,6 @@ var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
 
 var WritingTestLayer = TestLayer.extend({
-
-    _adiDog: null,
-
     _writingWords: null,
 
     _characterNodes: [],
@@ -81,9 +78,10 @@ var WritingTestLayer = TestLayer.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            if (self._adiDog)
-                self._adiDog.adiIdling();
-            
+            if (!self._adiDog)
+                return;
+
+            self._adiDog.adiIdling();
             self._moveToNextCharacter();
         });
     },

@@ -1,5 +1,4 @@
 var SpeakingTestLayer = TestLayer.extend({
-    _talkingAdi: null,
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
@@ -54,11 +53,6 @@ var SpeakingTestLayer = TestLayer.extend({
         this._super();
         // this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-    },
-
-    onExit: function() {
-        this._super();
-        this._talkingAdi = null;
     },
 
     updateProgressBar: function() {
@@ -124,7 +118,7 @@ var SpeakingTestLayer = TestLayer.extend({
         self = this;
         var nation = Utils.getLanguage();
         
-        this._talkingAdi.adiTalk();
+        this._adiDog.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -144,15 +138,15 @@ var SpeakingTestLayer = TestLayer.extend({
 
     addResultText: function() {
         this._resultTextLb = new cc.LabelBMFont(this.resultText, this.font);
-        this._resultTextLb.x = this._talkingAdi.x - this._resultTextLb.width/2 - 100;
-        this._resultTextLb.y = this._talkingAdi.y + 400;
+        this._resultTextLb.x = this._adiDog.x - this._resultTextLb.width/2 - 100;
+        this._resultTextLb.y = this._adiDog.y + 400;
         this.addChild(this._resultTextLb);
     },  
 
     incorrectAction: function() {
         var self = this;
 
-        if (!this._talkingAdi)
+        if (!this._adiDog)
             return;
 
         jsb.AudioEngine.play2d(res.Failed_sfx);
@@ -201,11 +195,11 @@ var SpeakingTestLayer = TestLayer.extend({
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(
             cc.callFunc(function() {
-                self._talkingAdi.adiJump();
+                self._adiDog.adiJump();
             }),
             cc.delayTime(1),
             cc.callFunc(function() {
-                self._talkingAdi.adiHifi();
+                self._adiDog.adiHifi();
             }),
             cc.delayTime(2),
             cc.callFunc(function() {
@@ -240,11 +234,11 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _addAdiDog: function() {
-        this._talkingAdi = new AdiDogNode();
-        this._talkingAdi.scale = 1.5;
-        this._talkingAdi.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
-        this._talkingAdi.onStartedListening();
-        this.addChild(this._talkingAdi);
+        this._adiDog = new AdiDogNode();
+        this._adiDog.scale = 1.5;
+        this._adiDog.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
+        this._adiDog.onStartedListening();
+        this.addChild(this._adiDog);
     },
 
     _playObjectSound: function(callback) {
@@ -252,7 +246,7 @@ var SpeakingTestLayer = TestLayer.extend({
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             callback && callback(audioId);
         });
-        this._talkingAdi.adiTalk();
+        this._adiDog.adiTalk();
     },
 
     _checkCompleted: function() {
@@ -274,8 +268,8 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _timeUp: function() {
         var self = this;
-        this._talkingAdi.onStoppedListening();
-        this._talkingAdi.adiShakeHead();
+        this._adiDog.onStoppedListening();
+        this._adiDog.adiShakeHead();
         this.runAction(cc.sequence(
             cc.delayTime(2),
             cc.callFunc(function() {    
@@ -292,7 +286,7 @@ var SpeakingTestLayer = TestLayer.extend({
     //             cc.callFunc(function() {
     //                 NativeHelper.callNative("startSpeechRecognition", [5000]);
     //                 KVDatabase.getInstance().set("timeUp", Date.now()/1000);
-    //                 self._talkingAdi.onStartedListening();
+    //                 self._adiDog.onStartedListening();
     //             })
     //         )
     //     )
@@ -341,7 +335,7 @@ var SpeakingTestLayer = TestLayer.extend({
             self._addLabel("GO");
             NativeHelper.callNative("startSpeechRecognition", [5000]);
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
-            self._talkingAdi.onStartedListening();
+            self._adiDog.onStartedListening();
         });
 
         this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
