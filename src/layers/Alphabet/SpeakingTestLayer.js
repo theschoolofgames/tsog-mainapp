@@ -91,6 +91,12 @@ var SpeakingTestLayer = TestLayer.extend({
     },
     testBackgroundNoise: function() {
         var self = this;
+        var adiBBox = this._talkingAdi.getBoundingBox();
+        var checkingText = new cc.LabelBMFont("CHECKING NOISE...", this.font);
+        checkingText.scale = 0.8;
+        checkingText.x = adiBBox.x + adiBBox.width/2;
+        checkingText.y = adiBBox.y;
+        this.addChild(checkingText, 999);
 
         var forcePlayBtn = new ccui.Button("timer.png", "", "");
         forcePlayBtn.x = cc.winSize.width - 60;
@@ -116,6 +122,7 @@ var SpeakingTestLayer = TestLayer.extend({
                     self.playBeginSound();
                     forcePlayBtn.removeFromParent();
                 }
+                checkingText.removeFromParent();
             })
         ))
     },
@@ -171,11 +178,10 @@ var SpeakingTestLayer = TestLayer.extend({
                 cc.callFunc(function() {
                     if (self._wrongAnswerTime < 3) {
                         self._wrongAnswerTime++;
-                        self._showObject();
+                        self._showNextObject();
                     }else { 
                         self._showNextObject();
                         self.checkCorrectAction = 0;
-                        self._wrongAnswerTime = 0;
                     }
                 })        
             )
@@ -209,7 +215,8 @@ var SpeakingTestLayer = TestLayer.extend({
             }),
             cc.delayTime(2),
             cc.callFunc(function() {
-                this.checkCorrectAction = 1;
+                self.checkCorrectAction = 1;
+                self.currentObjectShowUpId++;
                 self._showNextObject();
             })
         ));
@@ -317,7 +324,10 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _showObject: function() {
-        
+        if (this._wrongAnswerTime > 2) {
+            this.currentObjectShowUpId +=1;
+            this._wrongAnswerTime = 0;
+        }
         if (this._currentObjectShowUp) {
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
@@ -351,8 +361,6 @@ var SpeakingTestLayer = TestLayer.extend({
         this.addChild(this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
-        if (this._wrongAnswerTime > 2)
-            this.currentObjectShowUpId +=1;
     },
 
     // _setLabelString: function() {
