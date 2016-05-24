@@ -167,7 +167,7 @@ Utils.startCountDownTimePlayed = function() {
         Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
     cc.log("startCountDownTimePlayed");
     cc.log("runningScene: " + cc.director.getRunningScene());
-    // cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
+    cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
 }
 
 Utils.countdownTimePlayed = function() {
