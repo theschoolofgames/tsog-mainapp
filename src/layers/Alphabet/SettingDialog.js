@@ -71,14 +71,7 @@ var SettingDialog = cc.Layer.extend({
 
         var self = this;
         logoutBtn.addClickEventListener(function() {
-            KVDatabase.getInstance().remove(STRING_USER_ID);
-            KVDatabase.getInstance().remove(STRING_USER_NAME);
-            KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);
-            KVDatabase.getInstance().remove("numberItems");
-            KVDatabase.getInstance().remove("amountGamePlayed");
-            KVDatabase.getInstance().set("isLoggedIn", 0);
-            SceneFlowController.getInstance().resetFlow();
-            Global.clearCachedState();
+            Utils.logoutUser();
             cc.director.replaceScene(new SchoolSelectorScene());
             // NativeHelper.callNative("moveToMainApp");
         })
