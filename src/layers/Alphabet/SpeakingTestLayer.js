@@ -87,9 +87,9 @@ var SpeakingTestLayer = TestLayer.extend({
         var self = this;
         var adiBBox = this._adiDog.getBoundingBox();
         var checkingText = new cc.LabelBMFont("Checking noise...", this.font);
-        checkingText.scale = 0.8;
-        checkingText.x = adiBBox.x + adiBBox.width/2;
-        checkingText.y = adiBBox.y - checkingText.height/2;
+        checkingText.scale = Utils.screenRatioTo43();
+        checkingText.x = cc.winSize.width* 0.7;
+        checkingText.y = cc.winSize.height/2;
         this.addChild(checkingText, 999);
 
         var forcePlayBtn = new ccui.Button("timer.png", "", "");
@@ -249,7 +249,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _addAdiDog: function() {
         this._adiDog = new AdiDogNode();
-        this._adiDog.scale = 1.5;
+        this._adiDog.scale = Utils.screenRatioTo43() *0.8;
         this._adiDog.setPosition(cc.p(cc.winSize.width / 3, cc.winSize.height / 6));
         this._adiDog.onStartedListening();
         this.addChild(this._adiDog);

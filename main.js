@@ -126,7 +126,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
-        cc.director.runScene(new WelcomeScene());
+        // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
@@ -135,7 +135,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene());
-        // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
