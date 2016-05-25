@@ -128,9 +128,6 @@ static SimpleAudioRecordEngine *sharedEngine = nil;
 {
     if (_recorder)
     {
-        NSError *setCategoryError = nil;
-        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryRecord error: &setCategoryError];
-        if (setCategoryError) NSLog(@"%@", setCategoryError.localizedDescription);
         if ([_recorder record])
         {
             NSLog(@"Success recording!");
@@ -144,9 +141,6 @@ static SimpleAudioRecordEngine *sharedEngine = nil;
 
 - (void)stopRecord
 {
-    NSError *setCategoryError = nil;
-    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryError];
-    if (setCategoryError) NSLog(@"%@", setCategoryError.localizedDescription);
     [_recorder stop];
 }
 

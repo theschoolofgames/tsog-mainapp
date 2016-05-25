@@ -146,6 +146,12 @@ var NativeHelperConfig = {
             "()V"
         ]
     },
+    changeAudioRoute: {
+        iOS: [
+            "H102Wrapper",
+            "changeAudioRoute"
+        ]
+    },
     // Speech Recognition
     changeSpeechLanguageArray: {
         iOS: [

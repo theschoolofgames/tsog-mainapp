@@ -116,6 +116,16 @@ static NSMutableArray* noiseDetectionArray = nil;
     [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
 }
 
++ (void)changeAudioRoute {
+  NSError *error = nil;
+  [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error: &error];
+  if (error) NSLog(@"%@", error.localizedDescription);
+  [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:&error];
+  if (error) NSLog(@"%@", error.localizedDescription);
+  [[AVAudioSession sharedInstance] setActive:YES error:&error];
+  if (error) NSLog(@"%@", error.localizedDescription);
+}
+
 + (void)initRecord {
   [[SimpleAudioRecordEngine sharedEngine] initRecord:@"record_sound.wav"];
 }
@@ -131,7 +141,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 + (void)startFetchingAudio {
   dispatch_async(dispatch_get_main_queue(), ^{
     NSLog(@"startBackgroundSoundDetecting");
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [H102Wrapper initRecord];
     [H102Wrapper startRecord];
     startTime = -1;
