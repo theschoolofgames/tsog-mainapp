@@ -46,6 +46,7 @@ var PauseLayer = cc.LayerColor.extend({
             self.removeFromParent();
             if (self._callback)
                 self._callback();
+            Utils.logoutUser();
             cc.director.replaceScene(new MainScene());
         })
 

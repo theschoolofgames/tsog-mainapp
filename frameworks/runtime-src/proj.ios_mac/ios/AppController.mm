@@ -100,6 +100,8 @@ static AppDelegate s_sharedApplication;
   
     [Fabric with:@[[Crashlytics class], [Optimizely class]]];
   [[Fabric sharedSDK] setDebug: YES];
+  
+  [UIApplication sharedApplication].idleTimerDisabled = YES;
 
     return YES;
 }
