@@ -68,6 +68,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     onEnterTransitionDidFinish: function() {
+        cc.log("RoomLayer onEnterTransitionDidFinish");
         this._super();
         this.playBeginSound();
         this.runAction(

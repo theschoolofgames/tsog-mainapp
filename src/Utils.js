@@ -158,13 +158,19 @@ Utils.getLanguage = function() {
 }
 
 Utils.timeToShowPauseScreen = -1;
-Utils.startCallback = function (){cc.director.pause();}
+Utils.startCallback = function (){
+    cc.log("startCallback called");
+    cc.director.pause();
+};
 
-Utils.resumeCallback = function (){cc.director.resume();};
+Utils.resumeCallback = function (){
+    cc.log("resumeCallback called");
+    cc.director.resume();
+};
 
 Utils.startCountDownTimePlayed = function() {
     if (Utils.timeToShowPauseScreen <= 0)
-        Utils.timeToShowPauseScreen = 30;//GAME_CONFIG.timeToPauseGame;
+        Utils.timeToShowPauseScreen = 15;//GAME_CONFIG.timeToPauseGame;
     cc.log("startCountDownTimePlayed");
     cc.log("runningScene: " + cc.director.getRunningScene());
     cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);

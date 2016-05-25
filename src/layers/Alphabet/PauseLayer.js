@@ -4,16 +4,20 @@ var PauseLayer = cc.LayerColor.extend({
     ctor: function(callback) {
         this._super(cc.color.WHITE);
 
-        this._callback = callback;
-        this._addAskLabel();
-        this._addAnswerButton();
-
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function() {return true;}
         }, this);
 
+        this._callback = callback;
+        this._addAskLabel();
+        this._addAnswerButton();
+    },
+
+    onExit: function() {
+        this._super();
+        cc.log("exit pauseLayer");
     },
 
     _addAskLabel: function() {
@@ -30,6 +34,7 @@ var PauseLayer = cc.LayerColor.extend({
     },
 
     _addAnswerButton: function() {
+        cc.log("");
         var self = this;
         var exitBtn = new ccui.Button();
         exitBtn.loadTextures("btn_exit.png", "btn_exit-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
@@ -39,7 +44,9 @@ var PauseLayer = cc.LayerColor.extend({
 
         exitBtn.addClickEventListener(function() {
             self.removeFromParent();
-            cc.director.runScene(new SchoolSelectorScene());
+            if (self._callback)
+                self._callback();
+            cc.director.replaceScene(new MainScene());
         })
 
         var resumeBtn = new ccui.Button();
@@ -54,4 +61,14 @@ var PauseLayer = cc.LayerColor.extend({
                 self._callback();
         })
     }
-})
+});
+
+var PauseScene = cc.Scene.extend({
+    ctor: function(callback) {
+        this._super();
+
+        var pauseLayer = new PauseLayer(callback);
+        this.addChild(pauseLayer);
+    }
+});
+
