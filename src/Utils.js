@@ -164,7 +164,7 @@ Utils.resumeCallback = function (){cc.director.resume();};
 
 Utils.startCountDownTimePlayed = function() {
     if (Utils.timeToShowPauseScreen <= 0)
-        Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
+        Utils.timeToShowPauseScreen = 30;//GAME_CONFIG.timeToPauseGame;
     cc.log("startCountDownTimePlayed");
     cc.log("runningScene: " + cc.director.getRunningScene());
     cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);

@@ -325,10 +325,6 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _showObject: function() {
-        if (this._wrongAnswerTime > 2) {
-            this.currentObjectShowUpId +=1;
-            this._wrongAnswerTime = 0;
-        }
         if (this._currentObjectShowUp) {
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
@@ -362,6 +358,11 @@ var SpeakingTestLayer = TestLayer.extend({
         this.addChild(this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+
+        if (this._wrongAnswerTime > 2) {
+            this.currentObjectShowUpId +=1;
+            this._wrongAnswerTime = 0;
+        }
     },
 
     // _setLabelString: function() {
