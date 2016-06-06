@@ -61,7 +61,9 @@ var SEGMENT = {
     OBJECT_PICK_END: "object_pick_end",
     ANIMAL_CLICK: "animal_click",
     SPEAK_TEST: "speak_test",
-    TALKING_ADI: "talking_adi"
+    TALKING_ADI: "talking_adi",
+    TOUCH_TEST: "touch_test",
+    WRITE_TEST: "write_test"
 }
 
 

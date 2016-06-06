@@ -143,8 +143,7 @@ var WritingTestLayer = TestLayer.extend({
 
                     self._tmpRender.clear(0,0,0,0);
                     self._tmpRender.getSprite().color = cc.color("#333333");
-
-                    if (self.checkChangingCharacter()) {
+                    if (self.checkChangingCharacter()) {    
                         if (self.checkChangingWord()){
                             self._changeWord();
                             self._touchCounting++;
@@ -161,7 +160,7 @@ var WritingTestLayer = TestLayer.extend({
             this._writeFailCount++;
             this._displayFinger();
             var failTimes = GAME_CONFIG.writingTestFailTimesToNextCharacter || UPDATED_CONFIG.writingTestFailTimesToNextCharacter;
-
+            
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.tintTo(0.15, 255, 0, 0),
                 cc.tintTo(0.15, 255, 255, 255),
@@ -174,6 +173,7 @@ var WritingTestLayer = TestLayer.extend({
                     self._tmpRender.clear(0,0,0,0);
 
                     if (self._writeFailCount >= failTimes) {
+                        self._segmentTracking("false");
                         self._finishAndMoveToNextChar();
                     }
                 })
@@ -344,6 +344,7 @@ var WritingTestLayer = TestLayer.extend({
     checkChangingCharacter: function() {
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
+            this._segmentTracking("true");
             // next char
             this._charIdx++;
             this._pathIdx = 0;
@@ -612,7 +613,6 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _correctAction: function() {
-
         var self = this;
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(
@@ -642,7 +642,17 @@ var WritingTestLayer = TestLayer.extend({
                 })        
             )
         );
-    }
+    },
+
+    _segmentTracking: function(correct) {
+        var charName = this._writingWords[this._nameIdx][this._charIdx];
+        // cc.log("writingTest charname correct: " + charName + " " + correct);
+        SegmentHelper.track(SEGMENT.WRITE_TEST,
+            {
+                char_name: charName,
+                correct: correct
+            });
+    },
 });
 
 WritingTestLayer.CHAR_CONFIG = null;

@@ -83,7 +83,7 @@ var ListeningTestLayer = TestLayer.extend({
                     self._touchCounting ++;
                     self.updateProgressBar();
                 } else {
-                    self._incorrectAction();
+                    self._incorrectAction(obj);
                 }
             }
         });
@@ -296,6 +296,13 @@ var ListeningTestLayer = TestLayer.extend({
             this._tutorial.removeFromParent();
             this._tutorial = null;
         }
+        // cc.log("listeningTest_ _celebrateCorrectObj correctedObj.name: " + correctedObj.name);
+        SegmentHelper.track(SEGMENT.TOUCH_TEST,
+            {
+                obj_name: correctedObj.name,
+                correct: "true"
+            });
+
 
         var effect = AnimatedEffect.create(correctedObj, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         effect.scale = 3;
@@ -349,10 +356,17 @@ var ListeningTestLayer = TestLayer.extend({
         ));
     },
 
-    _incorrectAction: function() {
+    _incorrectAction: function(obj) {
         var self = this;
         jsb.AudioEngine.play2d(res.Failed_sfx);
         this._adiDog.adiShakeHead();
+        // cc.log("listeningTest_ _celebrateCorrectObj incorrectedObj.name: " + obj.name);
+        SegmentHelper.track(SEGMENT.TOUCH_TEST,
+            {
+                obj_name: obj.name,
+                correct: "false"
+            });
+
         this.runAction(
             cc.sequence(
                 cc.delayTime(4),
