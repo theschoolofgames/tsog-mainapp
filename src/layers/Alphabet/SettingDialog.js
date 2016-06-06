@@ -12,6 +12,7 @@ var SettingDialog = cc.Layer.extend({
         this._addMask();
         this._addDialogBg();
         this._addDebugButtons();
+        this._addContactDetail();
 
         this._dialogBgLabel = text;
         this._logoutBtnXRatio = 0;
@@ -149,5 +150,19 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new MainScene());
             });
         }
+    },
+
+    _addContactDetail: function() {
+        var text = "Send feedback and comments to anshul@theschoolofgames.org";
+        font = FONT_COLOR[1];
+
+        // text = text.toUpperCase();
+        var contactDetailText = new cc.LabelTTF(text, font, 24);
+        // contactDetailText.scale = 0.5;
+        contactDetailText.boundingWidth = cc.winSize.width/3;
+        contactDetailText.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        contactDetailText.x = (this._dialogBg.x - this._dialogBg.width/2)/2;
+        contactDetailText.y = cc.winSize.height/2;
+        this.addChild(contactDetailText);
     }
 })
