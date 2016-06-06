@@ -1,48 +1,39 @@
 {
-    "needTouchToHideCutScene": false,
-    "objectStartCount": 3,
-    "amountOfObjectBaseOnPlay": {
-        "base": 2,
-        "increase": 1
-    },
-    "requireObjectsToHideAllShadow": 6,
-    "levelTime": 120,
-    "talkingAdiTime": 60,    
-    "timeToPauseGame": 900,
-    "timeToResumeGame": 120,
-    "amountOfPlay": 4,
-
-    "androidVersionName": "1.0",
-    "androidForceUpdate": false,
-    "iosVersionName": "1.0",
-    "iosForceUpdate": false,
-    
-    "listeningTestTime": 120,
-    "listeningTestWaitToShowHand": 10,
-    "listeningTestWaitToShowNextObj": 20,
-
-    "writingTestIncludedCoverPercentage": 80,
-    "writingTestExcludedCoverPercentage": 40,
-    "writingTestFailTimesToNextCharacter": 3,
-
-    "speakingTestNoiseDetectingTime": 5,
-
-    "bringback1stNextLvl": 1,
-    "bringback2rdNextLvl": 3,
-
-    "sceneFlow": {
-        "preLoopScreens": [
-
-        ],
-        "loopScreens": [
-            "RoomScene",
-            "ListeningTestScene",
-            "WritingTestScene",
-            "SpeakingTestScene",
-            "ForestScene",
-            "ListeningTestScene",
-            "WritingTestScene",
-            "SpeakingTestScene"
-        ]
-    }
+  "needTouchToHideCutScene": false,
+  "objectStartCount": 3,
+  "amountOfObjectBaseOnPlay": {
+    "base": 2,
+    "increase": 1,
+    "max": 4
+  },
+  "requireObjectsToHideAllShadow": 6,
+  "levelTime": 120,
+  "talkingAdiTime": 60,
+  "timeToPauseGame": 1200,
+  "timeToResumeGame": 120,
+  "amountOfPlay": 4,
+  "androidVersionName": "1.0",
+  "androidForceUpdate": false,
+  "iosVersionName": "1.0",
+  "iosForceUpdate": false,
+  "listeningTestTime": 120,
+  "listeningTestWaitToShowHand": 10,
+  "listeningTestWaitToShowNextObj": 20,
+  "writingTestIncludedCoverPercentage": 80,
+  "writingTestExcludedCoverPercentage": 40,
+  "speakingTestNoiseDetectingTime": 5,
+  "sceneFlow": {
+    "preLoopScreens": [],
+    "loopScreens": [
+      "RoomScene",
+      "ListeningTestScene",
+      "WritingTestScene",
+      "SpeakingTestScene",
+      "ForestScene",
+      "ListeningTestScene",
+      "WritingTestScene",
+      "SpeakingTestScene",
+      "TalkingAdiScene"
+    ]
+  }
 }

@@ -815,9 +815,10 @@ var ForestLayer = cc.Layer.extend({
         // var numberGamePlayed = this.getAmountGamePlayeds();
         var baseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.base;
         var increaseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.increase;
+        var maxObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.max || UPDATED_CONFIG.amountOfObjectBaseOnPlay.max;
 
         // cc.log("(numberGamePlayed % baseObjectAmounts) " + (numberGamePlayed % baseObjectAmounts));
-        if ((Global.NumberGamePlayed % baseObjectAmounts) == 0)
+        if ((Global.NumberGamePlayed % baseObjectAmounts) == 0 && (Global.NumberItems < maxObjectAmounts))
             Global.NumberItems += increaseObjectAmounts;
 
         cc.log("numberItems: %d", Global.NumberItems);

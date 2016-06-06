@@ -31,5 +31,9 @@
             "ListeningTestScene",
             "WritingTestScene"
         ]
+    },
+
+    "amountOfObjectBaseOnPlay": {
+        "max": 4
     }
 }
