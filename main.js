@@ -109,6 +109,9 @@ cc.game.onStart = function(){
         SpeechRecognitionListener.setupInstance();
         GameListener.setupInstance();
 
+        // start new session, reset trophiesEarned
+        KVDatabase.getInstance().set("trophiesEarned", 0);
+
         Global.restoreCachedState();
 
         input.SingleTouch.setEnable (true);

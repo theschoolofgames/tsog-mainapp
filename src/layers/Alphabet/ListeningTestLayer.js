@@ -92,6 +92,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
+        cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._touchCounting / this._names.length;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);

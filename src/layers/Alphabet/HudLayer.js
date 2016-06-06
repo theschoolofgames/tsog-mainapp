@@ -9,11 +9,14 @@ var HudLayer = cc.Layer.extend({
     _gameProgressBar: null,
     _progressPercentage: 0,
     _starEarned: 0,
+    _trophiesEarned: 0,
 
     ctor: function(layer, withoutClock) {
         this._super();
 
         this._layer = layer;
+        this._trophiesEarned = KVDatabase.getInstance().getInt("trophiesEarned", 0);
+        cc.log("createHUD");
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
@@ -24,6 +27,7 @@ var HudLayer = cc.Layer.extend({
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
+        
 
     },
 
@@ -88,7 +92,8 @@ var HudLayer = cc.Layer.extend({
 
         this._goalImg = goalBg;
         var numItems = Global.NumberItems;
-        this.addProgressLabel(goalBg, "0/" + numItems);
+        // this.addProgressLabel(goalBg, "0/" + numItems);
+        this.addProgressLabel(goalBg, this._trophiesEarned);
     },
 
     addClockImage: function(visible) {
@@ -110,7 +115,7 @@ var HudLayer = cc.Layer.extend({
         // cc.log("text: " + text);
         font =  "hud-font.fnt";
 
-        var label = new cc.LabelBMFont(text, font);
+        var label = new cc.LabelBMFont(text+"", font);
         // label.scale = 0.5;
         // var label = new cc.LabelTTF(text, "Arial", 32);
         label.color = cc.color("#ffd902");
@@ -127,7 +132,7 @@ var HudLayer = cc.Layer.extend({
             star.x = (this._progressBarBg.width - 30)/3 * (i+1);
             star.y = this._progressBarBg.height/2 + 5;
             this._progressBarBg.addChild(star);
-            cc.log("david add Star");
+            // cc.log("david add Star");
         }
     },
 
@@ -158,11 +163,15 @@ var HudLayer = cc.Layer.extend({
     },
 
     setProgressLabelStr: function(text, numItems) {
-        var numberItems = 0;
-        if (numItems == null)
-            numberItems = Global.NumberItems
-        else numberItems = numItems;
-        this._progressLabel.setString(text + "/" + numberItems);
+        // var numberItems = 0;
+        // if (numItems == null)
+        //     numberItems = Global.NumberItems
+        // else numberItems = numItems;
+        // this._progressLabel.setString(text + "/" + numberItems);
+        cc.log("setProgressLabelStr");
+        this._trophiesEarned++;
+        this._progressLabel.setString(this._trophiesEarned);
+        KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
     },
 
     setProgressBarPercentage: function(percent){
