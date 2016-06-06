@@ -284,12 +284,16 @@ var SpeakingTestLayer = TestLayer.extend({
         var self = this;
         this._adiDog.onStoppedListening();
         this._adiDog.adiShakeHead();
+          
         this.runAction(cc.sequence(
             cc.delayTime(2),
-            cc.callFunc(function() {    
-                self._playObjectSound();
+            cc.callFunc(function() { 
+                if (self._wrongAnswerTime >= 3)
+                    self._playObjectSound();
+                else
+                    self._adiDog.adiIdling();
             })
-        )) 
+        ))
     },
 
     // _startSpeechRecognizing: function() {
