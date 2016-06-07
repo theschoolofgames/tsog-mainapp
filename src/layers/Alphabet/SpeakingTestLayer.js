@@ -118,12 +118,12 @@ var SpeakingTestLayer = TestLayer.extend({
             }),
             cc.delayTime(AFTER_CHECKING_NOISE_TIME),
             cc.callFunc(function() {
-                if (SpeakingTestLayer.shouldSkipTest)
-                    self._moveToNextScene();
-                else {
+                // if (SpeakingTestLayer.shouldSkipTest)
+                //     self._moveToNextScene();
+                // else {
                     self.playBeginSound();
                     forcePlayBtn.removeFromParent();
-                }
+                // }
                 checkingText.removeFromParent();
             })
         ))
