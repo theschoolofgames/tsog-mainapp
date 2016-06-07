@@ -70,20 +70,48 @@ var WritingTestLayer = TestLayer.extend({
 
     _playBeginSound: function() {
         var self = this;
-        var nation = Utils.getLanguage();
 
-        this._blockTouch = true;
-        this._adiDog.adiTalk();
+        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_WritingTestScene", 0);
+        if (didInstructionSoundPlay == 0) {
+            var nation = Utils.getLanguage();
+            // cc.log("nation: %s", nation);
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            self._blockTouch = false;
-            if (!self._adiDog)
+            this._blockTouch = true;
+            this._adiDog.adiTalk();
+
+            var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                self._blockTouch = false;
+                if (!self._adiDog)
+                    return;
+
+                self._adiDog.adiIdling();
+                self._moveToNextCharacter();
+            });
+            KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
+        }else {
+            this._blockTouch = false;
+            if (!this._adiDog)
                 return;
 
-            self._adiDog.adiIdling();
-            self._moveToNextCharacter();
-        });
+            this._adiDog.adiIdling();
+            this._moveToNextCharacter();
+        }
+
+        // var nation = Utils.getLanguage();
+
+        // this._blockTouch = true;
+        // this._adiDog.adiTalk();
+
+        // var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
+        // jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+        //     self._blockTouch = false;
+        //     if (!self._adiDog)
+        //         return;
+
+        //     self._adiDog.adiIdling();
+        //     self._moveToNextCharacter();
+        // });
     },
 
     onTouchBegan: function(touch, event) {

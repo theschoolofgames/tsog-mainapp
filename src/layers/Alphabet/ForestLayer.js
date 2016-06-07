@@ -72,21 +72,19 @@ var ForestLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        var nation = Utils.getLanguage();
-        
-        // var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
-        // this.addChild(mask, 1000);
-        // cc.eventManager.addListener({
-        //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
-        //     swallowTouches: true,
-        //     onTouchBegan: function(touch, event) { return true; }
-        // }, mask);
+        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_ForestScene", 0);
+        if (didInstructionSoundPlay == 0) {
+            var nation = Utils.getLanguage();
+            // cc.log("nation: %s", nation);
 
-        var audioId = jsb.AudioEngine.play2d("sounds/beginforest-sound_" + nation + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            // mask.removeFromParent();
+            var audioId = jsb.AudioEngine.play2d("sounds/beginforest-sound_" + nation + ".mp3", false);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                // mask.removeFromParent();
+                cc.audioEngine.playMusic(res.background_mp3, true);
+            });
+            KVDatabase.getInstance().set("beginSound_ForestScene", 1);
+        }else 
             cc.audioEngine.playMusic(res.background_mp3, true);
-        });
     },
 
     setVolume:function() {

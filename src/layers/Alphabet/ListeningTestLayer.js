@@ -46,21 +46,34 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playBeginSound: function() {
         var self = this;
-        var nation = Utils.getLanguage();
 
-        this._blockTouch = true;
-        this._adiDog.adiTalk();
+        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_ListeningTestScene", 0);
+        if (didInstructionSoundPlay == 0) {
+            var nation = Utils.getLanguage();
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            self._blockTouch = false;
-            if (self._adiDog) {
-                self._adiDog.adiIdling();
-                self._addCountDownClock();
-                self._displayCurrentName();
-                self._showObjects();
+            this._blockTouch = true;
+            this._adiDog.adiTalk();
+
+            var audioId = jsb.AudioEngine.play2d("res/sounds/listeningTest_" + nation + ".mp3", false);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                self._blockTouch = false;
+                if (self._adiDog) {
+                    self._adiDog.adiIdling();
+                    self._addCountDownClock();
+                    self._displayCurrentName();
+                    self._showObjects();
+                }
+            });
+            KVDatabase.getInstance().set("beginSound_ListeningTestScene", 1);
+        } else {
+            this._blockTouch = false;
+            if (this._adiDog) {
+                this._adiDog.adiIdling();
+                this._addCountDownClock();
+                this._displayCurrentName();
+                this._showObjects();
             }
-        });
+        }
     },
 
     onTouchBegan: function(touch, event) {

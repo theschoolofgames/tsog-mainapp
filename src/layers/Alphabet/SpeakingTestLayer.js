@@ -131,9 +131,6 @@ var SpeakingTestLayer = TestLayer.extend({
 
     playBeginSound: function(){
         self = this;
-        var nation = Utils.getLanguage();
-        
-        this._adiDog.adiTalk();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -142,13 +139,26 @@ var SpeakingTestLayer = TestLayer.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/speak-after_" + nation + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_SpeakingTestScene", 0);
+        if (didInstructionSoundPlay == 0) {
+            var nation = Utils.getLanguage();
+        
+            this._adiDog.adiTalk();
+            
+            var audioId = jsb.AudioEngine.play2d("res/sounds/speak-after_" + nation + ".mp3", false);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                mask.removeFromParent();
+
+                // self._addLabel();
+                self._showNextObject();
+            });
+            KVDatabase.getInstance().set("beginSound_SpeakingTestScene", 1);
+        } else {
             mask.removeFromParent();
 
             // self._addLabel();
-            self._showNextObject();
-        });
+            this._showNextObject();
+        }
     },
 
     addResultText: function() {
