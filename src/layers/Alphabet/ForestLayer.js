@@ -27,6 +27,7 @@ var ForestLayer = cc.Layer.extend({
     _isWinLabel: false,
     _completedObj: null,
     _maskLayer: null,
+    _treeElements: [],
 
     ctor: function() {
         this._super();
@@ -127,6 +128,8 @@ var ForestLayer = cc.Layer.extend({
             backgroundElt.setAnchorPoint(element.anchorX, element.anchorY);
             backgroundElt.scale = this._allScale;
             this.addChild(backgroundElt, element.z);
+            if (element.imageName.indexOf("tree") > -1)
+                this._treeElements.push(backgroundElt);
             if (i < 3)
                 this.runCloudsAction(backgroundElt);
         }
@@ -191,17 +194,35 @@ var ForestLayer = cc.Layer.extend({
         }
     },
 
+    _checkTouchingTree: function(touchedPos) {
+        var objBoundingBox = null;
+        for ( var i = 0; i < this._treeElements.length; i++) {
+
+            objBoundingBox = this._treeElements[i].getBoundingBox();
+            var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
+            if (isRectContainsPoint) {
+                cc.log("Touching tree");
+                // this.playAnimalSound();
+                return true;
+            }
+        }
+    },
+
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
 
         if (targetNode._blockAllObjects)
             return false;
+        
+        targetNode._checkTouchingTree(touchedPos);
 
         if (!targetNode._isTouchingEnableObject(touchedPos)) {
             targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
         }
+
+        
 
         // if (targetNode._isTouchingDisabledObject(touchedPos))
         //     return false;
