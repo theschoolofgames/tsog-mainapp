@@ -197,12 +197,23 @@ var ForestLayer = cc.Layer.extend({
     _checkTouchingTree: function(touchedPos) {
         var objBoundingBox = null;
         for ( var i = 0; i < this._treeElements.length; i++) {
-
-            objBoundingBox = this._treeElements[i].getBoundingBox();
+            var elm = this._treeElements[i];
+            objBoundingBox = elm.getBoundingBox();
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
                 cc.log("Touching tree");
                 // this.playAnimalSound();
+                elm.runAction(
+                    cc.sequence(
+                        cc.scaleTo(0.1, 1.03),
+                        cc.scaleTo(0.1, 1)
+                    )
+                )
+                var rdmSoundidx = Math.ceil(Math.random() * 5);
+                var soundPath = "sounds/forest-bird-sound/bird-" + rdmSoundidx + ".mp3";
+                cc.log("soundPath: " + soundPath);
+                jsb.AudioEngine.play2d(soundPath);
+
                 return true;
             }
         }
@@ -214,7 +225,7 @@ var ForestLayer = cc.Layer.extend({
 
         if (targetNode._blockAllObjects)
             return false;
-        
+
         targetNode._checkTouchingTree(touchedPos);
 
         if (!targetNode._isTouchingEnableObject(touchedPos)) {
