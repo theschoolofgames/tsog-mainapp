@@ -196,25 +196,26 @@ var ForestLayer = cc.Layer.extend({
 
     _checkTouchingTree: function(touchedPos) {
         var objBoundingBox = null;
-        for ( var i = 0; i < this._treeElements.length; i++) {
+        for (var i = (this._treeElements.length-1); i > 0; i--) {
             var elm = this._treeElements[i];
-            objBoundingBox = elm.getBoundingBox();
-            var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
-            if (isRectContainsPoint) {
-                cc.log("Touching tree");
-                // this.playAnimalSound();
-                elm.runAction(
-                    cc.sequence(
-                        cc.scaleTo(0.1, 1.03),
-                        cc.scaleTo(0.1, 1)
+            if (elm) {
+                objBoundingBox = elm.getBoundingBox();
+                var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
+                if (isRectContainsPoint) {
+                    // cc.log("Touching tree");
+                    elm.runAction(
+                        cc.sequence(
+                            cc.scaleTo(0.1, 1.03),
+                            cc.scaleTo(0.1, 1)
+                        )
                     )
-                )
-                var rdmSoundidx = Math.ceil(Math.random() * 5);
-                var soundPath = "sounds/forest-bird-sound/bird-" + rdmSoundidx + ".mp3";
-                cc.log("soundPath: " + soundPath);
-                jsb.AudioEngine.play2d(soundPath);
+                    var rdmSoundidx = Math.ceil(Math.random() * 5);
+                    var soundPath = "sounds/forest-bird-sound/bird-" + rdmSoundidx + ".mp3";
+                    // cc.log("soundPath: " + soundPath);
+                    jsb.AudioEngine.play2d(soundPath);
 
-                return true;
+                    return true;
+                }
             }
         }
     },
@@ -232,8 +233,6 @@ var ForestLayer = cc.Layer.extend({
             targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
         }
-
-        
 
         // if (targetNode._isTouchingDisabledObject(touchedPos))
         //     return false;
@@ -388,6 +387,7 @@ var ForestLayer = cc.Layer.extend({
         this._objectDisableds = [];
         this._effectLayers = [];
         this._animalNames = [];
+        this._treeElements = [];
         this._touchCounting = 0;
     },
 
