@@ -110,7 +110,7 @@ cc.game.onStart = function(){
         GameListener.setupInstance();
 
         // start new session, reset trophiesEarned
-        KVDatabase.getInstance().set("trophiesEarned", 0);
+        // KVDatabase.getInstance().set("trophiesEarned", 0);
 
         Global.restoreCachedState();
 
