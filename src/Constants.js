@@ -3,9 +3,8 @@ var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 
-var TSOG_DEBUG = true;
-
-var SHOW_VERSION_LABEL = true;
+var TSOG_DEBUG = false;
+var SHOW_VERSION_LABEL = false;
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
 var MOVE_DELAY_TIME = 1.5;
