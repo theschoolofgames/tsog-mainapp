@@ -161,8 +161,8 @@ var SettingDialog = cc.Layer.extend({
         // contactDetailText.scale = 0.5;
         contactDetailText.boundingWidth = cc.winSize.width/3;
         contactDetailText.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        contactDetailText.x = (this._dialogBg.x - this._dialogBg.width/2)/2;
-        contactDetailText.y = cc.winSize.height/2;
+        contactDetailText.x = cc.winSize.width/2;
+        contactDetailText.y = cc.winSize.height/2 - this._dialogBg.width/2 - 70;
         this.addChild(contactDetailText);
     }
 })
