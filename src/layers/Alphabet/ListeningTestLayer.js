@@ -240,7 +240,7 @@ var ListeningTestLayer = TestLayer.extend({
 
         var objName = this._names[this._nameIdx].toLowerCase();
         if (this._oldSceneName == "RoomScene")
-            this._objSoundPath = "res/sounds/things/" + objName + "-2.mp3";
+            this._objSoundPath = "res/sounds/things/" + objName + ".mp3";
         else if (this._oldSceneName == "ForestScene")
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
 

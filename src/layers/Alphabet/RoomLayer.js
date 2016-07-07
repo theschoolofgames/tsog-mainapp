@@ -648,7 +648,7 @@ var RoomLayer = cc.Layer.extend({
         var str = objectName[0].toUpperCase();
         var soundConfig = this.getSoundConfigByName(objectName);
         // cc.log("soundConfig: " + soundConfig.length);
-        var soundNumb = isDragging ? 1 : 2;
+        var soundSuffix = isDragging ? "-1" : "";
         // Show cutscene
         var oldZOrder = object.getLocalZOrder();
         if (!isDragging) {
@@ -684,7 +684,7 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             jsb.AudioEngine.stop(this._effectAudioID);
-        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3", isDragging);
+        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/things/" + objectName + soundSuffix + ".mp3", isDragging);
 
         if (!isDragging)
         {

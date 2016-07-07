@@ -118,12 +118,12 @@ var SpeakingTestLayer = TestLayer.extend({
             }),
             cc.delayTime(AFTER_CHECKING_NOISE_TIME),
             cc.callFunc(function() {
-                // if (SpeakingTestLayer.shouldSkipTest)
-                //     self._moveToNextScene();
-                // else {
+                if (SpeakingTestLayer.shouldSkipTest)
+                    self._moveToNextScene();
+                else {
                     self.playBeginSound();
                     forcePlayBtn.removeFromParent();
-                // }
+                }
                 checkingText.removeFromParent();
             })
         ))
@@ -185,7 +185,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._timeUp();
         this.runAction(
             cc.sequence(
-                cc.delayTime(4),
+                cc.delayTime(2),
                 cc.callFunc(function() {
                     if (self._wrongAnswerTime < 3)
                         self._wrongAnswerTime++;
@@ -347,7 +347,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._soundName = "";
         if (this._oldSceneName == "RoomScene") {
             objectName = "things/" + this._names[this.currentObjectShowUpId].toLowerCase();
-            this._soundName = "res/sounds/" + objectName + "-2.mp3";
+            this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         }
         else if (this._oldSceneName == "ForestScene") {

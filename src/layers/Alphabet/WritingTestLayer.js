@@ -29,6 +29,8 @@ var WritingTestLayer = TestLayer.extend({
     _oldSceneName: null,
     _objectsArray: null,
 
+    _currentChar: "",
+
     ctor: function(objectsArray, oldSceneName) {
         this._super();
 
@@ -171,17 +173,20 @@ var WritingTestLayer = TestLayer.extend({
 
                     self._tmpRender.clear(0,0,0,0);
                     self._tmpRender.getSprite().color = cc.color("#333333");
-                    if (self.checkChangingCharacter()) {    
+                    if (self.checkChangingCharacter()) {
+                        var correctedCharacter = self._currentChar;
                         if (self.checkChangingWord()){
                             self._changeWord();
                             self._touchCounting++;
                             self.updateProgressBar();
                         }
-                        else
+                        else {
                             self._moveToNextCharacter();
-                        self._correctAction();
-                    } else
+                        }
+                        self._correctAction(correctedCharacter);
+                    } else {
                         self._displayFinger();
+                    }
                 })
             ));
         } else {
@@ -281,7 +286,8 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     fetchCharacterConfig: function() {
-        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._writingWords[this._nameIdx][this._charIdx]];
+        this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
+        this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._currentChar];
     },
 
     _finishAndMoveToNextChar: function() {
@@ -398,6 +404,7 @@ var WritingTestLayer = TestLayer.extend({
         self._blockTouch = true;
 
         this.runAction(cc.sequence(
+            cc.delayTime(1),
             cc.callFunc(function() {
                 self._characterNodes.forEach(function(obj) {
                     obj.runAction(cc.fadeOut(0.5));
@@ -421,7 +428,7 @@ var WritingTestLayer = TestLayer.extend({
             cc.callFunc(function() {
                 self._playObjSound(self._names[self._nameIdx-1], function() {
                     self.runAction(cc.sequence(
-                        cc.delayTime(1),
+                        cc.delayTime(1.2),
                         cc.callFunc(function() {
                             sprite.runAction(cc.sequence(
                                 cc.fadeOut(0.3),
@@ -483,9 +490,9 @@ var WritingTestLayer = TestLayer.extend({
     _playObjSound: function(name, cb) {
         var soundPath;
         if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/writingTest/things/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/things/" + name.toLowerCase() + ".mp3";
         } else {
-            soundPath = "sounds/writingTest/animals/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
         }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
@@ -640,9 +647,12 @@ var WritingTestLayer = TestLayer.extend({
         this._finger.runAction(cc.repeatForever(cc.sequence(actions)));
     },
 
-    _correctAction: function() {
+    _correctAction: function(correctedCharacter) {
         var self = this;
-        jsb.AudioEngine.play2d(res.Succeed_sfx);
+        // jsb.AudioEngine.play2d(res.Succeed_sfx);
+        cc.log("correct: " + correctedCharacter);
+
+        jsb.AudioEngine.play2d("res/sounds/alphabets/" + correctedCharacter + ".mp3");
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._adiDog.adiJump();
