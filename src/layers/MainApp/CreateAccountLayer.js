@@ -1,4 +1,4 @@
-var SignUpLayer = cc.Layer.extend({
+var CreateAccountLayer = cc.Layer.extend({
     listener: null,
 
     ctor:function(){
@@ -178,11 +178,11 @@ var SignUpLayer = cc.Layer.extend({
     },
 });
 
-var SignUpScene = cc.Scene.extend({
+var CreateAccountScene = cc.Scene.extend({
     ctor: function(){
         this._super();
 
-        var layer = new SignUpLayer();
+        var layer = new CreateAccountLayer();
         this.addChild(layer);
     }
 });

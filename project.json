@@ -38,6 +38,7 @@
         "src/layers/MainApp/NewSchoolLayer.js",
         "src/layers/MainApp/NewAccountLayer.js",
         "src/layers/MainApp/ChooseLanguageLayer.js",
+        "src/layers/MainApp/LoginLayer.js",
 
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",

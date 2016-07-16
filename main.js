@@ -129,6 +129,9 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         
+        // cc.director.runScene(new LoginScene());
+        // cc.director.runScene(new SignUpScene());
+        // cc.director.runScene(new NewSchoolScene());
         cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
