@@ -294,5 +294,9 @@ static NSMutableArray* noiseDetectionArray = nil;
   timer = nil;
 }
 
++(void)openUrlWith:(NSString*)url {
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+}
+
 
 @end

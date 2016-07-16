@@ -52,6 +52,7 @@
         "src/layers/Alphabet/PauseLayer.js",
         "src/layers/Alphabet/WritingTestLayer.js",
         "src/layers/Alphabet/ListeningTestLayer.js",
+        "src/layers/Alphabet/PayWallDialog.js",
 
         "src/layers/SceneFlowController.js",
 

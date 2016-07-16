@@ -17,7 +17,9 @@ import com.segment.analytics.Traits;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioRecord;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
@@ -165,7 +167,7 @@ public class Wrapper
                     for (Double vals : noiseDetectionArray) {
                         sum += vals;
                     }
-                    Double avgAmpl =  sum / noiseDetectionArray.size();
+                    Double avgAmpl = sum / noiseDetectionArray.size();
                     Log.w("WRAPPER", avgAmpl + "");
 
                     String value = avgAmpl > 33 ? "true" : "false";
@@ -183,12 +185,12 @@ public class Wrapper
                     if (readAudio == AudioRecord.ERROR_BAD_VALUE || readAudio == AudioRecord.ERROR_INVALID_OPERATION)
                         return;
 
-                    double fN = (double)readAudio;
+                    double fN = (double) readAudio;
                     double accum = 0;
-                    for (int i = 0; i < readAudio; i ++)
-                        accum += Math.abs((double)Recorder.getInstance().buffer[i]);
+                    for (int i = 0; i < readAudio; i++)
+                        accum += Math.abs((double) Recorder.getInstance().buffer[i]);
 
-                    double soundLevel = accum/fN;
+                    double soundLevel = accum / fN;
 
                     noiseDetectionArray.add(soundLevel);
                 }
@@ -198,5 +200,10 @@ public class Wrapper
 
     public static void cancelNoiseDetecting() {
         Recorder.getInstance().stopFetchingAudio();
+    }
+
+    public static void openUrlWith(final String url) {
+        Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        activity.startActivity(intent);
     }
 }

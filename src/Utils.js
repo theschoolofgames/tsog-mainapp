@@ -158,6 +158,7 @@ Utils.getLanguage = function() {
 }
 
 Utils.timeToShowPauseScreen = -1;
+Utils.timeToShowPayWall = -1;
 Utils.currentScene = null;
 Utils.startCallback = function (){
     cc.log("startCallback called");
@@ -176,7 +177,7 @@ Utils.startCountDownTimePlayed = function() {
     Utils.currentScene = cc.director.getRunningScene();
     cc.log("runningScene: " + cc.director.getRunningScene());
     cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
-}
+};
 
 Utils.countdownTimePlayed = function() {
     // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
@@ -194,6 +195,39 @@ Utils.countdownTimePlayed = function() {
     }
     else
         Utils.timeToShowPauseScreen--;
+};
+
+Utils.startCountDownTimePlayed1 = function(method) {
+    Utils.currentScene = cc.director.getRunningScene();
+    if (method == "pause") {
+        if (Utils.timeToShowPauseScreen <= 0)
+            Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
+        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
+    } else if (method == "showPayWall") {
+        if (Utils.timeToShowPayWall <= 0)
+            Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay*60;
+        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed1, 1, Utils.timeToShowPayWall);
+    }
+    // cc.log("startCountDownTimePlayed");
+};
+
+Utils.countdownTimePlayed1 = function(method) {
+    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+    
+    if (Utils.timeToShowPayWall === 0) {
+        if (Utils.currentScene !== cc.director.getRunningScene())
+            return;
+        if (Utils.startCallback)
+            Utils.startCallback();
+        
+        cc.director.getRunningScene().addChild(new PayWallDialog(function() {
+            Utils.resumeCallback();
+            if (!GAME_CONFIG.subscribed)
+                Utils.startCountDownTimePlayed1(method);
+        }));
+    }
+    else
+        Utils.timeToShowPayWall--;
 }
 
 Utils.logoutUser = function() {
@@ -205,4 +239,4 @@ Utils.logoutUser = function() {
     KVDatabase.getInstance().set("isLoggedIn", 0);
     SceneFlowController.getInstance().resetFlow();
     Global.clearCachedState();
-}
+};

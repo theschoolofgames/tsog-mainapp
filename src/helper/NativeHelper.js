@@ -219,6 +219,18 @@ var NativeHelperConfig = {
             "cancelNoiseDetecting",
             "()V"   
         ]
+    },
+
+    openUrlWith: {
+        iOS: [
+            "H102Wrapper",
+            "openUrlWith:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "openUrlWith",
+            "(Ljava/lang/String;)V"  
+        ]
     }
 }
 
