@@ -4,6 +4,10 @@ var MainScreenLayer = cc.Layer.extend({
 
     ctor: function () {
         this._super();
+        var policyAccepted = KVDatabase.getInstance().getInt("policyAccepted", 0);
+        if (!policyAccepted) {
+            this.addChild(new PrivacyPolicyScreen(), 9999);
+        }
 
         RequestsManager.getInstance().getGame(GAME_ID, function(succeed, data) {
             if (succeed) {
