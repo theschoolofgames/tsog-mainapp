@@ -159,9 +159,9 @@ var SignUpLayer = cc.Layer.extend({
         bb.y = cc.winSize.height - bb.height*2/3;
 
         bb.addClickEventListener(function() {
-            // if (this.tfUsername) this.tfUsername.didNotSelectSelf();
-            // if (this.tfPassword1) this.tfPassword1.didNotSelectSelf();
-            // if (this.tfPassword2 )this.tfPassword2.didNotSelectSelf();
+            this.tfUsername.didNotSelectSelf();
+            this.tfPassword1.didNotSelectSelf();
+            this.tfPassword2.didNotSelectSelf();
 
             if (this.prevScene == "MainScene") {
                 cc.director.replaceScene(

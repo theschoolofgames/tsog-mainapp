@@ -145,8 +145,8 @@ var LoginLayer = cc.Layer.extend({
         bb.y = cc.winSize.height - bb.height*2/3;
 
         bb.addClickEventListener(function() {
-            // this.tfUsername.didNotSelectSelf();
-            // this.tfPassword.didNotSelectSelf();
+            this.tfUsername.didNotSelectSelf();
+            this.tfPassword.didNotSelectSelf();
             cc.director.replaceScene(
                 new MainScene()
             );
