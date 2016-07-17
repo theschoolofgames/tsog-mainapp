@@ -1,13 +1,13 @@
 var SignUpLayer = cc.Layer.extend({
     listener: null,
 
-    ctor:function(){
+    ctor:function(prevScene){
         this._super();
 
         this._addBackGround();
         this._addNewAccount();
         this._addBackBtn();
-
+        this.prevScene = prevScene;
         Utils.showVersionLabel(this);
     },
 
@@ -23,77 +23,84 @@ var SignUpLayer = cc.Layer.extend({
     	/*	Background 	*/
         var holder = new cc.Sprite(res.CloudEmpty_png);
         holder.x = cc.winSize.width/2;
-        holder.y = cc.winSize.height/2 + 100;
+        holder.y = cc.winSize.height/2;
         this.addChild(holder);
         this.holder = holder;
 
         font =  res.YellowFont_fnt;
 
         var lb = new cc.LabelBMFont("CREATE ACCOUNT", font);
-        lb.setScale(0.5);
+        lb.setScale(0.7);
         lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height/2 + 1.25 * lb.height + 100;
+        lb.y = cc.winSize.height/2 + 1.25 * lb.height + 50;
         this.addChild(lb, 1);
 
 
         /*	Textfield username 	*/
         var fieldHolderUsername = new cc.Sprite("#search_field.png");
         fieldHolderUsername.x = holder.width/2;
-        fieldHolderUsername.y = holder.height/2 + fieldHolderUsername.height * 0.5;
+        fieldHolderUsername.y = holder.height/2 + 1.2 * fieldHolderUsername.height;
 
-        var tfUsername = new ccui.TextField("Your Username", "Arial", 26);
+        var tfUsername = new ccui.TextField("Username", "Arial", 26);
         tfUsername.x = fieldHolderUsername.width / 2;
         tfUsername.y = fieldHolderUsername.height / 2;
         tfUsername.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
-        tfUsername.color = cc.color.YELLOW;
+        tfUsername.setTextColor(cc.color.BLACK);
+        tfUsername.setPlaceHolderColor(cc.color.WHITE);
         tfUsername.setTouchAreaEnabled(true);
         this.tfUsername = tfUsername;
         fieldHolderUsername.addChild(tfUsername);
         holder.addChild(fieldHolderUsername);
+        this.tfUsername = tfUsername;
 
 
         /*	Textfield password 1	*/
         var fieldHolderPassword1 = new cc.Sprite("#search_field.png");
         fieldHolderPassword1.x = holder.width/2;
-        fieldHolderPassword1.y = holder.height/2 - fieldHolderPassword1.height * 0.5;
+        fieldHolderPassword1.y = holder.height/2 - 0.1 * fieldHolderUsername.height;
 
-        var tfPassword1 = new ccui.TextField("Your Password", "Arial", 26);
+        var tfPassword1 = new ccui.TextField("Password", "Arial", 26);
         tfPassword1.x = fieldHolderUsername.width / 2;
         tfPassword1.y = fieldHolderUsername.height / 2;
         tfPassword1.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
-        tfPassword1.color = cc.color.YELLOW;
+        tfPassword1.setTextColor(cc.color.BLACK);
+        tfPassword1.setPlaceHolderColor(cc.color.WHITE);
         tfPassword1.setTouchAreaEnabled(true);
         tfPassword1.setPasswordEnabled(true);
         this.tfPassword1 = tfPassword1;
         fieldHolderPassword1.addChild(tfPassword1);
         holder.addChild(fieldHolderPassword1);
+        this.tfPassword1 = tfPassword1;
 
 
         /*	Textfield password 2	*/
 		var fieldHolderPassword2 = new cc.Sprite("#search_field.png");
-        fieldHolderPassword2.x = holder.width/2;
-        fieldHolderPassword2.y = holder.height/2 - fieldHolderPassword2.height * 1.5;
-        var tfPassword2 = new ccui.TextField("Confirm Your Password", "Arial", 26);
+        fieldHolderPassword2.x = holder.width/2
+        fieldHolderPassword2.y = holder.height/2 - 1.4 * fieldHolderUsername.height;
+
+        var tfPassword2 = new ccui.TextField("Confirm password", "Arial", 26);
         tfPassword2.x = fieldHolderPassword2.width / 2;
         tfPassword2.y = fieldHolderPassword2.height / 2;
-        
         tfPassword2.setTouchSize(cc.size(fieldHolderPassword2.width, fieldHolderPassword2.height));
-        tfPassword2.color = cc.color.YELLOW;
+        tfPassword2.setTextColor(cc.color.BLACK);
+        tfPassword2.setPlaceHolderColor(cc.color.WHITE);
         tfPassword2.setTouchAreaEnabled(true);
         tfPassword2.setPasswordEnabled(true);
         this.tfPassword2 = tfPassword2;
         fieldHolderPassword2.addChild(tfPassword2);
         holder.addChild(fieldHolderPassword2);
-
+        this.tfPassword2 = tfPassword2;
 
         /* Button create 	*/
-        var btn = new ccui.Button("create-btn.png","create-btn-pressed.png","", ccui.Widget.PLIST_TEXTURE);
+        var btn = new ccui.Button(res.BtnNormal_png, res.BtnPressed_png, "");
         btn.x = holder.width/2;
-        btn.y = holder.height/2 - btn.height * 2.25;
+        btn.y = holder.height/2 - btn.height * 2.5;
         holder.addChild(btn);
 
-        var self = this;
-        var schoolData = DataManager.getInstance().getSchoolData();
+        lbl = new cc.LabelTTF("CREATE", "Arial", 26);
+        lbl.x = btn.width / 2;
+        lbl.y = btn.height / 2;
+        btn.addChild(lbl);
 
         btn.addClickEventListener(function() {
             tfUsername.didNotSelectSelf();
@@ -108,12 +115,17 @@ var SignUpLayer = cc.Layer.extend({
                 return;
             }
 
-            if (password1 == null || password1.trim() == ""){
+            if (password1 == null){
                 NativeHelper.callNative("showMessage", ["Missing field", "Please enter password"]);
                 return;
             }
 
-            if (password2 == null || password2.trim() == ""){
+            if (password1.length < 6) {
+                NativeHelper.callNative("showMessage", ["Invalid password", "Password cannot be shorter than 6 characters"]);
+                return;                
+            }
+
+            if (password2 == null){
                 NativeHelper.callNative("showMessage", ["Missing field", "Please confirm password"]);
                 return;
             }
@@ -129,30 +141,7 @@ var SignUpLayer = cc.Layer.extend({
                 Utils.removeLoadingIndicatorLayer();
 
                 if (succeed) {
-                    // schoolData.unshift(data);
-                    // DataManager.getInstance().setSchoolData(schoolData);
-                    
-                    // SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
-                    //     { 
-                    //         school_id: data.school_id, 
-                    //         school_name: data.school_name 
-                    //     });
-                    
-                    // KVDatabase.getInstance().set(STRING_SCHOOL_ID, data.school_id);
-                    // KVDatabase.getInstance().set(STRING_SCHOOL_NAME, data.school_name);
-                    // tf.didNotSelectSelf();
-                    // cc.director.replaceScene(new AccountSelectorScene());
-
-                    KVDatabase.getInstance().set(STRING_USER_ACCESS_TOKEN, data["access_token"]);
-                    cc.log("test saved: " + KVDatabase.getInstance().getString(STRING_USER_ACCESS_TOKEN));
-                    
-                    this.holder.removeAllChildren();
-                    var succeedLabel = new cc.LabelTTF("Account created\nsuccessfully!", "Arial", 40);
-                    succeedLabel.setFontFillColor(cc.color.BLACK);
-                    succeedLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-                    succeedLabel.x = this.holder.width / 2;
-                    succeedLabel.y = this.holder.height / 2 - succeedLabel.height / 2;
-                    this.holder.addChild(succeedLabel);
+                    this._addCreateSucceededDialog();
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
                 }
@@ -169,20 +158,59 @@ var SignUpLayer = cc.Layer.extend({
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height*2/3;
 
-        var self = this;
         bb.addClickEventListener(function() {
-            // self._tf.didNotSelectSelf();
-            // cc.director.replaceScene(new CreateAccountLayer());
-        });
+            // if (this.tfUsername) this.tfUsername.didNotSelectSelf();
+            // if (this.tfPassword1) this.tfPassword1.didNotSelectSelf();
+            // if (this.tfPassword2 )this.tfPassword2.didNotSelectSelf();
+
+            if (this.prevScene == "MainScene") {
+                cc.director.replaceScene(
+                    new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255))
+                );                
+            } else if (this.prevScene == "LoginScene") {
+                cc.director.replaceScene(
+                    new cc.TransitionFade(1, new LoginScene(), cc.color(255, 255, 255, 255))
+                );
+            }
+        }.bind(this));
         this.addChild(bb);
     },
+
+    _addCreateSucceededDialog: function() {
+        var dialog = new MessageDialog();
+
+        var succeedLabel = new cc.LabelTTF("Account created\nsuccessfully!", "Arial", 36);
+        succeedLabel.setFontFillColor(cc.color.BLACK);
+        succeedLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        succeedLabel.x = dialog.background.width / 2;
+        succeedLabel.y = dialog.background.height / 2;
+        dialog.addComponent(succeedLabel);
+
+        btn = new ccui.Button(res.BtnNormal_png, res.BtnPressed_png, "");
+        btn.x = dialog.background.width / 2;
+        btn.y = succeedLabel.y - succeedLabel.height;
+        btn.addClickEventListener(function() {
+            cc.director.replaceScene(
+                new cc.TransitionFade(1, new RoomScene(), cc.color(255, 255, 255, 255))
+            );
+        });
+
+        lbl = new cc.LabelTTF("PLAY", "Arial", 26);
+        lbl.x = btn.width / 2;
+        lbl.y = btn.height / 2;
+        btn.addChild(lbl);
+
+        dialog.addComponent(btn);
+
+        this.addChild(dialog, 2);
+    }
 });
 
 var SignUpScene = cc.Scene.extend({
-    ctor: function(){
+    ctor: function(prevScene){
         this._super();
 
-        var layer = new SignUpLayer();
+        var layer = new SignUpLayer(prevScene);
         this.addChild(layer);
     }
 });

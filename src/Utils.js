@@ -132,6 +132,10 @@ Utils.getAssetsManagerPath = function() {
     return ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "/") + "assetsManager/");
 }
 
+Utils.getAccessToken = function() {
+    return KVDatabase.getInstance().getString(STRING_USER_ACCESS_TOKEN, "");
+}
+
 Utils.getUserId = function() {
     return KVDatabase.getInstance().getString(STRING_USER_ID, "");
 }
@@ -142,6 +146,10 @@ Utils.getUserName = function() {
 
 Utils.getSchoolName = function() {
     return KVDatabase.getInstance().getString(STRING_SCHOOL_NAME, "");
+}
+
+Utils.isLoggedIn = function() {
+    return KVDatabase.getInstance().getString(STRING_USER_ACCESS_TOKEN, "") != "";
 }
 
 Utils.screenRatioTo43 = function() {
@@ -250,6 +258,7 @@ Utils.countdownTimePlayed = function() {
 }
 
 Utils.logoutUser = function() {
+    KVDatabase.getInstance().remove(STRING_USER_ACCESS_TOKEN);
     KVDatabase.getInstance().remove(STRING_USER_ID);
     KVDatabase.getInstance().remove(STRING_USER_NAME);
     KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);

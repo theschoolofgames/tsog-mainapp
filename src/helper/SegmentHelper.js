@@ -27,7 +27,9 @@ SegmentHelper.track = function(event, properties) {
         properties.school_id = schoolId;
     if (schoolName && schoolName != "")
         properties.school_name = schoolName;
-    properties.udid = udid;
+
+    if (Utils.isLoggedIn())
+        properties.udid = udid;
 
     NativeHelper.callNative("segmentTrack", [event, JSON.stringify(properties)]);
 }

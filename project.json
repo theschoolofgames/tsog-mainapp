@@ -58,6 +58,8 @@
 
         "src/layers/SceneFlowController.js",
 
+        "src/common/MessageDialog.js",
+
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
 

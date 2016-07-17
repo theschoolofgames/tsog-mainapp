@@ -19,6 +19,8 @@ var SettingDialog = cc.Layer.extend({
         if (!text) {
             this._logoutBtnXRatio = 1;
             this._textFieldLabel = Utils.getUserName() || "Anonymous";
+            if (this._textFieldLabel.length > MAX_NAME_LENGTH_DISPLAYED) 
+                this._textFieldLabel = this._textFieldLabel.substring(0, MAX_NAME_LENGTH_DISPLAYED) + "...";
             this._dialogBgLabel = Utils.getSchoolName();
             this._addResumeButton();
             this._addTextField();
@@ -73,7 +75,8 @@ var SettingDialog = cc.Layer.extend({
         var self = this;
         logoutBtn.addClickEventListener(function() {
             Utils.logoutUser();
-            cc.director.replaceScene(new SchoolSelectorScene());
+            // cc.director.replaceScene(new SchoolSelectorScene());
+            cc.director.replaceScene(new MainScene());
             // NativeHelper.callNative("moveToMainApp");
         })
     },
