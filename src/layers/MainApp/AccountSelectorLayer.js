@@ -621,11 +621,11 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     turnDownMusicVolume: function() {
         this.runAction(cc.sequence(
-                cc.delayTime(1),
-                cc.callFunc(function() {
-                    cc.audioEngine.setMusicVolume(0);
-                })
-            ))
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                cc.audioEngine.setMusicVolume(0);
+            })
+        ))
     },
 
     _addPlusSchoolButton: function() {

@@ -47,7 +47,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 + (void)showUpdateDialog:(NSString*)version forceUpdate:(BOOL) forceUpdate {
   Dialog* dialog = [[Dialog alloc] initWithTitle:@"New update found"
                                          message:[NSString stringWithFormat:@"Check out the new update for %@!\nAvailable now on %@", version, @"AppStore"]
-                               cancelButtonTitle:forceUpdate ? nil : @"OK"
+                               cancelButtonTitle:@"OK"
                                otherButtonTitles:forceUpdate ? nil : @"No, thanks"];
   dialog.appStoreURL = @"itms://itunes.apple.com/us/app/apple-store/id1090937711?mt=8";
   [dialog show];
