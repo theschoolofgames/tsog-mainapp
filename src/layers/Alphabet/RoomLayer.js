@@ -78,7 +78,8 @@ var RoomLayer = cc.Layer.extend({
                 cc.delayTime(0.1),
                 cc.callFunc(
                     function() {
-                        Utils.startCountDownTimePlayed();
+                        Utils.startCountDownTimePlayed("pause");
+                        Utils.startCountDownTimePlayed("showPayWall");
                     }
                 )
             )
