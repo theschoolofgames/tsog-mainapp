@@ -1,8 +1,8 @@
-// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
-var BACKEND_ADDRESS = "http://192.168.1.12:3000/";
+// var BACKEND_ADDRESS = "http://192.168.1.12:3000/";
 
 var TSOG_DEBUG = false;
 var SHOW_VERSION_LABEL = false;
@@ -532,3 +532,5 @@ var SPEAKING_TEST_LANGUAGE_SOUND_DURATION = [
 
 var TIME_TO_PAUSE_GAME = 5;
 var AFTER_CHECKING_NOISE_TIME = 3;
+
+var MAX_NAME_LENGTH_DISPLAYED = 14;

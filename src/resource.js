@@ -168,7 +168,9 @@ var res = {
     Hud_progress_bar_alpha_png: "hud/progress-bar-alpha.jpg",
     HudFont_fnt: "hud-font.fnt",
     HudFont_png: "hud-font.png",
-    CloudEmpty_png: "cloud-empty.png",
+    CloudEmpty_png: "temp/cloud-empty.png",
+    BtnNormal_png: "temp/btn-normal.png",
+    BtnPressed_png: "temp/btn-pressed.png",
  
     // Shader
     SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",

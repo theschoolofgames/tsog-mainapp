@@ -14,7 +14,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 
     onEnter: function() {
         this._super();
-
+        if (cc.audioEngine.isMusicPlaying()) return;
         cc.audioEngine.setMusicVolume(1);
         cc.audioEngine.playMusic(res.welcome_sound_mp3);
     },

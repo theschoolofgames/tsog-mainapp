@@ -65,6 +65,12 @@ var RequestsManager = cc.Class.extend({
 
         RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
             var data = JSON.parse(responseText);
+            if (succeed) {
+                KVDatabase.getInstance().set(STRING_USER_ACCESS_TOKEN, data["access_token"]);
+                KVDatabase.getInstance().set(STRING_USER_NAME, data["user_name"]);
+                KVDatabase.getInstance().set(STRING_USER_ID, data["user_id"]);
+                KVDatabase.getInstance().set("isLoggedIn", 1);                
+            }
             callback && callback(succeed, data);
         });
     },
@@ -79,10 +85,16 @@ var RequestsManager = cc.Class.extend({
 
         RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
             var data = JSON.parse(responseText);
+            if (succeed) {
+                KVDatabase.getInstance().set(STRING_USER_ACCESS_TOKEN, data["access_token"]);
+                KVDatabase.getInstance().set(STRING_USER_NAME, data["user_name"]);
+                KVDatabase.getInstance().set(STRING_USER_ID, data["user_id"]);
+                KVDatabase.getInstance().set("isLoggedIn", 1);
+            }
             callback && callback(succeed, data);
         });        
     },
-
+    
     getAccounts: function(schoolId, callback) {
         var url = BACKEND_ADDRESS + "api/accounts?school_id=" + schoolId;
 
@@ -168,7 +180,7 @@ var RequestHelper = {
             if (RequestHelper.isSuccessHttpRequest(request)) {
                 cb && cb(true, request.responseText)
             } else {
-                cb && cb(false, null)
+                cb && cb(false, request.responseText)
             }
         };
         request.onerror = function() {

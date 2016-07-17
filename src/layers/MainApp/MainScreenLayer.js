@@ -48,10 +48,41 @@ var MainScreenLayer = cc.Layer.extend({
 
     _addDialogButtons: function() {
         var self = this;
+
+        // LOGIN
+        var btnLogin = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnLogin.x = this._popupDialog.width/2;
+        btnLogin.y = this._popupDialog.height/2;
+        this._popupDialog.addChild(btnLogin);
+        btnLogin.addClickEventListener(function() {
+            cc.director.replaceScene(new cc.TransitionFade(1, new LoginScene(), cc.color(255, 255, 255, 255)));
+        });
+
+        var lbLogin = new cc.LabelBMFont("LOGIN", "yellow-font-export.fnt");
+        lbLogin.scale = 0.6;
+        lbLogin.x = btnLogin.width/2;
+        lbLogin.y = btnLogin.height/2;
+        btnLogin.getRendererNormal().addChild(lbLogin);
+
+        // REGISTER
+        var btnRegister = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnRegister.x = this._popupDialog.width/2;
+        btnRegister.y = this._popupDialog.height/2 - 100;
+        this._popupDialog.addChild(btnRegister);
+        btnRegister.addClickEventListener(function() {
+            cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
+        });
+
+        var lbRegister = new cc.LabelBMFont("REGISTER", "yellow-font-export.fnt");
+        lbRegister.scale = 0.6;
+        lbRegister.x = btnRegister.width/2;
+        lbRegister.y = btnRegister.height/2;
+        btnRegister.getRendererNormal().addChild(lbRegister);
+
         // PLAY
         var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        btnPlay.x = this._popupDialog.width/2 - 150;
-        btnPlay.y = this._popupDialog.height/2;
+        btnPlay.x = this._popupDialog.width/2;
+        btnPlay.y = this._popupDialog.height/2 + 100;
         this._popupDialog.addChild(btnPlay);
         btnPlay.addClickEventListener(function() {
             // cc.log("PLAY");
@@ -64,21 +95,6 @@ var MainScreenLayer = cc.Layer.extend({
         lbPlay.x = btnPlay.width/2;
         lbPlay.y = btnPlay.height/2;
         btnPlay.getRendererNormal().addChild(lbPlay);
-
-        // LOGIN
-        var btnLogin = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        btnLogin.x = this._popupDialog.width/2 + 150;
-        btnLogin.y = this._popupDialog.height/2;
-        this._popupDialog.addChild(btnLogin);
-        btnLogin.addClickEventListener(function() {
-            cc.director.replaceScene(new cc.TransitionFade(1, new SchoolSelectorScene(), cc.color(255, 255, 255, 255)));
-        });
-
-        var lbLogin = new cc.LabelBMFont("LOGIN", "yellow-font-export.fnt");
-        lbLogin.scale = 0.6;
-        lbLogin.x = btnLogin.width/2;
-        lbLogin.y = btnLogin.height/2;
-        btnLogin.getRendererNormal().addChild(lbLogin);
     },
 
     _createBackground: function() {
@@ -148,6 +164,7 @@ var MainScreenLayer = cc.Layer.extend({
                     scene = new RoomScene();
                 else
                     scene = new window[nextSceneName]();
+                cc.log("test nextSceneName:" + nextSceneName);
                 cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
                 // cc.director.replaceScene(scene);
             }, this)
