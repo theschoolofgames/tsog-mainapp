@@ -4,7 +4,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this._super(cc.color(255, 255, 255, 255));
 
         this.tag = 1;
-		this.addWelcomeCutscene();
+		// this.addWelcomeCutscene();
 		this.moveToMainScene();
 
         SegmentHelper.track(SEGMENT.TALKING_ADI, null );
@@ -14,7 +14,8 @@ var WelcomeLayer = cc.LayerColor.extend({
 
     onEnter: function() {
         this._super();
-        if (cc.audioEngine.isMusicPlaying()) return;
+
+        // this.addChild(new PrivacyPolicyScreen());
         cc.audioEngine.setMusicVolume(1);
         cc.audioEngine.playMusic(res.welcome_sound_mp3);
     },

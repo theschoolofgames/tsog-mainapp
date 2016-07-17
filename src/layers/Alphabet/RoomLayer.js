@@ -65,6 +65,8 @@ var RoomLayer = cc.Layer.extend({
         this.scheduleUpdate();
 
         Utils.showVersionLabel(this);
+
+        // this.addChild(new PayWallDialog(), 100);
     },
 
     onEnterTransitionDidFinish: function() {
