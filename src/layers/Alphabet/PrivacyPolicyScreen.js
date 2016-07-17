@@ -29,7 +29,7 @@ var PrivacyPolicyScreen = cc.Layer.extend({
         this._navBar.height = 200;
         this._navBar.anchorY = 0.5;
 
-        this.addChild(this._navBar);
+        this.addChild(this._navBar, 2);
     },
 
     _addAcceptButton: function() {
@@ -41,6 +41,7 @@ var PrivacyPolicyScreen = cc.Layer.extend({
 
         var self = this;
         acceptBtn.addClickEventListener(function() {
+            KVDatabase.getInstance().set("policyAccepted", 1);
             if (self.callback)
                 self._callback();
             self.removeFromParent();

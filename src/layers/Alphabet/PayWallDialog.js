@@ -3,16 +3,19 @@ var PayWallDialog = cc.LayerColor.extend({
     _redirectLink: null,
     _callback: null,
 
-    ctor: function(callback) {
+    ctor: function(callback, hideLaterButton) {
         this._super(cc.color(0, 0, 0, 200));
 
-        this._callback = callback;
         this._addDialogBg();
         this._addText();
         this._addSubscribeButton();
         this._addRestorePurchaseButton();
-        this._addLaterButton();
         this._addRedirectLink();
+
+        this._callback = callback;
+        if (!hideLaterButton) {
+            this._addLaterButton();
+        }
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -68,6 +71,8 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         restorePurchase.addClickEventListener(function() {
+            self.removeFromParent();
+            self._callback();
         });
 
         var text = "Restore Purchase";
