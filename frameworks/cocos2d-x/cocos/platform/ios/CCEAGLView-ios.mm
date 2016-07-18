@@ -556,7 +556,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (NSString *)textInRange:(UITextRange *)range;
 {
-    CCLOG("textInRange");
+    // CCLOG("textInRange");
     return @"";
 }
 - (void)replaceRange:(UITextRange *)range withText:(NSString *)theText;
@@ -583,7 +583,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (UITextRange *)markedTextRange;
 {
-    CCLOG("markedTextRange");
+    // CCLOG("markedTextRange");
     return nil; // Nil if no marked text.
 }
 - (void)setMarkedTextStyle:(NSDictionary *)markedTextStyle;
@@ -610,7 +610,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 }
 - (void)unmarkText;
 {
-    CCLOG("unmarkText");
+    // CCLOG("unmarkText");
     if (nil == markedText_)
     {
         return;
@@ -784,7 +784,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     end = CGRectApplyAffineTransform(end, CGAffineTransformScale(CGAffineTransformIdentity, self.contentScaleFactor, self.contentScaleFactor));
     
     float offestY = glview->getViewPortRect().origin.y;
-    CCLOG("offestY = %f", offestY);
+    // CCLOG("offestY = %f", offestY);
     if (offestY < 0.0f)
     {
         begin.origin.y += offestY;

@@ -45,7 +45,7 @@ var SignUpLayer = cc.Layer.extend({
         tfUsername.x = fieldHolderUsername.width / 2;
         tfUsername.y = fieldHolderUsername.height / 2;
         tfUsername.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
-        tfUsername.setTextColor(cc.color.BLACK);
+        tfUsername.setTextColor(cc.color(127, 127, 127));
         tfUsername.setPlaceHolderColor(cc.color.WHITE);
         tfUsername.setTouchAreaEnabled(true);
         this.tfUsername = tfUsername;
@@ -53,6 +53,21 @@ var SignUpLayer = cc.Layer.extend({
         holder.addChild(fieldHolderUsername);
         this.tfUsername = tfUsername;
 
+        tfUsername.addEventListener(function(listener, type) {
+            if (type == ccui.TextField.EVENT_ATTACH_WITH_IME) {
+                this.tfUsername.setTextColor(cc.color.BLACK);
+                this.tfUsername.setPlaceHolder("");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, cc.winSize.height / 3)
+                )
+            } else if (type == ccui.TextField.EVENT_DETACH_WITH_IME) {
+                this.tfUsername.setTextColor(cc.color(127, 127, 127));
+                this.tfUsername.setPlaceHolder("Username");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, -cc.winSize.height / 3)
+                )
+            }
+        }.bind(this), this);
 
         /*	Textfield password 1	*/
         var fieldHolderPassword1 = new cc.Sprite("#search_field.png");
@@ -63,7 +78,7 @@ var SignUpLayer = cc.Layer.extend({
         tfPassword1.x = fieldHolderUsername.width / 2;
         tfPassword1.y = fieldHolderUsername.height / 2;
         tfPassword1.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
-        tfPassword1.setTextColor(cc.color.BLACK);
+        tfPassword1.setTextColor(cc.color(127, 127, 127));
         tfPassword1.setPlaceHolderColor(cc.color.WHITE);
         tfPassword1.setTouchAreaEnabled(true);
         tfPassword1.setPasswordEnabled(true);
@@ -72,6 +87,21 @@ var SignUpLayer = cc.Layer.extend({
         holder.addChild(fieldHolderPassword1);
         this.tfPassword1 = tfPassword1;
 
+        tfPassword1.addEventListener(function(listener, type) {
+            if (type == ccui.TextField.EVENT_ATTACH_WITH_IME) {
+                this.tfPassword1.setTextColor(cc.color.BLACK);
+                this.tfPassword1.setPlaceHolder("");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, cc.winSize.height / 3)
+                )
+            } else if (type == ccui.TextField.EVENT_DETACH_WITH_IME) {
+                this.tfPassword1.setTextColor(cc.color(127, 127, 127));
+                this.tfPassword1.setPlaceHolder("Password");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, -cc.winSize.height / 3)
+                )
+            }
+        }.bind(this), this);  
 
         /*	Textfield password 2	*/
 		var fieldHolderPassword2 = new cc.Sprite("#search_field.png");
@@ -82,7 +112,7 @@ var SignUpLayer = cc.Layer.extend({
         tfPassword2.x = fieldHolderPassword2.width / 2;
         tfPassword2.y = fieldHolderPassword2.height / 2;
         tfPassword2.setTouchSize(cc.size(fieldHolderPassword2.width, fieldHolderPassword2.height));
-        tfPassword2.setTextColor(cc.color.BLACK);
+        tfPassword2.setTextColor(cc.color(127, 127, 127));
         tfPassword2.setPlaceHolderColor(cc.color.WHITE);
         tfPassword2.setTouchAreaEnabled(true);
         tfPassword2.setPasswordEnabled(true);
@@ -90,6 +120,22 @@ var SignUpLayer = cc.Layer.extend({
         fieldHolderPassword2.addChild(tfPassword2);
         holder.addChild(fieldHolderPassword2);
         this.tfPassword2 = tfPassword2;
+
+        tfPassword2.addEventListener(function(listener, type) {
+            if (type == ccui.TextField.EVENT_ATTACH_WITH_IME) {
+                this.tfPassword2.setTextColor(cc.color.BLACK);
+                this.tfPassword2.setPlaceHolder("");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, cc.winSize.height / 3)
+                )
+            } else if (type == ccui.TextField.EVENT_DETACH_WITH_IME) {
+                this.tfPassword2.setTextColor(cc.color(127, 127, 127));
+                this.tfPassword2.setPlaceHolder("Password");
+                cc.director.getRunningScene().runAction(
+                    cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, -cc.winSize.height / 3)
+                )
+            }
+        }.bind(this), this);  
 
         /* Button create 	*/
         var btn = new ccui.Button(res.BtnNormal_png, res.BtnPressed_png, "");
