@@ -130,7 +130,7 @@ var SignUpLayer = cc.Layer.extend({
                 )
             } else if (type == ccui.TextField.EVENT_DETACH_WITH_IME) {
                 this.tfPassword2.setTextColor(cc.color(127, 127, 127));
-                this.tfPassword2.setPlaceHolder("Password");
+                this.tfPassword2.setPlaceHolder("Confirm password");
                 cc.director.getRunningScene().runAction(
                     cc.moveBy(KEYBOARD_ANIMATION_DURATION, 0, -cc.winSize.height / 3)
                 )
