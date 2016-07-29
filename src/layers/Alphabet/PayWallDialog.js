@@ -51,6 +51,7 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         subscribeBtn.addClickEventListener(function() {
+            // change subscribe state here
         });
 
         var text = "Subscribe";

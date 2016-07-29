@@ -181,37 +181,35 @@ Utils.resumeCallback = function (){
         cc.director.resume();
 };
 
-// Utils.startCountDownTimePlayed = function() {
-//     if (Utils.timeToShowPauseScreen <= 0)
-//         Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
-//     cc.log("startCountDownTimePlayed");
-//     Utils.currentScene = cc.director.getRunningScene();
-//     cc.log("runningScene: " + cc.director.getRunningScene());
-//     cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
-// };
-
-// Utils.countdownTimePlayed = function() {
-//     cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
-    
-//     if (Utils.timeToShowPauseScreen === 0) {
-//         if (Utils.currentScene !== cc.director.getRunningScene())
-//             return;
-//         if (Utils.startCallback)
-//             Utils.startCallback();
-        
-//         cc.director.getRunningScene().addChild(new PauseLayer(function() {
-//             Utils.resumeCallback();
-//             Utils.startCountDownTimePlayed(GAME_CONFIG.timeToPauseGame, Utils.startCallback, Utils.resumeCallback);
-//         }));
-//     }
-//     else
-//         Utils.timeToShowPauseScreen--;
-// };
-
-Utils.startCountDownTimePlayed = function(method) {
-    cc.log("startCountDownTimePlayed - method: " + method);
+Utils.startCountDownTimePlayed = function() {
+    if (Utils.timeToShowPauseScreen <= 0)
+        Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
+    cc.log("startCountDownTimePlayed");
     Utils.currentScene = cc.director.getRunningScene();
-    Utils.method = method;
+    cc.log("runningScene: " + cc.director.getRunningScene());
+    cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
+};
+
+Utils.countdownTimePlayed = function() {
+    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+    
+    if (Utils.timeToShowPauseScreen === 0) {
+        if (Utils.currentScene !== cc.director.getRunningScene())
+            return;
+        if (Utils.startCallback)
+            Utils.startCallback();
+        
+        cc.director.getRunningScene().addChild(new PauseLayer(function() {
+            Utils.resumeCallback();
+            Utils.startCountDownTimePlayed(GAME_CONFIG.timeToPauseGame, Utils.startCallback, Utils.resumeCallback);
+        }));
+    }
+    else
+        Utils.timeToShowPauseScreen--;
+};
+
+Utils.startCountDownTimePlayed1 = function(method) {
+    Utils.currentScene = cc.director.getRunningScene();
     if (method == "pause") {
         if (Utils.timeToShowPauseScreen <= 0)
             Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
@@ -219,43 +217,29 @@ Utils.startCountDownTimePlayed = function(method) {
     } else if (method == "showPayWall") {
         if (Utils.timeToShowPayWall <= 0)
             Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay*60;
-        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPayWall);
+        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed1, 1, Utils.timeToShowPayWall);
     }
-    
+    // cc.log("startCountDownTimePlayed");
 };
 
-Utils.countdownTimePlayed = function() {
-    cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
-    cc.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
-    var scene;
-    if (Utils.method == "pause") {
-        cc.log("method: " + Utils.method);
-        scene = new PauseLayer(function() {
-            Utils.resumeCallback();
-            Utils.startCountDownTimePlayed("pause");
-        });
-    } else if(Utils.method == "showPayWall") {
-        Utils.didShowPayWall = true;
-        scene = new PayWallDialog(function() {
-            Utils.didShowPayWall = false;
-            Utils.resumeCallback();
-            if (!GAME_CONFIG.subscribed) {
-                Utils.startCountDownTimePlayed("showPayWall");
-            }
-        });
-    }
-    if (Utils.timeToShowPayWall === 0 || Utils.timeToShowPauseScreen === 0) {
+Utils.countdownTimePlayed1 = function(method) {
+    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+    
+    if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
-        
-        Utils.startCallback();
-        cc.director.getRunningScene().addChild(scene);
+        if (Utils.startCallback)
+            Utils.startCallback();
+
+        cc.director.getRunningScene().addChild(new PayWallDialog(function() {
+            Utils.resumeCallback();
+            if (!GAME_CONFIG.subscribed)
+                Utils.startCountDownTimePlayed1(method);
+        }));
     }
-    else {
+    else
         Utils.timeToShowPayWall--;
-        Utils.timeToShowPauseScreen--;
-    }
-}
+};
 
 Utils.logoutUser = function() {
     KVDatabase.getInstance().remove(STRING_USER_ACCESS_TOKEN);
