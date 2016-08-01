@@ -18,6 +18,21 @@ var MainScreenLayer = cc.Layer.extend({
 
         this.downloadAssets();
         this.checkNewVersion(); 
+
+        var startedDay = KVDatabase.getInstance().getInt("startedDay", 0);
+        cc.log("startedDay: " + startedDay);
+        if (!startedDay) {
+            startedDay = Date.now()/1000;
+            KVDatabase.getInstance().set("startedDay", startedDay);
+            cc.log("startedDay: " + startedDay);
+        } else {
+            var currentDay = Date.now()/1000;
+            var playedDay = Math.floor((currentDay - startedDay) / 86400); // second to daytime
+            cc.log("currentDay: " + currentDay);
+            cc.log("playedDay: " + playedDay);
+            if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay)
+                KVDatabase.getInstance().set("outOfFreeDay", 1);
+        }
     },
 
     onEnter: function() {

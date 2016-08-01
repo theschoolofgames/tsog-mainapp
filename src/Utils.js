@@ -181,17 +181,8 @@ Utils.resumeCallback = function (){
         cc.director.resume();
 };
 
-Utils.startCountDownTimePlayed = function() {
-    if (Utils.timeToShowPauseScreen <= 0)
-        Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
-    cc.log("startCountDownTimePlayed");
-    Utils.currentScene = cc.director.getRunningScene();
-    cc.log("runningScene: " + cc.director.getRunningScene());
-    cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
-};
-
-Utils.countdownTimePlayed = function() {
-    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
+Utils.countdownTimePlayedToShowPauseScreen = function() {
+    cc.log("timeToShowPauseScreen -> " + Utils.timeToShowPauseScreen);
     
     if (Utils.timeToShowPauseScreen === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
@@ -201,30 +192,37 @@ Utils.countdownTimePlayed = function() {
         
         cc.director.getRunningScene().addChild(new PauseLayer(function() {
             Utils.resumeCallback();
-            Utils.startCountDownTimePlayed(GAME_CONFIG.timeToPauseGame, Utils.startCallback, Utils.resumeCallback);
+            Utils.startCountDownTimePlayed("pause");
         }));
     }
     else
         Utils.timeToShowPauseScreen--;
 };
 
-Utils.startCountDownTimePlayed1 = function(method) {
+Utils.startCountDownTimePlayed = function(method) {
     Utils.currentScene = cc.director.getRunningScene();
+
     if (method == "pause") {
         if (Utils.timeToShowPauseScreen <= 0)
             Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
-        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed, 1, Utils.timeToShowPauseScreen);
+        cc.director.getRunningScene().schedule(Utils.countdownTimePlayedToShowPauseScreen, 1, Utils.timeToShowPauseScreen);
     } else if (method == "showPayWall") {
+        var outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
+        var subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
+        if (!outOfFreeDay || subscribed) {
+            cc.log("outOfFreeDay -> " + (outOfFreeDay==0 ? "NO" : "YES"));
+            cc.log("subscribed -> " + (subscribed==0 ? "NO" : "YES"));
+            cc.log("Still Free To Play --> RETURN!");
+            return;
+        }
         if (Utils.timeToShowPayWall <= 0)
             Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay*60;
-        cc.director.getRunningScene().schedule(Utils.countdownTimePlayed1, 1, Utils.timeToShowPayWall);
+        cc.director.getRunningScene().schedule(Utils.countdownTimePlayedToShowPayWall, 1, Utils.timeToShowPayWall);
     }
-    // cc.log("startCountDownTimePlayed");
 };
 
-Utils.countdownTimePlayed1 = function(method) {
-    // cc.log("countdownTimePlayed -> " + Utils.timeToShowPauseScreen);
-    
+Utils.countdownTimePlayedToShowPayWall = function() {
+    cc.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
     if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
@@ -233,8 +231,7 @@ Utils.countdownTimePlayed1 = function(method) {
 
         cc.director.getRunningScene().addChild(new PayWallDialog(function() {
             Utils.resumeCallback();
-            if (!GAME_CONFIG.subscribed)
-                Utils.startCountDownTimePlayed1(method);
+            Utils.startCountDownTimePlayed("showPayWall");
         }));
     }
     else

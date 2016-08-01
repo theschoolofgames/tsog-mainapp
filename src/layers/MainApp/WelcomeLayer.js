@@ -5,44 +5,14 @@ var WelcomeLayer = cc.LayerColor.extend({
 		this._super(cc.color(255, 255, 255, 255));
 
         this.tag = 1;
-        // this._policyAccepted = KVDatabase.getInstance().getInt("policyAccepted", 0);
-        var startedDay = KVDatabase.getInstance().getInt("startedDay", 0);
-        cc.log("startedDay: " + startedDay);
-        if (!startedDay) {
-            startedDay = Date.now()/1000;
-            KVDatabase.getInstance().set("startedDay", startedDay);
-        } else {
-            var currentDay = Date.now()/1000;
-            var playedDay = Math.floor((currentDay - startedDay) / 86400); // second to daytime
-            cc.log("playedDay: " + playedDay);
-            if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay) {
-                var self = this;
-                this.addChild(new PayWallDialog(function() {
-                    self.addWelcomeCutscene();
-                    // if (!self._policyAccepted) {
-                    //     cc.director.pause();
-                    //     self.addChild(new PrivacyPolicyScreen(function(){cc.director.resume();}));
-                    // }
-                    self.moveToMainScene();
-
-                    SegmentHelper.track(SEGMENT.TALKING_ADI, null );
-
-                    Utils.showVersionLabel(self);
-                }, true), 999);
-            } else {
-                this.addWelcomeCutscene();
-                // if (!this._policyAccepted) {
-                //     cc.director.pause();
-                //     this.addChild(new PrivacyPolicyScreen(function(){cc.director.resume();}));
-                // }
-                this.moveToMainScene();
-
-                SegmentHelper.track(SEGMENT.TALKING_ADI, null );
-
-                Utils.showVersionLabel(this);
-            }
-        }
         
+        this.addWelcomeCutscene();
+
+        this.moveToMainScene();
+
+        SegmentHelper.track(SEGMENT.TALKING_ADI, null );
+
+        Utils.showVersionLabel(this);
 	},
 
     onEnter: function() {

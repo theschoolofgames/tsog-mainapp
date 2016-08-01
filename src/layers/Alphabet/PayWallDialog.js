@@ -13,7 +13,8 @@ var PayWallDialog = cc.LayerColor.extend({
         this._addRedirectLink();
 
         this._callback = callback;
-        if (!hideLaterButton) {
+        var outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
+        if (!outOfFreeDay) {
             this._addLaterButton();
         }
 
@@ -52,6 +53,10 @@ var PayWallDialog = cc.LayerColor.extend({
         var self = this;
         subscribeBtn.addClickEventListener(function() {
             // change subscribe state here
+            KVDatabase.getInstance().set("subscribed", 1);
+            if (self._callback)
+                self._callback();
+            self.removeFromParent();
         });
 
         var text = "Subscribe";
@@ -72,8 +77,9 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         restorePurchase.addClickEventListener(function() {
+            if (self._callback)
+                self._callback();
             self.removeFromParent();
-            self._callback();
         });
 
         var text = "Restore Purchase";
@@ -93,8 +99,10 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         laterBtn.addClickEventListener(function() {
+            if (self._callback)
+                self._callback();
+                
             self.removeFromParent();
-            self._callback();
         });
 
         var text = "Later";
