@@ -74,9 +74,9 @@ var SettingDialog = cc.Layer.extend({
 
         var self = this;
         logoutBtn.addClickEventListener(function() {
-            Utils.logoutUser();
-            // cc.director.replaceScene(new SchoolSelectorScene());
-            cc.director.replaceScene(new MainScene());
+            Utils.logoutStudent();
+            cc.director.replaceScene(new AccountSelectorScene());
+            // cc.director.replaceScene(new MainScene());
             // NativeHelper.callNative("moveToMainApp");
         })
     },

@@ -1,6 +1,7 @@
 var DataManager = cc.Class.extend({
     _schoolData: null,
     _accountData: {},
+    _studentData: {},
     _gameData: {},
 
     ctor: function() {
@@ -15,10 +16,16 @@ var DataManager = cc.Class.extend({
             });
         }
 
-        var accountDataString = KVDatabase.getInstance().getString(STRING_ACCOUNT_DATA);
-        cc.log("DataManager accountDataString: " + JSON.stringify(accountDataString));
-        if (accountDataString != "")
-            this._accountData = JSON.parse(accountDataString);
+        // Account currently is Student
+        // var accountDataString = KVDatabase.getInstance().getString(STRING_ACCOUNT_DATA);
+        // cc.log("DataManager accountDataString: " + JSON.stringify(accountDataString));
+        // if (accountDataString != "")
+        //     this._accountData = JSON.parse(accountDataString);
+
+        var studentDataString = KVDatabase.getInstance().getString(STRING_STUDENT_DATA);
+        cc.log("DataManager studentDataString: " + JSON.stringify(studentDataString));
+        if (studentDataString != "")
+            this._schoolData = JSON.parse(studentDataString);
 
         var gameDataString = KVDatabase.getInstance().getString(STRING_GAME_DATA);
         if (gameDataString != "")
@@ -54,6 +61,15 @@ var DataManager = cc.Class.extend({
     setAccountData: function(schoolId, data) {
         this._accountData[schoolId] = data;
         KVDatabase.getInstance().set(STRING_ACCOUNT_DATA, JSON.stringify(this._accountData));
+    },
+
+    getStudentData: function(userId) {
+        return this._studentData[userId];
+    },
+
+    setStudentData: function(userId, data) {
+        this._studentData[userId] = data;
+        KVDatabase.getInstance().set(STRING_STUDENT_DATA, JSON.stringify(this._studentData));
     },
 
     getGameData: function(userId) {

@@ -1,5 +1,6 @@
 package com.h102;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,12 +17,18 @@ import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.AudioRecord;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
+import android.os.RemoteException;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -31,6 +38,71 @@ import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 public class Wrapper
 {
     public static AppActivity activity;
+
+    private static IInAppBillingService mService;
+
+    private static ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            mService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name,
+                                       IBinder service) {
+            mService = IInAppBillingService.Stub.asInterface(service);
+        }
+    };
+
+    public static void initInAppBillingService(){
+        Intent serviceIntent =
+                new Intent("com.android.vending.billing.InAppBillingService.BIND");
+        serviceIntent.setPackage("com.android.vending");
+        activity.bindService(serviceIntent, mServiceConn, Context.BIND_AUTO_CREATE);
+    }
+
+    public static void unbindInAppBillingService(){
+        if (mService != null) {
+            activity.unbindService(mServiceConn);
+        }
+    }
+
+    public static String getPurchases() throws RemoteException {
+        Bundle ownedItems = mService.getPurchases(3, activity.getPackageName(), "subs", null);
+
+        String purchaseDatasJson = "[";
+
+        int response = ownedItems.getInt("RESPONSE_CODE");
+        if (response == 0) {
+            ArrayList<String> ownedSkus =
+                    ownedItems.getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+            ArrayList<String>  purchaseDataList =
+                    ownedItems.getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+            ArrayList<String>  signatureList =
+                    ownedItems.getStringArrayList("INAPP_DATA_SIGNATURE_LIST");
+            String continuationToken =
+                    ownedItems.getString("INAPP_CONTINUATION_TOKEN");
+            
+            for (int i = 0; i < purchaseDataList.size(); ++i) {
+                String purchaseData = purchaseDataList.get(i);
+                String signature = signatureList.get(i);
+                String sku = ownedSkus.get(i);
+
+                purchaseDatasJson += purchaseData;
+                purchaseDatasJson += ",";
+
+                // do something with this purchase information
+                // e.g. display the updated list of products owned by user
+            }
+
+            // if continuationToken != null, call getPurchases again
+            // and pass in the token to retrieve more items
+        }
+
+        purchaseDatasJson += "]";
+
+        return purchaseDatasJson;
+    }
 
     public static String getVersionName() {
         return BuildConfig.VERSION_NAME;

@@ -27,6 +27,7 @@
 
         "src/meerkat/DataManager.js",
         "src/meerkat/RequestsManager.js",
+        "src/meerkat/IAPManager.js",
 
         "src/layers/MainApp/AccountSelectorLayer.js",
         "src/layers/MainApp/SignUpLayer.js",

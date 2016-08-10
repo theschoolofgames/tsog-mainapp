@@ -52,8 +52,9 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         subscribeBtn.addClickEventListener(function() {
-            // change subscribe state here
-            KVDatabase.getInstance().set("subscribed", 1);
+            // Call subscription IAP
+            IAPManager.getInstance().purchaseMonthlySubscription();
+
             if (self._callback)
                 self._callback();
             self.removeFromParent();
@@ -77,6 +78,9 @@ var PayWallDialog = cc.LayerColor.extend({
 
         var self = this;
         restorePurchase.addClickEventListener(function() {
+            // Call restore purchased products
+            IAPManager.getInstance().restore();
+
             if (self._callback)
                 self._callback();
             self.removeFromParent();

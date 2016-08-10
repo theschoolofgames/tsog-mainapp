@@ -225,7 +225,7 @@ var SignUpLayer = cc.Layer.extend({
     _addCreateSucceededDialog: function() {
         var dialog = new MessageDialog();
 
-        var succeedLabel = new cc.LabelTTF("Account created\nsuccessfully!", "Arial", 36);
+        var succeedLabel = new cc.LabelTTF("Select your\n student account!", "Arial", 36);
         succeedLabel.setFontFillColor(cc.color.BLACK);
         succeedLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
         succeedLabel.x = dialog.background.width / 2;
@@ -237,7 +237,7 @@ var SignUpLayer = cc.Layer.extend({
         btn.y = succeedLabel.y - succeedLabel.height;
         btn.addClickEventListener(function() {
             cc.director.replaceScene(
-                new cc.TransitionFade(1, new RoomScene(), cc.color(255, 255, 255, 255))
+                new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
             );
         });
 

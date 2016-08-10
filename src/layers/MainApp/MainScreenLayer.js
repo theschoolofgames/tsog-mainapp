@@ -18,6 +18,7 @@ var MainScreenLayer = cc.Layer.extend({
 
         this.downloadAssets();
         this.checkNewVersion(); 
+        this.checkPurchasedState();
 
         var startedDay = KVDatabase.getInstance().getInt("startedDay", 0);
         cc.log("startedDay: " + startedDay);
@@ -30,7 +31,9 @@ var MainScreenLayer = cc.Layer.extend({
             var playedDay = Math.floor((currentDay - startedDay) / 86400); // second to daytime
             cc.log("currentDay: " + currentDay);
             cc.log("playedDay: " + playedDay);
+            cc.log("amountOfFreeDayToPlay: " + GAME_CONFIG.amountOfFreeDayToPlay);
             if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay)
+                console.log("Out of free day -----");
                 KVDatabase.getInstance().set("outOfFreeDay", 1);
         }
     },
@@ -38,14 +41,21 @@ var MainScreenLayer = cc.Layer.extend({
     onEnter: function() {
         this._super();
         this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
-        if (this._isLoggedIn == 0) {
+        var studentId = KVDatabase.getInstance().getString(STRING_STUDENT_ID, "");
+        var userId = KVDatabase.getInstance().getString(STRING_USER_ID, "");
+        console.log("StudentId -> " + studentId);
+        if (this._isLoggedIn == 0 || !userId) {
             this._createBackground();
             this._addDialog();
             this._addDialogButtons();
             this._playBackgroundMusic();
         }
-        else
-            this._moveToMainScene();
+        else if (studentId){
+            this._moveToMainScene();  
+        }
+        else {
+            this._moveToStudentSelectorScene();
+        }
     },
 
     _addDialog: function() {
@@ -89,10 +99,11 @@ var MainScreenLayer = cc.Layer.extend({
         btnRegister.y = this._popupDialog.height/2 - 100;
         this._popupDialog.addChild(btnRegister);
         btnRegister.addClickEventListener(function() {
-            cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
+            //cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
+            cc.director.replaceScene(new cc.TransitionFade(1, new AccountSelectorScene(true), cc.color(255, 255, 255, 255)));
         });
 
-        var lbRegister = new cc.LabelBMFont("REGISTER", "yellow-font-export.fnt");
+        var lbRegister = new cc.LabelBMFont("ACCOUNT SELECTOR", "yellow-font-export.fnt");
         lbRegister.scale = 0.6;
         lbRegister.x = btnRegister.width/2;
         lbRegister.y = btnRegister.height/2;
@@ -114,6 +125,21 @@ var MainScreenLayer = cc.Layer.extend({
         lbPlay.x = btnPlay.width/2;
         lbPlay.y = btnPlay.height/2;
         btnPlay.getRendererNormal().addChild(lbPlay);
+
+        // IAP TEST BUTTON
+        // var btnIAPTest = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // btnIAPTest.x = this._popupDialog.width/2;
+        // btnIAPTest.y = this._popupDialog.height/2 - 100;
+        // this._popupDialog.addChild(btnIAPTest);
+        // btnIAPTest.addClickEventListener(function() {
+        //     IAPManager.getInstance().purchaseMonthlySubscription();
+        // });
+
+        // var lbIAP = new cc.LabelBMFont("TEST PURCHASE", "yellow-font-export.fnt");
+        // lbIAP.scale = 0.6;
+        // lbIAP.x = btnIAPTest.width/2;
+        // lbIAP.y = btnIAPTest.height/2;
+        // btnIAPTest.getRendererNormal().addChild(lbIAP);
     },
 
     _createBackground: function() {
@@ -190,6 +216,17 @@ var MainScreenLayer = cc.Layer.extend({
         ));
     },
 
+    _moveToStudentSelectorScene: function() {
+
+        this.runAction(cc.sequence(
+            cc.delayTime(0),
+            cc.callFunc(function() {
+                
+                cc.director.replaceScene(new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255)));
+            }, this)
+        ));
+    },
+
     downloadAssets: function() {
         var manifestPath = "project.manifest";
         var manager = new jsb.AssetsManager(manifestPath, Utils.getAssetsManagerPath());
@@ -259,6 +296,10 @@ var MainScreenLayer = cc.Layer.extend({
             cc.log("Show Dialog");
             NativeHelper.callNative("showUpdateDialog", [configableVersionName, configableForceUpdate]);
         }
+    },
+
+    checkPurchasedState: function() {
+        IAPManager.getInstance().restore();
     }
 });
 

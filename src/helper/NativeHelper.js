@@ -221,6 +221,43 @@ var NativeHelperConfig = {
         ]
     },
 
+    // IAP functions
+    initInAppBillingService: {
+        iOS: [
+            "H102Wrapper",
+            "initInAppBillingService"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "initInAppBillingService",
+            "()V"
+        ]
+    },
+
+    unbindInAppBillingService: {
+        iOS: [
+            "H102Wrapper",
+            "unbindInAppBillingService"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "unbindInAppBillingService",
+            "()V"
+        ]
+    },
+
+    getPurchases: {
+        iOS: [
+            "H102Wrapper",
+            "getPurchases"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "getPurchases",
+            "()Ljava/lang/String;"
+        ]
+    },
+
     openUrlWith: {
         iOS: [
             "H102Wrapper",

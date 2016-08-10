@@ -170,6 +170,10 @@ Utils.timeToShowPayWall = -1;
 Utils.currentScene = null;
 Utils.method = null;
 Utils.didShowPayWall = false;
+Utils.lastPlayedDateTime = -1;
+Utils.outOfFreeDay = 0;
+Utils.subscribed = 0;
+
 Utils.startCallback = function (){
     cc.log("startCallback called");
     cc.director.pause();
@@ -207,22 +211,36 @@ Utils.startCountDownTimePlayed = function(method) {
             Utils.timeToShowPauseScreen = GAME_CONFIG.timeToPauseGame;
         cc.director.getRunningScene().schedule(Utils.countdownTimePlayedToShowPauseScreen, 1, Utils.timeToShowPauseScreen);
     } else if (method == "showPayWall") {
-        var outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
-        var subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
-        if (!outOfFreeDay || subscribed) {
-            cc.log("outOfFreeDay -> " + (outOfFreeDay==0 ? "NO" : "YES"));
-            cc.log("subscribed -> " + (subscribed==0 ? "NO" : "YES"));
-            cc.log("Still Free To Play --> RETURN!");
+        Utils.outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
+        Utils.subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
+
+        if (Utils.outOfFreeDay === 0 || Utils.subscribed === 1) {
+            console.log("outOfFreeDay -> " + (Utils.outOfFreeDay==0 ? "NO" : "YES"));
+            console.log("subscribed -> " + (Utils.subscribed==0 ? "NO" : "YES"));
+            console.log("Still Free To Play --> RETURN!");
             return;
         }
+
+        // Parse time played 
+        var timePlayedInDay = KVDatabase.getInstance().getString("timePlayedInDay", ""); // Format: TimePlayedOnSecond_UTCDay like 0000_0000000
+        if (timePlayedInDay){
+            var timeSecondPlayedTotal = parseInt(timePlayedInDay.split("_")[0]);
+            var lastPlayedDate = new Date(parseInt(timePlayedInDay.split("_")[1]));
+            
+            if (Utils.daysBetweenNow(lastPlayedDate) >= 0 && timeSecondPlayedTotal < GAME_CONFIG.amountOfMinutesEachDayToPlay * 60)
+                return;
+
+            Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60 - timeSecondPlayedTotal;
+        }
+        
         if (Utils.timeToShowPayWall <= 0)
-            Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay*60;
+            Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60;
         cc.director.getRunningScene().schedule(Utils.countdownTimePlayedToShowPayWall, 1, Utils.timeToShowPayWall);
     }
 };
 
 Utils.countdownTimePlayedToShowPayWall = function() {
-    cc.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
+    // console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
     if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
@@ -231,12 +249,33 @@ Utils.countdownTimePlayedToShowPayWall = function() {
 
         cc.director.getRunningScene().addChild(new PayWallDialog(function() {
             Utils.resumeCallback();
-            Utils.startCountDownTimePlayed("showPayWall");
+            //Utils.startCountDownTimePlayed("showPayWall");
         }));
     }
-    else
+    else {
         Utils.timeToShowPayWall--;
+        var timeSecondPlayedTotal = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60 - Utils.timeToShowPayWall;
+        var timePlayedInDayString = timeSecondPlayedTotal.toString().concat("_").concat(Date.now());
+        KVDatabase.getInstance().set("timePlayedInDay", timePlayedInDayString);
+    }
 };
+
+Utils.daysBetweenNow = function(lastDate) {
+    var oneDay = 1000 * 60 * 60 * 24;
+    var diffDayMs = Date.now() - lastDate.getTime(); // Diff days in milisecond  
+    var diffDayMsRound = Math.round(diffDayMs / oneDay);
+    return diffDayMsRound;
+};
+
+Utils.logoutStudent = function(){
+    KVDatabase.getInstance().remove(STRING_STUDENT_ID);
+    KVDatabase.getInstance().remove(STRING_STUDENT_NAME);
+
+    KVDatabase.getInstance().remove("numberItems");
+    KVDatabase.getInstance().remove("amountGamePlayed");
+    SceneFlowController.getInstance().resetFlow();
+    Global.clearCachedState();
+},
 
 Utils.logoutUser = function() {
     KVDatabase.getInstance().remove(STRING_USER_ACCESS_TOKEN);

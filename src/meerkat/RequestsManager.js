@@ -35,19 +35,19 @@ var RequestsManager = cc.Class.extend({
         });
     },
 
-    createStudent: function(name, schoolId, avatar, password, callback) {
+    createStudent: function(name, userId, avatar, password, callback) {
         var url = BACKEND_ADDRESS + "api/students";
 
         var self = this;
 
         var data = {
             name: name,
-            schoolId: schoolId,
+            userId: userId,
             avatar: avatar,
             password: password
         };
 
-        // cc.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
 
         RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
             var data = JSON.parse(responseText);
@@ -108,6 +108,19 @@ var RequestsManager = cc.Class.extend({
         });
     },
 
+    getStudents: function(userId, callback) {
+        var url = BACKEND_ADDRESS + "api/students?user_id=" + userId;
+
+        RequestHelper.get(url, function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+                callback && callback(false, null);
+        });
+    },
+
     getGames: function(userId, callback) {
         var url = BACKEND_ADDRESS + "api/games?user_id=" + userId;
 
@@ -146,8 +159,6 @@ var RequestsManager = cc.Class.extend({
                 time_taken: timeTaken
             }
         };
-
-        // cc.log(JSON.stringify(data));
 
         RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
             if (succeed) {

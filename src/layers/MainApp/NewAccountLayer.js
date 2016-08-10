@@ -148,35 +148,57 @@ var NewAccountLayer = cc.Layer.extend({
         }
 
         var loadingLayer = Utils.addLoadingIndicatorLayer(true);
-        var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
+        var userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         
         RequestsManager.getInstance().createStudent(newAccountName, 
-            schoolId,
+            userId,
             self._pickedAvatar.tag,
             self._pickedPassword.tag,
             function(succeed, data) {
-                Utils.removeLoadingIndicatorLayer();
+                //Utils.removeLoadingIndicatorLayer();
 
                 if (succeed) {
-                    var accountData = DataManager.getInstance().getAccountData(schoolId);
-                    accountData = accountData || [];
-                    accountData.unshift(data);
+                    // var accountData = DataManager.getInstance().getAccountData(schoolId);
+                    // accountData = accountData || [];
+                    // accountData.unshift(data);
 
-                    var schoolConfig = DataManager.getInstance().getSchoolConfig(schoolId);
+                    // var schoolConfig = DataManager.getInstance().getSchoolConfig(schoolId);
 
-                    SegmentHelper.identity(
-                        data.user_id, 
-                        data.name, 
-                        schoolConfig.school_id, 
-                        schoolConfig.school_name);
+                    // SegmentHelper.identity(
+                    //     data.user_id, 
+                    //     data.name, 
+                    //     schoolConfig.school_id, 
+                    //     schoolConfig.school_name);
                     
-                    KVDatabase.getInstance().set(STRING_USER_ID, data.user_id);
-                    KVDatabase.getInstance().set(STRING_USER_NAME, data.name);
+                    // KVDatabase.getInstance().set(STRING_USER_ID, data.user_id);
+                    // KVDatabase.getInstance().set(STRING_USER_NAME, data.name);
+                    KVDatabase.getInstance().set(STRING_STUDENT_ID, data.student_id);
+                    KVDatabase.getInstance().set(STRING_STUDENT_NAME, data.name);
+                    
+                    self._updateStudents(userId);
+
                     cc.director.replaceScene(new WelcomeScene());
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data.message]);
                 }
             });
+    },
+
+    // Get students and update in local storage
+    _updateStudents: function(userId){
+        RequestsManager.getInstance().getStudents(userId, function(succeed, data) {
+            Utils.removeLoadingIndicatorLayer();
+            
+            if (succeed) {
+                var _studentData = DataManager.getInstance().getStudentData(this._userId);
+                _studentData = _studentData || [];
+                
+                if (JSON.stringify(_studentData) === JSON.stringify(data.students))
+                    return;
+
+                DataManager.getInstance().setStudentData(userId, data.students);
+            }
+        });
     },
 
     _createAvatarScrollView: function(fieldHolder){

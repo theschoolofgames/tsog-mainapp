@@ -139,7 +139,7 @@ var LoginLayer = cc.Layer.extend({
                 Utils.removeLoadingIndicatorLayer();
 
                 if (succeed) {
-                    this._addLoginSucceededDialog();
+                    this._addStudentSelectorDialog();
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
                 }
@@ -185,6 +185,36 @@ var LoginLayer = cc.Layer.extend({
 
         }.bind(this));
         this.addChild(bb);
+    },
+
+    // Show student selector dialog after login successfully
+    _addStudentSelectorDialog: function() {
+        var dialog = new MessageDialog();
+
+        var succeedLabel = new cc.LabelTTF("Select your\n student account!", "Arial", 40);
+        succeedLabel.setFontFillColor(cc.color.BLACK);
+        succeedLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        succeedLabel.x = dialog.background.width / 2;
+        succeedLabel.y = dialog.background.height / 2;
+        dialog.addComponent(succeedLabel);
+
+        btn = new ccui.Button(res.BtnNormal_png, res.BtnPressed_png, "");
+        btn.x = dialog.background.width / 2;
+        btn.y = succeedLabel.y - succeedLabel.height;
+        btn.addClickEventListener(function() {
+            cc.director.replaceScene(
+                new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
+            );
+        });
+
+        lbl = new cc.LabelTTF("Select", "Arial", 26);
+        lbl.x = btn.width / 2;
+        lbl.y = btn.height / 2;
+        btn.addChild(lbl);
+
+        dialog.addComponent(btn);
+
+        this.addChild(dialog, 2);
     },
 
     _addLoginSucceededDialog: function() {

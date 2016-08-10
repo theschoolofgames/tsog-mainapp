@@ -3,8 +3,9 @@ var TREES_PADDING = 150;
 var TREE_DISTANCE = 125;
 
 var AccountSelectorLayer = cc.Layer.extend({
+    // Account currently called Student
     _schoolId: null,
-    _accountData: [],
+    _studentData: [],
     _parallaxNode: null,
     _ground: null,
     _treesContainer: null,
@@ -26,6 +27,8 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     _selectedUserData: null,
 
+    _userId: null,
+
     ctor: function () {
         this._super();
 
@@ -34,11 +37,13 @@ var AccountSelectorLayer = cc.Layer.extend({
         this.createBackground();
         this.createBackButton();
 
-        this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
-        this._accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        this._accountData = this._accountData || [];
-        // cc.log("school_id: " + JSON.stringify(this._schoolId));
-        // cc.log("ctor _accountData: " + this._accountData.length);
+        //this._schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
+        this._studentData = DataManager.getInstance().getStudentData(this._userId);
+        this._studentData = this._studentData || [];
+        console.log("ctor _studentData: " + this._studentData.length);
+
+        this._userId = KVDatabase.getInstance().getString(STRING_USER_ID, "");
+        console.log("user_id: " + JSON.stringify(this._userId));
         
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -52,29 +57,29 @@ var AccountSelectorLayer = cc.Layer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-
+        
         var self = this;
 
-        // If school has been choosen before and has account data in localstorage
-        if (this._accountData != null && this._accountData.length > 0) {
-            cc.log("onEnterTransitionDidFinish accountData : " + this._accountData.length);
+        // If user has logged in and has students data in local storage
+        if (this._studentData != null && this._studentData.length > 0) {
+            console.log("onEnterTransitionDidFinish studentData : " + this._studentData.length);
             self.initObjects();  
 
             // Check if this School data has been loaded
-            if (AccountSelectorLayer.loadedDataIds.indexOf(self._schoolId) == -1) {
+            if (AccountSelectorLayer.loadedDataIds.indexOf(self._userId) == -1) {
                 var loadingLayer = Utils.addLoadingIndicatorLayer(false);
                 loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
+                RequestsManager.getInstance().getStudents(self._userId, function(succeed, data) {
                     Utils.removeLoadingIndicatorLayer();
                     if (succeed) {
-                        AccountSelectorLayer.loadedDataIds.push(self._schoolId);
-                        if (JSON.stringify(self._accountData) === JSON.stringify(data.accounts))
+                        AccountSelectorLayer.loadedDataIds.push(self._userId);
+                        if (JSON.stringify(self._studentData) === JSON.stringify(data.students))
                             return;
 
                         self._scrollView.removeFromParent();
 
-                        DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
+                        DataManager.getInstance().setStudentData(self._userId, data.students);
                         self.initObjects();
 
                     }
@@ -84,17 +89,17 @@ var AccountSelectorLayer = cc.Layer.extend({
         // This school is choosen the first time
         else {
             Utils.addLoadingIndicatorLayer(true);
-            RequestsManager.getInstance().getAccounts(self._schoolId, function(succeed, data) {
+            RequestsManager.getInstance().getStudents(self._userId, function(succeed, data) {
                 cc.log("succeed? : " + succeed);
                 cc.log("data: " + JSON.stringify(data));
                 Utils.removeLoadingIndicatorLayer();
                 if (succeed) {
-                    self._accountData = data.accounts;
-                    DataManager.getInstance().setAccountData(self._schoolId, data.accounts);
+                    self._studentData = data.students;
+                    DataManager.getInstance().setStudentData(self._userId, data.students);
                     self.initObjects();
                 } else {
                     showNativeMessage("TSOG", "Cannot connect to server\nPlease try again");
-                    cc.director.replaceScene(new SchoolSelectorScene());
+                    //cc.director.replaceScene(new SchoolSelectorScene());
                 }
             });
         }
@@ -173,9 +178,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         bb.x = bb.width ;
         bb.y = cc.winSize.height - bb.height*2/3;
         bb.addClickEventListener(function() {
-            KVDatabase.getInstance().remove(STRING_SCHOOL_ID);
-            KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);
-            cc.director.replaceScene(new SchoolSelectorScene());
+            Utils.logoutUser();
+            cc.director.replaceScene(new LoginScene());
         });
         this.addChild(bb);
     },
@@ -185,8 +189,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         var node = new cc.Node();
 
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        if (this._accountData.length > 5)
-            numberOfBushes = Math.ceil(this._accountData.length/6) + 1;
+        if (this._studentData.length > 5)
+            numberOfBushes = Math.ceil(this._studentData.length/6) + 1;
         else
             numberOfBushes = 2;
 
@@ -231,8 +235,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         var node = new cc.Node();
 
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        if (this._accountData.length > 5)
-            numberOfGround = Math.ceil(this._accountData.length/6) + 1;
+        if (this._studentData.length > 5)
+            numberOfGround = Math.ceil(this._studentData.length/6) + 1;
         else 
             numberOfGround = 2;
         for ( var i = -1; i < numberOfGround; i++) {
@@ -253,7 +257,7 @@ var AccountSelectorLayer = cc.Layer.extend({
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
 
-        mask.width = (this._accountData.length / 6 + 2) * cc.winSize.width;
+        mask.width = (this._studentData.length / 6 + 2) * cc.winSize.width;
         mask.height = this.height;
         mask.x = -mask.width/3;
         mask.y = 50;
@@ -283,8 +287,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         var lastTree = null;
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
 
-        if (this._accountData.length > 0) {
-            for ( var i = 0; i < this._accountData.length; i++) {
+        if (this._studentData.length > 0) {
+            for ( var i = 0; i < this._studentData.length; i++) {
                 index = i%6;
 
                 tree = new cc.Sprite("#tree" + (index+1) + ".png");
@@ -292,10 +296,10 @@ var AccountSelectorLayer = cc.Layer.extend({
                 tree.x = i * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
                 tree.y = this._ground.height/2 - 20;
 
-                var accountButton = this.createAccountButton(this._accountData[i],
+                var accountButton = this.createAccountButton(this._studentData[i],
                                         tree.x + TREE_POSITIONS[index].flowerOffsetX,
                                         tree.y + tree.height + TREE_POSITIONS[index].flowerOffsetY);
-                this.addAccountLabelName(accountButton, this._accountData[i].name);
+                this.addAccountLabelName(accountButton, this._studentData[i].name);
 
                 subNode = new cc.Node();
 
@@ -366,8 +370,8 @@ var AccountSelectorLayer = cc.Layer.extend({
         scrollView.setBounceable(true);
 
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        cc.log("this._accountData: " + this._accountData.length);
-        var innerWidth = this._accountData.length / 6 * cc.winSize.width;
+        cc.log("this._studentData: " + this._studentData.length);
+        var innerWidth = this._studentData.length / 6 * cc.winSize.width;
         var innerHeight = cc.winSize.height;
 
         this.addChild(scrollView);
@@ -479,16 +483,16 @@ var AccountSelectorLayer = cc.Layer.extend({
                     self._treesContainer.visible = false;
                     self._scrollView.setTouchEnabled(false);
                     self._parallaxNode.addChild(new ChooseLanguageLayer(function(){
-                        var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
+                        // var schoolConfig = DataManager.getInstance().getSchoolConfig(self._schoolId);
 
-                        SegmentHelper.identity(
-                            self._selectedUserData.user_id, 
-                            self._selectedUserData.name, 
-                            schoolConfig.school_id, 
-                            schoolConfig.school_name);
+                        // SegmentHelper.identity(
+                        //     self._selectedUserData.user_id, 
+                        //     self._selectedUserData.name, 
+                        //     schoolConfig.school_id, 
+                        //     schoolConfig.school_name);
                         
-                        KVDatabase.getInstance().set(STRING_USER_ID, self._selectedUserData.user_id);
-                        KVDatabase.getInstance().set(STRING_USER_NAME, self._selectedUserData.name);
+                        KVDatabase.getInstance().set(STRING_STUDENT_ID, self._selectedUserData.user_id);
+                        KVDatabase.getInstance().set(STRING_STUDENT_NAME, self._selectedUserData.name);
                         self._moveToMainScene();
                     }), 3, cc.p(1, 1), cc.p(0, 0));
                 })
@@ -631,11 +635,11 @@ var AccountSelectorLayer = cc.Layer.extend({
     _addPlusSchoolButton: function() {
         var tree, subNode;
         // var accountData = DataManager.getInstance().getAccountData(this._schoolId);
-        var index = this._accountData.length%6;
+        var index = this._studentData.length%6;
 
         tree = new cc.Sprite("#tree" + (index+1) + ".png");
         tree.setAnchorPoint(0.5, 0);
-        tree.x = this._accountData.length * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
+        tree.x = this._studentData.length * TREE_DISTANCE + TREE_POSITIONS[index].x + TREES_PADDING;
         tree.y = this._ground.height/2 - 20;
 
         var randBgIdx = index%2+1;

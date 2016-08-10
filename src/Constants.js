@@ -1,8 +1,8 @@
-var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
-// var BACKEND_ADDRESS = "http://192.168.1.12:3000/";
+var BACKEND_ADDRESS = "http://192.168.1.11:3000/";
 
 var TSOG_DEBUG = false;
 var SHOW_VERSION_LABEL = false;
@@ -47,6 +47,7 @@ var DELTA_DELAY_TIME = 0.1;
 
 var STRING_SCHOOL_DATA  = "school_data";
 var STRING_ACCOUNT_DATA  = "account_data";
+var STRING_STUDENT_DATA  = "student_data";
 var STRING_GAME_DATA  = "game_data";
 
 var SEGMENT = {
@@ -357,6 +358,8 @@ var FONT_COLOR = [
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_USER_ACCESS_TOKEN = "self_user_access_token";
+var STRING_STUDENT_ID = "self_student_id";
+var STRING_STUDENT_NAME = "self_student_name";
 var STRING_SCHOOL_NAME = "self_school_name";
 var STRING_SCHOOL_ID = "self_school_id";
 var STRING_GAME_CONFIG = "self_game_config";
@@ -535,3 +538,7 @@ var AFTER_CHECKING_NOISE_TIME = 3;
 
 var MAX_NAME_LENGTH_DISPLAYED = 14;
 var KEYBOARD_ANIMATION_DURATION = 0.1;
+
+var SUBSCRIPTION_IAP_NAME = "subscription_monthly";
+var SUBSCRIPTION_IAP_ID_IOS = "com.theschoolofgames.tsog.subscription.monthly";
+var SUBSCRIPTION_IAP_ID_ANDROID = "com.theschoolofgames.tsog.subscription.month";
