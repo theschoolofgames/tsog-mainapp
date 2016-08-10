@@ -1,8 +1,8 @@
-// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
-var BACKEND_ADDRESS = "http://192.168.1.11:3000/";
+// var BACKEND_ADDRESS = "http://192.168.1.11:3000/";
 
 var TSOG_DEBUG = false;
 var SHOW_VERSION_LABEL = false;
