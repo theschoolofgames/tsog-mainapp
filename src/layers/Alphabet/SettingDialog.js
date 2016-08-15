@@ -74,10 +74,14 @@ var SettingDialog = cc.Layer.extend({
 
         var self = this;
         logoutBtn.addClickEventListener(function() {
-            Utils.logoutStudent();
-            cc.director.replaceScene(new AccountSelectorScene());
-            // cc.director.replaceScene(new MainScene());
-            // NativeHelper.callNative("moveToMainApp");
+            if (Utils.getUserName()){
+                Utils.logoutStudent();
+                cc.director.replaceScene(new AccountSelectorScene());
+            }
+            else {
+                cc.director.replaceScene(new MainScene());
+                // NativeHelper.callNative("moveToMainApp");
+            }
         })
     },
 

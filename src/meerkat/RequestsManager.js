@@ -94,6 +94,20 @@ var RequestsManager = cc.Class.extend({
             callback && callback(succeed, data);
         });        
     },
+
+    getUserInfo: function(userId, callback) {
+        var url = BACKEND_ADDRESS + "api/user?user_id=" + userId;
+
+        RequestHelper.get(url, function(succeed, responseText) {
+            console.log("getUserInfo -> " + JSON.stringify(responseText));
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            }
+            else
+                callback && callback(false, null);
+        });
+    },
     
     getAccounts: function(schoolId, callback) {
         var url = BACKEND_ADDRESS + "api/accounts?school_id=" + schoolId;

@@ -1,5 +1,7 @@
 var IAPManager = cc.Class.extend({
 
+    purchaseCallback: null,
+
     ctor: function () {
         cc.assert(IAPManager._instance == null, "can be instantiated once only");
     },
@@ -12,13 +14,17 @@ var IAPManager = cc.Class.extend({
         sdkbox.IAP.purchase(name);
     },
 
-    purchaseMonthlySubscription: function(){
+    purchaseMonthlySubscription: function(callback){
         sdkbox.IAP.purchase(SUBSCRIPTION_IAP_NAME);
+        
+        this.purchaseCallback = callback;
     },
 
-    restore: function(){
+    restore: function(callback){
         // Set @subscribed to 0 (not subscribed) before restoring
         KVDatabase.getInstance().set("subscribed", 0);
+
+        this.purchaseCallback = callback;
 
         if (cc.sys.os === "iOS")
             sdkbox.IAP.restore();
@@ -53,6 +59,8 @@ var IAPManager = cc.Class.extend({
         //console.log("SDKBox IAP start init");
         sdkbox.IAP.init();
 
+        var self = this;
+
         if (cc.sys.os === "Android")
             NativeHelper.callNative("initInAppBillingService");
 
@@ -65,17 +73,23 @@ var IAPManager = cc.Class.extend({
 
                 // Only one type of IAP so dont need to check productID
                 KVDatabase.getInstance().set("subscribed", 1);
-                Utils.startCountDownTimePlayed("showPayWall");
+                if (self.purchaseCallback)
+                    self.purchaseCallback(true);
+                // Utils.startCountDownTimePlayed("showPayWall");
             },
             onFailure : function (product, msg) {
                 //console.log("onProductPurchaseFailure");
                 //console.log(JSON.stringify(product));
                 //console.log(msg);
-                Utils.startCountDownTimePlayed("showPayWall");
+                // Utils.startCountDownTimePlayed("showPayWall");
+                if (self.purchaseCallback)
+                    self.purchaseCallback(false);
             },
             onCanceled : function (product) {
                 //Purchase was canceled by user
-                Utils.startCountDownTimePlayed("showPayWall");
+                // Utils.startCountDownTimePlayed("showPayWall");
+                if (self.purchaseCallback)
+                    self.purchaseCallback(false);
             },
             onRestored : function (product) {
                 //Purchase restored
@@ -90,7 +104,9 @@ var IAPManager = cc.Class.extend({
                 // Format: {"name":"subscription_monthly","id":"com.theschoolofgames.tsog.subscription.monthly","title":"Monthly Subscription","description":"Monthly Subscription","price":"4,99 US$","currencyCode":"USD","receipt":"","receiptCipheredPayload":""}
                 if (SUBSCRIPTION_IAP_ID_IOS == product.id){
                     KVDatabase.getInstance().set("subscribed", 1);
-                    Utils.startCountDownTimePlayed("showPayWall");
+                    if (self.purchaseCallback)
+                        self.purchaseCallback(true);
+                    // Utils.startCountDownTimePlayed("showPayWall");
                 }
             },
             onProductRequestSuccess : function (products) {

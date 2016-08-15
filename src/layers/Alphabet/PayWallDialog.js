@@ -53,11 +53,14 @@ var PayWallDialog = cc.LayerColor.extend({
         var self = this;
         subscribeBtn.addClickEventListener(function() {
             // Call subscription IAP
-            IAPManager.getInstance().purchaseMonthlySubscription();
+            IAPManager.getInstance().purchaseMonthlySubscription(function (purchaseSuccess){
+                console.log("purchaseMonthlySubscription callback: " + purchaseSuccess);
+                if (purchaseSuccess)
+                    self.removeFromParent();
+            });
 
-            if (self._callback)
-                self._callback();
-            self.removeFromParent();
+            // if (self._callback)
+            //     self._callback();
         });
 
         var text = "Subscribe";
@@ -79,11 +82,13 @@ var PayWallDialog = cc.LayerColor.extend({
         var self = this;
         restorePurchase.addClickEventListener(function() {
             // Call restore purchased products
-            IAPManager.getInstance().restore();
+            IAPManager.getInstance().restore(function(purchaseSuccess){
+                if (purchaseSuccess)
+                    self.removeFromParent();
+            });
 
-            if (self._callback)
-                self._callback();
-            self.removeFromParent();
+            // if (self._callback)
+            //     self._callback();
         });
 
         var text = "Restore Purchase";

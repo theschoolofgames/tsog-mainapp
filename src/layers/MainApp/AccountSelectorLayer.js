@@ -491,7 +491,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                         //     schoolConfig.school_id, 
                         //     schoolConfig.school_name);
                         
-                        KVDatabase.getInstance().set(STRING_STUDENT_ID, self._selectedUserData.user_id);
+                        KVDatabase.getInstance().set(STRING_STUDENT_ID, self._selectedUserData.student_id);
                         KVDatabase.getInstance().set(STRING_STUDENT_NAME, self._selectedUserData.name);
                         self._moveToMainScene();
                     }), 3, cc.p(1, 1), cc.p(0, 0));

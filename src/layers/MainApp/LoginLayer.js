@@ -139,7 +139,12 @@ var LoginLayer = cc.Layer.extend({
                 Utils.removeLoadingIndicatorLayer();
 
                 if (succeed) {
-                    this._addStudentSelectorDialog();
+                    //this._addStudentSelectorDialog();
+                    cc.director.replaceScene(
+                        new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
+                    );
+
+                    Utils.checkFullAccessPermission(data.user_id);
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
                 }

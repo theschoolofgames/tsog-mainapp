@@ -1,6 +1,8 @@
 var NewAccountLayer = cc.Layer.extend({
     _avatarScrollView: null,
     _passwordScrollView: null,
+    _avatarBtnArray: [],
+    _passwordBtnArray: [],
     _tf: null,
     _pickedAvatar: null,
     _pickedPassword: null,
@@ -172,12 +174,12 @@ var NewAccountLayer = cc.Layer.extend({
                     
                     // KVDatabase.getInstance().set(STRING_USER_ID, data.user_id);
                     // KVDatabase.getInstance().set(STRING_USER_NAME, data.name);
-                    KVDatabase.getInstance().set(STRING_STUDENT_ID, data.student_id);
-                    KVDatabase.getInstance().set(STRING_STUDENT_NAME, data.name);
+                    // KVDatabase.getInstance().set(STRING_STUDENT_ID, data.student_id);
+                    // KVDatabase.getInstance().set(STRING_STUDENT_NAME, data.name);
                     
                     self._updateStudents(userId);
 
-                    cc.director.replaceScene(new WelcomeScene());
+                    // cc.director.replaceScene(new WelcomeScene());
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data.message]);
                 }
@@ -198,6 +200,11 @@ var NewAccountLayer = cc.Layer.extend({
 
                 DataManager.getInstance().setStudentData(userId, data.students);
             }
+
+            // Return student selector scene
+            cc.director.replaceScene(
+                new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
+            );
         });
     },
 
@@ -253,6 +260,10 @@ var NewAccountLayer = cc.Layer.extend({
                 if (self._pickedAvatar)
                     self._pickedAvatar.scale = 1;
 
+                // for (var j = 0; j < self._avatarBtnArray.length; j++){
+                //     self._avatarBtnArray[j].scale = 1;
+                // }
+
                 self._pickedAvatar = sender;
                 self._pickedAvatar.runAction(
                     cc.sequence(
@@ -260,6 +271,7 @@ var NewAccountLayer = cc.Layer.extend({
                         cc.scaleTo(0.4, 1.2).easing(cc.easeElasticOut(0.6))
                     )
                 );
+                console.log("Click Avatar: " + sender.tag);
             });
 
             avatarNode.addChild(avatarBtn);
@@ -273,9 +285,12 @@ var NewAccountLayer = cc.Layer.extend({
                     )
                 );
             }
-            innerWidth = avatarBtn.width*i + cc.winSize.width/4;
+            innerWidth = avatarBtn.width * i * 1.1 + cc.winSize.width/4;
+
+            this._avatarBtnArray.push(avatarBtn);
         }
-        this._avatarScrollView.setContentSize(cc.size(innerWidth, 120));
+
+        this._avatarScrollView.setContentSize(cc.size(innerWidth + 100, 120));
         this._avatarScrollView.addChild(avatarNode);
     },
 
@@ -294,6 +309,10 @@ var NewAccountLayer = cc.Layer.extend({
             passwordBtn.addClickEventListener(function(sender) {
                 if (self._pickedPassword)
                     self._pickedPassword.scale = 1;
+
+                // for (var j = 0; j < self._passwordBtnArray.length; j++){
+                //     self._passwordBtnArray[j].scale = 1;
+                // }
                 
                 self._pickedPassword = sender;
                 self._pickedPassword.runAction(
@@ -302,6 +321,8 @@ var NewAccountLayer = cc.Layer.extend({
                         cc.scaleTo(0.4, 1.2).easing(cc.easeElasticOut(0.6))
                     )
                 );
+
+                console.log("Click Password: " + sender.tag);
             });
 
             passwordNode.addChild(passwordBtn);
@@ -315,8 +336,11 @@ var NewAccountLayer = cc.Layer.extend({
                     )
                 );
             }
-            innerWidth = passwordBtn.width*i + cc.winSize.width/4;
+            innerWidth = passwordBtn.width * i + cc.winSize.width/4;
+
+            this._passwordBtnArray.push(passwordBtn);
         }
+
         this._passwordScrollView.setContentSize(cc.size(innerWidth, 120));
         this._passwordScrollView.addChild(passwordNode);
     },

@@ -187,7 +187,10 @@ var SignUpLayer = cc.Layer.extend({
                 Utils.removeLoadingIndicatorLayer();
 
                 if (succeed) {
-                    this._addCreateSucceededDialog();
+                    //this._addCreateSucceededDialog();
+                    cc.director.replaceScene(
+                        new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
+                    );
                 } else {
                     NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
                 }
@@ -241,7 +244,7 @@ var SignUpLayer = cc.Layer.extend({
             );
         });
 
-        lbl = new cc.LabelTTF("PLAY", "Arial", 26);
+        lbl = new cc.LabelTTF("SELECT", "Arial", 26);
         lbl.x = btn.width / 2;
         lbl.y = btn.height / 2;
         btn.addChild(lbl);

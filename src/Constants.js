@@ -1,8 +1,8 @@
-var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-// var BACKEND_ADDRESS = "http://104.154.49.93/";
+// var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
+var BACKEND_ADDRESS = "http://104.154.49.93/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
-// var BACKEND_ADDRESS = "http://192.168.1.11:3000/";
+// var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
 var TSOG_DEBUG = false;
 var SHOW_VERSION_LABEL = false;
@@ -358,6 +358,7 @@ var FONT_COLOR = [
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_USER_ACCESS_TOKEN = "self_user_access_token";
+var STRING_USER_FULL_ACCESS = "self_user_full_access";
 var STRING_STUDENT_ID = "self_student_id";
 var STRING_STUDENT_NAME = "self_student_name";
 var STRING_SCHOOL_NAME = "self_school_name";

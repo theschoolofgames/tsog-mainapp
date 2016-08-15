@@ -18,7 +18,7 @@ var MainScreenLayer = cc.Layer.extend({
 
         this.downloadAssets();
         this.checkNewVersion(); 
-        this.checkPurchasedState();
+        // this.checkPurchasedState();
 
         var startedDay = KVDatabase.getInstance().getInt("startedDay", 0);
         cc.log("startedDay: " + startedDay);
@@ -44,17 +44,22 @@ var MainScreenLayer = cc.Layer.extend({
         var studentId = KVDatabase.getInstance().getString(STRING_STUDENT_ID, "");
         var userId = KVDatabase.getInstance().getString(STRING_USER_ID, "");
         console.log("StudentId -> " + studentId);
-        if (this._isLoggedIn == 0 || !userId) {
+        
+        if (this._isLoggedIn == 1 && userId) {
+            if (studentId){
+                this._moveToMainScene();  
+            }
+            else {
+                this._moveToStudentSelectorScene();
+            }
+
+            Utils.checkFullAccessPermission(userId);
+        }
+        else {
             this._createBackground();
             this._addDialog();
             this._addDialogButtons();
             this._playBackgroundMusic();
-        }
-        else if (studentId){
-            this._moveToMainScene();  
-        }
-        else {
-            this._moveToStudentSelectorScene();
         }
     },
 
@@ -94,20 +99,20 @@ var MainScreenLayer = cc.Layer.extend({
         btnLogin.getRendererNormal().addChild(lbLogin);
 
         // REGISTER
-        var btnRegister = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        btnRegister.x = this._popupDialog.width/2;
-        btnRegister.y = this._popupDialog.height/2 - 100;
-        this._popupDialog.addChild(btnRegister);
-        btnRegister.addClickEventListener(function() {
-            //cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
-            cc.director.replaceScene(new cc.TransitionFade(1, new AccountSelectorScene(true), cc.color(255, 255, 255, 255)));
-        });
+        // var btnRegister = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // btnRegister.x = this._popupDialog.width/2;
+        // btnRegister.y = this._popupDialog.height/2 - 100;
+        // this._popupDialog.addChild(btnRegister);
+        // btnRegister.addClickEventListener(function() {
+        //     //cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new AccountSelectorScene(true), cc.color(255, 255, 255, 255)));
+        // });
 
-        var lbRegister = new cc.LabelBMFont("ACCOUNT SELECTOR", "yellow-font-export.fnt");
-        lbRegister.scale = 0.6;
-        lbRegister.x = btnRegister.width/2;
-        lbRegister.y = btnRegister.height/2;
-        btnRegister.getRendererNormal().addChild(lbRegister);
+        // var lbRegister = new cc.LabelBMFont("ACCOUNT SELECTOR", "yellow-font-export.fnt");
+        // lbRegister.scale = 0.6;
+        // lbRegister.x = btnRegister.width/2;
+        // lbRegister.y = btnRegister.height/2;
+        // btnRegister.getRendererNormal().addChild(lbRegister);
 
         // PLAY
         var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -300,7 +305,7 @@ var MainScreenLayer = cc.Layer.extend({
 
     checkPurchasedState: function() {
         IAPManager.getInstance().restore();
-    }
+    },
 });
 
 var MainScene = cc.Scene.extend({

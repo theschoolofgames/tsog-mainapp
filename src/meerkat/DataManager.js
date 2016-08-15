@@ -23,9 +23,9 @@ var DataManager = cc.Class.extend({
         //     this._accountData = JSON.parse(accountDataString);
 
         var studentDataString = KVDatabase.getInstance().getString(STRING_STUDENT_DATA);
-        cc.log("DataManager studentDataString: " + JSON.stringify(studentDataString));
+        // cc.log("DataManager studentDataString: " + JSON.stringify(studentDataString));
         if (studentDataString != "")
-            this._schoolData = JSON.parse(studentDataString);
+            this._studentData = JSON.parse(studentDataString);
 
         var gameDataString = KVDatabase.getInstance().getString(STRING_GAME_DATA);
         if (gameDataString != "")

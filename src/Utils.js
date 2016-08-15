@@ -141,7 +141,10 @@ Utils.getUserId = function() {
 }
 
 Utils.getUserName = function() {
-    return KVDatabase.getInstance().getString(STRING_USER_NAME, "");
+    //return KVDatabase.getInstance().getString(STRING_USER_NAME, "");
+
+    // Currently change to student name
+    return KVDatabase.getInstance().getString(STRING_STUDENT_NAME, "");
 }
 
 Utils.getSchoolName = function() {
@@ -159,7 +162,7 @@ Utils.screenRatioTo43 = function() {
 Utils.getLanguage = function() {
     var lang = KVDatabase.getInstance().getString("language", "english");
 
-    if (lang != "english" && language != "hindi" && lang != spanish)
+    if (lang != "english" && lang != "hindi" && lang != spanish)
         return "english";
 
     return lang;
@@ -173,6 +176,7 @@ Utils.didShowPayWall = false;
 Utils.lastPlayedDateTime = -1;
 Utils.outOfFreeDay = 0;
 Utils.subscribed = 0;
+Utils.fullAccess = 0;
 
 Utils.startCallback = function (){
     cc.log("startCallback called");
@@ -186,7 +190,7 @@ Utils.resumeCallback = function (){
 };
 
 Utils.countdownTimePlayedToShowPauseScreen = function() {
-    cc.log("timeToShowPauseScreen -> " + Utils.timeToShowPauseScreen);
+    // cc.log("timeToShowPauseScreen -> " + Utils.timeToShowPauseScreen);
     
     if (Utils.timeToShowPauseScreen === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
@@ -213,8 +217,10 @@ Utils.startCountDownTimePlayed = function(method) {
     } else if (method == "showPayWall") {
         Utils.outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
         Utils.subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
+        Utils.fullAccess = KVDatabase.getInstance().getInt(STRING_USER_FULL_ACCESS, 0);
+        console.log("STRING_USER_FULL_ACCESS -> " + (Utils.fullAccess == 0 ? "NO" : "YES"));
 
-        if (Utils.outOfFreeDay === 0 || Utils.subscribed === 1) {
+        if (Utils.outOfFreeDay === 0 || Utils.subscribed === 1 || Utils.fullAccess === 1) {
             console.log("outOfFreeDay -> " + (Utils.outOfFreeDay==0 ? "NO" : "YES"));
             console.log("subscribed -> " + (Utils.subscribed==0 ? "NO" : "YES"));
             console.log("Still Free To Play --> RETURN!");
@@ -223,24 +229,29 @@ Utils.startCountDownTimePlayed = function(method) {
 
         // Parse time played 
         var timePlayedInDay = KVDatabase.getInstance().getString("timePlayedInDay", ""); // Format: TimePlayedOnSecond_UTCDay like 0000_0000000
+        console.log("TimePlayedInDay: " + timePlayedInDay);
+        
         if (timePlayedInDay){
             var timeSecondPlayedTotal = parseInt(timePlayedInDay.split("_")[0]);
             var lastPlayedDate = new Date(parseInt(timePlayedInDay.split("_")[1]));
             
-            if (Utils.daysBetweenNow(lastPlayedDate) >= 0 && timeSecondPlayedTotal < GAME_CONFIG.amountOfMinutesEachDayToPlay * 60)
-                return;
-
-            Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60 - timeSecondPlayedTotal;
+            if (Utils.daysBetweenNow(lastPlayedDate) >= 0 && timeSecondPlayedTotal < GAME_CONFIG.amountOfMinutesEachDayToPlay * 60){
+                Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60 - timeSecondPlayedTotal;
+            }
+            else {
+                Utils.timeToShowPayWall = 0;
+            }
         }
         
-        if (Utils.timeToShowPayWall <= 0)
+        if (Utils.timeToShowPayWall < 0)
             Utils.timeToShowPayWall = GAME_CONFIG.amountOfMinutesEachDayToPlay * 60;
+
         cc.director.getRunningScene().schedule(Utils.countdownTimePlayedToShowPayWall, 1, Utils.timeToShowPayWall);
     }
 };
 
 Utils.countdownTimePlayedToShowPayWall = function() {
-    // console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
+    console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
     if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
@@ -248,7 +259,7 @@ Utils.countdownTimePlayedToShowPayWall = function() {
             Utils.startCallback();
 
         cc.director.getRunningScene().addChild(new PayWallDialog(function() {
-            Utils.resumeCallback();
+            // Utils.resumeCallback();
             //Utils.startCountDownTimePlayed("showPayWall");
         }));
     }
@@ -267,6 +278,21 @@ Utils.daysBetweenNow = function(lastDate) {
     return diffDayMsRound;
 };
 
+Utils.checkFullAccessPermission = function(userId) {
+    RequestsManager.getInstance().getUserInfo(userId, function(succeed, data) {
+        Utils.removeLoadingIndicatorLayer();
+
+        if (succeed) {
+            if (data.full_access)
+                KVDatabase.getInstance().set(STRING_USER_FULL_ACCESS, 1);
+            else 
+                KVDatabase.getInstance().set(STRING_USER_FULL_ACCESS, 0);
+
+            console.log("User Full Access: " + data.full_access);
+        }
+    });
+};
+
 Utils.logoutStudent = function(){
     KVDatabase.getInstance().remove(STRING_STUDENT_ID);
     KVDatabase.getInstance().remove(STRING_STUDENT_NAME);
@@ -275,7 +301,7 @@ Utils.logoutStudent = function(){
     KVDatabase.getInstance().remove("amountGamePlayed");
     SceneFlowController.getInstance().resetFlow();
     Global.clearCachedState();
-},
+};
 
 Utils.logoutUser = function() {
     KVDatabase.getInstance().remove(STRING_USER_ACCESS_TOKEN);
@@ -284,6 +310,7 @@ Utils.logoutUser = function() {
     KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);
     KVDatabase.getInstance().remove("numberItems");
     KVDatabase.getInstance().remove("amountGamePlayed");
+    KVDatabase.getInstance().set(STRING_USER_FULL_ACCESS, 0);
     KVDatabase.getInstance().set("isLoggedIn", 0);
     SceneFlowController.getInstance().resetFlow();
     Global.clearCachedState();
