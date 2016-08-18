@@ -41,6 +41,8 @@
         "src/layers/MainApp/ChooseLanguageLayer.js",
         "src/layers/MainApp/LoginLayer.js",
 
+        "src/layers/StoryTime/StoryMainLayer.js",
+
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",
         "src/layers/Alphabet/SpeakingTestLayer.js",

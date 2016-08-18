@@ -33,7 +33,6 @@ var MainScreenLayer = cc.Layer.extend({
             cc.log("playedDay: " + playedDay);
             cc.log("amountOfFreeDayToPlay: " + GAME_CONFIG.amountOfFreeDayToPlay);
             if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay)
-                console.log("Out of free day -----");
                 KVDatabase.getInstance().set("outOfFreeDay", 1);
         }
     },
@@ -104,11 +103,10 @@ var MainScreenLayer = cc.Layer.extend({
         // btnRegister.y = this._popupDialog.height/2 - 100;
         // this._popupDialog.addChild(btnRegister);
         // btnRegister.addClickEventListener(function() {
-        //     //cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
-        //     cc.director.replaceScene(new cc.TransitionFade(1, new AccountSelectorScene(true), cc.color(255, 255, 255, 255)));
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new StoryMainLayer(), cc.color(255, 255, 255, 255)));
         // });
 
-        // var lbRegister = new cc.LabelBMFont("ACCOUNT SELECTOR", "yellow-font-export.fnt");
+        // var lbRegister = new cc.LabelBMFont("STORY SCREEN", "yellow-font-export.fnt");
         // lbRegister.scale = 0.6;
         // lbRegister.x = btnRegister.width/2;
         // lbRegister.y = btnRegister.height/2;

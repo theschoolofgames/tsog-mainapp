@@ -57,6 +57,12 @@ var res = {
     Forest_png: "forest.png",
     NewAccount_Plist: "newaccount.plist",
     NewAccount_Png: "newaccount.png",
+
+    // Subtitle files
+    Story01_ass: "res/subtitles/story01.ass",
+
+    // Stories sounds
+    Story01_mp3: "res/sounds/stories/story01.mp3",
  
     // Animals
     Ant_png: "animals/ant.png",
