@@ -10,9 +10,27 @@ var StoryMainLayer = cc.Layer.extend({
         this._addBackGround();
         this._addButtons();
         this._loadSubtitle(res.Story01_ass);
+        this._addRichText();
 
         Utils.showVersionLabel(this);
 
+    },
+
+    _addRichText: function() {
+        var uiRichText = new ccui.RichText();
+        // uiRichText.ignoreContentAdaptWithSize(false);
+        // uiRichText.setAnchorPoint(cc.p(0,0));
+        // uiRichText.setContentSize(new cc.size(200, 100));
+        uiRichText.x = cc.winSize.width/2;
+        uiRichText.y = cc.winSize.height/2;
+
+        var rtElement = new ccui.RichElementText(100, cc.color.BLACK, 255, "Some Text Some Text Some Text", "Arial", 24);
+        var rtRedElement = new ccui.RichElementText(100, cc.color.RED, 255, "Red ", "Arial", 24);
+
+        uiRichText.pushBackElement(rtRedElement);
+        uiRichText.pushBackElement(rtElement);
+        uiRichText.formatText();
+        this.addChild(uiRichText);
     },
 
     update: function(dt) {
