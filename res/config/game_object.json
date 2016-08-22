@@ -1,0 +1,702 @@
+[
+    {
+        "id": "hat",
+        "type": "object",
+        "value": "hat"
+    },
+    {
+        "id": "jar",
+        "type": "object",
+        "value": "jar"
+    },
+    {
+        "id": "key",
+        "type": "object",
+        "value": "key"
+    },
+    {
+        "id": "map",
+        "type": "object",
+        "value": "map"
+    },
+    {
+        "id": "pen",
+        "type": "object",
+        "value": "pen"
+    },
+    {
+        "id": "book",
+        "type": "object",
+        "value": "book"
+    },
+    {
+        "id": "desk",
+        "type": "object",
+        "value": "desk"
+    },
+    {
+        "id": "flag",
+        "type": "object",
+        "value": "flag"
+    },
+    {
+        "id" : "gift",
+        "type":"object",
+        "value": "gift"
+    },
+    {
+        "id": "egg",
+        "type": "object",
+        "value": "egg"
+    },
+    {
+        "id": "kite",
+        "type": "object",
+        "value": "kite"
+    },
+    {
+        "id": "lamp",
+        "type": "object",
+        "value": "lamp"
+    },
+    {
+        "id" : "nail",
+        "type":"object",
+        "value": "nail"
+    },
+    {
+        "id": "sock",
+        "type": "object",
+        "value": "sock"
+    },
+    {
+        "id" : "gift",
+        "type":"object",
+        "value": "gift"
+    },
+    {
+        "id": "apple",
+        "type": "object",
+        "value": "apple"
+    },
+    {
+        "id": "chair",
+        "type": "object",
+        "value": "chair"
+    },
+    {
+        "id": "grape",
+        "type": "object",
+        "value": "grape"
+    },
+    {
+        "id": "joker",
+        "type": "object",
+        "value": "joker"
+    },
+    {
+        "id" : "lemon",
+        "type":"object",
+        "value": "lemon"
+    },
+    {
+        "id": "onion",
+        "type": "object",
+        "value": "onion"
+    },
+    {
+        "id" : "queen",
+        "type":"object",
+        "value": "queen"
+    },
+    {
+        "id": "towel",
+        "type": "object",
+        "value": "towel"
+    },
+    {
+        "id": "watch",
+        "type": "object",
+        "value": "watch"
+    },
+    {
+        "id": "abacus",
+        "type": "object",
+        "value": "abacus"
+    },
+    {
+        "id" : "juice",
+        "type":"object",
+        "value": "juice"
+    },
+    {
+        "id": "banana",
+        "type": "object",
+        "value": "banana"
+    },
+    {
+        "id": "duster",
+        "type": "object",
+        "value": "duster"
+    },
+    {
+        "id" : "eraser",
+        "type":"object",
+        "value": "eraser"
+    },
+    {
+        "id" : "insect",
+        "type":"object",
+        "value": "insect"
+    },
+    {
+        "id": "orange",
+        "type": "object",
+        "value": "orange"
+    },
+    {
+        "id": "pencils",
+        "type": "object",
+        "value": "pencils"
+    },
+    {
+        "id": "potato",
+        "type": "object",
+        "value": "potato"
+    },
+    {
+        "id": "tomato",
+        "type": "object",
+        "value": "tomato"
+    },
+    {
+        "id": "umbrella",
+        "type": "object",
+        "value": "umbrella"
+    },
+    {
+        "id" : "uniform",
+        "type":"object",
+        "value": "uniform"
+    },
+    {
+        "id" : "vegetable",
+        "type":"object",
+        "value": "vegetable"
+    },
+    {
+        "id" : "computer",
+        "type":"object",
+        "value": "computer"
+    },
+    {
+        "id" : "toytrain",
+        "type":"object",
+        "value": "toytrain"
+    },
+    {
+        "id": "feather",
+        "type": "object",
+        "value": "feather"
+    },
+    {
+        "id" : "vehicle",
+        "type":"object",
+        "value": "vehicle"
+    },
+    {
+        "id": "medicine",
+        "type": "object",
+        "value": "medicine"
+    },
+    {
+        "id": "raspberry",
+        "type": "object",
+        "value": "raspberry"
+    },
+    {
+        "id" : "watermelon",
+        "type":"object",
+        "value": "watermelon"
+    },
+    {
+        "id": "strawberry",
+        "type": "object",
+        "value": "strawberry"
+    },
+    {
+        "id" : "xylophone",
+        "type":"object",
+        "value": "xylophone"
+    },
+    {
+        "id": "ant",
+        "type": "animal",
+        "value": "ant"
+    },
+    {
+        "id": "cat",
+        "type": "animal",
+        "value": "cat"
+    },
+    {
+        "id": "bee",
+        "type": "animal",
+        "value": "bee"
+    },
+    {
+        "id": "cow",
+        "type": "animal",
+        "value": "cow"
+    },
+    {
+        "id": "fly",
+        "type": "animal",
+        "value": "fly"
+    },
+    {
+        "id" : "fox",
+        "type": "animal",
+        "value": "fox"
+    },
+    {
+        "id": "pig",
+        "type":"animal",
+        "value": "pig"
+    },
+    {
+        "id": "rat",
+        "type" : "animal",
+        "value": "rat"
+    },
+    {
+        "id": "owl",
+        "type": "animal",
+        "value": "owl"
+    },
+    {
+        "id": "bear",
+        "type": "animal",
+        "value": "bear"
+    },
+    {
+        "id": "bird",
+        "type": "animal",
+        "value": ""
+    },
+    {
+        "id": "deer",
+        "type": "animal",
+        "value": "deer"
+    },
+    {
+        "id": "duck",
+        "type": "animal",
+        "value": "duck"
+    },
+    {
+        "id": "fish",
+        "type": "animal",
+        "value": "fish"
+    },
+    {
+        "id": "frog",
+        "type": "animal",
+        "value": "frog"
+    },
+    {
+        "id": "goat",
+        "type" : "animal",
+        "value": "goat"
+    },
+    {
+        "id": "lion",
+        "type": "animal",
+        "value": "lion"
+    },
+    {
+        "id": "seal",
+        "type": "animal",
+        "value": "seal"
+    },
+    {
+        "id": "wolf",
+        "type": "animal",
+        "value": "wolf"
+    },
+    {
+        "id" : "nest",
+        "type" : "animal",
+        "value": "nest"
+    },
+    {
+        "id": "camel",
+        "type": "animal",
+        "value": "camel"
+    },
+    {
+        "id": "eagle",
+        "type": "animal",
+        "value": "eagle"
+    },
+    {
+        "id": "horse",
+        "type": "animal",
+        "value": "horse"
+    },
+    {
+        "id": "puppy",
+        "type": "animal",
+        "value": "puppy"
+    },
+    {
+        "id": "tiger",
+        "type": "animal",
+        "value": "tiger"
+    },
+    {
+        "id": "shark",
+        "type": "animal",
+        "value": "shark"
+    },
+    {
+        "id" : "sheep",
+        "type": "animal",
+        "value": "sheep"
+    },
+    {
+        "id": "snail",
+        "type": "animal",
+        "value": "snail"
+    },
+    {
+        "id" : "panda",
+        "type" : "animal",
+        "value": "panda"
+    },
+    {
+        "id": "snake",
+        "type": "animal",
+        "value": "snake"
+    },
+    {
+        "id" : "zebra",
+        "type": "animal",
+        "value": "zebra"
+    },
+    {
+        "id": "rabbit",
+        "type": "animal",
+        "value": "rabbit"
+    },
+    {
+        "id": "insect",
+        "type": "animal",
+        "value": "insect"
+    },
+    {
+        "id": "cheetah",
+        "type": "animal",
+        "value": "cheetah"
+    },
+    {
+        "id": "monkey",
+        "type": "animal",
+        "value": "monkey"
+    },
+    {
+        "id": "dolphin",
+        "type": "animal",
+        "value": "dolphin"
+    },
+    {
+        "id": "kitten",
+        "type": "animal",
+        "value": "kitten"
+    },
+    {
+        "id": "giraffe",
+        "type": "animal",
+        "value": "giraffe"
+    },
+    {
+        "id": "goldfish",
+        "type": "animal",
+        "value": "goldfish"
+    },
+    {
+        "id" :"hamster",
+        "type": "animal",
+        "value": "hamster"
+    },
+    {
+        "id": "kangaroo",
+        "type": "animal",
+        "value": "kangaroo"
+    },
+    {
+        "id": "turtle",
+        "type": "animal",
+        "value": "turtle"
+    },
+    {
+        "id": "chicken",
+        "type": "animal",
+        "value": "chicken"
+    },
+    {
+        "id": "lobster",
+        "type": "animal",
+        "value": "lobster"
+    },
+    {
+        "id": "octopus",
+        "type": "animal",
+        "value": "octopus"
+    },
+    {
+        "id": "crocodile",
+        "type": "animal",
+        "value": "crocodile"
+    },
+    {
+        "id": "scorpion",
+        "type": "animal",
+        "value": "scorpion"
+    },
+    {
+        "id": "elephant",
+        "type": "animal",
+        "value": "elephant"
+    },
+    {
+        "id": "squirrel",
+        "type": "animal",
+        "value": "squirrel"
+    },
+    {
+        "id": "number_0",
+        "type": "number",
+        "value": "0"
+    },
+    {
+        "id": "number_1",
+        "type": "number",
+        "value": "1"
+    },
+    {
+        "id": "number_2",
+        "type": "number",
+        "value": "2"
+    },
+    {
+        "id": "number_3",
+        "type": "number",
+        "value": "3"
+    },
+    {
+        "id": "number_4",
+        "type": "number",
+        "value": "4"
+    },
+    {
+        "id": "number_5",
+        "type": "number",
+        "value": "5"
+    },
+    {
+        "id": "number_6",
+        "type": "number",
+        "value": "6"
+    },
+    {
+        "id": "number_7",
+        "type": "number",
+        "value": "7"
+    },
+    {
+        "id": "number_8",
+        "type": "number",
+        "value": "8"
+    },
+    {
+        "id": "number_9",
+        "type": "number",
+        "value": "9"
+    },
+    {
+        "id": "word_a",
+        "type": "word",
+        "value": "a"
+    },
+    {
+        "id": "word_b",
+        "type": "word",
+        "value": "b"
+    },
+    {
+        "id": "word_c",
+        "type": "word",
+        "value": "c"
+    },
+    {
+        "id": "word_d",
+        "type": "word",
+        "value": "d"
+    },
+    {
+        "id": "word_e",
+        "type": "word",
+        "value": "e"
+    },
+    {
+        "id": "word_f",
+        "type": "word",
+        "value": "f"
+    },
+    {
+        "id": "word_g",
+        "type": "word",
+        "value": "g"
+    },
+    {
+        "id": "word_h",
+        "type": "word",
+        "value": "h"
+    },
+    {
+        "id": "word_i",
+        "type": "word",
+        "value": "i"
+    },
+    {
+        "id": "word_k",
+        "type": "word",
+        "value": "k"
+    },
+    {
+        "id": "word_l",
+        "type": "word",
+        "value": "l"
+    },
+    {
+        "id": "word_m",
+        "type": "word",
+        "value": "m"
+    },
+    {
+        "id": "word_n",
+        "type": "word",
+        "value": "n"
+    },
+    {
+        "id": "word_o",
+        "type": "word",
+        "value": "o"
+    },
+    {
+        "id": "word_p",
+        "type": "word",
+        "value": "p"
+    },
+    {
+        "id": "word_q",
+        "type": "word",
+        "value": "q"
+    },
+    {
+        "id": "word_r",
+        "type": "word",
+        "value": "r"
+    },
+    {
+        "id": "word_s",
+        "type": "word",
+        "value": "s"
+    },
+    {
+        "id": "word_t",
+        "type": "word",
+        "value": "t"
+    },
+    {
+        "id": "word_u",
+        "type": "word",
+        "value": "u"
+    },
+    {
+        "id": "word_v",
+        "type": "word",
+        "value": "v"
+    },
+    {
+        "id": "word_w",
+        "type": "word",
+        "value": "w"
+    },
+    {
+        "id": "word_x",
+        "type": "word",
+        "value": "x"
+    },
+    {
+        "id": "word_y",
+        "type": "word",
+        "value": "y"
+    },
+    {
+        "id": "word_z",
+        "type": "word",
+        "value": "z"
+    },
+    {
+        "id": "color_white",
+        "type": "color",
+        "value": "#FFFFFF"
+    },
+    {
+        "id": "color_black",
+        "type": "color",
+        "value": "#000000"
+    },
+    {
+        "id": "color_red",
+        "type": "color",
+        "value": "#FF0000"
+    },
+    {
+        "id": "shape_straight_line",
+        "type": "shape",
+        "value": "straight_line"
+    },
+    {
+        "id": "shape_curved_line",
+        "type": "shape",
+        "value": "curved_line"
+    },
+    {
+        "id": "shape_semi_circle",
+        "type": "shape",
+        "value": "semi_circle"
+    },
+    {
+        "id": "shape_square",
+        "type": "shape",
+        "value": "square"
+    },
+    {
+        "id": "shape_rectangle",
+        "type": "shape",
+        "value": "rectangle"
+    },
+    {
+        "id": "shape_triangle",
+        "type": "shape",
+        "value": "triangle"
+    },
+    {
+        "id": "shape_circle",
+        "type": "shape",
+        "value": "circle"
+    }
+]

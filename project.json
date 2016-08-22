@@ -21,6 +21,8 @@
         "src/SpeechRecognitionListener.js",
         "src/GameListener.js",
         "src/SingleTouch.js",
+        
+        "src/model/GameObject.js",
 
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",

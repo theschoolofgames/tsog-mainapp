@@ -103,6 +103,7 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
+        GameObject.setupInstance();
         RequestsManager.setupInstance();
         ConfigStore.setupInstance(true);
         AudioListener.setupInstance();

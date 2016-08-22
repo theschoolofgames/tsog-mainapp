@@ -13,6 +13,9 @@ var WelcomeLayer = cc.LayerColor.extend({
         SegmentHelper.track(SEGMENT.TALKING_ADI, null );
 
         Utils.showVersionLabel(this);
+
+        var obj = GameObject.getInstance().findById("hat");
+        cc.log("obj -> " + JSON.stringify(obj));
 	},
 
     onEnter: function() {
