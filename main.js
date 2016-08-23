@@ -130,7 +130,8 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
-        
+            
+        // cc.director.runScene(new WritingTestScene([{"name":"247","tag":0},{"name":"456","tag":1},{"name":"789","tag":2}], "RoomScene"));
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());

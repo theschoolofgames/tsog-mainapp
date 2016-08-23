@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/nick/projects/tsog-main-app/_sourceart/abc/abc.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/abc/abc.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

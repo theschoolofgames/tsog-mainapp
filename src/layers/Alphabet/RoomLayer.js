@@ -66,6 +66,7 @@ var RoomLayer = cc.Layer.extend({
 
         Utils.showVersionLabel(this);
 
+        // this.addChild(new WritingTestLayer([{"name":"123","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // this.addChild(new PayWallDialog(), 100);
     },
 

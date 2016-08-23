@@ -31,6 +31,11 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     _moveToNextScene: function() {
+        if (TSOG_DEBUG) {
+            this._objectsArray = [{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}];
+            this._oldSceneName = "RoomScene";
+        }
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
         if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")

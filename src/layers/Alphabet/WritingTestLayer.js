@@ -33,7 +33,8 @@ var WritingTestLayer = TestLayer.extend({
 
     ctor: function(objectsArray, oldSceneName) {
         this._super();
-
+        cc.log("objectsArray: " + JSON.stringify(objectsArray));
+        cc.log("oldSceneName: " + oldSceneName);
         this._objectsArray = objectsArray;
         // this._names = objectsArray;
         this._names = objectsArray.map(function(obj) {
@@ -457,13 +458,15 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _addObjImage: function(name) {
-        var spritePath
+        var spritePath;
+
         if (this._oldSceneName == "RoomScene") {
             spritePath = "things/" + name.toLowerCase() + ".png";
         } else {
             spritePath = "animals/" + name.toLowerCase() + ".png";
         }
-
+        if (TSOG_DEBUG)
+            spritePath = "things/" + "hat" + ".png";
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;
