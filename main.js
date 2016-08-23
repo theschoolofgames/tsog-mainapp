@@ -134,8 +134,8 @@ cc.game.onStart = function(){
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new MainScene());
+        // cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());

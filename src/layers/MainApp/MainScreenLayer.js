@@ -33,7 +33,6 @@ var MainScreenLayer = cc.Layer.extend({
             cc.log("playedDay: " + playedDay);
             cc.log("amountOfFreeDayToPlay: " + GAME_CONFIG.amountOfFreeDayToPlay);
             if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay)
-                console.log("Out of free day -----");
                 KVDatabase.getInstance().set("outOfFreeDay", 1);
         }
     },
