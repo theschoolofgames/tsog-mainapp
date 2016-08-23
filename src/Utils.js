@@ -252,7 +252,7 @@ Utils.startCountDownTimePlayed = function(method) {
 };
 
 Utils.countdownTimePlayedToShowPayWall = function() {
-    console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
+    // console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
     if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
@@ -260,7 +260,7 @@ Utils.countdownTimePlayedToShowPayWall = function() {
             Utils.startCallback();
 
         cc.director.getRunningScene().addChild(new PayWallDialog(function() {
-            // Utils.resumeCallback();
+            Utils.resumeCallback();
             //Utils.startCountDownTimePlayed("showPayWall");
         }));
     }

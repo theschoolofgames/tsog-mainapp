@@ -126,7 +126,7 @@ public class Wrapper
     }
 
     public static String getId() {
-        return Settings.System.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
+        return Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     public static void segmentIdentity(final String userId, final String traits) {
