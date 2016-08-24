@@ -217,7 +217,9 @@ var res = {
     Create_png: "create-button.png",
 
     // TMX
-    ABC_TMX: "res/abc.tmx"
+    ABC_TMX: "res/abc.tmx",
+
+    HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };
 
 var g_resources = [];

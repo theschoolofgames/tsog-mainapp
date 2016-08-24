@@ -33,12 +33,17 @@ var WritingTestLayer = TestLayer.extend({
 
     ctor: function(objectsArray, oldSceneName) {
         this._super();
-        cc.log("objectsArray: " + JSON.stringify(objectsArray));
-        cc.log("oldSceneName: " + oldSceneName);
+        // cc.log("objectsArray: " + JSON.stringify(objectsArray));
+        // cc.log("oldSceneName: " + oldSceneName);
+        cc.log("WritingTestLayer ctor");
         this._objectsArray = objectsArray;
         // this._names = objectsArray;
+
         this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
+            if (obj !== null && (typeof obj === 'object'))
+                return obj.name.toUpperCase();
+            else
+                return obj.toUpperCase();
         });
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;

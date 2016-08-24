@@ -316,3 +316,15 @@ Utils.logoutUser = function() {
     SceneFlowController.getInstance().resetFlow();
     Global.clearCachedState();
 };
+
+Utils.getTTFConfig = function(fontFile, fontSize) {
+    var ttfConfig = {
+        fontFilePath: fontFile,
+        fontSize: fontSize,
+        outlineSize: 0,
+        glyphs: 2,
+        customGlyphs: "",
+        distanceFieldEnable: true
+    }
+    return ttfConfig
+}

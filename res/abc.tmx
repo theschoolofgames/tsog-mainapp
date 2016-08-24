@@ -443,7 +443,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="B" visible="0">
+ <objectgroup name="B">
   <object id="81" name="B" gid="2" x="47" y="283" width="226" height="246"/>
   <object id="84" name="Path2" x="130" y="82">
    <polyline points="19.5,0.5 79,9 86,40 71,66 55,80 70,89 88,113 79,141 17.5,160"/>
