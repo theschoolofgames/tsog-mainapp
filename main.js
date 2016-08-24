@@ -130,15 +130,16 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         
-        // cc.director.runScene(new GoFigureTestScene(["123", "456", "789"]));
+        // cc.director.runScene(new GoFigureTestScene(["shape_square", "shape_rectangle", "shape_triangle"]));
         // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
         cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new MainScene());
-        // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
@@ -158,6 +159,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
             cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         });
     }, this);
 };

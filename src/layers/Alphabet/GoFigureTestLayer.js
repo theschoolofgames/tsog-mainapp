@@ -28,7 +28,7 @@ var GoFigureTestScene = cc.Scene.extend({
 
             var csf = cc.director.getContentScaleFactor();
             var tiledMap = new cc.TMXTiledMap();
-            tiledMap.initWithTMXFile(res.ABC_TMX);
+            tiledMap.initWithTMXFile(res.Figure_TMX);
 
             var mapSize = tiledMap.getMapSize();
             var tileSize = tiledMap.getTileSize();

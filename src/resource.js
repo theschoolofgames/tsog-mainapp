@@ -58,6 +58,8 @@ var res = {
     Forest_png: "forest.png",
     NewAccount_Plist: "newaccount.plist",
     NewAccount_Png: "newaccount.png",
+    Figure_Game_Plist: "figure-game.plist",
+    Figure_Game_Png: "figure-game.png",
  
     // Animals
     Ant_png: "animals/ant.png",
@@ -218,6 +220,7 @@ var res = {
 
     // TMX
     ABC_TMX: "res/abc.tmx",
+    Figure_TMX: "res/figure-game.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

@@ -33,6 +33,8 @@ var WritingTestLayer = TestLayer.extend({
 
     ctor: function(objectsArray, oldSceneName) {
         this._super();
+        // var obj = GameObject.getInstance().findById("hat");
+        // cc.log("obj -> " + JSON.stringify(obj));
         // cc.log("objectsArray: " + JSON.stringify(objectsArray));
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("WritingTestLayer ctor");
@@ -42,9 +44,13 @@ var WritingTestLayer = TestLayer.extend({
         this._names = objectsArray.map(function(obj) {
             if (obj !== null && (typeof obj === 'object'))
                 return obj.name.toUpperCase();
-            else
-                return obj.toUpperCase();
+            else {
+                cc.log(obj);
+                var o = GameObject.getInstance().findById(obj);
+                return o[0].value.toUpperCase();
+            }
         });
+        cc.log(JSON.stringify(this._names));
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
