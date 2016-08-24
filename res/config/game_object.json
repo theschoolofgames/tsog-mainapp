@@ -667,17 +667,17 @@
     {
         "id": "shape_straight_line",
         "type": "shape",
-        "value": "straight_line"
+        "value": "line"
     },
     {
         "id": "shape_curved_line",
         "type": "shape",
-        "value": "curved_line"
+        "value": "curved-line"
     },
     {
         "id": "shape_semi_circle",
         "type": "shape",
-        "value": "semi_circle"
+        "value": "semi-circle"
     },
     {
         "id": "shape_square",

@@ -15,6 +15,18 @@ var GoFigureTestLayer = WritingTestLayer.extend({
         this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
         this._currentCharConfig = GoFigureTestLayer.CHAR_CONFIG[this._currentChar];
     },
+
+    // override to display shapes
+    _displayWord: function() {
+        cc.log("GoFigureTestLayer CHAR_CONFIG: " + JSON.stringify(GoFigureTestLayer.CHAR_CONFIG));
+    },
+
+    _moveToNextCharacter: function() {
+        // this._tmpRender.setPosition(this._characterNodes[this._charIdx].getPosition());
+        this.fetchCharacterConfig();
+        this._displayNewDashedLine();
+        this._displayFinger();
+    }
 });
 
 GoFigureTestLayer.CHAR_CONFIG = null;

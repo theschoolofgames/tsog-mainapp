@@ -45,7 +45,7 @@ var WritingTestLayer = TestLayer.extend({
             if (obj !== null && (typeof obj === 'object'))
                 return obj.name.toUpperCase();
             else {
-                cc.log(obj);
+                // cc.log(obj);
                 var o = GameObject.getInstance().findById(obj);
                 return o[0].value.toUpperCase();
             }
