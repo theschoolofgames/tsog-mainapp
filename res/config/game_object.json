@@ -672,7 +672,7 @@
     {
         "id": "shape_curved_line",
         "type": "shape",
-        "value": "curved-line"
+        "value": "curve-line"
     },
     {
         "id": "shape_semi_circle",
