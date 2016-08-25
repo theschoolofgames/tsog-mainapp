@@ -1,8 +1,9 @@
-var RENDER_TEXTURE_WIDTH = 640;
+var RENDER_TEXTURE_WIDTH = 320;
 var RENDER_TEXTURE_HEIGHT = 320;
 
 var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
+var BRUSH_COLOR = ["red", "blue", "green", "yellow"];
 
 var GoFigureTestLayer = TestLayer.extend({
     _writingWords: null,
@@ -31,6 +32,9 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _currentChar: "",
 
+    _board: null,
+    _currentBrushColor: cc.color.GREEN,
+
     ctor: function(objectsArray, oldSceneName) {
         this._super();
         // var obj = GameObject.getInstance().findById("hat");
@@ -53,6 +57,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._writingWords = this._names;
         
         this._addAdiDog();
+        this._addBoard();
         this._displayWord();
         this._addRenderTextures();
 
@@ -159,7 +164,7 @@ var GoFigureTestLayer = TestLayer.extend({
             this._pathIdx++;
 
             this._tmpRender.getSprite().runAction(cc.sequence(
-                cc.tintTo(0.3, 0, 255, 0),
+                cc.tintTo(0.3, this._currentBrushColor),
                 cc.callFunc(function() {
                     self._blockTouch = false;
 
@@ -267,15 +272,15 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     convertToRTSpace: function(p) {
-        return cc.pSub(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2)));
+        return cc.pSub(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH*2/2, RENDER_TEXTURE_HEIGHT/2)));
     },
 
     convertToWSpace: function(p) {
-        return cc.pAdd(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH/2, RENDER_TEXTURE_HEIGHT/2)));
+        return cc.pAdd(p, cc.pSub(this._tmpRender.getPosition(), cc.p(RENDER_TEXTURE_WIDTH*2/2, RENDER_TEXTURE_HEIGHT/2)));
     },
 
     convertScaledPath: function(p) {
-        return cc.pAdd(cc.pMult(p, this._wordScale), cc.p(RENDER_TEXTURE_WIDTH * (1 - this._wordScale) / 2, RENDER_TEXTURE_HEIGHT * (1 - this._wordScale) / 2));
+        return cc.pAdd(cc.pMult(p, this._wordScale), cc.p(RENDER_TEXTURE_WIDTH*2 * (1 - this._wordScale) / 2, RENDER_TEXTURE_HEIGHT * (1 - this._wordScale) / 2));
     },
 
     isSpriteTransparentInPoint: function(image, point) {
@@ -526,7 +531,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._baseRender.getSprite().opacity = 128;
         this.addChild(this._baseRender, 2);
 
-        this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH, RENDER_TEXTURE_HEIGHT);
+        this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH*2, RENDER_TEXTURE_HEIGHT);
         // this._tmpRender.setPosition(this._baseRender.getPosition());
         this._tmpRender.getSprite().opacity = 128;
         this._tmpRender.getSprite().color = cc.color("#333333");
@@ -604,6 +609,50 @@ var GoFigureTestLayer = TestLayer.extend({
         //         correct: correct
         //     });  //TODO
     },
+
+    _addBoard: function() {
+        // where to set color -> this._baseRender.getSprite().color
+        this._board = new cc.Sprite(res.Board_png);
+        this._board.anchorX = 1;
+        this._board.anchorY = 0;
+        this._board.x = cc.winSize.width - 50 * Utils.getScaleFactorTo16And9();
+        this._board.y = 0;
+        // cc.log("Utils.getScaleFactorTo16And9() " + Utils.getScaleFactorTo16And9());
+        this.addChild(this._board);
+        for (var i = 0; i < BRUSH_COLOR.length; i++) {
+            var btnImgNameNormal = "btn_" + BRUSH_COLOR[i] +".png";
+            var btnImgNamePressed = "btn_" + BRUSH_COLOR[i] +"-pressed.png";
+            var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
+            b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
+            b.y = 104 * Utils.getScaleFactorTo16And9();
+            b.tag = i;
+            b.addClickEventListener(this._changeBrushColorPressed.bind(this));
+            this._board.addChild(b);
+        }
+    },
+
+    _changeBrushColorPressed: function(button) {
+        var color;
+        switch(button.tag){
+            case 0:
+                color = cc.color.RED;
+                break;
+            case 1:
+                color = cc.color.BLUE;
+                break;
+            case 2:
+                color = cc.color.GREEN;
+                break;
+            case 3:
+                color = cc.color.YELLOW;
+                break;
+            default:
+                color = cc.color.GREEN;
+                break;
+        }
+        this._currentBrushColor = color;
+        this._baseRender.getSprite().color = color;
+    }
 });
 
 GoFigureTestLayer.CHAR_CONFIG = null;

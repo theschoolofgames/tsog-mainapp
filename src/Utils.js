@@ -328,3 +328,8 @@ Utils.getTTFConfig = function(fontFile, fontSize) {
     }
     return ttfConfig
 }
+
+Utils.getScaleFactorTo16And9 = function() {
+    var winSize = cc.director.getWinSize();
+    return (winSize.width / winSize.height) / (16/9);
+}

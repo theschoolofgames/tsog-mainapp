@@ -226,6 +226,8 @@ var res = {
     Plus_png: "plus.png",
     Create_png: "create-button.png",
 
+    Board_png: "board.png",
+
     // TMX
     ABC_TMX: "res/abc.tmx",
     Figure_TMX: "res/figure-game.tmx",

@@ -6,26 +6,9 @@
         <key>texturePackerVersion</key>
         <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/abc/abc.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/figure-game/figure-game.tps</string>
         <key>autoSDSettings</key>
         <array>
-            <struct type="AutoSDSettings">
-                <key>scale</key>
-                <double>2</double>
-                <key>extension</key>
-                <string>HD</string>
-                <key>spriteFilter</key>
-                <string></string>
-                <key>acceptFractionalValues</key>
-                <false/>
-                <key>maxTextureSize</key>
-                <QSize>
-                    <key>width</key>
-                    <int>4096</int>
-                    <key>height</key>
-                    <int>4096</int>
-                </QSize>
-            </struct>
             <struct type="AutoSDSettings">
                 <key>scale</key>
                 <double>1</double>
@@ -164,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/abc.plist</filename>
+                <filename>../../res/{v}/figure-game.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
