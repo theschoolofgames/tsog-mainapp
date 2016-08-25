@@ -229,16 +229,27 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
         for (var i = 0; i < this.arrayObjectInType.length; i++){
             var arrayObjects = this.arrayObjectInType[i];
             for (var j = 0; j < arrayObjects.length; j++){
-                if (arrayObjects[j].isChecked)
+                if (arrayObjects[j].isChecked) {
                     checkedItems.push(arrayObjects[j].id);   
+                }
             }
         }
 
         // console.log("Game Selected: " + this._gameId);
         // console.log("Array Checked => \n" + JSON.stringify(checkedItems));
+        if (!checkedItems.length)
+            return;
         if (this._gameId == "writing"){
             cc.director.runScene(new WritingTestScene(checkedItems));
         }
+        if (this._gameId == "gofigure") {
+            checkedItems = checkedItems.filter(function(obj) {
+                if (obj.indexOf("shape") > -1)
+                    return obj;
+            });
+            cc.log("checkedItems: " + JSON.stringify(checkedItems));
+            cc.director.runScene(new GoFigureTestScene(checkedItems));
+        }   
     },
 
     scrollViewDidScroll:function (view) {

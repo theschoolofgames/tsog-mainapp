@@ -547,7 +547,8 @@ var GAME_IDS = [
     "room",
     "shadow",
     "writing",
-    "forest"
+    "forest",
+    "gofigure"
 ];
 
 var TIME_TO_PAUSE_GAME = 5;
