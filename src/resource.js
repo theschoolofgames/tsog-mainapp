@@ -174,6 +174,14 @@ var res = {
     CloudEmpty_png: "temp/cloud-empty.png",
     BtnNormal_png: "temp/btn-normal.png",
     BtnPressed_png: "temp/btn-pressed.png",
+
+    // UI checkbox
+    checkbox_active_disable: "ui/check_box_active_disable.png",
+    checkbox_active_press: "ui/check_box_active_press.png",
+    checkbox_active: "ui/check_box_active.png",
+    checkbox_normal_disable: "ui/check_box_normal_disable.png",
+    checkbox_normal_press: "ui/check_box_normal_press.png",
+    checkbox_normal: "ui/check_box_normal.png",
  
     // Shader
     SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",

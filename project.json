@@ -61,6 +61,9 @@
         "src/layers/Alphabet/GoFigureTestLayer.js",
 
         "src/layers/SceneFlowController.js",
+        
+        "src/layers/GameTests/GameTestSelector.js",
+        "src/layers/GameTests/ObjectTestSelector.js",
 
         "src/common/MessageDialog.js",
 
