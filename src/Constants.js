@@ -534,6 +534,22 @@ var SPEAKING_TEST_LANGUAGE_SOUND_DURATION = [
     }
 ];
 
+var GAME_OBJECT_TYPES = [
+    "object",
+    "animal",
+    "number",
+    "word",
+    "color",
+    "shape"
+];
+
+var GAME_IDS = [
+    "room",
+    "shadow",
+    "writing",
+    "forest"
+];
+
 var TIME_TO_PAUSE_GAME = 5;
 var AFTER_CHECKING_NOISE_TIME = 3;
 
