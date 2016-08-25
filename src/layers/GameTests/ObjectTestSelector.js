@@ -1,4 +1,4 @@
-var CustomTableViewCell = cc.TableViewCell.extend({
+var ObjectsTableViewCell = cc.TableViewCell.extend({
     _sprite: null,
     _label: null,
 
@@ -250,11 +250,8 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
         let tableTag = table.tag;
         var selectedItem = this.arrayObjectInType[tableTag][cell.getIdx()];
         selectedItem.isChecked = (selectedItem.isChecked) ? false : true;
-
+        console.log("Label content string: " + cell.getLabel().getString());
         cell.check(selectedItem.isChecked);
-    },
-    tableCellTouched2:function () {
-        cc.log("cell touched at index: ");
     },
 
     tableCellSizeForIndex:function (table, idx) {
@@ -272,15 +269,18 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             this.currentArrayIndex = tableTag;
         
         let strValue = this.arrayObjectInType[this.currentArrayIndex][idx].id;
+        let isChecked = this.arrayObjectInType[this.currentArrayIndex][idx].isChecked;
         
         var cell = table.dequeueCell();
         
         if (!cell) {
-            cell = new CustomTableViewCell();
+            cell = new ObjectsTableViewCell();
             cell.getLabel().setString(strValue);
+            cell.check(isChecked);
 
         } else {
             cell.getLabel().setString(strValue);
+            cell.check(isChecked);
         }
 
         return cell;
