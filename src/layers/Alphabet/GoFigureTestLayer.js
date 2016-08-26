@@ -34,6 +34,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _board: null,
     _currentBrushColor: cc.color.GREEN,
+    _brushColorButtons: [],
 
     ctor: function(objectsArray, oldSceneName) {
         this._super();
@@ -43,7 +44,7 @@ var GoFigureTestLayer = TestLayer.extend({
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("GoFigureTestLayer ctor");
         this._objectsArray = objectsArray;
-        // this._names = objectsArray;
+        this._brushColorButtons = [];
 
         this._names = objectsArray.map(function(obj) {
                 // cc.log(obj);
@@ -626,8 +627,10 @@ var GoFigureTestLayer = TestLayer.extend({
             b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
             b.y = 104 * Utils.getScaleFactorTo16And9();
             b.tag = i;
+            b.opacity = (i == 2) ? 255 : 180;
             b.addClickEventListener(this._changeBrushColorPressed.bind(this));
             this._board.addChild(b);
+            this._brushColorButtons.push(b);
         }
     },
 
@@ -650,6 +653,15 @@ var GoFigureTestLayer = TestLayer.extend({
                 color = cc.color.GREEN;
                 break;
         }
+
+        for (var i = 0; i < this._brushColorButtons.length; i++) {
+            var b = this._brushColorButtons[i];
+            if (b.tag == button.tag)
+                b.opacity = 255;
+            else
+                b.opacity = 180;
+        }
+
         this._currentBrushColor = color;
         this._baseRender.getSprite().color = color;
     }
