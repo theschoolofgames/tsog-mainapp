@@ -59,6 +59,7 @@
         "src/layers/Alphabet/PayWallDialog.js",
         "src/layers/Alphabet/PrivacyPolicyScreen.js",
         "src/layers/Alphabet/GoFigureTestLayer.js",
+        "src/layers/Alphabet/ShadowGameLayer.js",
 
         "src/layers/SceneFlowController.js",
         

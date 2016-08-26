@@ -247,9 +247,12 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                 if (obj.indexOf("shape") > -1)
                     return obj;
             });
-            cc.log("checkedItems: " + JSON.stringify(checkedItems));
+            
             cc.director.runScene(new GoFigureTestScene(checkedItems));
         }   
+        else if (this._gameId == "shadow"){
+            cc.director.runScene(new ShadowGameScene(checkedItems));   
+        }
     },
 
     scrollViewDidScroll:function (view) {
