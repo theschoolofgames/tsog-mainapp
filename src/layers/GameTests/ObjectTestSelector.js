@@ -240,7 +240,7 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
         if (!checkedItems.length)
             return;
         if (this._gameId == "writing"){
-            cc.director.runScene(new WritingTestScene(checkedItems));
+            cc.director.runScene(new WritingTestScene(checkedItems, "", true));
         }
         if (this._gameId == "gofigure") {
             checkedItems = checkedItems.filter(function(obj) {
@@ -248,7 +248,7 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                     return obj;
             });
             cc.log("checkedItems: " + JSON.stringify(checkedItems));
-            cc.director.runScene(new GoFigureTestScene(checkedItems));
+            cc.director.runScene(new GoFigureTestScene(checkedItems, "", true));
         }   
     },
 

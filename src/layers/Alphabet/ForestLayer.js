@@ -29,11 +29,15 @@ var ForestLayer = cc.Layer.extend({
     _maskLayer: null,
     _treeElements: [],
 
-    ctor: function() {
+    _data: [],
+    _isTestScene: false,
+
+    ctor: function(data, isTestScene) {
         this._super();
-
+        cc.log("isTestScene: " + isTestScene);
+        this._isTestScene = isTestScene;
         this.tag = 1;
-
+        this._getDataValue(data);
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
@@ -150,15 +154,46 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimals: function() {
-        // this._numberItems = this.getNumberOfObjects();
-        // cc.log("this._numberItems: %d, ", this._numberItems)
-        
-        
-        var animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
+        var animals = [];
+        var allAnimals = this._dsInstance.getObjects(FOREST_ID);
+        var rdmAnimalType = this._getRandomAnimalType(this._data.length);
+        if (this._data.length) {
+            for (var i = 0; i < this._data.length; i++) {
+                var obj = this._data[i];
+                for (var j = 0; j < allAnimals.length; j++) {
+                    var a = allAnimals[j];
+                    if (obj === a.imageName) {
+                        // cc.log("obj -> " + obj);
+                        // cc.log("a.imageName -> " + a.imageName);
+                        cc.log("a -> " + JSON.stringify(a));
+                        animals.push(a);
+                        break;
+                    }
+                    else if (!isNaN(obj)) {
+                        // cc.log("obj -> " + obj);
+                        cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
+                        animals.push({
+                            "imageName": obj,
+                            "type": rdmAnimalType[0]
+                        });
+                        rdmAnimalType.splice(1);
+                        break;
+                    }
+                }
+            }
+            cc.log("animals : " + JSON.stringify(animals));
+        }
+        else
+            animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
+
+        cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-        for ( var i = 0; i < Global.NumberItems; i++) {
+        var numbItemsShow = this._data.length || Global.NumberItems;
+        for ( var i = 0; i < numbItemsShow; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
+            cc.log("animals[i] : " + JSON.stringify(animals[i]));
+            cc.log("animalPositionArray[i] : " + JSON.stringify(animalPositionArray[i]));
         }
         this.runSparklesEffect();
     },
@@ -184,6 +219,7 @@ var ForestLayer = cc.Layer.extend({
         for ( var i = 0; i < this._objectDisableds.length; i++) {
 
             objBoundingBox = this._objectDisableds[i].getBoundingBox();
+            cc.log("_isTouchingDisabledObject getting objBoundingBox");
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
                 // cc.log("isRectContainsPoint")
@@ -233,7 +269,7 @@ var ForestLayer = cc.Layer.extend({
             targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
         }
-
+        cc.log("ontouchbegan after check object is disabled or not");
         // if (targetNode._isTouchingDisabledObject(touchedPos))
         //     return false;
 
@@ -249,9 +285,10 @@ var ForestLayer = cc.Layer.extend({
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
         };
-
+        cc.log("prepare to processGameLogic");
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
+        cc.log("done to processGameLogic");
         if (targetNode._objectDisableds.length == Global.NumberItems) {
             SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
@@ -259,7 +296,7 @@ var ForestLayer = cc.Layer.extend({
                     time_taken: targetNode._hudLayer._clock.getElapseTime()
                 });
         };    
-        
+        cc.log("done onTouchBegan");
         return true;
     },
 
@@ -280,16 +317,25 @@ var ForestLayer = cc.Layer.extend({
         return animalPos;
     },
 
-    createAnimal : function(position, animalObject, i) {
-
+    createAnimal: function(position, animalObject, i) {
         NativeHelper.callNative("customLogging", ["Sprite", "animals/" + animalObject.imageName + ".png"]);
+        var animal;
         var objImageName = "animals/" + animalObject.imageName + ".png";
-        var animal =  new cc.Sprite(objImageName);
+        if (isNaN(animalObject.imageName)) {
+            // normal Animal case
+            animal = new cc.Sprite(objImageName);
+            animal.userData = {imageName: objImageName};
+        } else {
+            // Number case
+            animal = new cc.LabelBMFont(animalObject.imageName, res.CustomFont_fnt);
+            // animal.scale = 2;
+            // animal = new cc.LabelTTF(animalObject.imageName, "Arial", 50);
+            // animal = this._createCustomFont(animalObject.imageName);
+        }
         animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
         animal.y = position.y;
         animal.tag = i;
-        animal.userData = {imageName: objImageName};
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
@@ -438,15 +484,26 @@ var ForestLayer = cc.Layer.extend({
 
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
-        var objLabel = new cc.LabelBMFont(animalName.toUpperCase(), font);
-        objLabel.scale = 1.5;
-        objLabel.x = cc.winSize.width/2;
-        objLabel.y = cc.winSize.height/2 - 100;
-        this._maskLayer.addChild(objLabel);
+        if (isNaN(animalName)) {
+            var objLabel = new cc.LabelBMFont(animalName.toUpperCase(), font);
+            objLabel.scale = 1.5;
+            objLabel.x = cc.winSize.width/2;
+            objLabel.y = cc.winSize.height/2 - 100;
+            this._maskLayer.addChild(objLabel);
 
-        this._completedObj = new cc.Sprite("animals/" + animalName + ".png");
-        this._completedObj.x = cc.winSize.width/2;
-        this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
+            this._completedObj = new cc.Sprite("animals/" + animalName + ".png");
+            this._completedObj.x = cc.winSize.width/2;
+            this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
+        } else {
+            cc.log("before create label");
+            this._completedObj = new cc.LabelBMFont(animalName, res.CustomFont_fnt);
+            this._completedObj.scale = 2;
+            // this._completedObj = this._createCustomFont(animalName);
+            this._completedObj.x = cc.winSize.width/2;
+            this._completedObj.y = cc.winSize.height/2;
+            cc.log("after create label");
+        }
+
         this._maskLayer.addChild(this._completedObj);
     },
 
@@ -669,29 +726,33 @@ var ForestLayer = cc.Layer.extend({
 
     runSparklesEffect: function() {
         for ( var i = 0; i < this._objects.length; i++) {
+            cc.log("runSparklesEffect");
             var effect = AnimatedEffect.create(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
     },
 
     removeAnimalEffect: function() {
-        for (var i = 0; i < this._objects.length; i++) {
-            this._objects[i].removeAllChildren();
+        // for (var i = 0; i < this._objects.length; i++) {
+        //     cc.log("this._objects[i]: " + i + " " + this._objects[i]);
+        //     this._objects[i].removeAllChildren();
+        // }
+        for (var i = 0; i < this._effectLayers.length; i++) {
+            var ef = this._effectLayers[i];
+            ef.removeFromParent();
         }
         this._effectLayers = [];
     },
 
     processGameLogic: function() {
         this._removeWarnLabel();
-
         this._touchCounting += 1;
         this.updateProgressBar();
         // this._objectTouching.stopAllActions();
-        this._objectTouching.removeAllChildren();
+        // this._objectTouching.removeAllChildren();
         this.removeAnimalEffect();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
-
         this._objectDisableds.push(this._objectTouching);
         this._objectTouching = null;
     },
@@ -699,10 +760,12 @@ var ForestLayer = cc.Layer.extend({
     playAnimalSound: function(){
         var self = this;
         var animalName = this.getAnimalName(this._objectTouching);
+        cc.log("playAnimalSound animalName: " + animalName);
         var animal = this._objectTouching;
         var str = animalName;
-        var soundConfig = this.getAnimalSoundConfigByName(animalName);
-
+        var soundConfig = this.getAnimalSoundConfigByName(animalName) || {};
+        if (soundConfig)
+            soundConfig.length = 3;
         // Show cutscene
         var oldZOrder = animal.getLocalZOrder();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
@@ -710,7 +773,6 @@ var ForestLayer = cc.Layer.extend({
         // animal.setLocalZOrder(101);
 
         this._maskLayer = mask;
-
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -719,25 +781,28 @@ var ForestLayer = cc.Layer.extend({
                 if (GAME_CONFIG.needTouchToHideCutScene) {
                     if (blockFlag)
                         return;
-
+                    // cc.log("playAnimalSound onTouchEnded");
                     self._blockAllObjects = false;
                     self._removeWarnLabel();
-
                     mask.removeFromParent();
                     // animal.stopAllActions();
                     animal.setLocalZOrder(oldZOrder);
+                    // cc.log("onTouchEnded prepare checkWonGame");
                     self.checkWonGame();
                 }
             }
         }, mask);
 
-        jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
-
+        if (!isNaN(animalName)) // TODO
+            jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
+        cc.log("done check animalName is number or not");
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
                 // self.createWarnLabel(str);
+                cc.log("playAnimalSound prepare createCompletedObject");
                 self.createCompletedObject(animalName);
                 self._blockAllObjects = true;
+                cc.log("playAnimalSound done createCompletedObject");
                 // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
             // cc.scaleTo(1, 0.95),
@@ -755,6 +820,7 @@ var ForestLayer = cc.Layer.extend({
                     mask.removeFromParent();
                     // animal.stopAllActions();
                     animal.setLocalZOrder(oldZOrder);
+                    cc.log("playAnimalSound prepare checkWonGame");
                     self.checkWonGame();
                 }
             })
@@ -883,6 +949,11 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
+        if (this._isTestScene) {
+            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+            return
+        }
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
         if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
@@ -890,13 +961,53 @@ var ForestLayer = cc.Layer.extend({
         else
             scene = new window[nextSceneName]();
         cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    },
+
+    _getDataValue: function(data) {
+        cc.log("_getDataValue");
+        if (data)
+            this._data = data.map(function(id) {
+                cc.log("id -> " + id);
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0].value;
+                else
+                    return id;
+            });
+        else
+            this._data = [];
+        cc.log("_getDataValue - this._data: " + JSON.stringify(this._data));
+    },
+
+    _getRandomAnimalType: function(length) {
+        var typeList = ["LIE_ITEM", "STAND_ITEM", "FLY_ITEM"];
+        var arr = [];
+        for (var i = 0; i < length; i++) {
+            var rdmIndex = Math.floor(Math.random() * typeList.length);
+            arr.push(typeList[rdmIndex]);
+        }
+
+        return arr;
+    },
+
+    _createCustomFont: function(lbText) {
+        cc.log("lbText -> " + lbText);
+        var fontSize = 30;
+        var object = cc.Label.createWithTTF(Utils.getTTFConfig(res.HELVETICARDBLK_ttf.srcs[0], fontSize), 
+                lbText);
+        object.scale = 4;
+        object.color = cc.color("#ffcc00");
+        object.enableStroke(cc.color("#b15a10"), fontSize*0.12);
+        object.enableShadow(cc.color(0.0, 0.0, 0.0, 64.0), cc.size(fontSize*0.11, -fontSize*0.11), 0);
+
+        return object;
     }
 });
 var ForestScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(data, isTestScene) {
         this._super();
         this.name = "forest";
-        var forestLayer = new ForestLayer();
+        var forestLayer = new ForestLayer(data, isTestScene);
         this.addChild(forestLayer);
     }
 });

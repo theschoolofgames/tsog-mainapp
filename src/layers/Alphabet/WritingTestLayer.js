@@ -31,8 +31,10 @@ var WritingTestLayer = TestLayer.extend({
 
     _currentChar: "",
 
-    ctor: function(objectsArray, oldSceneName) {
+    ctor: function(objectsArray, oldSceneName, isTestScene) {
         this._super();
+
+        this._setIsTestScene(isTestScene);
         // var obj = GameObject.getInstance().findById("hat");
         // cc.log("obj -> " + JSON.stringify(obj));
         // cc.log("objectsArray: " + JSON.stringify(objectsArray));
@@ -710,7 +712,7 @@ var WritingTestLayer = TestLayer.extend({
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, nextSceneName, oldSceneName){
+    ctor: function(objectsArray, oldSceneName, isTestScene){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -766,7 +768,7 @@ var WritingTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new WritingTestLayer(objectsArray, nextSceneName, oldSceneName);
+        var layer = new WritingTestLayer(objectsArray, oldSceneName, isTestScene);
         this.addChild(layer);
 
     }

@@ -20,10 +20,12 @@ var res = {
     YellowFont_png: "yellow-font-export.png",
     PurpleFont_png: "purple-font-export.png",
     GreenFont_png: "green-font-export.png",
+    CustomFont_png: "res/font/custom_font.png",
     RedFont_fnt: "red-font-export.fnt",
     YellowFont_fnt: "yellow-font-export.fnt",
     PurpleFont_fnt: "purple-font-export.fnt",
     GreenFont_fnt: "green-font-export.fnt",
+    CustomFont_fnt: "res/font/custom_font.fnt",
     // Sound
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",

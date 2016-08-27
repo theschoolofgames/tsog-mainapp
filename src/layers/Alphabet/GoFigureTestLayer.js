@@ -36,8 +36,10 @@ var GoFigureTestLayer = TestLayer.extend({
     _currentBrushColor: cc.color.GREEN,
     _brushColorButtons: [],
 
-    ctor: function(objectsArray, oldSceneName) {
+    ctor: function(objectsArray, oldSceneName, isTestScene) {
         this._super();
+
+        this._setIsTestScene(isTestScene);
         // var obj = GameObject.getInstance().findById("hat");
         // cc.log("obj -> " + JSON.stringify(obj));
         // cc.log("objectsArray: " + JSON.stringify(objectsArray));
@@ -670,7 +672,7 @@ var GoFigureTestLayer = TestLayer.extend({
 GoFigureTestLayer.CHAR_CONFIG = null;
 
 var GoFigureTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, oldSceneName){
+    ctor: function(objectsArray, oldSceneName, isTestScene){
         this._super();
 
         if (GoFigureTestLayer.CHAR_CONFIG == null) {
@@ -726,7 +728,7 @@ var GoFigureTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new GoFigureTestLayer(objectsArray, oldSceneName);
+        var layer = new GoFigureTestLayer(objectsArray, oldSceneName, isTestScene);
         this.addChild(layer);
 
     }
