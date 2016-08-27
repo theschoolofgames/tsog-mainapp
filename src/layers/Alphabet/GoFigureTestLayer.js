@@ -403,9 +403,9 @@ var GoFigureTestLayer = TestLayer.extend({
     _addObjImage: function(name) {
         var spritePath;
         if (TSOG_DEBUG)
-            spritePath = "things/" + "hat" + ".png";
+            spritePath = "objects/" + "hat" + ".png";
         else if (this._oldSceneName == "RoomScene") {
-            spritePath = "things/" + name.toLowerCase() + ".png";
+            spritePath = "objects/" + name.toLowerCase() + ".png";
         } else {
             spritePath = "animals/" + name.toLowerCase() + ".png";
         }
@@ -439,7 +439,7 @@ var GoFigureTestLayer = TestLayer.extend({
         var soundPath;
         name = name || "";
         if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/things/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
         } else {
             soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
         }

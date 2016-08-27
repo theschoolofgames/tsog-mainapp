@@ -474,12 +474,12 @@ var WritingTestLayer = TestLayer.extend({
         var spritePath;
 
         if (this._oldSceneName == "RoomScene") {
-            spritePath = "things/" + name.toLowerCase() + ".png";
+            spritePath = "objects/" + name.toLowerCase() + ".png";
         } else {
             spritePath = "animals/" + name.toLowerCase() + ".png";
         }
         if (TSOG_DEBUG)
-            spritePath = "things/" + "hat" + ".png";
+            spritePath = "objects/" + "hat" + ".png";
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;
@@ -506,7 +506,7 @@ var WritingTestLayer = TestLayer.extend({
     _playObjSound: function(name, cb) {
         var soundPath;
         if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/things/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
         } else {
             soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
         }
