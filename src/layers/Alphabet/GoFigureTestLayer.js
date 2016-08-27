@@ -481,7 +481,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
         s.scale = this._wordScale;
         s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
-        s.y = cc.winSize.height/2;
+        s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
 
         // for (var j = 1; j < charArrays[i].length; j++) {
         //     charArrays[i][j].scale = this._wordScale;
@@ -616,6 +616,7 @@ var GoFigureTestLayer = TestLayer.extend({
     _addBoard: function() {
         // where to set color -> this._baseRender.getSprite().color
         this._board = new cc.Sprite(res.Board_png);
+        this._board.scale = Utils.getScaleFactorTo16And9();
         this._board.anchorX = 1;
         this._board.anchorY = 0;
         this._board.x = cc.winSize.width - 50 * Utils.getScaleFactorTo16And9();

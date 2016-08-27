@@ -116,8 +116,8 @@ var CardGameLayer = TestLayer.extend({
             obj.tag = i;
             cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > OBJECT_DEFAULT_WIDTH) ? OBJECT_DEFAULT_WIDTH/obj.width : OBJECT_DEFAULT_HEIGHT/obj.height;
-            obj.x = rdmObjPos.x;
-            obj.y = rdmObjPos.y;
+            obj.x = rdmObjPos.x * Utils.getScaleFactorTo16And9();
+            obj.y = rdmObjPos.y * Utils.getScaleFactorTo16And9();
             this.addChild(obj);
             this._activateObjects.push(obj);
 
