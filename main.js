@@ -133,13 +133,13 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
         
-        cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key"], true));
+        // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
         // cc.director.runScene(new GoFigureTestScene(["shape_square", "shape_rectangle", "shape_triangle", "shape_straight_line", "shape_curved_line", "shape_semi_circle", "shape_circle"]));
         // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        // cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));

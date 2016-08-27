@@ -258,6 +258,11 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "forest":
                 cc.director.runScene(new ForestScene(checkedItems, true));
                 break;
+            case "cardgame":
+                cc.director.runScene(new CardGameScene(checkedItems, true));
+                break;
+            default:
+                break;
         }
         if (this._gameId == "writing"){
             cc.director.runScene(new WritingTestScene(checkedItems, "", true));

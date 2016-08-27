@@ -3,7 +3,7 @@ var Z_SHADE = 3;
 var Z_OBJECT_SELECTED = 10;
 var Z_SHADE_SELECTED = 9;
 
-var ShadowGameLayer = cc.Layer.extend({
+var ShadowGameLayer = cc.LayerColor.extend({
     _kvInstance: null,
     _hudLayer: null,
     _maskLayer: null,
@@ -48,7 +48,7 @@ var ShadowGameLayer = cc.Layer.extend({
     ctor: function(objectIdArray) {
         console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
         console.log("Array Checked Length => " + objectIdArray.length);
-        this._super();
+        this._super(cc.color.WHITE);
         
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();

@@ -1,11 +1,12 @@
 var kTagSelfCardAnimation = 1;
+var kTagSlotIdleAnimation = 2;
 var MAX_SLOT_ALLOWED = 5;
 
 var SLOT_WIDTH = 195;
-var SLOT_OFFSET_X = 50;
+var SLOT_OFFSET_X = 100;
 
 var OBJECT_DEFAULT_WIDTH = 100;
-var OBJECT_DEFAULT_HEIGHT = 80
+var OBJECT_DEFAULT_HEIGHT = 70;
 
 var CardGameLayer = TestLayer.extend({
     _data: null,
@@ -30,9 +31,12 @@ var CardGameLayer = TestLayer.extend({
     _didCardFlipped: false,
     _didObjectAllowedToMove: false,
 
-    ctor: function(objArr, isTestScene) {
-        this._super();
+    timePlayed: 0,
 
+    ctor: function(objArr, isTestScene, timePlayed) {
+        this._super();
+        // this._blockFlag = true;
+        this.timePlayed = timePlayed || 0;
         this._fetchObjectData(objArr);
         this._setIsTestScene(isTestScene);
         this._loadTmx();
@@ -44,6 +48,14 @@ var CardGameLayer = TestLayer.extend({
             onTouchMoved: this.onTouchMoved,
             onTouchEnded: this.onTouchEnded
         }, this);
+
+        // if (TSOG_DEBUG)
+        //     this._addDebugButton();
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
 
     _addCard: function() {
@@ -54,7 +66,6 @@ var CardGameLayer = TestLayer.extend({
         this._card.x = cc.winSize.width/2;
         this._card.y = cc.winSize.height/2;
         this.addChild(this._card);
-        //this._card.setSpriteFrame()
 
         // run self animation
         var action = cc.repeatForever(
@@ -75,7 +86,7 @@ var CardGameLayer = TestLayer.extend({
         var slotCoordinates = this._calcSlotCoordinates(this._flipCardResult)
         for (var i = 0; i < this._flipCardResult; i++) {
             var s = new cc.Sprite("#slot.png");
-            s.scale = this._slotScale;
+            s.scaleX = this._slotScale;
             s.x = slotCoordinates[i].x;
             s.y = slotCoordinates[i].y;
             this.addChild(s);
@@ -83,43 +94,75 @@ var CardGameLayer = TestLayer.extend({
         }
 
         this._currentAvailableSlot = this._activateSlots[0];
+        this._runSlotAction(this._currentAvailableSlot);
     },
 
     _addObjects: function() {
         this._activateObjects = [];
-        for (var i = 0; i < this._data.length; i++) {
+        this._deactivateObjects = [];
+        var numberObjectShowup = this._data.length;
+        if (this._data.length > this._objectCoordinates.length)
+            numberObjectShowup = this._objectCoordinates.length;
+        for (var i = 0; i < numberObjectShowup; i++) {
             var objImageName = this._data[i].value;
             var objType = this._data[i].type;
             var imgPath = objType + "s/" + objImageName + ".png";
             var rdmObjPos = this._objectCoordinates[i];
-            var obj = new cc.Sprite(imgPath);
+            var obj;
+            if (objType == "number")
+                obj = new cc.LabelBMFont(objImageName, res.CustomFont_fnt);
+            else
+                obj = new cc.Sprite(imgPath);
             obj.tag = i;
+            cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > OBJECT_DEFAULT_WIDTH) ? OBJECT_DEFAULT_WIDTH/obj.width : OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = rdmObjPos.x;
             obj.y = rdmObjPos.y;
             this.addChild(obj);
             this._activateObjects.push(obj);
+
+            this.animateIn(obj, i);
         }
+    },
+
+    _addCardNumber: function (card){
+        var n = new cc.LabelBMFont(this._flipCardResult, res.CustomFont_fnt); 
+        n.x = card.width/2;
+        n.y = card.height/2;
+        card.addChild(n);
     },
 
     _doFlipCard: function (){
         this._didCardFlipped = true;
         // run action
         this._card.stopActionByTag(kTagSelfCardAnimation);
-
         var self = this;
-
-        this._card.setSpriteFrame(this._upSide);
         this._fetchCardResult();
-        this._addSlots();
-        this._addObjects();
-        // this.runAction(cc.sequence(
-        //     cc.delayTime(3), 
-        //     cc.callFunc(function (){
-        //             cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key"], true));
-        //         })
-        //     )
-        // );
+        
+        this._card.runAction(
+            cc.sequence(    
+                cc.spawn(
+                    cc.scaleTo(0.25, 0, this._cardScale),
+                    cc.moveBy(0.25, 0, 10)
+                ),
+                cc.callFunc(function() {
+                    self._card.setSpriteFrame(self._upSide);
+                }),
+                cc.spawn(
+                    cc.scaleTo(0.25, this._cardScale),
+                    cc.moveBy(0.25, 0, -10)
+                ),
+                cc.callFunc(function() {
+                    self._addCardNumber(self._card);
+                    jsb.AudioEngine.play2d( "sounds/smoke.mp3"),
+                    AnimatedEffect.create(self._card, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false, 2);
+                    self._addSlots();
+                    self._addObjects();
+                })
+            )
+        );
+
+        this._blockFlag = false;
     },
 
     _fetchCardResult: function() {
@@ -153,7 +196,7 @@ var CardGameLayer = TestLayer.extend({
                 "y": obj.y
             }); 
         });
-
+        shuffle(this._objectCoordinates);
     },
 
     _calcSlotCoordinates: function (totalSlots) {
@@ -167,12 +210,68 @@ var CardGameLayer = TestLayer.extend({
             for (var j = 0; j < maxSlotPerLine; j++) {
                 var coor = {};
                 coor["x"] = cc.winSize.width/2 + (SLOT_WIDTH + SLOT_OFFSET_X)*(j - 1 + i/2)*this._slotScale;
-                coor["y"] = cc.rectGetMinY(this._card.getBoundingBox()) - 100*(i+1) *this._slotScale;
+                coor["y"] = cc.rectGetMinY(this._card.getBoundingBox()) - 150*(i+1) *this._slotScale;
                 coors.push(coor);
             }
         }
         cc.log("coors: " + JSON.stringify(coors));
         return coors;
+    },
+
+    animateIn: function(obj, delay) {
+        obj.scale = 0;
+        var self = this;
+        obj.runAction(
+            cc.sequence(
+                cc.delayTime(delay * ANIMATE_DELAY_TIME),
+                cc.callFunc(function() {
+                    jsb.AudioEngine.play2d( "sounds/smoke.mp3"),
+                    AnimatedEffect.create(obj, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                }),
+                cc.scaleTo(0.7, this._slotScale).easing(cc.easeElasticOut(0.9))
+            )
+        );
+    },
+
+    _runSlotAction: function(slot) {
+        var action = cc.repeatForever(
+            cc.sequence(
+                cc.scaleTo(1, this._slotScale+0.1).easing(cc.easeSineOut()),
+                cc.scaleTo(1, this._slotScale-0.05).easing(cc.easeSineOut())
+            )
+        );
+        action.tag = kTagSlotIdleAnimation;
+        slot.runAction(action);
+    },
+
+    updateProgressBar: function() {
+        var percent = this._deactivateObjects.length / this._flipCardResult;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._deactivateObjects.length, this._flipCardResult);
+
+        var starEarned = 0;
+        var objectCorrected = this._deactivateObjects.length;
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
+            starEarned = 1;
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
+            starEarned = 2;
+        if (objectCorrected >= starGoals.starGoal3)
+            starEarned = 3;
+
+        this._hudLayer.setStarEarned(starEarned);
+
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
+    },
+
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._flipCardResult/3);
+        var starGoal2 = Math.ceil(this._flipCardResult/3 * 2);
+        var starGoal3 = this._flipCardResult;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
     },
 
     onTouchBegan: function (touch, event) {
@@ -184,8 +283,10 @@ var CardGameLayer = TestLayer.extend({
 
         self._deactivateObjects.forEach(function(obj){
             var bBox = obj.getBoundingBox();
-            if (cc.rectContainsPoint(bBox, touchLoc))
-                return false;
+            if (cc.rectContainsPoint(bBox, touchLoc)) {
+                cc.log("touch _deactivateObjects");
+                return true;
+            }
         });
 
         self._activateObjects.forEach(function(obj){
@@ -223,7 +324,7 @@ var CardGameLayer = TestLayer.extend({
             return;
         }
 
-        if (!self._didCardFlipped)
+        if (self._blockFlag)
             return;
 
         if (!self._didObjectAllowedToMove)
@@ -232,6 +333,7 @@ var CardGameLayer = TestLayer.extend({
         if (!self._currentAvailableSlot)
             return;
 
+        self._blockFlag = true; // block touch, processing
         // calculate distance of object and slot
         var currSlotPos = self._currentAvailableSlot.getPosition();
         var currObjectPos = self._currentObjectMoving.getPosition();
@@ -240,29 +342,53 @@ var CardGameLayer = TestLayer.extend({
         if (distance < 100) { // move succeed
             self._currentObjectMoving.setPosition(currSlotPos);
             self._activateObjects.splice(self._currentObjectMoving.tag, 1);
+            cc.log("tag: " + self._currentObjectMoving.tag);
             self._deactivateObjects.push(self._currentObjectMoving);
             // remove current slot
             self._currentAvailableSlot.removeFromParent();
             self._activateSlots.splice(0, 1);
 
             self._currentAvailableSlot = self._activateSlots[0];
+            if (self._currentAvailableSlot)
+                self._runSlotAction(self._currentAvailableSlot);
+            self.updateProgressBar();
         } else
             self._currentObjectMoving.setPosition(self._currentObjectOriginPos);
 
         self._currentObjectMoving = null;
         self._currentObjectOriginPos = null;
-        self._didObjectAllowedToMove = null;
+        self._didObjectAllowedToMove = false;
 
-        if (self._activateSlots.length == 0)
+        self._blockFlag = false; // unlock 
+        if (self._activateSlots.length == 0) {
             self._blockFlag = true;
+            if (self.timePlayed < 1)
+                self.runAction(cc.sequence(
+                    cc.delayTime(2),
+                    cc.callFunc(function() {
+                        cc.director.runScene(new CardGameScene(CardGameLayer._testData, true, 1)); 
+                    })
+                ));
+        }
+    },
+
+    _addDebugButton: function () {
+        var b = new ccui.Button("table-name.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        b.x = cc.winSize.width-b.width/2 - 10;
+        b.y = cc.winSize.height-b.height/2 - 10;
+        b.setTitleText("RESET GAME");
+        b.addClickEventListener(function() {
+            cc.director.runScene(new CardGameScene(CardGameLayer._testData, true)); 
+        });
+        this.addChild(b);
     },
 });
-
+CardGameLayer._testData = null;
 var CardGameScene = cc.Scene.extend({
-    ctor: function(objArr, isTestScene) {
+    ctor: function(objArr, isTestScene, timePlayed) {
         this._super();
-
-        var l = new CardGameLayer(objArr, isTestScene);
+        CardGameLayer._testData = objArr;
+        var l = new CardGameLayer(objArr, isTestScene, timePlayed);
         this.addChild(l);
     }
 })

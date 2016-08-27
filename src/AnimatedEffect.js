@@ -6,14 +6,16 @@ var AnimatedEffect = cc.Sprite.extend({
     _effectDelay: 0,
     _effectFrames: 0,
     _loop: false,
+    _scale: 1,
 
-    ctor: function(effectName, effectDelay, effectFrames, loop) {
+    ctor: function(effectName, effectDelay, effectFrames, loop, scale) {
         this._super("#" + effectName + "-1.png");
 
         this._effectName = effectName;
         this._effectFrames = effectFrames;
         this._effectDelay = effectDelay;
         this._loop = loop;
+        this._scale = scale || 1;
 
         this._addObjectEffect();
     },
@@ -48,6 +50,7 @@ var AnimatedEffect = cc.Sprite.extend({
         var effectNode = new cc.Sprite("#" + this._effectName + "-1.png");
         effectNode.x = this._object.width/2;
         effectNode.y = effectNode.height/2 - 10;
+        effectNode.scale = this._scale;
         if (this._loop)
             effectNode.y = this._object.height/2;
 
