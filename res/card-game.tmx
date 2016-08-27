@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="18">
+ <tileset firstgid="1" name="circle" tilewidth="254" tileheight="255">
+  <image source="../_sourceart/figure-game/circle.png" width="254" height="255"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="objectCoordinates">
+  <object id="2" name="1" x="160" y="256"/>
+  <object id="3" name="2" x="96" y="320"/>
+  <object id="4" name="3" x="96" y="416"/>
+  <object id="5" name="4" x="128" y="512"/>
+  <object id="6" name="5" x="224" y="608"/>
+  <object id="7" name="6" x="256" y="192"/>
+  <object id="8" name="7" x="704" y="192"/>
+  <object id="13" name="8" x="800" y="256"/>
+  <object id="14" name="9" x="864" y="320"/>
+  <object id="15" name="10" x="864" y="416"/>
+  <object id="16" name="11" x="832" y="512"/>
+  <object id="17" name="12" x="736" y="608"/>
+ </objectgroup>
+</map>

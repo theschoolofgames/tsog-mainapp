@@ -969,7 +969,7 @@ var ForestLayer = cc.Layer.extend({
             this._data = data.map(function(id) {
                 cc.log("id -> " + id);
                 var o = GameObject.getInstance().findById(id);
-                if (o[0])
+                if (o[0] && (o[0].type == "animal" || o[0].type == "number"))
                     return o[0].value;
                 else
                     return id;

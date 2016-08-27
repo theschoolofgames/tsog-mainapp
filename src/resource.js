@@ -7,6 +7,8 @@ var res = {
     Loading_png: "loading.png",
     Abc_plist: "abc.plist",
     Abc_png: "abc.png",
+    Card_game_plist: "card-game.plist",
+    Card_game_png: "card-game.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -233,6 +235,7 @@ var res = {
     // TMX
     ABC_TMX: "res/abc.tmx",
     Figure_TMX: "res/figure-game.tmx",
+    CardGame_TMX: "res/card-game.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

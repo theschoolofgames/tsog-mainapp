@@ -83,7 +83,7 @@ var ShadowGameLayer = cc.Layer.extend({
         Utils.showVersionLabel(this);
     },
 
-    // only accept object with type: animals and things
+    // only accept object with type: animals and objects
     _filterObjectsByType: function(objectIdArray) {
         this._parseGameObjectJSON();
         var tempArray = [];
@@ -276,10 +276,10 @@ var ShadowGameLayer = cc.Layer.extend({
 
     addObjectButton: function(objPosition, gameObject, index) {
         // console.log("Object position: " + JSON.stringify(objPosition));
-        NativeHelper.callNative("customLogging", ["Sprite", "things/" + gameObject.id + ".png"]);
+        NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
         var imageDir = "";
         if (gameObject.type === "object"){
-            imageDir = "things/";
+            imageDir = "objects/";
         }
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
@@ -318,11 +318,11 @@ var ShadowGameLayer = cc.Layer.extend({
 
     addObjectShade: function(objectPosition, gameObject, index) {
         console.log("ObjectShade position: " + JSON.stringify(objectPosition));
-        NativeHelper.callNative("customLogging", ["Sprite", "things/" + gameObject.id + ".png"]);
+        NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
 
         var imageDir = "";
         if (gameObject.type === "object"){
-            imageDir = "things/";
+            imageDir = "objects/";
         }
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
@@ -763,7 +763,7 @@ var ShadowGameLayer = cc.Layer.extend({
         var touchedObjectType = this._getTypeObjectByName(objectName);
 
         if (touchedObjectType == "object"){
-            soundDir = "res/sounds/things/";
+            soundDir = "res/sounds/objects/";
         }
         else if (touchedObjectType == "animal"){
             soundDir = "res/sounds/animals/";

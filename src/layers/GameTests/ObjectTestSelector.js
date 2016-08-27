@@ -239,6 +239,26 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
         // console.log("Array Checked => \n" + JSON.stringify(checkedItems));
         if (!checkedItems.length)
             return;
+
+        switch(this._gameId) {
+            case "writing":
+                cc.director.runScene(new WritingTestScene(checkedItems, "", true));
+                break;
+            case "gofigure":
+                checkedItems = checkedItems.filter(function(obj) {
+                    if (obj.indexOf("shape") > -1)
+                        return obj;
+                });
+                cc.log("checkedItems: " + JSON.stringify(checkedItems));
+                cc.director.runScene(new GoFigureTestScene(checkedItems, "", true));
+                break;
+            case "shadow":
+                cc.director.runScene(new ShadowGameScene(checkedItems));   
+                break;
+            case "forest":
+                cc.director.runScene(new ForestScene(checkedItems, true));
+                break;
+        }
         if (this._gameId == "writing"){
             cc.director.runScene(new WritingTestScene(checkedItems, "", true));
         }

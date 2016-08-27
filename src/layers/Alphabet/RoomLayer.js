@@ -241,8 +241,8 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectButton: function(objPosition, imageName, index) {
         // cc.log("imageName: " + imageName);
-        NativeHelper.callNative("customLogging", ["Sprite", "things/" + imageName + ".png"]);
-        var objImageName = "things/" + imageName + ".png";
+        NativeHelper.callNative("customLogging", ["Sprite", "objects/" + imageName + ".png"]);
+        var objImageName = "objects/" + imageName + ".png";
         var object = new cc.Sprite(objImageName);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -273,8 +273,8 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectShade: function(object, imageName, index) {
 
-        NativeHelper.callNative("customLogging", ["Sprite", "things/" + imageName + ".png"]);
-        var shadeObject = new cc.Sprite("things/" + imageName + ".png");
+        NativeHelper.callNative("customLogging", ["Sprite", "objects/" + imageName + ".png"]);
+        var shadeObject = new cc.Sprite("objects/" + imageName + ".png");
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
         shadeObject.scale = this._allScale /2;
@@ -688,7 +688,7 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             jsb.AudioEngine.stop(this._effectAudioID);
-        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/things/" + objectName + soundSuffix + ".mp3", isDragging);
+        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/objects/" + objectName + soundSuffix + ".mp3", isDragging);
 
         if (!isDragging)
         {
