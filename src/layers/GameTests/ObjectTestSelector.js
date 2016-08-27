@@ -250,6 +250,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             cc.log("checkedItems: " + JSON.stringify(checkedItems));
             cc.director.runScene(new GoFigureTestScene(checkedItems, "", true));
         }   
+        else if (this._gameId == "shadow"){
+            cc.director.runScene(new ShadowGameScene(checkedItems));   
+        }
     },
 
     scrollViewDidScroll:function (view) {
