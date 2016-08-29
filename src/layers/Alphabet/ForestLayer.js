@@ -176,7 +176,7 @@ var ForestLayer = cc.Layer.extend({
                             "imageName": obj,
                             "type": rdmAnimalType[0]
                         });
-                        rdmAnimalType.splice(1);
+                        rdmAnimalType.splice(0, 1);
                         break;
                     }
                 }
@@ -186,7 +186,7 @@ var ForestLayer = cc.Layer.extend({
         else
             animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
 
-        cc.log("Global.NumberItems: " + Global.NumberItems);
+        // cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         var numbItemsShow = this._data.length || Global.NumberItems;
         for ( var i = 0; i < numbItemsShow; i++) {
@@ -509,7 +509,8 @@ var ForestLayer = cc.Layer.extend({
 
     checkWonGame: function() {
         cc.log("checkWonGame");
-        if (this._touchCounting == Global.NumberItems)
+        var totalItems = this._data.length ? this._data.length : Global.NumberItems;
+        if (this._touchCounting == totalItems)
             this.completedScene();
     },
 
@@ -834,9 +835,10 @@ var ForestLayer = cc.Layer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._touchCounting / Global.NumberItems;
+        var totalItems = this._data.length ? this._data.length : Global.NumberItems;
+        var percent = this._touchCounting / totalItems;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, Global.NumberItems);
+        this._hudLayer.setProgressLabelStr(this._touchCounting, totalItems);
 
         var starEarned = 0;
         var objectCorrected = this._touchCounting;
@@ -855,9 +857,10 @@ var ForestLayer = cc.Layer.extend({
     },
 
     countingStars: function() {
-        var starGoal1 = Math.ceil(Global.NumberItems/3);
-        var starGoal2 = Math.ceil(Global.NumberItems/3 * 2);
-        var starGoal3 = Global.NumberItems;
+        var totalItems = this._data.length ? this._data.length : Global.NumberItems;    
+        var starGoal1 = Math.ceil(totalItems/3);
+        var starGoal2 = Math.ceil(totalItems/3 * 2);
+        var starGoal3 = totalItems;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};

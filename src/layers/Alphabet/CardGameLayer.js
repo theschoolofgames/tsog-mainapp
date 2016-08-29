@@ -49,8 +49,8 @@ var CardGameLayer = TestLayer.extend({
             onTouchEnded: this.onTouchEnded
         }, this);
 
-        if (TSOG_DEBUG)
-            this._addDebugButton();
+        // if (TSOG_DEBUG)
+        //     this._addDebugButton();
     },
 
     onEnterTransitionDidFinish: function() {

@@ -140,15 +140,15 @@ cc.game.onStart = function(){
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new MainScene());
+        // cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
-        // cc.director.runScene(new ForestScene(["19", "123","cat", "bee"], true));
+        // cc.director.runScene(new ForestScene(["19", "2", "3", "4", "5", "123","cat", "bee"], true));
         // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
