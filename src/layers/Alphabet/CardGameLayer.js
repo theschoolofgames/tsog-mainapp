@@ -49,8 +49,8 @@ var CardGameLayer = TestLayer.extend({
             onTouchEnded: this.onTouchEnded
         }, this);
 
-        // if (TSOG_DEBUG)
-        //     this._addDebugButton();
+        if (TSOG_DEBUG)
+            this._addDebugButton();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -139,9 +139,12 @@ var CardGameLayer = TestLayer.extend({
         var self = this;
         this._fetchCardResult();
         
+        var cardPos = this._card.getPosition();
+        var bezier = cc.bezierTo(1, [cardPos, cc.p(cardPos.x, cardPos.y + 100), cardPos]);
         this._card.runAction(
             cc.sequence(    
                 cc.spawn(
+                    // bezier,
                     cc.scaleTo(0.25, 0, this._cardScale),
                     cc.moveBy(0.25, 0, 10)
                 ),
@@ -284,7 +287,8 @@ var CardGameLayer = TestLayer.extend({
         self._deactivateObjects.forEach(function(obj){
             var bBox = obj.getBoundingBox();
             if (cc.rectContainsPoint(bBox, touchLoc)) {
-                cc.log("touch _deactivateObjects");
+                self._didObjectAllowedToMove = false;
+                // cc.log("touch _deactivateObjects with tag : " + obj.tag);
                 return true;
             }
         });
@@ -292,6 +296,7 @@ var CardGameLayer = TestLayer.extend({
         self._activateObjects.forEach(function(obj){
             var bBox = obj.getBoundingBox();
             if (cc.rectContainsPoint(bBox, touchLoc)) {
+                // cc.log("touch _activateObjects with tag: " + obj.tag);
                 self._didObjectAllowedToMove = true;
                 self._currentObjectMoving = obj;
                 self._currentObjectOriginPos = obj.getPosition();
@@ -340,24 +345,11 @@ var CardGameLayer = TestLayer.extend({
         var distance = cc.pDistance(currObjectPos, currSlotPos);
 
         if (distance < 100) { // move succeed
-            self._currentObjectMoving.setPosition(currSlotPos);
-            self._activateObjects.splice(self._currentObjectMoving.tag, 1);
-            cc.log("tag: " + self._currentObjectMoving.tag);
-            self._deactivateObjects.push(self._currentObjectMoving);
-            // remove current slot
-            self._currentAvailableSlot.removeFromParent();
-            self._activateSlots.splice(0, 1);
-
-            self._currentAvailableSlot = self._activateSlots[0];
-            if (self._currentAvailableSlot)
-                self._runSlotAction(self._currentAvailableSlot);
-            self.updateProgressBar();
-        } else
+            self._handleObjectSucceedDrop();
+        } else // return object to origin pos
             self._currentObjectMoving.setPosition(self._currentObjectOriginPos);
 
-        self._currentObjectMoving = null;
-        self._currentObjectOriginPos = null;
-        self._didObjectAllowedToMove = false;
+        self._renewPlayTurn();
 
         self._blockFlag = false; // unlock 
         if (self._activateSlots.length == 0) {
@@ -370,6 +362,38 @@ var CardGameLayer = TestLayer.extend({
                     })
                 ));
         }
+
+        // cc.log("_activateObjects: " + self._activateObjects);
+        // cc.log("_deactivateObjects: " + self._deactivateObjects);
+    },
+
+    _handleObjectSucceedDrop: function() {
+        this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
+        this._activateObjects.splice(this._currentObjectMoving.tag, 1);
+        this._deactivateObjects.push(this._currentObjectMoving);
+        
+        // remove current slot
+        this._currentAvailableSlot.removeFromParent();
+        this._activateSlots.splice(0, 1);
+
+        this._currentAvailableSlot = this._activateSlots[0];
+        if (this._currentAvailableSlot)
+            this._runSlotAction(this._currentAvailableSlot);
+        this.updateProgressBar();
+    },
+
+    _redefineActiveObjectTag: function() {
+        for (var i = 0; i < this._activateObjects.length; i++) {
+            var obj = this._activateObjects[i];
+            obj.tag = i;
+        }
+    },
+
+    _renewPlayTurn: function() {
+        this._currentObjectMoving = null;
+        this._currentObjectOriginPos = null;
+        this._didObjectAllowedToMove = false;
+        this._redefineActiveObjectTag();
     },
 
     _addDebugButton: function () {
