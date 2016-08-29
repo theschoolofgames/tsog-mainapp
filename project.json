@@ -61,6 +61,7 @@
         "src/layers/Alphabet/GoFigureTestLayer.js",
         "src/layers/Alphabet/ShadowGameLayer.js",
         "src/layers/Alphabet/CardGameLayer.js",
+        "src/layers/Alphabet/DesignTestLayer.js",
 
         "src/layers/SceneFlowController.js",
         

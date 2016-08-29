@@ -236,6 +236,7 @@ var res = {
     ABC_TMX: "res/abc.tmx",
     Figure_TMX: "res/figure-game.tmx",
     CardGame_TMX: "res/card-game.tmx",
+    DesignGame_TMX: "res/design-game.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

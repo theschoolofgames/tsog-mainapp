@@ -133,6 +133,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
         
+        // cc.director.runScene(new DesignTestScene(1, true));
         // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
         // cc.director.runScene(new GoFigureTestScene(["shape_square", "shape_rectangle", "shape_triangle", "shape_straight_line", "shape_curved_line", "shape_semi_circle", "shape_circle"]));
         // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
