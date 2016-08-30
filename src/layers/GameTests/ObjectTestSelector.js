@@ -261,6 +261,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "cardgame":
                 cc.director.runScene(new CardGameScene(checkedItems, true));
                 break;
+            case "form train":
+                cc.director.runScene(new FormTheTrainScene(true));
+                break;
             default:
                 break;
         }

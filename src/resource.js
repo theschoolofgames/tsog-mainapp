@@ -9,6 +9,8 @@ var res = {
     Abc_png: "abc.png",
     Card_game_plist: "card-game.plist",
     Card_game_png: "card-game.png",
+    Train_game_plist: "train-game.plist",
+    Train_game_png: "train-game.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

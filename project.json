@@ -62,6 +62,7 @@
         "src/layers/Alphabet/ShadowGameLayer.js",
         "src/layers/Alphabet/CardGameLayer.js",
         "src/layers/Alphabet/DesignTestLayer.js",
+        "src/layers/Alphabet/FormTheTrainLayer.js",
 
         "src/layers/SceneFlowController.js",
         
