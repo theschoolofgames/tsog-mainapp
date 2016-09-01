@@ -264,6 +264,13 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "form train":
                 cc.director.runScene(new FormTheTrainScene(true));
                 break;
+            case "tree game":
+                checkedItems = checkedItems.filter(function(obj) {
+                    if (obj.indexOf("number") > -1)
+                        return obj;
+                });
+                cc.director.runScene(new TreeGameScene(checkedItems, true));
+                break;
             default:
                 break;
         }
