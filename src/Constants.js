@@ -551,7 +551,8 @@ var GAME_IDS = [
     "gofigure",
     "cardgame",
     "form train",
-    "tree game"
+    "tree game",
+    "balloon",
 ];
 
 var TIME_TO_PAUSE_GAME = 5;

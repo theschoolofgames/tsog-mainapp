@@ -270,23 +270,11 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                         return obj;
                 });
                 cc.director.runScene(new TreeGameScene(checkedItems, true));
+            case "balloon":
+                cc.director.runScene(new BalloonGameScene(checkedItems));   
                 break;
             default:
                 break;
-        }
-        if (this._gameId == "writing"){
-            cc.director.runScene(new WritingTestScene(checkedItems, "", true));
-        }
-        if (this._gameId == "gofigure") {
-            checkedItems = checkedItems.filter(function(obj) {
-                if (obj.indexOf("shape") > -1)
-                    return obj;
-            });
-            cc.log("checkedItems: " + JSON.stringify(checkedItems));
-            cc.director.runScene(new GoFigureTestScene(checkedItems, "", true));
-        }   
-        else if (this._gameId == "shadow"){
-            cc.director.runScene(new ShadowGameScene(checkedItems));   
         }
     },
 

@@ -205,6 +205,12 @@ var res = {
     Sparkle_effect_plist: "sparkle-effect.plist",
     Tutorial_png: "tutorial.png",
     Tutorial_plist: "tutorial.plist",
+
+    // Balloons
+    Green_balloon_png: "balloons/green_ball.png",
+    Blue_balloon_png: "balloons/blue_ball.png",
+    Red_balloon_png: "balloons/red_ball.png",
+    Gray_balloon_png: "balloons/gray_ball.png",
  
     // Smoke_sound: "res/smoke-sound.mp3"
  

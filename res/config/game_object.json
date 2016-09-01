@@ -660,6 +660,16 @@
         "value": "#000000"
     },
     {
+        "id": "color_blue",
+        "type": "color",
+        "value": "#000000"
+    },
+    {
+        "id": "color_green",
+        "type": "color",
+        "value": "#000000"
+    },
+    {
         "id": "color_red",
         "type": "color",
         "value": "#FF0000"
