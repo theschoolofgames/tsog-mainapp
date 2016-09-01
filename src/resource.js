@@ -11,6 +11,8 @@ var res = {
     Card_game_png: "card-game.png",
     Train_game_plist: "train-game.plist",
     Train_game_png: "train-game.png",
+    Tree_game_plist: "tree-game.plist",
+    Tree_game_png: "tree-game.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -239,6 +241,7 @@ var res = {
     Figure_TMX: "res/figure-game.tmx",
     CardGame_TMX: "res/card-game.tmx",
     DesignGame_TMX: "res/design-game.tmx",
+    TreeGame_TMX: "res/tree-game.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

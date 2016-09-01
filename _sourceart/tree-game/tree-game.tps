@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/train/train-game.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/tree-game/tree-game.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/train-game.plist</filename>
+                <filename>../../res/{v}/tree-game.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>

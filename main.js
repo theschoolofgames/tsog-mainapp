@@ -133,7 +133,9 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Train_game_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Tree_game_plist);
         
+        // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
         // cc.director.runScene(new DesignTestScene(1, true));
         // cc.director.runScene(new FormTheTrainScene());
         // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
