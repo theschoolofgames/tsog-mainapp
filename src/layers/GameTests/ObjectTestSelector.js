@@ -270,6 +270,7 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                         return obj;
                 });
                 cc.director.runScene(new TreeGameScene(checkedItems, true));
+                break;
             case "balloon":
                 cc.director.runScene(new BalloonGameScene(checkedItems));   
                 break;

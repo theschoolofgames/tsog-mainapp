@@ -45,14 +45,16 @@ var TreeGameLayer = cc.Layer.extend({
     _addTrees: function() {
         this._treeGroup = [];
         this._numberGroup = [];
-        this._numberOfTrees = Math.max(parseInt(this._data[0].value), 1);
+        if (this._data[0])
+            this._numberOfTrees = Math.max(parseInt(this._data[0].value), 1);
 
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
             var tree = new cc.Sprite("#tree_game_" + treeIdx + ".png");
             tree.anchorY = 0;
+            tree.scale = Utils.getScaleFactorTo16And9();
             tree.x = cc.winSize.width/(this._numberOfTrees+1) * (i+1);
-            tree.y = this._ground.height - 11 * Utils.getScaleFactorTo16And9();
+            tree.y = this._ground.height - 12 * Utils.getScaleFactorTo16And9();
             this.addChild(tree, TREE_GAME_TREE_ZORDER);
             this._treeGroup.push(tree);
 
@@ -60,9 +62,9 @@ var TreeGameLayer = cc.Layer.extend({
                 var index = j + 1 + i*5;
                 var pos = this._numberCoors[j + treeIdx*5];
                 var lb = new cc.LabelBMFont(index, res.CustomFont_fnt);
-                lb.x = pos.x + tree.x;
-                lb.y = pos.y + tree.y;
-                lb.scale = 0.5;
+                lb.x = pos.x*tree.scale + tree.x;
+                lb.y = pos.y*tree.scale + tree.y;
+                lb.scale = 0.5 * tree.scale;
                 this.addChild(lb, TREE_GAME_TREE_ZORDER + 1);
                 this._numberGroup.push(lb);
             }
@@ -195,13 +197,13 @@ var TreeGameLayer = cc.Layer.extend({
                 cc.log("this._data -> i : " + this._data[i]);
                 var obj = this._data[i];
                 var value = parseInt(obj.value);
-                if (value && value < temp) {
+                if (value && value <= temp) {
                     temp = parseInt(obj.value);
                 } else{
                     this._data.splice(i, 1);
                 }
             }
-            cc.log("this._data - > " + JSON.stringify(this._data)); 
+            // cc.log("this._data - > " + JSON.stringify(this._data)); 
 
         } else
             this._data = [{
