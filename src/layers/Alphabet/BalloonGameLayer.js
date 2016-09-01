@@ -86,11 +86,15 @@ var BalloonGameLayer = cc.LayerColor.extend({
         var label = new cc.LabelBMFont(text + "", "hud-font.fnt");
         
         label.color = cc.color("#ffd902");
-        label.x = cc.winSize.width - 200;
-        label.y = cc.winSize.height - 50;
+        label.x = 200;
+        label.y = cc.winSize.height - 100;
         this.addChild(label);
 
         this._currentIdLabel = label;
+    },
+
+    completedScene: function() {
+
     },
 
     onTouchBegan: function(touch, event) {
@@ -159,6 +163,9 @@ var BalloonGameLayer = cc.LayerColor.extend({
             }
             else if (randomBalloon.id.indexOf("blue") !== -1){
                 balloon.setTexture(cc.textureCache.addImage(res.Blue_balloon_png));
+            }
+            else {
+                balloon.setTexture(cc.textureCache.addImage(res.Gray_balloon_png));   
             }
         }
 
