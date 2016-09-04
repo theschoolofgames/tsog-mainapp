@@ -262,9 +262,8 @@ var ShadowGameLayer = cc.LayerColor.extend({
     addObjects: function(objectArray) {
         var coordinateObjectArray = shuffle(this.generateCoordinateArray());
         var coordinateShadeArray = shuffle(this.generateCoordinateArray());
-        console.log("Object length: " + objectArray.length);
+        
         for ( var i = 0; i < objectArray.length; i++) {
-            console.log("Object id: " + objectArray[i]);
             this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
             
             this.addObjectShade(coordinateObjectArray[i], objectArray[i], i);

@@ -58,9 +58,12 @@ var TreeGameLayer = cc.Layer.extend({
             this.addChild(tree, TREE_GAME_TREE_ZORDER);
             this._treeGroup.push(tree);
 
-            for (var j = 0; j < TreeGameLayer.TOTAL_NUMBERS_IN_A_TREE; j++) {
+            // Got numbers array has been shuffled 
+            var randomNumberArray = this._createRandomNumberArray();
+
+            for (var j = 0; j < randomNumberArray.length; j++) {
                 var index = j + 1 + i*5;
-                var pos = this._numberCoors[j + treeIdx*5];
+                var pos = this._numberCoors[randomNumberArray[j] + treeIdx*5]; // Random pos for numbers each tree
                 var lb = new cc.LabelBMFont(index, res.CustomFont_fnt);
                 lb.x = pos.x*tree.scale + tree.x;
                 lb.y = pos.y*tree.scale + tree.y;
@@ -69,6 +72,14 @@ var TreeGameLayer = cc.Layer.extend({
                 this._numberGroup.push(lb);
             }
         }
+    },
+
+    _createRandomNumberArray: function() {
+        var numbersArray = [];
+        for (var j = 0; j < TreeGameLayer.TOTAL_NUMBERS_IN_A_TREE; j++) {
+            numbersArray.push(j);
+        }
+        return shuffle(numbersArray);
     },
 
     _addBackground:function() {

@@ -242,6 +242,8 @@ var res = {
 
     Board_png: "board.png",
 
+    Circle_png: "circle.png",
+
     // TMX
     ABC_TMX: "res/abc.tmx",
     Figure_TMX: "res/figure-game.tmx",
