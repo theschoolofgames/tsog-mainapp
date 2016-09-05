@@ -21,6 +21,11 @@ var res = {
     Bg_account_jpg: "bg/bg-account.jpg",
     Bg_school_jpg: "bg/bg-school.jpg",
     Bg_game_jpg: "bg/bg-game.jpg",
+    Map_Part1_jpg: "bg/map_part1.jpg",
+    Map_Part2_jpg: "bg/map_part2.jpg",
+    Map_Part3_jpg: "bg/map_part3.jpg",
+    Map_Part4_jpg: "bg/map_part4.jpg",
+
     // Font
     RedFont_png: "red-font-export.png",
     YellowFont_png: "yellow-font-export.png",
@@ -68,6 +73,8 @@ var res = {
     NewAccount_Png: "newaccount.png",
     Figure_Game_Plist: "figure-game.plist",
     Figure_Game_Png: "figure-game.png",
+    Map_Plist: "map.plist",
+    Map_Png: "map.png",
  
     // Animals
     Ant_png: "animals/ant.png",
@@ -248,6 +255,7 @@ var res = {
     CardGame_TMX: "res/card-game.tmx",
     DesignGame_TMX: "res/design-game.tmx",
     TreeGame_TMX: "res/tree-game.tmx",
+    Map_TMX: "res/map.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

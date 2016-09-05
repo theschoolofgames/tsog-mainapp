@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="13">
+ <tileset firstgid="1" name="map_part1" tilewidth="929" tileheight="640">
+  <image source="SD/bg/map_part1.jpg" width="929" height="640"/>
+ </tileset>
+ <tileset firstgid="2" name="btn_level" tilewidth="71" tileheight="63">
+  <image source="../_sourceart/map/btn_level.png" width="71" height="63"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="part1">
+  <object id="2" gid="1" x="0" y="640" width="929" height="640"/>
+ </objectgroup>
+ <objectgroup name="buttonPart1">
+  <object id="4" name="1" gid="2" x="223.667" y="347" width="71" height="63"/>
+  <object id="5" name="2" gid="2" x="402.333" y="504.333" width="71" height="63"/>
+  <object id="6" name="3" gid="2" x="543.667" y="412.333" width="71" height="63"/>
+  <object id="10" name="4" gid="2" x="385" y="197.667" width="71" height="63"/>
+  <object id="12" name="5" gid="2" x="751.667" y="385.667" width="71" height="63"/>
+ </objectgroup>
+</map>
