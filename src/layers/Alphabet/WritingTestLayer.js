@@ -31,14 +31,28 @@ var WritingTestLayer = TestLayer.extend({
 
     _currentChar: "",
 
-    ctor: function(objectsArray, oldSceneName) {
+    ctor: function(objectsArray, oldSceneName, isTestScene) {
         this._super();
 
+        this._setIsTestScene(isTestScene);
+        // var obj = GameObject.getInstance().findById("hat");
+        // cc.log("obj -> " + JSON.stringify(obj));
+        // cc.log("objectsArray: " + JSON.stringify(objectsArray));
+        // cc.log("oldSceneName: " + oldSceneName);
+        cc.log("WritingTestLayer ctor");
         this._objectsArray = objectsArray;
         // this._names = objectsArray;
+
         this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
+            if (obj !== null && (typeof obj === 'object'))
+                return obj.name.toUpperCase();
+            else {
+                // cc.log(obj);
+                var o = GameObject.getInstance().findById(obj);
+                return o[0].value.toUpperCase();
+            }
         });
+        cc.log(JSON.stringify(this._names));
         this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
@@ -457,13 +471,15 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _addObjImage: function(name) {
-        var spritePath
+        var spritePath;
+
         if (this._oldSceneName == "RoomScene") {
-            spritePath = "things/" + name.toLowerCase() + ".png";
+            spritePath = "objects/" + name.toLowerCase() + ".png";
         } else {
             spritePath = "animals/" + name.toLowerCase() + ".png";
         }
-
+        if (TSOG_DEBUG)
+            spritePath = "objects/" + "hat" + ".png";
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;
@@ -490,7 +506,7 @@ var WritingTestLayer = TestLayer.extend({
     _playObjSound: function(name, cb) {
         var soundPath;
         if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/things/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
         } else {
             soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
         }
@@ -696,7 +712,7 @@ var WritingTestLayer = TestLayer.extend({
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, nextSceneName, oldSceneName){
+    ctor: function(objectsArray, oldSceneName, isTestScene){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -752,7 +768,7 @@ var WritingTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new WritingTestLayer(objectsArray, nextSceneName, oldSceneName);
+        var layer = new WritingTestLayer(objectsArray, oldSceneName, isTestScene);
         this.addChild(layer);
 
     }

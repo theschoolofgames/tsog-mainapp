@@ -5,6 +5,7 @@ var TestLayer = cc.LayerColor.extend({
     _hudLayer:null,
 
     _adiDog: null,
+    _isTestScene: false,
 
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
@@ -30,7 +31,18 @@ var TestLayer = cc.LayerColor.extend({
         // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
     },
 
+    _setIsTestScene: function(isTestScene) {
+        this._isTestScene = isTestScene;
+    },
+
     _moveToNextScene: function() {
+        if (this._isTestScene)
+            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+        if (TSOG_DEBUG) {
+            this._objectsArray = [{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}];
+            this._oldSceneName = "RoomScene";
+        }
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         var scene;
         if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")

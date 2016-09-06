@@ -1,10 +1,10 @@
 // var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-var BACKEND_ADDRESS = "http://104.154.49.93/";
+var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
-var TSOG_DEBUG = false;
+var TSOG_DEBUG = true;
 var SHOW_VERSION_LABEL = false;
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
@@ -532,6 +532,28 @@ var SPEAKING_TEST_LANGUAGE_SOUND_DURATION = [
         lang: "Spanish",
         soundDuration: 5
     }
+];
+
+var GAME_OBJECT_TYPES = [
+    "object",
+    "animal",
+    "number",
+    "word",
+    "color",
+    "shape"
+];
+
+var GAME_IDS = [
+    "room",
+    "shadow",
+    "writing",
+    "forest",
+    "gofigure",
+    "cardgame",
+    "form train",
+    "tree game",
+    "balloon",
+    "story"
 ];
 
 var TIME_TO_PAUSE_GAME = 5;

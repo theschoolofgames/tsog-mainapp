@@ -20,7 +20,7 @@
     // Left bottom corner fps information will show when "showFPS" equals true, otherwise it will be hide.
 
     "frameRate"     : 60,
-    // "frameRate" set the wanted frame rate for your game, but the real fps depends on your game implementation and the running environment.
+    // "frameRate" set the w19ed frame rate for your game, but the real fps depends on your game implementation and the running environment.
 
     "id"            : "gameCanvas",
     // "gameCanvas" sets the id of your canvas element on the web page, it's useful only on web.
@@ -103,6 +103,7 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
+        GameObject.setupInstance();
         RequestsManager.setupInstance();
         ConfigStore.setupInstance(true);
         AudioListener.setupInstance();
@@ -129,20 +130,31 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Train_game_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Tree_game_plist);
         
+        // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
+        // cc.director.runScene(new DesignTestScene(1, true));
+        // cc.director.runScene(new FormTheTrainScene());
+        // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
+        // cc.director.runScene(new GoFigureTestScene(["shape_square", "shape_rectangle", "shape_triangle", "shape_straight_line", "shape_curved_line", "shape_semi_circle", "shape_circle"]));
+        // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
         // cc.director.runScene(new WelcomeScene());
+        // cc.director.runScene(new BalloonGameScene());
         cc.director.runScene(new MainScene());
         // cc.director.runScene(new StoryMainScene());
-        // cc.director.runScene(new WritingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());
         // cc.director.runScene(new RoomScene());
-        // cc.director.runScene(new ForestScene());
+        // cc.director.runScene(new ForestScene(["19", "2", "3", "4", "5", "123","cat", "bee"], true));
         // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
@@ -156,6 +168,8 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
             cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
         });
     }, this);
 };

@@ -7,6 +7,12 @@ var res = {
     Loading_png: "loading.png",
     Abc_plist: "abc.plist",
     Abc_png: "abc.png",
+    Card_game_plist: "card-game.plist",
+    Card_game_png: "card-game.png",
+    Train_game_plist: "train-game.plist",
+    Train_game_png: "train-game.png",
+    Tree_game_plist: "tree-game.plist",
+    Tree_game_png: "tree-game.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -20,10 +26,12 @@ var res = {
     YellowFont_png: "yellow-font-export.png",
     PurpleFont_png: "purple-font-export.png",
     GreenFont_png: "green-font-export.png",
+    CustomFont_png: "res/font/custom_font.png",
     RedFont_fnt: "red-font-export.fnt",
     YellowFont_fnt: "yellow-font-export.fnt",
     PurpleFont_fnt: "purple-font-export.fnt",
     GreenFont_fnt: "green-font-export.fnt",
+    CustomFont_fnt: "res/font/custom_font.fnt",
     // Sound
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",
@@ -39,6 +47,7 @@ var res = {
     Room_Config_JSON: "config/room.json",
     Writing_config_JSON: "config/writing_test.json",
     Updated_config_JSON: "config/updated.json",
+    Game_Object_JSON: "config/game_object.json",
 
     forest_jpg : "res/forest.jpg",
     room_jpg: "Bedroom-screen.jpg",
@@ -65,6 +74,9 @@ var res = {
     // Stories sounds
     Story01_mp3: "res/sounds/stories/story01.mp3",
     Story02_mp3: "res/sounds/stories/story02.mp3",
+
+    Figure_Game_Plist: "figure-game.plist",
+    Figure_Game_Png: "figure-game.png",
  
     // Animals
     Ant_png: "animals/ant.png",
@@ -179,6 +191,14 @@ var res = {
     CloudEmpty_png: "temp/cloud-empty.png",
     BtnNormal_png: "temp/btn-normal.png",
     BtnPressed_png: "temp/btn-pressed.png",
+
+    // UI checkbox
+    checkbox_active_disable: "ui/check_box_active_disable.png",
+    checkbox_active_press: "ui/check_box_active_press.png",
+    checkbox_active: "ui/check_box_active.png",
+    checkbox_normal_disable: "ui/check_box_normal_disable.png",
+    checkbox_normal_press: "ui/check_box_normal_press.png",
+    checkbox_normal: "ui/check_box_normal.png",
  
     // Shader
     SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",
@@ -194,6 +214,12 @@ var res = {
     Sparkle_effect_plist: "sparkle-effect.plist",
     Tutorial_png: "tutorial.png",
     Tutorial_plist: "tutorial.plist",
+
+    // Balloons
+    Green_balloon_png: "balloons/green_ball.png",
+    Blue_balloon_png: "balloons/blue_ball.png",
+    Red_balloon_png: "balloons/red_ball.png",
+    Gray_balloon_png: "balloons/gray_ball.png",
  
     // Smoke_sound: "res/smoke-sound.mp3"
  
@@ -223,8 +249,18 @@ var res = {
     Plus_png: "plus.png",
     Create_png: "create-button.png",
 
+    Board_png: "board.png",
+
+    Circle_png: "circle.png",
+
     // TMX
-    ABC_TMX: "res/abc.tmx"
+    ABC_TMX: "res/abc.tmx",
+    Figure_TMX: "res/figure-game.tmx",
+    CardGame_TMX: "res/card-game.tmx",
+    DesignGame_TMX: "res/design-game.tmx",
+    TreeGame_TMX: "res/tree-game.tmx",
+
+    HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };
 
 var g_resources = [];

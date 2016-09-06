@@ -44,14 +44,20 @@ var IAPManager = cc.Class.extend({
                 jsonData = JSON.parse(purchaseDatasJson.substr(0, purchaseDatasJson.lastIndexOf(",]")) + "]");
             }
 
+            let hasPurchased = false; 
+
             for (var i = 0; i < jsonData.length; i++) {
                 var receipt = jsonData[i];
                 if (SUBSCRIPTION_IAP_ID_ANDROID == receipt.productId){
                     KVDatabase.getInstance().set("subscribed", 1);
                     Utils.startCountDownTimePlayed("showPayWall");
-                    return;
+                    hasPurchased = true;
+                    break;
                 }
             }
+
+            if (this.purchaseCallback && hasPurchased)
+                this.purchaseCallback(true);
         }
     },
 

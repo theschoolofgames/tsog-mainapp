@@ -219,7 +219,8 @@ Utils.startCountDownTimePlayed = function(method) {
         Utils.subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
         Utils.fullAccess = KVDatabase.getInstance().getInt(STRING_USER_FULL_ACCESS, 0);
         console.log("STRING_USER_FULL_ACCESS -> " + (Utils.fullAccess == 0 ? "NO" : "YES"));
-
+        if (TSOG_DEBUG)
+            return;
         if (Utils.outOfFreeDay === 0 || Utils.subscribed === 1 || Utils.fullAccess === 1) {
             console.log("outOfFreeDay -> " + (Utils.outOfFreeDay==0 ? "NO" : "YES"));
             console.log("subscribed -> " + (Utils.subscribed==0 ? "NO" : "YES"));
@@ -251,7 +252,7 @@ Utils.startCountDownTimePlayed = function(method) {
 };
 
 Utils.countdownTimePlayedToShowPayWall = function() {
-    console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
+    // console.log("timeToShowPayWall -> " + Utils.timeToShowPayWall);
     if (Utils.timeToShowPayWall === 0) {
         if (Utils.currentScene !== cc.director.getRunningScene())
             return;
@@ -259,7 +260,7 @@ Utils.countdownTimePlayedToShowPayWall = function() {
             Utils.startCallback();
 
         cc.director.getRunningScene().addChild(new PayWallDialog(function() {
-            // Utils.resumeCallback();
+            Utils.resumeCallback();
             //Utils.startCountDownTimePlayed("showPayWall");
         }));
     }
@@ -315,3 +316,20 @@ Utils.logoutUser = function() {
     SceneFlowController.getInstance().resetFlow();
     Global.clearCachedState();
 };
+
+Utils.getTTFConfig = function(fontFile, fontSize) {
+    var ttfConfig = {
+        fontFilePath: fontFile,
+        fontSize: fontSize,
+        outlineSize: 0,
+        glyphs: 2,
+        customGlyphs: "",
+        distanceFieldEnable: true
+    }
+    return ttfConfig
+}
+
+Utils.getScaleFactorTo16And9 = function() {
+    var winSize = cc.director.getWinSize();
+    return (winSize.width / winSize.height) / (16/9);
+}

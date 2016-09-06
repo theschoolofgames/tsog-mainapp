@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="32" tileheight="32" nextobjectid="41">
+ <tileset firstgid="1" name="circle" tilewidth="254" tileheight="255">
+  <image source="../_sourceart/figure-game/circle.png" width="254" height="255"/>
+ </tileset>
+ <tileset firstgid="2" name="curve-line" tilewidth="440" tileheight="62">
+  <image source="../_sourceart/figure-game/curve-line.png" width="440" height="62"/>
+ </tileset>
+ <tileset firstgid="3" name="line" tilewidth="401" tileheight="13">
+  <image source="../_sourceart/figure-game/line.png" width="401" height="13"/>
+ </tileset>
+ <tileset firstgid="4" name="rectangle" tilewidth="357" tileheight="194">
+  <image source="../_sourceart/figure-game/rectangle.png" width="357" height="194"/>
+ </tileset>
+ <tileset firstgid="5" name="semi-circle" tilewidth="259" tileheight="149">
+  <image source="../_sourceart/figure-game/semi-circle.png" width="259" height="149"/>
+ </tileset>
+ <tileset firstgid="6" name="square" tilewidth="221" tileheight="221">
+  <image source="../_sourceart/figure-game/square.png" width="221" height="221"/>
+ </tileset>
+ <tileset firstgid="7" name="triangle" tilewidth="255" tileheight="224">
+  <image source="../_sourceart/figure-game/triangle.png" width="255" height="224"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AU4AIAAyAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="circle" visible="0">
+  <object id="8" name="circle" gid="1" x="192" y="288" width="254" height="255"/>
+  <object id="22" name="Path1" x="330" y="40">
+   <polyline points="0,0 59,20 97,65 108,122 96,178 57,219 5,240 -53,233 -100,201 -129,150 -131,90 -103,40 -55,5"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="curve-line" visible="0">
+  <object id="9" name="curve-line" gid="2" x="100" y="192" width="440" height="62"/>
+  <object id="23" name="Path1" x="120" y="157">
+   <polyline points="0,0 55,-18 131,-19 222,12 279,24 359,23 406,7"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="line" visible="0">
+  <object id="11" name="line" gid="3" x="136" y="167" width="401" height="13"/>
+  <object id="24" name="Path1" x="167" y="160">
+   <polyline points="0,0 104,0 212,0 340,1"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="rectangle" visible="0">
+  <object id="13" name="rectangle" gid="4" x="142" y="256" width="357" height="194"/>
+  <object id="27" name="Path1" x="170" y="68">
+   <polyline points="0,0 85,0 165,1 268,0 302,0"/>
+  </object>
+  <object id="28" name="Path2" x="494" y="82">
+   <polyline points="0,0 -2,64 -3,142 -3,159"/>
+  </object>
+  <object id="29" name="Path3" x="473" y="250">
+   <polyline points="0,0 -81,-2 -172,-2 -300,-2"/>
+  </object>
+  <object id="30" name="Path4" x="151" y="247">
+   <polyline points="0,0 -1,-67 -1,-131 -1,-163"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="semi-circle" visible="0">
+  <object id="14" name="semi-circle" gid="5" x="191" y="234" width="259" height="149"/>
+  <object id="31" name="Path1" x="217" y="91">
+   <polyline points="0,0 67,0 158,1 209,0"/>
+  </object>
+  <object id="32" name="Path2" x="445" y="105">
+   <polyline points="0,0 -16,60 -51,101 -104,122 -174,110 -228,69 -246,9"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="square" visible="0">
+  <object id="17" name="square" gid="6" x="208" y="270" width="221" height="221"/>
+  <object id="33" name="Path1" x="230" y="56">
+   <polyline points="0,0 93,-1 163,-1"/>
+  </object>
+  <object id="34" name="Path2" x="424" y="67">
+   <polyline points="0,0 -3,64 -4,166"/>
+  </object>
+  <object id="35" name="Path3" x="417" y="264">
+   <polyline points="0,0 -60,0 -131,-3 -181,-3"/>
+  </object>
+  <object id="37" name="Path4" x="216" y="259">
+   <polyline points="0,0 0,-75 -1,-141 0,-184"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="triangle">
+  <object id="18" name="triangle" gid="7" x="193" y="272" width="255" height="224"/>
+  <object id="38" name="Path1" x="323" y="58">
+   <polyline points="0,0 42,75 66,119 94,167 114,202"/>
+  </object>
+  <object id="39" name="Path2" x="420" y="264">
+   <polyline points="0,0 -63,0 -118,-1 -171,0 -219,-1"/>
+  </object>
+  <object id="40" name="Path3" x="211" y="248">
+   <polyline points="0,0 28,-54 68,-123 96,-172"/>
+  </object>
+ </objectgroup>
+</map>

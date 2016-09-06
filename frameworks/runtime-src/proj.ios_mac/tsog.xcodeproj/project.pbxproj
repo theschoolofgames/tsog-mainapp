@@ -3390,7 +3390,7 @@
 				509D4AA917EBB24E00697056 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A92275371517C094001B78AA /* Build configuration list for PBXProject "tsog" */ = {
 			isa = XCConfigurationList;
@@ -3399,7 +3399,7 @@
 				A92276FF1517C097001B78AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog" */ = {
 			isa = XCConfigurationList;
@@ -3408,7 +3408,7 @@
 				A92277021517C097001B78AA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

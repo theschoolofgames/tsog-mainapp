@@ -176,7 +176,7 @@ var ListeningTestLayer = TestLayer.extend({
         for (var i = 0; i < 3; i++) {
             var spritePath
             if (this._oldSceneName == "RoomScene") {
-                spritePath = "things/" + shownObjNames[i].toLowerCase() + ".png";
+                spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             } else {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
             }
@@ -240,7 +240,7 @@ var ListeningTestLayer = TestLayer.extend({
 
         var objName = this._names[this._nameIdx].toLowerCase();
         if (this._oldSceneName == "RoomScene")
-            this._objSoundPath = "res/sounds/things/" + objName + ".mp3";
+            this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         else if (this._oldSceneName == "ForestScene")
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
 

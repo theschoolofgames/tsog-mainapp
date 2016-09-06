@@ -59,8 +59,8 @@ var PayWallDialog = cc.LayerColor.extend({
                     self.removeFromParent();
             });
 
-            // if (self._callback)
-            //     self._callback();
+            if (self._callback)
+                self._callback();
         });
 
         var text = "Subscribe";
@@ -87,8 +87,8 @@ var PayWallDialog = cc.LayerColor.extend({
                     self.removeFromParent();
             });
 
-            // if (self._callback)
-            //     self._callback();
+            if (self._callback)
+                self._callback();
         });
 
         var text = "Restore Purchase";

@@ -21,6 +21,8 @@
         "src/SpeechRecognitionListener.js",
         "src/GameListener.js",
         "src/SingleTouch.js",
+        
+        "src/model/GameObject.js",
 
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
@@ -60,8 +62,18 @@
         "src/layers/Alphabet/ListeningTestLayer.js",
         "src/layers/Alphabet/PayWallDialog.js",
         "src/layers/Alphabet/PrivacyPolicyScreen.js",
+        "src/layers/Alphabet/GoFigureTestLayer.js",
+        "src/layers/Alphabet/ShadowGameLayer.js",
+        "src/layers/Alphabet/CardGameLayer.js",
+        "src/layers/Alphabet/DesignTestLayer.js",
+        "src/layers/Alphabet/FormTheTrainLayer.js",
+        "src/layers/Alphabet/TreeGameLayer.js",
+        "src/layers/Alphabet/BalloonGameLayer.js",
 
         "src/layers/SceneFlowController.js",
+        
+        "src/layers/GameTests/GameTestSelector.js",
+        "src/layers/GameTests/ObjectTestSelector.js",
 
         "src/common/MessageDialog.js",
 

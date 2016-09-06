@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="58">
+ <tileset firstgid="1" name="circle" tilewidth="254" tileheight="255">
+  <image source="../_sourceart/figure-game/circle.png" width="254" height="255"/>
+ </tileset>
+ <tileset firstgid="2" name="curve-line" tilewidth="440" tileheight="62">
+  <image source="../_sourceart/figure-game/curve-line.png" width="440" height="62"/>
+ </tileset>
+ <tileset firstgid="3" name="line" tilewidth="401" tileheight="13">
+  <image source="../_sourceart/figure-game/line.png" width="401" height="13"/>
+ </tileset>
+ <tileset firstgid="4" name="rectangle" tilewidth="357" tileheight="194">
+  <image source="../_sourceart/figure-game/rectangle.png" width="357" height="194"/>
+ </tileset>
+ <tileset firstgid="5" name="semi-circle" tilewidth="259" tileheight="149">
+  <image source="../_sourceart/figure-game/semi-circle.png" width="259" height="149"/>
+ </tileset>
+ <tileset firstgid="6" name="square" tilewidth="221" tileheight="221">
+  <image source="../_sourceart/figure-game/square.png" width="221" height="221"/>
+ </tileset>
+ <tileset firstgid="7" name="triangle" tilewidth="255" tileheight="224">
+  <image source="../_sourceart/figure-game/triangle.png" width="255" height="224"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="object">
+  <object id="1" name="1" x="32" y="192"/>
+  <object id="4" name="2" x="32" y="256"/>
+  <object id="5" name="3" x="32" y="320"/>
+  <object id="6" name="4" x="32" y="384"/>
+  <object id="7" name="5" x="32" y="448"/>
+  <object id="8" name="6" x="32" y="512"/>
+  <object id="9" name="7" x="32" y="576"/>
+  <object id="10" name="8" x="128" y="576"/>
+  <object id="11" name="9" x="128" y="512"/>
+  <object id="13" name="10" x="128" y="448"/>
+  <object id="14" name="11" x="128" y="384"/>
+  <object id="15" name="12" x="128" y="320"/>
+  <object id="16" name="13" x="128" y="256"/>
+  <object id="17" name="14" x="128" y="192"/>
+  <object id="18" name="15" x="224" y="192"/>
+  <object id="20" name="16" x="224" y="256"/>
+  <object id="21" name="17" x="224" y="320"/>
+  <object id="22" name="18" x="224" y="384"/>
+  <object id="23" name="19" x="224" y="448"/>
+  <object id="24" name="20" x="224" y="512"/>
+  <object id="25" name="21" x="224" y="576"/>
+ </objectgroup>
+ <objectgroup name="stage1Slots">
+  <object id="28" name="triangle" gid="7" x="384" y="352" width="256" height="128"/>
+  <object id="31" name="square" gid="6" x="402" y="562" width="221" height="221"/>
+  <object id="32" name="semi-circle" gid="1073741829" x="736" y="385" width="196" height="97"/>
+  <object id="36" name="circle" gid="1" x="734" y="193" width="130" height="129"/>
+  <object id="38" name="curve-line" gid="3221225474" x="800" y="608" width="223.992" height="28.9317" rotation="270.479"/>
+  <object id="40" name="curve-line" gid="1073741826" x="896" y="608" width="223.992" height="28.9317" rotation="270.479"/>
+  <object id="44" name="line" gid="3" x="639.632" y="129.536" width="104.132" height="3" rotation="13.4801"/>
+  <object id="49" name="line" gid="3" x="704" y="64" width="56.3458" height="3" rotation="38.3531"/>
+  <object id="50" name="circle" gid="1" x="734" y="193" width="130" height="129"/>
+  <object id="52" name="line" gid="3" x="811.9" y="76.6354" width="64" height="3" rotation="274.98"/>
+  <object id="53" name="line" gid="3" x="858.19" y="109.054" width="64" height="3" rotation="334.657"/>
+  <object id="54" name="line" gid="3" x="860" y="146" width="64" height="3" rotation="13.4801"/>
+  <object id="55" name="line" gid="3" x="841.074" y="175.093" width="27.8709" height="3" rotation="48.3337"/>
+  <object id="56" name="line" gid="3" x="800" y="192" width="64" height="3" rotation="70.4164"/>
+  <object id="57" name="line" gid="3" x="756" y="169" width="58.357" height="3" rotation="105.66"/>
+ </objectgroup>
+ <objectgroup name="abc"/>
+</map>

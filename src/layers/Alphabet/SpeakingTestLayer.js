@@ -346,7 +346,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var objectName = "";
         this._soundName = "";
         if (this._oldSceneName == "RoomScene") {
-            objectName = "things/" + this._names[this.currentObjectShowUpId].toLowerCase();
+            objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         }
