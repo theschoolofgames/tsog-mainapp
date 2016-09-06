@@ -2,82 +2,100 @@ var StoryMainLayer = cc.Layer.extend({
 	subLabelArray: [],
 	currentSubtitleArray: [],
 	subtitles: [],
+    words: [],
 	currentCountTime: 0,
+    currentSubtitle: null,
+    TEXT_HEIGHT: 40,
+    SUBTITLE_WIDTH: 700,
+    currentSubLabelHeight: 0,
 
 	ctor:function(){
         this._super();
 
         this._addBackGround();
         this._addButtons();
-        this._loadSubtitle(res.Story01_ass);
-        this._addRichText();
+        this._loadSubtitle(res.Story02_ass);
 
-        Utils.showVersionLabel(this);
-
-    },
-
-    _addRichText: function() {
-        var uiRichText = new ccui.RichText();
-        // uiRichText.ignoreContentAdaptWithSize(false);
-        // uiRichText.setAnchorPoint(cc.p(0,0));
-        // uiRichText.setContentSize(new cc.size(200, 100));
-        uiRichText.x = cc.winSize.width/2;
-        uiRichText.y = cc.winSize.height/2;
-
-        var rtElement = new ccui.RichElementText(100, cc.color.BLACK, 255, "Some Text Some Text Some Text", "Arial", 24);
-        var rtRedElement = new ccui.RichElementText(100, cc.color.RED, 255, "Red ", "Arial", 24);
-
-        uiRichText.pushBackElement(rtRedElement);
-        uiRichText.pushBackElement(rtElement);
-        uiRichText.formatText();
-        this.addChild(uiRichText);
+        this._playStory();
     },
 
     update: function(dt) {
-    	if (this.subtitles.length <= 0) return;
+        this.currentCountTime += dt;
 
-    	this.currentCountTime += dt;
+        if (this.currentSubtitle){
+
+            // Shift words one-by-one, highlight by their position
+            while (this.currentSubtitle.words.length > 0 && 
+                this.currentCountTime * 1000 - this.currentSubtitle.start >= this.currentSubtitle.words[0].time){
+                let currentWord = this.currentSubtitle.words.shift();
+
+                this.currentSubtitle.highLightLayer.setContentSize(currentWord.width, this.TEXT_HEIGHT);
+                this.currentSubtitle.highLightLayer.setPosition(cc.p(currentWord.wordPos.x, 
+                    this.currentSubLabelHeight + currentWord.wordPos.y));
+
+            }
+        }
+
+    	if (this.subtitles.length <= 0) return;
        	
        	// Check if subtitle was end, hide this AFK label
         for (var i = 0; i < this.subLabelArray.length; i++){
         	if (this.currentCountTime * 1000 >= this.subLabelArray[i].getTag()){ // Tag of subLabel was end time of subtitle
-        		this.subLabelArray[i].visible = false;
+                let subLabel = this.subLabelArray[i];
+        		subLabel.visible = false;
+
+                // Remove Highlight
+                subLabel.removeChild(subLabel.getChildByTag(1001));
         	}
         }
 
        	// Check in-time subtitle, get available subtitle label and modify
-        while (this.currentCountTime * 1000 >= this.subtitles[0].start && this.subtitles.length > 0){
-        	var subtitleModel = this.subtitles.shift();
+        while (this.subtitles.length > 0 && this.currentCountTime * 1000 >= this.subtitles[0].start){
+        	this.currentSubtitle = this.subtitles.shift();
         	var subLabel = this._getAvailableSubLabel();
-        	this._updateLabelWithSubtitle(subLabel, subtitleModel);
+
+        	this._updateLabelWithSubtitle(subLabel, this.currentSubtitle);
+
+            this.currentSubtitle.highLightLayer = new cc.LayerColor(cc.color(255,255,0,100), 100, this.TEXT_HEIGHT);
+            this.currentSubtitle.highLightLayer.x = -100;
+            this.currentSubtitle.highLightLayer.y = subLabel.height - this.TEXT_HEIGHT;
+            this.currentSubtitle.highLightLayer.setTag(1001);
+
+            this.currentSubLabelHeight = subLabel.height - this.TEXT_HEIGHT;
+            subLabel.addChild(this.currentSubtitle.highLightLayer);
+
+            if (this.subtitles.length <= 0)
+                break;
         }
     },
 
     _getAvailableSubLabel: function() {
-    	// if subLabelArray not empty and have visible label, return this label
-    	for (var i = 0; i < this.subLabelArray.length; i++){
-			if (this.subLabelArray[i].visible == false){
-				return this.subLabelArray[i];
-			}
-		}
+        // if subLabelArray not empty and have visible label, return this label
+        for (var i = 0; i < this.subLabelArray.length; i++){
+            if (this.subLabelArray[i].visible == false){
+                return this.subLabelArray[i];
+            }
+        }
 
-		// @subLabelArray empty || visible label != avaiable
-		var _subLabel = new cc.LabelTTF("", "Arial", 24);
-		_subLabel.color = cc.color.BLACK;
-		_subLabel.visible = true;
-		this.addChild(_subLabel);
+        // @subLabelArray empty || visible label != avaiable
+        var _subLabel = new cc.LabelTTF("", "Arial", 35);
+        _subLabel.color = cc.color.BLACK;
+        _subLabel.visible = true;
+        _subLabel.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_TOP);
+        _subLabel.boundingWidth = this.SUBTITLE_WIDTH;
+        this.addChild(_subLabel);
 
-		this.subLabelArray.push(_subLabel);
-		
-		return _subLabel;
+        this.subLabelArray.push(_subLabel);
+        
+        return _subLabel;
     },
 
     _updateLabelWithSubtitle: function(label, subtitle) {
-    	label.setString(subtitle.message);
-    	label.setTag(subtitle.end);
-    	label.color = cc.color.BLACK;
-        label.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        label.boundingWidth = cc.winSize.width* 0.75;
+        label.setString(subtitle.message);
+        label.setTag(subtitle.end);
+        label.color = cc.color.BLACK;
+        label.boundingWidth = this.SUBTITLE_WIDTH;
+        
         label.x = (cc.winSize.width/2 - subtitle.marginR);
         label.y = (cc.winSize.height/2 + subtitle.marginV);
         label.visible = true;
@@ -118,7 +136,7 @@ var StoryMainLayer = cc.Layer.extend({
 		    // Success 
 		    var dialogueArray = self._getDialogueArray(data);
 		    for (var i = 0; i < dialogueArray.length; i++){
-		    	var dialogueInfo = self._getDetailDialogueLine(dialogueArray[i]);
+		    	var dialogueInfo = self._parseDetailDialogueLine(dialogueArray[i]);
 		    	self.subtitles.push(dialogueInfo);
 		    }
 		});
@@ -129,10 +147,69 @@ var StoryMainLayer = cc.Layer.extend({
     	return eventsString.trim().split('\n').slice(1); // remove description line: Format....
     },
 
-    _getDetailDialogueLine: function(line) {
+    _parseDetailDialogueLine: function(line) {
     	// Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     	// Sample: Dialogue: 0,0:00:00.00,0:00:08.00,Default,,0,0,0,,yeah yeah
     	let infoArray = line.substring(10).split(','); // remove 'Dialogue' title
+
+        // Parse subtitle to words
+        // {\k36}Once{\k0}{\k10} {\k41}upon{\k0}{\k11} {\k11}a
+        let rawMessage = infoArray.slice(9).join(',');
+        let wordWithTimeArray = rawMessage.split('{\\k');
+        let wordArray = [];
+        
+        var _subLabel = new cc.LabelTTF("", "Arial", 35);
+        _subLabel.color = cc.color.BLACK;
+        _subLabel.x = -100;
+        _subLabel.y = -100;
+
+        let nextDuration = 0;
+        let message = "";
+        let currentPos = cc.p(0,0);
+        let currentWordWidth = 0;
+        let currentLineString = "";
+
+        for (let i = 0; i < wordWithTimeArray.length; i++){
+            let _array = wordWithTimeArray[i].split('}');
+            if (!_array[1])
+                continue;
+
+            _subLabel.setString(_array[1]);
+            let currentWordWidth = _subLabel.getContentSize().width;
+            let currentWordHeight = _subLabel.getContentSize().height;
+
+            _subLabel.setString(currentLineString.concat(_array[1]));
+            if (_subLabel.getContentSize().width > this.SUBTITLE_WIDTH){
+                message = message.concat('\n').concat(_array[1]);
+                currentLineString = _array[1];
+                currentPos = cc.p(0, currentPos.y - _subLabel.getContentSize().height);  
+            }
+            else {
+                message = message.concat(_array[1]);
+                currentLineString = currentLineString.concat(_array[1]);
+            }
+
+            _subLabel.setString(currentLineString);
+
+            let wordDuration = parseFloat(_array[0]) * 10;
+
+            let wordInfo = {
+                time: nextDuration,
+                text: _array[1],
+                wordPos: currentPos,
+                width: currentWordWidth,
+                height: currentWordHeight
+            };
+
+            // cc.log("Word Info => '%s' - '%s', (%d, %d)", wordInfo.text, currentLineString, currentPos.x, currentPos.y);
+
+            if (wordInfo.text !== ' ')
+                wordArray.push(wordInfo);
+
+            currentPos = cc.p(_subLabel.getContentSize().width, currentPos.y);
+
+            nextDuration += wordDuration;
+        }
 
     	return {
     		start: this._convertTimeToMilisecond(infoArray[1]),
@@ -140,17 +217,18 @@ var StoryMainLayer = cc.Layer.extend({
     		marginL: parseInt(infoArray[5]),
     		marginR: parseInt(infoArray[6]),
     		marginV: parseInt(infoArray[7]),
-    		message: infoArray[9]
+    		message: message,
+            words: wordArray
     	};
     },
 
     _playSound: function() {
     	cc.audioEngine.setMusicVolume(0.3);
-        cc.audioEngine.playMusic(res.Story01_mp3, false);
+        cc.audioEngine.playMusic(res.Story02_mp3, false);
     },
 
     _stopSound: function() {
-        cc.audioEngine.stopMusic(res.Story01_mp3);
+        cc.audioEngine.stopMusic(res.Story02_mp3);
     },
 
     _addBackGround: function() {

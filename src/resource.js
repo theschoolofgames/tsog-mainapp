@@ -60,9 +60,11 @@ var res = {
 
     // Subtitle files
     Story01_ass: "res/subtitles/story01.ass",
+    Story02_ass: "res/subtitles/story02.ass",
 
     // Stories sounds
     Story01_mp3: "res/sounds/stories/story01.mp3",
+    Story02_mp3: "res/sounds/stories/story02.mp3",
  
     // Animals
     Ant_png: "animals/ant.png",
