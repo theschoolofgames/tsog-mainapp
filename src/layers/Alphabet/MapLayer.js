@@ -20,27 +20,28 @@ var MapLayer = cc.Layer.extend({
             var path = "Map_Part" + (i+1) + "_jpg";
             cc.log("path -> " + res[path]);
             var mapPart = new cc.Sprite(res[path]);
-            mapPart.anchorX = 0;
-            mapPart.anchorY = 0;
-            mapPart.x = lastPartXPos;
+
+            mapPart.x = lastPartXPos + mapPart.width/2;
+            mapPart.y = cc.winSize.height/2;
 
             scrollView.addChild(mapPart);
-
-            for (var j = 0; j < 5; j++) {
-                var pos = this._btnStepCoordinates[j];
-                var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-                btn.x = pos.x + (btn.anchorX - mapPart.anchorX) * btn.width;
-                btn.y = pos.y + (btn.anchorY - mapPart.anchorY) * btn.height;
-                scrollView.addChild(btn, 1);
-
-                btn.addClickEventListener(this._stepPressed.bind(this));
-            }
 
             lastPartXPos += + mapPart.width;
             this._poolParts.push(mapPart);
 
         }
+        for (var j = 0; j < 5; j++) {
+            var pos = this._btnStepCoordinates[j];
+            var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+            btn.x = pos.x + btn.width * 0.5;
+            btn.y = pos.y + btn.height * 1.5;
+            // btn.setAnchorPoint(cc.p(0, -1));
+            cc.log("pos y: " + pos.y);
+            scrollView.addChild(btn, 1);
 
+            btn.addClickEventListener(this._stepPressed.bind(this));
+        }
+        cc.log("scrollView anchor -> " + JSON.stringify(scrollView.getAnchorPoint()));
         scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         scrollView.setContentSize(cc.size(lastPartXPos, mapPart.height));
         scrollView.setViewSize(cc.director.getWinSize());
@@ -56,7 +57,7 @@ var MapLayer = cc.Layer.extend({
 
     _loadTmx: function() {
         this._btnStepCoordinates = [];
-
+        var csf = cc.director.getContentScaleFactor();
         var tiledMap = new cc.TMXTiledMap();
         tiledMap.initWithTMXFile(res.Map_TMX);
 
@@ -64,11 +65,11 @@ var MapLayer = cc.Layer.extend({
         var self = this;
         group.getObjects().forEach(function(obj) {
             self._btnStepCoordinates.push({
-                "x": obj.x,
-                "y": obj.y
+                "x": obj.x * csf,
+                "y": obj.y * csf
             }); 
         });
-        cc.log(JSON.stringify(self._btnStepCoordinates));
+        // cc.log(JSON.stringify(self._btnStepCoordinates));
     },
 
     _addStepButton: function() {
