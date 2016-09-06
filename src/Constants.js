@@ -552,7 +552,8 @@ var GAME_IDS = [
     "cardgame",
     "form train",
     "tree game",
-    "balloon"
+    "balloon",
+    "story"
 ];
 
 var TIME_TO_PAUSE_GAME = 5;

@@ -78,7 +78,14 @@ var GameTestSelectorLayer = cc.Layer.extend({
     },
 
     toObjectSelectorScene: function (id) {
-        cc.director.replaceScene(new cc.TransitionFade(1, new ObjectTestScene(id), cc.color(255, 255, 255, 255)));
+        switch (id){
+            case "story":
+                cc.director.replaceScene(new cc.TransitionFade(1, new StoryMainScene(), cc.color(255, 255, 255, 255)));
+                break;
+            default: 
+                cc.director.replaceScene(new cc.TransitionFade(1, new ObjectTestScene(id), cc.color(255, 255, 255, 255)));
+                break;
+        }
     },
 
     scrollViewDidScroll:function (view) {

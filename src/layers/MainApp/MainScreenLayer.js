@@ -33,7 +33,6 @@ var MainScreenLayer = cc.Layer.extend({
             cc.log("playedDay: " + playedDay);
             cc.log("amountOfFreeDayToPlay: " + GAME_CONFIG.amountOfFreeDayToPlay);
             if (playedDay >= GAME_CONFIG.amountOfFreeDayToPlay)
-                // console.log("Out of free day -----");
                 KVDatabase.getInstance().set("outOfFreeDay", 1);
         }
     },
@@ -60,16 +59,6 @@ var MainScreenLayer = cc.Layer.extend({
             this._addDialog();
             this._addDialogButtons();
             this._playBackgroundMusic();
-
-            // this._popupDialog.visible = false;
-            // var lb = cc.Label.createWithTTF(Utils.getTTFConfig(res.HELVETICARDBLK_ttf.srcs[0], 100), 
-            //     "A B C D E F ABCDEF!");
-            // lb.x = cc.winSize.width/2;
-            // lb.y = cc.winSize.height/2;
-            // lb.color = cc.color("#ffcc00");
-            // lb.enableStroke(cc.color("#b15a10"), 12);
-            // lb.enableShadow(cc.color(0.0, 0.0, 0.0, 64.0), cc.size(11, -11), 0);
-            // this.addChild(lb);
         }
     },
 
