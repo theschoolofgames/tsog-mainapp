@@ -157,16 +157,16 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new MainScene());
             });
 
-            var testChaseNumber = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            testChaseNumber.x = cc.winSize.width - 150;
-            testChaseNumber.y = cc.winSize.height/2 - 160;
-            testChaseNumber.anchorX = testChaseNumber.anchorY = 1;
-            testChaseNumber.titleText = "Test Trace Number";
-            testChaseNumber.setTitleColor(cc.color.BLACK);
-            testChaseNumber.setTitleFontSize(16);
-            this.addChild(testChaseNumber);
-            testChaseNumber.addClickEventListener(function() {
-                cc.director.runScene(new WritingTestScene([{"name":"123","tag":0},{"name":"456","tag":1},{"name":"789","tag":2}], "RoomScene"));
+            var testBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            testBtn.x = cc.winSize.width - 150;
+            testBtn.y = cc.winSize.height/2 - 160;
+            testBtn.anchorX = testBtn.anchorY = 1;
+            testBtn.titleText = "Test MAP";
+            testBtn.setTitleColor(cc.color.BLACK);
+            testBtn.setTitleFontSize(16);
+            this.addChild(testBtn);
+            testBtn.addClickEventListener(function() {
+                cc.director.runScene(new MapScene());
             });
         }
     },

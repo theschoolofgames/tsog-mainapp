@@ -69,6 +69,7 @@
         "src/layers/Alphabet/FormTheTrainLayer.js",
         "src/layers/Alphabet/TreeGameLayer.js",
         "src/layers/Alphabet/BalloonGameLayer.js",
+        "src/layers/Alphabet/MapLayer.js",
 
         "src/layers/SceneFlowController.js",
         
