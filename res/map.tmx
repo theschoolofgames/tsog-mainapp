@@ -1,24 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="20">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="57">
  <tileset firstgid="1" name="map_part1" tilewidth="929" tileheight="640">
   <image source="SD/bg/map_part1.jpg" width="929" height="640"/>
  </tileset>
  <tileset firstgid="2" name="btn_level" tilewidth="71" tileheight="63">
   <image source="../_sourceart/map/btn_level.png" width="71" height="63"/>
  </tileset>
+ <tileset firstgid="3" name="map_part2" tilewidth="930" tileheight="640">
+  <image source="SD/bg/map_part2.jpg" width="930" height="640"/>
+ </tileset>
+ <tileset firstgid="4" name="map_part3" tilewidth="930" tileheight="640">
+  <image source="SD/bg/map_part3.jpg" width="930" height="640"/>
+ </tileset>
+ <tileset firstgid="5" name="map_part4" tilewidth="930" tileheight="640">
+  <image source="SD/bg/map_part4.jpg" width="930" height="640"/>
+ </tileset>
  <layer name="Tile Layer 1" width="30" height="20">
   <data encoding="base64" compression="zlib">
    eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
- <objectgroup name="part1">
+ <objectgroup name="part1" visible="0">
   <object id="2" gid="1" x="0" y="640" width="929" height="640"/>
  </objectgroup>
- <objectgroup name="buttonPart1">
+ <objectgroup name="buttonPart1" visible="0">
   <object id="14" name="1" gid="2" x="226.333" y="348.333" width="71" height="63"/>
   <object id="15" name="2" gid="2" x="378.333" y="484.333" width="71" height="63"/>
   <object id="16" name="3" gid="2" x="530.333" y="401.667" width="71" height="63"/>
   <object id="17" name="4" gid="2" x="386.333" y="199" width="71" height="63"/>
   <object id="19" name="5" gid="2" x="731.667" y="385.667" width="71" height="63"/>
+ </objectgroup>
+ <objectgroup name="part2" visible="0">
+  <object id="21" gid="3" x="0" y="640" width="930" height="640"/>
+ </objectgroup>
+ <objectgroup name="buttonPart2" visible="0">
+  <object id="22" name="1" gid="2" x="214.333" y="207" width="71" height="63"/>
+  <object id="24" name="2" gid="2" x="345" y="571" width="71" height="63"/>
+  <object id="26" name="3" gid="2" x="521" y="363" width="71" height="63"/>
+  <object id="28" name="4" gid="2" x="737" y="391" width="71" height="63"/>
+  <object id="63" name="10" gid="2" x="965" y="329.667" width="71" height="63"/>
+ </objectgroup>
+ <objectgroup name="part3" visible="0">
+  <object id="29" gid="4" x="0" y="640" width="930" height="640"/>
+ </objectgroup>
+ <objectgroup name="buttonPart3" visible="0">
+  <object id="36" name="2" gid="2" x="318.333" y="271" width="71" height="63"/>
+  <object id="37" name="3" gid="2" x="459.667" y="393.667" width="71" height="63"/>
+  <object id="38" name="4" gid="2" x="663.667" y="445.667" width="71" height="63"/>
+  <object id="41" name="5" gid="2" x="781" y="307" width="71" height="63"/>
+  <object id="71" name="15" gid="2" x="919.667" y="272.333" width="71" height="63"/>
+ </objectgroup>
+ <objectgroup name="part4">
+  <object id="42" gid="5" x="0" y="640" width="930" height="640"/>
+ </objectgroup>
+ <objectgroup name="buttonPart4">
+  <object id="49" name="2" gid="2" x="139.667" y="335" width="71" height="63"/>
+  <object id="50" name="3" gid="2" x="294.333" y="524.333" width="71" height="63"/>
+  <object id="51" name="4" gid="2" x="390.333" y="293.667" width="71" height="63"/>
+  <object id="54" name="5" gid="2" x="546.333" y="373.667" width="71" height="63"/>
+  <object id="56" name="6" gid="2" x="709" y="347" width="71" height="63"/>
  </objectgroup>
 </map>

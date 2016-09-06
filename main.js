@@ -136,7 +136,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Tree_game_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Map_Plist);
         
-        cc.director.runScene(new MapScene());
+        // cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
         // cc.director.runScene(new DesignTestScene(1, true));
         // cc.director.runScene(new FormTheTrainScene());
@@ -146,7 +146,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        // cc.director.runScene(new WelcomeScene());
+        cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene());
         // cc.director.runScene(new MainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));

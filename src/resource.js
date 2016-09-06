@@ -53,6 +53,7 @@ var res = {
     Writing_config_JSON: "config/writing_test.json",
     Updated_config_JSON: "config/updated.json",
     Game_Object_JSON: "config/game_object.json",
+    Map_Data_JSON: "config/map/map.json",
 
     forest_jpg : "res/forest.jpg",
     room_jpg: "Bedroom-screen.jpg",
