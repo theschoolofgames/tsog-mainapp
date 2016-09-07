@@ -70,6 +70,8 @@
         "src/layers/Alphabet/TreeGameLayer.js",
         "src/layers/Alphabet/BalloonGameLayer.js",
         "src/layers/Alphabet/MapLayer.js",
+        "src/layers/Alphabet/Dialog.js",
+        "src/layers/Alphabet/LevelDialog.js",
 
         "src/layers/SceneFlowController.js",
         
@@ -80,6 +82,8 @@
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
+
+        "src/lang/Localization.js",
 
         "src/Global.js"
     ]

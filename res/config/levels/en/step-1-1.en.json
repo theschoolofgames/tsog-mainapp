@@ -12,11 +12,23 @@
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "egg",
+        "hat",
+        "jar",
+        "key",
+        "map"
+      ]
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "egg",
+        "hat",
+        "jar",
+        "key",
+        "map"
+      ]
     }
   },
   "2": {
@@ -32,11 +44,23 @@
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "ant",
+        "cow",
+        "bee",
+        "cat",
+        "dog"
+      ]
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "ant",
+        "cow",
+        "bee",
+        "cat",
+        "dog"
+      ]
     }
   },
   "3": {
@@ -53,11 +77,25 @@
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "1",
+        "2",
+        "1",
+        "2",
+        "1",
+        "2"
+      ]
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "1",
+        "2",
+        "1",
+        "2",
+        "1",
+        "2"
+      ]
     },
     "4": {
       "name": "writing",

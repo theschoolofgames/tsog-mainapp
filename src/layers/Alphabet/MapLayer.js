@@ -5,6 +5,8 @@ var MapLayer = cc.Layer.extend({
     _mapData: null,
     _scrollView: null,
 
+    _csf: 1,
+
     ctor: function() {
         this._super();
 
@@ -39,19 +41,23 @@ var MapLayer = cc.Layer.extend({
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
                         btn.y = pos.y + btn.height * 1.5;
-                        btn.setTitleText(val);
-                        btn.setTitleFontSize(32);
-                        btn.setTitleColor(cc.color.BLACK);
+
+                        var lb = new cc.LabelBMFont(val, res.CustomFont_fnt);
+                        lb.scale = 0.3;
+                        lb.x = btn.width/2;
+                        lb.y = btn.height/2 + 10 * this._csf;
+                        btn.addChild(lb);
+
                         scrollView.addChild(btn, 1);
 
+                        btn.setUserData(val);
                         btn.addClickEventListener(this._stepPressed.bind(this));
 
                         if ((stepIndex%5 > 0) && _mapInArray[totalSteps-1] == step) {
 
-                            cc.log("stepIndex: " + stepIndex);
-                            cc.log("add bonus step -> " + (5 - (stepIndex%5)));
-                            cc.log("step -> _mapInArray[totalSteps-1] " + step + " -> " + _mapInArray[totalSteps-1]);
-
+                            // cc.log("stepIndex: " + stepIndex);
+                            // cc.log("add bonus step -> " + (5 - (stepIndex%5)));
+                            // cc.log("step -> _mapInArray[totalSteps-1] " + step + " -> " + _mapInArray[totalSteps-1]);
                             stepIndex += 5 - (stepIndex%5);
                         }
 
@@ -96,7 +102,7 @@ var MapLayer = cc.Layer.extend({
 
     _loadTmx: function() {
         this._btnStepCoordinates = [];
-        var csf = cc.director.getContentScaleFactor();
+        this._csf = cc.director.getContentScaleFactor();
         var tiledMap = new cc.TMXTiledMap();
         tiledMap.initWithTMXFile(res.Map_TMX);
 
@@ -106,8 +112,8 @@ var MapLayer = cc.Layer.extend({
             if (group.getGroupName().startsWith("buttonPart")) {
                 group.getObjects().forEach(function(obj) {
                     self._btnStepCoordinates.push({
-                        "x": obj.x * csf,
-                        "y": obj.y * csf
+                        "x": obj.x * self._csf,
+                        "y": obj.y * self._csf
                     }); 
                 });
             }
@@ -121,7 +127,9 @@ var MapLayer = cc.Layer.extend({
     },
 
     _stepPressed: function(b) {
-        cc.log("_stepPressed");
+        var level = b.getUserData();
+        cc.log("level-> " + level);
+        this.addChild(new LevelDialog(level));
     },
 });
 

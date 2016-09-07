@@ -13,6 +13,8 @@ var res = {
     Train_game_png: "train-game.png",
     Tree_game_plist: "tree-game.plist",
     Tree_game_png: "tree-game.png",
+    Level_Dialog_plist: "level-dialog.plist",
+    Level_Dialog_png: "level-dialog.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
