@@ -556,6 +556,26 @@ var GAME_IDS = [
     "story"
 ];
 
+var STORY_RESOURCES = [
+    {
+        "subtitles": [
+            "res/subtitles/story02-01.ass",
+            "res/subtitles/story02-02.ass",
+            "res/subtitles/story02-03.ass"
+        ],
+        "arts": [
+            "stories/Storytime2-1.jpg",
+            "stories/Storytime2-2.jpg",
+            "stories/Storytime2-3.jpg"
+        ],
+        "sounds": [
+            "res/sounds/stories/story02-01.mp3",
+            "res/sounds/stories/story02-02.mp3",
+            "res/sounds/stories/story02-03.mp3"
+        ]
+    },
+];
+
 var TIME_TO_PAUSE_GAME = 5;
 var AFTER_CHECKING_NOISE_TIME = 3;
 

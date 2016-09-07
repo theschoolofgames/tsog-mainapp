@@ -1,4 +1,4 @@
-var StoryMainLayer = cc.Layer.extend({
+var StoryMainLayer = cc.LayerColor.extend({
 	subLabelArray: [],
 	currentSubtitleArray: [],
 	subtitles: [],
@@ -6,19 +6,47 @@ var StoryMainLayer = cc.Layer.extend({
 	currentCountTime: 0,
     currentSubtitle: null,
     TEXT_HEIGHT: 40,
-    SUBTITLE_WIDTH: 700,
+    SUBTITLE_WIDTH: 900,
     currentSubLabelHeight: 0,
+    _currentStory: null,
+    _currentStorySceneIndex: 0,
+    _backgroundSprite: null,
 
 	ctor:function(){
-        this._super();
+        this._super(cc.color.WHITE);
 
-        this._addBackGround();
         this._addButtons();
-        this._loadSubtitle(res.Story02_ass);
+        this._addBackGround();
 
-        cc.director.getRunningScene().schedule(() => {
-            this._playStory();
-        }, 1, 2);
+        this._currentStory = STORY_RESOURCES[0];
+
+        this._playStory();
+        // cc.director.getRunningScene().schedule(() => {
+        //     this._playStory();
+        // }, 1, 2);
+    },
+
+    _playStory: function(){
+        this.currentCountTime = 0;
+        // this.subLabelArray = [];
+        this._loadSubtitle(this._currentStory.subtitles[this._currentStorySceneIndex]);
+        this._updateBackground(this._currentStory.arts[this._currentStorySceneIndex]);
+        this._playSound(this._currentStory.sounds[this._currentStorySceneIndex]);
+        this.scheduleUpdate();
+    },
+
+    _stopStory: function(){
+        this.unscheduleUpdate();
+        this.currentCountTime = 0;
+        this.subtitles = [];
+        this.currentSubtitle = null;
+
+        for (var i = 0; i < this.subLabelArray.length; i++){
+            this.subLabelArray[i].visible = false;
+
+            // Remove Highlight
+            this.subLabelArray[i].removeChild(this.subLabelArray[i].getChildByTag(1001));
+        }
     },
 
     update: function(dt) {
@@ -38,7 +66,16 @@ var StoryMainLayer = cc.Layer.extend({
             }
         }
 
-    	if (this.subtitles.length <= 0) return;
+    	if (this.subtitles.length <= 0) {
+            if (this.currentSubtitle.end <= this.currentCountTime * 1000 
+                && this._currentStorySceneIndex < this._currentStory.arts.length - 1){
+                this._stopStory();
+                this._currentStorySceneIndex++;
+                this._playStory();
+            }
+
+            return;
+        }
        	
        	// Check if subtitle was end, hide this AFK label
         for (var i = 0; i < this.subLabelArray.length; i++){
@@ -56,7 +93,7 @@ var StoryMainLayer = cc.Layer.extend({
         	this.currentSubtitle = this.subtitles.shift();
         	var subLabel = this._getAvailableSubLabel();
 
-        	this._updateLabelWithSubtitle(subLabel, this.currentSubtitle);
+            this._updateLabelWithSubtitle(subLabel, this.currentSubtitle);
 
             this.currentSubtitle.highLightLayer = new cc.LayerColor(cc.color(255,255,0,100), 100, this.TEXT_HEIGHT);
             this.currentSubtitle.highLightLayer.x = -100;
@@ -97,28 +134,10 @@ var StoryMainLayer = cc.Layer.extend({
         label.setTag(subtitle.end);
         label.color = cc.color.BLACK;
         label.boundingWidth = this.SUBTITLE_WIDTH;
-        
+        label.setAnchorPoint(0.5, 0);
         label.x = (cc.winSize.width/2 - subtitle.marginR);
-        label.y = (cc.winSize.height/2 + subtitle.marginV);
+        label.y = 20;
         label.visible = true;
-    },
-
-    _playStory: function(){
-    	this._playSound();
-        this.scheduleUpdate();
-        this.currentCountTime = 0;
-        this.subLabelArray = [];
-    },
-
-    _stopStory: function(){
-    	this._stopSound();
-        this.unscheduleUpdate();
-        this.currentCountTime = 0;
-        this.subLabelArray = [];
-
-        for (var i = 0; i < this.subLabelArray.length; i++){
-        	this.subLabelArray[i].visible = false;
-        }
     },
 
     _convertTimeToMilisecond: function(timeString){ // Like: 12:20:19.45 
@@ -167,6 +186,7 @@ var StoryMainLayer = cc.Layer.extend({
 
         let nextDuration = 0;
         let message = "";
+        let messageHeight = this.TEXT_HEIGHT;
         let currentPos = cc.p(0,0);
         let currentWordWidth = 0;
         let currentLineString = "";
@@ -185,6 +205,7 @@ var StoryMainLayer = cc.Layer.extend({
                 message = message.concat('\n').concat(_array[1]);
                 currentLineString = _array[1];
                 currentPos = cc.p(0, currentPos.y - _subLabel.getContentSize().height);  
+                messageHeight += this.TEXT_HEIGHT;
             }
             else {
                 message = message.concat(_array[1]);
@@ -220,13 +241,14 @@ var StoryMainLayer = cc.Layer.extend({
     		marginR: parseInt(infoArray[6]),
     		marginV: parseInt(infoArray[7]),
     		message: message,
-            words: wordArray
+            messageHeight: messageHeight,
+            words: wordArray,
     	};
     },
 
-    _playSound: function() {
+    _playSound: function(soundRes) {
     	cc.audioEngine.setMusicVolume(0.3);
-        cc.audioEngine.playMusic(res.Story02_mp3, false);
+        cc.audioEngine.playMusic(soundRes, false);
     },
 
     _stopSound: function() {
@@ -234,10 +256,21 @@ var StoryMainLayer = cc.Layer.extend({
     },
 
     _addBackGround: function() {
-        var bg = new cc.Sprite(res.Bg_school_jpg);
-        bg.x = cc.winSize.width / 2;
-        bg.y = cc.winSize.height / 2;
-        this.addChild(bg);
+        this._backgroundSprite = new cc.Sprite(res.Story01_01_jpg);
+        this._backgroundSprite.setTexture(cc.textureCache.addImage(res.Story02_01_jpg));
+        this._backgroundSprite.setAnchorPoint(0.5, 1);
+        // this._backgroundSprite.setScale(0.8);
+        this._backgroundSprite.x = cc.winSize.width / 2;
+        this._backgroundSprite.y = cc.winSize.height;
+        this.addChild(this._backgroundSprite);
+    },
+
+    _updateBackground: function(backgroundResource) {
+        this._backgroundSprite.setTexture(cc.textureCache.addImage(backgroundResource));
+        this._backgroundSprite.setAnchorPoint(0.5, 1);
+        // this._backgroundSprite.setScale(0.8);
+        this._backgroundSprite.x = cc.winSize.width / 2;
+        this._backgroundSprite.y = cc.winSize.height;
     },
 
     _addButtons: function() {
@@ -277,6 +310,7 @@ var StoryMainLayer = cc.Layer.extend({
         var btnBack = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnBack.x = btnBack.width / 2;
         btnBack.y = cc.winSize.height - btnBack.height*2/3
+        btnBack.setZOrder(1000);
         this.addChild(btnBack);
         btnBack.addClickEventListener(function() {
             self.backToHome();
