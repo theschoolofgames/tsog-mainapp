@@ -16,14 +16,13 @@ var StoryMainLayer = cc.LayerColor.extend({
         this._super(cc.color.WHITE);
 
         this._addButtons();
-        this._addBackGround();
 
         this._currentStory = STORY_RESOURCES[0];
 
-        this._playStory();
-        // cc.director.getRunningScene().schedule(() => {
-        //     this._playStory();
-        // }, 1, 2);
+        // this._playStory();
+        cc.director.getRunningScene().schedule(() => {
+            this._playStory();
+        }, 1, 3);
     },
 
     _playStory: function(){
@@ -255,17 +254,12 @@ var StoryMainLayer = cc.LayerColor.extend({
         cc.audioEngine.stopMusic(res.Story02_mp3);
     },
 
-    _addBackGround: function() {
-        this._backgroundSprite = new cc.Sprite(res.Story01_01_jpg);
-        this._backgroundSprite.setTexture(cc.textureCache.addImage(res.Story02_01_jpg));
-        this._backgroundSprite.setAnchorPoint(0.5, 1);
-        // this._backgroundSprite.setScale(0.8);
-        this._backgroundSprite.x = cc.winSize.width / 2;
-        this._backgroundSprite.y = cc.winSize.height;
-        this.addChild(this._backgroundSprite);
-    },
-
     _updateBackground: function(backgroundResource) {
+        if (!this._backgroundSprite){
+            this._backgroundSprite = new cc.Sprite(backgroundResource);
+            this.addChild(this._backgroundSprite);
+        }
+
         this._backgroundSprite.setTexture(cc.textureCache.addImage(backgroundResource));
         this._backgroundSprite.setAnchorPoint(0.5, 1);
         // this._backgroundSprite.setScale(0.8);
