@@ -73,7 +73,7 @@
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/LevelDialog.js",
 
-        "src/layers/SceneFlowController.js",
+        "src/layers/SceneFlow/SceneFlowController.js",
         
         "src/layers/GameTests/GameTestSelector.js",
         "src/layers/GameTests/ObjectTestSelector.js",

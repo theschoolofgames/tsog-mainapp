@@ -550,10 +550,10 @@ var GAME_IDS = [
     "forest",
     "gofigure",
     "cardgame",
-    "form train",
-    "tree game",
+    "train",
+    "tree",
     "balloon",
-    "story"
+    "storytime"
 ];
 
 var STORY_RESOURCES = [

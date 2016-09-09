@@ -32,10 +32,12 @@ var RoomLayer = cc.Layer.extend({
     _selectedShadeShader: null,
     _totalAngle: 0,
 
-    ctor: function() {
+    _data: null,
+
+    ctor: function(data) {
         // cc.log("Dev: " + whoAmI);
         this._super();
-        
+        this._fetchObjectData(data);
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -59,7 +61,7 @@ var RoomLayer = cc.Layer.extend({
         SegmentHelper.track(SEGMENT.LEVEL_START, 
             { 
                 room: "room", 
-                object_num: Global.NumberItems
+                object_num: this._data.length
             });
         // cc.audioEngine.playMusic(res.background_mp3, true);
         this.scheduleUpdate();
@@ -68,6 +70,8 @@ var RoomLayer = cc.Layer.extend({
 
         // this.addChild(new WritingTestLayer([{"name":"123","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // this.addChild(new PayWallDialog(), 100);
+        // this._moveToNextScene();
+        // this.completedScene();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -219,16 +223,19 @@ var RoomLayer = cc.Layer.extend({
         var dsInstance = ConfigStore.getInstance();
         // this._numberItems = this.getNumberOfObjects();
 
-        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, Global.NumberItems);
-        while (bedroomObjects.filter(function(obj) {return obj.type == "HEAVY_WEIGHT_ITEM"}).length > BEDROOM_HEAVYWEIGHT_ITEMS_POSITION.length)
-            var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, Global.NumberItems);
-        
+        // var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._data.length);
+        // cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
+        // while (bedroomObjects.filter(function(obj) {return obj.type == "HEAVY_WEIGHT_ITEM"}).length > BEDROOM_HEAVYWEIGHT_ITEMS_POSITION.length)
+        //     var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._data.length);
+        var bedroomObjects = [];
+        this._processObjectData(bedroomObjects);
         cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
+
         var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         var shuffledPositionIndex = 0, heavyObjPosIndex = 0;
 
-        for ( var i = 0; i < Global.NumberItems; i++) {
+        for ( var i = 0; i < this._data.length; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
             else
@@ -275,8 +282,8 @@ var RoomLayer = cc.Layer.extend({
 
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + imageName + ".png"]);
         var shadeObject = new cc.Sprite("objects/" + imageName + ".png");
-        shadeObject.setAnchorPoint(object.anchorPoint);
-        shadeObject.setPosition(object.correctPos);
+        shadeObject.setAnchorPoint(object.anchorX, object.anchorY);
+        shadeObject.setPosition(cc.p(object.x, object.y));
         shadeObject.scale = this._allScale /2;
 
         if (this.hadObjectRequired())
@@ -324,7 +331,7 @@ var RoomLayer = cc.Layer.extend({
 
     checkWonGame: function() {
         // win condition
-        if (this._objectDisableds.length == Global.NumberItems)
+        if (this._objectDisableds.length == this._data.length)
             this.completedScene();
     },
 
@@ -721,9 +728,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._objectDisableds.length / Global.NumberItems;
+        var percent = this._objectDisableds.length / this._data.length;
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, Global.NumberItems);
+        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, this._data.length);
 
         var starEarned = 0;
         var objectCorrected = this._objectDisableds.length;
@@ -742,9 +749,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     countingStars: function() {
-        var starGoal1 = Math.ceil(Global.NumberItems/3);
-        var starGoal2 = Math.ceil(Global.NumberItems/3 * 2);
-        var starGoal3 = Global.NumberItems;
+        var starGoal1 = Math.ceil(this._data.length/3);
+        var starGoal2 = Math.ceil(this._data.length/3 * 2);
+        var starGoal3 = this._data.length;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -821,7 +828,7 @@ var RoomLayer = cc.Layer.extend({
 
     hadObjectRequired: function() {
         var requireObjectsToHideAllShadow = GAME_CONFIG.requireObjectsToHideAllShadow;
-        if (Global.NumberItems >= requireObjectsToHideAllShadow)
+        if (this._data.length >= requireObjectsToHideAllShadow)
             return true;
         else
             return false;
@@ -854,20 +861,51 @@ var RoomLayer = cc.Layer.extend({
         cc.audioEngine.stopMusic();
         // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectNames, "RoomScene");
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data));
+        // var scene;
+        // if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+        //     scene = new window[nextSceneName](this._objectNames, "RoomScene");
+        // else
+        //     scene = new window[nextSceneName]();
+        // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    },
+
+    _fetchObjectData: function(data) {
+        data = JSON.parse(data);
+        cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._data = data.map(function(id) {
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0];
+                else
+                    return id;
+            });
         else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            this._data = [];
+
+        cc.log("data after map: " + this._data);
+    },
+
+    _processObjectData: function(bedroomObjects) {
+        var self = this;
+        this._data.forEach(function(obj) {
+            cc.log("processGameLogic: obj: " + obj.value);
+            for(var i = 0; i < BEDROOM_ITEMS.length; i++) {
+                var item = BEDROOM_ITEMS[i];
+                if (obj.value === item.imageName) {
+                    bedroomObjects.push(item);
+                }
+            }
+        });
     },
 });
 
 var RoomScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(data) {
         this._super();
         this.name = "room";
-        var roomLayer = new RoomLayer();
+        var roomLayer = new RoomLayer(data);
         this.addChild(roomLayer);
     }
 });

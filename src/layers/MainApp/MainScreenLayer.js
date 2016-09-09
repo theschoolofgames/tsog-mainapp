@@ -130,6 +130,22 @@ var MainScreenLayer = cc.Layer.extend({
         lbPlay.y = btnPlay.height/2;
         btnPlay.getRendererNormal().addChild(lbPlay);
 
+        // MAP
+        var btnMap = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnMap.x = this._popupDialog.width/2;
+        btnMap.y = this._popupDialog.height/2 + 200;
+        this._popupDialog.addChild(btnMap);
+        btnMap.addClickEventListener(function() {
+            // cc.log("PLAY");
+            cc.director.runScene(new MapScene());
+        });
+
+        var lbMap = new cc.LabelBMFont("MAP", "yellow-font-export.fnt");
+        lbMap.scale = 0.6;
+        lbMap.x = btnMap.width/2;
+        lbMap.y = btnMap.height/2;
+        btnMap.getRendererNormal().addChild(lbMap);
+
         // IAP TEST BUTTON
         // var btnIAPTest = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         // btnIAPTest.x = this._popupDialog.width/2;

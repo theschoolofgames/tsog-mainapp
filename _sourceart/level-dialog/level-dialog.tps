@@ -6,7 +6,7 @@
         <key>texturePackerVersion</key>
         <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/card-game/card-game.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/level-dialog/level-dialog.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/card-game.plist</filename>
+                <filename>../../res/{v}/level-dialog.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>

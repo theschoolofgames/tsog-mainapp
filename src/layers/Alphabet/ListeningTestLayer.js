@@ -13,19 +13,18 @@ var ListeningTestLayer = TestLayer.extend({
     _objSoundIsPlaying: false,
 
     _tutorial: null,
-    _objectsArray: null,
+    _data: null,
     _blockTouch: false,
 
-    ctor: function(objectsArray, oldSceneName) {
+    ctor: function(data) {
         this._super();
 
-        this._oldSceneName = oldSceneName;
-
-        this._objectsArray = objectsArray;
-        // this._names = objectsArray;
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
+        this._fetchObjectData(data);
+        // this._names = data.map(function(obj) {
+        //     cc.log("obj- > " + obj);
+        //     return obj.toUpperCase();
+        // });
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
@@ -42,6 +41,7 @@ var ListeningTestLayer = TestLayer.extend({
         this._super();
         this._playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+        // this._moveToNextScene();
     },
 
     _playBeginSound: function() {
@@ -175,12 +175,13 @@ var ListeningTestLayer = TestLayer.extend({
 
         for (var i = 0; i < 3; i++) {
             var spritePath
-            if (this._oldSceneName == "RoomScene") {
+            if (this._oldSceneName == "room") {
                 spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             } else {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
             }
 
+            cc.log("sprite path: " + spritePath);
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
 
             var sprite = new cc.Sprite(spritePath);
@@ -238,8 +239,10 @@ var ListeningTestLayer = TestLayer.extend({
         this._nameNode.scale = 1.5;
         this.addChild(this._nameNode);
 
+        cc.log("this._names: " + this._names);
+        cc.log("this._names: " + this._names[this._nameIdx]);
         var objName = this._names[this._nameIdx].toLowerCase();
-        if (this._oldSceneName == "RoomScene")
+        if (this._oldSceneName == "room")
             this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         else if (this._oldSceneName == "ForestScene")
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
@@ -393,13 +396,29 @@ var ListeningTestLayer = TestLayer.extend({
             this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
             this._names[this._nameIdx], 
             (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
-    }
+    },
+
+    _fetchObjectData: function(data) {
+        this._data = data;
+        data = JSON.parse(data);
+        cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._names = data.map(function(id) {
+                if (id)
+                    return id.value;
+            });
+        else
+            this._data = [];
+
+        this.setData(this._data);
+        cc.log("data after map: " + JSON.stringify(this._names));
+    },
 });
 
 var ListeningTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, nextSceneName, oldSceneName) {
+    ctor: function(data, nextSceneName, oldSceneName) {
         this._super();
-        var layer = new ListeningTestLayer(objectsArray, nextSceneName, oldSceneName);
+        var layer = new ListeningTestLayer(data, nextSceneName, oldSceneName);
         this.addChild(layer);
     }
 });

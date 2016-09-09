@@ -50,10 +50,10 @@
   <object id="41" name="5" gid="2" x="781" y="307" width="71" height="63"/>
   <object id="71" name="15" gid="2" x="919.667" y="272.333" width="71" height="63"/>
  </objectgroup>
- <objectgroup name="part4">
+ <objectgroup name="part4" visible="0">
   <object id="42" gid="5" x="0" y="640" width="930" height="640"/>
  </objectgroup>
- <objectgroup name="buttonPart4">
+ <objectgroup name="buttonPart4" visible="0">
   <object id="49" name="2" gid="2" x="139.667" y="335" width="71" height="63"/>
   <object id="50" name="3" gid="2" x="294.333" y="524.333" width="71" height="63"/>
   <object id="51" name="4" gid="2" x="390.333" y="293.667" width="71" height="63"/>

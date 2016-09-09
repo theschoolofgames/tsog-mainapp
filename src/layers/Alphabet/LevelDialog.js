@@ -4,6 +4,7 @@ var LevelDialog = Dialog.extend({
     _layerContent: null,
 
     _data: null,
+    _scenePool: null,
 
     ctor: function(level) {
         this._super();
@@ -12,8 +13,10 @@ var LevelDialog = Dialog.extend({
         this._addLayerContent();
 
         // level = "1-1"; // testing
-        if (level)
+        if (level) {
+            this._level = level;
             this._fetchDataAtLevel(level);
+        }
 
     },
 
@@ -46,6 +49,7 @@ var LevelDialog = Dialog.extend({
     },
 
     _addGamesSelector: function() {
+        this._scenePool = [];
         var itemIdx = 0;
         var rowIdx = 1;
         var totalRow = Math.ceil(Object.keys(this._data).length / 3);
@@ -58,16 +62,29 @@ var LevelDialog = Dialog.extend({
                 var gameName = dt["1"].name;
                 var gameData = dt["1"].data;
 
-                cc.log("itemIdx: " + itemIdx);
-                cc.log("lastSelectorXPos: " + lastSelectorXPos);
+                // cc.log("itemIdx: " + itemIdx);
+                // cc.log("lastSelectorXPos: " + lastSelectorXPos);
                 var gameSelectorImageName = "icon_game_" + gameName + ".png";
-                cc.log("gameSelectorImageName " + gameSelectorImageName);
+                // cc.log("gameSelectorImageName " + gameSelectorImageName);
                 var gameSelector = new ccui.Button(gameSelectorImageName, "", "", ccui.Widget.PLIST_TEXTURE);
                 gameSelector.x = lastSelectorXPos + gameSelector.width/2 + 50 * this._csf;
                 gameSelector.y = (itemIdx < itemInARow) ? (layerContentSizeHeight/2 + gameSelector.height/2) : (layerContentSizeHeight/2 - gameSelector.height/2);
 
+                // set data to selector
+                var gameTag = -1;
+                for (var i = 0; i < GAME_IDS.length; i++) {
+                    if (GAME_IDS[i].indexOf(gameName) > -1) {
+                        gameTag = i;
+                    }
+                }
+
+                gameSelector.setUserData(JSON.stringify(gameData));
+                gameSelector.tag = gameTag;
+                gameSelector.addClickEventListener(this._gameSelectorPressed.bind(this));
+
                 this._layerContent.addChild(gameSelector);
-                
+                this._scenePool[gameTag] = [];
+                this._scenePool[gameTag].push(dt);
                 if (++itemIdx >= itemInARow && rowIdx < totalRow) {
                     rowIdx++;
                     lastSelectorXPos = 0;
@@ -88,7 +105,7 @@ var LevelDialog = Dialog.extend({
             if (!err) {
                 self._data = data;
                 self._addGamesSelector();
-                cc.log("self._data " + JSON.stringify(data));
+                // cc.log("self._data " + JSON.stringify(data));
             } else {
                 cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Map_Data_JSON);
                 cc.loader.loadJson(res.Map_Data_JSON, function(err, data) {
@@ -96,6 +113,15 @@ var LevelDialog = Dialog.extend({
                 });
             }
         });
+    },
+
+    _gameSelectorPressed: function(b) {
+        var data = b.getUserData();
+        var gameName = GAME_IDS[b.tag];
+        // cc.log("data _gameSelectorPressed : " + b.getUserData());
+        // process redirecting
+        SceneFlowController.getInstance().cacheData(this._level, gameName, this._scenePool[b.tag]);
+        SceneFlowController.getInstance().moveToNextScene(gameName, data); 
     },
 
 });

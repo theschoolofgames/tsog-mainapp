@@ -6,10 +6,15 @@ var TestLayer = cc.LayerColor.extend({
 
     _adiDog: null,
     _isTestScene: false,
+    _data: null,
 
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
         Utils.showVersionLabel(this);
+    },
+
+    setData: function(data) {
+        this._data = data;
     },
 
     onEnter: function() {
@@ -40,15 +45,22 @@ var TestLayer = cc.LayerColor.extend({
             cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
         if (TSOG_DEBUG) {
             this._objectsArray = [{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}];
-            this._oldSceneName = "RoomScene";
+            this._oldSceneName = "room";
         }
 
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+
+        cc.log("nextSceneName: " + nextSceneName); 
+        if (nextSceneName)
+            SceneFlowController.getInstance().moveToNextScene(nextSceneName, this._data);
         else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+            cc.director.runScene(new MapScene());
+        // var scene;
+        // if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+        //     scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
+        // else
+        //     scene = new window[nextSceneName]();
+        // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     }
 });

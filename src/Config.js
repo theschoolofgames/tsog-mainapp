@@ -344,7 +344,7 @@ var ConfigStore = cc.Class.extend({
 
         data = JSON.parse(data);
 
-        cc.log(JSON.stringify(data));
+        cc.log("data populateData "+JSON.stringify(data));
 
         this.objectIds = data.objectIds.slice() || [];
         this.bringbackObj = data.bringbackObj.slice() || [[], []];

@@ -169,6 +169,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>icon_game_shoppingbasket.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{121,165}</string>
+                <key>spriteSourceSize</key>
+                <string>{121,165}</string>
+                <key>textureRect</key>
+                <string>{{538,100},{121,165}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>icon_game_storytime.png</key>
             <dict>
                 <key>aliases</key>
@@ -269,7 +284,7 @@
             <key>size</key>
             <string>{1152,453}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fdd837a3a712e77a374c1e96877de8c6:ddd80258d08e1fbf0360d8b8bf8fda50:d59aa5d04c7cc5909012dd7a24ef3720$</string>
+            <string>$TexturePacker:SmartUpdate:a2eec4f1b148ae5cdef35caf7165e0b7:3fe916104947b0a113169edddf6be6a1:d59aa5d04c7cc5909012dd7a24ef3720$</string>
             <key>textureFileName</key>
             <string>level-dialog.png</string>
         </dict>

@@ -173,6 +173,7 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        cc.log("_fetchObjectData: " + data)
         if (data)
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);

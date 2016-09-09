@@ -14,10 +14,11 @@ var SpeakingTestLayer = TestLayer.extend({
     _oldSceneName: null,
     _wrongAnswerTime: 0,
 
-    ctor: function(objectsArray, oldSceneName) {
+    ctor: function(data) {
         this._super();
         this.font = "hud-font.fnt";
-        this._oldSceneName = oldSceneName;
+        this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
+        this._fetchObjectData(data);
         // this._currentScene = currentScene;
         // cc.log("currentScene: %s", currentScene); 
 
@@ -28,9 +29,9 @@ var SpeakingTestLayer = TestLayer.extend({
         }, this);
 
         
-        this._names = objectsArray.map(function(obj) {
-            return obj.name.toUpperCase();
-        });
+        // this._names = data.map(function(obj) {
+        //     return obj.name.toUpperCase();
+        // });
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
@@ -178,9 +179,9 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.log("_wrongAnswerTime -> " + this._wrongAnswerTime);
 
         ConfigStore.getInstance().setBringBackObj(
-            this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
+            this._oldSceneName == "room" ? BEDROOM_ID : FOREST_ID, 
             this.currentObjectName, 
-            (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
+            (this._oldSceneName == "room" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
 
         this._timeUp();
         this.runAction(
@@ -345,12 +346,12 @@ var SpeakingTestLayer = TestLayer.extend({
         }
         var objectName = "";
         this._soundName = "";
-        if (this._oldSceneName == "RoomScene") {
+        if (this._oldSceneName == "room") {
             objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         }
-        else if (this._oldSceneName == "ForestScene") {
+        else if (this._oldSceneName == "forest") {
             objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
@@ -377,6 +378,21 @@ var SpeakingTestLayer = TestLayer.extend({
             this.currentObjectShowUpId +=1;
             this._wrongAnswerTime = 0;
         }
+    },
+
+    _fetchObjectData: function(data) {
+        this._data = data;
+        data = JSON.parse(data);
+        cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._names = data.map(function(id) {
+                if (id)
+                    return id.value;
+            });
+        else
+            this._data = [];    
+        this.setData(this._data);
+        cc.log("data after map: " + JSON.stringify(this._names));
     },
 
     // _setLabelString: function() {
@@ -407,10 +423,10 @@ var SpeakingTestLayer = TestLayer.extend({
 SpeakingTestLayer.shouldSkipTest = null;
 
 var SpeakingTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, oldSceneName){
+    ctor: function(data){
         this._super();
 
-        var layer = new SpeakingTestLayer(objectsArray, oldSceneName);
+        var layer = new SpeakingTestLayer(data);
         this.addChild(layer);
     }
 });
