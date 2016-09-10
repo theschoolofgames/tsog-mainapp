@@ -154,7 +154,7 @@ var GoFigureTestLayer = TestLayer.extend({
             brush.visit();
         }
         this._tmpRender.end();
-        this._tmpRender.getSprite().color = cc.color("#333333");
+        this._tmpRender.getSprite().color = this._currentBrushColor;
     },
 
     onTouchEnded: function(touch, event) {
@@ -167,7 +167,14 @@ var GoFigureTestLayer = TestLayer.extend({
             this._pathIdx++;
 
             this._tmpRender.getSprite().runAction(cc.sequence(
-                cc.tintTo(0.3, this._currentBrushColor),
+                cc.spawn(
+                    cc.tintTo(0.2, cc.color.WHITE),
+                    cc.fadeOut(0.2)
+                ),
+                cc.spawn(
+                    cc.fadeIn(0.2),
+                    cc.tintTo(0.2, this._currentBrushColor)
+                ),
                 cc.callFunc(function() {
                     self._blockTouch = false;
 
