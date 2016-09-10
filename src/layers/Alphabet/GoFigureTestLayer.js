@@ -245,6 +245,7 @@ var GoFigureTestLayer = TestLayer.extend({
         
         return true;
     },
+
     updateProgressBar: function() {
         var percent = this._touchCounting / this._objectsArray.length;
         this._hudLayer.setProgressBarPercentage(percent);
@@ -265,6 +266,7 @@ var GoFigureTestLayer = TestLayer.extend({
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
+
     countingStars: function() {
         var starGoal1 = Math.ceil(this._objectsArray.length/3);
         var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
@@ -532,12 +534,14 @@ var GoFigureTestLayer = TestLayer.extend({
         this._baseRender.y = cc.winSize.height/2;
         this._baseRender.getSprite().color = cc.color.GREEN;
         this._baseRender.getSprite().opacity = 128;
+        this._baseRender.getSprite().setOpacityModifyRGB(false);
         this.addChild(this._baseRender, 2);
 
         this._tmpRender = new cc.RenderTexture(RENDER_TEXTURE_WIDTH*2, RENDER_TEXTURE_HEIGHT);
         // this._tmpRender.setPosition(this._baseRender.getPosition());
         this._tmpRender.getSprite().opacity = 128;
         this._tmpRender.getSprite().color = cc.color("#333333");
+        this._tmpRender.getSprite().setOpacityModifyRGB(false);
         this.addChild(this._tmpRender, 3);        
     },
 
@@ -570,7 +574,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _correctAction: function(correctedCharacter) {
         var self = this;
-        // jsb.AudioEngine.play2d(res.Succeed_sfx);
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
         cc.log("correct: " + correctedCharacter);
 
         jsb.AudioEngine.play2d("res/sounds/alphabets/" + correctedCharacter + ".mp3");
@@ -644,7 +648,7 @@ var GoFigureTestLayer = TestLayer.extend({
                 color = cc.color.RED;
                 break;
             case 1:
-                color = cc.color.BLUE;
+                color = cc.color("#00aaff"); // Blue
                 break;
             case 2:
                 color = cc.color.GREEN;
