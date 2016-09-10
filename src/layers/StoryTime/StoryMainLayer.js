@@ -17,7 +17,8 @@ var StoryMainLayer = cc.LayerColor.extend({
 
         this._addButtons();
 
-        this._currentStory = STORY_RESOURCES[0];
+        var randomInt = Utils.getRandomInt(0,2);
+        this._currentStory = STORY_RESOURCES[randomInt];
 
         // this._playStory();
         cc.director.getRunningScene().schedule(() => {
