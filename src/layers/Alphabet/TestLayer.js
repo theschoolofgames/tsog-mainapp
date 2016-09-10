@@ -11,10 +11,31 @@ var TestLayer = cc.LayerColor.extend({
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
         Utils.showVersionLabel(this);
+        this.addQuickTestButton();
     },
 
     setData: function(data) {
         this._data = data;
+    },
+
+    addQuickTestButton: function() {
+        if (!TSOG_DEBUG)
+            return;
+        var qtBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        qtBtn.x = cc.winSize.width - qtBtn.width;
+        qtBtn.y = cc.winSize.height - qtBtn.height/2;
+        this.addChild(qtBtn);
+        qtBtn.addClickEventListener(this.callQuickTest.bind(this));
+
+        var lbQuickTest = new cc.LabelBMFont("QUICK TEST", "yellow-font-export.fnt");
+        lbQuickTest.scale = 0.3;
+        lbQuickTest.x = qtBtn.width/2;
+        lbQuickTest.y = qtBtn.height/2;
+        qtBtn.getRendererNormal().addChild(lbQuickTest);
+    },
+
+    callQuickTest:function() {
+        this._moveToNextScene();
     },
 
     onEnter: function() {

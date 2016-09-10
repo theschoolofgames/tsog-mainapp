@@ -109,10 +109,13 @@ var CardGameLayer = TestLayer.extend({
             var imgPath = objType + "s/" + objImageName + ".png";
             var rdmObjPos = this._objectCoordinates[i];
             var obj;
+            cc.log("imagepath" + imgPath);
             if (objType == "number")
                 obj = new cc.LabelBMFont(objImageName, res.CustomFont_fnt);
-            else
+            else if (objType == "object" || objType == "animal")
                 obj = new cc.Sprite(imgPath);
+            else
+                continue;
             obj.tag = i;
             cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > OBJECT_DEFAULT_WIDTH) ? OBJECT_DEFAULT_WIDTH/obj.width : OBJECT_DEFAULT_HEIGHT/obj.height;

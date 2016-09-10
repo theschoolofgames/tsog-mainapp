@@ -19,8 +19,6 @@ var SpeakingTestLayer = TestLayer.extend({
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-        // this._currentScene = currentScene;
-        // cc.log("currentScene: %s", currentScene); 
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -28,10 +26,6 @@ var SpeakingTestLayer = TestLayer.extend({
                 onTouchBegan: function(touch, event) {return true;}
         }, this);
 
-        
-        // this._names = data.map(function(obj) {
-        //     return obj.name.toUpperCase();
-        // });
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
@@ -267,6 +261,13 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _playObjectSound: function(callback) {
+        if (!jsb.fileUtils.isFileExist(this._soundName)) {
+            // callback();
+            cc.log("no matching file -> currentObjectShowUpId ++");
+            this.currentObjectShowUpId++;
+            this._showNextObject();
+            return;
+        }
         var audioId = jsb.AudioEngine.play2d(this._soundName);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             callback && callback(audioId);
@@ -344,19 +345,20 @@ var SpeakingTestLayer = TestLayer.extend({
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
         }
-        var objectName = "";
+        var objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
         this._soundName = "";
-        if (this._oldSceneName == "room") {
-            objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
+        var objectNameToCheck = "res/SD/" + objectName + ".png";
+        cc.log(objectNameToCheck);
+        if (jsb.fileUtils.isFileExist(objectNameToCheck)) {
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
-        }
-        else if (this._oldSceneName == "forest") {
+        } else {
             objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         }
-        
+        cc.log("objectName: " + objectName);
+        // cc.log("_soundName: " + this._soundName);
         this.currentObjectName = this._names[this.currentObjectShowUpId];
         var self = this;
         this._playObjectSound(function(audioId) {
@@ -387,37 +389,13 @@ var SpeakingTestLayer = TestLayer.extend({
         if (data)
             this._names = data.map(function(id) {
                 if (id)
-                    return id.value;
+                    return id.value.toUpperCase();
             });
         else
             this._data = [];    
         this.setData(this._data);
         cc.log("data after map: " + JSON.stringify(this._names));
     },
-
-    // _setLabelString: function() {
-    //     if (!this._label)
-    //         return;
-    //     this._remainingTime -= 1;
-    //     var self = this;    
-    //     if (this._remainingTime == 0) {
-    //         this._label.setString("GO!");
-    //         this._label.runAction(
-    //             cc.sequence(
-    //                 cc.delayTime(1),
-    //                 cc.callFunc(function() {
-    //                     self._label.visible = false;
-    //                     return;
-    //                 })
-    //             )
-    //         )
-    //     }
-
-    //     if (this._remainingTime > 0) {
-    //         this._label.setString(this._remainingTime);
-    //     }
-
-    // }
 });
 
 SpeakingTestLayer.shouldSkipTest = null;

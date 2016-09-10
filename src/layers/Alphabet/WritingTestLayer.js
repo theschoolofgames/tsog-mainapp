@@ -27,36 +27,35 @@ var WritingTestLayer = TestLayer.extend({
 
     _nextSceneName: null,
     _oldSceneName: null,
-    _objectsArray: null,
+    _data: null,
 
     _currentChar: "",
 
-    ctor: function(objectsArray, oldSceneName, isTestScene) {
+    ctor: function(data, oldSceneName, isTestScene) {
         this._super();
 
         this._setIsTestScene(isTestScene);
         // var obj = GameObject.getInstance().findById("hat");
         // cc.log("obj -> " + JSON.stringify(obj));
-        // cc.log("objectsArray: " + JSON.stringify(objectsArray));
+        // cc.log("data: " + JSON.stringify(data));
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("WritingTestLayer ctor");
-        this._objectsArray = objectsArray;
-        // this._names = objectsArray;
+        this._fetchObjectData(data);
 
-        this._names = objectsArray.map(function(obj) {
-            if (obj !== null && (typeof obj === 'object'))
-                return obj.name.toUpperCase();
-            else {
-                // cc.log(obj);
-                var o = GameObject.getInstance().findById(obj);
-                return o[0].value.toUpperCase();
-            }
-        });
-        cc.log(JSON.stringify(this._names));
-        this._oldSceneName = oldSceneName;
+        // this._names = data.map(function(obj) {
+        //     if (obj !== null && (typeof obj === 'object'))
+        //         return obj.name.toUpperCase();
+        //     else {
+        //         // cc.log(obj);
+        //         var o = GameObject.getInstance().findById(obj);
+        //         return o[0].value.toUpperCase();
+        //     }
+        // });
+        // cc.log(JSON.stringify(this._names));
+        // this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
 
-        this._writingWords = this._names;
+        
         // this._writingWords = this._names.map(function(obj) {
         //     cc.log(obj);
         //     return WRITING_TEST_CONFIG[obj.toLowerCase()].toUpperCase();
@@ -255,7 +254,7 @@ var WritingTestLayer = TestLayer.extend({
         return true;
     },
     updateProgressBar: function() {
-        var percent = this._touchCounting / this._objectsArray.length;
+        var percent = this._touchCounting / this._data.length;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
@@ -270,14 +269,14 @@ var WritingTestLayer = TestLayer.extend({
             starEarned = 3;
         cc.log("starEarned" + starEarned);
 
-        this._hudLayer.setStarEarned(this._objectsArray.length);
+        this._hudLayer.setStarEarned(this._data.length);
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
     countingStars: function() {
-        var starGoal1 = Math.ceil(this._objectsArray.length/3);
-        var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
-        var starGoal3 = this._objectsArray.length;
+        var starGoal1 = Math.ceil(this._data.length/3);
+        var starGoal2 = Math.ceil(this._data.length/3 * 2);
+        var starGoal3 = this._data.length;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -302,6 +301,8 @@ var WritingTestLayer = TestLayer.extend({
     fetchCharacterConfig: function() {
         this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
         this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._currentChar];
+        cc.log ("_currentChar: " + this._currentChar);
+        cc.log ("this._currentCharConfig: " + this._currentCharConfig);
     },
 
     _finishAndMoveToNextChar: function() {
@@ -665,7 +666,7 @@ var WritingTestLayer = TestLayer.extend({
 
     _correctAction: function(correctedCharacter) {
         var self = this;
-        // jsb.AudioEngine.play2d(res.Succeed_sfx);
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
         cc.log("correct: " + correctedCharacter);
 
         jsb.AudioEngine.play2d("res/sounds/alphabets/" + correctedCharacter + ".mp3");
@@ -707,12 +708,30 @@ var WritingTestLayer = TestLayer.extend({
                 correct: correct
             });
     },
+
+    _fetchObjectData: function(data) {
+        this._data = data;
+        data = JSON.parse(data);
+        // cc.log(typeof data);
+        // cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._names = data.map(function(id) {
+                if (id)
+                    return id.value.toUpperCase();
+            });
+        else
+            this._data = [];
+
+        this.setData(this._data);
+        this._writingWords = this._names;
+        cc.log("data after map: " + JSON.stringify(this._names));
+    },
 });
 
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, oldSceneName, isTestScene){
+    ctor: function(data, oldSceneName, isTestScene){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -767,8 +786,8 @@ var WritingTestScene = cc.Scene.extend({
                 WritingTestLayer.CHAR_CONFIG[group.getGroupName()] = config;
             });
         }
-
-        var layer = new WritingTestLayer(objectsArray, oldSceneName, isTestScene);
+        cc.log("WritingTestLayer.CHAR_CONFIG: " + JSON.stringify(WritingTestLayer.CHAR_CONFIG));
+        var layer = new WritingTestLayer(data, oldSceneName, isTestScene);
         this.addChild(layer);
 
     }

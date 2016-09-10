@@ -41,7 +41,6 @@ var ListeningTestLayer = TestLayer.extend({
         this._super();
         this._playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        // this._moveToNextScene();
     },
 
     _playBeginSound: function() {
@@ -242,9 +241,8 @@ var ListeningTestLayer = TestLayer.extend({
         cc.log("this._names: " + this._names);
         cc.log("this._names: " + this._names[this._nameIdx]);
         var objName = this._names[this._nameIdx].toLowerCase();
-        if (this._oldSceneName == "room")
-            this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
-        else if (this._oldSceneName == "ForestScene")
+        this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
 
         this.runAction(cc.sequence(
@@ -259,6 +257,14 @@ var ListeningTestLayer = TestLayer.extend({
 
         if (self._objSoundIsPlaying)
             return;
+
+        // if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+        //     // callback();
+        //     cc.log("no matching file -> currentObjectShowUpId ++");
+        //     this.currentObjectShowUpId++;
+        //     this._showNextObject();
+        //     return;
+        // }
 
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
@@ -401,7 +407,8 @@ var ListeningTestLayer = TestLayer.extend({
     _fetchObjectData: function(data) {
         this._data = data;
         data = JSON.parse(data);
-        cc.log("_fetchObjectData data: " + data);
+        // cc.log(typeof data);
+        // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
                 if (id)
@@ -413,6 +420,8 @@ var ListeningTestLayer = TestLayer.extend({
         this.setData(this._data);
         cc.log("data after map: " + JSON.stringify(this._names));
     },
+
+    
 });
 
 var ListeningTestScene = cc.Scene.extend({

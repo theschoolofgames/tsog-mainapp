@@ -195,6 +195,10 @@
         {
             "imageName": "squirrel",
             "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "dog",
+            "type": "STAND_ITEM"
         }
     ],
     "shark" :[

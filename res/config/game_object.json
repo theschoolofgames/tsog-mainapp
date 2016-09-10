@@ -410,6 +410,11 @@
         "value": "dolphin"
     },
     {
+        "id": "dog",
+        "type": "animal",
+        "value": "dog"
+    },
+    {
         "id": "kitten",
         "type": "animal",
         "value": "kitten"

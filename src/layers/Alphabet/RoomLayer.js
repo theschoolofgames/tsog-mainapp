@@ -89,6 +89,7 @@ var RoomLayer = cc.Layer.extend({
                 )
             )
         )
+        this.completedScene();
     },
 
     onExit: function() {
@@ -859,15 +860,9 @@ var RoomLayer = cc.Layer.extend({
 
         var self = this;
         cc.audioEngine.stopMusic();
-        // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
         SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data));
-        // var scene;
-        // if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-        //     scene = new window[nextSceneName](this._objectNames, "RoomScene");
-        // else
-        //     scene = new window[nextSceneName]();
-        // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
 
     _fetchObjectData: function(data) {

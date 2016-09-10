@@ -37,7 +37,7 @@ var ForestLayer = cc.Layer.extend({
         cc.log("isTestScene: " + isTestScene);
         this._isTestScene = isTestScene;
         this.tag = 1;
-        this._getDataValue(data);
+        this._fetchObjectData(data);
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
@@ -74,6 +74,7 @@ var ForestLayer = cc.Layer.extend({
         this._super();
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+        this.completedScene();
     },
 
     playBeginSound: function(){
@@ -162,8 +163,8 @@ var ForestLayer = cc.Layer.extend({
                 var obj = this._data[i];
                 for (var j = 0; j < allAnimals.length; j++) {
                     var a = allAnimals[j];
-                    if (obj === a.imageName) {
-                        // cc.log("obj -> " + obj);
+                    if (obj.value === a.imageName) {
+                        cc.log("obj value -> " + obj.value);
                         // cc.log("a.imageName -> " + a.imageName);
                         cc.log("a -> " + JSON.stringify(a));
                         animals.push(a);
@@ -188,7 +189,8 @@ var ForestLayer = cc.Layer.extend({
 
         // cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-        var numbItemsShow = this._data.length || Global.NumberItems;
+        var numbItemsShow = this._data.length;
+        cc.log("numbItemsShow: " + numbItemsShow);
         for ( var i = 0; i < numbItemsShow; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
@@ -958,28 +960,24 @@ var ForestLayer = cc.Layer.extend({
         }
 
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._animalNames, "ForestScene");
-        else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data));
     },
 
-    _getDataValue: function(data) {
-        cc.log("_getDataValue");
-        if (data)
+    _fetchObjectData: function(data) {
+        cc.log("_fetchObjectData");
+        if (data) {
+            data = JSON.parse(data);
             this._data = data.map(function(id) {
                 cc.log("id -> " + id);
                 var o = GameObject.getInstance().findById(id);
-                if (o[0] && (o[0].type == "animal" || o[0].type == "number"))
-                    return o[0].value;
+                if (o[0])
+                    return o[0];
                 else
                     return id;
             });
-        else
+        } else
             this._data = [];
-        cc.log("_getDataValue - this._data: " + JSON.stringify(this._data));
+        cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
     },
 
     _getRandomAnimalType: function(length) {
