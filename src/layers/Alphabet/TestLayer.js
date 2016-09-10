@@ -28,7 +28,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     _addHudLayer: function(){
-        var hudLayer = new HudLayer(this, true);
+        var hudLayer = new HudLayer(this, false);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -38,6 +38,9 @@ var TestLayer = cc.LayerColor.extend({
 
     _setIsTestScene: function(isTestScene) {
         this._isTestScene = isTestScene;
+    },
+    completedScene: function(){
+        this._moveToNextScene()
     },
 
     _moveToNextScene: function() {
