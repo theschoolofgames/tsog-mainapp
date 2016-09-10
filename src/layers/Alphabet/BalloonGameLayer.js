@@ -17,7 +17,7 @@ var BalloonGameLayer = cc.LayerColor.extend({
 
     ctor: function(objectIdArray) {
         this._super(cc.color.WHITE);
-        this.init(this._objectIdArray);
+        this.init(objectIdArray);
 
         cc.SPRITE_DEBUG_DRAW =  1;
     },

@@ -559,6 +559,26 @@ var GAME_IDS = [
 var STORY_RESOURCES = [
     {
         "subtitles": [
+            "res/subtitles/story01-01.ass",
+            "res/subtitles/story01-02.ass",
+            "res/subtitles/story01-03.ass",
+            "res/subtitles/story01-04.ass",
+        ],
+        "arts": [
+            "stories/Storytime1-1.jpg",
+            "stories/Storytime1-2.jpg",
+            "stories/Storytime1-3.jpg",
+            "stories/Storytime1-4.jpg",
+        ],
+        "sounds": [
+            "res/sounds/stories/story01-01.mp3",
+            "res/sounds/stories/story01-02.mp3",
+            "res/sounds/stories/story01-03.mp3",
+            "res/sounds/stories/story01-04.mp3"
+        ]
+    },
+    {
+        "subtitles": [
             "res/subtitles/story02-01.ass",
             "res/subtitles/story02-02.ass",
             "res/subtitles/story02-03.ass"
