@@ -2,7 +2,7 @@ var kTagSelfCardAnimation = 1;
 var kTagSlotIdleAnimation = 2;
 // var MAX_OBJECT_ALLOWED = 5;
 var MAX_OBJECT_ALLOWED = 50;
-
+var MAX_SLOT_ALLOWED = 5;
 var SLOT_WIDTH = 195;
 var SLOT_OFFSET_X = 100;
 
@@ -48,7 +48,7 @@ var CardGameLayer = TestLayer.extend({
         this.timePlayed = timePlayed || 0;
         this._activateObjects = [];
         this._deactivateObjects = [];
-        this.amountObjectCanShow = objArr.length;
+        this.amountObjectCanShow = MAX_SLOT_ALLOWED >= objArr.length ? objArr.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(objArr);
         this._setIsTestScene(isTestScene);
         this._loadTmx();
@@ -228,6 +228,7 @@ var CardGameLayer = TestLayer.extend({
             this._amountObjectShow = this._flipCardResult;
             this._flipCardResult -=  this._amountObjectShow;
         };
+
     },
 
     _fetchObjectData: function(data) {
