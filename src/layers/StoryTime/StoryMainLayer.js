@@ -12,18 +12,29 @@ var StoryMainLayer = cc.LayerColor.extend({
     _currentStorySceneIndex: 0,
     _backgroundSprite: null,
 
-	ctor:function(){
+	ctor:function(data){
         this._super(cc.color.WHITE);
 
         this._addButtons();
+        switch(data[0]) {
+            case "lion_and_mouse":
+                this._currentStory = STORY_RESOURCES[0];
+                break;
+            case "goose_with_golden_egg":
+                this._currentStory = STORY_RESOURCES[1];
+                break;
+            default:
+                this._currentStory = STORY_RESOURCES[0];
+                break;
+        }
 
-        var randomInt = Utils.getRandomInt(0,2);
-        this._currentStory = STORY_RESOURCES[randomInt];
-
-        // this._playStory();
-        cc.director.getRunningScene().schedule(() => {
-            this._playStory();
-        }, 1, 3);
+        // var randomInt = Utils.getRandomInt(0,2);
+        // this._currentStory = STORY_RESOURCES[randomInt];
+        this.scheduleOnce(this._playStory, 3);
+        this._playStory();
+        // cc.director.getRunningScene().schedule(() => {
+        //     this._playStory();
+        // }, 1, 3);
     },
 
     _playStory: function(){
@@ -319,15 +330,17 @@ var StoryMainLayer = cc.LayerColor.extend({
     },
 
     backToHome:function (sender) {
+        // this.unscheduleUpdate();
+        // cc.director.replaceScene(new cc.TransitionFade(1, new MapScene(), cc.color(255, 255, 255, 255)));
         cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
     },
 });
 
 var StoryMainScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(data) {
         this._super();
         this.name = "story";
-        var storyMainLayer = new StoryMainLayer();
+        var storyMainLayer = new StoryMainLayer(data);
         this.addChild(storyMainLayer);
     }
 });
