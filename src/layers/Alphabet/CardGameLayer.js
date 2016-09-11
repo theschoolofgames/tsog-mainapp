@@ -138,6 +138,8 @@ var CardGameLayer = TestLayer.extend({
             var rdmObjPos = this._objectCoordinates[i];
             var obj;
             cc.log("imagepath" + imgPath);
+            cc.log("objType" + objType);
+            cc.log("objImageName" + objImageName);
             if (objType == "number")
                 obj = new cc.LabelBMFont(objImageName, res.CustomFont_fnt);
             else if (objType == "object" || objType == "animal")
@@ -235,16 +237,27 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        // if (!this._isTestScene)
+        //     data = JSON.parse(data);
         if (data)
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
-                if (o[0])
+                cc.log("o" + JSON.stringify(o));
+                if (o[0]) {
+                    cc.log("o[0]: " + JSON.stringify(o[0]));
+                    cc.log("return o[0]");
                     return o[0];
-                else
+                }
+                else {
+                    cc.log("return Id");
                     return id;
+                }
             });
         else
             this._data = [];
+
+        this.setData(data);
+        cc.log("data after map: " + JSON.stringify(data));
     },
 
     _loadTmx: function() {

@@ -472,15 +472,14 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _addObjImage: function(name) {
-        var spritePath;
+        var spritePath = "objects/" + name.toLowerCase() + ".png";
 
-        if (this._oldSceneName == "RoomScene") {
-            spritePath = "objects/" + name.toLowerCase() + ".png";
-        } else {
+        if (!jsb.fileUtils.isFileExist("res/" + spritePath)) {
             spritePath = "animals/" + name.toLowerCase() + ".png";
+            if (!jsb.fileUtils.isFileExist("res/" + spritePath))
+                spritePath = "#" + name.toLowerCase() + ".png";
         }
-        if (TSOG_DEBUG)
-            spritePath = "objects/" + "hat" + ".png";
+
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;
@@ -505,11 +504,12 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _playObjSound: function(name, cb) {
-        var soundPath;
-        if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
-        } else {
+        var soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
+
+        if (!jsb.fileUtils.isFileExist("res/" + soundPath)) {
             soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
+            if (!jsb.fileUtils.isFileExist("res/" + soundPath))
+                soundPath = "sounds/alphabets/" + name.toLowerCase() + ".mp3";
         }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
@@ -716,15 +716,17 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
-                if (id)
+                if (id.value)
                     return id.value.toUpperCase();
+                else
+                    return id;
             });
         else
             this._data = [];
 
         this.setData(this._data);
         this._writingWords = this._names;
-        cc.log("data after map: " + JSON.stringify(this._names));
+        // cc.log("data after map: " + JSON.stringify(this._names));
     },
 });
 
@@ -786,7 +788,7 @@ var WritingTestScene = cc.Scene.extend({
                 WritingTestLayer.CHAR_CONFIG[group.getGroupName()] = config;
             });
         }
-        cc.log("WritingTestLayer.CHAR_CONFIG: " + JSON.stringify(WritingTestLayer.CHAR_CONFIG));
+        // cc.log("WritingTestLayer.CHAR_CONFIG: " + JSON.stringify(WritingTestLayer.CHAR_CONFIG));
         var layer = new WritingTestLayer(data, oldSceneName, isTestScene);
         this.addChild(layer);
 

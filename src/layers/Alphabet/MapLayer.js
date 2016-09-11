@@ -14,6 +14,21 @@ var MapLayer = cc.Layer.extend({
         this._loadMapData();
         // this._loadMapBg();
         // this._addStepButton();
+        this.addSettingButton();
+    },
+
+    addSettingButton: function() {
+        var settingBtn = new ccui.Button();
+        settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        settingBtn.x = settingBtn.width - 10;
+        settingBtn.y = cc.winSize.height - settingBtn.height/2 - 10;
+        this.addChild(settingBtn);
+
+        var self = this;
+        settingBtn.addClickEventListener(function() {
+            self.addChild(new SettingDialog(), 999);
+        })
+        this._settingBtn = settingBtn;
     },
 
     _loadMapBg: function() {

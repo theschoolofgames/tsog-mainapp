@@ -354,8 +354,16 @@ var SpeakingTestLayer = TestLayer.extend({
             this._objectName = objectName;
         } else {
             objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
-            this._soundName = "res/sounds/" + objectName + ".mp3";
-            this._objectName = objectName;
+            if (jsb.fileUtils.isFileExist("res/SD/" + objectName + ".png")) {
+                this._soundName = "res/sounds/" + objectName + ".mp3";
+                this._objectName = objectName;
+            } else {
+                objectName = this._names[this.currentObjectShowUpId];
+                this._soundName = "res/sounds/alphabets/" + this._names[this.currentObjectShowUpId] + ".mp3";
+                this._objectName = objectName;
+                if (!jsb.fileUtils.isFileExist(this._soundName))
+                    this._soundName = "res/sounds/alphabets/A.mp3";
+            }
         }
         cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
@@ -389,12 +397,12 @@ var SpeakingTestLayer = TestLayer.extend({
         if (data)
             this._names = data.map(function(id) {
                 if (id)
-                    return id.value.toUpperCase();
+                    return id.value || id;
             });
         else
             this._data = [];    
         this.setData(this._data);
-        cc.log("data after map: " + JSON.stringify(this._names));
+        // cc.log("data after map: " + JSON.stringify(this._names));
     },
 });
 

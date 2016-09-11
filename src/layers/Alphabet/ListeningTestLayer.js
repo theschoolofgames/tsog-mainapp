@@ -173,11 +173,11 @@ var ListeningTestLayer = TestLayer.extend({
         shownObjNames = shuffle(shownObjNames);
 
         for (var i = 0; i < 3; i++) {
-            var spritePath
-            if (this._oldSceneName == "room") {
-                spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
-            } else {
+            var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
+            if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
+                if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath))
+                    spritePath = "#" + shownObjNames[i].toLowerCase() + ".png"
             }
 
             cc.log("sprite path: " + spritePath);
@@ -407,18 +407,17 @@ var ListeningTestLayer = TestLayer.extend({
     _fetchObjectData: function(data) {
         this._data = data;
         data = JSON.parse(data);
-        // cc.log(typeof data);
         // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
                 if (id)
-                    return id.value;
+                    return id.value || id;
             });
         else
             this._data = [];
 
         this.setData(this._data);
-        cc.log("data after map: " + JSON.stringify(this._names));
+        // cc.log("data after map: " + JSON.stringify(this._names));
     },
 
     

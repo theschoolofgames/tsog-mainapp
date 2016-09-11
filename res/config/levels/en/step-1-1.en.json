@@ -114,9 +114,9 @@
     "1": {
       "name": "balloon",
       "data": [
-        "red",
-        "green",
-        "blue"
+        "color_red",
+        "color_green",
+        "color_blue"
       ]
     },
     "2": {
@@ -136,9 +136,9 @@
         "hat",
         "apple",
         "kite",
-        "red",
-        "blue",
-        "green"
+        "color_red",
+        "color_blue",
+        "color_green"
       ]
     }
   }

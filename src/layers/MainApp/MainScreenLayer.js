@@ -114,26 +114,26 @@ var MainScreenLayer = cc.Layer.extend({
         btnRegister.getRendererNormal().addChild(lbRegister);
 
         // PLAY
-        var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        btnPlay.x = this._popupDialog.width/2;
-        btnPlay.y = this._popupDialog.height/2 + 100;
-        this._popupDialog.addChild(btnPlay);
-        btnPlay.addClickEventListener(function() {
-            // cc.log("PLAY");
-            cc.audioEngine.stopMusic();
-            self._moveToMainScene();
-        });
+        // var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        // btnPlay.x = this._popupDialog.width/2;
+        // btnPlay.y = this._popupDialog.height/2 + 100;
+        // this._popupDialog.addChild(btnPlay);
+        // btnPlay.addClickEventListener(function() {
+        //     // cc.log("PLAY");
+        //     cc.audioEngine.stopMusic();
+        //     self._moveToMainScene();
+        // });
 
-        var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
-        lbPlay.scale = 0.6;
-        lbPlay.x = btnPlay.width/2;
-        lbPlay.y = btnPlay.height/2;
-        btnPlay.getRendererNormal().addChild(lbPlay);
+        // var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
+        // lbPlay.scale = 0.6;
+        // lbPlay.x = btnPlay.width/2;
+        // lbPlay.y = btnPlay.height/2;
+        // btnPlay.getRendererNormal().addChild(lbPlay);
 
         // MAP
         var btnMap = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnMap.x = this._popupDialog.width/2;
-        btnMap.y = this._popupDialog.height/2 + 200;
+        btnMap.y = this._popupDialog.height/2 + 100;
         this._popupDialog.addChild(btnMap);
         btnMap.addClickEventListener(function() {
             // cc.log("PLAY");

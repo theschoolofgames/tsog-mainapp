@@ -89,7 +89,6 @@ var RoomLayer = cc.Layer.extend({
                 )
             )
         )
-        this.completedScene();
     },
 
     onExit: function() {
@@ -866,7 +865,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     _fetchObjectData: function(data) {
-        data = JSON.parse(data);
+        // data = JSON.parse(data);
         cc.log("_fetchObjectData data: " + data);
         if (data)
             this._data = data.map(function(id) {
@@ -879,7 +878,7 @@ var RoomLayer = cc.Layer.extend({
         else
             this._data = [];
 
-        cc.log("data after map: " + this._data);
+        // cc.log("data after map: " + this._data);
     },
 
     _processObjectData: function(bedroomObjects) {

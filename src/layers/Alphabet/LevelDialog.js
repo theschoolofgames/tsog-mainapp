@@ -4,7 +4,7 @@ var LevelDialog = Dialog.extend({
     _layerContent: null,
 
     _data: null,
-    _scenePool: null,
+    _scenePool: [],
 
     ctor: function(level) {
         this._super();
@@ -13,6 +13,7 @@ var LevelDialog = Dialog.extend({
         this._addLayerContent();
 
         // level = "1-1"; // testing
+        this._level = null;
         if (level) {
             this._level = level;
             this._fetchDataAtLevel(level);
@@ -78,13 +79,14 @@ var LevelDialog = Dialog.extend({
                     }
                 }
 
-                gameSelector.setUserData(JSON.stringify(gameData));
+                gameSelector.setUserData(dt);
                 gameSelector.tag = gameTag;
                 gameSelector.addClickEventListener(this._gameSelectorPressed.bind(this));
 
                 this._layerContent.addChild(gameSelector);
-                this._scenePool[gameTag] = [];
-                this._scenePool[gameTag].push(dt);
+                // cc.log("gameTag: " + gameTag);
+                // cc.log("dt: " + JSON.stringify(dt));
+                // this._scenePool.push(dt);
                 if (++itemIdx >= itemInARow && rowIdx < totalRow) {
                     rowIdx++;
                     lastSelectorXPos = 0;
@@ -118,10 +120,14 @@ var LevelDialog = Dialog.extend({
     _gameSelectorPressed: function(b) {
         var data = b.getUserData();
         var gameName = GAME_IDS[b.tag];
+        var nextSceneData = data["1"].data; // TODO default is 1st game, need save to Local storage current game Index
+        // cc.log("b.tag: " + b.tag);
+        // cc.log("this._scenePool: " + JSON.stringify(this._scenePool));
         // cc.log("data _gameSelectorPressed : " + b.getUserData());
+        cc.log("nextSceneData  : " + nextSceneData);
         // process redirecting
-        SceneFlowController.getInstance().cacheData(this._level, gameName, this._scenePool[b.tag]);
-        SceneFlowController.getInstance().moveToNextScene(gameName, data); 
+        SceneFlowController.getInstance().cacheData(this._level, gameName, data);
+        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData); 
     },
 
 });

@@ -1,4 +1,4 @@
-var BalloonGameLayer = cc.LayerColor.extend({
+var BalloonGameLayer = TestLayer.extend({
 
     _balloonsLimit: 15,
     _balloons: [],
@@ -29,12 +29,11 @@ var BalloonGameLayer = cc.LayerColor.extend({
                 onTouchBegan: this.onTouchBegan.bind(this),
         }, this);
 
-        this._filterObjectsByType(objectIdArray);
-
+        // this._filterObjectsByType(objectIdArray);
+        this._fetchObjectData(objectIdArray);
         this._tempArray = shuffle(this._objectsArray).slice(0);
 
         this._currentObject = this._tempArray.pop();
-
         this._spawnBalloonPool();
 
         this.addHud();
@@ -50,6 +49,8 @@ var BalloonGameLayer = cc.LayerColor.extend({
         if (!this._gameObjectJson || this._gameObjectJson.length == 0)
             return;
 
+        // objectIdArray = JSON.parse(objectIdArray);
+        cc.log("objectIdArray: " + (objectIdArray));
         for (var i = 0; i < objectIdArray.length; i++){            
             let itemObject = this._gameObjectJson.find((gameObject) => {
                 return gameObject.id === objectIdArray[i];
@@ -295,6 +296,23 @@ var BalloonGameLayer = cc.LayerColor.extend({
 
             this._balloons.push(balloonSprite);
         }
+    },
+
+    _fetchObjectData: function(data) {
+        this._data = data;
+        // data = JSON.parse(data);
+        // cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._objectsArray = data.map(function(id) {
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0];
+            });
+        else
+            this._data = [];
+
+        cc.log("data after map: " + JSON.stringify(this._objectsArray));
+        this.setData(this._data);
     },
 });
 

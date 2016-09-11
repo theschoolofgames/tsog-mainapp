@@ -74,7 +74,7 @@ var ForestLayer = cc.Layer.extend({
         this._super();
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        this.completedScene();
+        // this.completedScene();
     },
 
     playBeginSound: function(){
@@ -966,7 +966,7 @@ var ForestLayer = cc.Layer.extend({
     _fetchObjectData: function(data) {
         cc.log("_fetchObjectData");
         if (data) {
-            data = JSON.parse(data);
+            // data = JSON.parse(data);
             this._data = data.map(function(id) {
                 cc.log("id -> " + id);
                 var o = GameObject.getInstance().findById(id);
@@ -977,7 +977,7 @@ var ForestLayer = cc.Layer.extend({
             });
         } else
             this._data = [];
-        cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
+        // cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
     },
 
     _getRandomAnimalType: function(length) {
