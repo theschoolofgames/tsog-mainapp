@@ -3,7 +3,7 @@ var Z_SHADE = 3;
 var Z_OBJECT_SELECTED = 10;
 var Z_SHADE_SELECTED = 9;
 
-var ShadowGameLayer = cc.LayerColor.extend({
+var ShadowGameLayer = TestLayer.extend({
     _kvInstance: null,
     _hudLayer: null,
     _maskLayer: null,
@@ -453,8 +453,8 @@ var ShadowGameLayer = cc.LayerColor.extend({
                 cc.callFunc(function() {
                     if (warningLabel)
                         warningLabel.removeFromParent();
-                    // self._moveToNextScene();
-                    self._backToHome();
+                    self._moveToNextScene();
+                    // self._backToHome();
                 })
             )
         )
@@ -936,25 +936,25 @@ var ShadowGameLayer = cc.LayerColor.extend({
         cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
     },
 
-    _moveToNextScene: function() {
-        for (var i = 0; i < this._objectDisableds.length; i++) {
-            this._objectDisableds[i].removeFromParent();
-            this._shadeObjects[i].removeFromParent();
-        }
+    // _moveToNextScene: function() {
+    //     for (var i = 0; i < this._objectDisableds.length; i++) {
+    //         this._objectDisableds[i].removeFromParent();
+    //         this._shadeObjects[i].removeFromParent();
+    //     }
 
-        this._hudLayer.removeFromParent();
+    //     this._hudLayer.removeFromParent();
 
-        var self = this;
-        cc.audioEngine.stopMusic();
-        // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
-        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        var scene;
-        if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-            scene = new window[nextSceneName](this._objectNames, "RoomScene");
-        else
-            scene = new window[nextSceneName]();
-        cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
-    },
+    //     var self = this;
+    //     cc.audioEngine.stopMusic();
+    //     // var speakingTestScene = new SpeakingTestScene(this._objectNames, "ForestScene", "RoomScene");
+    //     var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+    //     var scene;
+    //     if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
+    //         scene = new window[nextSceneName](this._objectNames, "RoomScene");
+    //     else
+    //         scene = new window[nextSceneName]();
+    //     cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    // },
 });
 
 var ShadowGameScene = cc.Scene.extend({

@@ -5,6 +5,11 @@
     "value": "hat"
   },
   {
+    "id": "rat",
+    "type": "object",
+    "value": "rat"
+  },
+  {
     "id": "jar",
     "type": "object",
     "value": "jar"

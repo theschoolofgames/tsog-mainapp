@@ -10,6 +10,15 @@
             "z": 14
         },
         {
+            "imageName": "rat",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 900.25,
+            "y": 300.25,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z":15
+        },
+        {
             "imageName": "jar",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 916.25,
