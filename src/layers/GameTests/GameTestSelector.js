@@ -79,7 +79,7 @@ var GameTestSelectorLayer = cc.Layer.extend({
 
     toObjectSelectorScene: function (id) {
         switch (id){
-            case "story":
+            case "storytime":
                 cc.director.replaceScene(new cc.TransitionFade(1, new StoryMainScene(), cc.color(255, 255, 255, 255)));
                 break;
             default: 
