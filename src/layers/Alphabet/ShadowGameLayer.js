@@ -95,8 +95,8 @@ var ShadowGameLayer = TestLayer.extend({
                 return gameObject.id === objectIdArray[i];
             });
 
-            if (itemObject.type === "object" || itemObject.type === "animal" || itemObject.type === "number")
-                tempArray.push({"id": itemObject.id, "type": itemObject.type});
+            if (itemObject.type !== "color" || itemObject.type === "shape")
+                tempArray.push({"id": itemObject.id, "type": itemObject.type, "value": itemObject.value});
         }
 
         this._objectsArray = tempArray;
@@ -245,8 +245,13 @@ var ShadowGameLayer = TestLayer.extend({
 
             for (var j = 0; j < 5; j++){
                 let pointY = gridCellSize + gridCellSize / 2 + gridCellSize * j;
+
+                let offsetX = 0;
+                if (j % 2 === 0)
+                    offsetX = gridCellSize / 2;
+
                 let objPosition = {
-                    x: pointX,
+                    x: pointX + offsetX,
                     y: pointY,
                     anchorX: 0.5,
                     anchorY: 0.5,
@@ -267,7 +272,7 @@ var ShadowGameLayer = TestLayer.extend({
         for ( var i = 0; i < objectArray.length; i++) {
             this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
             
-            this.addObjectShade(coordinateObjectArray[i], objectArray[i], i);
+            this.addObjectShade(coordinateShadeArray[i], objectArray[i], i);
         }
         this.runSparklesEffect();
 
@@ -277,17 +282,23 @@ var ShadowGameLayer = TestLayer.extend({
     addObjectButton: function(objPosition, gameObject, index) {
         // console.log("Object position: " + JSON.stringify(objPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
-        var imageDir = "";
+        let objImageName = "";
+        let imageName = gameObject.value;
+        let imageDir = "";
         if (gameObject.type === "object"){
             imageDir = "objects/";
         }
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
         }
+        else if (gameObject.type === "number" || gameObject.type === "word"){
+            imageDir = "#";
+            imageName = imageName.toUpperCase();
+        }
         else 
             return;
 
-        var objImageName = imageDir + gameObject.id + ".png";
+        objImageName = imageDir + imageName + ".png";
         var object = new cc.Sprite(objImageName);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -299,10 +310,10 @@ var ShadowGameLayer = TestLayer.extend({
         object.userData = { scaleFactor: object.scale, imageName: objImageName}
         this.addChild(object, Z_OBJECT);
 
-        var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
-        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        // var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
+        // var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
         // shaderState.setUniformInt("useDistrort", 0);
-        object.shaderProgram = shader;
+        // object.shaderProgram = shader;
 
         this._objectNames.push({name: gameObject.id, tag: object.tag});
 
@@ -320,17 +331,25 @@ var ShadowGameLayer = TestLayer.extend({
         console.log("ObjectShade position: " + JSON.stringify(objectPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
 
-        var imageDir = "";
+        let shadeImageName = "";
+        let imageName = gameObject.value;
+        let imageDir = "";
         if (gameObject.type === "object"){
             imageDir = "objects/";
         }
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
         }
+        else if (gameObject.type === "number" || gameObject.type === "word"){
+            imageDir = "#";
+            imageName = imageName.toUpperCase();
+        }
         else 
             return;
 
-        var shadeObject = new cc.Sprite(imageDir + gameObject.id + ".png");
+        shadeImageName = imageDir + imageName + ".png";
+
+        var shadeObject = new cc.Sprite(shadeImageName);
         shadeObject.setAnchorPoint(objectPosition.anchorX, objectPosition.anchorY);
         shadeObject.x = objectPosition.x + cc.winSize.width / 2;
         shadeObject.y = objectPosition.y;
@@ -720,6 +739,9 @@ var ShadowGameLayer = TestLayer.extend({
         var object = this._objectTouching;
         var str = objectName[0].toUpperCase();
         var soundConfig = this.getSoundConfigByName(objectName);
+        var soundLength = 3;
+        if (soundConfig)
+            soundLength = soundConfig.length;
         // cc.log("soundConfig: " + soundConfig.length);
         var soundSuffix = isDragging ? "-1" : "";
         // Show cutscene
@@ -768,6 +790,10 @@ var ShadowGameLayer = TestLayer.extend({
         else if (touchedObjectType == "animal"){
             soundDir = "res/sounds/animals/";
         }
+        else if (touchedObjectType == "word"){
+            soundDir = "res/sounds/alphabets/";
+            objectName = objectName.toUpperCase();
+        }
 
         this._effectAudioID = jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
 
@@ -777,7 +803,7 @@ var ShadowGameLayer = TestLayer.extend({
             // self.createWarnLabel(str);
             self.createCompletedObject(str);
             self.runAction(cc.sequence(
-                cc.delayTime(Math.max(soundConfig.length, 3)),
+                cc.delayTime(Math.max(soundLength, 3)),
                 cc.callFunc(function() {
                     if (GAME_CONFIG.needTouchToHideCutScene) {
                         blockFlag = false;

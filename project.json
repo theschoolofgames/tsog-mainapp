@@ -72,6 +72,7 @@
         "src/layers/Alphabet/MapLayer.js",
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/LevelDialog.js",
+        "src/layers/Alphabet/MatchGameLayer.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         
