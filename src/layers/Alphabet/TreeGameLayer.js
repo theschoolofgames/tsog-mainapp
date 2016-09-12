@@ -1,7 +1,7 @@
 var TREE_GAME_ADI_ZORDER = 5;
 var TREE_GAME_TREE_ZORDER = 3;
 var TREE_GAME_GROUND_ZORDER = 2;
-var TreeGameLayer = cc.Layer.extend({
+var TreeGameLayer = TestLayer.extend({
     _data: null,
 
     _ground: null,
@@ -46,7 +46,7 @@ var TreeGameLayer = cc.Layer.extend({
         this._treeGroup = [];
         this._numberGroup = [];
         if (this._data[0])
-            this._numberOfTrees = Math.max(parseInt(this._data[0].value), 1);
+            this._numberOfTrees = Math.ceil(this._data.length/5);
 
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
@@ -170,7 +170,8 @@ var TreeGameLayer = cc.Layer.extend({
                 self.runAction(cc.sequence(
                     cc.delayTime(2),
                     cc.callFunc(function() {
-                        cc.director.runScene(new GameTestScene());
+                        // cc.director.runScene(new GameTestScene());
+                        self._moveToNextScene();
                     })
                 ));
             }
@@ -195,26 +196,28 @@ var TreeGameLayer = cc.Layer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data - > " + JSON.stringify(data)); 
+        // cc.log("data - > " + JSON.stringify(data)); 
         if (data) {
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
+                // cc.log("id : " + id);
+                // cc.log("o : " + JSON.stringify(o[0]));
                 if (o[0])
                     return o[0];
             });
+            this.setData(JSON.stringify(this._data));
 
-            var temp = 5;
-            for (var i = 0; i < this._data.length; i++) {
-                cc.log("this._data -> i : " + this._data[i]);
-                var obj = this._data[i];
-                var value = parseInt(obj.value);
-                if (value && value <= temp) {
-                    temp = parseInt(obj.value);
-                } else{
-                    this._data.splice(i, 1);
-                }
-            }
-            // cc.log("this._data - > " + JSON.stringify(this._data)); 
+            // var temp = 5;
+            // for (var i = 0; i < this._data.length; i++) {
+            //     // cc.log("this._data -> i : " + JSON.stringify(this._data[i]));
+            //     var obj = this._data[i];
+            //     var value = parseInt(obj.value);
+            //     if (value && value <= temp) {
+            //         temp = parseInt(obj.value);
+            //     } else{
+            //         this._data.splice(i, 1);
+            //     }
+            // }
 
         } else
             this._data = [{
@@ -222,6 +225,7 @@ var TreeGameLayer = cc.Layer.extend({
                 "type": "number",
                 "value": "1"
             }];
+        // cc.log("data - > " + JSON.stringify(this._data))
     },
 
     updateProgressBar: function() {
