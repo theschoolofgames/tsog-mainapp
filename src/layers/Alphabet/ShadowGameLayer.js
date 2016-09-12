@@ -95,11 +95,12 @@ var ShadowGameLayer = cc.LayerColor.extend({
                 return gameObject.id === objectIdArray[i];
             });
 
-            if (itemObject.type === "object" || itemObject.type === "animal")
+            if (itemObject.type === "object" || itemObject.type === "animal" || itemObject.type === "number")
                 tempArray.push({"id": itemObject.id, "type": itemObject.type});
         }
 
         this._objectsArray = tempArray;
+        cc.log("this._objectsArray: " + JSON.stringify(this._objectsArray));
     },
 
     _parseGameObjectJSON: function() {

@@ -173,11 +173,19 @@ var ListeningTestLayer = TestLayer.extend({
         shownObjNames = shuffle(shownObjNames);
 
         for (var i = 0; i < 3; i++) {
+            var numberHasTwoDigit = false;
             var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
-                if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath))
+                if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
+                    // handle case number has two digit
+                    var number = parseInt(shownObjNames[i].toLowerCase());
+                    if (number > 9) {
+                        numberHasTwoDigit = true;
+                        
+                    }
                     spritePath = "#" + shownObjNames[i].toLowerCase() + ".png"
+                }
             }
 
             cc.log("sprite path: " + spritePath);

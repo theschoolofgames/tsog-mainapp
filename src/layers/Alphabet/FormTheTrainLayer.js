@@ -21,11 +21,12 @@ var FormTheTrainLayer = TestLayer.extend({
 
     _didObjectAllowedToMove: false,
     _blockFlag: false,
+    _data: null,
 
     ctor: function(objArr, isTestScene) {
         this._super();
         cc.log("FormTheTrainLayer");
-
+        this._fetchObjectData(objArr);
         this._setIsTestScene(isTestScene);
         this._addTrainSlots();
         this._addTrainObjects();
@@ -188,10 +189,7 @@ var FormTheTrainLayer = TestLayer.extend({
         self._blockFlag = false; // unlock 
         if (self._activateSlots.length == 0) {
             self._blockFlag = true;
-            if (TSOG_DEBUG)
-                cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-            else
-                self._moveToNextScene();
+            self._moveToNextScene();
             // self._addDebugButton();
         }
     },
@@ -322,6 +320,25 @@ var FormTheTrainLayer = TestLayer.extend({
             cc.director.runScene(new FormTheTrainScene());
         });
         this.addChild(b);
+    },
+
+    _fetchObjectData: function(data) {
+        // data = JSON.parse(data);
+        this._data = [];
+        cc.log("_fetchObjectData data: " + data);
+        if (data)
+            this._data = data.map(function(id) {
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0];
+                else
+                    return id;
+            });
+        else
+            this._data = [];
+
+        this.setData(JSON.stringify(this._data));
+        // cc.log("data after map: " + this._data);
     },
 });
 
