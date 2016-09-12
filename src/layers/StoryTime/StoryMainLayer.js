@@ -28,18 +28,19 @@ var StoryMainLayer = cc.LayerColor.extend({
                 break;
         }
 
-        // var randomInt = Utils.getRandomInt(0,2);
-        // this._currentStory = STORY_RESOURCES[randomInt];
-        this.scheduleOnce(this._playStory, 3);
-        this._playStory();
-        // cc.director.getRunningScene().schedule(() => {
-        //     this._playStory();
-        // }, 1, 3);
+        this.scheduleOnce(this._playStory, 1);
     },
 
     _playStory: function(){
         this.currentCountTime = 0;
-        // this.subLabelArray = [];
+
+        // @subLabelArray sometime not empty after call _stopStory(), so has to check when playing story
+        for (var i = 0; i < this.subLabelArray.length; i++){
+            this.removeChild(this.subLabelArray[i]);
+        }
+        
+        this.subLabelArray = [];
+
         this._loadSubtitle(this._currentStory.subtitles[this._currentStorySceneIndex]);
         this._updateBackground(this._currentStory.arts[this._currentStorySceneIndex]);
         this._playSound(this._currentStory.sounds[this._currentStorySceneIndex]);
@@ -48,6 +49,7 @@ var StoryMainLayer = cc.LayerColor.extend({
 
     _stopStory: function(){
         this.unscheduleUpdate();
+        this._stopSound();
         this.currentCountTime = 0;
         this.subtitles = [];
         this.currentSubtitle = null;
@@ -57,7 +59,11 @@ var StoryMainLayer = cc.LayerColor.extend({
 
             // Remove Highlight
             this.subLabelArray[i].removeChild(this.subLabelArray[i].getChildByTag(1001));
+
+            this.removeChild(this.subLabelArray[i]);
         }
+
+        this.subLabelArray = [];
     },
 
     update: function(dt) {
@@ -282,41 +288,11 @@ var StoryMainLayer = cc.LayerColor.extend({
     _addButtons: function() {
     	var self = this;
 
-        // // STOP BUTTON
-        // var btnStop = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        // btnStop.x = btnStop.width / 2;
-        // btnStop.y = cc.winSize.height - btnStop.height*2/3 - 100;
-        // this.addChild(btnStop);
-        // btnStop.addClickEventListener(function() {
-        //     self._stopStory();
-        // });
-
-        // var lbStop = new cc.LabelBMFont("STOP", "yellow-font-export.fnt");
-        // lbStop.scale = 0.6;
-        // lbStop.x = btnStop.width/2;
-        // lbStop.y = btnStop.height/2;
-        // btnStop.getRendererNormal().addChild(lbStop);
-
-        // // PLAY
-        // var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        // btnPlay.x = btnPlay.width / 2;
-        // btnPlay.y = cc.winSize.height - btnPlay.height*2/3
-        // this.addChild(btnPlay);
-        // btnPlay.addClickEventListener(function() {
-        //     self._playStory();
-        // });
-
-        // var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
-        // lbPlay.scale = 0.6;
-        // lbPlay.x = btnPlay.width/2;
-        // lbPlay.y = btnPlay.height/2;
-        // btnPlay.getRendererNormal().addChild(lbPlay);
-
         // BACK
         var btnBack = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnBack.x = btnBack.width / 2;
         btnBack.y = cc.winSize.height - btnBack.height*2/3
-        btnBack.setZOrder(1000);
+        btnBack.setLocalZOrder(1000);
         this.addChild(btnBack);
         btnBack.addClickEventListener(function() {
             self.backToHome();
@@ -330,9 +306,12 @@ var StoryMainLayer = cc.LayerColor.extend({
     },
 
     backToHome:function (sender) {
-        // this.unscheduleUpdate();
-        // cc.director.replaceScene(new cc.TransitionFade(1, new MapScene(), cc.color(255, 255, 255, 255)));
-        cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
+        this._stopStory();
+        cc.director.replaceScene(new cc.TransitionFade(1, new MapScene(), cc.color(255, 255, 255, 255)));
+    },
+
+    toType: function(obj) {
+      return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
     },
 });
 
