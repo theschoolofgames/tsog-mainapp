@@ -2,6 +2,7 @@ var MAX_OBJECT_ALLOWED =  5;
 var OBJECTS_ARRAY = ["fly", "fox", "pig", "puppy", "rat", "rabbit", "snail" ,"snake", "deer", "dog", "hat", "cat"];
 var OBJECT_DEFAULT_WIDTH = 50;
 var OBJECT_DEFAULT_HEIGHT = 50;
+var kTagSlotAction = 1;
 
 var MatchGameLayer = TestLayer.extend({
     amountObjectCanShow: null,
@@ -13,6 +14,11 @@ var MatchGameLayer = TestLayer.extend({
     _bloclFlag : false,
     _timeWrong: 0,
     _index: 0,
+
+    _oldZOrder: -1,
+    _defaultSlotScale: 1,
+    _slotHighlighting: false,
+    _objectCompleted: 0,
 
     ctor: function(array) {
         this._super();
@@ -67,7 +73,9 @@ var MatchGameLayer = TestLayer.extend({
         var bBox = self._objects[self._index].getBoundingBox();
         if (cc.rectContainsPoint(bBox, touchLoc)) {
             // cc.log("touch _activateObjects with tag: " + obj.tag);
+            self._oldZOrder = obj.getLocalZOrder();
             self._currentObjectMoving = obj;
+            self._currentObjectMoving.setLocalZOrder(999);
             self._currentObjectOriginPos = obj.getPosition();
             cc.log(obj.tag);
             return true;
@@ -79,14 +87,27 @@ var MatchGameLayer = TestLayer.extend({
     onTouchMoved: function (touch, event){
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
-        if(self._currentObjectMoving)
+        if(self._currentObjectMoving) {
             self._currentObjectMoving.setPosition(touchLoc);
+
+            self._objectsSlot.forEach(function(obj) {
+                if (self._currentObjectMoving.tag == obj.tag)
+                    self._highlightSlot(obj);
+            });
+        }
     },
 
     onTouchEnded: function(touch, event){
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
+        if (!self._currentObjectMoving)
+            return;
+
+        self._currentObjectMoving.setLocalZOrder(self._oldZOrder);
+        self._oldZOrder = -1;
         self._objectsSlot.forEach(function(obj){
+            obj.stopAllActions();
+            obj.scale = self._currentObjScale;
             if(self._currentObjectMoving){
                 var objectPos = obj.getPosition();
                 var distance = cc.pDistance(touchLoc, objectPos);
@@ -110,12 +131,13 @@ var MatchGameLayer = TestLayer.extend({
     runAnimation: function(obj){
         this._currentObjScale = obj.scale;
         obj.runAction(
-            cc.sequence(
-                cc.scaleTo(0.3, 0.7),
-                cc.scaleTo(0.2, 1.05),
-                cc.scaleTo(0.3, 0.7),
-                cc.scaleTo(0.2, 1.05),
-                cc.scaleTo(0.2, 1)
+            cc.repeatForever(
+                cc.sequence(
+                    cc.scaleTo(0.3, this._currentObjScale + 0.1),
+                    cc.scaleTo(0.2, this._currentObjScale),
+                    cc.scaleTo(0.3, this._currentObjScale + 0.1),
+                    cc.scaleTo(0.2, this._currentObjScale)
+                )
             )
         );
     },
@@ -183,6 +205,7 @@ var MatchGameLayer = TestLayer.extend({
         if(this._currentObjectMoving.tag == this.objectMatching.tag) {
             var tag = this.objectMatching.tag;
             this._currentObjectMoving.setPosition(this.objectMatching.x - 60, this.objectMatching.y);
+            this._currentObjectMoving.stopAllActions();
             this._objects.forEach(function(obj){
                 if(obj.tag == tag){
                     var index = self._objects.indexOf(obj);
@@ -197,6 +220,8 @@ var MatchGameLayer = TestLayer.extend({
             });
             cc.log("setPosition");
             self.updateProgressBar();
+            this._objectCompleted++;
+            this._checkCompletedScene();
         }
         else {
             this._timeWrong +=1;
@@ -209,9 +234,11 @@ var MatchGameLayer = TestLayer.extend({
             jsb.AudioEngine.play2d(res.Failed_sfx, false);
             this._currentObjectMoving.setPosition(this._currentObjectOriginPos);
         };
+
         this._currentObjectMoving = null;
         this._currentObjectOriginPos = null;
         this.objectMatching = null;
+        this._slotHighlighting = false;
     },
 
     createLeftObjects:function(){
@@ -314,7 +341,39 @@ var MatchGameLayer = TestLayer.extend({
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
-    }
+    },
+
+    _highlightSlot: function(obj) {
+        if (this._slotHighlighting)
+            return;
+        this._slotHighlighting = true;
+        this._defaultSlotScale = obj.scale;
+        var action = cc.repeatForever(
+            cc.sequence(
+                cc.scaleTo(0.25, this._defaultSlotScale+0.1),
+                cc.scaleTo(0.25, this._defaultSlotScale),
+                cc.scaleTo(0.25, this._defaultSlotScale+0.1),
+                cc.scaleTo(0.25, this._defaultSlotScale)
+            )
+        );
+        action.tag = kTagSlotAction;
+        obj.runAction(action);
+    },
+
+    _checkCompletedScene: function() {
+        cc.log("this._objectCompleted: " + this._objectCompleted);
+        if (this._objectCompleted >= Math.floor(OBJECTS_ARRAY.length/2))
+            this._completedScene();
+    },
+
+    _completedScene: function() {
+        this.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function() {
+                cc.director.replaceScene(new GameTestScene());
+            })
+        ));
+    },
 });
 MatchGameLayer._testData = null;
 var MatchGameScene = cc.Scene.extend({

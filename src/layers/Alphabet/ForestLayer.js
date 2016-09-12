@@ -170,11 +170,11 @@ var ForestLayer = cc.Layer.extend({
                         animals.push(a);
                         break;
                     }
-                    else if (!isNaN(obj)) {
-                        // cc.log("obj -> " + obj);
+                    else if (obj.id.indexOf("number") > -1) {
+                        cc.log("obj -> " + JSON.stringify(obj));
                         cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
                         animals.push({
-                            "imageName": obj,
+                            "imageName": obj.value,
                             "type": rdmAnimalType[0]
                         });
                         rdmAnimalType.splice(0, 1);
@@ -977,7 +977,7 @@ var ForestLayer = cc.Layer.extend({
             });
         } else
             this._data = [];
-        // cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
+        cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
     },
 
     _getRandomAnimalType: function(length) {

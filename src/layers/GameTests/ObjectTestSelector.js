@@ -274,6 +274,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "balloon":
                 cc.director.runScene(new BalloonGameScene(checkedItems));   
                 break;
+            case "matching":
+                cc.director.runScene(new MatchGameScene(checkedItems));   
+                break;
             default:
                 break;
         }

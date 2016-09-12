@@ -8,10 +8,15 @@ var TestLayer = cc.LayerColor.extend({
     _isTestScene: false,
     data: null,
 
-    ctor: function() {
+    _removeHud: false,
+
+    ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
         this._names = [];
         this.data = null;
+
+        this._removeHud = removeHud;
+
         Utils.showVersionLabel(this);
         this.addQuickTestButton();
     },
@@ -26,7 +31,7 @@ var TestLayer = cc.LayerColor.extend({
         var qtBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         qtBtn.x = cc.winSize.width - qtBtn.width;
         qtBtn.y = cc.winSize.height - qtBtn.height/2;
-        this.addChild(qtBtn);
+        this.addChild(qtBtn, 9999);
         qtBtn.addClickEventListener(this.callQuickTest.bind(this));
 
         var lbQuickTest = new cc.LabelBMFont("QUICK TEST", "yellow-font-export.fnt");
@@ -37,11 +42,16 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     callQuickTest:function() {
+        cc.audioEngine.stopMusic();
         this._moveToNextScene();
     },
 
     onEnter: function() {
         this._super();
+
+        if (this._removeHud)
+            return;
+        cc.log("this._hudNeeded: " + this._hudNeeded);
         this._addHudLayer();
     }, 
 
@@ -51,6 +61,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     _addHudLayer: function(){
+        cc.log("_addHudLayer");
         var hudLayer = new HudLayer(this, false);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;

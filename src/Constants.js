@@ -553,7 +553,8 @@ var GAME_IDS = [
     "train",
     "tree",
     "balloon",
-    "storytime"
+    "storytime",
+    "matching"
 ];
 
 var STORY_RESOURCES = [

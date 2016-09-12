@@ -137,7 +137,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new BalloonGameScene(data));
                 break;
             case "storytime":
-                cc.director.runScene(new StoryMainScene(data));
+                cc.director.runScene(new StoryMainScene(data[0].data, data[0].storyName));
                 break;
             default:
                 break;

@@ -1,4 +1,4 @@
-var StoryMainLayer = cc.LayerColor.extend({
+var StoryMainLayer = TestLayer.extend({
 	subLabelArray: [],
 	currentSubtitleArray: [],
 	subtitles: [],
@@ -13,11 +13,12 @@ var StoryMainLayer = cc.LayerColor.extend({
     _backgroundSprite: null,
     _canPlay: false,
 
-	ctor:function(data){
-        this._super(cc.color.WHITE);
+	ctor:function(data, option){
+        this._super(true);
 
         this._addButtons();
-        switch(data[0]) {
+        this._fetchObjectData(data);
+        switch(option) {
             case "lion_and_mouse":
                 this._currentStory = STORY_RESOURCES[0];
                 break;
@@ -145,6 +146,7 @@ var StoryMainLayer = cc.LayerColor.extend({
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
+                    // self._moveToNextScene();
                     self.backToHome();
                 })
             )
@@ -338,6 +340,21 @@ var StoryMainLayer = cc.LayerColor.extend({
 
     toType: function(obj) {
       return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+    },
+
+    _fetchObjectData: function(data) {
+        cc.log("data before map: " + data);
+        var dataNextScene = [];
+        if (data)
+            dataNextScene = data.map(function(id) {
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0];
+                else
+                    return id;
+            });
+        this.setData(JSON.stringify(dataNextScene));
+        cc.log("data after map: " + JSON.stringify(dataNextScene));
     },
 });
 
