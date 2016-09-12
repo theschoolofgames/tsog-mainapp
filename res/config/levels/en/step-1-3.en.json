@@ -43,61 +43,39 @@
     "1": {
       "name": "tree",
       "data": [
-        "5"
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5"
       ]
     },
     "2": {
       "name": "listening",
-      "data": [
-        "5"
-      ]
+      "data": []
     },
     "3": {
       "name": "writing",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-      ]
+      "data": []
     },
     "4": {
       "name": "writing",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-      ]
+      "data": []
     },
     "5": {
       "name": "writing",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-      ]
+      "data": []
     },
     "6": {
-      "name": "writing",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5"
-      ]
+      "name": "speaking",
+      "data": []
     }
   },
   "4": {
     "1": {
       "name": "gofigure",
       "data": [
-        "line", "curve-line", "semi-circle"
+        "shape_straight_line", "shape_curved_line", "shape_semi_circle"
       ]
     }
   },
@@ -105,35 +83,21 @@
     "1": {
       "name": "shadow",
       "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6"
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6"
       ]
     },
     "2": {
       "name": "listening",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6"
-      ]
+      "data": []
     },
     "3": {
       "name": "speaking",
-      "data": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6"
-      ]
+      "data": []
     }
   }
 }

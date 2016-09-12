@@ -99,11 +99,11 @@
     },
     "2": {
       "name": "listening",
-      "data": [["lion", "horse", "bee"],["mouse", "ant", "dog"],["tree", "hat", "key"]]
+      "data": ["lion", "horse", "bee","mouse", "ant", "dog","tree", "hat", "key"]
     },
     "3": {
       "name": "speaking",
-      "data": [["lion", "horse", "bee"],["mouse", "ant", "dog"],["tree", "hat", "key"]]
+      "data": ["lion", "mouse", "tree"]
     }
   }
 }

@@ -282,7 +282,7 @@
     {
         "id": "bird",
         "type": "animal",
-        "value": ""
+        "value": "bird"
     },
     {
         "id": "deer",

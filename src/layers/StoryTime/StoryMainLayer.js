@@ -31,7 +31,7 @@ var StoryMainLayer = cc.LayerColor.extend({
         // var randomInt = Utils.getRandomInt(0,2);
         // this._currentStory = STORY_RESOURCES[randomInt];
         this.scheduleOnce(this._playStory, 3);
-        this._playStory();
+        // this._playStory();
         // cc.director.getRunningScene().schedule(() => {
         //     this._playStory();
         // }, 1, 3);

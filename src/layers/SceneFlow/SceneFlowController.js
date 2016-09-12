@@ -35,7 +35,7 @@ var SceneFlowController = cc.Class.extend({
         for (var i = 0; i < scenePoolKeys.length; i++) {
             var sceneData = scenePool[scenePoolKeys[i]];
             // cc.log("scenePoolKeys.length : " + scenePoolKeys.length);
-            // cc.log("scene name: " + sceneData.name);
+            cc.log("scene name: " + sceneData.name);
             if (sceneData.name == this._currentLoopSceneName){
                 // cc.log("this._currentLoopSceneName: " + this._currentLoopSceneName);
                 if (scenePool[scenePoolKeys[i+1]]) {
@@ -124,7 +124,7 @@ var SceneFlowController = cc.Class.extend({
             case "gofigure":
                 cc.director.runScene(new GoFigureTestScene(data));
                 break;
-            case "cardgame":
+            case "card":
                 cc.director.runScene(new CardGameScene(data));
                 break;
             case "train":

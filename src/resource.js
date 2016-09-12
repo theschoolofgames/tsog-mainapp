@@ -39,6 +39,8 @@ var res = {
     PurpleFont_fnt: "purple-font-export.fnt",
     GreenFont_fnt: "green-font-export.fnt",
     CustomFont_fnt: "res/font/custom_font.fnt",
+    MapFont_fnt: "res/font/font_map.fnt",
+    MapFont_png: "res/font/font_map.png",
     // Sound
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",

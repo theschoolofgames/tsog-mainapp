@@ -49,7 +49,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._brushColorButtons = [];
 
         this._names = objectsArray.map(function(obj) {
-                // cc.log(obj);
+            cc.log(obj);
             var o = GameObject.getInstance().findById(obj);
             return o[0].value;
         });

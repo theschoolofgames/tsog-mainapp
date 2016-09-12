@@ -13,7 +13,7 @@ var TestLayer = cc.LayerColor.extend({
         this._names = [];
         this.data = null;
         Utils.showVersionLabel(this);
-        // this.addQuickTestButton();
+        this.addQuickTestButton();
     },
 
     setData: function(data) {

@@ -254,7 +254,9 @@ var WritingTestLayer = TestLayer.extend({
         return true;
     },
     updateProgressBar: function() {
-        var percent = this._touchCounting / this._data.length;
+        cc.log("updateProgressBar");
+        var percent = this._touchCounting / this._names.length;
+        cc.log("percent: " + percent);
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
@@ -269,14 +271,14 @@ var WritingTestLayer = TestLayer.extend({
             starEarned = 3;
         cc.log("starEarned" + starEarned);
 
-        this._hudLayer.setStarEarned(this._data.length);
+        this._hudLayer.setStarEarned(this._names.length);
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
     countingStars: function() {
-        var starGoal1 = Math.ceil(this._data.length/3);
-        var starGoal2 = Math.ceil(this._data.length/3 * 2);
-        var starGoal3 = this._data.length;
+        var starGoal1 = Math.ceil(this._names.length/3);
+        var starGoal2 = Math.ceil(this._names.length/3 * 2);
+        var starGoal3 = this._names.length;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -474,9 +476,9 @@ var WritingTestLayer = TestLayer.extend({
     _addObjImage: function(name) {
         var spritePath = "objects/" + name.toLowerCase() + ".png";
 
-        if (!jsb.fileUtils.isFileExist("res/" + spritePath)) {
+        if (!jsb.fileUtils.isFileExist(spritePath)) {
             spritePath = "animals/" + name.toLowerCase() + ".png";
-            if (!jsb.fileUtils.isFileExist("res/" + spritePath))
+            if (!jsb.fileUtils.isFileExist(spritePath))
                 spritePath = "#" + name.toLowerCase() + ".png";
         }
 

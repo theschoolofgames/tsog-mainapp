@@ -57,10 +57,10 @@ var MapLayer = cc.Layer.extend({
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
                         btn.y = pos.y + btn.height * 1.5;
 
-                        var lb = new cc.LabelBMFont(val, res.CustomFont_fnt);
-                        lb.scale = 0.3;
+                        var lb = new cc.LabelBMFont(val, res.MapFont_fnt);
+                        // lb.scale = 0.3;
                         lb.x = btn.width/2;
-                        lb.y = btn.height/2 + 10 * this._csf;
+                        lb.y = btn.height/2 + 35 * this._csf;
                         btn.addChild(lb);
 
                         scrollView.addChild(btn, 1);

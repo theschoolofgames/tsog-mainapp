@@ -3,19 +3,31 @@
     "1": {
       "name": "room",
       "data": [
-        "grape","joker","lemon","onion","queen"
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "grape","joker","lemon","onion","queen"
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "grape","joker","lemon","onion","queen"
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen"
       ]
     }
   },
@@ -23,19 +35,31 @@
     "1": {
       "name": "forest",
       "data": [
-        "bird","duck","fish","frog","goat"
+        "bird",
+        "duck",
+        "fish",
+        "frog",
+        "goat"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "bird","duck","fish","frog","goat"
+        "bird",
+        "duck",
+        "fish",
+        "frog",
+        "goat"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "bird","duck","fish","frog","goat"
+        "bird",
+        "duck",
+        "fish",
+        "frog",
+        "goat"
       ]
     }
   },
@@ -43,32 +67,38 @@
     "1": {
       "name": "card",
       "data": [
-        "1","2","3","4","5","bird","duck","fish","frog","goat","grape","joker","lemon","onion","queen"
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "bird",
+        "duck",
+        "fish",
+        "frog",
+        "goat",
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen"
       ]
     },
     "2": {
       "name": "listening",
-      "data": [
-        "1","2","3","4","5","bird","duck","fish","frog","goat","grape","joker","lemon","onion","queen"
-      ]
+      "data": []
     },
     "3": {
       "name": "writing",
-      "data": [
-        "1","2","3","4","5","bird","duck","fish","frog","goat","grape","joker","lemon","onion","queen"
-      ]
+      "data": []
     },
     "4": {
       "name": "writing",
-      "data": [
-        "1","2","3","4","5","bird","duck","fish","frog","goat","grape","joker","lemon","onion","queen"
-      ]
+      "data": []
     },
     "5": {
       "name": "speaking",
-      "data": [
-        "1","2","3","4","5","bird","duck","fish","frog","goat","grape","joker","lemon","onion","queen"
-      ]
+      "data": []
     }
   },
   "4": {
@@ -87,23 +117,38 @@
     },
     "2": {
       "name": "listening",
-      "data": ["A", "a"]
+      "data": [
+        "A",
+        "a"
+      ]
     },
     "3": {
       "name": "writing",
-      "data": ["A", "a"]
+      "data": [
+        "A",
+        "a"
+      ]
     },
     "4": {
       "name": "writing",
-      "data": ["A", "a"]
+      "data": [
+        "A",
+        "a"
+      ]
     },
     "5": {
       "name": "writing",
-      "data": ["A", "a"]
+      "data": [
+        "A",
+        "a"
+      ]
     },
     "6": {
       "name": "speaking",
-      "data": ["A", "a"]
+      "data": [
+        "A",
+        "a"
+      ]
     }
   }
 }

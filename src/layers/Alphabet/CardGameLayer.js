@@ -131,23 +131,29 @@ var CardGameLayer = TestLayer.extend({
         var numberObjectShowup = this._data.length;
         if (this._data.length > this._objectCoordinates.length)
             numberObjectShowup = this._objectCoordinates.length;
+
+        // cc.log("data value: " + JSON.stringify(this._data));
         for (var i = 0; i < numberObjectShowup; i++) {
             var objImageName = this._data[i].value;
             var objType = this._data[i].type;
             var imgPath = objType + "s/" + objImageName + ".png";
             var rdmObjPos = this._objectCoordinates[i];
             var obj;
-            cc.log("imagepath" + imgPath);
-            cc.log("objType" + objType);
-            cc.log("objImageName" + objImageName);
-            if (objType == "number")
+            // cc.log("imagepath" + imgPath);
+            // cc.log("objType" + objType);
+            // cc.log("objImageName" + objImageName);
+            if (objType == "number") {
+                // cc.log("create LabelBMFont -> " + imgPath);
                 obj = new cc.LabelBMFont(objImageName, res.CustomFont_fnt);
-            else if (objType == "object" || objType == "animal")
+            }
+            else if (objType == "object" || objType == "animal") {
+                // cc.log("create normal sprite -> " + imgPath);
                 obj = new cc.Sprite(imgPath);
+            }
             else
                 continue;
             obj.tag = i;
-            cc.log("add objects tag: " + obj.tag);
+            // cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > OBJECT_DEFAULT_WIDTH) ? OBJECT_DEFAULT_WIDTH/obj.width : OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = rdmObjPos.x * Utils.getScaleFactorTo16And9();
             obj.y = rdmObjPos.y * Utils.getScaleFactorTo16And9();
@@ -200,19 +206,21 @@ var CardGameLayer = TestLayer.extend({
                         self._addObjects();
                     })
                 )
-            );
-        };
+            )
+        } else {
+            jsb.AudioEngine.play2d("sounds/smoke.mp3"),
+            self._addSlots();       
+            self._addObjects();
+            this._blockFlag = false;
+        }
 
-        jsb.AudioEngine.play2d( "sounds/smoke.mp3"),
-        self._addSlots();       
-        self._addObjects();
-        this._blockFlag = false;
     },
 
     _showNextObjects: function(){
         // run action
+        cc.log("_showNextObjects");
         this.calcShowObjectAmount();
-        this._addSlots();       
+        this._addSlots();
         this._addObjects();
         this._loadTmx();
         this._blockFlag = false;
@@ -223,6 +231,7 @@ var CardGameLayer = TestLayer.extend({
         this._numberOfObjectWillShow = this._flipCardResult;
         this.calcShowObjectAmount();
     },
+
     calcShowObjectAmount: function(){
         if(this._flipCardResult >= this.amountObjectCanShow) {
             this._amountObjectShow = this.amountObjectCanShow;
@@ -242,13 +251,12 @@ var CardGameLayer = TestLayer.extend({
         if (data)
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
-                cc.log("o" + JSON.stringify(o));
+                // cc.log("o" + JSON.stringify(o));
                 if (o[0]) {
                     cc.log("o[0]: " + JSON.stringify(o[0]));
-                    cc.log("return o[0]");
+                    // cc.log("return o[0]");
                     return o[0];
-                }
-                else {
+                } else {
                     cc.log("return Id");
                     return id;
                 }
@@ -256,8 +264,8 @@ var CardGameLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.setData(data);
-        cc.log("data after map: " + JSON.stringify(data));
+        this.setData(JSON.stringify(this._data));
+        // cc.log("data after map: " + JSON.stringify(this._data));
     },
 
     _loadTmx: function() {
@@ -439,7 +447,8 @@ var CardGameLayer = TestLayer.extend({
                 self.runAction(cc.sequence(
                     cc.delayTime(2),
                     cc.callFunc(function() {
-                        cc.director.runScene(new CardGameScene(CardGameLayer._testData, true, 1)); 
+                        // cc.director.runScene(new CardGameScene(CardGameLayer._testData, true, 1)); 
+                        self._moveToNextScene();
                     })
                 ));
         }
