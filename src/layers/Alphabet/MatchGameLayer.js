@@ -11,6 +11,8 @@ var MatchGameLayer = TestLayer.extend({
     _disableObject : [],
     _deactivateObjects: [],
     _bloclFlag : false,
+    _timeWrong: 0,
+    _index: 0,
 
     ctor: function(array) {
         this._super();
@@ -33,6 +35,13 @@ var MatchGameLayer = TestLayer.extend({
             onTouchMoved: this.onTouchMoved,
             onTouchEnded: this.onTouchEnded
         }, this);
+        var self = this;
+        this.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                self.runAnimation(self._objects[0]);
+            })
+        ));
     },
     onTouchBegan: function(touch, event){
 
@@ -43,16 +52,27 @@ var MatchGameLayer = TestLayer.extend({
         self._currentObjectMoving = null;
         self._currentObjectOriginPos = null;
         self.objectMatching = null;
-        self._objects.forEach(function(obj){
-            var bBox = obj.getBoundingBox();
-            if (cc.rectContainsPoint(bBox, touchLoc)) {
-                // cc.log("touch _activateObjects with tag: " + obj.tag);
-                self._currentObjectMoving = obj;
-                self._currentObjectOriginPos = obj.getPosition();
-                cc.log(obj.tag);
-                return true;
-            };
-        });
+        // self._objects.forEach(function(obj){
+        //     var bBox = obj.getBoundingBox();
+        //     if (cc.rectContainsPoint(bBox, touchLoc)) {
+        //         // cc.log("touch _activateObjects with tag: " + obj.tag);
+        //         self._currentObjectMoving = obj;
+        //         self._currentObjectOriginPos = obj.getPosition();
+        //         cc.log(obj.tag);
+        //         return true;
+        //     };
+        // });
+
+        var obj = self._objects[self._index];
+        var bBox = self._objects[self._index].getBoundingBox();
+        if (cc.rectContainsPoint(bBox, touchLoc)) {
+            // cc.log("touch _activateObjects with tag: " + obj.tag);
+            self._currentObjectMoving = obj;
+            self._currentObjectOriginPos = obj.getPosition();
+            cc.log(obj.tag);
+            return true;
+        };
+
         return true;
     },
 
@@ -87,6 +107,18 @@ var MatchGameLayer = TestLayer.extend({
         return true;
     },
 
+    runAnimation: function(obj){
+        this._currentObjScale = obj.scale;
+        obj.runAction(
+            cc.sequence(
+                cc.scaleTo(0.3, 0.7),
+                cc.scaleTo(0.2, 1.05),
+                cc.scaleTo(0.3, 0.7),
+                cc.scaleTo(0.2, 1.05),
+                cc.scaleTo(0.2, 1)
+            )
+        );
+    },
     _playSoundEffect: function(tag){
         this._bloclFlag = true;
         var self = this;
@@ -146,6 +178,7 @@ var MatchGameLayer = TestLayer.extend({
 
 
     _handleObjectDrop: function(){
+        cc.log("_timeWrong: " + this._timeWrong + "_index: " + this._index);
         var self = this;
         if(this._currentObjectMoving.tag == this.objectMatching.tag) {
             var tag = this.objectMatching.tag;
@@ -154,14 +187,25 @@ var MatchGameLayer = TestLayer.extend({
                 if(obj.tag == tag){
                     var index = self._objects.indexOf(obj);
                     self._deactivateObjects.push(self._objects.splice(index,1));
+                    obj.scale = self._currentObjScale;
                     self.createLabel(tag);
                     self._playSoundEffect(tag);
+                    this._timeWrong = 0;
+                    if(self._objects.length > 0)
+                        self.runAnimation(self._objects[self._index]);
                 };
             });
             cc.log("setPosition");
             self.updateProgressBar();
         }
         else {
+            this._timeWrong +=1;
+            if(this._timeWrong == 3){
+                self._objects[this._index].scale = self._currentObjScale;
+                self._objects.splice(this._index,1)
+                this._timeWrong = 0;
+                self.runAnimation(self._objects[self._index]);
+            }
             jsb.AudioEngine.play2d(res.Failed_sfx, false);
             this._currentObjectMoving.setPosition(this._currentObjectOriginPos);
         };
@@ -181,11 +225,12 @@ var MatchGameLayer = TestLayer.extend({
             obj.tag = this._data[i][0];
             cc.log("Left: " +obj.tag );
             obj.scale = (obj.width > OBJECT_DEFAULT_WIDTH) ? OBJECT_DEFAULT_WIDTH/obj.width : OBJECT_DEFAULT_HEIGHT/obj.height;
-            this.addChild(obj);
             this._objects.push(obj);
+            
+            this.addChild(obj);
             this.animateIn(obj,i);
-
         };
+        cc.log("scale: " + this._currentObjScale);
     },
 
     createRightObjects: function(){
