@@ -11,6 +11,7 @@ var StoryMainLayer = cc.LayerColor.extend({
     _currentStory: null,
     _currentStorySceneIndex: 0,
     _backgroundSprite: null,
+    _canPlay: false,
 
 	ctor:function(data){
         this._super(cc.color.WHITE);
@@ -45,10 +46,12 @@ var StoryMainLayer = cc.LayerColor.extend({
         this._updateBackground(this._currentStory.arts[this._currentStorySceneIndex]);
         this._playSound(this._currentStory.sounds[this._currentStorySceneIndex]);
         this.scheduleUpdate();
+        this._canPlay = true;
     },
 
     _stopStory: function(){
         this.unscheduleUpdate();
+        this._canPlay = false;
         this._stopSound();
         this.currentCountTime = 0;
         this.subtitles = [];
@@ -67,6 +70,9 @@ var StoryMainLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
+        if (!this._canPlay)
+            return;
+
         this.currentCountTime += dt;
 
         if (this.currentSubtitle){
@@ -84,6 +90,14 @@ var StoryMainLayer = cc.LayerColor.extend({
         }
 
     	if (this.subtitles.length <= 0) {
+            if (this._currentStorySceneIndex >= this._currentStory.arts.length - 1){
+                this._stopStory();
+                // Complete story callback here
+                this.completedScene();
+
+                return;
+            }
+
             if (this.currentSubtitle.end <= this.currentCountTime * 1000 
                 && this._currentStorySceneIndex < this._currentStory.arts.length - 1){
                 this._stopStory();
@@ -123,6 +137,18 @@ var StoryMainLayer = cc.LayerColor.extend({
             if (this.subtitles.length <= 0)
                 break;
         }
+    },
+
+    completedScene: function() {
+        var self = this;
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(3),
+                cc.callFunc(function() {
+                    self.backToHome();
+                })
+            )
+        )
     },
 
     _getAvailableSubLabel: function() {
