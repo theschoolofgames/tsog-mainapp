@@ -3,7 +3,7 @@ var RENDER_TEXTURE_HEIGHT = 320;
 
 var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
-var BRUSH_COLOR = ["red", "blue", "green", "yellow"];
+var GOFIGURE_BRUSH_COLOR = ["red", "blue", "green", "yellow"];
 var GOFIGURE_SPECIAL_CASE = 1;
 
 var GoFigureTestLayer = TestLayer.extend({
@@ -652,9 +652,9 @@ var GoFigureTestLayer = TestLayer.extend({
         this._board.y = 0;
         // cc.log("Utils.getScaleFactorTo16And9() " + Utils.getScaleFactorTo16And9());
         this.addChild(this._board);
-        for (var i = 0; i < BRUSH_COLOR.length; i++) {
-            var btnImgNameNormal = "btn_" + BRUSH_COLOR[i] +".png";
-            var btnImgNamePressed = "btn_" + BRUSH_COLOR[i] +"-pressed.png";
+        for (var i = 0; i < GOFIGURE_BRUSH_COLOR.length; i++) {
+            var btnImgNameNormal = "btn_" + GOFIGURE_BRUSH_COLOR[i] +".png";
+            var btnImgNamePressed = "btn_" + GOFIGURE_BRUSH_COLOR[i] +"-pressed.png";
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
             b.y = 104 * Utils.getScaleFactorTo16And9();
