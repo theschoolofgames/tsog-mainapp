@@ -16,19 +16,11 @@ var AlphaRacingLayer = cc.Layer.extend({
     _tileBorder: null,
     _alphabetPosArray: [],
     _alphabetObjectArray: [],
-    _inputData: [
-        {
-          "type": "A",
-          "value": "20"
-        },
-        {
-          "type": "a",
-          "value": "20"
-        }
-    ],    
+    _inputData: [],    
 
-	ctor: function() {
+	ctor: function(inputData) {
         this._super();
+        this._inputData = inputData;
 
         this._init();
     },
@@ -434,10 +426,10 @@ var AlphaRacingLayer = cc.Layer.extend({
 });
 
 var AlphaRacingScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(inputData) {
         this._super();
         this.name = "alpha-racing";
-        var layer = new AlphaRacingLayer();
+        var layer = new AlphaRacingLayer(inputData);
         this.addChild(layer);
     }
 });
