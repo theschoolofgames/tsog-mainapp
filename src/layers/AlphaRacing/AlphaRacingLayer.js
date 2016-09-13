@@ -61,6 +61,14 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.checkForAndResolveCollisions(this._player);
 
         this.setViewpointCenter(this._player.getPosition());
+        // this.movePlatforms(dt);
+    },
+
+    movePlatforms: function(dt) {
+        let velocityStep = cc.pMult(cc.p(-400, 0), dt);
+
+        let position = cc.p(this._tmxMap.getPosition().x, this._tmxMap.getPosition().y);
+        this._tmxMap.setPosition(cc.pAdd(position, velocityStep));
     },
 
     onTouchBegan: function(touch, event) {
@@ -110,31 +118,30 @@ var AlphaRacingLayer = cc.Layer.extend({
         let gids = [];
 
         for (var j = 0; j < 9; j++) {
-            // let i = j;
-            // if (j == 4) {
-            //     continue;
-            // } else if (j > 4) {
-            //     i = j - 1;
-            // }
+            let i = j;
+            if (j == 4) {
+                continue;
+            } else if (j > 4) {
+                i = j - 1;
+            }
 
-            // let index = i;
-            // if (i == 0) {
-            //     index = 6;
-            // } else if (i == 2) {
-            //     index = 3
-            // } else if (i == 3) {
-            //     index = 4
-            // } else if (i == 4) {
-            //     index = 0
-            // } else if (i == 5) {
-            //     index = 2
-            // } else if (i == 6) {
-            //     index = 5
-            // } else if (i == 7) {
-            //     index = 7
-            // } 
+            let index = i;
+            if (i == 0) {
+                index = 6;
+            } else if (i == 2) {
+                index = 3
+            } else if (i == 3) {
+                index = 4
+            } else if (i == 4) {
+                index = 0
+            } else if (i == 5) {
+                index = 2
+            } else if (i == 6) {
+                index = 5
+            } else if (i == 7) {
+                index = 7
+            } 
 
-            let offsetPos = this._tmxMap.getPosition();
             let c = j % 3;
             let r = Math.floor(j / 3);
             let tilePos = cc.p(plPos.x + (c - 1), plPos.y + (r - 1));
@@ -142,7 +149,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             
             let tileRect = this.tileRectFromTileCoords(tilePos);
             
-            let tileDict = {gid: tgid, x: tileRect.x + offsetPos.x, y: tileRect.y + offsetPos.y, tilePos: tilePos, c: c, r: r};
+            let tileDict = {gid: tgid, x: tileRect.x, y: tileRect.y, tilePos: tilePos, c: c, r: r};
 
 
             // cc.log("i = %d -> x = %d, y = %d, index = %d", i, c, r, index);
@@ -159,9 +166,6 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     drawRectWithLabel: function(from, to, fillColor, lineSize, lineColor, label) {
-        var offsetPos = this._tmxMap.getPosition();
-
-        // this._playerBorder.drawRect(cc.p(from.x + offsetPos.x, from.y + offsetPos.y), cc.p(from.x + offsetPos.x, from.y + offsetPos.y), fillColor, lineSize, lineColor);
         this._playerBorder.drawRect(from, to, fillColor, lineSize, lineColor);
 
         var lbl = new cc.LabelBMFont(label+"", "hud-font.fnt");
@@ -192,8 +196,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     /*
     *  Surround tiles like that 
     *       0 1 2
-    *       3   4
-    *       5 6 7
+    *       3 4 5
+    *       6 7 8
     *  Check colision of object with 8 tiles
     */
     checkForAndResolveCollisions: function(p) {
@@ -231,7 +235,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                     let desiredPosition = p.getDesiredPosition();
                     let velocity = p.getVelocity();
                     
-                    if (i == 6) {
+                    if (i == 0) {
                         cc.log("tile is directly below player. i = %d", i);
                         p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
                         p.setVelocity(cc.p(velocity.x, 0.0));
@@ -240,10 +244,10 @@ var AlphaRacingLayer = cc.Layer.extend({
                         //tile is directly above player
                         p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y - intersection.height));
                         p.setVelocity(cc.p(velocity.x, 0.0));
-                    } else if (i == 3) {
+                    } else if (i == 2) {
                         cc.log("tile is left of player. i = %d", i);
                         p.setDesiredPosition(cc.p(desiredPosition.x + intersection.width, desiredPosition.y));
-                    } else if (i == 4) {
+                    } else if (i == 3) {
                         cc.log("tile is right of player. i = %d", i);
                         p.setDesiredPosition(cc.p(desiredPosition.x - intersection.width, desiredPosition.y));
                         p.setVelocity(cc.p(0.0, 0.0));
