@@ -1,29 +1,35 @@
-var ARPlayer = cc.Sprite.extend({
+var ARPlayer = cc.Layer.extend({
 
 	_velocity: cc.p(0,0),
 	_onGround: false,
 	_onRightCollision: false,
 	_desiredPosition: cc.p(0,0),
-	_gravity: cc.p(0.0, -400.0),
+	_gravity: cc.p(0.0, -650.0),
 	_collisionBoundingBox: null,
 	_desiredPosition: cc.p(100,400),
 	_forwardMarch: false,
 	_mightAsWellJump: false,
 	_adiDog: null,
+	spriteSheet:null,
+	runningAction:null,
+	sprite:null,
 
-	ctor: function (texture) {
-		this._super(texture);
+	ctor: function () {
+		this._super();
 		this.setAnchorPoint(0.5,0.5);
 		this.setScale(Utils.screenRatioTo43() * 0.15);
         this.setPosition(cc.p(200,400));
         this.setDesiredPosition(cc.p(200,400));
-		this._collisionBoundingBox = cc.rect(0, 0, this.getBoundingBox().width, this.getBoundingBox().height);
+        this.setContentSize(cc.size(65, 100));
+		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
+
+		this.configAnimation();
 		return this;
 	},
 	
  	updatea: function(dt) { 	
-	 	let jumpForce = cc.p(0.0, 550.0);
-	    let jumpCutoff = 250.0;
+	 	let jumpForce = cc.p(0.0, 800.0);
+	    let jumpCutoff = 450.0;
 	    
 	    if (this._mightAsWellJump && this._onGround) {
 	        this._velocity = cc.pAdd(this._velocity, jumpForce);
@@ -34,7 +40,7 @@ var ARPlayer = cc.Sprite.extend({
 	        this._velocity = cc.p(this._velocity.x, jumpCutoff);
 	    }
 	    
-	    let forwardMove = cc.p(1000.0, 0.0);
+	    let forwardMove = cc.p(1200.0, 0.0);
 	    let forwardStep = cc.p(0,0);
 	    if (!this._onRightCollision)
 	    	forwardStep = cc.pMult(forwardMove, dt);
@@ -44,7 +50,7 @@ var ARPlayer = cc.Sprite.extend({
         this._velocity = cc.pAdd(this._velocity, forwardStep);
 	    
 	    let minMovement = cc.p(0.0, -450.0);
-	    let maxMovement = cc.p(120.0, 550.0);
+	    let maxMovement = cc.p(220.0, 550.0);
 
 	    let gravityStep = cc.p(0,0);
 	    if (!this._onGround)
@@ -60,12 +66,32 @@ var ARPlayer = cc.Sprite.extend({
  		this._desiredPosition = cc.pAdd(position, velocityStep);
  	},
 
+ 	configAnimation: function() {
+ 		cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
+        this.spriteSheet = new cc.SpriteBatchNode(res.AdiDog_Run_png);
+        this.addChild(this.spriteSheet);
+
+        var animFrames = [];
+        for (var i = 1; i <= 4; i++) {
+            var str = "adi_run" + i + ".png";
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            animFrames.push(frame);
+        }
+
+        var animation = new cc.Animation(animFrames, 0.1);
+        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        this.sprite = new cc.Sprite("#adi_run1.png");
+        this.sprite.attr({x:10, y:65, anchorX: 1, anchorY: 1});
+        this.sprite.runAction(this.runningAction);
+        this.spriteSheet.addChild(this.sprite);
+ 	},
+
  	setGravity: function(gravity) {
  		this._gravity = gravity;
  	},
 
  	getCollisionBoundingBox: function() {
- 		let boundingBox = this.getBoundingBox();
+ 		let boundingBox = this.getContentSize();
  		
  		let boundingBoxRect = cc.rect(
  			this.getPosition().x - boundingBox.width / 2, 

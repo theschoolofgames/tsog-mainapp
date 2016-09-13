@@ -16,6 +16,16 @@ var AlphaRacingLayer = cc.Layer.extend({
     _tileBorder: null,
     _alphabetPosArray: [],
     _alphabetObjectArray: [],
+    _inputData: [
+        {
+          "type": "A",
+          "value": "20"
+        },
+        {
+          "type": "a",
+          "value": "20"
+        }
+    ],    
 
 	ctor: function() {
         this._super();
@@ -56,7 +66,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._landLayer = this._tmxMap.getLayer("Lands");
 
-        this._player = new ARPlayer(res.Adidog_Run_png);
+        this._player = new ARPlayer();
         this._tmxMap.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
@@ -127,11 +137,13 @@ var AlphaRacingLayer = cc.Layer.extend({
         let groupIndex = 0;
         var self = this;
 
-        if (this._alphabetPosArray.length > groupIndex){
-            this._alphabetPosArray[groupIndex].posArray.forEach((pos) => {
-                var object = new cc.Sprite(res.Bee_png);
-                object.setAnchorPoint(0.5, 0.5);
-                object.setScale(0.5);
+        this._alphabetPosArray = shuffle(this._alphabetPosArray);
+
+        for (var i = 0; i < this._inputData.length; i++) {
+            let group = this._alphabetPosArray.pop();
+            group.posArray.forEach((pos) => {
+                var object = new cc.LabelBMFont(self._inputData[i].type, res.CustomFont_fnt);
+                object.setScale(0.8);
                 object.x = pos.x;
                 object.y = pos.y;
                 self._tmxMap.addChild(object, AR_WORD_ZODER);
@@ -295,10 +307,10 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         var pRect = p.getCollisionBoundingBox();
 
-        // this.drawRectWithLabel(cc.p(pRect.x, pRect.y),
-        //     cc.p(pRect.x + pRect.width, pRect.y + pRect.height),
-        //     cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
-        //     "[]");
+        this.drawRectWithLabel(cc.p(pRect.x, pRect.y),
+            cc.p(pRect.x + pRect.width, pRect.y + pRect.height),
+            cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
+            "[]");
 
         this.drawRectPlatforms();
         
@@ -368,7 +380,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                             } else {
                                 resolutionHeight = -intersection.height;
                             }
-                            p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y + resolutionHeight ));
+                            // p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y + resolutionHeight ));
                             
                         } else {
                             cc.log("tile is on right or left side. i = %d", i + 1);

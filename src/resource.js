@@ -17,6 +17,8 @@ var res = {
     Level_Dialog_png: "level-dialog.png",
     AR_Lands_png: "alpha-racing-lands.png",
     AR_Lands_plist: "alpha-racing-lands.plist",
+    AdiDog_Run_png: "adidog_run/adidog_run.png",
+    AdiDog_Run_plist: "adidog_run/adidog_run.plist",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -252,7 +254,7 @@ var res = {
     Adidog_atlas: "AdiDog/ConCho.atlas",
     Adidog_png2: "AdiDog/ConCho.png",
 
-    Adidog_Run_png: "adidog_run/1.png",
+    // Adidog_Run_png: "adidog_run/1.png",
  
     Plus_png: "plus.png",
     Create_png: "create-button.png",
