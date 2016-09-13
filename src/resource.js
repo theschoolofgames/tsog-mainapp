@@ -15,6 +15,8 @@ var res = {
     Tree_game_png: "tree-game.png",
     Level_Dialog_plist: "level-dialog.plist",
     Level_Dialog_png: "level-dialog.png",
+    AR_Lands_png: "alpha-racing-lands.png",
+    AR_Lands_plist: "alpha-racing-lands.plist",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -264,6 +266,7 @@ var res = {
     DesignGame_TMX: "res/design-game.tmx",
     TreeGame_TMX: "res/tree-game.tmx",
     Map_TMX: "res/map.tmx",
+    AR_Level_01_TMX: "res/alpha-racing-lands.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };
