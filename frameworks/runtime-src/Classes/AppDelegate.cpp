@@ -48,7 +48,7 @@
 #include "PluginIAPJSHelper.h"
 #endif
 #include "cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
-#include "jsb_h102.hpp"
+#include "h102/js-bindings/jsb_h102_auto.hpp"
 
 #include "SimpleAudioEngine.h"
 #include "AudioEngine.h"

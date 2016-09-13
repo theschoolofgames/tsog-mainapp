@@ -252,6 +252,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                 cc.log("checkedItems: " + JSON.stringify(checkedItems));
                 cc.director.runScene(new GoFigureTestScene(checkedItems, "", true));
                 break;
+            case "freecolor":
+                cc.director.runScene(new FreeColorScene(checkedItems));   
+                break;
             case "shadow":
                 cc.director.runScene(new ShadowGameScene(checkedItems));   
                 break;

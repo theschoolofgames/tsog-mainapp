@@ -17,6 +17,8 @@ namespace h102
   {
   public:
     static bool isPixelTransparent(cocos2d::Image* image, int x, int y);
+    static void forceRender();
+    static float imageMatchPercentage(cocos2d::Image* img1, cocos2d::Image* img2);
   };
 };
 
