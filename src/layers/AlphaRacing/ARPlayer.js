@@ -1,4 +1,4 @@
-var ARPlayer = cc.Sprite.extend({
+var ARPlayer = AdiDogNode.extend({
 
 	_velocity: cc.p(0,0),
 	_onGround: false,
@@ -8,14 +8,16 @@ var ARPlayer = cc.Sprite.extend({
 	_desiredPosition: cc.p(100,400),
 	_forwardMarch: false,
 	_mightAsWellJump: false,
+	_adiDog: null,
 
-	ctor: function (texture) {
-		this._super(texture);
-
+	ctor: function () {
+		this._super();
+		// this._addAdi();
+		// cc.log("Adi boudingbox " + JSON.stringify(this._talkingAdi.getBoundingBox()));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getBoundingBox().width, this.getBoundingBox().height);
 		return this;
 	},
- 	
+	
  	updatea: function(dt) { 	
 	 	let jumpForce = cc.p(0.0, 310.0);
 	    let jumpCutoff = 150.0;
@@ -34,11 +36,9 @@ var ARPlayer = cc.Sprite.extend({
 	    
 	    this._velocity = cc.p(this._velocity.x * 0.90, this._velocity.y);
 	    
-	    // if (this._forwardMarch) {
-	        this._velocity = cc.pAdd(this._velocity, forwardStep);
-	    // } 
+        this._velocity = cc.pAdd(this._velocity, forwardStep);
 	    
-	    let minMovement = cc.p(5.0, -450.0);
+	    let minMovement = cc.p(0.0, -450.0);
 	    let maxMovement = cc.p(120.0, 250.0);
 
 	    let gravityStep = cc.p(0,0);
@@ -48,7 +48,7 @@ var ARPlayer = cc.Sprite.extend({
 	    this._velocity = cc.pClamp(this._velocity, minMovement, maxMovement);
     
 	    this._velocity = cc.pAdd(this._velocity, gravityStep);
-	    this._velocity.x = 200;
+	    // this._velocity.x = 200;
 	    
 	    let velocityStep = cc.pMult(this._velocity, dt);
 

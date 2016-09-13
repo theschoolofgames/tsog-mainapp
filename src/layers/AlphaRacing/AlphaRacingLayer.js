@@ -27,7 +27,8 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._landLayer = this._tmxMap.getLayer("Lands");
 
-        this._player = new ARPlayer(res.Duck_png);
+        this._player = new ARPlayer();
+        this._player.setScale(Utils.screenRatioTo43() * 0.25);
         this._player.setPosition(cc.p(200,400));
         this._player.setDesiredPosition(cc.p(200,400));
         this._player.setLocalZOrder(1000);
@@ -198,19 +199,17 @@ var AlphaRacingLayer = cc.Layer.extend({
         }
     },
 
-    /*
-    *  Surround tiles like that 
-    *       0 1 2
-    *       3 4 5
-    *       6 7 8
-    *  Check colision of object with 8 tiles
-    */
     checkForAndResolveCollisions: function(p) {
     
         // this.addChild(rectangle);
         // this._tileBorder.clear();
         this._playerBorder.clear();
         this._playerBorder.removeAllChildren();
+
+        this.drawRectWithLabel(cc.p(this._player.x, this._player.y),
+            cc.p(this._player.x+this._player.getCollisionBoundingBox().width, this._player.y+this._player.getCollisionBoundingBox().height),
+            cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
+            "[]");
 
         this.drawRectPlatforms();
         
@@ -241,7 +240,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                     let velocity = p.getVelocity();
                     
                     if (i == 0) {
-                        cc.log("tile is directly below player. i = %d", i);
+                        cc.log("tile is directly below player. i = %d", i + 1);
                         p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
                         p.setVelocity(cc.p(velocity.x, 0.0));
                         p.setOnGround(true);
@@ -250,15 +249,15 @@ var AlphaRacingLayer = cc.Layer.extend({
                         p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y - intersection.height));
                         p.setVelocity(cc.p(velocity.x, 0.0));
                     } else if (i == 2) {
-                        cc.log("tile is left of player. i = %d", i);
+                        cc.log("tile is left of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x + intersection.width, desiredPosition.y));
                     } else if (i == 3) {
-                        cc.log("tile is right of player. i = %d", i);
+                        cc.log("tile is right of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x - intersection.width, desiredPosition.y));
-                        p.setVelocity(cc.p(0.0, 0.0));
+                        // p.setVelocity(cc.p(0.0, 0.0));
                     } else {
                         if (intersection.width > intersection.height) {
-                            cc.log("tile is diagonal, but resolving collision vertially. i = %d", i);
+                            cc.log("tile is diagonal, but resolving collision vertially. i = %d", i + 1);
                             p.setVelocity(cc.p(velocity.x, 0.0)); 
                             let resolutionHeight;
                             if (i > 5) {
@@ -314,7 +313,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                 - winSize.height/2);
         let actualPosition = cc.p(x, y);
         
-        let centerOfView = cc.p(winSize.width/2, winSize.height/2);
+        let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
         this._tmxMap.setPosition(viewPoint); 
     },
