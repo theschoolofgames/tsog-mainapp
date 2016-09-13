@@ -96,9 +96,6 @@ var GameTestSelectorLayer = cc.Layer.extend({
     tableCellTouched:function (table, cell) {
         this.toObjectSelectorScene(GAME_IDS[cell.getIdx()]);
     },
-    tableCellTouched2:function () {
-        cc.log("cell touched at index: ");
-    },
 
     tableCellSizeForIndex:function (table, idx) {
         // if (idx == 2) {

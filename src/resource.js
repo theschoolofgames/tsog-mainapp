@@ -205,6 +205,7 @@ var res = {
     checkbox_normal: "ui/check_box_normal.png",
  
     // Shader
+    Outline_fsh: "res/shader/Outline.fsh",
     SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",
     SolidColor_fsh: "res/shader/SolidColor.fsh",
     ScrollingTexture_fsh: "res/shader/ScrollingTexture.fsh",

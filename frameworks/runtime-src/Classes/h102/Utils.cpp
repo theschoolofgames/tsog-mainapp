@@ -7,6 +7,7 @@
 //
 
 #include "Utils.hpp"
+#include "cocos2d.h"
 
 USING_NS_CC;
 namespace h102 {
@@ -30,5 +31,20 @@ namespace h102 {
     unsigned char a = *(pixel + 3);
     
     return a == 0;
+  }
+  
+  void Utils::forceRender() {
+    cocos2d::Director::getInstance()->getRenderer()->render();
+  }
+  
+  float Utils::imageMatchPercentage(cocos2d::Image* img1, cocos2d::Image* img2) {
+    if (!img1->hasAlpha() || !img2->hasAlpha())
+      return 1;
+    
+    int channels = 4;
+    unsigned char *data1 = img1->getData();
+    unsigned char *data2 = img2->getData();
+    
+    
   }
 }
