@@ -22,10 +22,19 @@ var ARPlayer = cc.Layer.extend({
         this.setDesiredPosition(cc.p(200,400));
         this.setContentSize(cc.size(65, 100));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
-
-		this.configAnimation();
+		
 		return this;
 	},
+
+	onEnter: function() {
+        this._super();
+        this.configAnimation();
+    },
+
+    onExit: function() {
+    	this._super();
+        this.unscheduleUpdate();
+    },
 	
  	updatea: function(dt) { 	
 	 	let jumpForce = cc.p(0.0, 800.0);
