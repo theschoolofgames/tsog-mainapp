@@ -19,6 +19,7 @@ var MatchGameLayer = TestLayer.extend({
     _defaultSlotScale: 1,
     _slotHighlighting: false,
     _objectCompleted: 0,
+    _count: 0,
 
     ctor: function(array) {
         this._super();
@@ -42,12 +43,12 @@ var MatchGameLayer = TestLayer.extend({
             onTouchEnded: this.onTouchEnded
         }, this);
         var self = this;
-        this.runAction(cc.sequence(
-            cc.delayTime(2),
-            cc.callFunc(function(){
-                self.runAnimation(self._objects[0]);
-            })
-        ));
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(2),
+        //     cc.callFunc(function(){
+        //         self.runAnimation(self._objects[0]);
+        //     })
+        // ));
     },
     onTouchBegan: function(touch, event){
 
@@ -58,28 +59,37 @@ var MatchGameLayer = TestLayer.extend({
         self._currentObjectMoving = null;
         self._currentObjectOriginPos = null;
         self.objectMatching = null;
-        // self._objects.forEach(function(obj){
-        //     var bBox = obj.getBoundingBox();
-        //     if (cc.rectContainsPoint(bBox, touchLoc)) {
-        //         // cc.log("touch _activateObjects with tag: " + obj.tag);
-        //         self._currentObjectMoving = obj;
-        //         self._currentObjectOriginPos = obj.getPosition();
-        //         cc.log(obj.tag);
-        //         return true;
-        //     };
-        // });
+        self._count = 0;
+        self._objects.forEach(function(obj){
+            var bBox = obj.getBoundingBox();
+            if (cc.rectContainsPoint(bBox, touchLoc)) {
+                // cc.log("touch _activateObjects with tag: " + obj.tag);
+                self._oldZOrder = obj.getLocalZOrder();
+                self._currentObjectMoving = obj;
+                self._currentObjectMoving.setLocalZOrder(999);
+                self._currentObjectOriginPos = obj.getPosition();
+                cc.log(self._currentObjectMoving.tag);
+                self._objectsSlot.forEach(function(obj) {
+                    if (self._currentObjectMoving.tag == obj.tag) {
+                        self._highlightSlot(obj);
+                        cc.log(obj.tag);
+                    }
+                });
+                return true;
+            };
+        });
 
-        var obj = self._objects[self._index];
-        var bBox = self._objects[self._index].getBoundingBox();
-        if (cc.rectContainsPoint(bBox, touchLoc)) {
-            // cc.log("touch _activateObjects with tag: " + obj.tag);
-            self._oldZOrder = obj.getLocalZOrder();
-            self._currentObjectMoving = obj;
-            self._currentObjectMoving.setLocalZOrder(999);
-            self._currentObjectOriginPos = obj.getPosition();
-            cc.log(obj.tag);
-            return true;
-        };
+        // var obj = self._objects[self._index];
+        // var bBox = self._objects[self._index].getBoundingBox();
+        // if (cc.rectContainsPoint(bBox, touchLoc)) {
+        //     // cc.log("touch _activateObjects with tag: " + obj.tag);
+        //     self._oldZOrder = obj.getLocalZOrder();
+        //     self._currentObjectMoving = obj;
+        //     self._currentObjectMoving.setLocalZOrder(999);
+        //     self._currentObjectOriginPos = obj.getPosition();
+        //     cc.log(obj.tag);
+        //     return true;
+        // };
 
         return true;
     },
@@ -89,11 +99,7 @@ var MatchGameLayer = TestLayer.extend({
         var self = event.getCurrentTarget();
         if(self._currentObjectMoving) {
             self._currentObjectMoving.setPosition(touchLoc);
-
-            self._objectsSlot.forEach(function(obj) {
-                if (self._currentObjectMoving.tag == obj.tag)
-                    self._highlightSlot(obj);
-            });
+            self.runAnimation(self._currentObjectMoving);
         }
     },
 
@@ -103,11 +109,12 @@ var MatchGameLayer = TestLayer.extend({
         if (!self._currentObjectMoving)
             return;
 
+        self.stopAnimation(self._currentObjectMoving);
         self._currentObjectMoving.setLocalZOrder(self._oldZOrder);
         self._oldZOrder = -1;
+        self._slotHighlighting = false;
         self._objectsSlot.forEach(function(obj){
             obj.stopAllActions();
-            obj.scale = self._currentObjScale;
             if(self._currentObjectMoving){
                 var objectPos = obj.getPosition();
                 var distance = cc.pDistance(touchLoc, objectPos);
@@ -128,8 +135,14 @@ var MatchGameLayer = TestLayer.extend({
         return true;
     },
 
+    stopAnimation: function(obj){
+        obj.stopAllActions();
+        obj.scale = this._currentObjScale;
+    },
+
     runAnimation: function(obj){
-        this._currentObjScale = obj.scale;
+        if(this._count == 0)
+            this._currentObjScale = obj.scale;
         obj.runAction(
             cc.repeatForever(
                 cc.sequence(
@@ -140,6 +153,7 @@ var MatchGameLayer = TestLayer.extend({
                 )
             )
         );
+        this._count +=1;
     },
     _playSoundEffect: function(tag){
         this._bloclFlag = true;
@@ -205,17 +219,16 @@ var MatchGameLayer = TestLayer.extend({
         if(this._currentObjectMoving.tag == this.objectMatching.tag) {
             var tag = this.objectMatching.tag;
             this._currentObjectMoving.setPosition(this.objectMatching.x - 60, this.objectMatching.y);
-            this._currentObjectMoving.stopAllActions();
             this._objects.forEach(function(obj){
                 if(obj.tag == tag){
                     var index = self._objects.indexOf(obj);
                     self._deactivateObjects.push(self._objects.splice(index,1));
-                    obj.scale = self._currentObjScale;
+                    // obj.scale = self._currentObjScale;
                     self.createLabel(tag);
                     self._playSoundEffect(tag);
-                    this._timeWrong = 0;
-                    if(self._objects.length > 0)
-                        self.runAnimation(self._objects[self._index]);
+                    // this._timeWrong = 0;
+                    // if(self._objects.length > 0)
+                    //     self.runAnimation(self._objects[self._index]);
                 };
             });
             cc.log("setPosition");
@@ -224,13 +237,13 @@ var MatchGameLayer = TestLayer.extend({
             this._checkCompletedScene();
         }
         else {
-            this._timeWrong +=1;
-            if(this._timeWrong == 3){
-                self._objects[this._index].scale = self._currentObjScale;
-                self._objects.splice(this._index,1)
-                this._timeWrong = 0;
-                self.runAnimation(self._objects[self._index]);
-            }
+            // this._timeWrong +=1;
+            // if(this._timeWrong == 3){
+            //     self._objects[this._index].scale = self._currentObjScale;
+            //     self._objects.splice(this._index,1)
+            //     this._timeWrong = 0;
+            //     self.runAnimation(self._objects[self._index]);
+            // }
             jsb.AudioEngine.play2d(res.Failed_sfx, false);
             this._currentObjectMoving.setPosition(this._currentObjectOriginPos);
         };
@@ -238,7 +251,6 @@ var MatchGameLayer = TestLayer.extend({
         this._currentObjectMoving = null;
         this._currentObjectOriginPos = null;
         this.objectMatching = null;
-        this._slotHighlighting = false;
     },
 
     createLeftObjects:function(){
