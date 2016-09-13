@@ -1,6 +1,6 @@
 var AR_TAG_TILE_MAP = 1;
 var AR_SCALE_NUMBER = 1;
-var TEST_SPEED = 5;
+var TEST_SPEED = 2;
 
 var AlphaRacingLayer = cc.Layer.extend({
 	
@@ -39,7 +39,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._playerBorder = cc.DrawNode.create();
         this._playerBorder.retain();
-        this.addChild(this._playerBorder);
+        this._tmxMap.addChild(this._playerBorder, 1000+1);
 
         this._tileBorder = cc.DrawNode.create();
         this._tileBorder.retain();
@@ -114,6 +114,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     getSurroundingTilesAtPosition: function(position, layer) {
         let plPos = this.tileCoordForPosition(position);
+        cc.log("position: %d, %d -> plPos: %d, %d", position.x, position.y, plPos.x, plPos.y);
     
         let gids = [];
 
@@ -142,8 +143,12 @@ var AlphaRacingLayer = cc.Layer.extend({
                 index = 7
             } 
 
-            let c = j % 3;
-            let r = Math.floor(j / 3);
+            let indexToCalculateRC = index
+            if (index >= 4) {
+                indexToCalculateRC = index + 1;
+            }
+            let c = indexToCalculateRC % 3;
+            let r = Math.floor(indexToCalculateRC / 3);
             let tilePos = cc.p(plPos.x + (c - 1), plPos.y + (r - 1));
             let tgid = layer.getTileGIDAt(tilePos);
             
@@ -276,7 +281,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                         } 
                     } 
 
-                    cc.log("yo, onground: %d", p.onGround());
+                    cc.log("yo, onground: ", p.onGround());
 
                     // break;
                 }
