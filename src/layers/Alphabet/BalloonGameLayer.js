@@ -312,7 +312,7 @@ var BalloonGameLayer = TestLayer.extend({
             this._data = [];
 
         cc.log("data after map: " + JSON.stringify(this._objectsArray));
-        this.setData(this._data);
+        this.setData(JSON.stringify(this._data));
     },
 });
 

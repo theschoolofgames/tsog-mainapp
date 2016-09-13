@@ -77,7 +77,7 @@
     "1": {
       "name": "gofigure",
       "data": [
-        "square","rectangle","triangle","circle"
+        "shape_square","shape_rectangle","shape_triangle","shape_circle"
       ]
     }
   }
