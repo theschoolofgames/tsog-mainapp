@@ -27,16 +27,13 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._landLayer = this._tmxMap.getLayer("Lands");
 
-        this._player = new ARPlayer();
-        this._player.setScale(Utils.screenRatioTo43() * 0.25);
-        this._player.setPosition(cc.p(200,400));
-        this._player.setDesiredPosition(cc.p(200,400));
-        this._player.setLocalZOrder(1000);
+        this._player = new ARPlayer(res.Adidog_Run_png);
+        cc.log("Player boundingBox before scale (%d, %d, %d, %d)", this._player.getCollisionBoundingBox().x,
+            this._player.getCollisionBoundingBox().y,
+            this._player.getCollisionBoundingBox().width,
+            this._player.getCollisionBoundingBox().height);
         // this._player.setTextureRect(cc.rect(0,0, this._tileSize.width, this._tileSize.height));
         this._tmxMap.addChild(this._player);
-
-        // var followAction = cc.Follow.create(this._player,cc.rect(100,100,1000,1000));
-        // this._player.runAction(followAction);
 
         this._playerBorder = cc.DrawNode.create();
         this._playerBorder.retain();
@@ -62,7 +59,6 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.checkForAndResolveCollisions(this._player);
 
         this.setViewpointCenter(this._player.getPosition());
-        // this.movePlatforms(dt);
     },
 
     movePlatforms: function(dt) {
@@ -115,7 +111,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     getSurroundingTilesAtPosition: function(position, layer) {
         let plPos = this.tileCoordForPosition(position);
-        cc.log("position: %d, %d -> plPos: %d, %d", position.x, position.y, plPos.x, plPos.y);
+        // cc.log("position: %d, %d -> plPos: %d, %d", position.x, position.y, plPos.x, plPos.y);
     
         let gids = [];
 
@@ -164,10 +160,6 @@ var AlphaRacingLayer = cc.Layer.extend({
             gids.push(tileDict);
         }
 
-        // for (var i = 0; i < gids.length; i++) {
-        //     cc.log("%d: %d, %d", gids[i].i + 1, gids[i].c, gids[i].r);
-        // }
-
         return gids;
     },
 
@@ -200,21 +192,22 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     checkForAndResolveCollisions: function(p) {
-    
-        // this.addChild(rectangle);
-        // this._tileBorder.clear();
         this._playerBorder.clear();
         this._playerBorder.removeAllChildren();
 
-        this.drawRectWithLabel(cc.p(this._player.x, this._player.y),
-            cc.p(this._player.x+this._player.getCollisionBoundingBox().width, this._player.y+this._player.getCollisionBoundingBox().height),
-            cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
-            "[]");
+        var pRect = p.getCollisionBoundingBox();
+
+        // this.drawRectWithLabel(cc.p(pRect.x, pRect.y),
+        //     cc.p(pRect.x + pRect.width, pRect.y + pRect.height),
+        //     cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
+        //     "[]");
 
         this.drawRectPlatforms();
         
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this._landLayer);
         p.setOnGround(false);
+
+        let collisionArrayTiles = [];
 
         for (var i = 0; i < tiles.length; i++) {
 
@@ -222,17 +215,23 @@ var AlphaRacingLayer = cc.Layer.extend({
             let _tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
             
             // cc.log("Gid Json => %s", JSON.stringify(dic));
-            let pRect = p.getCollisionBoundingBox();
             // cc.log("Player Rect => (%d, %d, %d, %d)", pRect.x, pRect.y, pRect.width, pRect.height);
             var gid = dic.gid;
             if (gid) {
                 let tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
-                
-                if (cc.rectIntersectsRect(pRect, tileRect)) {
+                if (cc.rectIntersectsRect(pRect, tileRect)) {               
+
+                    collisionArrayTiles.push({
+                        index: i + 1,
+                        tileRect: tileRect,
+                    });
+
                     this.drawRectWithLabel(cc.p(dic.x, dic.y),
                         cc.p(dic.x+this._tileSize.width, dic.y+this._tileSize.height),
                         cc.color(255,0,100,0), 3, cc.color(255, 0, 0,255),
                         i+1);
+
+                    // continue;
 
                     let intersection = cc.rectIntersection(pRect, tileRect);
 
@@ -254,7 +253,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                     } else if (i == 3) {
                         cc.log("tile is right of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x - intersection.width, desiredPosition.y));
-                        // p.setVelocity(cc.p(0.0, 0.0));
+                        p.setVelocity(cc.p(0.0, 0.0));
                     } else {
                         if (intersection.width > intersection.height) {
                             cc.log("tile is diagonal, but resolving collision vertially. i = %d", i + 1);
@@ -269,7 +268,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                             p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y + resolutionHeight ));
                             
                         } else {
-                            cc.log("ahihi");
+                            cc.log("tile is on right or left side. i = %d", i + 1);
                             let resolutionWidth;
                             if (i == 6 || i == 4) {
                                 resolutionWidth = intersection.width;
@@ -298,6 +297,20 @@ var AlphaRacingLayer = cc.Layer.extend({
                     i+1);
             }
         }
+
+        // if (collisionArrayTiles.length === 1){
+        //     if ()
+        // }
+        // else if (collisionArrayTiles.length === 2){
+
+        // }
+        // else if (collisionArrayTiles.length === 3){
+
+        // }
+        // else {
+
+        // }
+
         // cc.log("ARLayer desiredPosition => (%d, %d)", p.getDesiredPosition().x, p.getDesiredPosition().y);
         p.setPosition(p.getDesiredPosition());
     },

@@ -251,6 +251,8 @@ var res = {
     Adidog_json: "Adidog/ConCho.json",
     Adidog_atlas: "AdiDog/ConCho.atlas",
     Adidog_png2: "AdiDog/ConCho.png",
+
+    Adidog_Run_png: "adidog_run/1.png",
  
     Plus_png: "plus.png",
     Create_png: "create-button.png",

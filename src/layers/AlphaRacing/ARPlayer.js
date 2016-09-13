@@ -1,4 +1,4 @@
-var ARPlayer = AdiDogNode.extend({
+var ARPlayer = cc.Sprite.extend({
 
 	_velocity: cc.p(0,0),
 	_onGround: false,
@@ -10,22 +10,25 @@ var ARPlayer = AdiDogNode.extend({
 	_mightAsWellJump: false,
 	_adiDog: null,
 
-	ctor: function () {
-		this._super();
-		// this._addAdi();
-		// cc.log("Adi boudingbox " + JSON.stringify(this._talkingAdi.getBoundingBox()));
+	ctor: function (texture) {
+		this._super(texture);
+		this.setAnchorPoint(0.5,0.5);
+		this.setScale(Utils.screenRatioTo43() * 0.15);
+        this.setPosition(cc.p(200,400));
+        this.setDesiredPosition(cc.p(200,400));
+        this.setLocalZOrder(1000);
 		this._collisionBoundingBox = cc.rect(0, 0, this.getBoundingBox().width, this.getBoundingBox().height);
 		return this;
 	},
 	
  	updatea: function(dt) { 	
 	 	let jumpForce = cc.p(0.0, 310.0);
-	    let jumpCutoff = 150.0;
+	    let jumpCutoff = 250.0;
 	    
 	    if (this._mightAsWellJump && this._onGround) {
 	        this._velocity = cc.pAdd(this._velocity, jumpForce);
-	        console.log("Jump =>>>>>>>");
 	        // Sound jump
+	        
 	    } 
 	    else if (!this._mightAsWellJump && this._velocity.y > jumpCutoff) {
 	        this._velocity = cc.p(this._velocity.x, jumpCutoff);
@@ -48,7 +51,6 @@ var ARPlayer = AdiDogNode.extend({
 	    this._velocity = cc.pClamp(this._velocity, minMovement, maxMovement);
     
 	    this._velocity = cc.pAdd(this._velocity, gravityStep);
-	    // this._velocity.x = 200;
 	    
 	    let velocityStep = cc.pMult(this._velocity, dt);
 
@@ -62,8 +64,12 @@ var ARPlayer = AdiDogNode.extend({
 
  	getCollisionBoundingBox: function() {
  		let boundingBox = this.getBoundingBox();
- 		// let diffBoundingBox = cc.pSub(this._desiredPosition, this.getPosition());
- 		let boundingBoxRect = cc.rect(this.getPosition().x - boundingBox.width / 2, this.getPosition().y - boundingBox.height / 2, boundingBox.width, boundingBox.height);
+ 		
+ 		let boundingBoxRect = cc.rect(
+ 			this.getPosition().x - boundingBox.width / 2, 
+ 			this.getPosition().y - boundingBox.height / 2, 	
+ 			boundingBox.width, 
+ 			boundingBox.height);
  		return boundingBoxRect;
  	},
 
