@@ -268,7 +268,8 @@ var res = {
     DesignGame_TMX: "res/design-game.tmx",
     TreeGame_TMX: "res/tree-game.tmx",
     Map_TMX: "res/map.tmx",
-    AR_Level_01_TMX: "res/alpha-racing-lands.tmx",
+    AR_Level_01_TMX: "res/ar-level01.tmx",
+    AR_Level_02_TMX: "res/ar-level02.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

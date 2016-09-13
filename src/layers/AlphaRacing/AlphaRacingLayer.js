@@ -1,6 +1,10 @@
 var AR_TAG_TILE_MAP = 1;
 var AR_SCALE_NUMBER = 1;
-var TEST_SPEED = 2;
+var TEST_SPEED = 1;
+var ENABLE_DEBUG_DRAW = false;
+var AR_ADI_ZODER = 1002;
+var AR_LANDS_ZODER = 1000;
+var AR_WORD_ZODER = 1001;
 
 var AlphaRacingLayer = cc.Layer.extend({
 	
@@ -10,6 +14,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _landLayer: null,
     _playerBorder: null,
     _tileBorder: null,
+    _alphabetPosArray: [],
+    _alphabetObjectArray: [],
 
 	ctor: function() {
         this._super();
@@ -18,30 +24,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     _init: function() {
-
-        this._tmxMap = new cc.TMXTiledMap(res.AR_Level_01_TMX);
-        this._tmxMap.setScale(AR_SCALE_NUMBER);
-
-        this._tileSize = cc.size(this._tmxMap.getTileSize().width * AR_SCALE_NUMBER, this._tmxMap.getTileSize().height * AR_SCALE_NUMBER);
-        this.addChild(this._tmxMap, 0, AR_TAG_TILE_MAP);
-
-        this._landLayer = this._tmxMap.getLayer("Lands");
-
-        this._player = new ARPlayer(res.Adidog_Run_png);
-        cc.log("Player boundingBox before scale (%d, %d, %d, %d)", this._player.getCollisionBoundingBox().x,
-            this._player.getCollisionBoundingBox().y,
-            this._player.getCollisionBoundingBox().width,
-            this._player.getCollisionBoundingBox().height);
-        // this._player.setTextureRect(cc.rect(0,0, this._tileSize.width, this._tileSize.height));
-        this._tmxMap.addChild(this._player);
-
-        this._playerBorder = cc.DrawNode.create();
-        this._playerBorder.retain();
-        this._tmxMap.addChild(this._playerBorder, 1000+1);
-
-        this._tileBorder = cc.DrawNode.create();
-        this._tileBorder.retain();
-        this.addChild(this._tileBorder);
+        
+        this.addHud();
+        this.initPlatforms();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -57,26 +42,138 @@ var AlphaRacingLayer = cc.Layer.extend({
     update: function(dt) {
         this._player.updatea(dt / TEST_SPEED);
         this.checkForAndResolveCollisions(this._player);
+        this.checkForAlphabetCollisions();
 
         this.setViewpointCenter(this._player.getPosition());
     },
 
-    movePlatforms: function(dt) {
-        let velocityStep = cc.pMult(cc.p(-400, 0), dt);
+    initPlatforms: function() {
+        this._tmxMap = new cc.TMXTiledMap(res.AR_Level_01_TMX);
+        this._tmxMap.setScale(AR_SCALE_NUMBER);
 
-        let position = cc.p(this._tmxMap.getPosition().x, this._tmxMap.getPosition().y);
-        this._tmxMap.setPosition(cc.pAdd(position, velocityStep));
+        this._tileSize = cc.size(this._tmxMap.getTileSize().width * AR_SCALE_NUMBER, this._tmxMap.getTileSize().height * AR_SCALE_NUMBER);
+        this.addChild(this._tmxMap, 0, 2);
+
+        this._landLayer = this._tmxMap.getLayer("Lands");
+
+        this._player = new ARPlayer(res.Adidog_Run_png);
+        this._tmxMap.addChild(this._player, AR_ADI_ZODER);
+
+        this._playerBorder = cc.DrawNode.create();
+        this._playerBorder.retain();
+        this._tmxMap.addChild(this._playerBorder, AR_ADI_ZODER+1);
+
+        this._tileBorder = cc.DrawNode.create();
+        this._tileBorder.retain();
+        this.addChild(this._tileBorder);
+
+        this.addAlphabet();
+    },
+
+    addHud: function() {
+        var hudLayer = new HudLayer(this);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
+    },
+
+    _addButtons: function() {
+        var self = this;
+
+        // RESTART
+        var btnRestart = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnRestart.x = btnRestart.width - btnRestart.width;
+        btnRestart.y = cc.winSize.height - btnRestart.height*2/3
+        btnRestart.setLocalZOrder(1000);
+        this.addChild(btnRestart);
+        btnRestart.addClickEventListener(function() {
+            self.restart();
+        });
+
+        var lbRestart = new cc.LabelBMFont("RESTART", "yellow-font-export.fnt");
+        lbRestart.scale = 0.6;
+        lbRestart.x = btnRestart.width/2;
+        lbRestart.y = btnRestart.height/2;
+        btnRestart.getRendererNormal().addChild(lbRestart);
+    },
+
+    restart: function() {
+
+    },
+
+    completedScene: function() {
+
+    },
+
+    checkForAlphabetCollisions: function(){
+        for (var i = 0; i < this._alphabetObjectArray.length; i++) {
+            let pRect = this._player.getCollisionBoundingBox();
+            let alphaRect = cc.rect(this._alphabetObjectArray[i].x,
+                this._alphabetObjectArray[i].y,
+                this._alphabetObjectArray[i].getBoundingBox().width, 
+                this._alphabetObjectArray[i].getBoundingBox().height );
+            if (cc.rectIntersectsRect(pRect, alphaRect)) {
+                this._tmxMap.removeChild(this._alphabetObjectArray[i]);
+                this._alphabetObjectArray.splice(i, 1);
+                console.log("Eat eat eat");
+            }
+            
+        }
+    },
+
+    addAlphabet: function() {
+        this.getGroupPositions();
+        let groupIndex = 0;
+        var self = this;
+
+        if (this._alphabetPosArray.length > groupIndex){
+            this._alphabetPosArray[groupIndex].posArray.forEach((pos) => {
+                var object = new cc.Sprite(res.Bee_png);
+                object.setAnchorPoint(0.5, 0.5);
+                object.setScale(0.5);
+                object.x = pos.x;
+                object.y = pos.y;
+                self._tmxMap.addChild(object, AR_WORD_ZODER);
+                self._alphabetObjectArray.push(object);
+            });
+        }
+    },
+
+    getGroupPositions: function(){
+        this._alphabetPosArray = [];
+        this._csf = cc.director.getContentScaleFactor();
+
+        var self = this;
+        this._tmxMap.getObjectGroups().forEach(function(group) {
+            var groupPos = {
+                name: group.getGroupName(),
+                posArray: [],
+            };
+
+            var that = self;
+            group.getObjects().forEach(function(obj) {
+                groupPos.posArray.push({
+                    x: obj.x * that._csf,
+                    y: obj.y * that._csf
+                }); 
+            });
+
+            self._alphabetPosArray.push(groupPos);
+        });
+
+        // if (this._alphabetPosArray.length > 0)
+        //     cc.log("Group Length: %d\nFirst Pos: (%d, %d) of Group %s", 
+        //         this._alphabetPosArray.length, 
+        //         this._alphabetPosArray[0].posArray[0].x, 
+        //         this._alphabetPosArray[0].posArray[0].y, 
+        //         this._alphabetPosArray[0].name);
     },
 
     onTouchBegan: function(touch, event) {
         var touchedPos = touch.getLocation();
         
-        if (touchedPos.x > 240){
-            this._player.setMightJump(true);
-        }
-        else {
-            this._player.setForwardMarch(true);
-        }
+        this._player.setMightJump(true);
 
         return true;
     },
@@ -88,12 +185,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     onTouchEnded: function (touch, event) {
         var touchedPos = touch.getLocation();
         
-        if (touchedPos.x > 240){
-            this._player.setMightJump(false);
-        }
-        else {
-            this._player.setForwardMarch(false);
-        }
+        this._player.setMightJump(false);
     },
 
     tileCoordForPosition: function(position) {
@@ -164,6 +256,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     drawRectWithLabel: function(from, to, fillColor, lineSize, lineColor, label) {
+        if (!ENABLE_DEBUG_DRAW)
+            return;
+
         this._playerBorder.drawRect(from, to, fillColor, lineSize, lineColor);
 
         var lbl = new cc.LabelBMFont(label+"", "hud-font.fnt");
@@ -175,6 +270,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     drawRectPlatforms: function() {
+        if (!ENABLE_DEBUG_DRAW)
+            return;
+
         this._tileBorder.clear();
 
         var ls = this._landLayer.getLayerSize();
@@ -206,6 +304,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this._landLayer);
         p.setOnGround(false);
+        p.setOnRightCollision(false);
 
         let collisionArrayTiles = [];
 
@@ -240,9 +339,11 @@ var AlphaRacingLayer = cc.Layer.extend({
                     
                     if (i == 0) {
                         cc.log("tile is directly below player. i = %d", i + 1);
-                        p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
-                        p.setVelocity(cc.p(velocity.x, 0.0));
-                        p.setOnGround(true);
+                        if (!p.onGround()){
+                            p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
+                            p.setVelocity(cc.p(velocity.x, 0.0));
+                            p.setOnGround(true);
+                        }
                     } else if (i == 1) {
                         //tile is directly above player
                         p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y - intersection.height));
@@ -253,15 +354,17 @@ var AlphaRacingLayer = cc.Layer.extend({
                     } else if (i == 3) {
                         cc.log("tile is right of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x - intersection.width, desiredPosition.y));
-                        p.setVelocity(cc.p(0.0, 0.0));
+                        p.setOnRightCollision(true);
+                        // p.setVelocity(cc.p(0.0, 0.0));
                     } else {
+                        
                         if (intersection.width > intersection.height) {
                             cc.log("tile is diagonal, but resolving collision vertially. i = %d", i + 1);
                             p.setVelocity(cc.p(velocity.x, 0.0)); 
                             let resolutionHeight;
                             if (i > 5) {
                                 resolutionHeight = intersection.height;
-                                p.setOnGround(true);
+                                // p.setOnGround(true);
                             } else {
                                 resolutionHeight = -intersection.height;
                             }
@@ -270,18 +373,17 @@ var AlphaRacingLayer = cc.Layer.extend({
                         } else {
                             cc.log("tile is on right or left side. i = %d", i + 1);
                             let resolutionWidth;
-                            if (i == 6 || i == 4) {
+                            if (i == 6 || i == 4 || !p.onGround()) {
                                 resolutionWidth = intersection.width;
                             } else {
                                 resolutionWidth = -intersection.width;
                             }
-                            p.setDesiredPosition(cc.p(desiredPosition.x , desiredPosition.y + resolutionWidth));
+                            // p.setDesiredPosition(cc.p(desiredPosition.x , desiredPosition.y + resolutionWidth));
                         } 
                     } 
 
                     cc.log("yo, onground: ", p.onGround());
-
-                    // break;
+                    cc.log("Desired Position (%d, %d)", this._player.getDesiredPosition().x, this._player.getDesiredPosition().y);
                 }
                 else {
                     this.drawRectWithLabel(cc.p(dic.x, dic.y),
@@ -297,20 +399,6 @@ var AlphaRacingLayer = cc.Layer.extend({
                     i+1);
             }
         }
-
-        // if (collisionArrayTiles.length === 1){
-        //     if ()
-        // }
-        // else if (collisionArrayTiles.length === 2){
-
-        // }
-        // else if (collisionArrayTiles.length === 3){
-
-        // }
-        // else {
-
-        // }
-
         // cc.log("ARLayer desiredPosition => (%d, %d)", p.getDesiredPosition().x, p.getDesiredPosition().y);
         p.setPosition(p.getDesiredPosition());
     },

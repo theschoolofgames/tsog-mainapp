@@ -2436,8 +2436,8 @@
 				A922753A1517C094001B78AA /* Frameworks */,
 				A922753B1517C094001B78AA /* Resources */,
 				0165B8D01BF1AA9F0066A39C /* ShellScript */,
-				50BAEC7EBA0D506809C4BD21 /* 📦 Embed Pods Frameworks */,
-				D9C2D00E68548E66229912B8 /* 📦 Copy Pods Resources */,
+				50BAEC7EBA0D506809C4BD21 /* [CP] Embed Pods Frameworks */,
+				D9C2D00E68548E66229912B8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2595,14 +2595,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog-desktop/Pods-tsog-desktop-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		50BAEC7EBA0D506809C4BD21 /* 📦 Embed Pods Frameworks */ = {
+		50BAEC7EBA0D506809C4BD21 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2730,14 +2730,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D9C2D00E68548E66229912B8 /* 📦 Copy Pods Resources */ = {
+		D9C2D00E68548E66229912B8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

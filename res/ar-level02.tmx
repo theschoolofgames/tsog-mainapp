@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Lands" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIKBB4xAzIyGmQbURYMTwMIJX9iwADE/FAvQw1FQwArEfFDMNoTs5ScDcwExB5K97EDMSaIZfKN4WGMAo6UIzA==
+   eJxjYBgFo2AUjIKRBxiBmBkNMw2oi8gD2PwxVP1CD8ACxAJoYvw0xlxAzAHE7EDMiSTON4qHNQYAdcYIbg==
   </data>
  </layer>
 </map>

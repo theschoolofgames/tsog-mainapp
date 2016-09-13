@@ -2,8 +2,9 @@ var ARPlayer = cc.Sprite.extend({
 
 	_velocity: cc.p(0,0),
 	_onGround: false,
+	_onRightCollision: false,
 	_desiredPosition: cc.p(0,0),
-	_gravity: cc.p(0.0, -100.0),
+	_gravity: cc.p(0.0, -400.0),
 	_collisionBoundingBox: null,
 	_desiredPosition: cc.p(100,400),
 	_forwardMarch: false,
@@ -16,33 +17,34 @@ var ARPlayer = cc.Sprite.extend({
 		this.setScale(Utils.screenRatioTo43() * 0.15);
         this.setPosition(cc.p(200,400));
         this.setDesiredPosition(cc.p(200,400));
-        this.setLocalZOrder(1000);
 		this._collisionBoundingBox = cc.rect(0, 0, this.getBoundingBox().width, this.getBoundingBox().height);
 		return this;
 	},
 	
  	updatea: function(dt) { 	
-	 	let jumpForce = cc.p(0.0, 310.0);
+	 	let jumpForce = cc.p(0.0, 550.0);
 	    let jumpCutoff = 250.0;
 	    
 	    if (this._mightAsWellJump && this._onGround) {
 	        this._velocity = cc.pAdd(this._velocity, jumpForce);
 	        // Sound jump
-	        
+
 	    } 
 	    else if (!this._mightAsWellJump && this._velocity.y > jumpCutoff) {
 	        this._velocity = cc.p(this._velocity.x, jumpCutoff);
 	    }
 	    
-	    let forwardMove = cc.p(800.0, 0.0);
-	    let forwardStep = cc.pMult(forwardMove, dt);
+	    let forwardMove = cc.p(1000.0, 0.0);
+	    let forwardStep = cc.p(0,0);
+	    if (!this._onRightCollision)
+	    	forwardStep = cc.pMult(forwardMove, dt);
 	    
 	    this._velocity = cc.p(this._velocity.x * 0.90, this._velocity.y);
 	    
         this._velocity = cc.pAdd(this._velocity, forwardStep);
 	    
 	    let minMovement = cc.p(0.0, -450.0);
-	    let maxMovement = cc.p(120.0, 250.0);
+	    let maxMovement = cc.p(120.0, 550.0);
 
 	    let gravityStep = cc.p(0,0);
 	    if (!this._onGround)
@@ -79,6 +81,14 @@ var ARPlayer = cc.Sprite.extend({
 
  	setOnGround: function(onGround) {
  		this._onGround = onGround;
+ 	},
+
+ 	onRightCollision: function() {
+ 		return this._onRightCollision;
+ 	},
+
+ 	setOnRightCollision: function(onRightCollision) {
+ 		this._onRightCollision = onRightCollision;
  	},
 
  	getVelocity: function() {
