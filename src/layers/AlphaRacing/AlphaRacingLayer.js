@@ -32,7 +32,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._player.setDesiredPosition(cc.p(200,400));
         this._player.setLocalZOrder(1000);
         // this._player.setTextureRect(cc.rect(0,0, this._tileSize.width, this._tileSize.height));
-        this.addChild(this._player);
+        this._tmxMap.addChild(this._player);
 
         // var followAction = cc.Follow.create(this._player,cc.rect(100,100,1000,1000));
         // this._player.runAction(followAction);
