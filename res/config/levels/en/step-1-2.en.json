@@ -98,7 +98,7 @@
       "name": "storytime",
       "data": [
         {
-          "storyName":"lion_and_mouse",
+          "option":"lion_and_mouse",
           "data": ["lion", "horse", "bee","mouse", "ant", "dog","tree", "hat", "key"]
         }
       ]

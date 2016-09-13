@@ -102,6 +102,12 @@ var SceneFlowController = cc.Class.extend({
     },
 
     moveToNextScene: function(sceneName, data) {
+        var option = null;
+        // if (data[0].option){
+        //     data = data[0].data;
+        //     option = data[0].option;
+        // }
+
         switch(sceneName) {
             case "room":
                 cc.director.runScene(new RoomScene(data));
@@ -122,7 +128,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new ForestScene(data));
                 break;
             case "gofigure":
-                cc.director.runScene(new GoFigureTestScene(data));
+                cc.director.runScene(new GoFigureTestScene(data, option));
                 break;
             case "card":
                 cc.director.runScene(new CardGameScene(data));
@@ -137,7 +143,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new BalloonGameScene(data));
                 break;
             case "storytime":
-                cc.director.runScene(new StoryMainScene(data[0].data, data[0].storyName));
+                cc.director.runScene(new StoryMainScene(data, option));
                 break;
             default:
                 break;

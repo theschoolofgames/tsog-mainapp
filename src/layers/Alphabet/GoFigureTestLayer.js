@@ -4,6 +4,7 @@ var RENDER_TEXTURE_HEIGHT = 320;
 var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
 var BRUSH_COLOR = ["red", "blue", "green", "yellow"];
+var GOFIGURE_SPECIAL_CASE = 1;
 
 var GoFigureTestLayer = TestLayer.extend({
     _writingWords: null,
@@ -28,7 +29,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _nextSceneName: null,
     _oldSceneName: null,
-    _objectsArray: null,
+    _data: null,
 
     _currentChar: "",
 
@@ -36,25 +37,36 @@ var GoFigureTestLayer = TestLayer.extend({
     _currentBrushColor: cc.color.GREEN,
     _brushColorButtons: [],
 
-    ctor: function(objectsArray, oldSceneName, isTestScene) {
+    ctor: function(data, option) {
         this._super();
 
-        this._setIsTestScene(isTestScene);
+        // this._setIsTestScene(isTestScene);
         // var obj = GameObject.getInstance().findById("hat");
         // cc.log("obj -> " + JSON.stringify(obj));
-        // cc.log("objectsArray: " + JSON.stringify(objectsArray));
+        // cc.log("data: " + JSON.stringify(data));
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("GoFigureTestLayer ctor");
-        this._objectsArray = objectsArray;
+        this._data = data;
         this._brushColorButtons = [];
 
-        this._names = objectsArray.map(function(obj) {
+        this._names = data.map(function(obj) {
             cc.log(obj);
-            var o = GameObject.getInstance().findById(obj);
-            return o[0].value;
+
+            if (obj.name) {
+                var o = GameObject.getInstance().findById(obj.name);
+                return {
+                    "name": o[0].value,
+                    "count": parseInt(obj.value),
+                    "relative": obj.relative
+                };
+            } else {
+                var o = GameObject.getInstance().findById(obj);
+                return o[0].value;
+            }
+                
         });
         cc.log(JSON.stringify(this._names));
-        this._oldSceneName = oldSceneName;
+        // this._oldSceneName = oldSceneName;
         this._nameIdx = this._pathIdx = 0;
 
         this._writingWords = this._names;
@@ -254,7 +266,7 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._touchCounting / this._objectsArray.length;
+        var percent = this._touchCounting / this._data.length;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
@@ -269,15 +281,15 @@ var GoFigureTestLayer = TestLayer.extend({
             starEarned = 3;
         cc.log("starEarned" + starEarned);
 
-        this._hudLayer.setStarEarned(this._objectsArray.length);
+        this._hudLayer.setStarEarned(this._data.length);
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
 
     countingStars: function() {
-        var starGoal1 = Math.ceil(this._objectsArray.length/3);
-        var starGoal2 = Math.ceil(this._objectsArray.length/3 * 2);
-        var starGoal3 = this._objectsArray.length;
+        var starGoal1 = Math.ceil(this._data.length/3);
+        var starGoal2 = Math.ceil(this._data.length/3 * 2);
+        var starGoal3 = this._data.length;
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
@@ -473,24 +485,30 @@ var GoFigureTestLayer = TestLayer.extend({
         this._characterNodes = [];
 
         var objName = this._writingWords[this._nameIdx];
-        cc.log("objName: " + objName);
-        cc.log("_nameIdx: " + this._nameIdx);
+        // cc.log("objName: " + objName);
+        // cc.log("_nameIdx: " + this._nameIdx);
         this._wordScale = 1;
         var charArrays = [];
         var totalWidth = 0;
-        var s = new cc.Sprite("#" + objName + ".png");
-        this.addChild(s);
+        var totalWords = objName.count || 1;
+        if (totalWords > 1)
+            objName = objName.name;
 
-        this._characterNodes.push(s);
+        for (var i = 0; i < totalWords; i++) {
+            var s = new cc.Sprite("#" + objName + ".png");
+            this.addChild(s);
 
-        totalWidth = s.width;
-        // totalWidth -= CHAR_SPACE;
-        if (totalWidth > cc.winSize.width * 0.7)
-            this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
+            this._characterNodes.push(s);
+            totalWidth = s.width;
+            // totalWidth -= CHAR_SPACE;
+            if (totalWidth > cc.winSize.width * 0.7)
+                this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
 
-        s.scale = this._wordScale;
-        s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
-        s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
+            s.scale = this._wordScale;
+            s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
+            s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
+        }
+
 
         // for (var j = 1; j < charArrays[i].length; j++) {
         //     charArrays[i][j].scale = this._wordScale;
@@ -684,7 +702,7 @@ var GoFigureTestLayer = TestLayer.extend({
 GoFigureTestLayer.CHAR_CONFIG = null;
 
 var GoFigureTestScene = cc.Scene.extend({
-    ctor: function(objectsArray, oldSceneName, isTestScene){
+    ctor: function(data, oldSceneName, isTestScene){
         this._super();
 
         if (GoFigureTestLayer.CHAR_CONFIG == null) {
@@ -740,7 +758,7 @@ var GoFigureTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new GoFigureTestLayer(objectsArray, oldSceneName, isTestScene);
+        var layer = new GoFigureTestLayer(data, oldSceneName, isTestScene);
         this.addChild(layer);
 
     }

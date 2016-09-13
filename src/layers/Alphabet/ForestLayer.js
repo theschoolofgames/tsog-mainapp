@@ -796,7 +796,7 @@ var ForestLayer = cc.Layer.extend({
             }
         }, mask);
 
-        if (!isNaN(animalName)) // TODO
+        if (isNaN(animalName)) // TODO
             jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
         cc.log("done check animalName is number or not");
         animal.runAction(cc.sequence(

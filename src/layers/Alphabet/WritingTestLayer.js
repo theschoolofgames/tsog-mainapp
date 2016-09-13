@@ -304,7 +304,7 @@ var WritingTestLayer = TestLayer.extend({
         this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
         this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._currentChar];
         cc.log ("_currentChar: " + this._currentChar);
-        cc.log ("this._currentCharConfig: " + this._currentCharConfig);
+        cc.log ("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
     },
 
     _finishAndMoveToNextChar: function() {
@@ -475,18 +475,36 @@ var WritingTestLayer = TestLayer.extend({
 
     _addObjImage: function(name) {
         var spritePath = "objects/" + name.toLowerCase() + ".png";
-
+        var secondNumberPath = null;
         if (!jsb.fileUtils.isFileExist(spritePath)) {
             spritePath = "animals/" + name.toLowerCase() + ".png";
-            if (!jsb.fileUtils.isFileExist(spritePath))
-                spritePath = "#" + name.toLowerCase() + ".png";
+            if (!jsb.fileUtils.isFileExist(spritePath)) {
+                var number = parseInt(name.toLowerCase());
+                if (number > 9) {
+                    var firstNumber = Math.floor(number/10);
+                    secondNumberPath = "#" + (number-firstNumber*10) + ".png";
+                    spritePath = "#" + firstNumber + ".png";
+                    
+                }
+            }
         }
-
+        cc.log("_addObjImage");
+        // Only support two digit number for now, update later if needed
+        cc.log("spritePath: " + spritePath);
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;
         s.opacity = 0;
+        s.setCascadeOpacityEnabled(true);
         this.addChild(s, 2);
+
+        if (secondNumberPath) {
+            s.x = s.x - s.width/2;
+            var s2 = new cc.Sprite(secondNumberPath);
+            s2.x = s.width + s2.width/2;
+            s2.y = s.height/2;
+            s.addChild(s2);
+        }
 
         return s;
     },

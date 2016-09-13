@@ -54,7 +54,27 @@
   "2": {
     "1": {
       "name": "gofigure",
-      "data": []
+      "data": [
+        {
+          "option": "1",
+          "data": [
+            "shape_triangle", 
+            "shape_square", 
+            "shape_circle", 
+            {
+              "name": "shape_curved_line",
+              "value": "2",
+              "relative": "opposite"
+            },
+            "shape_semi_circle",
+            {
+              "name": "shape_straight_line",
+              "value": "6",
+              "relative": "no"
+            }
+          ]
+        }
+      ]
     }
   },
   "3": {

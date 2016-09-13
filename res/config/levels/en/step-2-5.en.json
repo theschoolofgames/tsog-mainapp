@@ -3,19 +3,30 @@
     "1": {
       "name": "room",
       "data": [
-        "banana","computer","duster","crayon","apple"
+        "banana",
+        "computer",
+        "duster",
+        "apple"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "banana","computer","duster","crayon","apple"
+        "banana",
+        "computer",
+        "duster",
+        "crayon",
+        "apple"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "banana","computer","duster","crayon","apple"
+        "banana",
+        "computer",
+        "duster",
+        "crayon",
+        "apple"
       ]
     }
   },
@@ -23,7 +34,11 @@
     "1": {
       "name": "freecolor",
       "data": [
-        "banana","computer","duster","crayon","apple"
+        "banana",
+        "computer",
+        "duster",
+        "crayon",
+        "apple"
       ]
     }
   },
@@ -31,19 +46,31 @@
     "1": {
       "name": "forest",
       "data": [
-        "duck","bear","deer","camel","cheetah"
+        "duck",
+        "bear",
+        "deer",
+        "camel",
+        "cheetah"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "duck","bear","deer","camel","cheetah"
+        "duck",
+        "bear",
+        "deer",
+        "camel",
+        "cheetah"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "duck","bear","deer","camel","cheetah"
+        "duck",
+        "bear",
+        "deer",
+        "camel",
+        "cheetah"
       ]
     }
   },
@@ -79,28 +106,23 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-      ]
+      "data": []
     },
     "3": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     },
     "4": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     },
     "5": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     },
     "6": {
       "name": "speaking",
-      "data": [
-      ]
+      "data": []
     }
   },
   "5": {
@@ -121,23 +143,19 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-      ]
+      "data": []
     },
     "3": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     },
     "4": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     },
     "5": {
       "name": "writing",
-      "data": [
-      ]
+      "data": []
     }
   }
 }

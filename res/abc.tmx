@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="357">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="362">
  <tileset firstgid="1" name="A" tilewidth="231" tileheight="254">
   <image source="../_sourceart/ABC/A.png" width="231" height="254"/>
  </tileset>
@@ -125,6 +125,9 @@
  </tileset>
  <tileset firstgid="41" name="4" tilewidth="215" tileheight="249">
   <image source="../_sourceart/abc/4.png" width="215" height="249"/>
+ </tileset>
+ <tileset firstgid="42" name="0" tilewidth="207" tileheight="247">
+  <image source="../_sourceart/abc/0.png" width="207" height="247"/>
  </tileset>
  <objectgroup name="Z" visible="0">
   <object id="204" name="Z" gid="26" x="0" y="320" width="320" height="320" visible="0"/>
@@ -498,7 +501,7 @@
    <polyline points="0,0 -1,36 -1,71 -2,97 -2,129 -2,137"/>
   </object>
  </objectgroup>
- <objectgroup name="2">
+ <objectgroup name="2" visible="0">
   <object id="314" name="2" gid="34" x="55" y="285" width="207" height="247"/>
   <object id="317" name="Path1" x="106" y="108">
    <polyline points="8,-23 103,-12 40,93"/>
@@ -562,6 +565,12 @@
   <object id="349" name="9" gid="40" x="60" y="280" width="207" height="247"/>
   <object id="350" name="Path1" x="180" y="161">
    <polyline points="0,0 -42,3 -72,-32 -69,-73 -47,-93 -2,-90 32,-69 44,-27 42,25 32,61 5,79 -29,83 -61,75"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="0">
+  <object id="357" name="0" gid="42" x="57" y="283" width="207" height="247"/>
+  <object id="361" name="Path1" x="162" y="76">
+   <polyline points="0,0 -53,46 -54,130 -2,183 50,139 50,43"/>
   </object>
  </objectgroup>
 </map>

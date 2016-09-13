@@ -551,7 +551,6 @@ var GAME_IDS = [
     "gofigure",
     "card",
     "freecolor",
-    "cardgame",
     "train",
     "tree",
     "balloon",
