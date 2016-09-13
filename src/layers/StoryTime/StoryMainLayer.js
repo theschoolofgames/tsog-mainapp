@@ -18,6 +18,7 @@ var StoryMainLayer = TestLayer.extend({
 
         this._addButtons();
         this._fetchObjectData(data);
+        cc.log("ctor option " + option);
         switch(option) {
             case "lion_and_mouse":
                 this._currentStory = STORY_RESOURCES[0];
@@ -359,10 +360,10 @@ var StoryMainLayer = TestLayer.extend({
 });
 
 var StoryMainScene = cc.Scene.extend({
-    ctor: function(data) {
+    ctor: function(data, option) {
         this._super();
         this.name = "story";
-        var storyMainLayer = new StoryMainLayer(data);
+        var storyMainLayer = new StoryMainLayer(data, option);
         this.addChild(storyMainLayer);
     }
 });

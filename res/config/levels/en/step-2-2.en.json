@@ -79,7 +79,20 @@
     "1": {
       "name": "storytime",
       "data": [
-        "goose_with_golden_egg"
+        {
+          "option":"goose_with_golden_egg",
+          "data": [
+            "goose",
+            "hen",
+            "parrot",
+            "egg",
+            "apple",
+            "book",
+            "nest",
+            "chair",
+            "key"
+          ]
+        }
       ]
     },
     "2": {

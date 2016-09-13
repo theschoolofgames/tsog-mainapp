@@ -151,7 +151,7 @@ cc.game.onStart = function(){
         cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene());
         // cc.director.runScene(new MainScene());
-        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new MainScene());
         // cc.director.runScene(new AlphaRacingScene());
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));

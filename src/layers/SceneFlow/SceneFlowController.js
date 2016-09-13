@@ -143,6 +143,8 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new BalloonGameScene(data));
                 break;
             case "storytime":
+                option = data[0].option;
+                cc.log("option: " + option);
                 cc.director.runScene(new StoryMainScene(data, option));
                 break;
             case "alpharacing":
