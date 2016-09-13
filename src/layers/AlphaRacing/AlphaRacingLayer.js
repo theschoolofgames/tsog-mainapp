@@ -21,8 +21,6 @@ var AlphaRacingLayer = cc.Layer.extend({
 	ctor: function(inputData) {
         this._super();
         this._inputData = inputData;
-
-        this._init();
     },
 
     _init: function() {
@@ -39,6 +37,26 @@ var AlphaRacingLayer = cc.Layer.extend({
         }, this);
 
         this.scheduleUpdate();
+    },
+
+    onEnter: function() {
+        this._super();
+        this._init();
+    },
+
+    onExit: function() {
+        this._super();
+        cc.log("On Exit AlphaRacingLayer");
+        this.unscheduleUpdate();
+        this._player = null;
+        this._tmxMap.removeAllChildren(true);
+        this._tmxMap = null;
+        this._tileSize = cc.size(0,0);
+        this._landLayer = null;
+        this._playerBorder = null;
+        this._tileBorder = null;
+        this._alphabetPosArray = [];
+        this._alphabetObjectArray = [];
     },
 
     update: function(dt) {
@@ -128,6 +146,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.getGroupPositions();
         let groupIndex = 0;
         var self = this;
+
+        this._alphabetObjectArray = [];
 
         this._alphabetPosArray = shuffle(this._alphabetPosArray);
 
