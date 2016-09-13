@@ -2,7 +2,7 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : false,
+    "showFPS" : true,
     "frameRate" : 60,
     "id" : "gameCanvas",
     "renderMode" : 0,
@@ -74,6 +74,9 @@
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/LevelDialog.js",
         "src/layers/Alphabet/MatchGameLayer.js",
+
+        "src/layers/AlphaRacing/AlphaRacingLayer.js",
+        "src/layers/AlphaRacing/ARPlayer.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

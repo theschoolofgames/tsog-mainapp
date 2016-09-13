@@ -145,6 +145,9 @@ var SceneFlowController = cc.Class.extend({
             case "storytime":
                 cc.director.runScene(new StoryMainScene(data, option));
                 break;
+            case "alpharacing":
+                cc.director.runScene(new AlphaRacingScene(data, option));
+                break;
             default:
                 break;
         }

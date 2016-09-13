@@ -124,7 +124,7 @@ var LevelDialog = Dialog.extend({
         // cc.log("b.tag: " + b.tag);
         // cc.log("this._scenePool: " + JSON.stringify(this._scenePool));
         // cc.log("data _gameSelectorPressed : " + b.getUserData());
-        cc.log("nextSceneData  : " + nextSceneData);
+        cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, gameName, data);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData); 
