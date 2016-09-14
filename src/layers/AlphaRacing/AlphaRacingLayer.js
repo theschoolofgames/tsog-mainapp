@@ -5,10 +5,17 @@ var ENABLE_DEBUG_DRAW = false;
 var AR_ADI_ZODER = 1002;
 var AR_LANDS_ZODER = 1000;
 var AR_WORD_ZODER = 1001;
+var AR_MAP_HORIZONTAL_TILES = 30;
+var AR_MAP_VERTICLE_TILES = 20;
 
 var AlphaRacingLayer = cc.Layer.extend({
 	
-    _tmxMap: null,
+    gameLayer: null,
+    maps: [],
+    layers: [],
+    _mapIndex: 0,
+    _gameLayerSize: cc.size(0,0),
+    _mapWidth: 0,
     _player: null,
     _tileSize: cc.size(0,0),
     _landLayer: null,
@@ -16,11 +23,19 @@ var AlphaRacingLayer = cc.Layer.extend({
     _tileBorder: null,
     _alphabetPosArray: [],
     _alphabetObjectArray: [],
-    _inputData: [],    
+    _inputData: [],
+    _tempInputData: [],
+    _currentChallange: null,
+    _currentEarnedNumber: 0,
+    _hudLayer: null,
+    _totalEarned: 0,
+    _totalGoalNumber: 0,
+    _warningLabel: null,
 
 	ctor: function(inputData) {
         this._super();
         this._inputData = inputData;
+        this._tempInputData = inputData.slice();
     },
 
     _init: function() {
@@ -41,26 +56,34 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     onEnter: function() {
         this._super();
+        this._alphabetObjectArray = [];
+        this.layers = [];
+        this.maps = [];
+        
         this._init();
     },
 
     onExit: function() {
         this._super();
-        cc.log("On Exit AlphaRacingLayer");
         this.unscheduleUpdate();
         this._player = null;
-        this._tmxMap.removeAllChildren(true);
-        this._tmxMap = null;
         this._tileSize = cc.size(0,0);
         this._landLayer = null;
         this._playerBorder = null;
         this._tileBorder = null;
         this._alphabetPosArray = [];
         this._alphabetObjectArray = [];
+        this.layers = [];
+
+        for (var i = 0; i < this.maps.length; i++) {
+            this.gameLayer.removeChild(this.maps[i]);
+        }
+        this.maps = [];
     },
 
     update: function(dt) {
         this._player.updatea(dt / TEST_SPEED);
+        this._checkAndReloadMaps(this._player);
         this.checkForAndResolveCollisions(this._player);
         this.checkForAlphabetCollisions();
 
@@ -68,26 +91,72 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     initPlatforms: function() {
-        this._tmxMap = new cc.TMXTiledMap(res.AR_Level_01_TMX);
-        this._tmxMap.setScale(AR_SCALE_NUMBER);
+        this.gameLayer = new cc.Layer();
+        
+        for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
+            var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
+            tmxMap.setScale(AR_SCALE_NUMBER);
+            tmxMap.setPosition(cc.p(this._gameLayerSize.width, 0));
+            
+            this.maps.push(tmxMap);
+            this.gameLayer.addChild(tmxMap, 0, 2);
 
-        this._tileSize = cc.size(this._tmxMap.getTileSize().width * AR_SCALE_NUMBER, this._tmxMap.getTileSize().height * AR_SCALE_NUMBER);
-        this.addChild(this._tmxMap, 0, 2);
+            var tmxLayer = tmxMap.getLayer("Lands");
+            this.layers.push(tmxLayer);
 
-        this._landLayer = this._tmxMap.getLayer("Lands");
+            this._mapWidth = tmxMap.getContentSize().width;
+            this._tileSize = cc.size(tmxMap.getTileSize().width * AR_SCALE_NUMBER, tmxMap.getTileSize().height * AR_SCALE_NUMBER);
+            this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, tmxMap.getContentSize().height);
+
+            this.addAlphabet(tmxMap, i);
+        }
+
+        // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
 
         this._player = new ARPlayer();
-        this._tmxMap.addChild(this._player, AR_ADI_ZODER);
+        this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
         this._playerBorder.retain();
-        this._tmxMap.addChild(this._playerBorder, AR_ADI_ZODER+1);
+        this.gameLayer.addChild(this._playerBorder, AR_ADI_ZODER+1);
 
         this._tileBorder = cc.DrawNode.create();
         this._tileBorder.retain();
         this.addChild(this._tileBorder);
 
-        this.addAlphabet();
+        this.addChild(this.gameLayer);
+
+        // Check current goal and update UI
+        this.checkForGoalAccepted();
+    },
+
+    _checkAndReloadMaps: function(player) {
+        var newMapIndex = parseInt(player.getPosition().x / this._mapWidth);
+
+        if (newMapIndex == this._mapIndex)
+            return;
+
+        if (newMapIndex > 1){
+            var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[Utils.getRandomInt(0, AR_TMX_LEVELS.length)]);
+            tmxMap.setScale(AR_SCALE_NUMBER);
+            tmxMap.setPosition(cc.p(this._gameLayerSize.width, 0));
+            
+            this.maps.push(tmxMap);
+            this.gameLayer.addChild(tmxMap, 0, 2);
+
+            var tmxLayer = tmxMap.getLayer("Lands");
+            this.layers.push(tmxLayer);
+
+            this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, tmxMap.getContentSize().height);
+
+            this.addAlphabet(tmxMap, this._mapIndex);
+
+            // Remove the first map of @maps array
+            this.gameLayer.removeChild(this.maps.shift());
+            this.layers.shift();
+        }
+
+        this._mapIndex = newMapIndex;
     },
 
     addHud: function() {
@@ -123,53 +192,146 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
+        this._hudLayer.pauseClock();
 
+        var lbText = "You Win";
+        this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
+        var warningLabel = this._warningLabel;
+        warningLabel.runAction(cc.sequence(
+            cc.callFunc(function() { 
+                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+            }), 
+            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
+        ));
+
+        var self = this;
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(3),
+                cc.callFunc(function() {
+                    if (warningLabel)
+                        warningLabel.removeFromParent();
+
+                    self._backToHome();
+                })
+            )
+        )
+    },
+
+    _backToHome: function() {
+        cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
+    },
+
+    createWarnLabel: function(text, object, x, y) {
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        font = FONT_COLOR[randSchoolIdx];
+
+        text = text.toUpperCase();
+        var warnLabel = new cc.LabelBMFont(text, font);
+        var scaleTo = 1.5;
+        warnLabel.setScale(scaleTo);
+
+        warnLabel.x = x || cc.winSize.width / 2;
+        warnLabel.y = y || cc.winSize.height / 2 - 100;
+        this.addChild(warnLabel, 10000);
+
+        this._warningLabel = warnLabel;
+    },
+
+    checkForGoalAccepted: function(word) {
+        if (!this._currentChallange){
+            // Init
+            for (var i = 0; i < this._tempInputData.length; i++) {
+                this._totalGoalNumber += parseInt(this._tempInputData[i].value);
+            }
+
+            this._currentChallange = this._tempInputData.shift();
+        }
+
+        if (this._tempInputData.length == 0 && parseInt(this._currentChallange.value) <= this._currentEarnedNumber)
+            return;
+
+        if (this._currentChallange.type == word){
+            this._currentEarnedNumber++;
+            this._totalEarned++;
+            this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
+
+            if (parseInt(this._currentChallange.value) == this._currentEarnedNumber){
+                if (this._tempInputData.length > 0){
+                    this._currentChallange = this._tempInputData.shift();
+                    this._currentEarnedNumber = 0;
+                }
+                else {
+                    // Completed game
+                    console.log("Completed game");
+                    this.completedScene();
+                }
+            }
+        }
+
+        let leftObjects = parseInt(this._currentChallange.value) - this._currentEarnedNumber;
+        this._hudLayer.updateProgressLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.type));
     },
 
     checkForAlphabetCollisions: function(){
         for (var i = 0; i < this._alphabetObjectArray.length; i++) {
+            if (this._alphabetObjectArray[i].x < this._player.x - this._mapWidth / 2){
+                this.gameLayer.removeChild(this._alphabetObjectArray[i]);
+                this._alphabetObjectArray.splice(i, 1);
+                continue;
+            }
+
             let pRect = this._player.getCollisionBoundingBox();
             let alphaRect = cc.rect(this._alphabetObjectArray[i].x,
                 this._alphabetObjectArray[i].y,
                 this._alphabetObjectArray[i].getBoundingBox().width, 
                 this._alphabetObjectArray[i].getBoundingBox().height );
             if (cc.rectIntersectsRect(pRect, alphaRect)) {
-                this._tmxMap.removeChild(this._alphabetObjectArray[i]);
+                this.checkForGoalAccepted(this._alphabetObjectArray[i].getName());
+
+                this.gameLayer.removeChild(this._alphabetObjectArray[i]);
                 this._alphabetObjectArray.splice(i, 1);
-                console.log("Eat eat eat");
             }
             
         }
     },
 
-    addAlphabet: function() {
-        this.getGroupPositions();
+    addAlphabet: function(tmxMap) {
+        let posArray = this.getGroupPositions(tmxMap);
+        let inputArray = this._inputData.slice(0);
         let groupIndex = 0;
-        var self = this;
+        let self = this;
 
-        this._alphabetObjectArray = [];
+        cc.log("This.Input Length: %d, That length: %d", this._inputData.length, inputArray.length);
 
-        this._alphabetPosArray = shuffle(this._alphabetPosArray);
+        // this._alphabetObjectArray = [];
 
-        for (var i = 0; i < this._inputData.length; i++) {
-            let group = this._alphabetPosArray.pop();
+        posArray = shuffle(posArray);
+        inputArray = shuffle(inputArray);
+        
+        let randomGroupNumber = Utils.getRandomInt(3, posArray.length);
+
+        for (var i = 0; i < randomGroupNumber; i++) {
+            let group = posArray.pop();
+            let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
             group.posArray.forEach((pos) => {
-                var object = new cc.LabelBMFont(self._inputData[i].type, res.CustomFont_fnt);
+                var object = new cc.LabelBMFont(self._inputData[randomInputIndex].type, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x;
                 object.y = pos.y;
-                self._tmxMap.addChild(object, AR_WORD_ZODER);
+                object.setName(self._inputData[randomInputIndex].type);
+                self.gameLayer.addChild(object, AR_WORD_ZODER);
                 self._alphabetObjectArray.push(object);
             });
         }
     },
 
-    getGroupPositions: function(){
-        this._alphabetPosArray = [];
-        this._csf = cc.director.getContentScaleFactor();
+    getGroupPositions: function(tmxMap){
+        var posArray = [];
+        let _csf = cc.director.getContentScaleFactor();
 
         var self = this;
-        this._tmxMap.getObjectGroups().forEach(function(group) {
+        tmxMap.getObjectGroups().forEach(function(group) {
             var groupPos = {
                 name: group.getGroupName(),
                 posArray: [],
@@ -178,20 +340,14 @@ var AlphaRacingLayer = cc.Layer.extend({
             var that = self;
             group.getObjects().forEach(function(obj) {
                 groupPos.posArray.push({
-                    x: obj.x * that._csf,
-                    y: obj.y * that._csf
+                    x: (obj.x + that._gameLayerSize.width - that._mapWidth) * _csf,
+                    y: obj.y * _csf
                 }); 
             });
 
-            self._alphabetPosArray.push(groupPos);
+            posArray.push(groupPos);
         });
-
-        // if (this._alphabetPosArray.length > 0)
-        //     cc.log("Group Length: %d\nFirst Pos: (%d, %d) of Group %s", 
-        //         this._alphabetPosArray.length, 
-        //         this._alphabetPosArray[0].posArray[0].x, 
-        //         this._alphabetPosArray[0].posArray[0].y, 
-        //         this._alphabetPosArray[0].name);
+        return posArray;
     },
 
     onTouchBegan: function(touch, event) {
@@ -214,19 +370,19 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     tileCoordForPosition: function(position) {
         let x = Math.floor(position.x / this._tileSize.width);
-        let levelHeightInPixels = this._tmxMap.getMapSize().height * this._tileSize.height;
+        let levelHeightInPixels = this._gameLayerSize.height;
         let y = Math.floor((levelHeightInPixels - position.y) / this._tileSize.height);
         return cc.p(x, y);
     },
 
-    tileRectFromTileCoords: function(tileCoords) {
-        let levelHeightInPixels = this._tmxMap.getMapSize().height * this._tileSize.height;
-        let origin = cc.p(tileCoords.x * this._tileSize.width, levelHeightInPixels - ((tileCoords.y + 1) * this._tileSize.height));
+    tileRectFromTileCoords: function(tileCoords, mapIndex) {
+        let levelHeightInPixels = this._gameLayerSize.height;
+        let origin = cc.p(tileCoords.x * this._tileSize.width + mapIndex * this._mapWidth, levelHeightInPixels - ((tileCoords.y + 1) * this._tileSize.height));
         return cc.rect(origin.x, origin.y, this._tileSize.width, this._tileSize.height);
     },
 
-    getSurroundingTilesAtPosition: function(position, layer) {
-        let plPos = this.tileCoordForPosition(position);
+    getSurroundingTilesAtPosition: function(position, layer, mapIndex) {
+        let plPos = this.tileCoordForPosition(cc.p(position.x % this._mapWidth, position.y));
         // cc.log("position: %d, %d -> plPos: %d, %d", position.x, position.y, plPos.x, plPos.y);
     
         let gids = [];
@@ -263,16 +419,25 @@ var AlphaRacingLayer = cc.Layer.extend({
             let c = indexToCalculateRC % 3;
             let r = Math.floor(indexToCalculateRC / 3);
             let tilePos = cc.p(plPos.x + (c - 1), plPos.y + (r - 1));
+            
+            if (tilePos.x > AR_MAP_HORIZONTAL_TILES - 1)
+                tilePos.x = AR_MAP_HORIZONTAL_TILES - 1;
+            if (tilePos.x < 0)
+                tilePos.x = 0;
+
+            if (tilePos.y > AR_MAP_VERTICLE_TILES - 1)
+                tilePos.y = AR_MAP_VERTICLE_TILES - 1;
+            if (tilePos.y < 0)
+                tilePos.y = 0;
+
             let tgid = layer.getTileGIDAt(tilePos);
             
-            let tileRect = this.tileRectFromTileCoords(tilePos);
+            let tileRect = this.tileRectFromTileCoords(tilePos, mapIndex);
             
             let tileDict = {gid: tgid, x: tileRect.x, y: tileRect.y, tilePos: tilePos, c: c, r: r};
 
+            // cc.log("gid = %d -> tilePos.x = %d, tilePos.y = %d, index = %d", tgid, tilePos.x, tilePos.y, index);
 
-            // cc.log("i = %d -> x = %d, y = %d, index = %d", i, c, r, index);
-
-            // gids[index] = tileDict;
             gids.push(tileDict);
         }
 
@@ -314,6 +479,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     checkForAndResolveCollisions: function(p) {
+        // cc.log("MapIndex %d, MapWidth %d, layersLength %d", this._mapIndex, this._mapWidth, this.layers.length);
         this._playerBorder.clear();
         this._playerBorder.removeAllChildren();
 
@@ -326,11 +492,12 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.drawRectPlatforms();
         
-        var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this._landLayer);
+        // Player pass through 2nd map => create a new map, push new map,layer => remove old map, layer
+        // => current map, layer index will be 1
+        let layerIndex = (this._mapIndex > 1) ? 1 : this._mapIndex; 
+        var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
         p.setOnGround(false);
         p.setOnRightCollision(false);
-
-        let collisionArrayTiles = [];
 
         for (var i = 0; i < tiles.length; i++) {
 
@@ -343,11 +510,6 @@ var AlphaRacingLayer = cc.Layer.extend({
             if (gid) {
                 let tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
                 if (cc.rectIntersectsRect(pRect, tileRect)) {               
-
-                    collisionArrayTiles.push({
-                        index: i + 1,
-                        tileRect: tileRect,
-                    });
 
                     this.drawRectWithLabel(cc.p(dic.x, dic.y),
                         cc.p(dic.x+this._tileSize.width, dic.y+this._tileSize.height),
@@ -362,28 +524,28 @@ var AlphaRacingLayer = cc.Layer.extend({
                     let velocity = p.getVelocity();
                     
                     if (i == 0) {
-                        cc.log("tile is directly below player. i = %d", i + 1);
+                        // cc.log("tile is directly below player. i = %d", i + 1);
                         if (!p.onGround()){
                             p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
                             p.setVelocity(cc.p(velocity.x, 0.0));
                             p.setOnGround(true);
                         }
                     } else if (i == 1) {
-                        //tile is directly above player
+                        // cc.log("tile is directly above player");
                         p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y - intersection.height));
                         p.setVelocity(cc.p(velocity.x, 0.0));
                     } else if (i == 2) {
-                        cc.log("tile is left of player. i = %d", i + 1);
+                        // cc.log("tile is left of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x + intersection.width, desiredPosition.y));
                     } else if (i == 3) {
-                        cc.log("tile is right of player. i = %d", i + 1);
+                        // cc.log("tile is right of player. i = %d", i + 1);
                         p.setDesiredPosition(cc.p(desiredPosition.x - intersection.width, desiredPosition.y));
                         p.setOnRightCollision(true);
                         // p.setVelocity(cc.p(0.0, 0.0));
                     } else {
                         
                         if (intersection.width > intersection.height) {
-                            cc.log("tile is diagonal, but resolving collision vertially. i = %d", i + 1);
+                            // cc.log("tile is diagonal, but resolving collision vertially. i = %d", i + 1);
                             p.setVelocity(cc.p(velocity.x, 0.0)); 
                             let resolutionHeight;
                             if (i > 5) {
@@ -395,7 +557,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                             // p.setDesiredPosition(cc.p(desiredPosition.x, desiredPosition.y + resolutionHeight ));
                             
                         } else {
-                            cc.log("tile is on right or left side. i = %d", i + 1);
+                            // cc.log("tile is on right or left side. i = %d", i + 1);
                             let resolutionWidth;
                             if (i == 6 || i == 4 || !p.onGround()) {
                                 resolutionWidth = intersection.width;
@@ -406,8 +568,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                         } 
                     } 
 
-                    cc.log("yo, onground: ", p.onGround());
-                    cc.log("Desired Position (%d, %d)", this._player.getDesiredPosition().x, this._player.getDesiredPosition().y);
+                    // cc.log("Desired Position (%d, %d)", this._player.getDesiredPosition().x, this._player.getDesiredPosition().y);
                 }
                 else {
                     this.drawRectWithLabel(cc.p(dic.x, dic.y),
@@ -423,6 +584,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                     i+1);
             }
         }
+        // cc.log("yo, onground: ", p.onGround());
         // cc.log("ARLayer desiredPosition => (%d, %d)", p.getDesiredPosition().x, p.getDesiredPosition().y);
         p.setPosition(p.getDesiredPosition());
     },
@@ -432,15 +594,15 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         let x = Math.max(position.x, winSize.width / 2);
         let y = Math.max(position.y, winSize.height / 2);
-        x = Math.min(x, (this._tmxMap.getMapSize().width * this._tileSize.width) 
+        x = Math.min(x, (this._gameLayerSize.width * this._tileSize.width) 
                 - winSize.width / 2);
-        y = Math.min(y, (this._tmxMap.getMapSize().height * this._tileSize.height) 
+        y = Math.min(y, (this._gameLayerSize.height * this._tileSize.height) 
                 - winSize.height/2);
         let actualPosition = cc.p(x, y);
         
         let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
-        this._tmxMap.setPosition(viewPoint); 
+        this.gameLayer.setPosition(viewPoint); 
     },
 
 });

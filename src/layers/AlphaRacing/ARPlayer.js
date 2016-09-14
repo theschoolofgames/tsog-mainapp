@@ -139,7 +139,7 @@ var ARPlayer = cc.Layer.extend({
  	},
 
  	setDesiredPosition: function(desiredPosition) {
- 		cc.log("setDesiredPosition: %d, %d", desiredPosition.x, desiredPosition.y);
+ 		// cc.log("setDesiredPosition: %d, %d", desiredPosition.x, desiredPosition.y);
  		this._desiredPosition = desiredPosition;
  	},
 
