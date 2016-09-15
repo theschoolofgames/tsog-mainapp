@@ -19,6 +19,8 @@ var res = {
     AR_Lands_plist: "alpha-racing-lands.plist",
     AdiDog_Run_png: "adidog_run/adidog_run.png",
     AdiDog_Run_plist: "adidog_run/adidog_run.plist",
+    AR_Background_png: "alpha-racing-background.png",
+    AR_Background_plist: "alpha-racing-background.plist",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

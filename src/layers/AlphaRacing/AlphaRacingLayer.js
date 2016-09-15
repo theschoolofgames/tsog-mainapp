@@ -8,7 +8,7 @@ var AR_WORD_ZODER = 1001;
 var AR_MAP_HORIZONTAL_TILES = 30;
 var AR_MAP_VERTICLE_TILES = 20;
 
-var AlphaRacingLayer = cc.Layer.extend({
+var AlphaRacingLayer = cc.LayerColor.extend({
 	
     gameLayer: null,
     maps: [],
@@ -31,9 +31,19 @@ var AlphaRacingLayer = cc.Layer.extend({
     _totalEarned: 0,
     _totalGoalNumber: 0,
     _warningLabel: null,
+    _lastPlayerPos: cc.p(0,0),
+    // Background objects
+    _mountain01: null,
+    _mountain02: null,
+    _ground01: null,
+    _ground02: null,
+    _dust01: null,
+    _dust02: null,
+    _cloudGroup01: null,
+    _cloudGroup02: null,
 
 	ctor: function(inputData) {
-        this._super();
+        this._super(cc.color("#ebfcff"));
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
     },
@@ -61,6 +71,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.maps = [];
         
         this._init();
+        this._playBackgroundMusic();
     },
 
     onExit: function() {
@@ -88,9 +99,18 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.checkForAlphabetCollisions();
 
         this.setViewpointCenter(this._player.getPosition());
+        this._checkAndScrollBackgrounds(this._player.getPosition());
+    },
+
+    _playBackgroundMusic: function() {
+        cc.audioEngine.setEffectsVolume(0.2);
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.background_mp3, true);
     },
 
     initPlatforms: function() {
+        this._addBackground();
+
         this.gameLayer = new cc.Layer();
         
         for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
@@ -127,7 +147,116 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.addChild(this.gameLayer);
 
         // Check current goal and update UI
-        this.checkForGoalAccepted();
+        this._initChallenges();
+    },
+
+    _addBackground: function() {
+        cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
+
+        this._mountain01 = new cc.Sprite("#mountain.png");
+        this._mountain01.setScale(1);
+        this._mountain01.setAnchorPoint(0.5,0);
+        this._mountain01.setPosition(cc.p(cc.winSize.width / 2, 150));
+        this.addChild(this._mountain01, 0, 1);
+
+        this._mountain02 = new cc.Sprite("#mountain.png");
+        this._mountain02.setScale(1);
+        this._mountain02.setAnchorPoint(0.5,0);
+        this._mountain02.setPosition(cc.p(cc.winSize.width / 2 + this._mountain01.width, 150));
+        this.addChild(this._mountain02, 0, 1);
+
+        this._dust01 = new cc.Sprite("#foreground2.png");
+        this._dust01.setScale(1);
+        this._dust01.setAnchorPoint(0.5,0);
+        this._dust01.setPosition(cc.p(cc.winSize.width / 2, 100));
+        this.addChild(this._dust01, 0, 1);
+
+        this._dust02 = new cc.Sprite("#foreground2.png");
+        this._dust02.setScale(1);
+        this._dust02.setAnchorPoint(0.5,0);
+        this._dust02.setPosition(cc.p(cc.winSize.width / 2 + this._dust01.width, 100));
+        this.addChild(this._dust02, 0, 1);
+
+        this._ground01 = new cc.Sprite("#foreground1.png");
+        this._ground01.setScale(1);
+        this._ground01.setAnchorPoint(0.5,0);
+        this._ground01.setPosition(cc.p(cc.winSize.width / 2, 100));
+        this.addChild(this._ground01, 0, 1);
+
+        this._ground02 = new cc.Sprite("#foreground1.png");
+        this._ground02.setScale(1);
+        this._ground02.setAnchorPoint(0.5,0);
+        this._ground02.setPosition(cc.p(cc.winSize.width / 2 + this._ground01.width, 100));
+        this.addChild(this._ground02, 0, 1);
+
+        this._addCloudBackground();
+    },
+
+    _addCloudBackground: function() {
+        this._cloudGroup01 = new cc.Layer();
+        this._cloudGroup02 = new cc.Layer();
+        this._cloudGroup02.setPositionX(cc.winSize.width);
+
+        var cloud = new cc.Sprite("#cloud1.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup01.addChild(cloud);
+
+        cloud = new cc.Sprite("#cloud2.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup01.addChild(cloud);
+
+        cloud = new cc.Sprite("#cloud1.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup01.addChild(cloud);
+
+        cloud = new cc.Sprite("#cloud2.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup02.addChild(cloud);
+
+        cloud = new cc.Sprite("#cloud1.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup02.addChild(cloud);
+
+        cloud = new cc.Sprite("#cloud2.png");
+        cloud.setPosition(cc.p(Utils.getRandomInt(100, cc.winSize.width / 2), cc.winSize.height - Utils.getRandomInt(50, 120)));
+        this._cloudGroup02.addChild(cloud);
+
+        this.addChild(this._cloudGroup01);
+        this.addChild(this._cloudGroup02);
+    },
+
+    _checkAndScrollBackgrounds: function(playerPos) {
+        if (this._lastPlayerPos == cc.p(0,0)){
+            this._lastPlayerPos = playerPos;
+        }
+
+        let offsetPos = cc.pSub(playerPos, this._lastPlayerPos);
+
+        this._scrollBackground(this._mountain01, this._mountain02, offsetPos, 0.1, 0.2);
+        this._scrollBackground(this._ground01, this._ground02, offsetPos, 0.2, 0.4);
+        this._scrollBackground(this._dust01, this._dust02, offsetPos, 0.17, 0.34);
+        this._scrollBackground(this._cloudGroup01, this._cloudGroup02, offsetPos, 0.25, 0.25);
+
+        this._lastPlayerPos = playerPos;
+    },
+
+    _scrollBackground: function(background1, background2, offsetPos, speedX, speedY) {
+        let background1Pos = background1.getPosition();
+        let background2Pos = background2.getPosition();
+
+        background1.setPosition(cc.p(background1Pos.x - offsetPos.x * speedX, background1Pos.y - offsetPos.y * speedY));
+        background2.setPosition(cc.p(background2Pos.x - offsetPos.x * speedX, background2Pos.y - offsetPos.y * speedY));
+
+        if (background1Pos.x < background2Pos.x){
+            if (background2Pos.x < cc.winSize.width / 2){
+                background1.setPositionX(background2Pos.x + background1.getContentSize().width - 10);
+            }
+        }
+        else {
+            if (background1Pos.x < cc.winSize.width / 2){
+                background2.setPositionX(background1Pos.x + background2.getContentSize().width - 10);   
+            }
+        }
     },
 
     _checkAndReloadMaps: function(player) {
@@ -238,7 +367,15 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._warningLabel = warnLabel;
     },
 
-    checkForGoalAccepted: function(word) {
+    _initChallenges: function(){
+        for (var i = 0; i < this._tempInputData.length; i++) {
+            this._totalGoalNumber += parseInt(this._tempInputData[i].value);
+        }
+
+        this._currentChallange = this._tempInputData.shift();
+    },
+
+    _checkForGoalAccepted: function(word) {
         if (!this._currentChallange){
             // Init
             for (var i = 0; i < this._tempInputData.length; i++) {
@@ -252,6 +389,8 @@ var AlphaRacingLayer = cc.Layer.extend({
             return;
 
         if (this._currentChallange.type == word){
+            jsb.AudioEngine.play2d(res.Succeed_sfx);
+
             this._currentEarnedNumber++;
             this._totalEarned++;
             this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
@@ -267,6 +406,9 @@ var AlphaRacingLayer = cc.Layer.extend({
                     this.completedScene();
                 }
             }
+        }
+        else {
+            jsb.AudioEngine.play2d(res.Failed_sfx);
         }
 
         let leftObjects = parseInt(this._currentChallange.value) - this._currentEarnedNumber;
@@ -287,7 +429,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                 this._alphabetObjectArray[i].getBoundingBox().width, 
                 this._alphabetObjectArray[i].getBoundingBox().height );
             if (cc.rectIntersectsRect(pRect, alphaRect)) {
-                this.checkForGoalAccepted(this._alphabetObjectArray[i].getName());
+                this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
 
                 this.gameLayer.removeChild(this._alphabetObjectArray[i]);
                 this._alphabetObjectArray.splice(i, 1);

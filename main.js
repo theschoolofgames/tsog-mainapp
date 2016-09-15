@@ -148,11 +148,10 @@ cc.game.onStart = function(){
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        cc.director.runScene(new WelcomeScene());
+        // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene());
-        // cc.director.runScene(new MainScene());
-        // cc.director.runScene(new MainScene());
-        // cc.director.runScene(new AlphaRacingScene());
+        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new AlphaRacingScene([{"type": "A","value": "20"},{"type": "a","value": "20"}]));
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));

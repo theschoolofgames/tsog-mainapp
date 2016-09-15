@@ -258,7 +258,7 @@
             <key>size</key>
             <string>{1024,64}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9820a26fa77c5b6472b005f5dd082aa7:a3160855b3db772f13a57de06d198763:728ffc13057a149820dd1e8384f9f71d$</string>
+            <string>$TexturePacker:SmartUpdate:a2150ee8662dac183b70b0228f653576:a3160855b3db772f13a57de06d198763:728ffc13057a149820dd1e8384f9f71d$</string>
             <key>textureFileName</key>
             <string>alpha-racing-lands.png</string>
         </dict>
