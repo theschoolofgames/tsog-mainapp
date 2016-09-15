@@ -599,6 +599,8 @@ var STORY_RESOURCES = [
     },
 ];
 
+var AR_TMX_LEVELS = [res.AR_Level_01_TMX, res.AR_Level_02_TMX, res.AR_Level_01_TMX];
+
 var TIME_TO_PAUSE_GAME = 5;
 var AFTER_CHECKING_NOISE_TIME = 3;
 

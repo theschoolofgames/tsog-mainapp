@@ -174,6 +174,10 @@ var HudLayer = cc.Layer.extend({
         KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
     },
 
+    updateProgressLabel: function(text){
+        this._progressLabel.setString(text);
+    },
+
     setProgressBarPercentage: function(percent){
         this._progressPercentage = percent*100;
     },

@@ -6,31 +6,14 @@
         <key>texturePackerVersion</key>
         <string>4.2.3</string>
         <key>fileName</key>
-        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/alpha-racing/alpha-racing.tps</string>
+        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/alpha-racing-lands/alpha-racing-lands.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
                 <double>1</double>
                 <key>extension</key>
-                <string>SD</string>
-                <key>spriteFilter</key>
                 <string></string>
-                <key>acceptFractionalValues</key>
-                <false/>
-                <key>maxTextureSize</key>
-                <QSize>
-                    <key>width</key>
-                    <int>2048</int>
-                    <key>height</key>
-                    <int>2048</int>
-                </QSize>
-            </struct>
-            <struct type="AutoSDSettings">
-                <key>scale</key>
-                <double>1</double>
-                <key>extension</key>
-                <string>v1</string>
                 <key>spriteFilter</key>
                 <string></string>
                 <key>acceptFractionalValues</key>
@@ -45,7 +28,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -121,7 +104,7 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">WordAligned</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
             <key>maxRects</key>
@@ -158,7 +141,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/alpha-racing-lands.plist</filename>
+                <filename>../../res/SD/alpha-racing-lands01.plist</filename>
             </struct>
             <key>header</key>
             <key>source</key>
@@ -189,7 +172,7 @@
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>0.25</double>
+            <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
@@ -211,22 +194,13 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">land01.png</key>
-            <key type="filename">land02.png</key>
-            <key type="filename">land03.png</key>
-            <key type="filename">land04.png</key>
-            <key type="filename">land05.png</key>
-            <key type="filename">land06.png</key>
-            <key type="filename">land07.png</key>
-            <key type="filename">land08.png</key>
-            <key type="filename">land09.png</key>
-            <key type="filename">land10.png</key>
-            <key type="filename">land11.png</key>
-            <key type="filename">land12.png</key>
-            <key type="filename">land13.png</key>
-            <key type="filename">land14.png</key>
-            <key type="filename">land15.png</key>
-            <key type="filename">land16.png</key>
+            <key type="filename">chump.png</key>
+            <key type="filename">flower1.png</key>
+            <key type="filename">flower2.png</key>
+            <key type="filename">road_direction1.png</key>
+            <key type="filename">road_direction2.png</key>
+            <key type="filename">tree1.png</key>
+            <key type="filename">tree2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
