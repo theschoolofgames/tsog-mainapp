@@ -37,37 +37,37 @@ var GoFigureTestLayer = TestLayer.extend({
     _currentBrushColor: cc.color.GREEN,
     _brushColorButtons: [],
 
+    _option: null,
+
     ctor: function(data, option) {
         this._super();
 
-        // this._setIsTestScene(isTestScene);
-        // var obj = GameObject.getInstance().findById("hat");
-        // cc.log("obj -> " + JSON.stringify(obj));
-        // cc.log("data: " + JSON.stringify(data));
-        // cc.log("oldSceneName: " + oldSceneName);
-        cc.log("GoFigureTestLayer ctor");
         this._data = data;
+        this._option = option;
+        cc.log("option:" + JSON.stringify(option));
         this._brushColorButtons = [];
 
+        if (data[0].hasOwnProperty("data")) {
+            data = data[0].data;
+        }
         this._names = data.map(function(obj) {
-            cc.log(obj);
-
-            if (obj.name) {
-                var o = GameObject.getInstance().findById(obj.name);
-                return {
-                    "name": o[0].value,
-                    "count": parseInt(obj.value),
-                    "relative": obj.relative
-                };
+            // cc.log("input obj " + JSON.stringify(obj));
+            if (Array.isArray(obj)) {
+                var tempArr = [];
+                for (var i = 0; i < obj.length; i++) {
+                    var o = GameObject.getInstance().findById(obj[i]);
+                    tempArr.push(o[0].value);
+                }
+                return tempArr;
             } else {
                 var o = GameObject.getInstance().findById(obj);
                 return o[0].value;
             }
                 
         });
-        cc.log(JSON.stringify(this._names));
+        // cc.log("names after map: " + JSON.stringify(this._names));
         // this._oldSceneName = oldSceneName;
-        this._nameIdx = this._pathIdx = 0;
+        this._nameIdx = this._charIdx = this._pathIdx = 0;
 
         this._writingWords = this._names;
         
@@ -177,7 +177,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._blockTouch = true;
         if (this.imageMatched(image)) {
             this._pathIdx++;
-
+            // cc.log("onTouchEnded this._pathIdx: " + this._pathIdx);
             this._tmpRender.getSprite().runAction(cc.sequence(
                 cc.spawn(
                     cc.tintTo(0.2, cc.color.WHITE),
@@ -203,10 +203,19 @@ var GoFigureTestLayer = TestLayer.extend({
                     self._tmpRender.getSprite().color = cc.color("#333333");
                     if (self.checkChangingCharacter()) {
                         var correctedCharacter = self._currentChar;
-                        self._nameIdx++;
-                        self._changeWord();
-                        self._touchCounting++;
-                        self.updateProgressBar();
+                        if (self.checkChangingWord()){
+                            cc.log("pass checkChangingWord");
+                            self._changeWord();
+                            self._touchCounting++;
+                            self.updateProgressBar();
+                        } else {
+                            cc.log("not pass, _moveToNextShape");
+                            self._moveToNextShape();
+                        }
+                        // self._nameIdx++;
+                        // self._changeWord();
+                        // self._touchCounting++;
+                        // self.updateProgressBar();
                         self._correctAction(correctedCharacter);
                     } else {
                         self._displayFinger();
@@ -312,17 +321,27 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     fetchCharacterConfig: function() {
-        cc.log("fetchCharacterConfig");
-        this._currentChar = this._writingWords[this._nameIdx];
+        // cc.log("fetchCharacterConfig");
+        if (Array.isArray(this._writingWords[this._nameIdx])) {
+            this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
+            // cc.log("special case");
+        }
+        else
+            this._currentChar = this._writingWords[this._nameIdx];
+
         this._currentCharConfig = GoFigureTestLayer.CHAR_CONFIG[this._currentChar];
+
+        // cc.log("this._currentChar: " + JSON.stringify(this._currentChar));
+        // cc.log("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
+        // cc.log("this._writingWords[this._nameIdx]: " + JSON.stringify(this._writingWords[this._nameIdx]));
     },
 
     _finishAndMoveToNextChar: function() {
         var self = this;
-        ConfigStore.getInstance().setBringBackObj(
-            this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
-            this._names[this._nameIdx], 
-            (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
+        // ConfigStore.getInstance().setBringBackObj(
+        //     this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
+        //     this._names[this._nameIdx], 
+        //     (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
         
         this._finger.stopAllActions();
         this._finger.opacity = 0;
@@ -342,7 +361,7 @@ var GoFigureTestLayer = TestLayer.extend({
     checkChangingCharacter: function() {
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
-            cc.log("checkChangingCharacter");
+            // cc.log("checkChangingCharacter");
             this._segmentTracking("true");
             // next char
             this._charIdx++;
@@ -355,7 +374,9 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     checkChangingWord: function() {
-        if (this._charIdx >= this._writingWords[this._nameIdx]) {
+        // cc.log("checkChangingWord this._charIdx: " + this._charIdx + " - " + this._writingWords[this._nameIdx].length);
+        if (this._charIdx >= this._writingWords[this._nameIdx].length) {
+            // cc.log("return true on checkChangingWord");
             this._charIdx = 0;
             this._nameIdx++;
             return true;
@@ -457,13 +478,14 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     _playObjSound: function(name, cb) {
-        var soundPath;
+        var soundPath = "";
         name = name || "";
-        if (this._oldSceneName == "RoomScene") {
-            soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
-        } else {
-            soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
-        }
+        cc.log("name: " + name);
+        // if (this._oldSceneName == "RoomScene") {
+        //     soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
+        // } else {
+        //     soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
+        // }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
             var audioId = jsb.AudioEngine.play2d(soundPath, false);
@@ -479,27 +501,40 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _displayWord: function() {
         cc.log("_displayWord");
+        cc.log("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
         if (this._characterNodes.length > 0) {
             this._characterNodes.forEach(function(obj) {obj.removeFromParent();});
         }
         this._characterNodes = [];
 
         var objName = this._writingWords[this._nameIdx];
-        // cc.log("objName: " + objName);
+        cc.log("objName: " + objName);
+        cc.log("objName: " + JSON.stringify(objName));
         // cc.log("_nameIdx: " + this._nameIdx);
         this._wordScale = 1;
+        var optionIdx = this._option.index;
         var charArrays = [];
         var totalWidth = 0;
-        var totalWords = objName.count || 1;
-        if (totalWords > 1)
-            objName = objName.name;
-
+        var totalWords = (Array.isArray(objName)) ? objName.length : 1;
+        cc.log("totalWords: " + totalWords);
         for (var i = 0; i < totalWords; i++) {
-            var s = new cc.Sprite("#" + objName + ".png");
+            var name = (totalWords > 1) ? objName[i] : objName;
+            var s = new cc.Sprite("#" + name + ".png");
+            for (var j = 0; j < optionIdx.length; j++) {
+                var opt = optionIdx[j];
+                cc.log("opt: " + opt);
+                cc.log("this._nameIdx: " + this._nameIdx);
+                if (opt == this._nameIdx) {
+                    if (i%2 == 0) {
+                        s.flippedX = true;
+                    }
+                    s.rotation = 90;
+                }
+            }
             this.addChild(s);
 
             this._characterNodes.push(s);
-            totalWidth = s.width;
+            totalWidth += s.width;
             // totalWidth -= CHAR_SPACE;
             if (totalWidth > cc.winSize.width * 0.7)
                 this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
@@ -517,6 +552,7 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     _moveToNextShape: function() {
+        cc.log("_moveToNextShape");
         this._tmpRender.setPosition(this._characterNodes[0].getPosition()); // 0 because there is only 1 shape appear at a time
 
         this.fetchCharacterConfig();
@@ -580,13 +616,24 @@ var GoFigureTestLayer = TestLayer.extend({
 
         this._finger.stopAllActions();
         this._finger.opacity = 0;
-
+        // cc.log("_displayFinger pathIdx: " + this._pathIdx);
         var pathCfg = this._currentCharConfig.paths[this._pathIdx];
 
         var actions = [];
 
         actions.push(cc.moveTo(0, this.convertToWSpace(this.convertScaledPath(pathCfg[0]))));
         actions.push(cc.fadeIn(0.15));
+
+        var optionIdx = this._option.index;
+        // for (var k = 0; k < optionIdx.length; k++) {
+        //     var opt = optionIdx[k];
+        //     if (opt == this._nameIdx) {
+        //         for (var i = 1; i < pathCfg.length; i++) {
+        //             pathCfg[i] = cc.pRotateByAngle(pathCfg[i], pathCfg[0], 0.5*Math.PI);
+        //         }
+        //     }
+        // }
+
         for (var i = 1; i < pathCfg.length; i++) {
             var distToPrevPoint = cc.pDistance(this.convertScaledPath(pathCfg[i]), this.convertScaledPath(pathCfg[i-1]));
             actions.push(cc.moveTo(distToPrevPoint * 0.005, this.convertToWSpace(this.convertScaledPath(pathCfg[i]))));
@@ -733,8 +780,8 @@ var GoFigureTestScene = cc.Scene.extend({
                         for (var i = 0; i < obj.polylinePoints.length; i++) {
                             var x = obj.polylinePoints[i].x * csf + offsetX;
                             var y = mapSize.height * tileSize.height - (obj.polylinePoints[i].y * csf + offsetY);
-
-                            config.paths[pathIdx-1].push(cc.p(x, y));
+                            var p = cc.p(x, y);
+                            config.paths[pathIdx-1].push(p);
                         }
                     }
 

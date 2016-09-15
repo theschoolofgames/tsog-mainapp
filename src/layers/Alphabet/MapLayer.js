@@ -1,6 +1,8 @@
 var MapLayer = cc.Layer.extend({
     _poolParts: [],
     _btnStepCoordinates: [],
+    _steps: [],
+    _stepsStar: null,
 
     _mapData: null,
     _scrollView: null,
@@ -12,8 +14,7 @@ var MapLayer = cc.Layer.extend({
 
         this._loadTmx();
         this._loadMapData();
-        // this._loadMapBg();
-        // this._addStepButton();
+
         this.addSettingButton();
     },
 
@@ -35,6 +36,8 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
+
+        this._steps = [];
 
         var scrollView = new cc.ScrollView();
         for (var map in this._mapData) {
@@ -58,15 +61,17 @@ var MapLayer = cc.Layer.extend({
                         btn.y = pos.y + btn.height * 1.5;
 
                         var lb = new cc.LabelBMFont(val, res.MapFont_fnt);
-                        // lb.scale = 0.3;
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;
                         btn.addChild(lb);
+
 
                         scrollView.addChild(btn, 1);
 
                         btn.setUserData(val);
                         btn.addClickEventListener(this._stepPressed.bind(this));
+
+                        this._addStepStars(btn);
 
                         if ((stepIndex%5 > 0) && _mapInArray[totalSteps-1] == step) {
 
@@ -75,7 +80,7 @@ var MapLayer = cc.Layer.extend({
                             // cc.log("step -> _mapInArray[totalSteps-1] " + step + " -> " + _mapInArray[totalSteps-1]);
                             stepIndex += 5 - (stepIndex%5);
                         }
-
+                        this._steps.push(btn);
                         stepIndex = (stepIndex >= this._btnStepCoordinates.length) ? 1 : (stepIndex+1);
                     }
                 }
@@ -137,8 +142,24 @@ var MapLayer = cc.Layer.extend({
         // cc.log("this._btnStepCoordinates length : " + this._btnStepCoordinates.length);
     },
 
-    _addStepButton: function(lastPartXPos) {
-        
+    _addStepStars: function(step) {
+        this._stepsStar = {};
+        var level = step.getUserData();
+        this._stepsStar[level] = [];
+        var starPosDif = [2.2, 1.6, 1.2, 1.2, 1.6, 2.2];
+        for (var i = 0; i < MapLayer.TotalStarsEachStep; i++) {
+            var star = new cc.Sprite("#star-empty.png");
+            star.scale = 0.8;
+            star.x = step.width/2 - star.width * (MapLayer.TotalStarsEachStep/2 - i - 0.5);
+            star.y = star.height + step.height/starPosDif[i];
+            star.tag = i;
+            step.addChild(star);
+            this._stepsStar[level].push(star);
+        }
+    },
+
+    _updateStepStars: function() {
+        var currentStar = KVDatabase.getInstance().getInt("stepStars");
     },
 
     _stepPressed: function(b) {
@@ -149,6 +170,7 @@ var MapLayer = cc.Layer.extend({
 });
 
 MapLayer.TotalMapPart = 4;
+MapLayer.TotalStarsEachStep = 6;
 
 var MapScene = cc.Scene.extend({
     ctor:function() {

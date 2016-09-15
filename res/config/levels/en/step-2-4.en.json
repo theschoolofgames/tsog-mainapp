@@ -56,22 +56,27 @@
       "name": "gofigure",
       "data": [
         {
-          "option": "1",
+          "option": {
+            "type": "vertical",
+            "index": [3, 5]
+          },
           "data": [
-            "shape_triangle", 
-            "shape_square", 
-            "shape_circle", 
-            {
-              "name": "shape_curved_line",
-              "value": "2",
-              "relative": "opposite"
-            },
-            "shape_semi_circle",
-            {
-              "name": "shape_straight_line",
-              "value": "6",
-              "relative": "no"
-            }
+            ["shape_triangle"], 
+            ["shape_square"], 
+            ["shape_circle"], 
+            [
+              "shape_curved_line",
+              "shape_curved_line"
+            ],
+            ["shape_semi_circle"],
+            [
+              "shape_straight_line",
+              "shape_straight_line",
+              "shape_straight_line",
+              "shape_straight_line",
+              "shape_straight_line",
+              "shape_straight_line"
+            ]
           ]
         }
       ]

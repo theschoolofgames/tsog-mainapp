@@ -742,10 +742,18 @@ var RoomLayer = cc.Layer.extend({
         if (objectCorrected >= starGoals.starGoal3)
             starEarned = 3;
 
+        cc.log("starGoal1: " + starGoals.starGoal1);
+        cc.log("starGoal2: " + starGoals.starGoal2);
+        cc.log("starGoal3: " + starGoals.starGoal3);
+        cc.log("objectCorrected: " + objectCorrected);
+        // cc.log("starEarned: " + starEarned);
         this._hudLayer.setStarEarned(starEarned);
 
-        if (starEarned > 0)
+        if (starEarned > 0) {
             this._hudLayer.addStar("light", starEarned);
+
+            // Utils.updateStepData(starEarned);
+        }
     },
 
     countingStars: function() {

@@ -3,19 +3,37 @@
     "1": {
       "name": "room",
       "data": [
-        "potato","tomato","umbrella","uniform","vegetable","egg","hat"
+        "potato",
+        "tomato",
+        "umbrella",
+        "uniform",
+        "vegetable",
+        "egg",
+        "hat"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "potato","tomato","umbrella","uniform","vegetable","egg","hat"
+        "potato",
+        "tomato",
+        "umbrella",
+        "uniform",
+        "vegetable",
+        "egg",
+        "hat"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "potato","tomato","umbrella","uniform","vegetable","egg","hat"
+        "potato",
+        "tomato",
+        "umbrella",
+        "uniform",
+        "vegetable",
+        "egg",
+        "hat"
       ]
     }
   },
@@ -23,19 +41,37 @@
     "1": {
       "name": "forest",
       "data": [
-        "shark","sheep","snale","panda","snake","ant","cat"
+        "shark",
+        "sheep",
+        "snail",
+        "panda",
+        "snake",
+        "ant",
+        "cat"
       ]
     },
     "2": {
       "name": "listening",
       "data": [
-        "shark","sheep","snale","panda","snake","ant","cat"
+        "shark",
+        "sheep",
+        "snail",
+        "panda",
+        "snake",
+        "ant",
+        "cat"
       ]
     },
     "3": {
       "name": "speaking",
       "data": [
-        "shark","sheep","snale","panda","snake","ant","cat"
+        "shark",
+        "sheep",
+        "snail",
+        "panda",
+        "snake",
+        "ant",
+        "cat"
       ]
     }
   },
@@ -77,7 +113,10 @@
     "1": {
       "name": "gofigure",
       "data": [
-        "shape_square","shape_rectangle","shape_triangle","shape_circle"
+        ["shape_square"],
+        ["shape_rectangle"],
+        ["shape_triangle"],
+        ["shape_circle"]
       ]
     }
   }

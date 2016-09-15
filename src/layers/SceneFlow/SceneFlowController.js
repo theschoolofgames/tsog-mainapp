@@ -20,7 +20,7 @@ var SceneFlowController = cc.Class.extend({
         var data = KVDatabase.getInstance().getString("sceneFlowCache");
         if (data == null || data == "")
             return;
-        cc.log("SceneFlowController: " + data);
+        // cc.log("SceneFlowController: " + data);
         data = JSON.parse(data);
 
         this._currentLevelIndex = data.currentLevelIndex || 0;
@@ -28,14 +28,14 @@ var SceneFlowController = cc.Class.extend({
         this._currentScenePool = data.currentScenePool || [];
         var scenePool = this._currentScenePool;
         var scenePoolKeys = Object.keys(scenePool);
-        cc.log("scenePool: " + JSON.stringify(scenePool));
-        cc.log("_currentScenePool: " + this._currentScenePool);
-        cc.log("this._currentLoopSceneName: " + this._currentLoopSceneName);
+        // cc.log("scenePool: " + JSON.stringify(scenePool));
+        // cc.log("_currentScenePool: " + this._currentScenePool);
+        // cc.log("this._currentLoopSceneName: " + this._currentLoopSceneName);
         var sceneName;
         for (var i = 0; i < scenePoolKeys.length; i++) {
             var sceneData = scenePool[scenePoolKeys[i]];
             // cc.log("scenePoolKeys.length : " + scenePoolKeys.length);
-            cc.log("scene name: " + sceneData.name);
+            // cc.log("scene name: " + sceneData.name);
             if (sceneData.name == this._currentLoopSceneName){
                 // cc.log("this._currentLoopSceneName: " + this._currentLoopSceneName);
                 if (scenePool[scenePoolKeys[i+1]]) {
@@ -61,6 +61,14 @@ var SceneFlowController = cc.Class.extend({
         return this._previousSceneName;
     },
 
+    getCurrentLevel: function() {
+        return this._currentLevelIndex;
+    },
+
+    getCurrentSceneName: function() {
+        return this._currentLoopSceneName;
+    },
+
     getNextRoomOrForestScene: function() {
         var sceneName = this.getNextSceneName();
         while(sceneName != "RoomScene" && sceneName != "ForestScene")
@@ -74,7 +82,9 @@ var SceneFlowController = cc.Class.extend({
     },
 
     cacheData: function(levelIdx, sceneName, scenePool) {
-        cc.log("levelIdx - sceneName - scenePool " + levelIdx + sceneName + JSON.stringify(scenePool));
+        // cc.log("levelIdx - sceneName - scenePool " + levelIdx + sceneName + JSON.stringify(scenePool));
+        this._currentLevelIndex = levelIdx;
+        this._currentLoopSceneName = sceneName;
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
             currentLevelIndex: levelIdx,
             currentLoopSceneName: sceneName,
@@ -98,7 +108,7 @@ var SceneFlowController = cc.Class.extend({
         this._currentLevelIndex = 0;
         this._currentLoopSceneName = "";
         this._currentScenePool = [];
-        cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
+        // cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
     },
 
     moveToNextScene: function(sceneName, data) {
@@ -128,6 +138,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new ForestScene(data));
                 break;
             case "gofigure":
+                option = data[0].option;
                 cc.director.runScene(new GoFigureTestScene(data, option));
                 break;
             case "card":
@@ -144,7 +155,7 @@ var SceneFlowController = cc.Class.extend({
                 break;
             case "storytime":
                 option = data[0].option;
-                cc.log("option: " + option);
+                // cc.log("option: " + option);
                 cc.director.runScene(new StoryMainScene(data, option));
                 break;
             case "alpharacing":

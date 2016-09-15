@@ -339,3 +339,50 @@ Utils.getScaleFactorTo16And9 = function() {
     var winSize = cc.director.getWinSize();
     return (winSize.width / winSize.height) / (16/9);
 }
+
+Utils.updateStepData = function(newStarEarned) {
+    var currentLevel = SceneFlowController.getInstance().getCurrentLevel();
+    var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
+    var stepData = {};
+
+    cc.log("currentLevel: " + currentLevel);
+    cc.log("currentSceneName: " + currentSceneName);
+
+    var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
+    if (data != null && data != "" && data != "{}") {
+        data = JSON.parse(data);
+        cc.log("updateStepData data: " + JSON.stringify(data));
+        if (data.hasOwnProperty(currentLevel) && data[currentLevel].hasOwnProperty(currentSceneName) && data[currentLevel][currentSceneName].earnedFullStar)
+            return;
+        stepData = data;
+    }
+
+    if (!stepData[currentLevel])
+        stepData[currentLevel] = {};
+    
+    var starEarned = 0;
+    if (stepData[currentLevel][currentSceneName])
+        starEarned = stepData[currentLevel][currentSceneName].starEarned || 0;
+    else
+        stepData[currentLevel][currentSceneName] = {};
+
+    if (starEarned < newStarEarned) {
+        starEarned = newStarEarned - starEarned;
+    }
+
+    if (stepData[currentLevel]["totalStars"])
+        stepData[currentLevel]["totalStars"] += starEarned;
+    else
+        stepData[currentLevel]["totalStars"] = newStarEarned;
+
+    stepData[currentLevel][currentSceneName]["earnedFullStar"] = (newStarEarned >= 3) ? 1 : 0;
+    stepData[currentLevel][currentSceneName]["starEarned"] = starEarned;
+    cc.log("starEarned: " + starEarned);
+    cc.log("newStarEarned: " + newStarEarned);
+    cc.log("stepData: " + JSON.stringify(stepData));
+    // if (starEarned < newStarEarned)
+    //     currentStar += (newStarEarned - starEarned);
+
+    // KVDatabase.getInstance().setString("stepStars", currentStar);
+    KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
+}
