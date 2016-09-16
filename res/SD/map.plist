@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{71,63}}</string>
+                <string>{{1,69},{71,63}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,147},{71,59}}</string>
+                <string>{{1,283},{71,59}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,74},{71,63}}</string>
+                <string>{{1,142},{71,63}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -56,13 +56,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{28,27}</string>
+                <string>{66,63}</string>
                 <key>spriteSourceSize</key>
-                <string>{28,27}</string>
+                <string>{66,65}</string>
                 <key>textureRect</key>
-                <string>{{1,220},{28,27}}</string>
+                <string>{{1,215},{66,63}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>star-filled.png</key>
             <dict>
@@ -71,13 +71,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{28,27}</string>
+                <string>{66,65}</string>
                 <key>spriteSourceSize</key>
-                <string>{28,27}</string>
+                <string>{66,65}</string>
                 <key>textureRect</key>
-                <string>{{31,220},{28,27}}</string>
+                <string>{{1,1},{66,65}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -87,9 +87,9 @@
             <key>realTextureFileName</key>
             <string>map.png</string>
             <key>size</key>
-            <string>{65,248}</string>
+            <string>{67,355}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:33b1c1a0e1560d4a915e9f0637ed2b7b:3bdda4f0b2021800c2fc641adb7cbc42:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
+            <string>$TexturePacker:SmartUpdate:7fe2623808800bfb9e162e8339930ce3:11638e58d10f60668a0a34059cb79121:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
             <key>textureFileName</key>
             <string>map.png</string>
         </dict>

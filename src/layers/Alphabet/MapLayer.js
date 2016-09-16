@@ -158,8 +158,8 @@ var MapLayer = cc.Layer.extend({
                 var totalGameInStep = Object.keys(stepData).length;
                 for (var i = 0; i < totalGameInStep; i++) {
                     var star = new cc.Sprite("#star-empty.png");
-                    star.scale = 0.8;
-                    star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5);
+                    star.scale = 0.35;
+                    star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5) *star.scale;
                     star.y = btn.height;
                     star.tag = i;
                     btn.addChild(star);

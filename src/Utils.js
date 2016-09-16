@@ -356,8 +356,8 @@ Utils.updateStepData = function() {
 
     if (!stepData[currentLevel])
         stepData[currentLevel] = {};
-    // else if (stepData[currentLevel][currentSceneIdx]) // TODO undo after all game can play
-    //     return;
+    else if (stepData[currentLevel][currentSceneIdx]) // TODO undo after all game can play
+        return;
     if (!stepData[currentLevel]["totalStars"])
         stepData[currentLevel]["totalStars"] = 0;
 

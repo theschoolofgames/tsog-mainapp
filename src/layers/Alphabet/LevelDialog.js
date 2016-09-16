@@ -5,6 +5,8 @@ var LevelDialog = Dialog.extend({
 
     _data: null,
     _scenePool: [],
+    _gamesSelector: [],
+    _stars: [],
 
     ctor: function(level) {
         this._super();
@@ -51,6 +53,8 @@ var LevelDialog = Dialog.extend({
 
     _addGamesSelector: function() {
         this._scenePool = [];
+        this._gamesSelector = [];
+        this._stars = [];
         var itemIdx = 0;
         var rowIdx = 1;
         var totalRow = Math.ceil(Object.keys(this._data).length / 3);
@@ -63,14 +67,20 @@ var LevelDialog = Dialog.extend({
                 var gameName = dt["1"].name;
                 var gameData = dt["1"].data;
 
-                // cc.log("itemIdx: " + itemIdx);
-                // cc.log("lastSelectorXPos: " + lastSelectorXPos);
                 var gameSelectorImageName = "icon_game_" + gameName + ".png";
-                // cc.log("gameSelectorImageName " + gameSelectorImageName);
+
                 var gameSelector = new ccui.Button(gameSelectorImageName, "", "", ccui.Widget.PLIST_TEXTURE);
                 gameSelector.x = lastSelectorXPos + gameSelector.width/2 + 50 * this._csf;
                 gameSelector.y = (itemIdx < itemInARow) ? (layerContentSizeHeight/2 + gameSelector.height/2) : (layerContentSizeHeight/2 - gameSelector.height/2);
 
+                var star = new cc.Sprite("#star-empty.png");
+                star.scale = 0.8;
+                star.x = gameSelector.width/2;
+                star.y = star.height/2 * star.scale + 10 * Utils.getScaleFactorTo16And9();
+                star.tag = itemIdx;
+                gameSelector.addChild(star);
+
+                this._stars.push(star);
                 // set data to selector
                 var gameTag = -1;
                 for (var i = 0; i < GAME_IDS.length; i++) {
@@ -79,19 +89,48 @@ var LevelDialog = Dialog.extend({
                     }
                 }
 
+                gameSelector.setName(gameName);
                 gameSelector.setUserData(data);
                 gameSelector.tag = gameTag;
                 gameSelector.addClickEventListener(this._gameSelectorPressed.bind(this));
 
                 this._layerContent.addChild(gameSelector);
-                // cc.log("gameTag: " + gameTag);
-                // cc.log("dt: " + JSON.stringify(dt));
-                // this._scenePool.push(dt);
+                this._gamesSelector.push(gameSelector);
                 if (++itemIdx >= itemInARow && rowIdx < totalRow) {
                     rowIdx++;
                     lastSelectorXPos = 0;
                 } else
                     lastSelectorXPos = lastSelectorXPos + gameSelector.width + 25 * this._csf;
+            }
+        }
+
+        this._updateLevelDialog();
+    },
+
+    _updateLevelDialog: function() {
+        var stepData = KVDatabase.getInstance().getString("stepData");
+        var currentLevel = this._level;
+        
+        if (stepData == null || stepData == "" || stepData == undefined)
+            return;
+
+        stepData = JSON.parse(stepData);
+
+        for (var step in stepData) {
+            var eachStepData = stepData[step];
+            if (!eachStepData)
+                return;
+
+            for (var info in eachStepData){
+                var eachStepInfo = eachStepData[info];
+
+                if (info == "totalStars" || info == "completed" || !eachStepInfo)
+                    continue;
+
+                if (stepData[currentLevel] && stepData[currentLevel][info]) {
+                    var i = parseInt(info);
+                    this._stars[i-1].setSpriteFrame("star-filled.png"); // because of level started with 1
+                }
             }
         }
     },

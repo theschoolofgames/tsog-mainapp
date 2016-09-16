@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,69}</string>
                 <key>textureRect</key>
-                <string>{{1153,124},{68,69}}</string>
+                <string>{{1239,291},{68,69}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,69}</string>
                 <key>textureRect</key>
-                <string>{{1153,195},{68,69}}</string>
+                <string>{{1239,362},{68,69}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1092,1},{121,163}}</string>
+                <string>{{1074,291},{121,163}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -165,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{907,124},{121,165}}</string>
+                <string>{{1092,1},{121,165}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>icon_game_shoppingbasket.png</key>
             <dict>
@@ -180,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{907,124},{121,165}}</string>
+                <string>{{1092,1},{121,165}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>icon_game_storytime.png</key>
             <dict>
@@ -195,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1030,124},{121,165}}</string>
+                <string>{{907,124},{121,165}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -210,9 +210,9 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{907,291},{121,165}}</string>
+                <string>{{1030,124},{121,165}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>icon_game_tree.png</key>
             <dict>
@@ -225,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1074,291},{121,165}}</string>
+                <string>{{907,291},{121,165}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -240,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{907,124},{121,165}}</string>
+                <string>{{1153,124},{121,165}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -282,9 +282,9 @@
             <key>realTextureFileName</key>
             <string>level-dialog.png</string>
             <key>size</key>
-            <string>{1256,453}</string>
+            <string>{1308,453}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1d5cf04ece51d214a622fc45c6106f1c:5e782cf695b262c826d05c6083afb18d:d59aa5d04c7cc5909012dd7a24ef3720$</string>
+            <string>$TexturePacker:SmartUpdate:e7197103206920cc5685040f4ae1dd62:bd399d70c497386c4867bd0bddf94922:d59aa5d04c7cc5909012dd7a24ef3720$</string>
             <key>textureFileName</key>
             <string>level-dialog.png</string>
         </dict>
