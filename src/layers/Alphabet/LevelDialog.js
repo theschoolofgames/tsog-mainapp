@@ -79,7 +79,7 @@ var LevelDialog = Dialog.extend({
                     }
                 }
 
-                gameSelector.setUserData(dt);
+                gameSelector.setUserData(data);
                 gameSelector.tag = gameTag;
                 gameSelector.addClickEventListener(this._gameSelectorPressed.bind(this));
 
@@ -118,15 +118,14 @@ var LevelDialog = Dialog.extend({
     },
 
     _gameSelectorPressed: function(b) {
-        var data = b.getUserData();
+        var stepData = b.getUserData();
         var gameName = GAME_IDS[b.tag];
-        var nextSceneData = data["1"].data; // TODO default is 1st game, need save to Local storage current game Index
-        // cc.log("b.tag: " + b.tag);
-        // cc.log("this._scenePool: " + JSON.stringify(this._scenePool));
-        // cc.log("data _gameSelectorPressed : " + b.getUserData());
-        cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
+        var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
+
+        // cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
+        cc.log("stepData  : " + stepData);
         // process redirecting
-        SceneFlowController.getInstance().cacheData(this._level, gameName, data);
+        SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData); 
     },
 

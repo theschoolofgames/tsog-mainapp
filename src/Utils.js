@@ -340,49 +340,33 @@ Utils.getScaleFactorTo16And9 = function() {
     return (winSize.width / winSize.height) / (16/9);
 }
 
-Utils.updateStepData = function(newStarEarned) {
+Utils.updateStepData = function() {
     var currentLevel = SceneFlowController.getInstance().getCurrentLevel();
-    var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
+    var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
+    var totalSceneInLevel = SceneFlowController.getInstance().getTotalSceneInLevel();
     var stepData = {};
-
-    cc.log("currentLevel: " + currentLevel);
-    cc.log("currentSceneName: " + currentSceneName);
+    var currentTotalStars;
+    var completed;
 
     var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
     if (data != null && data != "" && data != "{}") {
         data = JSON.parse(data);
-        cc.log("updateStepData data: " + JSON.stringify(data));
-        if (data.hasOwnProperty(currentLevel) && data[currentLevel].hasOwnProperty(currentSceneName) && data[currentLevel][currentSceneName].earnedFullStar)
-            return;
         stepData = data;
     }
 
     if (!stepData[currentLevel])
         stepData[currentLevel] = {};
-    
-    var starEarned = 0;
-    if (stepData[currentLevel][currentSceneName])
-        starEarned = stepData[currentLevel][currentSceneName].starEarned || 0;
-    else
-        stepData[currentLevel][currentSceneName] = {};
+    // else if (stepData[currentLevel][currentSceneIdx]) // TODO undo after all game can play
+    //     return;
+    if (!stepData[currentLevel]["totalStars"])
+        stepData[currentLevel]["totalStars"] = 0;
 
-    if (starEarned < newStarEarned) {
-        starEarned = newStarEarned - starEarned;
-    }
+    currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]);
+    completed = (currentTotalStars >= totalSceneInLevel) ? 1 : 0;
 
-    if (stepData[currentLevel]["totalStars"])
-        stepData[currentLevel]["totalStars"] += starEarned;
-    else
-        stepData[currentLevel]["totalStars"] = newStarEarned;
+    stepData[currentLevel][currentSceneIdx] = 1;
+    stepData[currentLevel]["completed"] = completed;
+    stepData[currentLevel]["totalStars"] = currentTotalStars+1;
 
-    stepData[currentLevel][currentSceneName]["earnedFullStar"] = (newStarEarned >= 3) ? 1 : 0;
-    stepData[currentLevel][currentSceneName]["starEarned"] = starEarned;
-    cc.log("starEarned: " + starEarned);
-    cc.log("newStarEarned: " + newStarEarned);
-    cc.log("stepData: " + JSON.stringify(stepData));
-    // if (starEarned < newStarEarned)
-    //     currentStar += (newStarEarned - starEarned);
-
-    // KVDatabase.getInstance().setString("stepStars", currentStar);
     KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
 }

@@ -751,8 +751,6 @@ var RoomLayer = cc.Layer.extend({
 
         if (starEarned > 0) {
             this._hudLayer.addStar("light", starEarned);
-
-            // Utils.updateStepData(starEarned);
         }
     },
 
@@ -858,6 +856,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
+        Utils.updateStepData();
         for (var i = 0; i < this._objectDisableds.length; i++) {
             this._objectDisableds[i].removeFromParent();
             this._shadeObjects[i].removeFromParent();

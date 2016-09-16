@@ -34,7 +34,7 @@ var ForestLayer = cc.Layer.extend({
 
     ctor: function(data, isTestScene) {
         this._super();
-        cc.log("isTestScene: " + isTestScene);
+        // cc.log("isTestScene: " + isTestScene);
         this._isTestScene = isTestScene;
         this.tag = 1;
         this._fetchObjectData(data);
@@ -164,15 +164,15 @@ var ForestLayer = cc.Layer.extend({
                 for (var j = 0; j < allAnimals.length; j++) {
                     var a = allAnimals[j];
                     if (obj.value === a.imageName) {
-                        cc.log("obj value -> " + obj.value);
+                        // cc.log("obj value -> " + obj.value);
                         // cc.log("a.imageName -> " + a.imageName);
-                        cc.log("a -> " + JSON.stringify(a));
+                        // cc.log("a -> " + JSON.stringify(a));
                         animals.push(a);
                         break;
                     }
                     else if (obj.id.indexOf("number") > -1) {
-                        cc.log("obj -> " + JSON.stringify(obj));
-                        cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
+                        // cc.log("obj -> " + JSON.stringify(obj));
+                        // cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
                         animals.push({
                             "imageName": obj.value,
                             "type": rdmAnimalType[0]
@@ -182,7 +182,7 @@ var ForestLayer = cc.Layer.extend({
                     }
                 }
             }
-            cc.log("animals : " + JSON.stringify(animals));
+            // cc.log("animals : " + JSON.stringify(animals));
         }
         else
             animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
@@ -190,12 +190,12 @@ var ForestLayer = cc.Layer.extend({
         // cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         var numbItemsShow = this._data.length;
-        cc.log("numbItemsShow: " + numbItemsShow);
+        // cc.log("numbItemsShow: " + numbItemsShow);
         for ( var i = 0; i < numbItemsShow; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
-            cc.log("animals[i] : " + JSON.stringify(animals[i]));
-            cc.log("animalPositionArray[i] : " + JSON.stringify(animalPositionArray[i]));
+            // cc.log("animals[i] : " + JSON.stringify(animals[i]));
+            // cc.log("animalPositionArray[i] : " + JSON.stringify(animalPositionArray[i]));
         }
         this.runSparklesEffect();
     },
@@ -221,7 +221,7 @@ var ForestLayer = cc.Layer.extend({
         for ( var i = 0; i < this._objectDisableds.length; i++) {
 
             objBoundingBox = this._objectDisableds[i].getBoundingBox();
-            cc.log("_isTouchingDisabledObject getting objBoundingBox");
+            // cc.log("_isTouchingDisabledObject getting objBoundingBox");
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
                 // cc.log("isRectContainsPoint")
@@ -271,7 +271,7 @@ var ForestLayer = cc.Layer.extend({
             targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
         }
-        cc.log("ontouchbegan after check object is disabled or not");
+        // cc.log("ontouchbegan after check object is disabled or not");
         // if (targetNode._isTouchingDisabledObject(touchedPos))
         //     return false;
 
@@ -287,10 +287,10 @@ var ForestLayer = cc.Layer.extend({
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
         };
-        cc.log("prepare to processGameLogic");
+        // cc.log("prepare to processGameLogic");
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
-        cc.log("done to processGameLogic");
+        // cc.log("done to processGameLogic");
         if (targetNode._objectDisableds.length == Global.NumberItems) {
             SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
@@ -298,7 +298,7 @@ var ForestLayer = cc.Layer.extend({
                     time_taken: targetNode._hudLayer._clock.getElapseTime()
                 });
         };    
-        cc.log("done onTouchBegan");
+        // cc.log("done onTouchBegan");
         return true;
     },
 
@@ -497,20 +497,20 @@ var ForestLayer = cc.Layer.extend({
             this._completedObj.x = cc.winSize.width/2;
             this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
         } else {
-            cc.log("before create label");
+            // cc.log("before create label");
             this._completedObj = new cc.LabelBMFont(animalName, res.CustomFont_fnt);
             this._completedObj.scale = 2;
             // this._completedObj = this._createCustomFont(animalName);
             this._completedObj.x = cc.winSize.width/2;
             this._completedObj.y = cc.winSize.height/2;
-            cc.log("after create label");
+            // cc.log("after create label");
         }
 
         this._maskLayer.addChild(this._completedObj);
     },
 
     checkWonGame: function() {
-        cc.log("checkWonGame");
+        // cc.log("checkWonGame");
         var totalItems = this._data.length ? this._data.length : Global.NumberItems;
         if (this._touchCounting == totalItems)
             this.completedScene();
@@ -536,7 +536,7 @@ var ForestLayer = cc.Layer.extend({
             cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
 
         ));
-        cc.log("createYouWin");
+        // cc.log("createYouWin");
         var self = this;
         this.runAction(cc.sequence(
             cc.delayTime(4),
@@ -564,7 +564,7 @@ var ForestLayer = cc.Layer.extend({
                             time_taken: elapseTime 
                         });
         };
-        cc.log("completedScene");
+        // cc.log("completedScene");
         var starEarned = this._hudLayer.getStarEarned();
         // var str = (starEarned > 1) ? " stars" : " star";
         var self  = this;
@@ -729,7 +729,7 @@ var ForestLayer = cc.Layer.extend({
 
     runSparklesEffect: function() {
         for ( var i = 0; i < this._objects.length; i++) {
-            cc.log("runSparklesEffect");
+            // cc.log("runSparklesEffect");
             var effect = AnimatedEffect.create(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
@@ -763,7 +763,7 @@ var ForestLayer = cc.Layer.extend({
     playAnimalSound: function(){
         var self = this;
         var animalName = this.getAnimalName(this._objectTouching);
-        cc.log("playAnimalSound animalName: " + animalName);
+        // cc.log("playAnimalSound animalName: " + animalName);
         var animal = this._objectTouching;
         var str = animalName;
         var soundConfig = this.getAnimalSoundConfigByName(animalName) || {};
@@ -798,14 +798,14 @@ var ForestLayer = cc.Layer.extend({
 
         if (isNaN(animalName)) // TODO
             jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
-        cc.log("done check animalName is number or not");
+        // cc.log("done check animalName is number or not");
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
                 // self.createWarnLabel(str);
-                cc.log("playAnimalSound prepare createCompletedObject");
+                // cc.log("playAnimalSound prepare createCompletedObject");
                 self.createCompletedObject(animalName);
                 self._blockAllObjects = true;
-                cc.log("playAnimalSound done createCompletedObject");
+                // cc.log("playAnimalSound done createCompletedObject");
                 // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
             // cc.scaleTo(1, 0.95),
@@ -823,7 +823,7 @@ var ForestLayer = cc.Layer.extend({
                     mask.removeFromParent();
                     // animal.stopAllActions();
                     animal.setLocalZOrder(oldZOrder);
-                    cc.log("playAnimalSound prepare checkWonGame");
+                    // cc.log("playAnimalSound prepare checkWonGame");
                     self.checkWonGame();
                 }
             })
@@ -922,8 +922,8 @@ var ForestLayer = cc.Layer.extend({
         if ((Global.NumberGamePlayed % baseObjectAmounts) == 0 && (Global.NumberItems < maxObjectAmounts))
             Global.NumberItems += increaseObjectAmounts;
 
-        cc.log("numberItems: %d", Global.NumberItems);
-        cc.log("numberGamePlayed: %d", Global.NumberGamePlayed);
+        // cc.log("numberItems: %d", Global.NumberItems);
+        // cc.log("numberGamePlayed: %d", Global.NumberGamePlayed);
         // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
         // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
         // this.setNumberOfObjects(this._numberItems);
@@ -956,7 +956,7 @@ var ForestLayer = cc.Layer.extend({
     _moveToNextScene: function() {
         if (this._isTestScene) {
             cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-            return
+            return;
         }
 
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
@@ -964,7 +964,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("_fetchObjectData");
+        // cc.log("_fetchObjectData");
         if (data) {
             // data = JSON.parse(data);
             this._data = data.map(function(id) {
@@ -992,7 +992,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _createCustomFont: function(lbText) {
-        cc.log("lbText -> " + lbText);
+        // cc.log("lbText -> " + lbText);
         var fontSize = 30;
         var object = cc.Label.createWithTTF(Utils.getTTFConfig(res.HELVETICARDBLK_ttf.srcs[0], fontSize), 
                 lbText);

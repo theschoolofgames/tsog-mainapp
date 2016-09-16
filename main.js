@@ -138,7 +138,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Level_Dialog_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Lands_plist);
         
-        // cc.director.runScene(new MapScene());
+        cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
         // cc.director.runScene(new DesignTestScene(1, true));
         // cc.director.runScene(new FormTheTrainScene());
@@ -150,7 +150,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new NewSchoolScene());
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene());
-        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new MainScene());
         // cc.director.runScene(new AlphaRacingScene([{"type": "A","value": "20"},{"type": "a","value": "20"}]));
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));

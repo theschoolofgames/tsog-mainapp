@@ -2,7 +2,7 @@ var MapLayer = cc.Layer.extend({
     _poolParts: [],
     _btnStepCoordinates: [],
     _steps: [],
-    _stepsStar: null,
+    _stepsStar: {},
 
     _mapData: null,
     _scrollView: null,
@@ -11,11 +11,12 @@ var MapLayer = cc.Layer.extend({
 
     ctor: function() {
         this._super();
-
+        this._stepsStar = {};
         this._loadTmx();
         this._loadMapData();
 
         this.addSettingButton();
+        this._updateMapData();
     },
 
     addSettingButton: function() {
@@ -50,21 +51,21 @@ var MapLayer = cc.Layer.extend({
                 var _map = this._mapData[map];
                 var _mapInArray = Object.keys(_map);
                 var totalSteps = _mapInArray.length;
-                cc.log("totalSteps -> " + totalSteps);
+
                 for (var step in _map) {
                     if (_map.hasOwnProperty(step)) {
                         var val = _map[step];
-                        // cc.log("val -> _mapInArray[totalSteps-1] " + val + " -> " + _mapInArray[totalSteps-1]);
+
                         var pos = this._btnStepCoordinates[stepIndex-1];
-                        var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+                        var enabled = (val == "1-1") ? true : false;
+                        var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
                         btn.y = pos.y + btn.height * 1.5;
-
+                        btn.setEnabled(enabled);
                         var lb = new cc.LabelBMFont(val, res.MapFont_fnt);
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;
                         btn.addChild(lb);
-
 
                         scrollView.addChild(btn, 1);
 
@@ -73,13 +74,9 @@ var MapLayer = cc.Layer.extend({
 
                         this._addStepStars(btn);
 
-                        if ((stepIndex%5 > 0) && _mapInArray[totalSteps-1] == step) {
-
-                            // cc.log("stepIndex: " + stepIndex);
-                            // cc.log("add bonus step -> " + (5 - (stepIndex%5)));
-                            // cc.log("step -> _mapInArray[totalSteps-1] " + step + " -> " + _mapInArray[totalSteps-1]);
+                        if ((stepIndex%5 > 0) && _mapInArray[totalSteps-1] == step)
                             stepIndex += 5 - (stepIndex%5);
-                        }
+
                         this._steps.push(btn);
                         stepIndex = (stepIndex >= this._btnStepCoordinates.length) ? 1 : (stepIndex+1);
                     }
@@ -142,24 +139,92 @@ var MapLayer = cc.Layer.extend({
         // cc.log("this._btnStepCoordinates length : " + this._btnStepCoordinates.length);
     },
 
-    _addStepStars: function(step) {
-        this._stepsStar = {};
-        var level = step.getUserData();
-        this._stepsStar[level] = [];
-        var starPosDif = [2.2, 1.6, 1.2, 1.2, 1.6, 2.2];
-        for (var i = 0; i < MapLayer.TotalStarsEachStep; i++) {
-            var star = new cc.Sprite("#star-empty.png");
-            star.scale = 0.8;
-            star.x = step.width/2 - star.width * (MapLayer.TotalStarsEachStep/2 - i - 0.5);
-            star.y = star.height + step.height/starPosDif[i];
-            star.tag = i;
-            step.addChild(star);
-            this._stepsStar[level].push(star);
+    _addStepStars: function(btn) {
+        var self = this;
+        var step = btn.getUserData();
+        this._stepsStar[step] = [];
+        var stepData = [];
+        // var starPosDif = [2.2, 1.6, 1.2, 1.2, 1.6, 2.2];
+        // getTotalGame in step
+        var dataPath = "res/config/levels/" + currentLanguage + "/" + "step-" + step + "." + currentLanguage +".json";
+        cc.log("_addStepStars dataPath: " + dataPath);
+        if (!jsb.fileUtils.isFileExist(dataPath))
+            return;
+        cc.loader.loadJson(dataPath, function(err, data){
+            cc.log("err: " + err);
+            if (!err) {
+                stepData = data;
+                // cc.log("self._data " + JSON.stringify(data));
+                var totalGameInStep = Object.keys(stepData).length;
+                for (var i = 0; i < totalGameInStep; i++) {
+                    var star = new cc.Sprite("#star-empty.png");
+                    star.scale = 0.8;
+                    star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5);
+                    star.y = btn.height;
+                    star.tag = i;
+                    btn.addChild(star);
+                    self._stepsStar[step].push(star);
+                }
+            } else {
+                cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Map_Data_JSON);
+                cc.loader.loadJson(res.Map_Data_JSON, function(err, data) {
+                });
+            }
+        });
+        
+    },
+
+    _updateMapData: function() {
+        var stepData = KVDatabase.getInstance().getString("stepData");
+        var currentLevel = SceneFlowController.getInstance().getCurrentLevel();
+        var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
+        
+        if (stepData == null || stepData == "" || stepData == undefined)
+            return;
+        cc.log("stepData: " + stepData);
+        stepData = JSON.parse(stepData);
+        for (var step in stepData) {
+            var eachStepData = stepData[step];
+            cc.log("eachStepData: " + eachStepData);
+            if (!eachStepData)
+                return;
+            if (eachStepData.completed)
+                this._updateStepState(step);
+            for (var info in eachStepData){
+                cc.log("info: " + info);
+                var gameCompleted;
+                var eachStepInfo = eachStepData[info];
+                if (info.indexOf("totalStars") < 0)
+                    gameCompleted = eachStepData[info];
+                else {
+                    this._updateStepData(step, eachStepInfo);
+                }
+            }
+        }
+
+    },
+
+    _updateStepState: function(step) {
+        cc.log("_updateStepState");
+        for (var i = 0; i < this._steps.length; i++) {
+            var stepBtn = this._steps[i];
+            var userData = stepBtn.getUserData();
+
+            if (step == userData)
+                this._steps[i+1].setEnabled(true);
         }
     },
 
-    _updateStepStars: function() {
-        var currentStar = KVDatabase.getInstance().getInt("stepStars");
+    _updateStepData: function(step, eachStepInfo) {
+        cc.log("_updateStepData");
+        cc.log("this._stepsStar: " + JSON.stringify(this._stepsStar));
+        var stepStars = this._stepsStar[step];
+        if (isNaN(eachStepInfo))
+            eachStepInfo = parseInt(eachStepInfo);
+        for (var i = 0; i < eachStepInfo; i++) {
+            var star = stepStars[i];
+            star.setSpriteFrame("star-filled.png");
+        }
     },
 
     _stepPressed: function(b) {
