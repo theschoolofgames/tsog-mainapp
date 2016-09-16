@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="17">
- <tileset firstgid="1" name="alpha-racing-lands" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+ <tileset firstgid="1" name="alpha-racing-lands" tilewidth="64" tileheight="64" tilecount="16" columns="16">
   <image source="SD/alpha-racing-lands.png" width="1024" height="64"/>
  </tileset>
- <tileset firstgid="257" name="alpha-racing-lands01" tilewidth="64" tileheight="64" tilecount="72" columns="8">
+ <tileset firstgid="17" name="alpha-racing-lands01" tilewidth="64" tileheight="64" tilecount="72" columns="8">
   <image source="SD/alpha-racing-lands01.png" width="512" height="576"/>
  </tileset>
  <layer name="Lands" width="30" height="20">
@@ -33,17 +33,17 @@
  </objectgroup>
  <layer name="LowLayer2" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AU0BMwMqLyWRmxq6MF0ATapQXE2kCsg2avOZBvQSO3GALNNQJiYyA2QbPDHsh3oJG9lkBzrYDYGoht6BTOikB7HIHYCYidgdiFjvFLbWAKdLvZALjfFminHdRePiDND8QCQzgcR8HIBADY0gWv
+   eJztzikOgDAURVG2gMACW0AyGOZ5Zv9r4QpULfmt+Tc5SZuKV8/TNM1mvnEPLG6nyJCjMN56DEK7JSrUaIy3HYfQ7ogJMxahDbMEJy7ceCztStSic7C7YvvOISLEDv6haX96AZFsB3E=
   </data>
  </layer>
  <layer name="LowLayer1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjAIIEGNkYBAHYglG+torB7RPHogVqGjvcPLLUAOkhr0aUJ06FcKL1LDXA6rTH8HxNApoCwCsCQKn
+   eJxjYBgFo2AUjAIIUANidSDWoLO9ekCsD8QGVDRzOPllqAFSw94MiM2pYC+pYW8HxPZUsHcUjAJsAACKWgPx
   </data>
  </layer>
  <layer name="LowLayer3" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzbcNgFAQBNE7TIALMD/ABbj+W2Sa4CSkHenFY6bUP3I3y5CjQOkx34pPjQYtuqBvz2fAiAkp6DvzWbBiwx70PficuHDjCfoqpdQXvYDFAfU=
+   eJztzbcNgEAABMFvAXgCzAe4ABfg+m+NbYKTkG6liTcE5/5RhhwFIkrRt0KNBi2S6Nuhx4ARk+g7Y8GKDbvoe+DEhRuP6Oucc1/0Aue6A2w=
   </data>
  </layer>
 </map>

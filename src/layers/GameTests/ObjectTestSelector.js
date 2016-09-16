@@ -280,6 +280,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "matching":
                 cc.director.runScene(new MatchGameScene(checkedItems));   
                 break;
+            case "alphabet":
+                cc.director.runScene(new AlphabetGameScene(checkedItems));   
+                break;
             default:
                 break;
         }

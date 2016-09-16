@@ -556,7 +556,8 @@ var GAME_IDS = [
     "balloon",
     "storytime",
     "matching",
-    "alpharacing"
+    "alpharacing",
+    "alphabet"
 ];
 
 var STORY_RESOURCES = [

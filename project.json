@@ -74,6 +74,7 @@
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/LevelDialog.js",
         "src/layers/Alphabet/MatchGameLayer.js",
+        "src/layers/Alphabet/AlphabetGameLayer.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARPlayer.js",

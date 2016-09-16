@@ -137,11 +137,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
-        this._playerBorder.retain();
+        // this._playerBorder.retain();
         this.gameLayer.addChild(this._playerBorder, AR_ADI_ZODER+1);
 
         this._tileBorder = cc.DrawNode.create();
-        this._tileBorder.retain();
+        // this._tileBorder.retain();
         this.addChild(this._tileBorder);
 
         this.addChild(this.gameLayer);
@@ -231,7 +231,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         let offsetPos = cc.pSub(playerPos, this._lastPlayerPos);
-
+        offsetPos.x = 0.1;
         this._scrollBackground(this._mountain01, this._mountain02, offsetPos, 0.1, 0.2);
         this._scrollBackground(this._ground01, this._ground02, offsetPos, 0.2, 0.4);
         this._scrollBackground(this._dust01, this._dust02, offsetPos, 0.17, 0.34);
@@ -244,17 +244,17 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let background1Pos = background1.getPosition();
         let background2Pos = background2.getPosition();
 
-        background1.setPosition(cc.p(background1Pos.x - offsetPos.x * speedX, background1Pos.y - offsetPos.y * speedY));
-        background2.setPosition(cc.p(background2Pos.x - offsetPos.x * speedX, background2Pos.y - offsetPos.y * speedY));
+        background1.setPosition(cc.p(Math.round(background1Pos.x - offsetPos.x * speedX), Math.round(background1Pos.y - offsetPos.y * speedY)));
+        background2.setPosition(cc.p(Math.round(background2Pos.x - offsetPos.x * speedX), Math.round(background2Pos.y - offsetPos.y * speedY)));
 
         if (background1Pos.x < background2Pos.x){
             if (background2Pos.x < cc.winSize.width / 2){
-                background1.setPositionX(background2Pos.x + background1.getContentSize().width - 10);
+                background1.setPositionX(Math.round(background2Pos.x + background1.getContentSize().width - 10));
             }
         }
         else {
             if (background1Pos.x < cc.winSize.width / 2){
-                background2.setPositionX(background1Pos.x + background2.getContentSize().width - 10);   
+                background2.setPositionX(Math.round(background1Pos.x + background2.getContentSize().width - 10));   
             }
         }
     },
@@ -444,7 +444,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let groupIndex = 0;
         let self = this;
 
-        cc.log("This.Input Length: %d, That length: %d", this._inputData.length, inputArray.length);
+        // cc.log("This.Input Length: %d, That length: %d", this._inputData.length, inputArray.length);
 
         // this._alphabetObjectArray = [];
 
@@ -744,7 +744,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         
         let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
-        this.gameLayer.setPosition(viewPoint); 
+        this.gameLayer.setPosition(cc.p(Math.round(viewPoint.x), Math.round(viewPoint.y))); 
     },
 
 });
