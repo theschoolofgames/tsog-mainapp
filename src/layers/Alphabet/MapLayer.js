@@ -185,11 +185,13 @@ var MapLayer = cc.Layer.extend({
         stepData = JSON.parse(stepData);
         for (var step in stepData) {
             var eachStepData = stepData[step];
-            cc.log("eachStepData: " + eachStepData);
+            cc.log("eachStepData: " + JSON.stringify(eachStepData));
             if (!eachStepData)
                 return;
-            if (eachStepData.completed)
+            cc.log("eachStepData.completed: " + eachStepData.completed);
+            if (eachStepData.completed) {
                 this._updateStepState(step);
+            }
             for (var info in eachStepData){
                 cc.log("info: " + info);
                 var gameCompleted;
@@ -218,6 +220,7 @@ var MapLayer = cc.Layer.extend({
     _updateStepData: function(step, eachStepInfo) {
         cc.log("_updateStepData");
         cc.log("this._stepsStar: " + JSON.stringify(this._stepsStar));
+        cc.log("eachStepInfo: " + eachStepInfo);
         var stepStars = this._stepsStar[step];
         if (isNaN(eachStepInfo))
             eachStepInfo = parseInt(eachStepInfo);

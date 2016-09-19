@@ -336,6 +336,10 @@ var StoryMainLayer = TestLayer.extend({
 
     backToHome:function (sender) {
         this._stopStory();
+
+        // TODO remove after complete listening and speaking flow after story game
+        Utils.updateStepData();
+        SceneFlowController.getInstance().clearData();
         cc.director.replaceScene(new cc.TransitionFade(1, new MapScene(), cc.color(255, 255, 255, 255)));
     },
 

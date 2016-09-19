@@ -146,6 +146,9 @@ var LevelDialog = Dialog.extend({
             if (!err) {
                 self._data = data;
                 self._addGamesSelector();
+                var dataLength = Object.keys(self._data).length;
+                cc.log("data length: " + dataLength);
+                SceneFlowController.getInstance().setTotalSceneInLevel(dataLength);
                 // cc.log("self._data " + JSON.stringify(data));
             } else {
                 cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Map_Data_JSON);

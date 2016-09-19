@@ -512,7 +512,7 @@ var GoFigureTestLayer = TestLayer.extend({
         cc.log("objName: " + JSON.stringify(objName));
         // cc.log("_nameIdx: " + this._nameIdx);
         this._wordScale = 1;
-        var optionIdx = this._option.index;
+        var optionIdx = (this._option) ? this._option.index : 1;
         var charArrays = [];
         var totalWidth = 0;
         var totalWords = (Array.isArray(objName)) ? objName.length : 1;
@@ -624,7 +624,7 @@ var GoFigureTestLayer = TestLayer.extend({
         actions.push(cc.moveTo(0, this.convertToWSpace(this.convertScaledPath(pathCfg[0]))));
         actions.push(cc.fadeIn(0.15));
 
-        var optionIdx = this._option.index;
+        // var optionIdx = this._option.index;
         // for (var k = 0; k < optionIdx.length; k++) {
         //     var opt = optionIdx[k];
         //     if (opt == this._nameIdx) {

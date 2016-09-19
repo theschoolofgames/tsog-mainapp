@@ -319,6 +319,8 @@ var BalloonGameLayer = TestLayer.extend({
 var BalloonGameScene = cc.Scene.extend({
     ctor: function(objectIdArray) {
         this._super();
+
+        this.name = "balloon";
         var layer = new BalloonGameLayer(objectIdArray);
         this.addChild(layer);
     }

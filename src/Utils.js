@@ -356,14 +356,15 @@ Utils.updateStepData = function() {
 
     if (!stepData[currentLevel])
         stepData[currentLevel] = {};
-    else if (stepData[currentLevel][currentSceneIdx]) // TODO undo after all game can play
+    else if (stepData[currentLevel][currentSceneIdx])
         return;
     if (!stepData[currentLevel]["totalStars"])
         stepData[currentLevel]["totalStars"] = 0;
 
     currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]);
-    completed = (currentTotalStars >= totalSceneInLevel) ? 1 : 0;
-
+    completed = ((currentTotalStars+1) >= totalSceneInLevel) ? 1 : 0;
+    cc.log("totalSceneInLevel: " + totalSceneInLevel);
+    cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
     stepData[currentLevel][currentSceneIdx] = 1;
     stepData[currentLevel]["completed"] = completed;
     stepData[currentLevel]["totalStars"] = currentTotalStars+1;

@@ -148,9 +148,9 @@ cc.game.onStart = function(){
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
-        cc.director.runScene(new WelcomeScene());
+        // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene());
-        // cc.director.runScene(new MainScene());
+        cc.director.runScene(new MainScene());
         // cc.director.runScene(new AlphabetGameScene(["cat", "banana"]));
         // cc.director.runScene(new AlphaRacingScene([{"type": "A","value": "20"},{"type": "a","value": "20"}]));
         // cc.director.runScene(new StoryMainScene());

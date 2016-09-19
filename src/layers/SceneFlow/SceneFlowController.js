@@ -18,8 +18,8 @@ var SceneFlowController = cc.Class.extend({
     },
 
     setTotalSceneInLevel: function(totalSceneInLevel) {
-        if (this._totalSceneInLevel > totalSceneInLevel) // only set 1 time
-            return; 
+        // if (this._totalSceneInLevel > totalSceneInLevel) // only set 1 time
+        //     return; 
         this._totalSceneInLevel = totalSceneInLevel;
     },
 
@@ -96,9 +96,9 @@ var SceneFlowController = cc.Class.extend({
         this._currentLevelIndex = levelIdx;
         this._currentLoopSceneIdx = sceneIdx;
         this._currentLoopSceneName = sceneName;
-        
-        var totalSceneInLevel = Object.keys(scenePool).length;
-        this.setTotalSceneInLevel(totalSceneInLevel);
+
+        // var totalSceneInLevel = Object.keys(scenePool).length;
+        // this.setTotalSceneInLevel(totalSceneInLevel);
 
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
             currentLevelIndex: levelIdx,
@@ -134,7 +134,13 @@ var SceneFlowController = cc.Class.extend({
         //     data = data[0].data;
         //     option = data[0].option;
         // }
-
+        if (cc.director.getRunningScene().name == "balloon") {
+            Utils.updateStepData();
+            SceneFlowController.getInstance().clearData();
+            cc.director.runScene(new MapScene());
+            return;
+        }
+        cc.log("moveToNextScene: " + sceneName);
         switch(sceneName) {
             case "room":
                 cc.director.runScene(new RoomScene(data));
@@ -177,6 +183,15 @@ var SceneFlowController = cc.Class.extend({
                 break;
             case "alpharacing":
                 cc.director.runScene(new AlphaRacingScene(data, option));
+                break;
+            case "freecolor":
+                // remove after implement free color game
+                Utils.updateStepData();
+                SceneFlowController.getInstance().clearData();
+                cc.director.runScene(new MapScene());
+                // remove upper code after implement free color game
+
+                // cc.director.runScene(new AlphaRacingScene(data, option));
                 break;
             default:
                 break;

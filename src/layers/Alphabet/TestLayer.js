@@ -73,6 +73,7 @@ var TestLayer = cc.LayerColor.extend({
     _setIsTestScene: function(isTestScene) {
         this._isTestScene = isTestScene;
     },
+    
     completedScene: function(){
         this._moveToNextScene();
     },
