@@ -14,6 +14,7 @@ var BalloonGameLayer = TestLayer.extend({
     _hudLayer: null,
     _goalNumber: 10,
     _correctChoose: 0,
+    _lbGoal: null,
 
     ctor: function(objectIdArray) {
         this._super(cc.color.WHITE);
@@ -35,11 +36,46 @@ var BalloonGameLayer = TestLayer.extend({
 
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
+        this._addGoalList(this._currentObject.id, this._goalNumber);
 
         this.addHud();
         this._addCurrentIdHud(this._currentObject);
 
         this.schedule(this._spawnBalloons, this._waitForSpawn);
+    },
+
+    _addGoalList: function(objectName, goalNumber) {
+        var balloonSprite;
+        switch(objectName) {
+            case "color_red":
+                balloonSprite = new cc.Sprite(res.Red_balloon_png);
+                break;
+            case "color_green":
+                balloonSprite = new cc.Sprite(res.Green_balloon_png);
+                break;
+            case "color_blue":
+                balloonSprite = new cc.Sprite(res.Blue_balloon_png);
+                break;
+            default:
+                balloonSprite = new cc.Sprite(res.Gray_balloon_png);    
+                break;
+        }   
+        var lbGoal = new cc.LabelBMFont("0/" + goalNumber, res.CustomFont_fnt);
+        lbGoal.scale = 0.5;
+        lbGoal.x = cc.winSize.width - lbGoal.width/2;
+        lbGoal.y = cc.winSize.height - 100;
+        lbGoal.tag = 100;
+        this.addChild(lbGoal);
+        this._lbGoal = lbGoal;
+
+        balloonSprite.setScale(0.25);
+        balloonSprite.x = cc.winSize.width - (lbGoal.width + balloonSprite.width)* lbGoal.scale;
+        balloonSprite.y = lbGoal.y;
+        this.addChild(balloonSprite); 
+    },
+
+    _updateGoalLabel: function(correct) {
+        this._lbGoal.setString(correct + "/" + this._goalNumber);
     },
 
     // only accept object with type: colors, numbers and alphabets
@@ -181,6 +217,7 @@ var BalloonGameLayer = TestLayer.extend({
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
 
                     self._correctChoose++;
+                    self._updateGoalLabel(self._correctChoose);
                     
                     var percent = self._correctChoose / self._goalNumber;
                     self._hudLayer.setProgressBarPercentage(percent);
@@ -311,7 +348,7 @@ var BalloonGameLayer = TestLayer.extend({
         else
             this._data = [];
 
-        cc.log("data after map: " + JSON.stringify(this._objectsArray));
+        cc.log("balloon game data after map: " + JSON.stringify(this._objectsArray));
         this.setData(JSON.stringify(this._data));
     },
 });
