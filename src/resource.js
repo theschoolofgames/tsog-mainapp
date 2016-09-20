@@ -266,6 +266,8 @@ var res = {
 
     Circle_png: "circle.png",
 
+    Basket_png: "shopping-basket.jpg",
+
     // TMX
     ABC_TMX: "res/abc.tmx",
     Figure_TMX: "res/figure-game.tmx",

@@ -184,14 +184,17 @@ var SceneFlowController = cc.Class.extend({
             case "alpharacing":
                 cc.director.runScene(new AlphaRacingScene(data, option));
                 break;
+            case "shoppingbasket":
+                cc.director.runScene(new ShoppingBasketScene(data));
+                break;
             case "freecolor":
                 // remove after implement free color game
-                Utils.updateStepData();
-                SceneFlowController.getInstance().clearData();
-                cc.director.runScene(new MapScene());
+                // Utils.updateStepData();
+                // SceneFlowController.getInstance().clearData();
+                // cc.director.runScene(new MapScene());
                 // remove upper code after implement free color game
 
-                // cc.director.runScene(new AlphaRacingScene(data, option));
+                cc.director.runScene(new FreeColorScene(data));
                 break;
             default:
                 break;

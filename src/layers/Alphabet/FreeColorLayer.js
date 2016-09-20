@@ -11,6 +11,9 @@ var BRUSH_COLOR_HEX = [
     cc.color("#ffa500")     // Orange
 ];
 
+var FREECOLOR_OBJECT_WIDTH = 70;
+var FREECOLOR_OBJECT_HEIGHT = 70;
+
 var FreeColorLayer = TestLayer.extend({
     _brushColorButtons: [],
     _currentBrushColor: cc.color.GREEN,
@@ -27,8 +30,10 @@ var FreeColorLayer = TestLayer.extend({
     _blockTouch: false,
 
     gridCellSize: 150,
+    _colorButtonScale: 0.5,
+    _currentObjectShowing: null,
 
-    ctor: function(objectIdArray, oldSceneName, isTestScene) {
+    ctor: function(objectIdArray) {
         this._super();
 
         this._createRenderTexture();
@@ -45,6 +50,8 @@ var FreeColorLayer = TestLayer.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
+
+        this._addNextButton();
     },
 
     _createRenderTexture: function() {
@@ -137,16 +144,16 @@ var FreeColorLayer = TestLayer.extend({
     },
 
     addObjects: function(objectArray) {
-        var coordinateObjectArray = shuffle(this.generateCoordinateArray());
+        // var coordinateObjectArray = shuffle(this.generateCoordinateArray());
         
         for ( var i = 0; i < objectArray.length; i++) {
-            var obj = this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
+            var obj = this.addObjectButton(objectArray[i], i);
             if (obj)
                 this._createObjectRender(obj);
         }
     },
 
-    addObjectButton: function(objPosition, gameObject, index) {
+    addObjectButton: function(gameObject, index) {
         // console.log("Object position: " + JSON.stringify(objPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
         var imageDir = "";
@@ -162,15 +169,16 @@ var FreeColorLayer = TestLayer.extend({
         var objImageName = imageDir + gameObject.id + ".png";
         var object = new cc.Sprite(objImageName);
         self = this;
-        object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
+        cc.log("gameObject: " + JSON.stringify(gameObject));
+        // object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
-        object.x = objPosition.x;
-        object.y = objPosition.y;
+        object.scale = (object.width > FREECOLOR_OBJECT_WIDTH) ? FREECOLOR_OBJECT_HEIGHT/object.width : FREECOLOR_OBJECT_HEIGHT/object.height;
+        object.x = object.width * object.scale + index*(object.width + 10 * Utils.getScaleFactorTo16And9()) * object.scale;
+        object.y = 100;
         object.tag = index;
-        object.scale = Math.max(Math.min(125.0 / object.width, 125.0 / object.height) * Utils.screenRatioTo43(), 1);
         object.userData = { scaleFactor: object.scale, imageName: objImageName}
         this.addChild(object, Z_OBJECT);
-
+        cc.log("object.x: " + object.x);
         // var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
         // var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
         // shaderState.setUniformFloat("width", object.width * cc.contentScaleFactor());
@@ -196,7 +204,8 @@ var FreeColorLayer = TestLayer.extend({
             var btnImgNameNormal = "btn_" + BRUSH_COLOR[i] +".png";
             var btnImgNamePressed = "btn_" + BRUSH_COLOR[i] +"-pressed.png";
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
-            b.x = b.width + i*(b.width + 10 * Utils.getScaleFactorTo16And9());
+            b.scale = this._colorButtonScale;
+            b.x = b.width + i*(b.width + 10 * Utils.getScaleFactorTo16And9()) * this._colorButtonScale;
             b.y = (cc.winSize.height - 150) * Utils.getScaleFactorTo16And9();
             b.tag = i;
             b.opacity = (i == 2) ? 255 : 180;
@@ -316,9 +325,17 @@ var FreeColorLayer = TestLayer.extend({
 
     onTouchEnded: function(touch, event) {
         var self = this;
-
+        var touchLoc = touch.getLocation();
         var image = this._tmpRenderer.newImage(); 
         this._blockTouch = true;
+
+        this._objects.forEach(function(object) {
+            var objBBox = object.getBoundingBox();
+            if (cc.rectContainsPoint(objBBox, touchLoc)) {
+                self._showNewObject(object);
+                return;
+            }
+        });
 
         this._tmpRenderer.getSprite().runAction(cc.sequence(
             // cc.tintTo(0.3, 0, 255, 0),
@@ -356,6 +373,29 @@ var FreeColorLayer = TestLayer.extend({
         ));
     },  
 
+    _showNewObject: function(object) {
+        if (this._currentObjectShowing)
+            this._currentObjectShowing.removeFromParent();
+        this._currentObjectShowing = null;
+        var imgName = object.getUserData().imageName;
+        var sprite = new cc.Sprite(imgName);
+        sprite.x = cc.winSize.width/2;
+        sprite.y = cc.winSize.height/2;
+        this.addChild(sprite);
+        this._currentObjectShowing = sprite;
+    },
+
+    _addNextButton: function() {
+        var btn = new ccui.Button("next.png", "next-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        btn.x = cc.winSize.width - btn.width;
+        btn.y = cc.winSize.height/2;
+        btn.addClickEventListener(function() {
+            Utils.updateStepData();
+            SceneFlowController.getInstance().clearData();
+            cc.director.runScene(new MapScene());
+        }.bind(this));
+        this.addChild(btn, 999999);
+    },
 })
 
 var FreeColorScene = cc.Scene.extend({

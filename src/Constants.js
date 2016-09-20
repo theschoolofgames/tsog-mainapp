@@ -557,7 +557,8 @@ var GAME_IDS = [
     "storytime",
     "matching",
     "alpharacing",
-    "alphabet"
+    "alphabet",
+    "shoppingbasket"
 ];
 
 var STORY_RESOURCES = [
