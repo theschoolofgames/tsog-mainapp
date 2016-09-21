@@ -36,7 +36,7 @@ var FreeColorLayer = TestLayer.extend({
     _currentObjectShowing: null,
 
     ctor: function(objectIdArray) {
-        this._super();
+        this._super(true);
         this._objects = [];
         this._brushColorButtons = [];
         this._objectsArray = [];
@@ -57,6 +57,16 @@ var FreeColorLayer = TestLayer.extend({
         }, this);
 
         this._addNextButton();
+    },
+
+    _addHudLayer: function(){
+        cc.log("_addHudLayer");
+        var hudLayer = new HudLayer(this, true);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
+        // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
     },
 
     _createRenderTexture: function() {
@@ -211,7 +221,7 @@ var FreeColorLayer = TestLayer.extend({
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.scale = this._colorButtonScale;
             b.x = b.width + i*(b.width + 10 * Utils.getScaleFactorTo16And9()) * this._colorButtonScale;
-            b.y = (cc.winSize.height - 150) * Utils.getScaleFactorTo16And9();
+            b.y = (cc.winSize.height - 50) * Utils.getScaleFactorTo16And9();
             b.tag = i;
             b.opacity = (i == 2) ? 255 : 180;
             b.addClickEventListener(this._changeBrushColorPressed.bind(this));
