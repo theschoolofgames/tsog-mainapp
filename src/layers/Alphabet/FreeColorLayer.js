@@ -13,6 +13,8 @@ var BRUSH_COLOR_HEX = [
 
 var FREECOLOR_OBJECT_WIDTH = 70;
 var FREECOLOR_OBJECT_HEIGHT = 70;
+var FREECOLOR_SHADER_WIDTH = 400;
+var FREECOLOR_SHADER_HEIGHT = 300;
 
 var FreeColorLayer = TestLayer.extend({
     _brushColorButtons: [],
@@ -35,7 +37,10 @@ var FreeColorLayer = TestLayer.extend({
 
     ctor: function(objectIdArray) {
         this._super();
-
+        this._objects = [];
+        this._brushColorButtons = [];
+        this._objectsArray = [];
+        this._objectNames = [];
         this._createRenderTexture();
 
         this._filterObjectsByType(objectIdArray);
@@ -210,7 +215,7 @@ var FreeColorLayer = TestLayer.extend({
             b.tag = i;
             b.opacity = (i == 2) ? 255 : 180;
             b.addClickEventListener(this._changeBrushColorPressed.bind(this));
-            this.addChild(b);
+            this.addChild(b, 99);
             this._brushColorButtons.push(b);
         }
     },
@@ -379,9 +384,17 @@ var FreeColorLayer = TestLayer.extend({
         this._currentObjectShowing = null;
         var imgName = object.getUserData().imageName;
         var sprite = new cc.Sprite(imgName);
+        sprite.scale = (sprite.width > FREECOLOR_SHADER_WIDTH) ? FREECOLOR_SHADER_HEIGHT/sprite.width : FREECOLOR_SHADER_HEIGHT/sprite.height;
         sprite.x = cc.winSize.width/2;
         sprite.y = cc.winSize.height/2;
         this.addChild(sprite);
+
+        var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
+        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        shaderState.setUniformFloat("width", FREECOLOR_SHADER_WIDTH * cc.contentScaleFactor());
+        shaderState.setUniformFloat("height", FREECOLOR_SHADER_HEIGHT * cc.contentScaleFactor());
+        sprite.shaderProgram = shader;
+
         this._currentObjectShowing = sprite;
     },
 
