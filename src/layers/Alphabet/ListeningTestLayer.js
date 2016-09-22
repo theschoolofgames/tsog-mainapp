@@ -18,7 +18,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     ctor: function(data) {
         this._super();
-
+        cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
         // this._names = data.map(function(obj) {
@@ -182,10 +182,13 @@ var ListeningTestLayer = TestLayer.extend({
                     var number = parseInt(shownObjNames[i].toLowerCase());
                     if (number > 9) {
                         numberHasTwoDigit = true;
-                        
                     }
-                    spritePath = "#" + shownObjNames[i].toLowerCase() + ".png"
+                    spritePath = "#" + shownObjNames[i].toLowerCase() + ".png";
                 }
+                if (shownObjNames[i].indexOf("color") > -1) {
+                    var color = shownObjNames[i].toLowerCase().substr(6);
+                    spritePath = "#btn_" + color + ".png";   
+                }   
             }
 
             cc.log("sprite path: " + spritePath);
@@ -418,7 +421,7 @@ var ListeningTestLayer = TestLayer.extend({
         cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
-                cc.log("value: " + id.value)
+                cc.log("value: %s", id.value)
                 if (id)
                     return id.value || id;
             });

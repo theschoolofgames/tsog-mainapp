@@ -134,12 +134,12 @@ var SceneFlowController = cc.Class.extend({
         //     data = data[0].data;
         //     option = data[0].option;
         // }
-        if (cc.director.getRunningScene().name == "balloon") {
-            Utils.updateStepData();
-            SceneFlowController.getInstance().clearData();
-            cc.director.runScene(new MapScene());
-            return;
-        }
+        // if (cc.director.getRunningScene().name == "balloon") {
+        //     Utils.updateStepData();
+        //     SceneFlowController.getInstance().clearData();
+        //     cc.director.runScene(new MapScene());
+        //     return;
+        // }
         cc.log("moveToNextScene: " + sceneName);
         switch(sceneName) {
             case "room":

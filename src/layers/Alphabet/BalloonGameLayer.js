@@ -190,8 +190,8 @@ var BalloonGameLayer = TestLayer.extend({
                 cc.callFunc(function() {
                     if (warningLabel)
                         warningLabel.removeFromParent();
-                    // self._moveToNextScene();
-                    self._backToHome();
+                    self._moveToNextScene();
+                    // self._backToHome();
                 })
             )
         )
