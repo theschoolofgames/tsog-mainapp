@@ -599,6 +599,26 @@ var STORY_RESOURCES = [
             "res/sounds/stories/story02-03.mp3"
         ]
     },
+    {
+        "subtitles": [
+            "res/subtitles/story03-01.ass",
+            "res/subtitles/story03-02.ass",
+            "res/subtitles/story03-03.ass",
+            "res/subtitles/story03-04.ass"
+        ],
+        "arts": [
+            "stories/Storytime3-1.jpg",
+            "stories/Storytime3-2.jpg",
+            "stories/Storytime3-3.jpg",
+            "stories/Storytime3-4.jpg"
+        ],
+        "sounds": [
+            "res/sounds/stories/story03-01.mp3",
+            "res/sounds/stories/story03-02.mp3",
+            "res/sounds/stories/story03-03.mp3",
+            "res/sounds/stories/story03-04.mp3"
+        ]
+    },
 ];
 
 var AR_TMX_LEVELS = [res.AR_Level_01_TMX, res.AR_Level_02_TMX, res.AR_Level_01_TMX];
