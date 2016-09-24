@@ -429,7 +429,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         this.setData(this._data);
-        cc.log("data after map: " + JSON.stringify(this._names));
+        cc.log("listening names after map: " + JSON.stringify(this._names));
     },
 
     

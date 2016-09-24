@@ -348,7 +348,7 @@ var StoryMainLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data before map: " + data);
+        // cc.log("data before map: " + JSON.stringify(data));
         var dataNextScene = [];
         if (data)
             dataNextScene = data.map(function(id) {
@@ -358,8 +358,8 @@ var StoryMainLayer = TestLayer.extend({
                 else
                     return id;
             });
-        this.setData(JSON.stringify(dataNextScene));
-        cc.log("data after map: " + JSON.stringify(dataNextScene));
+        this.setData(JSON.stringify(dataNextScene[0].data));
+        // cc.log("data after map: " + JSON.stringify(dataNextScene));
     },
 });
 
