@@ -21,6 +21,8 @@ var res = {
     AdiDog_Run_plist: "adidog_run/adidog_run.plist",
     AR_Background_png: "alpha-racing-background.png",
     AR_Background_plist: "alpha-racing-background.plist",
+    Balloon_Animation_png: "balloon-animations/balloon-animations.png",
+    Balloon_Animation_plist: "balloon-animations/balloon-animations.plist",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

@@ -4,23 +4,32 @@ var BalloonGameLayer = TestLayer.extend({
     _balloons: [],
     _enableSpawn: false,
     _waitForSpawn: 2.5,
-    _balloonScale: 0.5,
+    _balloonScale: 1.0,
     _balloonLifeTime: 6,
     _objectsArray: [],
     _tempArray: [],
-    _objectIdArray: ["word_r", "number_6", "word_t", "color_white", "color_blue"],
+    _objectIdArray: ["color_green", "color_red", "color_blue"],
     _currentObject: null, 
     _currentIdLabel: null,
     _hudLayer: null,
     _goalNumber: 10,
     _correctChoose: 0,
     _lbGoal: null,
+    spriteSheet:null,
+    redAnimFrames: [],
+    greenAnimFrames: [],
+    blueAnimFrames: [],
+    grayAnimFrames: [],
+    redAnimation: null,
+    greenAnimation: null,
+    blueAnimation: null,
+    grayAnimation: null,
 
     ctor: function(objectIdArray) {
         this._super(cc.color.WHITE);
         this.init(objectIdArray);
+        // this.init(this._objectIdArray); // For testing
 
-        cc.SPRITE_DEBUG_DRAW =  1;
     },
 
     init: function(objectIdArray) {
@@ -30,13 +39,16 @@ var BalloonGameLayer = TestLayer.extend({
                 onTouchBegan: this.onTouchBegan.bind(this),
         }, this);
 
+        cc.spriteFrameCache.addSpriteFrames(res.Balloon_Animation_plist);
+        this.spriteSheet = new cc.SpriteBatchNode(res.Balloon_Animation_png);
+        this.addChild(this.spriteSheet);
+
         // this._filterObjectsByType(objectIdArray);
         this._fetchObjectData(objectIdArray);
         this._tempArray = shuffle(this._objectsArray).slice(0);
 
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
-        this._addGoalList(this._currentObject.id, this._goalNumber);
 
         this.addHud();
         this._addCurrentIdHud(this._currentObject);
@@ -44,38 +56,8 @@ var BalloonGameLayer = TestLayer.extend({
         this.schedule(this._spawnBalloons, this._waitForSpawn);
     },
 
-    _addGoalList: function(objectName, goalNumber) {
-        var balloonSprite;
-        switch(objectName) {
-            case "color_red":
-                balloonSprite = new cc.Sprite(res.Red_balloon_png);
-                break;
-            case "color_green":
-                balloonSprite = new cc.Sprite(res.Green_balloon_png);
-                break;
-            case "color_blue":
-                balloonSprite = new cc.Sprite(res.Blue_balloon_png);
-                break;
-            default:
-                balloonSprite = new cc.Sprite(res.Gray_balloon_png);    
-                break;
-        }   
-        var lbGoal = new cc.LabelBMFont("0/" + goalNumber, res.CustomFont_fnt);
-        lbGoal.scale = 0.5;
-        lbGoal.x = cc.winSize.width - lbGoal.width/2;
-        lbGoal.y = cc.winSize.height - 100;
-        lbGoal.tag = 100;
-        this.addChild(lbGoal);
-        this._lbGoal = lbGoal;
-
-        balloonSprite.setScale(0.25);
-        balloonSprite.x = cc.winSize.width - (lbGoal.width + balloonSprite.width)* lbGoal.scale;
-        balloonSprite.y = lbGoal.y;
-        this.addChild(balloonSprite); 
-    },
-
     _updateGoalLabel: function(correct) {
-        this._lbGoal.setString(correct + "/" + this._goalNumber);
+        this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._goalNumber));
     },
 
     // only accept object with type: colors, numbers and alphabets
@@ -127,28 +109,28 @@ var BalloonGameLayer = TestLayer.extend({
         if (currentObj.type === "number" || currentObj.type === "word")
             text = currentObj.value;
 
-        var circle = new cc.Sprite(res.Gray_balloon_png);
+        var circle = new cc.Sprite("#balloon_gray_1.png");
 
         if (currentObj.id.indexOf("red") !== -1){
-            circle.setTexture(cc.textureCache.addImage(res.Red_balloon_png));
+            circle.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_red_1.png"));
         }
         else if (currentObj.id.indexOf("green") !== -1){
-            circle.setTexture(cc.textureCache.addImage(res.Green_balloon_png));
+            circle.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_green_1.png"));
         }
         else if (currentObj.id.indexOf("blue") !== -1){
-            circle.setTexture(cc.textureCache.addImage(res.Blue_balloon_png));
+            circle.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_blue_1.png"));
         }
 
         circle.attr({x: 60, y: cc.winSize.height - 200});
-        circle.setScale(0.3);
+        circle.setScale(0.6);
         // circle.setColor(cc.color.RED);   
         this.addChild(circle);
 
         var label = new cc.LabelBMFont(text.toUpperCase() + "", "hud-font.fnt");
-        label.setScale(3.0);
+        label.setScale(2.0);
         label.color = cc.color("#ffd902");
         label.x = circle.width / 2;
-        label.y = circle.height - 120;
+        label.y = circle.height - 60;
         circle.addChild(label);
 
         this._currentIdLabel = label;
@@ -231,16 +213,45 @@ var BalloonGameLayer = TestLayer.extend({
 
                 }
 
-                // Reset object for reusing
-                obj.stopAllActions();
-                obj.runAction(cc.sequence(cc.fadeOut(1.0), cc.callFunc(() => {
+                if (obj.type != "color"){
+                    // Reset object for reusing
                     obj.stopAllActions();
-                    obj.x = -100;
-                    obj.y = -100;
-                    obj.setOpacity(255);
-                    obj.touched = false;
-                    obj.setVisible(false);
-                }, self)));
+
+                    obj.runAction(cc.sequence(cc.fadeOut(1.0), cc.callFunc(() => {
+                        obj.stopAllActions();
+                        obj.x = -100;
+                        obj.y = -100;
+                        obj.setOpacity(255);
+                        obj.touched = false;
+                        obj.setVisible(false);
+                    }, self)));
+                }
+                else {
+                    self.redAnimation = new cc.Animation(self.redAnimFrames, 0.1);
+                    self.greenAnimation = new cc.Animation(self.greenAnimFrames, 0.1);
+                    self.blueAnimation = new cc.Animation(self.blueAnimFrames, 0.1);
+
+                    let currentAnimation = self.redAnimation;
+
+                    if (obj.name == "color_blue"){
+                        currentAnimation = self.blueAnimation;
+                    }
+                    else if (obj.name == "color_green"){
+                        currentAnimation = self.greenAnimation;
+                    }
+
+                    // Reset object for reusing
+                    obj.stopAllActions();
+                    let popAction = new cc.Animate(currentAnimation).repeat(1);
+                    obj.runAction(cc.sequence(popAction, cc.callFunc(() => {
+                        obj.stopAllActions();
+                        obj.x = -100;
+                        obj.y = -100;
+                        obj.setOpacity(255);
+                        obj.touched = false;
+                        obj.setVisible(false);
+                    }, self)));
+                }
             }
         });
 
@@ -266,27 +277,28 @@ var BalloonGameLayer = TestLayer.extend({
         newObjectArray.push(this._currentObject);
         var randomBalloon = newObjectArray[this._getRandomInt(0, newObjectArray.length)];
         balloon.name = randomBalloon.id;
+        balloon.type = randomBalloon.type;
         balloon.setVisible(true);
 
         var labelBalloon = balloon.getChildByTag(100);
         if (labelBalloon && randomBalloon.type !== "color"){
             labelBalloon.setString(randomBalloon.value.toUpperCase());
-            balloon.setTexture(cc.textureCache.addImage(res.Gray_balloon_png));
+            balloon.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png"));
         }
         else {
             labelBalloon.setString("");
 
             if (randomBalloon.id.indexOf("red") !== -1){
-                balloon.setTexture(cc.textureCache.addImage(res.Red_balloon_png));
+                balloon.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_red_1.png"));
             }
             else if (randomBalloon.id.indexOf("green") !== -1){
-                balloon.setTexture(cc.textureCache.addImage(res.Green_balloon_png));
+                balloon.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_green_1.png"));
             }
             else if (randomBalloon.id.indexOf("blue") !== -1){
-                balloon.setTexture(cc.textureCache.addImage(res.Blue_balloon_png));
+                balloon.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_blue_1.png"));
             }
             else {
-                balloon.setTexture(cc.textureCache.addImage(res.Gray_balloon_png));   
+                balloon.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png"));
             }
         }
 
@@ -311,23 +323,40 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     _spawnBalloonPool: function() {
+        this.redAnimFrames = [];
+        this.greenAnimFrames = [];
+        this.blueAnimFrames = [];
+        for (var i = 1; i <= 6; i++) {
+            var strRed = "balloon_red_" + i + ".png";
+            var strGreen = "balloon_green_" + i + ".png";
+            var strBlue = "balloon_blue_" + i + ".png";
+            this.redAnimFrames.push(cc.spriteFrameCache.getSpriteFrame(strRed));
+            this.greenAnimFrames.push(cc.spriteFrameCache.getSpriteFrame(strGreen));
+            this.blueAnimFrames.push(cc.spriteFrameCache.getSpriteFrame(strBlue));
+        }
+
+        this.redAnimation = new cc.Animation(this.redAnimFrames, 0.1);
+        this.greenAnimation = new cc.Animation(this.greenAnimFrames, 0.1);
+        this.blueAnimation = new cc.Animation(this.blueAnimFrames, 0.1);
+
         this._balloons = [];
 
         for (var i = 0; i < this._balloonsLimit; i++){
-            var balloonSprite = new cc.Sprite(res.Gray_balloon_png);
+            var balloonSprite = new cc.Sprite("#balloon_gray_1.png");
             balloonSprite.attr({x: -100, y: -100});   
             balloonSprite.setVisible(false);
             balloonSprite.touched = false;
             balloonSprite.name = "Balloon" + i;
+            balloonSprite.index = i;
             balloonSprite.setScale(this._balloonScale);
             this.addChild(balloonSprite); 
 
             balloonSprite.setCascadeOpacityEnabled(true);
 
             var lbBalloon = new cc.LabelBMFont("", res.CustomFont_fnt);
-            lbBalloon.scale = 2.2;
+            lbBalloon.scale = 1.4;
             lbBalloon.x = balloonSprite.width/2;
-            lbBalloon.y = balloonSprite.height - 100;
+            lbBalloon.y = balloonSprite.height - 50;
             lbBalloon.tag = 100;
             balloonSprite.addChild(lbBalloon);
 
