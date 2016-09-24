@@ -218,9 +218,9 @@ var MapLayer = cc.Layer.extend({
     },
 
     _updateStepData: function(step, eachStepInfo) {
-        cc.log("_updateStepData");
-        cc.log("this._stepsStar: " + JSON.stringify(this._stepsStar));
-        cc.log("eachStepInfo: " + eachStepInfo);
+        // cc.log("_updateStepData");
+        // cc.log("this._stepsStar: " + JSON.stringify(this._stepsStar));
+        // cc.log("eachStepInfo: " + eachStepInfo);
         var stepStars = this._stepsStar[step];
         if (isNaN(eachStepInfo))
             eachStepInfo = parseInt(eachStepInfo);

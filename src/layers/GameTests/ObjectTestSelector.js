@@ -283,6 +283,31 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "alphabet":
                 cc.director.runScene(new AlphabetGameScene(checkedItems));   
                 break;
+            case "storytime":
+                checkedItems = checkedItems.filter(function(obj) {
+                    if (obj.indexOf("number") > -1)
+                        return obj;
+                });
+                var option;
+                var number = checkedItems[checkedItems.length-1];
+                number = number.charAt(number.length-1);
+
+                switch(number) {
+                    case "1": 
+                        option = "lion_and_mouse";
+                        break;
+                    case "2": 
+                        option = "goose_with_golden_egg";
+                        break;
+                    case "3": 
+                        option = "cunning_fox_clever_stork";
+                        break;
+                    default:
+                        option = "cunning_fox_clever_stork";
+                        break;
+                }
+                cc.director.runScene(new StoryMainScene(checkedItems, option));   
+                break;
             default:
                 break;
         }

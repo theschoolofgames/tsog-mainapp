@@ -13,9 +13,11 @@ var StoryMainLayer = TestLayer.extend({
     _backgroundSprite: null,
     _canPlay: false,
 
-	ctor:function(data, option){
-        this._super(true);
+    _isTestScene: false,
 
+	ctor:function(data, option, isTestScene){
+        this._super(true);
+        this._isTestScene = isTestScene;
         this._addButtons();
         this._fetchObjectData(data);
         cc.log("ctor option " + option);
@@ -25,6 +27,9 @@ var StoryMainLayer = TestLayer.extend({
                 break;
             case "goose_with_golden_egg":
                 this._currentStory = STORY_RESOURCES[1];
+                break;
+            case "cunning_fox_clever_stork":
+                this._currentStory = STORY_RESOURCES[2];
                 break;
             default:
                 this._currentStory = STORY_RESOURCES[0];
@@ -335,6 +340,10 @@ var StoryMainLayer = TestLayer.extend({
     },
 
     backToHome:function (sender) {
+        if (this._isTestScene) {
+            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255))); 
+            return;
+        }
         this._stopStory();
 
         // TODO remove after complete listening and speaking flow after story game
@@ -364,10 +373,10 @@ var StoryMainLayer = TestLayer.extend({
 });
 
 var StoryMainScene = cc.Scene.extend({
-    ctor: function(data, option) {
+    ctor: function(data, option, isTestScene) {
         this._super();
         this.name = "story";
-        var storyMainLayer = new StoryMainLayer(data, option);
+        var storyMainLayer = new StoryMainLayer(data, option, isTestScene);
         this.addChild(storyMainLayer);
     }
 });
