@@ -49,9 +49,9 @@ var BalloonGameLayer = TestLayer.extend({
 
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
-
+        this._addGoalList(this._currentObject.id, this._goalNumber);
         this.addHud();
-        this._addCurrentIdHud(this._currentObject);
+        // this._addCurrentIdHud(this._currentObject);
 
         this.schedule(this._spawnBalloons, this._waitForSpawn);
     },
@@ -379,6 +379,40 @@ var BalloonGameLayer = TestLayer.extend({
 
         cc.log("balloon game data after map: " + JSON.stringify(this._objectsArray));
         this.setData(JSON.stringify(this._data));
+    },
+
+    _addGoalList: function(objectName, goalNumber) {
+        var balloonSprite;
+        switch(objectName) {
+            case "color_red":
+                balloonSprite = new cc.Sprite(res.Red_balloon_png);
+                break;
+            case "color_green":
+                balloonSprite = new cc.Sprite(res.Green_balloon_png);
+                break;
+            case "color_blue":
+                balloonSprite = new cc.Sprite(res.Blue_balloon_png);
+                break;
+            default:
+                balloonSprite = new cc.Sprite(res.Gray_balloon_png);    
+                break;
+        }   
+        var lbGoal = new cc.LabelBMFont("0/" + goalNumber, res.CustomFont_fnt);
+        lbGoal.scale = 0.5;
+        lbGoal.x = cc.winSize.width - lbGoal.width/2;
+        lbGoal.y = cc.winSize.height - 100;
+        lbGoal.tag = 100;
+        this.addChild(lbGoal);
+        this._lbGoal = lbGoal;
+        balloonSprite.setScale(0.25);
+        balloonSprite.x = cc.winSize.width - (lbGoal.width + balloonSprite.width)* lbGoal.scale;
+        balloonSprite.y = lbGoal.y;
+        this.addChild(balloonSprite); 
+    },
+
+    _updateGoalLabel: function(correct) {
+        this._lbGoal.setString(correct + "/" + this._goalNumber);
+        this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._goalNumber));
     },
 });
 
