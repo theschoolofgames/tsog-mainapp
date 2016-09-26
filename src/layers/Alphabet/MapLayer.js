@@ -37,6 +37,7 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
+        var isAllLevelUnlocked = KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
 
@@ -61,7 +62,7 @@ var MapLayer = cc.Layer.extend({
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
                         btn.y = pos.y + btn.height * 1.5;
-                        btn.setEnabled(enabled);
+                        btn.setEnabled(isAllLevelUnlocked ? true : enabled);
                         var lb = new cc.LabelBMFont(val, res.MapFont_fnt);
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;

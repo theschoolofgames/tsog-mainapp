@@ -98,20 +98,20 @@ var MainScreenLayer = cc.Layer.extend({
         btnLogin.getRendererNormal().addChild(lbLogin);
 
         // REGISTER
-        var btnRegister = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        btnRegister.x = this._popupDialog.width/2;
-        btnRegister.y = this._popupDialog.height/2 - 100;
-        this._popupDialog.addChild(btnRegister);
-        btnRegister.addClickEventListener(function() {
+        var btnTestGame = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnTestGame.x = this._popupDialog.width/2;
+        btnTestGame.y = this._popupDialog.height/2 - 100;
+        this._popupDialog.addChild(btnTestGame);
+        btnTestGame.addClickEventListener(function() {
             //cc.director.replaceScene(new cc.TransitionFade(1, new SignUpScene("MainScene"), cc.color(255, 255, 255, 255)));
             cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
         });
 
-        var lbRegister = new cc.LabelBMFont("TEST GAMES", "yellow-font-export.fnt");
-        lbRegister.scale = 0.6;
-        lbRegister.x = btnRegister.width/2;
-        lbRegister.y = btnRegister.height/2;
-        btnRegister.getRendererNormal().addChild(lbRegister);
+        var lbTestGame = new cc.LabelBMFont("TEST GAMES", "yellow-font-export.fnt");
+        lbTestGame.scale = 0.6;
+        lbTestGame.x = btnTestGame.width/2;
+        lbTestGame.y = btnTestGame.height/2;
+        btnTestGame.getRendererNormal().addChild(lbTestGame);
 
         // PLAY
         // var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -133,7 +133,7 @@ var MainScreenLayer = cc.Layer.extend({
         // MAP
         var btnMap = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnMap.x = this._popupDialog.width/2;
-        btnMap.y = this._popupDialog.height/2 + 100;
+        btnMap.y = this._popupDialog.height/2 + 200;
         this._popupDialog.addChild(btnMap);
         btnMap.addClickEventListener(function() {
             // cc.log("PLAY");
@@ -145,6 +145,27 @@ var MainScreenLayer = cc.Layer.extend({
         lbMap.x = btnMap.width/2;
         lbMap.y = btnMap.height/2;
         btnMap.getRendererNormal().addChild(lbMap);
+
+        var btnUnlock = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btnUnlock.x = this._popupDialog.width/2;
+        btnUnlock.y = this._popupDialog.height/2 + 100;
+        this._popupDialog.addChild(btnUnlock);
+
+        var isUnlocked = KVDatabase.getInstance().getInt("UnlockAllLevels", 0);
+        btnUnlock.addClickEventListener(function() {
+            // cc.log("PLAY");
+            var mess = isUnlocked ? "All levels have locked" : "All levels have unlocked";
+            var setUnlocked = isUnlocked ? 0 : 1;
+            NativeHelper.callNative("showMessage", [mess]);
+            KVDatabase.getInstance().set("UnlockAllLevels", setUnlocked);
+        });
+
+        var string = isUnlocked ? "LOCK ALL LEVELS" : "UNLOCK ALL LEVELS";
+        var lbUnlock = new cc.LabelBMFont(string, "yellow-font-export.fnt");
+        lbUnlock.scale = 0.6;
+        lbUnlock.x = btnUnlock.width/2;
+        lbUnlock.y = btnUnlock.height/2;
+        btnUnlock.getRendererNormal().addChild(lbUnlock);
 
         // IAP TEST BUTTON
         // var btnIAPTest = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);

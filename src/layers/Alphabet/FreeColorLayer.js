@@ -321,7 +321,7 @@ var FreeColorLayer = TestLayer.extend({
         for (var i = 0; i < distance; i++) {
             var delta = i / distance;
             var newPos = cc.p(touchedPos.x + (dif.x * delta), touchedPos.y + (dif.y * delta));
-            var brush = new cc.Sprite("brush.png");  
+            var brush = new cc.Sprite("brush_small.png");  
             // brush.scale = this._wordScale * 0.9;          
             brush.setPosition(newPos);
             brush.visit();
