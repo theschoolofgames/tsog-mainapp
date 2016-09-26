@@ -16,6 +16,8 @@ var TreeGameLayer = TestLayer.extend({
     _isAdiJumping: false,
     _isTestScene: false,
 
+    _scrollView: null,
+
     ctor: function(data, isTestScene) {
         this._super();
 
@@ -25,6 +27,7 @@ var TreeGameLayer = TestLayer.extend({
         this._loadTmx();
         this._addBackground();
         this._addAdi();
+        this._addScrollView();
         this._addTrees();
         this._addHudLayer();
 
@@ -44,21 +47,39 @@ var TreeGameLayer = TestLayer.extend({
         this._hudLayer = hudLayer;
     },
 
+    _addScrollView: function() {
+        var scrollview = new cc.ScrollView();
+        scrollview.x = 0;
+        scrollview.y = this._ground.height - 12 * Utils.getScaleFactorTo16And9();
+        scrollview.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
+        scrollview.setTouchEnabled(true);
+        scrollview.setClippingToBounds(false);
+        scrollview.setViewSize(cc.size(cc.winSize.width, cc.winSize.height));
+        scrollview.setBounceable(true);
+
+        this.addChild(scrollview, TREE_GAME_TREE_ZORDER);
+        this._scrollView = scrollview;
+    },
+
     _addTrees: function() {
         this._treeGroup = [];
         this._numberGroup = [];
         if (this._data[0])
             this._numberOfTrees = Math.ceil(this._data.length/5);
 
-        this._numberOfTrees = 5;
+        this._numberOfTrees = 15;
+        var parentNode = new cc.Node();
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
             var tree = new cc.Sprite("#tree_game_" + treeIdx + ".png");
             tree.anchorY = 0;
             tree.scale = Utils.getScaleFactorTo16And9();
-            tree.x = cc.winSize.width/(this._numberOfTrees+1) * (i+1);
-            tree.y = this._ground.height - 12 * Utils.getScaleFactorTo16And9();
-            this.addChild(tree, TREE_GAME_TREE_ZORDER);
+            if (this._numberOfTrees > 5)
+                tree.x = (cc.winSize.width/6) * (i+1);
+            else
+                tree.x = (cc.winSize.width/(this._numberOfTrees+1)) * (i+1);
+
+            parentNode.addChild(tree, TREE_GAME_TREE_ZORDER);
             this._treeGroup.push(tree);
 
             // Got numbers array has been shuffled 
@@ -71,10 +92,16 @@ var TreeGameLayer = TestLayer.extend({
                 lb.x = pos.x*tree.scale + tree.x;
                 lb.y = pos.y*tree.scale + tree.y;
                 lb.scale = 0.5 * tree.scale;
-                this.addChild(lb, TREE_GAME_TREE_ZORDER + 1);
+                parentNode.addChild(lb, TREE_GAME_TREE_ZORDER + 1);
                 this._numberGroup.push(lb);
             }
         }
+
+        var innerWidth = cc.winSize.width * (this._numberOfTrees/5);
+        var innerHeight = cc.winSize.height - this._scrollView.y;
+        this._scrollView.setContainer(parentNode);
+        this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
+        cc.log("innerWidth: " + innerWidth);
     },
 
     _createRandomNumberArray: function() {
