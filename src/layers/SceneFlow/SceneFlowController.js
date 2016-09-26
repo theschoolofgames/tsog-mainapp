@@ -18,8 +18,6 @@ var SceneFlowController = cc.Class.extend({
     },
 
     setTotalSceneInLevel: function(totalSceneInLevel) {
-        // if (this._totalSceneInLevel > totalSceneInLevel) // only set 1 time
-        //     return; 
         this._totalSceneInLevel = totalSceneInLevel;
     },
 

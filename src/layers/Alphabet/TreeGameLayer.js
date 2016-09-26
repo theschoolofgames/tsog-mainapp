@@ -12,12 +12,14 @@ var TreeGameLayer = TestLayer.extend({
     _numberCoors: [],
     _numberOfTrees: 1,
 
-    _lastNumberJumpIdx: 0,
+    _totalJump: 0,
     _isAdiJumping: false,
+    _isTestScene: false,
 
     ctor: function(data, isTestScene) {
         this._super();
 
+        this._isTestScene = isTestScene;
         // this._setIsTestScene(isTestScene);
         this._fetchObjectData(data);
         this._loadTmx();
@@ -48,6 +50,7 @@ var TreeGameLayer = TestLayer.extend({
         if (this._data[0])
             this._numberOfTrees = Math.ceil(this._data.length/5);
 
+        this._numberOfTrees = 5;
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
             var tree = new cc.Sprite("#tree_game_" + treeIdx + ".png");
@@ -158,41 +161,46 @@ var TreeGameLayer = TestLayer.extend({
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
 
-        if((touchLoc.y - self._prevTouchLoc.y) > 50 && self._lastNumberJumpIdx < self._numberGroup.length) {
-            self._isAdiJumping = true;
-            var endPoint = self._numberGroup[self._lastNumberJumpIdx];
-            self._makeAdiJump(endPoint);
+        for (var i = 0; i < self._numberGroup.length; i++) {
+            var numb = self._numberGroup[i];
+            if (cc.pDistance(numb.getPosition(), touchLoc) < 50) {
+                if ((parseInt(numb.getString()) == (self._totalJump+1))) {
+                    self._isAdiJumping = true;
 
-            self._lastNumberJumpIdx++;
+                    self._totalJump++;
+                    self._isAdiJumping = false;
+                    self._correctAction();
+                    self._makeAdiJump(numb);
 
-            self.updateProgressBar();
-            if (self._lastNumberJumpIdx == self._numberGroup.length) { // win case 
-                self.runAction(cc.sequence(
-                    cc.delayTime(2),
-                    cc.callFunc(function() {
-                        // cc.director.runScene(new GameTestScene());
-                        self._moveToNextScene();
-                    })
-                ));
-            }
-        };
+                    self._numberGroup.splice(i, 1);
+
+                    self.updateProgressBar();
+
+                    if (self._numberGroup.length == 0) { // win case 
+                        self.runAction(cc.sequence(
+                            cc.delayTime(2),
+                            cc.callFunc(function() {
+                                if (self._isTestScene) {
+                                    cc.director.replaceScene(new GameTestScene());
+                                    return;
+                                }
+
+                                self._moveToNextScene();
+                            })
+                        ));
+                    }
+                    return;
+                } else {
+                    self._incorrectAction();
+                } 
+            } 
+        }
     },
 
     _makeAdiJump: function(endPoint) {
-        cc.log("_makeAdiJump to : " + JSON.stringify(endPoint));
+        // cc.log("_makeAdiJump to : " + JSON.stringify(endPoint));
         var bezier = cc.bezierTo(0.5, [this._adiDog.getPosition(), cc.p(this._adiDog.x + 2, this._adiDog.y + 5), endPoint]);
-        this._adiDog.adiJump();
-        this._adiDog.runAction(
-            cc.sequence(
-                // cc.moveTo(0.5, endPoint),
-                bezier,
-                cc.delayTime(0.5),
-                cc.callFunc(function(){
-                    this._adiDog.adiIdling();
-                    this._isAdiJumping = false;
-                }.bind(this))
-            )
-        );
+        this._adiDog.runAction(bezier);
     },
 
     _fetchObjectData: function(data) {
@@ -200,24 +208,11 @@ var TreeGameLayer = TestLayer.extend({
         if (data) {
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
-                // cc.log("id : " + id);
-                // cc.log("o : " + JSON.stringify(o[0]));
+
                 if (o[0])
                     return o[0];
             });
             this.setData(JSON.stringify(this._data));
-
-            // var temp = 5;
-            // for (var i = 0; i < this._data.length; i++) {
-            //     // cc.log("this._data -> i : " + JSON.stringify(this._data[i]));
-            //     var obj = this._data[i];
-            //     var value = parseInt(obj.value);
-            //     if (value && value <= temp) {
-            //         temp = parseInt(obj.value);
-            //     } else{
-            //         this._data.splice(i, 1);
-            //     }
-            // }
 
         } else
             this._data = [{
@@ -229,14 +224,14 @@ var TreeGameLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._lastNumberJumpIdx / (this._numberOfTrees*5);
+        var percent = this._totalJump / (this._numberOfTrees*5);
         cc.log("percent: " + percent);
         this._hudLayer.setProgressBarPercentage(percent);
-        if (Math.round(this._lastNumberJumpIdx/(this._numberOfTrees/5)))
-            this._hudLayer.setProgressLabelStr(this._lastNumberJumpIdx, this._numberOfTrees*5);
+        if (Math.round(this._totalJump/(this._numberOfTrees/5)))
+            this._hudLayer.setProgressLabelStr(this._totalJump, this._numberOfTrees*5);
 
         var starEarned = 0;
-        var objectCorrected = this._lastNumberJumpIdx;
+        var objectCorrected = this._totalJump;
         var starGoals = this.countingStars();
         if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
             starEarned = 1;
@@ -258,6 +253,50 @@ var TreeGameLayer = TestLayer.extend({
         return {starGoal1: starGoal1,
                 starGoal2: starGoal2, 
                 starGoal3: starGoal3};
+    },
+
+    _correctAction: function() {
+        var self = this;
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
+        this.runAction(cc.sequence(
+            cc.callFunc(function() {
+                self._adiDog.adiJump();
+            }),
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                self._adiDog.adiHifi();
+            }),
+            cc.delayTime(2),
+            cc.callFunc(function() {
+                self._adiDog.adiIdling();
+            })
+        ));
+    },
+
+    _incorrectAction: function(obj) {
+        var self = this;
+        jsb.AudioEngine.play2d(res.Failed_sfx);
+        this._adiDog.adiShakeHead();
+        // cc.log("listeningTest_ _celebrateCorrectObj incorrectedObj.name: " + obj.name);
+        // SegmentHelper.track(SEGMENT.TOUCH_TEST,
+        //     {
+        //         obj_name: obj.name,
+        //         correct: "false"
+        //     });
+
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(4),
+                cc.callFunc(function() {
+                    self._adiDog.adiIdling();
+                })        
+            )
+        );
+
+        // ConfigStore.getInstance().setBringBackObj(
+        //     this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
+        //     this._names[this._nameIdx], 
+        //     (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
     },
 });
 

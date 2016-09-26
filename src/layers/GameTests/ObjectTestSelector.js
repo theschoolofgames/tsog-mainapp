@@ -264,10 +264,10 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "cardgame":
                 cc.director.runScene(new CardGameScene(checkedItems, true));
                 break;
-            case "form train":
+            case "formtrain":
                 cc.director.runScene(new FormTheTrainScene(true));
                 break;
-            case "tree game":
+            case "tree":
                 checkedItems = checkedItems.filter(function(obj) {
                     if (obj.indexOf("number") > -1)
                         return obj;
@@ -306,7 +306,7 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                         option = "cunning_fox_clever_stork";
                         break;
                 }
-                cc.director.runScene(new StoryMainScene(checkedItems, option));   
+                cc.director.runScene(new StoryMainScene(checkedItems, option, true));   
                 break;
             default:
                 break;
