@@ -100,9 +100,21 @@
     "1": {
       "name": "balloon",
       "data": [
-        "color_red",
-        "color_green",
-        "color_blue"
+        {
+          "type": "color",
+          "value": "color_red",
+          "amount": "10"
+        },
+        {
+          "type": "color",
+          "value": "color_green",
+          "amount": "10"
+        },
+        {
+          "type": "color",
+          "value": "color_blue",
+          "amount": "10"
+        }
       ]
     },
     "2": {
