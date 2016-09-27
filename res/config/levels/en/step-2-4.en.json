@@ -168,36 +168,44 @@
       "name": "balloon",
       "data": [
         {
-          "type": "A",
-          "value": "10"
+          "type": "word",
+          "value": "A",
+          "amount": "10"
         },
         {
-          "type": "a",
-          "value": "10"
+          "type": "word",
+          "value": "a",
+          "amount": "10"
         },
         {
-          "type": "B",
-          "value": "10"
+          "type": "word",
+          "value": "B",
+          "amount": "10"
         },
         {
-          "type": "b",
-          "value": "10"
+          "type": "word",
+          "value": "b",
+          "amount": "10"
         },
         {
-          "type": "C",
-          "value": "10"
+          "type": "word",
+          "value": "C",
+          "amount": "10"
         },
         {
-          "type": "c",
-          "value": "10"
+          "type": "word",
+          "value": "c",
+          "amount": "10"
         },
         {
-          "type": "D",
-          "value": "10"
+          "type": "word",
+          "value": "D",
+          "amount": "10"
         },
         {
-          "type": "d",
-          "value": "10"
+          "type": "word",
+          "value": "d",
+          "amount": "10"
         }
       ]
     },

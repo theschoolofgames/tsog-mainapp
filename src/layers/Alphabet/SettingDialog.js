@@ -95,6 +95,7 @@ var SettingDialog = cc.Layer.extend({
         var self = this;
         resumeBtn.addClickEventListener(function() {
             self.removeFromParent();
+            cc.director.resume();
         })
     },
 

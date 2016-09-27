@@ -280,6 +280,7 @@ var res = {
     Map_TMX: "res/map.tmx",
     AR_Level_01_TMX: "res/ar-level01.tmx",
     AR_Level_02_TMX: "res/ar-level02.tmx",
+    AR_Level_03_TMX: "res/ar-level03.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

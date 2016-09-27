@@ -201,6 +201,11 @@
             <key type="filename">balloon_blue_5.png</key>
             <key type="filename">balloon_blue_6.png</key>
             <key type="filename">balloon_gray_1.png</key>
+            <key type="filename">balloon_gray_2.png</key>
+            <key type="filename">balloon_gray_3.png</key>
+            <key type="filename">balloon_gray_4.png</key>
+            <key type="filename">balloon_gray_5.png</key>
+            <key type="filename">balloon_gray_6.png</key>
             <key type="filename">balloon_green_1.png</key>
             <key type="filename">balloon_green_2.png</key>
             <key type="filename">balloon_green_3.png</key>
