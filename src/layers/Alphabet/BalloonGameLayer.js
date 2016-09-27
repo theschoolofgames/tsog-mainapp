@@ -14,8 +14,9 @@ var BalloonGameLayer = TestLayer.extend({
     _hudLayer: null,
     hudTypeLabel: null,
     hudBalloonBg: null,
-    // _currentObject.amount: 10,
+    _goalTotal: 0,
     _correctChoose: 0,
+    _allCorrectChoose: 0,
     _lbGoal: null,
     spriteSheet:null,
     redAnimFrames: [],
@@ -48,6 +49,8 @@ var BalloonGameLayer = TestLayer.extend({
         // this._filterObjectsByType(objectIdArray);
         this._fetchObjectData(objectIdArray);
         this._tempArray = shuffle(this._objectsArray).slice(0);
+        this._goalTotal = this._checkGoalTotal();
+        // console.log("Goal Total " + this._goalTotal);
 
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
@@ -57,6 +60,14 @@ var BalloonGameLayer = TestLayer.extend({
         this._updateGoalLabel(0);
 
         this.schedule(this._spawnBalloons, this._waitForSpawn);
+    },
+
+    _checkGoalTotal: function() {
+        let total = 0;
+        for (var i = 0; i < this._objectsArray.length; i++){
+            total += parseInt(this._objectsArray[i].amount);
+        }
+        return total;
     },
 
     _updateGoalLabel: function(correct) {
@@ -208,9 +219,11 @@ var BalloonGameLayer = TestLayer.extend({
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
 
                     self._correctChoose++;
+                    self._allCorrectChoose++;
                     self._updateGoalLabel(self._correctChoose);
                     
-                    var percent = self._correctChoose / self._currentObject.amount;
+                    // cc.log("Correct - Goal Total : (%d - %d)", self._allCorrectChoose, self._goalTotal);
+                    var percent = self._allCorrectChoose / self._goalTotal;
                     self._hudLayer.setProgressBarPercentage(percent);
 
                     if (self._correctChoose >= self._currentObject.amount){
