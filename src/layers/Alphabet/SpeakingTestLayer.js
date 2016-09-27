@@ -91,12 +91,13 @@ var SpeakingTestLayer = TestLayer.extend({
         forcePlayBtn.x = cc.winSize.width - 60;
         forcePlayBtn.y = 120 + forcePlayBtn.height/2;
         forcePlayBtn.addClickEventListener(function() {
+            checkingText.removeFromParent();
             NativeHelper.callNative("cancelNoiseDetecting");
             self.stopAllActions();
             self.playBeginSound();
             forcePlayBtn.removeFromParent();
         });
-        this.addChild(forcePlayBtn);      
+        this.addChild(forcePlayBtn);
 
         var noiseDetectingTime = GAME_CONFIG.speakingTestNoiseDetectingTime || UPDATED_CONFIG.speakingTestNoiseDetectingTime;  
 
@@ -350,15 +351,18 @@ var SpeakingTestLayer = TestLayer.extend({
         var objectNameToCheck = "res/SD/" + objectName + ".png";
         cc.log(objectNameToCheck);
         if (jsb.fileUtils.isFileExist(objectNameToCheck)) {
+            // object case
             this._soundName = "res/sounds/" + objectName + ".mp3";
             this._objectName = objectName;
         } else {
+            // animal case
             objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
             if (jsb.fileUtils.isFileExist("res/SD/" + objectName + ".png")) {
                 this._soundName = "res/sounds/" + objectName + ".mp3";
                 this._objectName = objectName;
             } else {
-                objectName = this._names[this.currentObjectShowUpId];
+                // number case
+                objectName = "#" + this._names[this.currentObjectShowUpId];
                 this._soundName = "res/sounds/alphabets/" + this._names[this.currentObjectShowUpId] + ".mp3";
                 this._objectName = objectName;
                 if (!jsb.fileUtils.isFileExist(this._soundName))

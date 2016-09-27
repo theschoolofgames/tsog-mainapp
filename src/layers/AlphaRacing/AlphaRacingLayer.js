@@ -341,10 +341,30 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                     if (warningLabel)
                         warningLabel.removeFromParent();
 
-                    self._backToHome();
+                    self._moveToNextScene();
                 })
             )
         )
+    },
+
+    _moveToNextScene: function() {
+        Utils.updateStepData();
+
+        this._hudLayer.removeFromParent();
+
+        this._inputData = this._inputData.map(function(id) {
+            var o = GameObject.getInstance().findById(id);
+            if (o[0])
+                return o[0];
+            else
+                return id;
+        });
+
+        var self = this;
+        cc.audioEngine.stopMusic();
+
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._inputData));
     },
 
     _backToHome: function() {

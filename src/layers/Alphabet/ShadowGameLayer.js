@@ -434,7 +434,7 @@ var ShadowGameLayer = TestLayer.extend({
         this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
         this._completedObj.x = cc.winSize.width/2;
         this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
-        this._maskLayer.addChild(this._completedObj);
+        this._maskLayer.addChild(this._completedObj, 1);
     },
 
     completedScene: function() {
