@@ -3,8 +3,9 @@ var SpeechRecognitionListener = cc.Class.extend({
 
     ctor: function() {
         // cc.log(JSON.stringify(FOREST_ITEMS.concat(BEDROOM_ITEMS)));
+        cc.log(JSON.stringify(NUMBER_ITEMS));
 
-        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).map(function(obj) {
+        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_ITEMS).map(function(obj) {
             return obj.imageName;
         });
 
@@ -14,7 +15,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             return obj;
         });
 
-        cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
+        // cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
 
         NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(itemArray)]);
     },
@@ -31,6 +32,15 @@ var SpeechRecognitionListener = cc.Class.extend({
         text = text.replace(/ /g,'');
         cc.log("onResult: " + text);
         cc.log("currentObjectName." + this._speakingLayer.currentObjectName.toUpperCase());
+
+        NUMBER_ITEMS.map(function(obj) {
+            if (obj.value == text) {
+                text = obj.imageName;
+                return;
+            }
+
+        });
+
         this._speakingLayer.resultText = text.toUpperCase();
         if (this._speakingLayer.currentObjectName.toUpperCase() == text) {
             cc.log("success");

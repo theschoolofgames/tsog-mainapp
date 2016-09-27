@@ -640,6 +640,16 @@
     "value": "line"
   },
   {
+    "id": "shape_six_straight_line",
+    "type": "shape",
+    "value": "six_straight_line"
+  },
+  {
+    "id": "shape_double_curved_line",
+    "type": "shape",
+    "value": "double_curved_line"
+  },
+  {
     "id": "shape_curved_line",
     "type": "shape",
     "value": "curve-line"

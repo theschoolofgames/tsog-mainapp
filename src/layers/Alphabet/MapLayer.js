@@ -153,7 +153,7 @@ var MapLayer = cc.Layer.extend({
             return;
         cc.loader.loadJson(dataPath, function(err, data){
             cc.log("err: " + err);
-            if (!err) {
+            if (!err && data) {
                 stepData = data;
                 // cc.log("self._data " + JSON.stringify(data));
                 var totalGameInStep = Object.keys(stepData).length;

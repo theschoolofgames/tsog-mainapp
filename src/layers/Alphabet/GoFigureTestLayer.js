@@ -203,19 +203,10 @@ var GoFigureTestLayer = TestLayer.extend({
                     self._tmpRender.getSprite().color = cc.color("#333333");
                     if (self.checkChangingCharacter()) {
                         var correctedCharacter = self._currentChar;
-                        if (self.checkChangingWord()){
-                            cc.log("pass checkChangingWord");
-                            self._changeWord();
-                            self._touchCounting++;
-                            self.updateProgressBar();
-                        } else {
-                            cc.log("not pass, _moveToNextShape");
-                            self._moveToNextShape();
-                        }
-                        // self._nameIdx++;
-                        // self._changeWord();
-                        // self._touchCounting++;
-                        // self.updateProgressBar();
+                        self._nameIdx++;
+                        self._changeWord();
+                        self._touchCounting++;
+                        self.updateProgressBar();
                         self._correctAction(correctedCharacter);
                     } else {
                         self._displayFinger();
@@ -361,7 +352,7 @@ var GoFigureTestLayer = TestLayer.extend({
     checkChangingCharacter: function() {
         if (this._pathIdx >= this._currentCharConfig.paths.length)
         {
-            // cc.log("checkChangingCharacter");
+            cc.log("checkChangingCharacter");
             this._segmentTracking("true");
             // next char
             this._charIdx++;
@@ -374,7 +365,7 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     checkChangingWord: function() {
-        // cc.log("checkChangingWord this._charIdx: " + this._charIdx + " - " + this._writingWords[this._nameIdx].length);
+        cc.log("checkChangingWord this._charIdx: " + this._charIdx + " - " + this._writingWords[this._nameIdx].length);
         if (this._charIdx >= this._writingWords[this._nameIdx].length) {
             // cc.log("return true on checkChangingWord");
             this._charIdx = 0;
@@ -500,49 +491,34 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     _displayWord: function() {
-        cc.log("_displayWord");
-        cc.log("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
+        // cc.log("_displayWord");
+        // cc.log("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
         if (this._characterNodes.length > 0) {
             this._characterNodes.forEach(function(obj) {obj.removeFromParent();});
         }
         this._characterNodes = [];
 
         var objName = this._writingWords[this._nameIdx];
-        cc.log("objName: " + objName);
-        cc.log("objName: " + JSON.stringify(objName));
+        // cc.log("objName: " + objName);
+        // cc.log("objName: " + JSON.stringify(objName));
         // cc.log("_nameIdx: " + this._nameIdx);
         this._wordScale = 1;
         var optionIdx = (this._option) ? this._option.index : 1;
         var charArrays = [];
         var totalWidth = 0;
         var totalWords = (Array.isArray(objName)) ? objName.length : 1;
-        cc.log("totalWords: " + totalWords);
-        for (var i = 0; i < totalWords; i++) {
-            var name = (totalWords > 1) ? objName[i] : objName;
-            var s = new cc.Sprite("#" + name + ".png");
-            for (var j = 0; j < optionIdx.length; j++) {
-                var opt = optionIdx[j];
-                cc.log("opt: " + opt);
-                cc.log("this._nameIdx: " + this._nameIdx);
-                if (opt == this._nameIdx) {
-                    if (i%2 == 0) {
-                        s.flippedX = true;
-                    }
-                    s.rotation = 90;
-                }
-            }
-            this.addChild(s);
+        // cc.log("totalWords: " + totalWords);
+        var s = new cc.Sprite("#" + objName + ".png");
+        this.addChild(s);
 
-            this._characterNodes.push(s);
-            totalWidth += s.width;
-            // totalWidth -= CHAR_SPACE;
-            if (totalWidth > cc.winSize.width * 0.7)
-                this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
+        this._characterNodes.push(s);
+        totalWidth += s.width;
+        if (totalWidth > cc.winSize.width * 0.7)
+            this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
 
-            s.scale = this._wordScale;
-            s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
-            s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
-        }
+        s.scale = this._wordScale;
+        s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
+        s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
 
 
         // for (var j = 1; j < charArrays[i].length; j++) {
@@ -617,8 +593,9 @@ var GoFigureTestLayer = TestLayer.extend({
         this._finger.stopAllActions();
         this._finger.opacity = 0;
         // cc.log("_displayFinger pathIdx: " + this._pathIdx);
+        cc.log("this._pathIdx: " + this._pathIdx);
+        cc.log("this._currentCharConfig.paths: " + JSON.stringify(this._currentCharConfig.paths));
         var pathCfg = this._currentCharConfig.paths[this._pathIdx];
-
         var actions = [];
 
         actions.push(cc.moveTo(0, this.convertToWSpace(this.convertScaledPath(pathCfg[0]))));
