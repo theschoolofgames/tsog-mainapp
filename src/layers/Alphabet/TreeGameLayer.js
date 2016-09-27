@@ -17,10 +17,11 @@ var TreeGameLayer = TestLayer.extend({
     _isTestScene: false,
 
     _scrollView: null,
+    _scrollToX: 0,
 
     ctor: function(data, isTestScene) {
         this._super();
-
+        this._scrollToX = 0;
         this._isTestScene = isTestScene;
         // this._setIsTestScene(isTestScene);
         this._fetchObjectData(data);
@@ -67,7 +68,9 @@ var TreeGameLayer = TestLayer.extend({
         if (this._data[0])
             this._numberOfTrees = Math.ceil(this._data.length/5);
 
-        this._numberOfTrees = 15;
+        if (this._isTestScene)
+            this._numberOfTrees = parseInt(this._data[0].value);
+
         var parentNode = new cc.Node();
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
@@ -187,17 +190,24 @@ var TreeGameLayer = TestLayer.extend({
     onTouchEnded: function(touch, event) {
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
-
+        
         for (var i = 0; i < self._numberGroup.length; i++) {
             var numb = self._numberGroup[i];
-            if (cc.pDistance(numb.getPosition(), touchLoc) < 50) {
+            if (cc.pDistance(cc.p(numb.x - self._scrollToX, numb.y), touchLoc) < 50) {
                 if ((parseInt(numb.getString()) == (self._totalJump+1))) {
                     self._isAdiJumping = true;
 
                     self._totalJump++;
-                    self._isAdiJumping = false;
                     self._correctAction();
-                    self._makeAdiJump(numb);
+
+                    cc.log("_scrollToX: " + self._scrollToX);
+                    if (self._totalJump > 5 && self._totalJump%5 == 1) {
+                        var treeIndex = Math.floor(self._totalJump/5);
+                        self._scrollToX = cc.winSize.width/6 * (treeIndex);
+                        self._scrollView.setContentOffsetInDuration(cc.p(-self._scrollToX, 0), 0.25);
+                    }
+
+                    self._makeAdiJump(cc.p(numb.x - self._scrollToX, numb.y));
 
                     self._numberGroup.splice(i, 1);
 
@@ -292,6 +302,7 @@ var TreeGameLayer = TestLayer.extend({
             cc.delayTime(1),
             cc.callFunc(function() {
                 self._adiDog.adiHifi();
+                self._isAdiJumping = false;
             }),
             cc.delayTime(2),
             cc.callFunc(function() {
@@ -313,7 +324,11 @@ var TreeGameLayer = TestLayer.extend({
 
         this.runAction(
             cc.sequence(
-                cc.delayTime(4),
+                cc.delayTime(2),
+                cc.callFunc(function() {
+                    self._isAdiJumping = false;
+                }),
+                cc.delayTime(2),
                 cc.callFunc(function() {
                     self._adiDog.adiIdling();
                 })        

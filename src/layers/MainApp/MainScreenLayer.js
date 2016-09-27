@@ -156,8 +156,13 @@ var MainScreenLayer = cc.Layer.extend({
             // cc.log("PLAY");
             var mess = isUnlocked ? "All levels have locked" : "All levels have unlocked";
             var setUnlocked = isUnlocked ? 0 : 1;
-            NativeHelper.callNative("showMessage", [mess]);
             KVDatabase.getInstance().set("UnlockAllLevels", setUnlocked);
+            var params = [];
+            if (cc.sys.os !== cc.sys.OS_IOS)
+                params = [mess];
+            else
+                params = ["Message", mess];
+            NativeHelper.callNative("showMessage", params);
         });
 
         var string = isUnlocked ? "LOCK ALL LEVELS" : "UNLOCK ALL LEVELS";
