@@ -149,7 +149,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new SignUpScene());
         // cc.director.runScene(new NewSchoolScene());
         // cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new BalloonGameScene());
+        // cc.director.runScene(new BalloonGameScene([{"type": "word","value": "A","amount": "3"},{"type": "color","value": "color_blue","amount": "3"},{"type": "word","value": "a","amount": "3"},]));
         cc.director.runScene(new MainScene());
         // cc.director.runScene(new ShadowGameScene());
         // cc.director.runScene(new AlphabetGameScene(["cat", "banana"]));

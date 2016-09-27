@@ -756,6 +756,9 @@ var ForestLayer = cc.Layer.extend({
         this.removeAnimalEffect();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
+
+        // Set dim color for touched objects
+        this._objectTouching.color = cc.color(150, 150, 150, 255);
         this._objectDisableds.push(this._objectTouching);
         this._objectTouching = null;
     },
