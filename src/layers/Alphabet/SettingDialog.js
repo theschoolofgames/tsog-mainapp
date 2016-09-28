@@ -74,6 +74,7 @@ var SettingDialog = cc.Layer.extend({
 
         var self = this;
         logoutBtn.addClickEventListener(function() {
+            cc.director.resume();
             if (Utils.getUserName()){
                 Utils.logoutStudent();
                 cc.director.replaceScene(new AccountSelectorScene());
