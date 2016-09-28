@@ -32,29 +32,23 @@ var ShadowGameLayer = TestLayer.extend({
     _selectedShadeShader: null,
     _totalAngle: 0,
     _gameObjectJson: null,
-    _objectIdArray: ["desk",
-        "jar",
-        "key",
-        "umbrella", 
-        "word_a", 
-        "shape_rectangle",
-        "color_black",
-        "scorpion",
-        ],
-
+    _objectIdArray: ["number_5", "cat", "word_a", "shape_triangle","number_4", "number_3", "word_b", "word_c"],
     _objectsArray: [],
 
 
     ctor: function(objectIdArray) {
-        console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
-        console.log("Array Checked Length => " + objectIdArray.length);
+        // console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
+        // console.log("Array Checked Length => " + objectIdArray.length);
         this._super(cc.color.WHITE);
+
+        // cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
         this.setVolume();
 
+        // this._filterObjectsByType(objectIdArray);
         this._filterObjectsByType(objectIdArray);
 
         // this.createBackground();
@@ -72,11 +66,11 @@ var ShadowGameLayer = TestLayer.extend({
                 onTouchEnded: this.onTouchEnded
         }, this);
 
-        SegmentHelper.track(SEGMENT.LEVEL_START, 
-            { 
-                room: "room", 
-                object_num: this._objectsArray.length
-            });
+        // SegmentHelper.track(SEGMENT.LEVEL_START, 
+        //     { 
+        //         room: "room", 
+        //         object_num: this._objectsArray.length
+        //     });
         // cc.audioEngine.playMusic(res.background_mp3, true);
         // this.scheduleUpdate();
 
@@ -148,8 +142,8 @@ var ShadowGameLayer = TestLayer.extend({
         if(this._totalAngle >= 180)
             this._totalAngle -= 180;
 
-        if (this._selectedShadeShader)
-            this._selectedShadeShader.setUniformFloat("eTime", this._totalAngle);
+        // if (this._selectedShadeShader)
+        //     this._selectedShadeShader.setUniformFloat("eTime", this._totalAngle);
     },
 
     setVolume:function() {
@@ -282,6 +276,7 @@ var ShadowGameLayer = TestLayer.extend({
 
     addObjectButton: function(objPosition, gameObject, index) {
         // console.log("Object position: " + JSON.stringify(objPosition));
+        self = this;
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
         let objImageName = "";
         let imageName = gameObject.value;
@@ -292,31 +287,35 @@ var ShadowGameLayer = TestLayer.extend({
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
         }
-        else if (gameObject.type === "number" || gameObject.type === "word"){
+        else if (gameObject.type === "shape"){
             imageDir = "#";
-            imageName = imageName.toUpperCase();
         }
-        else 
-            return;
-
+        
         objImageName = imageDir + imageName + ".png";
-        var object = new cc.Sprite(objImageName);
-        self = this;
-        object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
+        var object = null;
 
-        object.x = objPosition.x;
-        object.y = objPosition.y;
+        if (gameObject.type === "number" || gameObject.type === "word"){
+            object = new cc.LabelBMFont(imageName, "hud-font.fnt");
+            object.setScale(3.0);
+            object.color = cc.color("#ffd902");
+            object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
+            object.x = objPosition.x;
+            object.y = objPosition.y;
+        }
+        else {
+            var object = new cc.Sprite(objImageName);
+            object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
+
+            object.x = objPosition.x;
+            object.y = objPosition.y;
+            object.scale = Math.min(70 / object.width, 70 / object.height) * Utils.screenRatioTo43();
+        }
+        
         object.tag = index;
-        object.scale = Math.min(70 / object.width, 70 / object.height) * Utils.screenRatioTo43();
         object.userData = { scaleFactor: object.scale, imageName: objImageName}
         this.addChild(object, Z_OBJECT);
 
-        // var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
-        // var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        // shaderState.setUniformInt("useDistrort", 0);
-        // object.shaderProgram = shader;
-
-        this._objectNames.push({name: gameObject.id, tag: object.tag});
+        this._objectNames.push({name: gameObject.id, type: gameObject.type, value: gameObject.value, tag: object.tag});
 
         this.animateObjectIn(object, index);
         this._objects.push(object);
@@ -341,32 +340,44 @@ var ShadowGameLayer = TestLayer.extend({
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
         }
-        else if (gameObject.type === "number" || gameObject.type === "word"){
+        else if (gameObject.type === "shape"){
             imageDir = "#";
-            imageName = imageName.toUpperCase();
+            imageName += "-shadow";
         }
-        else 
-            return;
 
         shadeImageName = imageDir + imageName + ".png";
-
-        var shadeObject = new cc.Sprite(shadeImageName);
-        shadeObject.setAnchorPoint(objectPosition.anchorX, objectPosition.anchorY);
-        shadeObject.x = objectPosition.x + cc.winSize.width / 2;
-        shadeObject.y = objectPosition.y;
-        // shadeObject.scale = this._allScale /2;
-        shadeObject.scale = Math.min(70 / shadeObject.width, 70 / shadeObject.height) * Utils.screenRatioTo43();
-
-        shadeObject.visible = true;
-        this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
+        console.log("ShadeImageName => " + shadeImageName);
+        var shadeObject = null;
 
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
-        shadeObject.shaderProgram = shader;
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
         shaderState.setUniformInt("enabled", 0);
-        shadeObject.color = cc.color(140, 130, 200);
-        // shadeObject.color = cc.color(6, 66, 94);
 
+        if (gameObject.type === "number" || gameObject.type === "word"){
+            shadeObject = new cc.LabelBMFont(imageName, "hud-font.fnt");
+            shadeObject.setScale(3.0);
+            shadeObject.color = cc.color("#ffd902");
+            shadeObject.setAnchorPoint(objectPosition.anchorX, objectPosition.anchorY);
+            shadeObject.x = objectPosition.x + cc.winSize.width / 2;
+            shadeObject.y = objectPosition.y;
+
+            shadeObject.children[0].shaderProgram = shader;
+            shadeObject.color = cc.color(140, 130, 200);
+        }
+        else {
+            shadeObject = new cc.Sprite(shadeImageName);
+            shadeObject.setAnchorPoint(objectPosition.anchorX, objectPosition.anchorY);
+            shadeObject.x = objectPosition.x + cc.winSize.width / 2;
+            shadeObject.y = objectPosition.y;
+            shadeObject.scale = Math.min(70 / shadeObject.width, 70 / shadeObject.height) * Utils.screenRatioTo43();
+
+            shadeObject.visible = true;
+            this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
+
+            shadeObject.shaderProgram = shader;
+        }
+
+        shadeObject.color = cc.color(140, 130, 200);
         this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
 
         this.addChild(shadeObject, Z_SHADE);
@@ -422,19 +433,28 @@ var ShadowGameLayer = TestLayer.extend({
         if (!this._maskLayer)
             return;
 
-        var randSchoolIdx = Math.floor(Math.random() * 4);
-        font = FONT_COLOR[randSchoolIdx];
+        let touchedObject = this.getObjectByName(lbName);
+        if (!touchedObject)
+            return;
+        cc.log("Touched Object name %s, type %s, value %s", touchedObject.name, touchedObject.type, touchedObject.value);
+
+        // var randSchoolIdx = Math.floor(Math.random() * 4);
+        // font = FONT_COLOR[randSchoolIdx];
         lbName = lbName.toUpperCase();
-        var objLabel = new cc.LabelBMFont(lbName, font);
-        objLabel.scale = 1.5;
+        var objLabel = new cc.LabelBMFont(touchedObject.value, "hud-font.fnt");
+        objLabel.scale = 3.0;
         objLabel.x = cc.winSize.width/2;
         objLabel.y = cc.winSize.height/2 - 100;
         this._maskLayer.addChild(objLabel);
 
-        this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
-        this._completedObj.x = cc.winSize.width/2;
-        this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
-        this._maskLayer.addChild(this._completedObj, 1);
+        if (touchedObject.type != "word" && touchedObject.type != "number"){
+            cc.log("Its not word or number");
+            objLabel.scale = 1.5;
+            this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
+            this._completedObj.x = cc.winSize.width/2;
+            this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
+            this._maskLayer.addChild(this._completedObj);
+        }
     },
 
     completedScene: function() {
@@ -535,11 +555,11 @@ var ShadowGameLayer = TestLayer.extend({
         if (!targetNode._objectTouching)
             return false;
 
-        SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
-            { 
-                room: "room", 
-                object_name: targetNode.getObjectName(targetNode._objectTouching)
-            });
+        // SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
+        //     { 
+        //         room: "room", 
+        //         object_name: targetNode.getObjectName(targetNode._objectTouching)
+        //     });
         
         jsb.AudioEngine.play2d("sounds/pickup.mp3");
         targetNode.processGameLogic();
@@ -596,16 +616,13 @@ var ShadowGameLayer = TestLayer.extend({
         //set shadeObject visible to false
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
-        targetNode._shadeObjects[index].visible = false;
+        // targetNode._shadeObjects[index].visible = false;
         targetNode._shadeObjects[index].stopAllActions();
         targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
-        targetNode._shadeObjects[index].setLocalZOrder(Z_SHADE);
+        // targetNode._shadeObjects[index].setLocalZOrder(Z_SHADE);
         // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
         targetNode._objectTouching.setLocalZOrder(Z_OBJECT);
         targetNode.handleObjectCorrectPos(index);
-
-        targetNode._selectedShadeShader.setUniformInt("enabled", 0);
-        targetNode._selectedShadeShader = null;
 
         targetNode._objectTouching.stopAllActions();
         targetNode._objectTouching.runAction(cc.sequence(
@@ -613,19 +630,19 @@ var ShadowGameLayer = TestLayer.extend({
             cc.EaseBounceInOut(cc.scaleTo(0.2, 1 * targetNode._objectTouching.userData.scaleFactor))
         ));
 
-        if (targetNode._objectDisableds.indexOf(targetNode._objectTouching) >= 0) {
-            SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
-                { 
-                    room: "room", 
-                    object_name:  targetNode.getObjectName(targetNode._objectTouching)
-                });
-        }
+        // if (targetNode._objectDisableds.indexOf(targetNode._objectTouching) >= 0) {
+        //     SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
+        //         { 
+        //             room: "room", 
+        //             object_name:  targetNode.getObjectName(targetNode._objectTouching)
+        //         });
+        // }
 
         if (targetNode._objectDisableds.indexOf(targetNode._objects[0]) < 0)
             targetNode.runTutorial(false);
 
         targetNode._objectTouching = null;
-        targetNode.runSparklesEffect();
+        // targetNode.runSparklesEffect();
 
         jsb.AudioEngine.play2d("sounds/drop.mp3");
     },
@@ -635,20 +652,21 @@ var ShadowGameLayer = TestLayer.extend({
 
         this._objectTouching.setLocalZOrder(Z_OBJECT_SELECTED);
         this._objectTouching.stopAllActions();
-        this.removeObjectAction();
+        // this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
-        this.playObjectSound(true);
+        // this.playObjectSound(true);
         // this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
-        var shader = this._objectTouching.shaderProgram;
-        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        shaderState.setUniformInt("enabled", 1);
-        this._selectedShadeShader = shaderState;
+        // var shader = this._objectTouching.shaderProgram;
+        // var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        // shaderState.setUniformInt("enabled", 1);
+        // this._selectedShadeShader = shaderState;
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);
-        if (!this.hadObjectRequired()) {
-            this.hideAllShadow();
-        }
+        // if (!this.hadObjectRequired()) {
+        //     this.hideAllShadow();
+        // }
+        this.hideAllShadow();
         this.highLightObjectCorrectPos(index);
         this._shadeObjects[index].visible = true;
 
@@ -690,21 +708,25 @@ var ShadowGameLayer = TestLayer.extend({
             // this._objectTouching.userData.scaleFactor = 0.5;
             this._objectDisableds.push(this._objectTouching);
 
-            this.removeObjectAction();
+            // this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
-            this._shadeObjects[index].setLocalZOrder(-1);
+            this._shadeObjects[index].matched = true;
+            this._shadeObjects[index].setLocalZOrder(0);
+            this._shadeObjects[index].setVisible(false);
         }
-        if (!this.hadObjectRequired())
-            this.showAllShadows();
+        // if (!this.hadObjectRequired())
+        //     this.showAllShadows();
+        this.showAllShadows();
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {
         if (this._objectTouching == null)
             return null;
-
+        
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
-        var objectSize = this._objectTouching.getContentSize();
+        var objectSize = cc.size(this._objectTouching.getBoundingBox().width, this._objectTouching.getBoundingBox().height);
+        // cc.log("Touched Object (bounding) size (%d, %d)", objectSize.width, objectSize.height);
 
         var delta = (objectAnchorPoint.y < 0.5) ? 0.5 : 1;
 
@@ -837,6 +859,15 @@ var ShadowGameLayer = TestLayer.extend({
         return "";
     },
 
+    getObjectByName: function(objectName){
+        for (var i = 0; i < this._objectsArray.length; i++){
+            if (this._objectsArray[i].id === objectName)
+                return this._objectsArray[i];
+        }
+
+        return null;
+    },
+
     updateProgressBar: function() {
         var percent = this._objectDisableds.length / this._objectsArray.length;
         this._hudLayer.setProgressBarPercentage(percent);
@@ -947,8 +978,10 @@ var ShadowGameLayer = TestLayer.extend({
     showAllShadows: function() {
         if (this._shadeObjects.length > 0)
             for ( var i = 0; i< this._shadeObjects.length; i++) {
-                this._shadeObjects[i].visible = true;
-                this._shadeObjects[i].setLocalZOrder(Z_SHADE);
+                if (!this._shadeObjects[i].matched){
+                    this._shadeObjects[i].visible = true;
+                    this._shadeObjects[i].setLocalZOrder(Z_SHADE);
+                }
             }
     },
 

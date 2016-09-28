@@ -1,7 +1,10 @@
+var BALLOON_GAME_ADI_ZORDER = 5;
+
 var BalloonGameLayer = TestLayer.extend({
 
     _balloonsLimit: 15,
     _balloons: [],
+    _adiDog: null,
     _enableSpawn: false,
     _waitForSpawn: 1.0,
     _balloonScale: 1.0,
@@ -46,6 +49,8 @@ var BalloonGameLayer = TestLayer.extend({
         this.spriteSheet = new cc.SpriteBatchNode(res.Balloon_Animation_png);
         this.addChild(this.spriteSheet);
 
+        this._addAdi();
+
         // this._filterObjectsByType(objectIdArray);
         this._fetchObjectData(objectIdArray);
         this._tempArray = shuffle(this._objectsArray).slice(0);
@@ -60,6 +65,13 @@ var BalloonGameLayer = TestLayer.extend({
         this._updateGoalLabel(0);
 
         this.schedule(this._spawnBalloons, this._waitForSpawn);
+    },
+
+    _addAdi: function() {
+        this._adiDog = new AdiDogNode();
+        this._adiDog.scale = Utils.screenRatioTo43() * 0.4;
+        this._adiDog.setPosition(cc.p(100, 50));
+        this.addChild(this._adiDog, BALLOON_GAME_ADI_ZORDER);
     },
 
     _checkGoalTotal: function() {
@@ -217,6 +229,7 @@ var BalloonGameLayer = TestLayer.extend({
 
                 if (obj.name === self._currentObject.value){
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
+                    self._adiDog.adiHifi();
 
                     self._correctChoose++;
                     self._allCorrectChoose++;
@@ -232,7 +245,7 @@ var BalloonGameLayer = TestLayer.extend({
                 }
                 else {
                     jsb.AudioEngine.play2d(res.Failed_sfx);
-
+                    self._adiDog.adiShakeHead();
                 }
 
                 var labelBalloon = obj.getChildByTag(100);
@@ -279,7 +292,7 @@ var BalloonGameLayer = TestLayer.extend({
 
     _checkCompleteScene: function() {
         if (this._tempArray.length <= 0)
-            self.completedScene();
+            this.completedScene();
         else {
             this._currentObject = this._tempArray.pop();
             this._updateCurrentIdHud(this._currentObject);
