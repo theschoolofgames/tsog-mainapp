@@ -1,4 +1,4 @@
-var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange"];
+var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange", "white"];
 var BRUSH_COLOR_HEX = [
     cc.color.RED, 
     cc.color("#00aaff"),    // Blue
@@ -7,6 +7,7 @@ var BRUSH_COLOR_HEX = [
     cc.color("#ff69b4"),    // Pink
     cc.color("#f4a460"),    // Brown
     cc.color.BLACK, 
+    cc.color.WHITE, 
     cc.color("#551a8b"),    // Purple
     cc.color("#ffa500")     // Orange
 ];
@@ -347,6 +348,7 @@ var FreeColorLayer = TestLayer.extend({
         this._objects.forEach(function(object) {
             var objBBox = object.getBoundingBox();
             if (cc.rectContainsPoint(objBBox, touchLoc)) {
+                self._playObjectSound(object);
                 self._showNewObject(object);
                 return;
             }
@@ -418,6 +420,10 @@ var FreeColorLayer = TestLayer.extend({
             cc.director.runScene(new MapScene());
         }.bind(this));
         this.addChild(btn, 999999);
+    },
+
+    _playObjectSound: function() {
+
     },
 })
 

@@ -77,12 +77,14 @@
       "name": "alpharacing",
       "data": [
         {
-          "type": "B",
-          "value": "20"
+          "id": "word_b",
+          "value": "B",
+          "amount": "20"
         },
         {
-          "type": "b",
-          "value": "20"
+          "id": "word_b",
+          "value": "b",
+          "amount": "20"
         }
       ]
     },

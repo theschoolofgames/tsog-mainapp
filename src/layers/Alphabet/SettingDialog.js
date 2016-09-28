@@ -126,6 +126,7 @@ var SettingDialog = cc.Layer.extend({
             winCurTestBtn.setTitleFontSize(16);
             this.addChild(winCurTestBtn);
             winCurTestBtn.addClickEventListener(function() {
+                cc.director.resume();
                 cc.log(cc.director.getRunningScene().getChildrenCount());
                 cc.director.getRunningScene().getChildren()[1]._moveToNextScene();
                 // self._layer._moveToNextScene();
@@ -167,6 +168,7 @@ var SettingDialog = cc.Layer.extend({
             testBtn.setTitleFontSize(16);
             this.addChild(testBtn);
             testBtn.addClickEventListener(function() {
+                cc.director.resume();
                 cc.director.runScene(new MapScene());
             });
         }

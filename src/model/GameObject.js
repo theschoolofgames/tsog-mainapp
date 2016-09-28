@@ -22,9 +22,20 @@ var GameObject = cc.Class.extend({
 
     findById: function(id) {
         return this._data.filter(function(object) {
-            if(object.id == id)
+            if (object.id == id)
                 return object;
         });
+    },
+
+    getRandomAnObjectDiffWithId: function(id) {
+        cc.log("id: " + id);
+        var obj = this.findById(id);
+        for (var i = 0; i < this._data.length; i++) {
+            var object = this._data[i];
+            if (obj && obj[0].type == object.type && object.id != id) {
+                return object.value;
+            }
+        }
     },
 });
 

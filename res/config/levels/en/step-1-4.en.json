@@ -106,12 +106,14 @@
       "name": "alpharacing",
       "data": [
         {
-          "type": "A",
-          "value": "20"
+          "id": "word_a",
+          "value": "A",
+          "amount": "20"
         },
         {
-          "type": "a",
-          "value": "20"
+          "id": "word_a",
+          "value": "a",
+          "amount": "20"
         }
       ]
     },

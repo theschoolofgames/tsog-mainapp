@@ -355,7 +355,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._inputData = this._inputData.map(function(id) {
             var o = GameObject.getInstance().findById(id);
             if (o[0])
-                return o[0];
+                return o[0]; // return the name of the word
             else
                 return id;
         });
@@ -389,7 +389,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     _initChallenges: function(){
         for (var i = 0; i < this._tempInputData.length; i++) {
-            this._totalGoalNumber += parseInt(this._tempInputData[i].value);
+            this._totalGoalNumber += parseInt(this._tempInputData[i].amount);
         }
 
         this._currentChallange = this._tempInputData.shift();
@@ -399,23 +399,23 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         if (!this._currentChallange){
             // Init
             for (var i = 0; i < this._tempInputData.length; i++) {
-                this._totalGoalNumber += parseInt(this._tempInputData[i].value);
+                this._totalGoalNumber += parseInt(this._tempInputData[i].amount);
             }
 
             this._currentChallange = this._tempInputData.shift();
         }
 
-        if (this._tempInputData.length == 0 && parseInt(this._currentChallange.value) <= this._currentEarnedNumber)
+        if (this._tempInputData.length == 0 && parseInt(this._currentChallange.amount) <= this._currentEarnedNumber)
             return;
 
-        if (this._currentChallange.type == word){
+        if (this._currentChallange.value == word){
             jsb.AudioEngine.play2d(res.Succeed_sfx);
 
             this._currentEarnedNumber++;
             this._totalEarned++;
             this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
 
-            if (parseInt(this._currentChallange.value) == this._currentEarnedNumber){
+            if (parseInt(this._currentChallange.amount) == this._currentEarnedNumber){
                 if (this._tempInputData.length > 0){
                     this._currentChallange = this._tempInputData.shift();
                     this._currentEarnedNumber = 0;
@@ -431,8 +431,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             jsb.AudioEngine.play2d(res.Failed_sfx);
         }
 
-        let leftObjects = parseInt(this._currentChallange.value) - this._currentEarnedNumber;
-        this._hudLayer.updateProgressLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.type));
+        let leftObjects = parseInt(this._currentChallange.amount) - this._currentEarnedNumber;
+        this._hudLayer.updateProgressLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.value));
     },
 
     checkForAlphabetCollisions: function(){
@@ -477,11 +477,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             let group = posArray.pop();
             let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
             group.posArray.forEach((pos) => {
-                var object = new cc.LabelBMFont(self._inputData[randomInputIndex].type, res.CustomFont_fnt);
+                var object = new cc.LabelBMFont(self._inputData[randomInputIndex].value, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x;
                 object.y = pos.y;
-                object.setName(self._inputData[randomInputIndex].type);
+                object.setName(self._inputData[randomInputIndex].value);
                 self.gameLayer.addChild(object, AR_WORD_ZODER);
                 self._alphabetObjectArray.push(object);
             });

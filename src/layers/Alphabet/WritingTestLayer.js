@@ -479,13 +479,21 @@ var WritingTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(spritePath)) {
             spritePath = "animals/" + name.toLowerCase() + ".png";
             if (!jsb.fileUtils.isFileExist(spritePath)) {
-                var number = parseInt(name.toLowerCase());
-                spritePath = "#" + number + ".png";
-                if (number > 9) {
-                    var firstNumber = Math.floor(number/10);
-                    secondNumberPath = "#" + (number-firstNumber*10) + ".png";
-                    spritePath = "#" + firstNumber + ".png";
-                    
+
+                if (!isNaN(name.toLowerCase())) { // number case
+                    var number = parseInt(name.toLowerCase());
+                    spritePath = "#" + number + ".png";
+                    if (number > 9) {
+                        var firstNumber = Math.floor(number/10);
+                        secondNumberPath = "#" + (number-firstNumber*10) + ".png";
+                        spritePath = "#" + firstNumber + ".png";
+                    }
+                } else { // word case
+                    var option = "";
+                    if (name == name.toLowerCase()) {
+                        option = "_lowercase";
+                    }
+                    spritePath = "#" + name.toUpperCase() + option + ".png";
                 }
             }
         }

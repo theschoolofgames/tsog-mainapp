@@ -15,16 +15,15 @@ var ListeningTestLayer = TestLayer.extend({
     _tutorial: null,
     _data: null,
     _blockTouch: false,
+    _addedObject: [],
 
     ctor: function(data) {
         this._super();
         cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-        // this._names = data.map(function(obj) {
-        //     cc.log("obj- > " + obj);
-        //     return obj.toUpperCase();
-        // });
+        
+        this._addedObject = [];
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
@@ -170,25 +169,46 @@ var ListeningTestLayer = TestLayer.extend({
         shownObjNames.push(remainingObj[0]);
         shownObjNames.push(remainingObj[1]);
 
+        if (shownObjNames[2] == null && !this._addedObject.length) {
+            var self = this;
+            var data = JSON.parse(this._data);
+            var currentMainObjectId = data.map(function(obj) {
+                cc.log("shownObjNames null case value: " + obj.value);
+                if (obj && obj.value == self._names[self._nameIdx])
+                    return obj.id;
+            });
+            var rdmObjectName = GameObject.getInstance().getRandomAnObjectDiffWithId(currentMainObjectId[0]);
+            shownObjNames[2] = rdmObjectName;
+            this._addedObject.push(rdmObjectName);
+        } else
+            shownObjNames[2] = this._addedObject[0];
+
         shownObjNames = shuffle(shownObjNames);
 
         for (var i = 0; i < 3; i++) {
+            cc.log("i -> " + i);
             var numberHasTwoDigit = false;
             var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
                 if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                     // handle case number has two digit
+                    // number case
                     var number = parseInt(shownObjNames[i].toLowerCase());
                     if (number > 9) {
                         numberHasTwoDigit = true;
                     }
-                    spritePath = "#" + shownObjNames[i].toLowerCase() + ".png";
+                    var option = "";
+                    if (shownObjNames[i] == shownObjNames[i].toLowerCase()) {
+                        option = "_lowercase";
+                    }
+                    spritePath = "#" + shownObjNames[i].toUpperCase() + option + ".png";
                 }
                 if (shownObjNames[i].indexOf("color") > -1) {
+                    // color case
                     var color = shownObjNames[i].toLowerCase().substr(6);
                     spritePath = "#btn_" + color + ".png";   
-                }   
+                }
             }
 
             cc.log("sprite path: " + spritePath);
@@ -214,6 +234,7 @@ var ListeningTestLayer = TestLayer.extend({
                 sprite.runAction(cc.sequence(
                     cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || UPDATED_CONFIG.listeningTestWaitToShowHand),
                     cc.callFunc(function(sender) {
+                        cc.log("set finger tutorial");
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial);
                     }),
@@ -290,6 +311,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _animateObjectIn: function(object, delay) {
+        cc.log("_animateObjectIn: ");
         var oldScale = object.scale;
         object.scale = 0;
         var self = this;
@@ -306,6 +328,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _animateObject: function(obj, delay) {
+        cc.log("_animateObject");
         var oldScale = obj.scale;
         obj.runAction(cc.sequence(
             cc.delayTime(3 + delay * ANIMATE_DELAY_TIME * 1.5),
@@ -419,17 +442,18 @@ var ListeningTestLayer = TestLayer.extend({
         this._data = data;
         data = JSON.parse(data);
         cc.log("_fetchObjectData data: " + data);
-        if (data)
+        if (data) {
             this._names = data.map(function(id) {
                 cc.log("value: %s", id.value)
                 if (id)
                     return id.value || id;
             });
+        }
         else
             this._data = [];
 
         this.setData(this._data);
-        cc.log("listening names after map: " + JSON.stringify(this._names));
+        // cc.log("listening names after map: " + JSON.stringify(this._names));
     },
 
     

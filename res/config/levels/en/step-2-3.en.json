@@ -102,20 +102,24 @@
       "name": "alpharacing",
       "data": [
         {
-          "type": "C",
-          "value": "20"
+          "id": "word_c",
+          "value": "C",
+          "amount": "20"
         },
         {
-          "type": "c",
-          "value": "20"
+          "id": "word_c",
+          "value": "c",
+          "amount": "20"
         },
         {
-          "type": "D",
-          "value": "20"
+          "id": "word_d",
+          "value": "D",
+          "amount": "20"
         },
         {
-          "type": "d",
-          "value": "20"
+          "id": "word_d",
+          "value": "d",
+          "amount": "20"
         }
       ]
     },
