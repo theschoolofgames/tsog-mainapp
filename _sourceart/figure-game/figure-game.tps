@@ -212,20 +212,22 @@
             <key type="filename">btn_red.png</key>
             <key type="filename">btn_yellow-pressed.png</key>
             <key type="filename">btn_yellow.png</key>
+            <key type="filename">circle-shadow.png</key>
             <key type="filename">circle.png</key>
-            <key type="filename">circle_shadow.png</key>
+            <key type="filename">curve-line-shadow.png</key>
             <key type="filename">curve-line.png</key>
-            <key type="filename">curve_line_shadow.png</key>
+            <key type="filename">double_curved_line.png</key>
             <key type="filename">line.png</key>
             <key type="filename">line_shadow.png</key>
+            <key type="filename">rectangle-shadow.png</key>
             <key type="filename">rectangle.png</key>
-            <key type="filename">rectangle_shadow.png</key>
+            <key type="filename">semi-circle-shadow.png</key>
             <key type="filename">semi-circle.png</key>
-            <key type="filename">semi_circle_shadow.png</key>
+            <key type="filename">six_straight_line.png</key>
+            <key type="filename">square-shadow.png</key>
             <key type="filename">square.png</key>
-            <key type="filename">square_shadow.png</key>
+            <key type="filename">triangle-shadow.png</key>
             <key type="filename">triangle.png</key>
-            <key type="filename">triangle_shadow.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
