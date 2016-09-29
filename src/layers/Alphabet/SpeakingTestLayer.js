@@ -346,6 +346,9 @@ var SpeakingTestLayer = TestLayer.extend({
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
         }
+
+        var isNumber = false;
+
         var objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
         this._soundName = "";
         var objectNameToCheck = "res/SD/" + objectName + ".png";
@@ -362,11 +365,19 @@ var SpeakingTestLayer = TestLayer.extend({
                 this._objectName = objectName;
             } else {
                 // number case
-                objectName = "#" + this._names[this.currentObjectShowUpId];
-                this._soundName = "res/sounds/alphabets/" + this._names[this.currentObjectShowUpId] + ".mp3";
-                this._objectName = objectName;
+                var number = parseInt(this._names[this.currentObjectShowUpId]);
+                this._objectName = number;
+                if (!isNaN(number))
+                    isNumber = true;
+                
                 if (!jsb.fileUtils.isFileExist(this._soundName))
                     this._soundName = "res/sounds/alphabets/A.mp3";
+
+                // color case
+                var name = this._names[this.currentObjectShowUpId].toLowerCase();
+                if (name.indexOf("color") > -1) {
+                    objectName = "#btn_" + name.substr(name.indexOf("_") + 1, name.length-1);
+                }
             }
         }
         cc.log("objectName: " + objectName);
@@ -379,8 +390,10 @@ var SpeakingTestLayer = TestLayer.extend({
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
             self._adiDog.onStartedListening();
         });
-
-        this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
+        if (isNumber) 
+            this._currentObjectShowUp = new cc.LabelBMFont(this._names[this.currentObjectShowUpId], res.CustomFont_fnt);
+        else    
+            this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
         this._currentObjectShowUp.y = cc.winSize.height/2;
         this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;

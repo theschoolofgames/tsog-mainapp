@@ -169,40 +169,42 @@ var ListeningTestLayer = TestLayer.extend({
         shownObjNames.push(remainingObj[0]);
         shownObjNames.push(remainingObj[1]);
 
-        if (shownObjNames[2] == null && !this._addedObject.length) {
-            var self = this;
-            var data = JSON.parse(this._data);
-            var currentMainObjectId = data.map(function(obj) {
-                cc.log("shownObjNames null case value: " + obj.value);
-                if (obj && obj.value == self._names[self._nameIdx])
-                    return obj.id;
-            });
-            var rdmObjectName = GameObject.getInstance().getRandomAnObjectDiffWithId(currentMainObjectId[0]);
-            shownObjNames[2] = rdmObjectName;
-            this._addedObject.push(rdmObjectName);
-        } else
-            shownObjNames[2] = this._addedObject[0];
+        if (!shownObjNames[2]) {
+            if (!this._addedObject.length) {
+                var self = this;
+                var data = JSON.parse(this._data);
+                var currentMainObjectId = data.map(function(obj) {
+                    // cc.log("shownObjNames null case value: " + obj.value);
+                    if (obj && obj.value == self._names[self._nameIdx])
+                        return obj.id;
+                });
+                var rdmObjectName = GameObject.getInstance().getRandomAnObjectDiffWithId(currentMainObjectId[0]);
+                shownObjNames[2] = rdmObjectName;
+                this._addedObject.push(rdmObjectName);
+            } else
+                shownObjNames[2] = this._addedObject[0];
+        } 
 
         shownObjNames = shuffle(shownObjNames);
-
+        var secondNumberImageName;
         for (var i = 0; i < 3; i++) {
             cc.log("i -> " + i);
-            var numberHasTwoDigit = false;
+            var isNumber = false;
             var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                 spritePath = "animals/" + shownObjNames[i].toLowerCase() + ".png";
                 if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
                     // handle case number has two digit
                     // number case
-                    var number = parseInt(shownObjNames[i].toLowerCase());
-                    if (number > 9) {
-                        numberHasTwoDigit = true;
-                    }
-                    var option = "";
-                    if (shownObjNames[i] == shownObjNames[i].toLowerCase()) {
-                        option = "_lowercase";
-                    }
-                    spritePath = "#" + shownObjNames[i].toUpperCase() + option + ".png";
+                    var number = parseInt(shownObjNames[i]);
+                    // cc.log("number: " + number);
+                    if (isNaN(number)) {
+                        if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase())
+                            spritePath = "#" + shownObjNames[i].toUpperCase() + "_lowercase" + ".png";
+                        else
+                            spritePath = "#" + shownObjNames[i].toUpperCase() + ".png";
+                    } else
+                        isNumber = true;
                 }
                 if (shownObjNames[i].indexOf("color") > -1) {
                     // color case
@@ -214,7 +216,12 @@ var ListeningTestLayer = TestLayer.extend({
             cc.log("sprite path: " + spritePath);
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
 
-            var sprite = new cc.Sprite(spritePath);
+            var sprite;
+            if (isNumber)
+                sprite = new cc.LabelBMFont(shownObjNames[i], res.CustomFont_fnt);
+            else
+                sprite = new cc.Sprite(spritePath);
+
             sprite.name = shownObjNames[i];
             sprite.scale = Math.min(200 / sprite.width, 350 / sprite.height) * Utils.screenRatioTo43();
             sprite.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43();
@@ -264,7 +271,12 @@ var ListeningTestLayer = TestLayer.extend({
         if (this._nameNode)
             this._nameNode.removeFromParent();
 
-        this._nameNode = new cc.LabelBMFont(this._names[this._nameIdx], "hud-font.fnt");
+        var text = this._names[this._nameIdx];
+        if (text.indexOf("color") > -1) {
+            text = text.substr(text.indexOf("_") + 1, text.length-1);
+        }
+
+        this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
         this._nameNode.scale = 1.5;

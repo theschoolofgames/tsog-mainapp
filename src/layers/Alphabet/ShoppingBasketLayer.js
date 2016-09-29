@@ -134,6 +134,9 @@ var ShoppingBasketLayer = TestLayer.extend({
         if (self._blockFlag)
             return false;
 
+        if (self._currentObjectMoving)
+            return false;
+
         self._deactivateObjects.forEach(function(obj){
             var bBox = obj.getBoundingBox();
             if (cc.rectContainsPoint(bBox, touchLoc)) {

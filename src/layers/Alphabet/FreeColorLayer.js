@@ -1,13 +1,12 @@
-var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange", "white"];
+var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange"];
 var BRUSH_COLOR_HEX = [
     cc.color.RED, 
     cc.color("#00aaff"),    // Blue
     cc.color.GREEN, 
     cc.color.YELLOW, 
     cc.color("#ff69b4"),    // Pink
-    cc.color("#f4a460"),    // Brown
+    cc.color("#8B4513"),    // Brown
     cc.color.BLACK, 
-    cc.color.WHITE, 
     cc.color("#551a8b"),    // Purple
     cc.color("#ffa500")     // Orange
 ];
@@ -178,7 +177,10 @@ var FreeColorLayer = TestLayer.extend({
         }
         else if (gameObject.type === "animal"){
             imageDir = "animals/";
-        }
+        } else if (gameObject.type === "word")
+            imageDir = "alphabets/";
+        else if (gameObject.type === "number")
+            return null;
         else 
             return null;
 
@@ -348,6 +350,9 @@ var FreeColorLayer = TestLayer.extend({
         this._objects.forEach(function(object) {
             var objBBox = object.getBoundingBox();
             if (cc.rectContainsPoint(objBBox, touchLoc)) {
+                self._tmpRenderer.clear(0,0,0,0);
+                self._baseRenderer.clear(0,0,0,0);
+
                 self._playObjectSound(object);
                 self._showNewObject(object);
                 return;
@@ -393,7 +398,10 @@ var FreeColorLayer = TestLayer.extend({
     _showNewObject: function(object) {
         if (this._currentObjectShowing)
             this._currentObjectShowing.removeFromParent();
+        // clear current object and painted color
         this._currentObjectShowing = null;
+        
+
         var imgName = object.getUserData().imageName;
         var sprite = new cc.Sprite(imgName);
         sprite.scale = (sprite.width > FREECOLOR_SHADER_WIDTH) ? FREECOLOR_SHADER_HEIGHT/sprite.width : FREECOLOR_SHADER_HEIGHT/sprite.height;
@@ -422,8 +430,28 @@ var FreeColorLayer = TestLayer.extend({
         this.addChild(btn, 999999);
     },
 
-    _playObjectSound: function() {
-
+    _playObjectSound: function(object) {
+        var name = object.getUserData().imageName;
+        name = name.slice(0, -4);
+        cc.log("name: " + name);
+        // object case
+        var soundName = "res/sounds/" + name.toLowerCase() + ".mp3";
+        // if (!jsb.fileUtils.isFileExist(soundName)) {
+        //     // animal case
+        //     soundName = "res/sounds/animals/" + name.toLowerCase() + ".mp3";
+        //     if (!jsb.fileUtils.isFileExist(soundName)) {
+        //         // alphabets case
+        //         soundName = "res/sounds/alphabets/" + name.toUpperCase() + ".mp3";
+        //         // number case
+        //         if (!jsb.fileUtils.isFileExist(soundName))
+        //             soundName = "res/sounds/alphabets/A.mp3";
+        //     }
+        // }
+        cc.log("soundName: " + soundName);
+        var audioId = jsb.AudioEngine.play2d(soundName);
+        // jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+        //     callback && callback(audioId);
+        // });
     },
 })
 

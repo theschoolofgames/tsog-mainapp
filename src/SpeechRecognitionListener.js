@@ -3,9 +3,9 @@ var SpeechRecognitionListener = cc.Class.extend({
 
     ctor: function() {
         // cc.log(JSON.stringify(FOREST_ITEMS.concat(BEDROOM_ITEMS)));
-        cc.log(JSON.stringify(NUMBER_ITEMS));
+        // cc.log(JSON.stringify(NUMBER_ITEMS));
 
-        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_ITEMS).map(function(obj) {
+        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).map(function(obj) {
             return obj.imageName;
         });
 
