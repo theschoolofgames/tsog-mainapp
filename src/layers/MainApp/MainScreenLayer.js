@@ -2,6 +2,8 @@ var MainScreenLayer = cc.Layer.extend({
     schLayer: null,
     _isLoggedIn: 0,
 
+    _lbUnlock: null,
+
     ctor: function () {
         this._super();
         var policyAccepted = KVDatabase.getInstance().getInt("policyAccepted", 0);
@@ -113,23 +115,6 @@ var MainScreenLayer = cc.Layer.extend({
         lbTestGame.y = btnTestGame.height/2;
         btnTestGame.getRendererNormal().addChild(lbTestGame);
 
-        // PLAY
-        // var btnPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        // btnPlay.x = this._popupDialog.width/2;
-        // btnPlay.y = this._popupDialog.height/2 + 100;
-        // this._popupDialog.addChild(btnPlay);
-        // btnPlay.addClickEventListener(function() {
-        //     // cc.log("PLAY");
-        //     cc.audioEngine.stopMusic();
-        //     self._moveToMainScene();
-        // });
-
-        // var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
-        // lbPlay.scale = 0.6;
-        // lbPlay.x = btnPlay.width/2;
-        // lbPlay.y = btnPlay.height/2;
-        // btnPlay.getRendererNormal().addChild(lbPlay);
-
         // MAP
         var btnMap = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         btnMap.x = this._popupDialog.width/2;
@@ -155,6 +140,7 @@ var MainScreenLayer = cc.Layer.extend({
         btnUnlock.addClickEventListener(function() {
             // cc.log("PLAY");
             var mess = isUnlocked ? "All levels have locked" : "All levels have unlocked";
+            var string = isUnlocked ? "LOCK ALL LEVELS" : "UNLOCK ALL LEVELS";
             var setUnlocked = isUnlocked ? 0 : 1;
             KVDatabase.getInstance().set("UnlockAllLevels", setUnlocked);
             var params = [];
@@ -163,6 +149,7 @@ var MainScreenLayer = cc.Layer.extend({
             else
                 params = ["Message", mess];
             NativeHelper.callNative("showMessage", params);
+            self._updateLabelUnlock(string);
         });
 
         var string = isUnlocked ? "LOCK ALL LEVELS" : "UNLOCK ALL LEVELS";
@@ -171,7 +158,7 @@ var MainScreenLayer = cc.Layer.extend({
         lbUnlock.x = btnUnlock.width/2;
         lbUnlock.y = btnUnlock.height/2;
         btnUnlock.getRendererNormal().addChild(lbUnlock);
-
+        this._lbUnlock = lbUnlock;
         // IAP TEST BUTTON
         // var btnIAPTest = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         // btnIAPTest.x = this._popupDialog.width/2;
@@ -186,6 +173,10 @@ var MainScreenLayer = cc.Layer.extend({
         // lbIAP.x = btnIAPTest.width/2;
         // lbIAP.y = btnIAPTest.height/2;
         // btnIAPTest.getRendererNormal().addChild(lbIAP);
+    },
+
+    _updateLabelUnlock: function(string) {
+        this._lbUnlock.setString(string);
     },
 
     _createBackground: function() {
