@@ -764,7 +764,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         
         let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
-        this.gameLayer.setPosition(cc.p(Math.round(viewPoint.x), Math.round(viewPoint.y))); 
+
+        let contentScaleFactor = cc.contentScaleFactor();
+        this.gameLayer.setPosition(cc.p(
+            Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
+            Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
     },
 
 });
