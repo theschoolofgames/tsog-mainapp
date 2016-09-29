@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>icon_game_alpharacing.png</key>
+            <key>icon_game_alphabet.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_balloon.png</key>
+            <key>icon_game_alpharacing.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -79,7 +79,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_card.png</key>
+            <key>icon_game_balloon.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -94,7 +94,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_forest.png</key>
+            <key>icon_game_card.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -109,7 +109,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_freecolor.png</key>
+            <key>icon_game_forest.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -124,7 +124,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_gofigure.png</key>
+            <key>icon_game_freecolor.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -139,7 +139,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_room.png</key>
+            <key>icon_game_gofigure.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -154,37 +154,22 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>icon_game_room.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{121,165}</string>
+                <key>spriteSourceSize</key>
+                <string>{121,165}</string>
+                <key>textureRect</key>
+                <string>{{1092,1},{121,165}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>icon_game_shadow.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{121,165}</string>
-                <key>spriteSourceSize</key>
-                <string>{121,165}</string>
-                <key>textureRect</key>
-                <string>{{1092,1},{121,165}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>icon_game_shoppingbasket.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{121,165}</string>
-                <key>spriteSourceSize</key>
-                <string>{121,165}</string>
-                <key>textureRect</key>
-                <string>{{1092,1},{121,165}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>icon_game_storytime.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -199,7 +184,22 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_train.png</key>
+            <key>icon_game_shoppingbasket.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{121,165}</string>
+                <key>spriteSourceSize</key>
+                <string>{121,165}</string>
+                <key>textureRect</key>
+                <string>{{907,124},{121,165}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>icon_game_storytime.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -214,7 +214,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>icon_game_tree.png</key>
+            <key>icon_game_train.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -229,7 +229,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>icon_game_writing.png</key>
+            <key>icon_game_tree.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -241,6 +241,21 @@
                 <string>{121,165}</string>
                 <key>textureRect</key>
                 <string>{{1153,124},{121,165}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>icon_game_writing.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{121,165}</string>
+                <key>spriteSourceSize</key>
+                <string>{121,165}</string>
+                <key>textureRect</key>
+                <string>{{538,100},{121,165}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -284,7 +299,7 @@
             <key>size</key>
             <string>{1308,453}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:e7197103206920cc5685040f4ae1dd62:bd399d70c497386c4867bd0bddf94922:d59aa5d04c7cc5909012dd7a24ef3720$</string>
+            <string>$TexturePacker:SmartUpdate:c18f9eeb234a1cc331e0a98d374e7973:031449e1796b9259b5b2d7ce98e4e74c:d59aa5d04c7cc5909012dd7a24ef3720$</string>
             <key>textureFileName</key>
             <string>level-dialog.png</string>
         </dict>

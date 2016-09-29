@@ -182,6 +182,9 @@ var SceneFlowController = cc.Class.extend({
             case "alpharacing":
                 cc.director.runScene(new AlphaRacingScene(data, option));
                 break;
+            case "alphabet":
+                cc.director.runScene(new AlphabetGameScene(data, option));
+                break;
             case "shoppingbasket":
                 cc.director.runScene(new ShoppingBasketScene(data));
                 break;
