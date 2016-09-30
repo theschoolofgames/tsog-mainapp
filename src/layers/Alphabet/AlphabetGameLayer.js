@@ -29,7 +29,8 @@ var AlphabetGameLayer = TestLayer.extend({
 
     ctor: function(objArr, isTestScene) {
         this._super();
-        this._data = this._filterObjectData(objArr);
+        // this._data = this._filterObjectData(objArr);
+        this._data = objArr;
         for (var i = 0; i < this._data.length; i++) {
             cc.log("Data %s", this._data[i]);
         }
@@ -307,7 +308,7 @@ var AlphabetGameLayer = TestLayer.extend({
     },
 
     _handleObjectSucceedDrop: function() {
-
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._runObjectDropAction(this._currentObjectMoving, this._slotScale);
@@ -326,6 +327,7 @@ var AlphabetGameLayer = TestLayer.extend({
     },
 
     _handleObjectFailedDrop: function() {
+        jsb.AudioEngine.play2d(res.Failed_sfx);
         this._currentObjectMoving.setPosition(this._currentObjectOriginPos);
         this._runObjectDropAction(this._currentObjectMoving, this._objectScale);
         this._currentObjectMoving.rotation = this._currentObjectRotation;
@@ -350,7 +352,7 @@ var AlphabetGameLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        cc.log("Progress (%d / %d)", this._successLettersAmount, this._totalLetters);
+        // cc.log("Progress (%d / %d)", this._successLettersAmount, this._totalLetters);
         var percent = this._successLettersAmount / this._totalLetters;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._successLettersAmount, this._totalLetters);

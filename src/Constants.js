@@ -558,7 +558,9 @@ var GAME_IDS = [
     "matching",
     "alpharacing",
     "alphabet",
-    "shoppingbasket"
+    "shoppingbasket",
+    "fruiddition",
+    "buildingblocks"
 ];
 
 var STORY_RESOURCES = [
@@ -617,6 +619,23 @@ var STORY_RESOURCES = [
             "res/sounds/stories/story03-02.mp3",
             "res/sounds/stories/story03-03.mp3",
             "res/sounds/stories/story03-04.mp3"
+        ]
+    },
+    {
+        "subtitles": [
+            "res/subtitles/story04-01.ass",
+            "res/subtitles/story04-02.ass",
+            "res/subtitles/story04-03.ass"
+        ],
+        "arts": [
+            "stories/Storytime4-1.jpg",
+            "stories/Storytime4-2.jpg",
+            "stories/Storytime4-3.jpg"
+        ],
+        "sounds": [
+            "res/sounds/stories/story04-01.mp3",
+            "res/sounds/stories/story04-02.mp3",
+            "res/sounds/stories/story04-03.mp3"
         ]
     },
 ];
