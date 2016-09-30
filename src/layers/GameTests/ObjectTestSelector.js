@@ -302,6 +302,9 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                     case "3": 
                         option = "cunning_fox_clever_stork";
                         break;
+                    case "4": 
+                        option = "the_hare_and_the_tortoise";
+                        break;
                     default:
                         option = "cunning_fox_clever_stork";
                         break;
