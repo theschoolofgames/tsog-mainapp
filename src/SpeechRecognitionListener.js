@@ -33,13 +33,13 @@ var SpeechRecognitionListener = cc.Class.extend({
         cc.log("onResult: " + text);
         cc.log("currentObjectName: " + this._speakingLayer.currentObjectName.toUpperCase());
 
-        NUMBER_ITEMS.map(function(obj) {
-            if (obj.value == text) {
-                text = obj.imageName;
-                return;
-            }
+        // NUMBER_ITEMS.map(function(obj) {
+        //     if (obj.value == text) {
+        //         text = obj.imageName;
+        //         return;
+        //     }
 
-        });
+        // });
 
         this._speakingLayer.resultText = text.toUpperCase();
         if (this._speakingLayer.currentObjectName.toUpperCase() == text) {

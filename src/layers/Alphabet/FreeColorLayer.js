@@ -376,6 +376,8 @@ var FreeColorLayer = TestLayer.extend({
 
                 for (var i = 0; i < self._collidedRenderers.length; i++) {
                     var rt = self._collidedRenderers[i];
+                    if (!rt)
+                        continue;
                     var contentSize = rt.getSprite().getContentSize();
 
                     var rtOriginPos = cc.p(rt.x - contentSize.width/2, rt.y - contentSize.height/2);
