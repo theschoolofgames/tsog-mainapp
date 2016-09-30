@@ -127,6 +127,7 @@ var SettingDialog = cc.Layer.extend({
             winCurTestBtn.setTitleFontSize(16);
             this.addChild(winCurTestBtn);
             winCurTestBtn.addClickEventListener(function() {
+                winCurTestBtn.setEnabled(false);
                 cc.director.resume();
                 cc.log(cc.director.getRunningScene().getChildrenCount());
                 cc.director.getRunningScene().getChildren()[1]._moveToNextScene();
