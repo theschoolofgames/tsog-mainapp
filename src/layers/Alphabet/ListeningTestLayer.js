@@ -16,6 +16,7 @@ var ListeningTestLayer = TestLayer.extend({
     _data: null,
     _blockTouch: false,
     _addedObject: [],
+    _keyObject: [],
 
     ctor: function(data) {
         this._super();
@@ -452,8 +453,15 @@ var ListeningTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         this._data = data;
+        this._keyObject = [];
         data = JSON.parse(data);
-        cc.log("_fetchObjectData data: " + data);
+
+        // if (data.option !== "") {
+        //     this._keyObject = data.key;
+        //     data = data.data;
+        // }
+
+        // cc.log("_fetchObjectData data: " + data);
         if (data) {
             this._names = data.map(function(id) {
                 cc.log("value: %s", id.value)

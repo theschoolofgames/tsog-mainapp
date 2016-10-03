@@ -370,7 +370,7 @@ var StoryMainLayer = TestLayer.extend({
                 else
                     return id;
             });
-        this.setData(JSON.stringify(dataNextScene[0].data));
+        this.setData(JSON.stringify(dataNextScene[0]));
         // cc.log("data after map: " + JSON.stringify(dataNextScene));
     },
 });
