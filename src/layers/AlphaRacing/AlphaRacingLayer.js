@@ -120,6 +120,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
             tmxMap.setScale(AR_SCALE_NUMBER);
             tmxMap.setPosition(cc.p(-3000, -3000));
+            tmxMap.setVisible(false)
             
             this.maps.push(tmxMap);
             this.gameLayer.addChild(tmxMap, 0, 2);
@@ -132,8 +133,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this._mapWidth = tmxMap.getContentSize().width;
             this._mapHeight = tmxMap.getContentSize().height;
             this._tileSize = cc.size(tmxMap.getTileSize().width * AR_SCALE_NUMBER, tmxMap.getTileSize().height * AR_SCALE_NUMBER);
-
-            this.addAlphabet(tmxMap, i);
         }
 
         // Shuffle map index array
@@ -147,6 +146,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
             this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
             this.historyMapIndexArray.push(index);
+
+            this.addAlphabet(this.maps[index]);
         }
 
         // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
@@ -278,12 +279,16 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     _checkAndReloadMaps: function(player) {
-        var newMapIndex = parseInt(player.getPosition().x / this._mapWidth);
+        var newMapIndex = Math.floor(player.getPosition().x / this._mapWidth);
 
         if (newMapIndex == this._mapIndex)
             return;
 
         if (newMapIndex > 1){
+            let shouldHideMapIndex = this.historyMapIndexArray[this.historyMapIndexArray.length - 3];
+            this.maps[shouldHideMapIndex].setVisible(false);
+            this.maps[shouldHideMapIndex].setPosition(cc.p(-3000, -3000));
+
             // Shuffle map index array
             let shuffledMapArray = shuffle(this.mapIndexArray.slice(0));
 
@@ -295,40 +300,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                     this.maps[index].setVisible(true);
                     this.maps[index].setPosition(cc.p(this._gameLayerSize.width, 0));
 
-                    this.addAlphabet(this.maps[index]);
-
                     this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
                     this.historyMapIndexArray.push(index);
+
+                    this.addAlphabet(this.maps[index]);
                     break;
                 }
             }
-
-            // var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[Utils.getRandomInt(0, AR_TMX_LEVELS.length)]);
-            // tmxMap.setScale(AR_SCALE_NUMBER);
-            // tmxMap.setPosition(cc.p(this._gameLayerSize.width, 0));
-            
-            // this.maps.push(tmxMap);
-            // this.gameLayer.addChild(tmxMap, 0, 2);
-
-            // var tmxLayer = this.maps[shouldBeVisibleMapIndex].getLayer("Lands");
-            // this.layers.push(tmxLayer);
-
-            // this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, tmxMap.getContentSize().height);
-
-            // Remove the first map of @maps array
-            // this.gameLayer.removeChild(this.maps.shift());
-            // this.layers.shift();
-
-            let shouldHideMapIndex = this.historyMapIndexArray[this.historyMapIndexArray.length - 3];
-            this.maps[shouldHideMapIndex].setVisible(false);
-            this.maps[shouldHideMapIndex].setPosition(cc.p(-3000, -3000));
-
-            let visibleMapCount = 0;
-            for (var i = 0; i < this.maps.length; i++){
-                if (this.maps[i].isVisible())
-                    visibleMapCount++;
-            }
-            console.log("Visible Map Count => " + visibleMapCount);
         }
 
         this._mapIndex = newMapIndex;
@@ -517,7 +495,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         posArray = shuffle(posArray);
         inputArray = shuffle(inputArray);
         
-        let randomGroupNumber = Utils.getRandomInt(3, posArray.length);
+        let randomGroupNumber = Utils.getRandomInt(2, posArray.length);
 
         for (var i = 0; i < randomGroupNumber; i++) {
             let group = posArray.pop();
@@ -705,7 +683,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         // let layerIndex = (this._mapIndex > 1) ? 1 : this._mapIndex; 
         let layerIndex = 0;
         for (var i = 0; i < this.maps.length; i++){
-            cc.log("Player (%d, %d) - MapPos (%d, %d)", p.x, p.y, this.maps[i].x, this.maps[i].y);
+            // cc.log("Player (%d, %d) - MapPos (%d, %d)", p.x, p.y, this.maps[i].x, this.maps[i].y);
             if (this.maps[i].isVisible()){
                 if (p.x >= this.maps[i].x && p.x < (this.maps[i].x + this._mapWidth)){
                     layerIndex = i;
@@ -714,7 +692,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             }
         }
 
-        console.log("Layer Index => " + layerIndex);
+        // console.log("Layer Index => " + layerIndex);
 
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
         p.setOnGround(false);
