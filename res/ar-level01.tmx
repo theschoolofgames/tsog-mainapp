@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="26">
- <tileset firstgid="1" name="alpha-racing-lands" tilewidth="64" tileheight="64" tilecount="16" columns="16">
-  <image source="SD/alpha-racing-lands.png" width="1024" height="64"/>
+ <tileset firstgid="1" name="alpha-racing-lands" tilewidth="64" tileheight="64" tilecount="84" columns="14">
+  <image source="SD/alpha-racing-lands.png" width="896" height="384"/>
  </tileset>
- <tileset firstgid="17" name="alpha-racing-lands01" tilewidth="64" tileheight="64" tilecount="72" columns="8">
+ <tileset firstgid="85" name="alpha-racing-lands01" tilewidth="64" tileheight="64" tilecount="72" columns="8">
   <image source="SD/alpha-racing-lands01.png" width="512" height="576"/>
  </tileset>
  <layer name="Lands" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIKBB4xAzIyGmQbURYMTwMIJX9iwADE/FAvQw1FQwArEfFDMNoTs5ScDcwExB5K97EDMSaIZfKN4WGMAo6UIzA==
+   eJxjYBgFo2AUjIKBB+5A7ImGPQbURYMTIIcTrvDxAmILKHalk7tAwBuIzaGYbwjZa0EG1gJiDSR7ZYBYk0QzzEfxsMYA0qslbw==
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
@@ -30,17 +30,12 @@
  </objectgroup>
  <layer name="LowLayer1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUDEbgDsQeQGwGxOZ0tNcfiAOA2A6I7eloLyWAmDBSA2J1INagor3EhJEeEOsDsQEV7aUHcAViNxxytAhLGPAFYj8cckM1LEfByAQAFxYGLQ==
+   eJxjYBgFo2AUDEbQDcQ9QFwFxNV0tHcyEE8B4iYgbqajvZQAYsIoC4izgTiHivYSE0ZFQFwMxCVUtJceoBOIu3DI0SIsYWAiEE/CIUdqWPoAsS8Q+1HBXaNgFJAKADXBDoQ=
   </data>
  </layer>
  <layer name="LowLayer2" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApoB8SAWByIJehsrxwQywOxAp3tHQWjAAQAvC8Aow==
-  </data>
- </layer>
- <layer name="LowLayer3" width="30" height="20">
-  <data encoding="base64" compression="zlib">
-   eJztzTkWglAQBVG2gGAgYIBoIEMgQwCYCCYICcP+10It4dOpXefcsPtZlqZp2n9n4wQHLs6CHzUatHgb3lzgwUeAq2D3gw49voY3IW6IcMdDsDvghxGT4c0TMRKkyAS7Mxas2AxvXshRoEQl2NW0o+1Q7wfU
+   eJztzTcSwjAURVFvkughDwYKUkEqCA2hITSE5XJ2YKMW3ZnT6eslSSwWi/13JcpUqFIL+GPLjj2HgjcNmrRo0wnYPXLizKXgTZ+MAUNGAbtXbtx55LytkzJmwpQZ84DdJy/efHLedumxYMmKNZuA3Vjs177+JxQy
   </data>
  </layer>
 </map>

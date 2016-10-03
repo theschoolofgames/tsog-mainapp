@@ -96,6 +96,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
+        let startTime = (new Date()).getTime();
         this._player.updatea(dt / TEST_SPEED);
         this._checkAndReloadMaps(this._player);
         this.checkForAndResolveCollisions(this._player);
