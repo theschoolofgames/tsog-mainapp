@@ -12,10 +12,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 	
     gameLayer: null,
     maps: [],
+    mapIndexArray: [],
+    historyMapIndexArray: [],
     layers: [],
     _mapIndex: 0,
     _gameLayerSize: cc.size(0,0),
     _mapWidth: 0,
+    _mapHeight: 0,
     _player: null,
     _tileSize: cc.size(0,0),
     _landLayer: null,
@@ -93,6 +96,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
+        let startTime = (new Date()).getTime();
         this._player.updatea(dt / TEST_SPEED);
         this._checkAndReloadMaps(this._player);
         this.checkForAndResolveCollisions(this._player);
@@ -116,7 +120,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
             var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
             tmxMap.setScale(AR_SCALE_NUMBER);
-            tmxMap.setPosition(cc.p(this._gameLayerSize.width, 0));
+            tmxMap.setPosition(cc.p(-3000, -3000));
+            tmxMap.setVisible(false)
             
             this.maps.push(tmxMap);
             this.gameLayer.addChild(tmxMap, 0, 2);
@@ -124,11 +129,26 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             var tmxLayer = tmxMap.getLayer("Lands");
             this.layers.push(tmxLayer);
 
-            this._mapWidth = tmxMap.getContentSize().width;
-            this._tileSize = cc.size(tmxMap.getTileSize().width * AR_SCALE_NUMBER, tmxMap.getTileSize().height * AR_SCALE_NUMBER);
-            this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, tmxMap.getContentSize().height);
+            this.mapIndexArray.push({index: i});
 
-            this.addAlphabet(tmxMap, i);
+            this._mapWidth = tmxMap.getContentSize().width;
+            this._mapHeight = tmxMap.getContentSize().height;
+            this._tileSize = cc.size(tmxMap.getTileSize().width * AR_SCALE_NUMBER, tmxMap.getTileSize().height * AR_SCALE_NUMBER);
+        }
+
+        // Shuffle map index array
+        let shuffledMapArray = shuffle(this.mapIndexArray);
+
+        // Render 3 maps
+        for (var i = 0; i < 3; i++){
+            let index = shuffledMapArray[i].index;
+            this.maps[index].setVisible(true)
+            this.maps[index].setPosition(cc.p(this._gameLayerSize.width, 0));
+
+            this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
+            this.historyMapIndexArray.push(index);
+
+            this.addAlphabet(this.maps[index]);
         }
 
         // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
@@ -260,29 +280,34 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     _checkAndReloadMaps: function(player) {
-        var newMapIndex = parseInt(player.getPosition().x / this._mapWidth);
+        var newMapIndex = Math.floor(player.getPosition().x / this._mapWidth);
 
         if (newMapIndex == this._mapIndex)
             return;
 
         if (newMapIndex > 1){
-            var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[Utils.getRandomInt(0, AR_TMX_LEVELS.length)]);
-            tmxMap.setScale(AR_SCALE_NUMBER);
-            tmxMap.setPosition(cc.p(this._gameLayerSize.width, 0));
-            
-            this.maps.push(tmxMap);
-            this.gameLayer.addChild(tmxMap, 0, 2);
+            let shouldHideMapIndex = this.historyMapIndexArray[this.historyMapIndexArray.length - 3];
+            this.maps[shouldHideMapIndex].setVisible(false);
+            this.maps[shouldHideMapIndex].setPosition(cc.p(-3000, -3000));
 
-            var tmxLayer = tmxMap.getLayer("Lands");
-            this.layers.push(tmxLayer);
+            // Shuffle map index array
+            let shuffledMapArray = shuffle(this.mapIndexArray.slice(0));
 
-            this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, tmxMap.getContentSize().height);
+            let hasAvaiableMap = false;
+            for (var i = 0; i < shuffledMapArray.length; i++){
+                let index = shuffledMapArray[i].index;
+                if (!this.maps[index].isVisible()){
+                    hasAvaiableMap = true;
+                    this.maps[index].setVisible(true);
+                    this.maps[index].setPosition(cc.p(this._gameLayerSize.width, 0));
 
-            this.addAlphabet(tmxMap, this._mapIndex);
+                    this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
+                    this.historyMapIndexArray.push(index);
 
-            // Remove the first map of @maps array
-            this.gameLayer.removeChild(this.maps.shift());
-            this.layers.shift();
+                    this.addAlphabet(this.maps[index]);
+                    break;
+                }
+            }
         }
 
         this._mapIndex = newMapIndex;
@@ -471,7 +496,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         posArray = shuffle(posArray);
         inputArray = shuffle(inputArray);
         
-        let randomGroupNumber = Utils.getRandomInt(3, posArray.length);
+        let randomGroupNumber = Utils.getRandomInt(2, posArray.length);
 
         for (var i = 0; i < randomGroupNumber; i++) {
             let group = posArray.pop();
@@ -656,7 +681,20 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         
         // Player pass through 2nd map => create a new map, push new map,layer => remove old map, layer
         // => current map, layer index will be 1
-        let layerIndex = (this._mapIndex > 1) ? 1 : this._mapIndex; 
+        // let layerIndex = (this._mapIndex > 1) ? 1 : this._mapIndex; 
+        let layerIndex = 0;
+        for (var i = 0; i < this.maps.length; i++){
+            // cc.log("Player (%d, %d) - MapPos (%d, %d)", p.x, p.y, this.maps[i].x, this.maps[i].y);
+            if (this.maps[i].isVisible()){
+                if (p.x >= this.maps[i].x && p.x < (this.maps[i].x + this._mapWidth)){
+                    layerIndex = i;
+                    break;
+                }
+            }
+        }
+
+        // console.log("Layer Index => " + layerIndex);
+
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
         p.setOnGround(false);
         p.setOnRightCollision(false);

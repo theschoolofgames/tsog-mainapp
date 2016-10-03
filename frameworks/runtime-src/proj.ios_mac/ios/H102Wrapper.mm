@@ -94,22 +94,22 @@ static NSMutableArray* noiseDetectionArray = nil;
 }
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    NSData* traitData = [traits dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* traitDict = [NSJSONSerialization JSONObjectWithData:traitData options:0 error:nil];
-    
-    [[SEGAnalytics sharedAnalytics] identify:userId traits:traitDict];
-  });
+//  dispatch_async(dispatch_get_main_queue(), ^{
+//    NSData* traitData = [traits dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary* traitDict = [NSJSONSerialization JSONObjectWithData:traitData options:0 error:nil];
+//    
+//    [[SEGAnalytics sharedAnalytics] identify:userId traits:traitDict];
+//  });
 }
 
 + (void)segmentTrack:(NSString *)event properties:(NSString *)properties {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
-    
-    [[SEGAnalytics sharedAnalytics] track:event properties:propertiesDict];
-    
-  });
+//  dispatch_async(dispatch_get_main_queue(), ^{
+//    NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
+//    NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
+//    
+//    [[SEGAnalytics sharedAnalytics] track:event properties:propertiesDict];
+//    
+//  });
 }
 
 + (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value {
