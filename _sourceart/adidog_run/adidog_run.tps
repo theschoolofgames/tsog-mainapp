@@ -194,6 +194,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">adi_jump1.png</key>
             <key type="filename">adi_run1.png</key>
             <key type="filename">adi_run2.png</key>
             <key type="filename">adi_run3.png</key>

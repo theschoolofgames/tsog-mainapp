@@ -189,7 +189,7 @@
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
-            <double>0.25</double>
+            <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
             <key>extrude</key>
@@ -197,7 +197,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMargin</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">None</enum>
             <key>tracerTolerance</key>
@@ -211,6 +211,9 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">chump.png</key>
+            <key type="filename">flower1.png</key>
+            <key type="filename">flower2.png</key>
             <key type="filename">land01.png</key>
             <key type="filename">land02.png</key>
             <key type="filename">land03.png</key>
@@ -227,6 +230,10 @@
             <key type="filename">land14.png</key>
             <key type="filename">land15.png</key>
             <key type="filename">land16.png</key>
+            <key type="filename">road_direction1.png</key>
+            <key type="filename">road_direction2.png</key>
+            <key type="filename">tree1.png</key>
+            <key type="filename">tree2.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

@@ -13,13 +13,15 @@ var ARPlayer = cc.Layer.extend({
 	spriteSheet:null,
 	runningAction:null,
 	sprite:null,
+	runAnimationFrames: [],
+	isRunningAnim: false,
 
 	ctor: function () {
 		this._super();
 		this.setAnchorPoint(0.5,0.5);
 		this.setScale(Utils.screenRatioTo43() * 0.15);
-        this.setPosition(cc.p(200,400));
-        this.setDesiredPosition(cc.p(200,400));
+        this.setPosition(cc.p(200,450));
+        this.setDesiredPosition(cc.p(200,450));
         this.setContentSize(cc.size(65, 100));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
 		
@@ -27,7 +29,7 @@ var ARPlayer = cc.Layer.extend({
 	},
 
 	onEnter: function() {
-        this._super();
+        this._super();        
         this.configAnimation();
     },
 
@@ -43,10 +45,13 @@ var ARPlayer = cc.Layer.extend({
 	    if (this._mightAsWellJump && this._onGround) {
 	        this._velocity = cc.pAdd(this._velocity, jumpForce);
 	        // Sound jump
-
+	        // console.log("Going to Jump");
+	        this.jumpAnimation();
 	    } 
 	    else if (!this._mightAsWellJump && this._velocity.y > jumpCutoff) {
 	        this._velocity = cc.p(this._velocity.x, jumpCutoff);
+	        // console.log("Going to Jump 1");
+	        // this.jumpAnimation();
 	    }
 	    
 	    let forwardMove = cc.p(1200.0, 0.0);
@@ -70,6 +75,7 @@ var ARPlayer = cc.Layer.extend({
 	    this._velocity = cc.pAdd(this._velocity, gravityStep);
 	    
 	    let velocityStep = cc.pMult(this._velocity, dt);
+	    // velocityStep = cc.p(velocityStep.x, velocityStep.y)
 
  		let position = cc.p(this.getPosition().x, this.getPosition().y);
  		this._desiredPosition = cc.pAdd(position, velocityStep);
@@ -77,22 +83,38 @@ var ARPlayer = cc.Layer.extend({
 
  	configAnimation: function() {
  		cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
-        this.spriteSheet = new cc.SpriteBatchNode(res.AdiDog_Run_png);
-        this.addChild(this.spriteSheet);
+        this.sprite = new cc.Sprite("#adi_run1.png");
+        this.sprite.attr({x:10, y:65, anchorX: 1, anchorY: 1});
+        this.addChild(this.sprite);
 
-        var animFrames = [];
+        this.runAnimationFrames = [];
         for (var i = 1; i <= 4; i++) {
             var str = "adi_run" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
-            animFrames.push(frame);
+            this.runAnimationFrames.push(frame);
         }
 
-        var animation = new cc.Animation(animFrames, 0.1);
+        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
         this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
-        this.sprite = new cc.Sprite("#adi_run1.png");
-        this.sprite.attr({x:10, y:65, anchorX: 1, anchorY: 1});
+        // this.sprite = new cc.Sprite("#adi_run1.png");
         this.sprite.runAction(this.runningAction);
-        this.spriteSheet.addChild(this.sprite);
+        // this.spriteSheet.addChild(this.sprite);
+ 	},
+
+ 	jumpAnimation: function() {
+ 		this.sprite.stopAllActions();
+ 		this.sprite.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("adi_jump1.png"));
+ 		this.isRunningAnim = false;
+ 	},
+
+ 	runAnimation: function() {
+ 		if (this.isRunningAnim)
+ 			return;
+
+ 		var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        this.sprite.runAction(this.runningAction);
+        this.isRunningAnim = true;
  	},
 
  	setGravity: function(gravity) {
