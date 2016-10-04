@@ -32,7 +32,7 @@ var GameObject = cc.Class.extend({
         var obj = this.findById(id);
         for (var i = 0; i < this._data.length; i++) {
             var object = this._data[i];
-            if (obj && obj[0].type == object.type && object.id != id) {
+            if (obj[0] && obj[0].type == object.type && object.id != id) {
                 return object.value;
             }
         }

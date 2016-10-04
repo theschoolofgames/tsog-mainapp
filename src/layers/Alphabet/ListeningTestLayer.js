@@ -92,7 +92,7 @@ var ListeningTestLayer = TestLayer.extend({
         this._objectNodes.forEach(function(obj) {
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
                 var currentKeyNames;
-                if (self._keyObject)
+                if (self._keyObject.length>0)
                     currentKeyNames = self._keyObject[self._currentKeyIndex];
                 else
                     currentKeyNames = self._names[self._nameIdx];
@@ -170,32 +170,39 @@ var ListeningTestLayer = TestLayer.extend({
         var shownObjNames = [];
 
         var remainingObj = this._names.slice(0);
-        remainingObj.splice(this._nameIdx, 1);
-        remainingObj = shuffle(remainingObj);
-
+        cc.log("remainingObj: " + remainingObj);
         var currentKeyNames;
-        if (this._keyObject) {
+        if (this._keyObject.length > 0) {
             currentKeyNames = this._keyObject[this._currentKeyIndex]
         } else
             currentKeyNames = this._names[this._nameIdx];
-        
+
         shownObjNames.push(currentKeyNames);
+            
+        remainingObj.splice(this._nameIdx, 1);
+        remainingObj = shuffle(remainingObj);
+        
+        cc.log("remainingObj: " + remainingObj);
         var self = this;
-        for (var i = 1; i < remainingObj.length; i++) {
-            if (shownObjNames.length >= 3)
-                break;
-            var name = remainingObj[i];
-            cc.log("name: " + name);
-            if (this._keyObject)
+        if (this._keyObject.length > 0) {
+            for (var i = 1; i < remainingObj.length; i++) {
+                if (shownObjNames.length >= 3) {
+                    break;
+                }
+                var name = remainingObj[i];
+                
                 for (var j = 0; j < this._keyObject.length; j++) {
                     var key = this._keyObject[j];
                     if (name !== currentKeyNames && name !== key) {
+                        cc.log("break;");
                         shownObjNames.push(name);
                         break;
                     }
                 }
-            else
-                shownObjNames.push(name);
+            }
+        } else {
+            shownObjNames.push(remainingObj[0]);
+            shownObjNames.push(remainingObj[1]);
         }
         // shownObjNames.push(remainingObj[1]);
 
@@ -304,7 +311,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._nameNode.removeFromParent();
 
         var text = this._names[this._nameIdx];
-        if (this._keyObject)
+        if (this._keyObject.length > 0)
             text = this._keyObject[this._currentKeyIndex];
         if (text.indexOf("color") > -1) {
             text = text.substr(text.indexOf("_") + 1, text.length-1);
@@ -489,13 +496,13 @@ var ListeningTestLayer = TestLayer.extend({
         this._keyObject = [];
         data = JSON.parse(data);
 
-        if (data.option !== "") {
+        if (data.option) {
             this._keyObject = data.key;
             data = data.data;
             this._data = data;
         }
 
-        // cc.log("_fetchObjectData data: " + data);
+        cc.log("_fetchObjectData data: " + data);
         if (data) {
             this._names = data.map(function(id) {
                 cc.log("value: %s", id.value)
@@ -506,11 +513,11 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this._data = [];
 
+        cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject)
             this.setData(JSON.stringify(this._keyObject));
         else
             this.setData(this._data);
-        // cc.log("listening names after map: " + JSON.stringify(this._names));
     },
 
     
