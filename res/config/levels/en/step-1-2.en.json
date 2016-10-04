@@ -98,8 +98,9 @@
       "name": "storytime",
       "data": [
         {
+          "key": ["lion", "rat", "key"],
           "option":"lion_and_mouse",
-          "data": ["lion", "horse", "bee","rat", "ant", "dog","tree", "hat", "key"]
+          "data": ["lion", "horse", "bee", "rat", "ant", "dog", "hat", "key"]
         }
       ]
     },

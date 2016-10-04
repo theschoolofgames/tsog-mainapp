@@ -79,11 +79,9 @@
       "name": "storytime",
       "data": [
         {
+          "key": ["chair", "egg", "nest"],
           "option":"goose_with_golden_egg",
           "data": [
-            "goose",
-            "hen",
-            "parrot",
             "egg",
             "apple",
             "book",

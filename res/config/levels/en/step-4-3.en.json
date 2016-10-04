@@ -64,6 +64,7 @@
       "name": "storytime",
       "data": [
         { 
+          "key": ["bird", "duck", "bear"],
           "option": "the_hare_and_the_tortoise",
           "data": [
             "hare",

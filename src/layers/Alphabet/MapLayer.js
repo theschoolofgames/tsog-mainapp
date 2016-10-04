@@ -226,8 +226,10 @@ var MapLayer = cc.Layer.extend({
         if (isNaN(eachStepInfo))
             eachStepInfo = parseInt(eachStepInfo);
         for (var i = 0; i < eachStepInfo; i++) {
-            var star = stepStars[i];
-            star.setSpriteFrame("star-filled.png");
+            if (stepStars && stepStars[i]) {
+                var star = stepStars[i];
+                star.setSpriteFrame("star-filled.png");
+            }
         }
     },
 

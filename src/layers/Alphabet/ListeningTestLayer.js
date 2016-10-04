@@ -17,6 +17,7 @@ var ListeningTestLayer = TestLayer.extend({
     _blockTouch: false,
     _addedObject: [],
     _keyObject: [],
+    _currentKeyIndex: 0,
 
     ctor: function(data) {
         this._super();
@@ -90,10 +91,16 @@ var ListeningTestLayer = TestLayer.extend({
 
         this._objectNodes.forEach(function(obj) {
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
-                if (obj.name == self._names[self._nameIdx]) {
+                var currentKeyNames;
+                if (self._keyObject)
+                    currentKeyNames = self._keyObject[self._currentKeyIndex];
+                else
+                    currentKeyNames = self._names[self._nameIdx];
+                if (obj.name == currentKeyNames) {
                     self._celebrateCorrectObj(obj);
                     self._touchCounting ++;
                     self.updateProgressBar();
+                    self._currentKeyIndex++;
                 } else {
                     self._incorrectAction(obj);
                 }
@@ -166,11 +173,35 @@ var ListeningTestLayer = TestLayer.extend({
         remainingObj.splice(this._nameIdx, 1);
         remainingObj = shuffle(remainingObj);
 
-        shownObjNames.push(this._names[this._nameIdx]);
-        shownObjNames.push(remainingObj[0]);
-        shownObjNames.push(remainingObj[1]);
+        var currentKeyNames;
+        if (this._keyObject) {
+            currentKeyNames = this._keyObject[this._currentKeyIndex]
+        } else
+            currentKeyNames = this._names[this._nameIdx];
+        
+        shownObjNames.push(currentKeyNames);
+        var self = this;
+        for (var i = 1; i < remainingObj.length; i++) {
+            if (shownObjNames.length >= 3)
+                break;
+            var name = remainingObj[i];
+            cc.log("name: " + name);
+            if (this._keyObject)
+                for (var j = 0; j < this._keyObject.length; j++) {
+                    var key = this._keyObject[j];
+                    if (name !== currentKeyNames && name !== key) {
+                        shownObjNames.push(name);
+                        break;
+                    }
+                }
+            else
+                shownObjNames.push(name);
+        }
+        // shownObjNames.push(remainingObj[1]);
 
-        if (!shownObjNames[2]) {
+        cc.log("shownObjNames: " + shownObjNames);
+
+        if (shownObjNames[2] == null || shownObjNames[2] == undefined) {
             if (!this._addedObject.length) {
                 var self = this;
                 var data = JSON.parse(this._data);
@@ -184,7 +215,7 @@ var ListeningTestLayer = TestLayer.extend({
                 this._addedObject.push(rdmObjectName);
             } else
                 shownObjNames[2] = this._addedObject[0];
-        } 
+        }
 
         shownObjNames = shuffle(shownObjNames);
         var secondNumberImageName;
@@ -273,6 +304,8 @@ var ListeningTestLayer = TestLayer.extend({
             this._nameNode.removeFromParent();
 
         var text = this._names[this._nameIdx];
+        if (this._keyObject)
+            text = this._keyObject[this._currentKeyIndex];
         if (text.indexOf("color") > -1) {
             text = text.substr(text.indexOf("_") + 1, text.length-1);
         }
@@ -283,9 +316,9 @@ var ListeningTestLayer = TestLayer.extend({
         this._nameNode.scale = 1.5;
         this.addChild(this._nameNode);
 
-        cc.log("this._names: " + this._names);
-        cc.log("this._names: " + this._names[this._nameIdx]);
-        var objName = this._names[this._nameIdx].toLowerCase();
+        // cc.log("this._names: " + this._names);
+        // cc.log("this._names: " + this._names[this._nameIdx]);
+        var objName = text.toLowerCase();
         this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
@@ -456,10 +489,11 @@ var ListeningTestLayer = TestLayer.extend({
         this._keyObject = [];
         data = JSON.parse(data);
 
-        // if (data.option !== "") {
-        //     this._keyObject = data.key;
-        //     data = data.data;
-        // }
+        if (data.option !== "") {
+            this._keyObject = data.key;
+            data = data.data;
+            this._data = data;
+        }
 
         // cc.log("_fetchObjectData data: " + data);
         if (data) {
@@ -472,7 +506,10 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.setData(this._data);
+        if (this._keyObject)
+            this.setData(JSON.stringify(this._keyObject));
+        else
+            this.setData(this._data);
         // cc.log("listening names after map: " + JSON.stringify(this._names));
     },
 
