@@ -239,6 +239,21 @@ var BalloonGameLayer = TestLayer.extend({
                     var percent = self._allCorrectChoose / self._goalTotal;
                     self._hudLayer.setProgressBarPercentage(percent);
 
+                    let starEarned = 0;
+                    if (self._allCorrectChoose == self._goalTotal)
+                        starEarned = 3;
+                    else if (percent > 0.6)
+                        starEarned = 2;
+                    else if (percent > 0.3)
+                        starEarned = 1;
+                    else 
+                        starEarned = 0;
+                    
+                    self._hudLayer.setStarEarned(starEarned);
+                    if (starEarned > 0) {
+                        self._hudLayer.addStar("light", starEarned);
+                    }
+
                     if (self._correctChoose >= self._currentObject.amount){
                         self._checkCompleteScene();
                     }

@@ -438,7 +438,25 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
             this._currentEarnedNumber++;
             this._totalEarned++;
-            this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
+            // this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
+
+            var percent = this._totalEarned / this._totalGoalNumber;
+            this._hudLayer.setProgressBarPercentage(percent);
+
+            let starEarned = 0;
+            if (this._totalEarned == this._totalGoalNumber)
+                starEarned = 3;
+            else if (percent > 0.6)
+                starEarned = 2;
+            else if (percent > 0.3)
+                starEarned = 1;
+            else 
+                starEarned = 0;
+            
+            this._hudLayer.setStarEarned(starEarned);
+            if (starEarned > 0) {
+                this._hudLayer.addStar("light", starEarned);
+            }
 
             if (parseInt(this._currentChallange.amount) == this._currentEarnedNumber){
                 if (this._tempInputData.length > 0){
@@ -447,7 +465,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 }
                 else {
                     // Completed game
-                    console.log("Completed game");
                     this.completedScene();
                 }
             }
@@ -729,6 +746,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                             p.setDesiredPosition( cc.p(desiredPosition.x, desiredPosition.y + intersection.height));
                             p.setVelocity(cc.p(velocity.x, 0.0));
                             p.setOnGround(true);
+                            p.runAnimation();
                         }
                     } else if (i == 1) {
                         // cc.log("tile is directly above player");
