@@ -371,3 +371,12 @@ Utils.updateStepData = function() {
 
     KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
 }
+
+Utils.addBuildVersionText = function(parent) {
+    var text = "16.10.5.00";
+    var lb = new cc.LabelBMFont("Version: " + text, res.CustomFont_fnt);
+    lb.x = cc.winSize.width-lb.width/2 - 10;
+    lb.y = cc.winSize.height-lb.height/2 - 10;
+    lb.scale = 0.5;
+    parent.addChild(lb);
+}
