@@ -5,11 +5,11 @@ var BRUSH_COLOR_HEX = [
     cc.color.GREEN, 
     cc.color.YELLOW, 
     cc.color("#ff69b4"),    // Pink
-    cc.color("#8B4513"),    // Brown
+    cc.color("#7f5200"),    // Brown
     cc.color.BLACK,
-    cc.color.WHITE, 
     cc.color("#551a8b"),    // Purple
-    cc.color("#ffa500")     // Orange
+    cc.color("#8B4513"),     // Orange
+    cc.color.WHITE
 ];
 
 var FREECOLOR_OBJECT_WIDTH = 70;
