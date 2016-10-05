@@ -189,6 +189,17 @@ var ForestLayer = cc.Layer.extend({
 
         // cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
+
+        // for (var i = 0; i < shuffledArrays.groundPositionArray.length; i++){
+        //     let pos = shuffledArrays.groundPositionArray[i];
+        //     console.log("Position " + JSON.stringify(pos));
+        //     var point = cc.Sprite("circle.png");
+        //     point.size = cc.size(10, 10);
+        //     point.setPosition(cc.p(pos.x, pos.y));
+
+        //     this.addChild(point, 1000);
+        // }
+
         var numbItemsShow = this._data.length;
         // cc.log("numbItemsShow: " + numbItemsShow);
         for ( var i = 0; i < numbItemsShow; i++) {
@@ -884,6 +895,7 @@ var ForestLayer = cc.Layer.extend({
     showAllAnimals: function() {
         var animals = this._dsInstance.getObjects(FOREST_ID, Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
+
         var animalPositions = shuffledArrays.birdPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
 
         for ( var i = 0; i < animalPositions.length; i++) {
@@ -984,7 +996,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _getRandomAnimalType: function(length) {
-        var typeList = ["LIE_ITEM", "STAND_ITEM", "FLY_ITEM"];
+        var typeList = ["LIE_ITEM", "STAND_ITEM"];
         var arr = [];
         for (var i = 0; i < length; i++) {
             var rdmIndex = Math.floor(Math.random() * typeList.length);
