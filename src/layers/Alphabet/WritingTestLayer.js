@@ -94,7 +94,7 @@ var WritingTestLayer = TestLayer.extend({
             this._blockTouch = true;
             this._adiDog.adiTalk();
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/writingTest_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 self._blockTouch = false;
                 if (!self._adiDog)

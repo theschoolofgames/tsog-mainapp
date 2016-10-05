@@ -142,7 +142,7 @@ var SpeakingTestLayer = TestLayer.extend({
         
             this._adiDog.adiTalk();
             
-            var audioId = jsb.AudioEngine.play2d("res/sounds/speak-after_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/speak-after_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 mask.removeFromParent();
 
@@ -365,6 +365,9 @@ var SpeakingTestLayer = TestLayer.extend({
                 this._soundName = "res/sounds/" + objectName + ".mp3";
                 this._objectName = objectName;
             } else {
+                // word case
+                this._soundName = "res/sounds/alphabets/" + this._names[this.currentObjectShowUpId].toUpperCase() + ".mp3";
+
                 // number case
                 var number = parseInt(this._names[this.currentObjectShowUpId]);
                 this._objectName = number;
@@ -372,12 +375,13 @@ var SpeakingTestLayer = TestLayer.extend({
                     isNumber = true;
                 
                 if (!jsb.fileUtils.isFileExist(this._soundName))
-                    this._soundName = "res/sounds/alphabets/A.mp3";
+                    this._soundName = "res/sounds/numbers/" + number + ".mp3";
 
                 // color case
                 var name = this._names[this.currentObjectShowUpId].toLowerCase();
                 if (name.indexOf("color") > -1) {
                     objectName = "#btn_" + name.substr(name.indexOf("_") + 1, name.length-1);
+                    this._soundName = "res/sounds/numbers/" + name.substr(name.indexOf("_") + 1, name.length-1) + ".mp3";
                 }
             }
         }
