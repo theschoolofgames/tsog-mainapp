@@ -79,6 +79,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     _moveToNextScene: function() {
+        cc.log("TestLayer moveToNextScene");
         if (this._isTestScene)
             cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
         else {

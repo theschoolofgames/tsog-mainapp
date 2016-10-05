@@ -38,6 +38,7 @@ var AlphabetGameLayer = TestLayer.extend({
         if (this._data.length == 0)
             return;
 
+        this.setData(JSON.stringify(this._data));
         this._totalLetters = this._checkTotalLetters(this._data);
         this._currentLetters = this._data.shift().split('');
         this._wordLength = this._currentLetters.length;
@@ -430,6 +431,7 @@ var AlphabetGameLayer = TestLayer.extend({
                 validObjectArray.push(data[i]);
         }
         
+        cc.log("validObjectArray: " + validObjectArray);
         return validObjectArray;
     },
 });

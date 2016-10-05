@@ -126,6 +126,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     playBeginSound: function(){
+        cc.log("SpeakingTestLayer playBeginSound");
         self = this;
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
@@ -279,7 +280,7 @@ var SpeakingTestLayer = TestLayer.extend({
     _checkCompleted: function() {
         if (this.currentObjectShowUpId >= this._names.length){
             NativeHelper.callNative("stopSpeechRecognition");
-            
+            cc.log("SpeakingTestLayer _checkCompleted");
             this._moveToNextScene();
 
             return true;

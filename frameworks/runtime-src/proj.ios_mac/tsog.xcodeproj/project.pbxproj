@@ -2461,9 +2461,6 @@
 					509D4A7517EBB24E00697056 = {
 						DevelopmentTeam = 34F8D32X5G;
 					};
-					A922753C1517C094001B78AA = {
-						DevelopmentTeam = 34F8D32X5G;
-					};
 				};
 			};
 			buildConfigurationList = A92275371517C094001B78AA /* Build configuration list for PBXProject "tsog" */;
@@ -3227,7 +3224,7 @@
 			baseConfigurationReference = 3879C2E3DA2F966272FC4E96 /* Pods-tsog.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Son Tung Nguyen (2248KN5M9U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3273,7 +3270,7 @@
 			baseConfigurationReference = FAF0A2C12778E5ECBEF02F3C /* Pods-tsog.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Son Tung Nguyen (2248KN5M9U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";

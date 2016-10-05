@@ -148,11 +148,11 @@ var MapLayer = cc.Layer.extend({
         // var starPosDif = [2.2, 1.6, 1.2, 1.2, 1.6, 2.2];
         // getTotalGame in step
         var dataPath = "res/config/levels/" + currentLanguage + "/" + "step-" + step + "." + currentLanguage +".json";
-        cc.log("_addStepStars dataPath: " + dataPath);
+        // cc.log("_addStepStars dataPath: " + dataPath);
         if (!jsb.fileUtils.isFileExist(dataPath))
             return;
         cc.loader.loadJson(dataPath, function(err, data){
-            cc.log("err: " + err);
+            // cc.log("err: " + err);
             if (!err && data) {
                 stepData = data;
                 // cc.log("self._data " + JSON.stringify(data));
@@ -182,19 +182,19 @@ var MapLayer = cc.Layer.extend({
         
         if (stepData == null || stepData == "" || stepData == undefined)
             return;
-        cc.log("stepData: " + stepData);
+        // cc.log("stepData: " + stepData);
         stepData = JSON.parse(stepData);
         for (var step in stepData) {
             var eachStepData = stepData[step];
-            cc.log("eachStepData: " + JSON.stringify(eachStepData));
+            // cc.log("eachStepData: " + JSON.stringify(eachStepData));
             if (!eachStepData)
                 return;
-            cc.log("eachStepData.completed: " + eachStepData.completed);
+            // cc.log("eachStepData.completed: " + eachStepData.completed);
             if (eachStepData.completed) {
                 this._updateStepState(step);
             }
             for (var info in eachStepData){
-                cc.log("info: " + info);
+                // cc.log("info: " + info);
                 var gameCompleted;
                 var eachStepInfo = eachStepData[info];
                 if (info.indexOf("totalStars") < 0)
@@ -208,7 +208,7 @@ var MapLayer = cc.Layer.extend({
     },
 
     _updateStepState: function(step) {
-        cc.log("_updateStepState");
+        // cc.log("_updateStepState");
         for (var i = 0; i < this._steps.length; i++) {
             var stepBtn = this._steps[i];
             var userData = stepBtn.getUserData();
@@ -235,7 +235,7 @@ var MapLayer = cc.Layer.extend({
 
     _stepPressed: function(b) {
         var level = b.getUserData();
-        cc.log("level-> " + level);
+        // cc.log("level-> " + level);
         this.addChild(new LevelDialog(level));
     },
 });

@@ -1,4 +1,4 @@
-var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange"];
+var BRUSH_COLOR = ["red", "blue", "green", "yellow", "pink", "brown", "black", "purple", "orange", "white"];
 var BRUSH_COLOR_HEX = [
     cc.color.RED, 
     cc.color("#00aaff"),    // Blue
@@ -6,7 +6,8 @@ var BRUSH_COLOR_HEX = [
     cc.color.YELLOW, 
     cc.color("#ff69b4"),    // Pink
     cc.color("#8B4513"),    // Brown
-    cc.color.BLACK, 
+    cc.color.BLACK,
+    cc.color.WHITE, 
     cc.color("#551a8b"),    // Purple
     cc.color("#ffa500")     // Orange
 ];

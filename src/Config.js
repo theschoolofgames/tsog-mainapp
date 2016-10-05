@@ -27,7 +27,7 @@ var FOREST_SNAIL_POSITION = [];
 var FOREST_CROCODILE_POSITION = [];
 var FOREST_EAGLE_POSITION = [];
 var FOREST_SHARK_POSITION = [];
-var NUMBER_ITEMS = [];
+var NUMBER_CONFIG_ITEMS = [];
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: 668,
@@ -437,11 +437,11 @@ ConfigStore.setupInstance = function (configOnce) {
 
     cc.loader.loadJson(res.Number_Config_JSON, function(err, data) {
         if (!err) {
-            NUMBER_ITEMS = data.items;
+            NUMBER_CONFIG_ITEMS = data.items;
         } else {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Number_Config_JSON);
             cc.loader.loadJson(res.Number_Config_JSON, function(err, data) {
-                NUMBER_ITEMS = data.items;
+                NUMBER_CONFIG_ITEMS = data.items;
             });
         }
     });

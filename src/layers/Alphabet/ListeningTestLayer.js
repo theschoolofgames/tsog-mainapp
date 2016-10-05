@@ -496,7 +496,7 @@ var ListeningTestLayer = TestLayer.extend({
         this._keyObject = [];
         data = JSON.parse(data);
 
-        if (data.option) {
+        if (data && data.option) {
             this._keyObject = data.key;
             data = data.data;
             this._data = data;
@@ -514,7 +514,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         cc.log("listening names after map: " + JSON.stringify(this._names));
-        if (this._keyObject)
+        if (this._keyObject.length > 0)
             this.setData(JSON.stringify(this._keyObject));
         else
             this.setData(this._data);

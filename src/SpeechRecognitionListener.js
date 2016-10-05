@@ -3,9 +3,9 @@ var SpeechRecognitionListener = cc.Class.extend({
 
     ctor: function() {
         // cc.log(JSON.stringify(FOREST_ITEMS.concat(BEDROOM_ITEMS)));
-        // cc.log(JSON.stringify(NUMBER_ITEMS));
+        cc.log("number config: " + JSON.stringify(NUMBER_CONFIG_ITEMS));
 
-        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).map(function(obj) {
+        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).map(function(obj) {
             return obj.imageName;
         });
 
@@ -33,13 +33,14 @@ var SpeechRecognitionListener = cc.Class.extend({
         cc.log("onResult: " + text);
         cc.log("currentObjectName: " + this._speakingLayer.currentObjectName.toUpperCase());
 
-        // NUMBER_ITEMS.map(function(obj) {
-        //     if (obj.value == text) {
-        //         text = obj.imageName;
-        //         return;
-        //     }
+        NUMBER_CONFIG_ITEMS.forEach(function(obj) {
+            if (obj.value == text) {
+                text = obj.imageName;
+                return;
+            }
+        });
 
-        // });
+        cc.log("after filter: " + text);
 
         this._speakingLayer.resultText = text.toUpperCase();
         if (this._speakingLayer.currentObjectName.toUpperCase() == text) {

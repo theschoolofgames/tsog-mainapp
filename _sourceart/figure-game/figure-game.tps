@@ -2,11 +2,11 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>4</int>
+        <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.2.3</string>
+        <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/figure-game/figure-game.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/figure-game/figure-game.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -29,6 +29,8 @@
         </array>
         <key>allowRotation</key>
         <true/>
+        <key>premultiplyAlpha</key>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
@@ -97,6 +99,8 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
+        <key>reduceBorderArtifacts</key>
+        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -104,9 +108,11 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">WordAligned</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
+            <key>forceWordAligned</key>
+            <true/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
                 <key>heuristic</key>
@@ -143,12 +149,6 @@
                 <key>name</key>
                 <filename>../../res/{v}/figure-game.plist</filename>
             </struct>
-            <key>header</key>
-            <key>source</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
-            </struct>
         </map>
         <key>multiPack</key>
         <false/>
@@ -156,8 +156,6 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
-        <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -169,6 +167,8 @@
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>cleanTransparentPixels</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -187,52 +187,9 @@
             <int>200</int>
             <key>heuristicMask</key>
             <false/>
-            <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
-            <key>writePivotPoints</key>
-            <false/>
+            <key>pivotPoint</key>
+            <enum type="SpriteSettings::PivotPoint">Center</enum>
         </struct>
-        <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">btn_black-pressed.png</key>
-            <key type="filename">btn_black.png</key>
-            <key type="filename">btn_blue-pressed.png</key>
-            <key type="filename">btn_blue.png</key>
-            <key type="filename">btn_brown-pressed.png</key>
-            <key type="filename">btn_brown.png</key>
-            <key type="filename">btn_green-pressed.png</key>
-            <key type="filename">btn_green.png</key>
-            <key type="filename">btn_orange-pressed.png</key>
-            <key type="filename">btn_orange.png</key>
-            <key type="filename">btn_pink-pressed.png</key>
-            <key type="filename">btn_pink.png</key>
-            <key type="filename">btn_purple-pressed.png</key>
-            <key type="filename">btn_purple.png</key>
-            <key type="filename">btn_red-pressed.png</key>
-            <key type="filename">btn_red.png</key>
-            <key type="filename">btn_yellow-pressed.png</key>
-            <key type="filename">btn_yellow.png</key>
-            <key type="filename">circle-shadow.png</key>
-            <key type="filename">circle.png</key>
-            <key type="filename">curve-line-shadow.png</key>
-            <key type="filename">curve-line.png</key>
-            <key type="filename">double_curved_line.png</key>
-            <key type="filename">line.png</key>
-            <key type="filename">line_shadow.png</key>
-            <key type="filename">rectangle-shadow.png</key>
-            <key type="filename">rectangle.png</key>
-            <key type="filename">semi-circle-shadow.png</key>
-            <key type="filename">semi-circle.png</key>
-            <key type="filename">six_straight_line.png</key>
-            <key type="filename">square-shadow.png</key>
-            <key type="filename">square.png</key>
-            <key type="filename">triangle-shadow.png</key>
-            <key type="filename">triangle.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-            </struct>
-        </map>
         <key>fileList</key>
         <array>
             <filename>.</filename>
