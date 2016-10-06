@@ -235,6 +235,10 @@ var res = {
     Blue_balloon_png: "balloons/blue_ball.png",
     Red_balloon_png: "balloons/red_ball.png",
     Gray_balloon_png: "balloons/gray_ball.png",
+
+    Red_sound_mp3: "res/sounds/colors/red.mp3",
+    Green_sound_mp3: "res/sounds/colors/green.mp3",
+    Blue_sound_mp3: "res/sounds/colors/blue.mp3",
  
     // Smoke_sound: "res/smoke-sound.mp3"
  
@@ -248,8 +252,8 @@ var res = {
     BEGIN_SPEAKING_ADI_mp3: "sounds/begin-talkingAdi_english.mp3",
 
     // speaking effect
-    Succeed_sfx: "res/sounds/speaking-success.mp3",
-    Failed_sfx: "res/sounds/speaking-failure.mp3",
+    Succeed_sfx: "res/sounds/sentences/speaking-success.mp3",
+    Failed_sfx: "res/sounds/sentences/speaking-failure.mp3",
  
     //countdown
     COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",

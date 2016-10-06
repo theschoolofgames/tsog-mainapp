@@ -94,7 +94,7 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
   
-    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
+//    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak"]];
 //  [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"GM3rlJ6aErRIkZq1Epvg6qzHbeB9oGDu"]]; // TEST
 //   [SEGAnalytics debug:YES];
   
