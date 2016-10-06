@@ -14,6 +14,7 @@ var StoryMainLayer = TestLayer.extend({
     _canPlay: false,
 
     _isTestScene: false,
+    highlightBox: null,
 
 	ctor:function(data, option, isTestScene){
         this._super(true);
@@ -39,7 +40,17 @@ var StoryMainLayer = TestLayer.extend({
                 break;
         }
 
+        this._currentStory = STORY_RESOURCES[1];
+
         this.scheduleOnce(this._playStory, 1);
+
+        this._addHighLightBox();
+    },
+
+    _addHighLightBox: function() {
+        this.highlightBox = new cc.LayerColor(cc.color(255,0,0,100), 100, this.TEXT_HEIGHT);
+        this.highlightBox.setPosition(-100, -100);
+        this.addChild(this.highlightBox, 1000);
     },
 
     _playStory: function(){
@@ -57,6 +68,9 @@ var StoryMainLayer = TestLayer.extend({
         this._playSound(this._currentStory.sounds[this._currentStorySceneIndex]);
         this.scheduleUpdate();
         this._canPlay = true;
+
+        this.highlightBox.setVisible(true);
+        this.highlightBox.setPosition(-100,-100);
     },
 
     _stopStory: function(){
@@ -77,6 +91,9 @@ var StoryMainLayer = TestLayer.extend({
         }
 
         this.subLabelArray = [];
+
+        this.highlightBox.setVisible(false);
+        this.highlightBox.setPosition(-100,-100);
     },
 
     update: function(dt) {
@@ -95,11 +112,21 @@ var StoryMainLayer = TestLayer.extend({
                 this.currentSubtitle.highLightLayer.setContentSize(currentWord.width, this.TEXT_HEIGHT);
                 this.currentSubtitle.highLightLayer.setPosition(cc.p(currentWord.wordPos.x, 
                     this.currentSubLabelHeight + currentWord.wordPos.y));
+                this.currentSubtitle.highLightLayer.visible = false;
 
+                this.highlightBox.setContentSize(currentWord.width, this.TEXT_HEIGHT);
+                this.highlightBox.setPosition(cc.p(this.currentSubtitle.highLightLayer.getBoundingBoxToWorld().x, 
+                    this.currentSubtitle.highLightLayer.getBoundingBoxToWorld().y));
+
+                // cc.log("Local position (%d, %d)", this.currentSubtitle.highLightLayer.getBoundingBox().x, this.currentSubtitle.highLightLayer.getBoundingBox().y);
+                // cc.log("World position (%d, %d) - ContentSize (%d, %d)", 
+                //     this.currentSubtitle.highLightLayer.getBoundingBoxToWorld().x, 
+                //     this.currentSubtitle.highLightLayer.getBoundingBoxToWorld().y,
+                //     currentWord.width, this.TEXT_HEIGHT);
             }
         }
 
-    	if (this.subtitles.length <= 0) {
+    	if (this.subtitles.length <= 0 && this.currentSubtitle.end <= this.currentCountTime * 1000) {
             if (this._currentStorySceneIndex >= this._currentStory.arts.length - 1){
                 this._stopStory();
                 // Complete story callback here
@@ -107,9 +134,7 @@ var StoryMainLayer = TestLayer.extend({
 
                 return;
             }
-
-            if (this.currentSubtitle.end <= this.currentCountTime * 1000 
-                && this._currentStorySceneIndex < this._currentStory.arts.length - 1){
+            else {
                 this._stopStory();
                 this._currentStorySceneIndex++;
                 this._playStory();

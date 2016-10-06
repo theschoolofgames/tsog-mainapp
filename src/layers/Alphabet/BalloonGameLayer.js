@@ -229,6 +229,16 @@ var BalloonGameLayer = TestLayer.extend({
 
                 if (obj.name === self._currentObject.value){
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
+                    if (obj.name == "color_blue"){
+                        jsb.AudioEngine.play2d(res.Blue_sound_mp3);
+                    }
+                    else if (obj.name == "color_green"){
+                        jsb.AudioEngine.play2d(res.Green_sound_mp3);
+                    }
+                    else if (obj.name == "color_red"){
+                        jsb.AudioEngine.play2d(res.Red_sound_mp3);
+                    }
+
                     self._adiDog.adiHifi();
 
                     self._correctChoose++;
