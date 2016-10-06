@@ -170,6 +170,10 @@ var CardGameLayer = TestLayer.extend({
         n.x = card.width/2;
         n.y = card.height/2;
         card.addChild(n);
+
+        var audioId = "res/sounds/numbers/"+ this._numberOfObjectWillShow + ".mp3";
+        if (jsb.fileUtils.isFileExist(audioId))
+            jsb.AudioEngine.play2d(audioId, false);
     },
 
     _doFlipCard: function (){
@@ -464,6 +468,7 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _handleObjectSucceedDrop: function() {
+        jsb.AudioEngine.play2d(res.Succeed_sfx);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);

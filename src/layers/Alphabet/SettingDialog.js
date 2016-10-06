@@ -80,7 +80,8 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new AccountSelectorScene());
             }
             else {
-                cc.director.replaceScene(new MapScene());
+                cc.director.replaceScene(new MainScene());
+                // cc.director.replaceScene(new MapScene());
                 // NativeHelper.callNative("moveToMainApp");
             }
         })
@@ -173,6 +174,12 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.resume();
                 cc.director.runScene(new MapScene());
             });
+
+            if (cc.director.getRunningScene().name == "map") {
+                winToRoomOrForestBtn.setEnabled(false);
+                resetBtn.setEnabled(false);
+                winCurTestBtn.setEnabled(false);
+            }
         }
     },
 

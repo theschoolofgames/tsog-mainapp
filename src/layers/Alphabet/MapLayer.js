@@ -246,7 +246,7 @@ MapLayer.TotalStarsEachStep = 6;
 var MapScene = cc.Scene.extend({
     ctor:function() {
         this._super();
-
+        this.name = "map";
         var l = new MapLayer();
         this.addChild(l);
     }
