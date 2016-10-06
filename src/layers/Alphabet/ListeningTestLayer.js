@@ -435,6 +435,8 @@ var ListeningTestLayer = TestLayer.extend({
                         self._blockTouch = false;
                         if (self._nameIdx >= self._names.length) {
                             self._moveToNextScene();
+                        } else if (self._keyObject.length > 0 && self._currentKeyIndex >= self._keyObject.length) {
+                            self._moveToNextScene();
                         } else {
                             self._displayCurrentName();
                             self._showObjects();

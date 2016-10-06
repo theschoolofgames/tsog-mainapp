@@ -479,8 +479,6 @@ var CardGameLayer = TestLayer.extend({
         // remove current slot
         this._currentAvailableSlot.removeFromParent();
         this._activateSlots.splice(0, 1);
-        //paly soundCorrect
-        jsb.AudioEngine.play2d(res.Succeed_sfx);
 
         this._currentAvailableSlot = this._activateSlots[0];
         if (this._currentAvailableSlot)

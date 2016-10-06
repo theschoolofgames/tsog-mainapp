@@ -40,8 +40,6 @@ var StoryMainLayer = TestLayer.extend({
                 break;
         }
 
-        this._currentStory = STORY_RESOURCES[1];
-
         this.scheduleOnce(this._playStory, 1);
 
         this._addHighLightBox();
@@ -180,8 +178,8 @@ var StoryMainLayer = TestLayer.extend({
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
-                    // self._moveToNextScene();
-                    self.backToHome();
+                    self._moveToNextScene();
+                    // self.backToHome();
                 })
             )
         )

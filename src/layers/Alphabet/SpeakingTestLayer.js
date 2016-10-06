@@ -263,6 +263,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _playObjectSound: function(callback) {
+        cc.log("this._soundName: " + this._soundName);
         if (!jsb.fileUtils.isFileExist(this._soundName)) {
             // callback();
             cc.log("no matching file -> currentObjectShowUpId ++");
@@ -381,7 +382,7 @@ var SpeakingTestLayer = TestLayer.extend({
                 var name = this._names[this.currentObjectShowUpId].toLowerCase();
                 if (name.indexOf("color") > -1) {
                     objectName = "#btn_" + name.substr(name.indexOf("_") + 1, name.length-1);
-                    this._soundName = "res/sounds/numbers/" + name.substr(name.indexOf("_") + 1, name.length-1) + ".mp3";
+                    this._soundName = "res/sounds/colors/" + name.substr(name.indexOf("_") + 1, name.length-1) + ".mp3";
                 }
             }
         }
