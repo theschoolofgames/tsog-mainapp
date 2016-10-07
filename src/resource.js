@@ -68,6 +68,7 @@ var res = {
     Map_Data_JSON: "config/map/map.json",
     Number_Config_JSON: "config/number.json",
     Alphabet_Config_JSON: "config/alphabet.json",
+    Color_Config_JSON: "config/color.json",
 
     forest_jpg : "res/forest.jpg",
     room_jpg: "Bedroom-screen.jpg",

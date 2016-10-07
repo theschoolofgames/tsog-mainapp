@@ -329,6 +329,15 @@ var ListeningTestLayer = TestLayer.extend({
         this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+            this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
+        }
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+            this._objSoundPath = "res/sounds/alphabets/" + objName + ".mp3";
+        }
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+            this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
+        }
 
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
@@ -350,7 +359,7 @@ var ListeningTestLayer = TestLayer.extend({
         //     this._showNextObject();
         //     return;
         // }
-
+        cc.log("self._objSoundPath: " + self._objSoundPath);
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         var audioId = jsb.AudioEngine.play2d(self._objSoundPath);

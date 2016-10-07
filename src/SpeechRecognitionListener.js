@@ -15,7 +15,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             return obj;
         });
 
-        // cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
+        cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
 
         NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(itemArray)]);
     },
@@ -33,12 +33,12 @@ var SpeechRecognitionListener = cc.Class.extend({
         cc.log("onResult: " + text);
         cc.log("currentObjectName: " + this._speakingLayer.currentObjectName.toUpperCase());
 
-        NUMBER_CONFIG_ITEMS.forEach(function(obj) {
-            if (obj.value == text) {
-                text = obj.imageName;
-                return;
-            }
-        });
+        // NUMBER_CONFIG_ITEMS.forEach(function(obj) {
+        //     if (obj.value == text) {
+        //         text = obj.imageName;
+        //         return;
+        //     }
+        // });
 
         cc.log("after filter: " + text);
 

@@ -1,40 +1,31 @@
 {
   "items": [
     {
-      "imageName": "1",
-      "value": "one"
+      "imageName": "one"
     },
     {
-      "imageName": "2",
-      "value": "two"
+      "imageName": "two"
     },
     {
-      "imageName": "3",
-      "value": "three"
+      "imageName": "three"
     },
     {
-      "imageName": "4",
-      "value": "four"
+      "imageName": "four"
     },
     {
-      "imageName": "5",
-      "value": "five"
+      "imageName": "five"
     },
     {
-      "imageName": "6",
-      "value": "six"
+      "imageName": "six"
     },
     {
-      "imageName": "7",
-      "value": "seven"
+      "imageName": "seven"
     },
     {
-      "imageName": "8",
-      "value": "eight"
+      "imageName": "eight"
     },
     {
-      "imageName": "9",
-      "value": "nine"
+      "imageName": "nine"
     }
   ]
 }

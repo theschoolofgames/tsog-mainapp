@@ -29,6 +29,7 @@ var FOREST_EAGLE_POSITION = [];
 var FOREST_SHARK_POSITION = [];
 var NUMBER_CONFIG_ITEMS = [];
 var ALPHABET_CONFIG_ITEMS = [];
+var COLOR_CONFIG_ITEMS = [];
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: 668,
@@ -454,6 +455,17 @@ ConfigStore.setupInstance = function (configOnce) {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Alphabet_Config_JSON);
             cc.loader.loadJson(res.Alphabet_Config_JSON, function(err, data) {
                 ALPHABET_CONFIG_ITEMS = data.items;
+            });
+        }
+    });
+
+    cc.loader.loadJson(res.Color_Config_JSON, function(err, data) {
+        if (!err) {
+            COLOR_CONFIG_ITEMS = data.items;
+        } else {
+            cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Color_Config_JSON);
+            cc.loader.loadJson(res.Color_Config_JSON, function(err, data) {
+                COLOR_CONFIG_ITEMS = data.items;
             });
         }
     });

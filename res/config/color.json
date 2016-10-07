@@ -1,0 +1,40 @@
+{
+  "items": [
+    {
+      "imageName": "btn_red",
+      "value": "red"
+    },
+    {
+      "imageName": "btn_green",
+      "value": "green"
+    },
+    {
+      "imageName": "btn_blue",
+      "value": "blue"
+    },
+    {
+      "imageName": "btn_gray",
+      "value": "gray"
+    },
+    {
+      "imageName": "btn_black",
+      "value": "black"
+    },
+    {
+      "imageName": "btn_brown",
+      "value": "brown"
+    },
+    {
+      "imageName": "btn_orange",
+      "value": "orange"
+    },
+    {
+      "imageName": "btn_pink",
+      "value": "pink"
+    },
+    {
+      "imageName": "btn_yellow",
+      "value": "yellow"
+    }
+  ]
+}

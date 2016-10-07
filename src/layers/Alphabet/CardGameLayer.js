@@ -170,10 +170,6 @@ var CardGameLayer = TestLayer.extend({
         n.x = card.width/2;
         n.y = card.height/2;
         card.addChild(n);
-
-        var audioId = "res/sounds/numbers/"+ this._numberOfObjectWillShow + ".mp3";
-        if (jsb.fileUtils.isFileExist(audioId))
-            jsb.AudioEngine.play2d(audioId, false);
     },
 
     _doFlipCard: function (){
@@ -400,7 +396,7 @@ var CardGameLayer = TestLayer.extend({
 
         if (!self._didObjectAllowedToMove)
             return;
-        self._playObjectOderSound();
+        // self._playObjectOderSound();
         self._currentObjectMoving.setPosition(touchLoc);
     },
 
@@ -463,12 +459,22 @@ var CardGameLayer = TestLayer.extend({
 
     _playObjectOderSound: function(){
         if(this.timePlayedOderSound < 1)
-            jsb.AudioEngine.play2d("res/sounds/objectsoder/" + this._currentObjectOder + ".mp3", false);
+            jsb.AudioEngine.play2d("res/sounds/numbers/" + this._currentObjectOder + ".mp3", false);
         this.timePlayedOderSound += 1;
     },
 
     _handleObjectSucceedDrop: function() {
-        jsb.AudioEngine.play2d(res.Succeed_sfx);
+        var self = this;
+        var succeedAudioId = jsb.AudioEngine.play2d(res.Succeed_sfx);
+        var path = "res/sounds/numbers/" + this._currentObjectOder + ".mp3";
+        this.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                if (jsb.fileUtils.isFileExist(path))
+                    jsb.AudioEngine.play2d(path, false);
+            }.bind(this))
+        ));
+
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
