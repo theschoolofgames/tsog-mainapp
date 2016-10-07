@@ -48,10 +48,8 @@ var ShadowGameLayer = TestLayer.extend({
         this.resetAllArrays();
         this.setVolume();
 
-        // this._filterObjectsByType(objectIdArray);
         this._filterObjectsByType(objectIdArray);
 
-        // this.createBackground();
         this.addObjects(this._objectsArray);
         
         this.addHud();
@@ -89,13 +87,29 @@ var ShadowGameLayer = TestLayer.extend({
                 return gameObject.id === objectIdArray[i];
             });
 
-            if (itemObject.type !== "color" || itemObject.type === "shape")
-                tempArray.push({"id": itemObject.id, "type": itemObject.type, "value": itemObject.value});
+            if (itemObject.type !== "color"){
+                tempArray.push({id: itemObject.id, type: itemObject.type, value: itemObject.value, hasClone: false, index: 0});
+            }
+        }
+
+        // Sort and check if objects has clones
+        tempArray.sortOn("id");
+        for (var i = 0; i < tempArray.length; i++){
+            if (tempArray.length == 1)
+                break;
+
+            if ((i - 1) >= 0 && (tempArray[i - 1].id == tempArray[i].id)){
+                tempArray[i].hasClone = true;
+                tempArray[i].index = tempArray[i - 1].index + 1;
+            }
+
+            if ((i + 1) < tempArray.length && (tempArray[i].id == tempArray[i + 1].id)){
+                tempArray[i].hasClone = true;
+            }
         }
 
         this._objectsArray = tempArray;
         this.setData(JSON.stringify(this._objectsArray));
-        cc.log("this._objectsArray: " + JSON.stringify(this._objectsArray[0]));
     },
 
     _parseGameObjectJSON: function() {
@@ -216,19 +230,6 @@ var ShadowGameLayer = TestLayer.extend({
         });
     },
 
-    createBackground: function() {
-        
-        NativeHelper.callNative("customLogging", ["Sprite", "Bedroom-screen.jpg"]);
-        var background = new cc.Sprite( "Bedroom-screen.jpg");
-        this._allScale = cc.winSize.width / background.width;
-
-        background.setScale(this._allScale);
-        background.x = cc.winSize.width / 2;
-        background.y = 0;
-        background.anchorY = 0;
-        this.addChild(background);
-    },
-
     // One side of screen (960x640) => (480x640)
     // Each grid is 80x80 => 4 cell in width, 5 cell in height (except the header(2 rows) & bottom row, right & left column)
     generateCoordinateArray: function() { 
@@ -263,15 +264,38 @@ var ShadowGameLayer = TestLayer.extend({
     addObjects: function(objectArray) {
         var coordinateObjectArray = shuffle(this.generateCoordinateArray());
         var coordinateShadeArray = shuffle(this.generateCoordinateArray());
-        
+        let sortCoordinateShadeArray = coordinateShadeArray.slice(0);
+        sortCoordinateShadeArray.sortOn("y");
+        // console.log("CoordinateArray: " + JSON.stringify(coordinateShadeArray));
         for ( var i = 0; i < objectArray.length; i++) {
             this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
-            
-            this.addObjectShade(coordinateShadeArray[i], objectArray[i], i);
         }
-        this.runSparklesEffect();
 
-        console.log("Shader Object Array: " + this._shadeObjects.length);
+        let objectArrayClone = objectArray.slice(0);
+        let index = 0;
+        let lastCloneObjectPos = cc.p(-100, -100);
+        while (objectArrayClone.length > 0){
+            let object = objectArrayClone.shift();
+            if (!object.hasClone || object.index == 0){
+                let pos = coordinateShadeArray.shift();
+                this.addObjectShade(pos, object);
+                if (object.index == 0)
+                    lastCloneObjectPos = pos;
+                else 
+                    lastCloneObjectPos = cc.p(-100, -100);
+            }
+            else {
+                for (var i = 0; i < coordinateShadeArray.length; i++){
+                    if (coordinateShadeArray[i].y == lastCloneObjectPos.y){
+                        let posArray = coordinateShadeArray.splice(i, 1);
+                        this.addObjectShade(posArray[0], object);
+                        break;
+                    }
+                }
+            }
+        }
+
+        this.runSparklesEffect();
     },
 
     addObjectButton: function(objPosition, gameObject, index) {
@@ -312,7 +336,7 @@ var ShadowGameLayer = TestLayer.extend({
         }
         
         object.tag = index;
-        object.userData = { scaleFactor: object.scale, imageName: objImageName}
+        object.userData = { scaleFactor: object.scale, imageName: objImageName, hasClone: gameObject.hasClone, index: gameObject.index}
         this.addChild(object, Z_OBJECT);
 
         this._objectNames.push({name: gameObject.id, type: gameObject.type, value: gameObject.value, tag: object.tag});
@@ -327,7 +351,7 @@ var ShadowGameLayer = TestLayer.extend({
         )
     },
 
-    addObjectShade: function(objectPosition, gameObject, index) {
+    addObjectShade: function(objectPosition, gameObject) {
         console.log("ObjectShade position: " + JSON.stringify(objectPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
 
@@ -616,11 +640,8 @@ var ShadowGameLayer = TestLayer.extend({
         //set shadeObject visible to false
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
-        // targetNode._shadeObjects[index].visible = false;
         targetNode._shadeObjects[index].stopAllActions();
         targetNode._shadeObjects[index].setColor(cc.color(140, 130, 200));
-        // targetNode._shadeObjects[index].setLocalZOrder(Z_SHADE);
-        // targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94));
         targetNode._objectTouching.setLocalZOrder(Z_OBJECT);
         targetNode.handleObjectCorrectPos(index);
 
@@ -629,14 +650,6 @@ var ShadowGameLayer = TestLayer.extend({
             cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7 * targetNode._objectTouching.userData.scaleFactor)),
             cc.EaseBounceInOut(cc.scaleTo(0.2, 1 * targetNode._objectTouching.userData.scaleFactor))
         ));
-
-        // if (targetNode._objectDisableds.indexOf(targetNode._objectTouching) >= 0) {
-        //     SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
-        //         { 
-        //             room: "room", 
-        //             object_name:  targetNode.getObjectName(targetNode._objectTouching)
-        //         });
-        // }
 
         if (targetNode._objectDisableds.indexOf(targetNode._objects[0]) < 0)
             targetNode.runTutorial(false);
@@ -663,9 +676,7 @@ var ShadowGameLayer = TestLayer.extend({
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);
-        // if (!this.hadObjectRequired()) {
-        //     this.hideAllShadow();
-        // }
+        
         this.hideAllShadow();
         this.highLightObjectCorrectPos(index);
         this._shadeObjects[index].visible = true;
@@ -703,6 +714,13 @@ var ShadowGameLayer = TestLayer.extend({
         var distance = cc.pDistance(objectPos, shadePos);
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
+            // if (this._objectTouching.userData.hasClone && this._objectTouching.userData.index > 0){
+            //     let cloneObjects = this._objectDisableds.filter((object) => {
+            //         return (object.userData.index < this._objectTouching.userData.index);
+            //     });
+            //     console.log("Clone Touched Object " + JSON.stringify(cloneObjects));
+            // }
+
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(Z_OBJECT);
             // this._objectTouching.userData.scaleFactor = 0.5;
@@ -760,6 +778,7 @@ var ShadowGameLayer = TestLayer.extend({
 
         var objectName = this.getObjectName(this._objectTouching);
         var object = this._objectTouching;
+        
         var str = objectName[0].toUpperCase();
         var soundConfig = this.getSoundConfigByName(objectName);
         var soundLength = 3;
@@ -818,7 +837,15 @@ var ShadowGameLayer = TestLayer.extend({
             objectName = objectName.toUpperCase();
         }
 
-        this._effectAudioID = jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
+        if (object.userData.hasClone){
+            let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + (object.userData.index + 1) + ".mp3", isDragging);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
+            });
+        }
+        else {
+            this._effectAudioID = jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
+        }
 
         if (!isDragging)
         {
