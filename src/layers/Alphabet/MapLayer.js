@@ -7,7 +7,10 @@ var MapLayer = cc.Layer.extend({
     _mapData: null,
     _scrollView: null,
 
+    _lastedStepUnlocked: null,
+
     _csf: 1,
+
 
     ctor: function() {
         this._super();
@@ -17,6 +20,12 @@ var MapLayer = cc.Layer.extend({
 
         this.addSettingButton();
         this._updateMapData();
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        this._prepareMap();
     },
 
     addSettingButton: function() {
@@ -177,7 +186,7 @@ var MapLayer = cc.Layer.extend({
 
     _updateMapData: function() {
         var stepData = KVDatabase.getInstance().getString("stepData");
-        var currentLevel = SceneFlowController.getInstance().getCurrentLevel();
+        var currentLevel = SceneFlowController.getInstance().getCurrentStep();
         var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
         
         if (stepData == null || stepData == "" || stepData == undefined)
@@ -208,13 +217,15 @@ var MapLayer = cc.Layer.extend({
     },
 
     _updateStepState: function(step) {
-        // cc.log("_updateStepState");
+        cc.log("_updateStepState");
         for (var i = 0; i < this._steps.length; i++) {
             var stepBtn = this._steps[i];
             var userData = stepBtn.getUserData();
 
-            if (step == userData)
+            if (step == userData) {
                 this._steps[i+1].setEnabled(true);
+                SceneFlowController.getInstance().setLastedStepUnlocked(this._steps[i+1]);
+            }
         }
     },
 
@@ -234,9 +245,58 @@ var MapLayer = cc.Layer.extend({
     },
 
     _stepPressed: function(b) {
-        var level = b.getUserData();
-        // cc.log("level-> " + level);
-        this.addChild(new LevelDialog(level));
+        if (this._touchBlocked)
+            return;
+
+        var level = SceneFlowController.getInstance().getLastedStepPressed();
+        if (!level)
+            level = SceneFlowController.getInstance().getLastedStepUnlocked();
+
+        // if (level && parseInt(level.charAt(0)) > 4)
+        //     return;
+
+        if (b)
+            level = b.getUserData();
+
+        cc.log("level: " + level);
+        if (level)
+            this.addChild(new LevelDialog(level));
+    },
+
+    _prepareMap: function() {
+        var delayTime = 0.5;
+        var step = SceneFlowController.getInstance().getLastedStepPressed();
+        cc.log("step: " + step);
+
+        if (!step)
+            step = SceneFlowController.getInstance().getLastedStepUnlocked();
+        
+        this._steps.forEach(function(stp) {
+            if (stp.getUserData() === step) {
+                var xPos = stp.x - this._steps[0].x;
+                this._scrollMapToPosX(xPos, delayTime);
+                this.runAction(cc.sequence(
+                    cc.delayTime(delayTime),
+                    cc.callFunc(function() {
+                        this._touchBlocked = false;
+                        this._stepPressed();
+                    }.bind(this))
+                ))
+            }
+        }.bind(this));
+
+        
+    },
+
+    _getLevelPosXByStep: function(step) {
+        cc.log("_getLevelPosXByStep");
+        
+    },
+
+    _scrollMapToPosX: function(xPos, delay) {
+        cc.log("xpos:" + xPos);
+        this._touchBlocked = true;
+        this._scrollView.setContentOffsetInDuration(cc.p(-xPos, 0), delay);
     },
 });
 

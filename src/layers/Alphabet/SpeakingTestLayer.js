@@ -327,7 +327,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _addLabel: function(text) {
         text = text || "";
-        this._label = "";
+        this._label = null;
         this._label = new cc.LabelBMFont(text, this.font);
         
         this._label.x = cc.winSize.width / 2;

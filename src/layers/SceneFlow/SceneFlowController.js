@@ -8,7 +8,9 @@ var SceneFlowController = cc.Class.extend({
 
     _currentPreLoopSceneIdx: 0,
     _currentLoopSceneIdx: 0,
-    _totalSceneInLevel: 0,
+    _totalSceneInStep: 0,
+    _lastedStepPressed: null,
+    _lastedStepUnlocked: null,
 
     ctor: function() {
 
@@ -17,8 +19,13 @@ var SceneFlowController = cc.Class.extend({
         this._loopScenes = sceneFlow.loopScreens;
     },
 
-    setTotalSceneInLevel: function(totalSceneInLevel) {
-        this._totalSceneInLevel = totalSceneInLevel;
+    setLastedStepUnlocked: function(step) {
+        this._lastedStepUnlocked = step;
+        KVDatabase.getInstance().set("lastedStepUnlocked", this._lastedStepUnlocked);
+    },
+
+    setTotalSceneInStep: function(totalSceneInStep) {
+        this._totalSceneInStep = totalSceneInStep;
     },
 
     getNextSceneName: function() {
@@ -28,7 +35,7 @@ var SceneFlowController = cc.Class.extend({
 
         data = JSON.parse(data);
 
-        this._currentLevelIndex = data.currentLevelIndex || 0;
+        this._currentStepIndex = data.currentStepIndex || 0;
         this._currentLoopSceneName = data.currentLoopSceneName || "";
         this._currentScenePool = data.currentScenePool || [];
         this._currentLoopSceneIdx = data.currentLoopSceneIdx || [];
@@ -45,7 +52,7 @@ var SceneFlowController = cc.Class.extend({
 
                     this._currentLoopSceneName = sceneName;
                     delete this._currentScenePool[scenePoolKeys[i]];
-                    this.cacheData(this._currentLevelIndex, this._currentLoopSceneIdx, this._currentLoopSceneName, this._currentScenePool);
+                    this.cacheData(this._currentStepIndex, this._currentLoopSceneIdx, this._currentLoopSceneName, this._currentScenePool);
                     break;
                 }
                 else
@@ -57,12 +64,20 @@ var SceneFlowController = cc.Class.extend({
         return sceneName;
     },
 
+    getLastedStepUnlocked: function() {
+        return KVDatabase.getInstance().getString("lastedStepUnlocked", null);
+    },
+
     getPreviousSceneName: function() {
         return this._previousSceneName;
     },
 
-    getCurrentLevel: function() {
-        return this._currentLevelIndex;
+    getCurrentStep: function() {
+        return this._currentStepIndex;
+    },
+
+    getLastedStepPressed: function() {
+        return this._lastedStepPressed || "";
     },
 
     getCurrentSceneName: function() {
@@ -73,8 +88,8 @@ var SceneFlowController = cc.Class.extend({
         return this._currentLoopSceneIdx;
     },
 
-    getTotalSceneInLevel: function() {
-        return this._totalSceneInLevel;
+    getTotalSceneInStep: function() {
+        return this._totalSceneInStep;
     },
 
     getNextRoomOrForestScene: function() {
@@ -89,17 +104,17 @@ var SceneFlowController = cc.Class.extend({
         this._currentLoopSceneIdx = this._currentPreLoopSceneIdx = 0;
     },
 
-    cacheData: function(levelIdx, sceneIdx, sceneName, scenePool) {
-        // cc.log("levelIdx - sceneName - scenePool " + levelIdx + " - " + sceneName + " - " + JSON.stringify(scenePool));
-        this._currentLevelIndex = levelIdx;
+    cacheData: function(stepIdx, sceneIdx, sceneName, scenePool) {
+        // cc.log("stepIdx - sceneName - scenePool " + stepIdx + " - " + sceneName + " - " + JSON.stringify(scenePool));
+        this._currentStepIndex = stepIdx;
         this._currentLoopSceneIdx = sceneIdx;
         this._currentLoopSceneName = sceneName;
 
-        // var totalSceneInLevel = Object.keys(scenePool).length;
-        // this.setTotalSceneInLevel(totalSceneInLevel);
+        // var totalSceneInStep = Object.keys(scenePool).length;
+        // this.setTotalSceneInStep(totalSceneInStep);
 
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
-            currentLevelIndex: levelIdx,
+            currentStepIndex: stepIdx,
             currentLoopSceneIdx: sceneIdx,
             currentLoopSceneName: sceneName,
             currentScenePool: scenePool
@@ -119,11 +134,16 @@ var SceneFlowController = cc.Class.extend({
 
     clearData: function() {
         KVDatabase.getInstance().remove("sceneFlowCache");
-        this._currentLevelIndex = 0;
+        this._lastedStepPressed = this._currentStepIndex;
+        this._currentStepIndex = 0;
         this._currentLoopSceneIdx = 0;
         this._currentLoopSceneName = "";
         this._currentScenePool = [];
         // cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
+    },
+
+    clearLastedStepPressed: function() {
+        this._lastedStepPressed = null;
     },
 
     moveToNextScene: function(sceneName, data) {

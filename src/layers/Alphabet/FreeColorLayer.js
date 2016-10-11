@@ -208,12 +208,12 @@ var FreeColorLayer = TestLayer.extend({
 
         this.animateObjectIn(object, index);
         this._objects.push(object);
-        this.runObjectAction(this, 0,
-            function(){
-                if (Global.NumberGamePlayed)
-                    self._lastClickTime = self._hudLayer.getRemainingTime();
-            }
-        )
+        // this.runObjectAction(this, 0,
+        //     function(){
+        //         if (Global.NumberGamePlayed)
+        //             self._lastClickTime = self._hudLayer.getRemainingTime();
+        //     }
+        // )
 
         return object;
     },

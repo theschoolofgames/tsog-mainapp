@@ -341,9 +341,9 @@ Utils.getScaleFactorTo16And9 = function() {
 }
 
 Utils.updateStepData = function() {
-    var currentLevel = SceneFlowController.getInstance().getCurrentLevel();
+    var currentLevel = SceneFlowController.getInstance().getCurrentStep();
     var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
-    var totalSceneInLevel = SceneFlowController.getInstance().getTotalSceneInLevel();
+    var totalSceneInStep = SceneFlowController.getInstance().getTotalSceneInStep();
     var stepData = {};
     var currentTotalStars;
     var completed;
@@ -362,8 +362,8 @@ Utils.updateStepData = function() {
         stepData[currentLevel]["totalStars"] = 0;
 
     currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]);
-    completed = ((currentTotalStars+1) >= totalSceneInLevel) ? 1 : 0;
-    cc.log("totalSceneInLevel: " + totalSceneInLevel);
+    completed = ((currentTotalStars+1) >= totalSceneInStep) ? 1 : 0;
+    cc.log("totalSceneInStep: " + totalSceneInStep);
     cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
     stepData[currentLevel][currentSceneIdx] = 1;
     stepData[currentLevel]["completed"] = completed;

@@ -3,15 +3,20 @@ var SpeechRecognitionListener = cc.Class.extend({
 
     ctor: function() {
         // cc.log(JSON.stringify(FOREST_ITEMS.concat(BEDROOM_ITEMS)));
-        cc.log("number config: " + JSON.stringify(NUMBER_CONFIG_ITEMS));
+        // cc.log("number config: " + JSON.stringify(NUMBER_CONFIG_ITEMS));
+        // cc.log("color config: " + JSON.stringify(COLOR_CONFIG_ITEMS));
 
-        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).map(function(obj) {
+        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).map(function(obj) {
+            if (obj.imageName.indexOf("btn") > -1)
+                return obj.value;
+
             return obj.imageName;
         });
 
         itemArray = itemArray.map(function(obj) {
             if (obj == "toytrain")
                 return "toy train";
+
             return obj;
         });
 
