@@ -810,34 +810,32 @@ var ForestLayer = cc.Layer.extend({
             }
         }, mask);
 
-        if (isNaN(animalName)) // TODO
-            jsb.AudioEngine.play2d("sounds/animals/" + animalName + ".mp3");
-        // cc.log("done check animalName is number or not");
+        var soundPath = "sounds/animals/" + animalName + ".mp3";
+        if (!jsb.fileUtils.isFileExist(soundPath)) {
+            soundPath = "res/sounds/numbers/" + objName + ".mp3";
+        }
+        if (!jsb.fileUtils.isFileExist(soundPath)) {
+            soundPath = "res/sounds/alphabets/" + objName + ".mp3";
+        }
+        if (!jsb.fileUtils.isFileExist(soundPath)) {
+            soundPath = "res/sounds/colors/" + objName + ".mp3";
+        }
+        jsb.AudioEngine.play2d(soundPath);
+
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
-                // self.createWarnLabel(str);
-                // cc.log("playAnimalSound prepare createCompletedObject");
                 self.createCompletedObject(animalName);
                 self._blockAllObjects = true;
-                // cc.log("playAnimalSound done createCompletedObject");
-                // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
-            // cc.scaleTo(1, 0.95),
-            // cc.scaleTo(1, 1.05),
             cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
                 if (GAME_CONFIG.needTouchToHideCutScene) {
                     blockFlag = false;
                 } else {
                     self._blockAllObjects = false;
-                    // self._removeWarnLabel();
-                    // self._completedObj.removeFromParent();
-                    // self._completedObj = null;
 
                     mask.removeFromParent();
-                    // animal.stopAllActions();
                     animal.setLocalZOrder(oldZOrder);
-                    // cc.log("playAnimalSound prepare checkWonGame");
                     self.checkWonGame();
                 }
             })
