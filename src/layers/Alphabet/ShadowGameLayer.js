@@ -714,18 +714,21 @@ var ShadowGameLayer = TestLayer.extend({
         var distance = cc.pDistance(objectPos, shadePos);
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
-            // if (this._objectTouching.userData.hasClone && this._objectTouching.userData.index > 0){
-            //     let cloneObjects = this._objectDisableds.filter((object) => {
-            //         return (object.userData.index < this._objectTouching.userData.index);
-            //     });
-            //     console.log("Clone Touched Object " + JSON.stringify(cloneObjects));
-            // }
+            if (this._objectTouching.userData.hasClone){
+                let cloneObjects = this._objectDisableds.filter((object) => {
+                    return (this.getObjectName(object) == this.getObjectName(this._objectTouching));
+                });
+                
+                this._objectTouching.userData.index = cloneObjects.length;
+            }
 
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(Z_OBJECT);
             // this._objectTouching.userData.scaleFactor = 0.5;
             this._objectDisableds.push(this._objectTouching);
-
+            console.log("Object Disabled " + JSON.stringify(this._objectDisableds));
+            console.log("Object Tag " + this._objectTouching.tag);
+            console.log("Object Id " + this.getObjectName(this._objectTouching));
             // this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
