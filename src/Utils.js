@@ -373,7 +373,7 @@ Utils.updateStepData = function() {
 }
 
 Utils.addBuildVersionText = function(parent) {
-    var text = "16.10.12.01";
+    var text = "16.10.13.00";
     var lb = new cc.LabelBMFont("Version: " + text, res.CustomFont_fnt);
     lb.x = cc.winSize.width-lb.width/2 - 10;
     lb.y = cc.winSize.height-lb.height/2 - 10;

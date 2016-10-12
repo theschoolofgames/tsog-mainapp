@@ -812,13 +812,13 @@ var ForestLayer = cc.Layer.extend({
 
         var soundPath = "sounds/animals/" + animalName + ".mp3";
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/numbers/" + objName + ".mp3";
+            soundPath = "res/sounds/numbers/" + animalName + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/alphabets/" + objName + ".mp3";
+            soundPath = "res/sounds/alphabets/" + animalName + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/colors/" + objName + ".mp3";
+            soundPath = "res/sounds/colors/" + animalName + ".mp3";
         }
         jsb.AudioEngine.play2d(soundPath);
 
