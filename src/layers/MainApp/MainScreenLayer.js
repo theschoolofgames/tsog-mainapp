@@ -147,12 +147,9 @@ var MainScreenLayer = cc.Layer.extend({
             var string = isUnlocked ? "LOCK ALL LEVELS" : "UNLOCK ALL LEVELS";
             var setUnlocked = isUnlocked ? 0 : 1;
             KVDatabase.getInstance().set("UnlockAllLevels", setUnlocked);
-            var params = [];
-            if (cc.sys.os !== cc.sys.OS_IOS)
-                params = [mess];
-            else
-                params = ["Message", mess];
-            NativeHelper.callNative("showMessage", params);
+
+            NativeHelper.callNative("showMessage", ["Message", mess]);
+
             self._updateLabelUnlock(string);
         });
 
