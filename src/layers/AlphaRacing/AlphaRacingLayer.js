@@ -113,6 +113,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     initPlatforms: function() {
+        // Check current goal and update UI
+        this._initChallenges();
+
         this._addBackground();
 
         this.gameLayer = new cc.Layer();
@@ -165,9 +168,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.addChild(this._tileBorder);
 
         this.addChild(this.gameLayer);
-
-        // Check current goal and update UI
-        this._initChallenges();
     },
 
     _addBackground: function() {
@@ -518,12 +518,18 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         for (var i = 0; i < randomGroupNumber; i++) {
             let group = posArray.pop();
             let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
+            let alphabet = self._inputData[randomInputIndex];
+            // Set 0.8 probability for current alphabet
+            if (Utils.getRandomInt(0, 10) < 6){
+                alphabet = self._currentChallange;
+            }
+
             group.posArray.forEach((pos) => {
-                var object = new cc.LabelBMFont(self._inputData[randomInputIndex].value, res.CustomFont_fnt);
+                var object = new cc.LabelBMFont(alphabet.value, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x;
                 object.y = pos.y;
-                object.setName(self._inputData[randomInputIndex].value);
+                object.setName(alphabet.value);
                 self.gameLayer.addChild(object, AR_WORD_ZODER);
                 self._alphabetObjectArray.push(object);
             });
