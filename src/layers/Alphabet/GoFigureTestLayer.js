@@ -111,7 +111,7 @@ var GoFigureTestLayer = TestLayer.extend({
                 self._adiDog.adiIdling();
                 self._moveToNextShape();
             });
-            KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
+            // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
         }else {
             this._blockTouch = false;
             if (!this._adiDog)

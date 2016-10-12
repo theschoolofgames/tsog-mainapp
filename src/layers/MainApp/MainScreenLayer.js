@@ -44,7 +44,8 @@ var MainScreenLayer = cc.Layer.extend({
         this._isLoggedIn = KVDatabase.getInstance().getInt("isLoggedIn", 0);
         var studentId = KVDatabase.getInstance().getString(STRING_STUDENT_ID, "");
         var userId = KVDatabase.getInstance().getString(STRING_USER_ID, "");
-        console.log("StudentId -> " + studentId);
+        // console.log("StudentId -> " + studentId);
+        KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
         
         if (this._isLoggedIn == 1 && userId) {
             if (studentId){

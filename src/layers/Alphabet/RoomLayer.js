@@ -122,7 +122,7 @@ var RoomLayer = cc.Layer.extend({
                 // mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);
             });
-            KVDatabase.getInstance().set("beginSound_RoomScene", 1);
+            // KVDatabase.getInstance().set("beginSound_RoomScene", 1);
         }else 
             cc.audioEngine.playMusic(res.background_mp3, true);
     },

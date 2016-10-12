@@ -103,7 +103,7 @@ var WritingTestLayer = TestLayer.extend({
                 self._adiDog.adiIdling();
                 self._moveToNextCharacter();
             });
-            KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
+            // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
         }else {
             this._blockTouch = false;
             if (!this._adiDog)
@@ -539,6 +539,8 @@ var WritingTestLayer = TestLayer.extend({
             soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
             if (!jsb.fileUtils.isFileExist("res/" + soundPath))
                 soundPath = "sounds/alphabets/" + name.toLowerCase() + ".mp3";
+            if (!isNaN(name))
+                soundPath = "sounds/numbers/" + name.toLowerCase() + ".mp3";
         }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {

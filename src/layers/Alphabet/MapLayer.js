@@ -11,7 +11,6 @@ var MapLayer = cc.Layer.extend({
 
     _csf: 1,
 
-
     ctor: function() {
         this._super();
         this._stepsStar = {};
@@ -264,9 +263,12 @@ var MapLayer = cc.Layer.extend({
     },
 
     _prepareMap: function() {
-        var delayTime = 0.5;
+        var ignoreMapScrollAnimation = KVDatabase.getInstance().getInt("ignoreMapScrollAnimation", 0);
+        var delayTime = ignoreMapScrollAnimation ? 0 : 0.5;
         var step = SceneFlowController.getInstance().getLastedStepPressed();
         cc.log("step: " + step);
+        cc.log("ignoreMapScrollAnimation: " + ignoreMapScrollAnimation);
+        cc.log("delayTime: " + delayTime);
 
         if (!step)
             step = SceneFlowController.getInstance().getLastedStepUnlocked();
@@ -284,8 +286,6 @@ var MapLayer = cc.Layer.extend({
                 ))
             }
         }.bind(this));
-
-        
     },
 
     _getLevelPosXByStep: function(step) {
@@ -297,6 +297,12 @@ var MapLayer = cc.Layer.extend({
         cc.log("xpos:" + xPos);
         this._touchBlocked = true;
         this._scrollView.setContentOffsetInDuration(cc.p(-xPos, 0), delay);
+    },
+
+    onExit: function() {
+        this._super();
+
+        KVDatabase.getInstance().set("ignoreMapScrollAnimation", 0);
     },
 });
 

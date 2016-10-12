@@ -149,7 +149,7 @@ var SpeakingTestLayer = TestLayer.extend({
                 // self._addLabel();
                 self._showNextObject();
             });
-            KVDatabase.getInstance().set("beginSound_SpeakingTestScene", 1);
+            // KVDatabase.getInstance().set("beginSound_SpeakingTestScene", 1);
         } else {
             mask.removeFromParent();
 

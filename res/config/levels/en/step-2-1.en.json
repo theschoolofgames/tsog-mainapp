@@ -113,10 +113,10 @@
     "1": {
       "name": "gofigure",
       "data": [
-        ["shape_square"],
-        ["shape_rectangle"],
-        ["shape_triangle"],
-        ["shape_circle"]
+        "shape_square",
+        "shape_rectangle",
+        "shape_triangle",
+        "shape_circle"
       ]
     }
   }

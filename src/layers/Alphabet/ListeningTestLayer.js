@@ -64,7 +64,7 @@ var ListeningTestLayer = TestLayer.extend({
                     self._showObjects();
                 }
             });
-            KVDatabase.getInstance().set("beginSound_ListeningTestScene", 1);
+            // KVDatabase.getInstance().set("beginSound_ListeningTestScene", 1);
         } else {
             this._blockTouch = false;
             if (this._adiDog) {
@@ -282,7 +282,7 @@ var ListeningTestLayer = TestLayer.extend({
                     cc.callFunc(function(sender) {
                         cc.log("set finger tutorial");
                         self._tutorial = new TutorialLayer([sender]);
-                        self.addChild(self._tutorial);
+                        self.addChild(self._tutorial, 999);
                     }),
                     cc.delayTime(GAME_CONFIG.listeningTestWaitToShowNextObj || UPDATED_CONFIG.listeningTestWaitToShowNextObj),
                     cc.callFunc(function(sender) {
