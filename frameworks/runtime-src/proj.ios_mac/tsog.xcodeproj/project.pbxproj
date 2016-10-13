@@ -3259,7 +3259,10 @@
 					"\"sdkbox.framework\"",
 					"\"PluginIAP.framework\"",
 				);
-				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
+				OTHER_CFLAGS = (
+					"-DSDKBOX_ENABLED",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
 				PROVISIONING_PROFILE = "d458b6c4-96c4-453c-800c-88704ae32a0c";
@@ -3307,7 +3310,10 @@
 					"\"sdkbox.framework\"",
 					"\"PluginIAP.framework\"",
 				);
-				OTHER_CFLAGS = "-DSDKBOX_ENABLED";
+				OTHER_CFLAGS = (
+					"-DSDKBOX_ENABLED",
+					"$(inherited)",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
 				PROVISIONING_PROFILE = "6350ab4f-8563-430b-ba2d-ed2dbf8849bc";
