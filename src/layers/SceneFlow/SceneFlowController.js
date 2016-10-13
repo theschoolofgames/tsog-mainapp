@@ -20,7 +20,7 @@ var SceneFlowController = cc.Class.extend({
     },
 
     setLastedStepUnlocked: function(step) {
-        this._lastedStepUnlocked = step;
+        this._lastedStepUnlocked = step || "";
         KVDatabase.getInstance().set("lastedStepUnlocked", this._lastedStepUnlocked);
     },
 

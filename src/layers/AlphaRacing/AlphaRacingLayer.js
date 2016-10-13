@@ -147,7 +147,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             let index = shuffledMapArray[i].index;
             this.maps[index].setVisible(true)
             this.maps[index].setPosition(cc.p(this._gameLayerSize.width, 0));
-
+            // cc.log("Map %d - Pos: (%d, %d)", index, this._gameLayerSize.width, 0);
             this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
             this.historyMapIndexArray.push(index);
 
@@ -289,13 +289,14 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             let shouldHideMapIndex = this.historyMapIndexArray[this.historyMapIndexArray.length - 3];
             this.maps[shouldHideMapIndex].setVisible(false);
             this.maps[shouldHideMapIndex].setPosition(cc.p(-3000, -3000));
-
+            // cc.log("Hide Map %d - Pos: (%d, %d)", shouldHideMapIndex, -3000, -3000);
             // Shuffle map index array
             let shuffledMapArray = shuffle(this.mapIndexArray.slice(0));
 
             let hasAvaiableMap = false;
             for (var i = 0; i < shuffledMapArray.length; i++){
                 let index = shuffledMapArray[i].index;
+                // cc.log("Map %d - Pos: (%d, %d) - Visible: %d", index, this.maps[index].x, this.maps[index].y, (this.maps[index].isVisible()) ? 1 : 0);
                 if (!this.maps[index].isVisible()){
                     hasAvaiableMap = true;
                     this.maps[index].setVisible(true);

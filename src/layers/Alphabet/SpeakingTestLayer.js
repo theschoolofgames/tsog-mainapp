@@ -144,14 +144,16 @@ var SpeakingTestLayer = TestLayer.extend({
             
             var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/speak-after_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                mask.removeFromParent();
+                if (mask)
+                    mask.removeFromParent();
 
                 // self._addLabel();
                 self._showNextObject();
             });
             // KVDatabase.getInstance().set("beginSound_SpeakingTestScene", 1);
         } else {
-            mask.removeFromParent();
+            if (mask)
+                mask.removeFromParent();
 
             // self._addLabel();
             this._showNextObject();
