@@ -7,8 +7,10 @@ var SpeechRecognitionListener = cc.Class.extend({
         // cc.log("color config: " + JSON.stringify(COLOR_CONFIG_ITEMS));
 
         var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).map(function(obj) {
-            if (obj.imageName.indexOf("btn") > -1)
+            if (obj.imageName.indexOf("btn") > -1) {
+                cc.log("obj.value: " + obj.value);
                 return obj.value;
+            }
 
             return obj.imageName;
         });

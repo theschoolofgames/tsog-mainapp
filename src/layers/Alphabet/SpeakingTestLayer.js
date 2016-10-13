@@ -389,6 +389,9 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
         this.currentObjectName = this._names[this.currentObjectShowUpId];
+        if (this.currentObjectName.indexOf("color") > -1) {
+            this.currentObjectName = this.currentObjectName.substr(this.currentObjectName.indexOf("_") + 1, this.currentObjectName.length-1);
+        }
         var self = this;
         this._playObjectSound(function(audioId) {
             self._addLabel("GO");

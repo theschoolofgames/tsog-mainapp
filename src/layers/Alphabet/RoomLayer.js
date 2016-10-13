@@ -147,7 +147,7 @@ var RoomLayer = cc.Layer.extend({
     runTutorial: function(shouldShuffle) {
         this._tutorial = new TutorialLayer(this._objects, this._shadeObjects, shouldShuffle);
         if(Global.NumberGamePlayed < 2)
-            this.addChild(this._tutorial, 1000)
+            this.addChild(this._tutorial, 100)
     },
 
     addRefreshButton: function() {
