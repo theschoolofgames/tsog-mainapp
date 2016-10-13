@@ -418,6 +418,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         this._currentChallange = this._tempInputData.shift();
+
+        this._hudLayer.updateProgressLabel("".concat(this._currentChallange.amount).concat("-").concat(this._currentChallange.value));
     },
 
     _checkForGoalAccepted: function(word) {

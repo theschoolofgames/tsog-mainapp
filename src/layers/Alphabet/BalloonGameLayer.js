@@ -4,6 +4,7 @@ var BalloonGameLayer = TestLayer.extend({
 
     _balloonsLimit: 15,
     _balloons: [],
+    _canTouch: false,
     _adiDog: null,
     _enableSpawn: false,
     _waitForSpawn: 1.0,
@@ -63,6 +64,8 @@ var BalloonGameLayer = TestLayer.extend({
         this.addHud();
         this._updateCurrentIdHud(this._currentObject);
         this._updateGoalLabel(0);
+
+        this._canTouch = true;
 
         this.schedule(this._spawnBalloons, this._waitForSpawn);
     },
@@ -185,6 +188,8 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     completedScene: function() {
+        this._canTouch = false;
+
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = "You Win";
@@ -216,6 +221,9 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     onTouchBegan: function(touch, event) {
+        if (!this._canTouch)
+            return false;
+
         var self = this;
         var touchedPos = touch.getLocation();
 
