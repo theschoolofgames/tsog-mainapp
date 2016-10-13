@@ -104,7 +104,7 @@ var SpeakingTestLayer = TestLayer.extend({
         NativeHelper.callNative("noiseDetectingLoop", [noiseDetectingTime]);
 
         this.runAction(cc.sequence(
-            cc.delayTime(noiseDetectingTime + 0.15),
+            cc.delayTime(noiseDetectingTime + 0.5),
             cc.callFunc(function() {
                 self._adiDog.adiIdling();
                 if (SpeakingTestLayer.shouldSkipTest)
@@ -119,7 +119,8 @@ var SpeakingTestLayer = TestLayer.extend({
                 else {
                     self.playBeginSound();
                     forcePlayBtn.removeFromParent();
-                }
+                };
+                SpeakingTestLayer.shouldSkipTest = null;
                 checkingText.removeFromParent();
             })
         ))
