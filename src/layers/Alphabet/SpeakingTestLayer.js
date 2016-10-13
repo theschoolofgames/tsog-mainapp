@@ -104,7 +104,7 @@ var SpeakingTestLayer = TestLayer.extend({
         NativeHelper.callNative("noiseDetectingLoop", [noiseDetectingTime]);
 
         this.runAction(cc.sequence(
-            cc.delayTime(noiseDetectingTime + 0.15),
+            cc.delayTime(noiseDetectingTime + 0.5),
             cc.callFunc(function() {
                 self._adiDog.adiIdling();
                 if (SpeakingTestLayer.shouldSkipTest)
@@ -119,7 +119,8 @@ var SpeakingTestLayer = TestLayer.extend({
                 else {
                     self.playBeginSound();
                     forcePlayBtn.removeFromParent();
-                }
+                };
+                SpeakingTestLayer.shouldSkipTest = null;
                 checkingText.removeFromParent();
             })
         ))
@@ -144,14 +145,16 @@ var SpeakingTestLayer = TestLayer.extend({
             
             var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/speak-after_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                mask.removeFromParent();
+                if (mask)
+                    mask.removeFromParent();
 
                 // self._addLabel();
                 self._showNextObject();
             });
             // KVDatabase.getInstance().set("beginSound_SpeakingTestScene", 1);
         } else {
-            mask.removeFromParent();
+            if (mask)
+                mask.removeFromParent();
 
             // self._addLabel();
             this._showNextObject();

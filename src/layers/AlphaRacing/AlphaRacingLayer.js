@@ -47,6 +47,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
 	ctor: function(inputData) {
         this._super(cc.color("#ebfcff"));
+
+        this.resetData();
+
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
     },
@@ -95,6 +98,43 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.maps = [];
     },
 
+    resetData: function() {
+        this.gameLayer = null;
+        this.maps = [];
+        this.mapIndexArray = [];
+        this.historyMapIndexArray = [];
+        this.layers = [];
+        this._mapIndex = 0;
+        this._gameLayerSize = cc.size(0,0);
+        this._mapWidth = 0;
+        this._mapHeight = 0;
+        this._player = null;
+        this._tileSize = cc.size(0,0);
+        this._landLayer = null;
+        this._playerBorder = null;
+        this._tileBorder = null;
+        this._alphabetPosArray = [];
+        this._alphabetObjectArray = [];
+        this._inputData = [];
+        this._tempInputData = [];
+        this._currentChallange = null;
+        this._currentEarnedNumber = 0;
+        this._hudLayer = null;
+        this._totalEarned = 0;
+        this._totalGoalNumber = 0;
+        this._warningLabel = null;
+        this._lastPlayerPos = cc.p(0,0);
+        // Background objects
+        this._mountain01 = null;
+        this._mountain02 = null;
+        this._ground01 = null;
+        this._ground02 = null;
+        this._dust01 = null;
+        this._dust02 = null;
+        this._cloudGroup01 = null;
+        this._cloudGroup02 = null;
+    },
+
     update: function(dt) {
         let startTime = (new Date()).getTime();
         this._player.updatea(dt / TEST_SPEED);
@@ -127,7 +167,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             tmxMap.setVisible(false)
             
             this.maps.push(tmxMap);
-            this.gameLayer.addChild(tmxMap, 0, 2);
+            this.gameLayer.addChild(tmxMap, AR_LANDS_ZODER, 2);
 
             var tmxLayer = tmxMap.getLayer("Lands");
             this.layers.push(tmxLayer);
@@ -147,7 +187,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             let index = shuffledMapArray[i].index;
             this.maps[index].setVisible(true)
             this.maps[index].setPosition(cc.p(this._gameLayerSize.width, 0));
-
+            cc.log("Map %d - Pos: (%d, %d) - Visible: %d", index, this.maps[index].x, 0, (this.maps[index].isVisible()) ? 1 : 0);
             this._gameLayerSize = cc.size(this._gameLayerSize.width + this._mapWidth, this._mapHeight);
             this.historyMapIndexArray.push(index);
 
@@ -289,13 +329,14 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             let shouldHideMapIndex = this.historyMapIndexArray[this.historyMapIndexArray.length - 3];
             this.maps[shouldHideMapIndex].setVisible(false);
             this.maps[shouldHideMapIndex].setPosition(cc.p(-3000, -3000));
-
+            cc.log("Hide Map %d - Pos: (%d, %d)", shouldHideMapIndex, -3000, -3000);
             // Shuffle map index array
             let shuffledMapArray = shuffle(this.mapIndexArray.slice(0));
 
             let hasAvaiableMap = false;
             for (var i = 0; i < shuffledMapArray.length; i++){
                 let index = shuffledMapArray[i].index;
+                cc.log("Map %d - Pos: (%d, %d) - Visible: %d", index, this.maps[index].x, this.maps[index].y, (this.maps[index].isVisible()) ? 1 : 0);
                 if (!this.maps[index].isVisible()){
                     hasAvaiableMap = true;
                     this.maps[index].setVisible(true);
@@ -418,6 +459,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         this._currentChallange = this._tempInputData.shift();
+
+        this._hudLayer.updateProgressLabel("".concat(this._currentChallange.amount).concat("-").concat(this._currentChallange.value));
     },
 
     _checkForGoalAccepted: function(word) {
