@@ -13,7 +13,7 @@ android {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 16072701
+        versionCode 16101300
         versionName "1.1"
         ndk {
             abiFilters "armeabi", "x86"

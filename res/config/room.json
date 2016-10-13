@@ -422,6 +422,15 @@
             "anchorX": 0.5 ,
             "anchorY": 0.5,
             "z":6 
+        },
+        {
+            "imageName" : "crayon",
+            "type":"HEAVY_WEIGHT_ITEM",
+            "x": 500,
+            "y": 270,
+            "anchorX": 0.5 ,
+            "anchorY": 0.5,
+            "z":6 
         }
     ],
     "heavyweight": [

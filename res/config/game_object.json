@@ -1,8 +1,38 @@
 [
   {
+    "id": "salt",
+    "type": "object",
+    "value": "salt"
+  },
+  {
+    "id": "crayon",
+    "type": "object",
+    "value": "crayon"
+  },
+  {
+    "id": "fan",
+    "type": "object",
+    "value": "fan"
+  },
+  {
+    "id": "cap",
+    "type": "object",
+    "value": "cap"
+  },
+  {
+    "id": "cup",
+    "type": "object",
+    "value": "cup"
+  },
+  {
     "id": "hat",
     "type": "object",
     "value": "hat"
+  },
+  {
+    "id": "ball",
+    "type": "object",
+    "value": "ball"
   },
   {
     "id": "rat",
@@ -240,6 +270,11 @@
     "value": "ant"
   },
   {
+    "id": "bat",
+    "type": "animal",
+    "value": "bat"
+  },
+  {
     "id": "cat",
     "type": "animal",
     "value": "cat"
@@ -273,6 +308,16 @@
     "id": "rat",
     "type": "animal",
     "value": "rat"
+  },
+  {
+    "id": "parrot",
+    "type": "animal",
+    "value": "parrot"
+  },
+  {
+    "id": "hen",
+    "type": "animal",
+    "value": "hen"
   },
   {
     "id": "owl",
@@ -373,6 +418,16 @@
     "id": "snail",
     "type": "animal",
     "value": "snail"
+  },
+  {
+    "id": "tortoise",
+    "type": "animal",
+    "value": "tortoise"
+  },
+  {
+    "id": "hare",
+    "type": "animal",
+    "value": "hare"
   },
   {
     "id": "panda",
