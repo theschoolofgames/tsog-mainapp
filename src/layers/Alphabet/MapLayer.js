@@ -223,7 +223,7 @@ var MapLayer = cc.Layer.extend({
 
             if (step == userData) {
                 this._steps[i+1].setEnabled(true);
-                SceneFlowController.getInstance().setLastedStepUnlocked(this._steps[i+1]);
+                SceneFlowController.getInstance().setLastedStepUnlocked(this._steps[i+1].getUserData());
             }
         }
     },

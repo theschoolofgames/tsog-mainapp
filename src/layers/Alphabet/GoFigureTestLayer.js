@@ -93,16 +93,17 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _playBeginSound: function() {
         var self = this;
+        var nation = Utils.getLanguage();
+        var soundPath = "res/sounds/writingTest_" + nation + ".mp3";
 
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_WritingTestScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
+        if (didInstructionSoundPlay == 0 && jsb.fileUtils.isFileExist(soundPath)) {
             // cc.log("nation: %s", nation);
 
             this._blockTouch = true;
             this._adiDog.adiTalk();
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d(soundPath, false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 self._blockTouch = false;
                 if (!self._adiDog)
