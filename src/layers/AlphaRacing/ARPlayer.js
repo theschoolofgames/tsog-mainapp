@@ -3,7 +3,6 @@ var ARPlayer = cc.Layer.extend({
 	_velocity: cc.p(0,0),
 	_onGround: false,
 	_onRightCollision: false,
-	_desiredPosition: cc.p(0,0),
 	_gravity: cc.p(0.0, -650.0),
 	_collisionBoundingBox: null,
 	_desiredPosition: cc.p(100,400),

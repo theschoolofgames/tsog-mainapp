@@ -45,6 +45,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _cloudGroup01: null,
     _cloudGroup02: null,
 
+    _elapsedTime: 0,
+
+    _deltaTime: 1 / 60,
+
 	ctor: function(inputData) {
         this._super(cc.color("#ebfcff"));
 
@@ -52,6 +56,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
+
+        this._elapsedTime = 0;
     },
 
     _init: function() {
@@ -60,11 +66,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.initPlatforms();
 
         cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: true,
-                onTouchBegan: this.onTouchBegan.bind(this),
-                onTouchMoved: this.onTouchMoved.bind(this),
-                onTouchEnded: this.onTouchEnded.bind(this)
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this),
+            onTouchMoved: this.onTouchMoved.bind(this),
+            onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
 
         this.scheduleUpdate();
@@ -136,14 +142,19 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
-        let startTime = (new Date()).getTime();
-        this._player.updatea(dt / TEST_SPEED);
-        this._checkAndReloadMaps(this._player);
-        this.checkForAndResolveCollisions(this._player);
-        this.checkForAlphabetCollisions();
+        // Force to 60 FPS
+        var updateTimes = Math.round(dt / this._deltaTime);
 
-        this.setViewpointCenter(this._player.getPosition());
-        this._checkAndScrollBackgrounds(this._player.getPosition());
+        for (var i = 0; i < updateTimes; i++) {
+            let startTime = (new Date()).getTime();
+            this._player.updatea(this._deltaTime / TEST_SPEED);
+            this._checkAndReloadMaps(this._player);
+            this.checkForAndResolveCollisions(this._player);
+            this.checkForAlphabetCollisions();
+
+            this.setViewpointCenter(this._player.getPosition());
+            this._checkAndScrollBackgrounds(this._player.getPosition());
+        }
     },
 
     _playBackgroundMusic: function() {
@@ -304,19 +315,27 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let background1Pos = background1.getPosition();
         let background2Pos = background2.getPosition();
 
-        background1.setPosition(cc.p(Math.round(background1Pos.x - offsetPos.x * speedX), Math.round(background1Pos.y - offsetPos.y * speedY)));
-        background2.setPosition(cc.p(Math.round(background2Pos.x - offsetPos.x * speedX), Math.round(background2Pos.y - offsetPos.y * speedY)));
+        var bg1NewPos = cc.p(background1Pos.x - offsetPos.x * speedX, background1Pos.y - offsetPos.y * speedY);
+        var bg2NewPos = cc.p(background2Pos.x - offsetPos.x * speedX, background2Pos.y - offsetPos.y * speedY)
 
         if (background1Pos.x < background2Pos.x){
             if (background2Pos.x < cc.winSize.width / 2){
-                background1.setPositionX(Math.round(background2Pos.x + background1.getContentSize().width - 10));
+                bg1NewPos.x = background2Pos.x + background1.getContentSize().width - 10;
             }
         }
         else {
             if (background1Pos.x < cc.winSize.width / 2){
-                background2.setPositionX(Math.round(background1Pos.x + background2.getContentSize().width - 10));   
+                bg2NewPos.x = background1Pos.x + background2.getContentSize().width - 10;   
             }
         }
+
+        // bg1NewPos = cc.p(Math.round(bg1NewPos.x * cc.contentScaleFactor()) / cc.contentScaleFactor(), 
+        //                  Math.round(bg1NewPos.y * cc.contentScaleFactor()) / cc.contentScaleFactor());
+        // bg2NewPos = cc.p(Math.round(bg2NewPos.x * cc.contentScaleFactor()) / cc.contentScaleFactor(), 
+        //                  Math.round(bg2NewPos.y * cc.contentScaleFactor()) / cc.contentScaleFactor());
+
+        background1.setPosition(bg1NewPos);
+        background2.setPosition(bg2NewPos);
     },
 
     _checkAndReloadMaps: function(player) {
