@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>beehive.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{118,117}</string>
+                <key>spriteSourceSize</key>
+                <string>{118,117}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{118,117}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>realTextureFileName</key>
+            <string>alpha-racing-obstacles.png</string>
+            <key>size</key>
+            <string>{119,120}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:3b507f886a3f26ae563ab3afacb68df0:2ed7a3ba8ac222a16a80054ef3056a5a:064ca70082808efb4e3c7fd26cca356a$</string>
+            <key>textureFileName</key>
+            <string>alpha-racing-obstacles.png</string>
+        </dict>
+    </dict>
+</plist>

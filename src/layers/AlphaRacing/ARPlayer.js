@@ -36,6 +36,10 @@ var ARPlayer = cc.Layer.extend({
     	this._super();
         this.unscheduleUpdate();
     },
+
+    reduceHealth: function() {
+        cc.log("ARPlayer: reduceHealth");
+    },
 	
  	updatea: function(dt) { 	
 	 	let jumpForce = cc.p(0.0, 800.0);
