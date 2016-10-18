@@ -2462,7 +2462,7 @@
 						DevelopmentTeam = 34F8D32X5G;
 					};
 					A922753C1517C094001B78AA = {
-						DevelopmentTeam = BSJF9ST45A;
+						DevelopmentTeam = 34F8D32X5G;
 						ProvisioningStyle = Manual;
 					};
 				};
@@ -3232,7 +3232,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = BSJF9ST45A;
+				DEVELOPMENT_TEAM = 34F8D32X5G;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3265,8 +3265,8 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "d458b6c4-96c4-453c-800c-88704ae32a0c";
-				PROVISIONING_PROFILE_SPECIFIER = "Hub102 Wildcard (*) Dev";
+				PROVISIONING_PROFILE = "eb465657-687d-4f69-b8dd-1fb9d9537eb7";
+				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../lwf $(SRCROOT)/../../SoundStretch $(SRCROOT)/../../SoundTouch $(SRCROOT)/OpenEars/Dependencies/**";

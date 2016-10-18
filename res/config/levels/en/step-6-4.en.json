@@ -1,0 +1,156 @@
+{
+  "1": {
+    "1": {
+      "name": "alpharacing",
+      "data": [
+        {
+          "type": "word",
+          "value": "X",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "x",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "Y",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "y",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "Z",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "z",
+          "amount": "10"
+        }
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    },
+    "3": {
+      "name": "speaking",
+      "data": []
+    },
+    "4": {
+      "name": "writing",
+      "data": []
+    },
+    "5": {
+      "name": "writing",
+      "data": []
+    },
+    "6": {
+      "name": "writing",
+      "data": []
+    }
+  },
+  "2": {
+    "1": {
+      "name": "card",
+      "data": [
+        "egg",
+        "hat",
+        "jar",
+        "key",
+        "map",
+        "pen",
+        "rat",
+        "book",
+        "desk",
+        "flag",
+        "gift",
+        "kite",
+        "lamp",
+        "nail",
+        "nest",
+        "salt",
+        "vest",
+        "xmas",
+        "sock",
+        "apple",
+        "chair",
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen",
+        "towel",
+        "watch",
+        "abacus",
+        "banana",
+        "duster",
+        "eraser",
+        "insect",
+        "orange",
+        "pencil",
+        "potato",
+        "tomato",
+        "umbrella",
+        "uniform",
+        "vegetable",
+        "crayon",
+        "feather",
+        "vehicle",
+        "medicine",
+        "watermelon",
+        "strawberry",
+        "xylophone",
+        "arm",
+        "ball",
+        "Bat",
+        "Bear",
+        "Bed",
+        "Bee",
+        "bird",
+        "book",
+        "boy",
+        "bun"
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    },
+    "3": {
+      "name": "speaking",
+      "data": []
+    }
+  },
+  "3": {
+    "1": {
+      "name": "alphabet",
+      "data": [
+        "toe",
+        "tub",
+        "Van",
+        "tent",
+        "test",
+        "toes",
+        "tree",
+        "vest",
+        "wing",
+        "wolf"
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    },
+    "3": {
+      "name": "speaking",
+      "data": []
+    }
+  }
+}
