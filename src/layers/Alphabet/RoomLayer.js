@@ -37,6 +37,7 @@ var RoomLayer = cc.Layer.extend({
     ctor: function(data) {
         // cc.log("Dev: " + whoAmI);
         this._super();
+        cc.log("Data: " + JSON.stringify(data));
         this._fetchObjectData(data);
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
@@ -236,6 +237,7 @@ var RoomLayer = cc.Layer.extend({
         var shuffledPositionIndex = 0, heavyObjPosIndex = 0;
 
         for ( var i = 0; i < this._data.length; i++) {
+            cc.log("iiiiii: " + JSON.stringify(bedroomObjects[i]));
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
             else
@@ -885,11 +887,12 @@ var RoomLayer = cc.Layer.extend({
         else
             this._data = [];
 
-        // cc.log("data after map: " + this._data);
+        cc.log("data after map: " +JSON.stringify(this._data));
     },
 
     _processObjectData: function(bedroomObjects) {
         var self = this;
+        cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
         this._data.forEach(function(obj) {
             cc.log("processGameLogic: obj: " + obj.value);
             for(var i = 0; i < BEDROOM_ITEMS.length; i++) {

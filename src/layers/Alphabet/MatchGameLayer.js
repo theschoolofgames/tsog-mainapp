@@ -1,5 +1,5 @@
 var MAX_OBJECT_ALLOWED =  5;
-var OBJECTS_ARRAY = ["fly", "fox", "pig", "puppy", "rat", "rabbit", "snail" ,"snake", "deer", "dog", "hat", "cat", "cheetah", "chicken", "dolphin", "duck", "seal", "shark", "tiger", "turtle"];
+var OBJECTS_ARRAY = [ "pig", "puppy","fly", "fox", "rat", "rabbit", "snail" ,"snake", "deer", "dog", "hat", "cat", "cheetah", "chicken", "dolphin", "duck", "seal", "shark", "tiger", "turtle"];
 var OBJECT_DEFAULT_WIDTH = 50;
 var OBJECT_DEFAULT_HEIGHT = 50;
 var kTagSlotAction = 1;

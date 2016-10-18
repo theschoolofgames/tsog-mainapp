@@ -4,32 +4,32 @@
       "name": "alpharacing",
       "data": [
         {
-          "type": "word",
+          "type": "word_u",
           "value": "u",
           "amount": "10"
         },
         {
-          "type": "word",
+          "type": "word_v",
           "value": "v",
           "amount": "10"
         },
         {
-          "type": "word",
+          "type": "word_w",
           "value": "w",
           "amount": "10"
         },
         {
-          "type": "word",
+          "type": "word_u",
           "value": "U",
           "amount": "10"
         },
         {
-          "type": "word",
+          "type": "word_v",
           "value": "V",
           "amount": "10"
         },
         {
-          "type": "word",
+          "type": "word_w",
           "value": "W",
           "amount": "10"
         }

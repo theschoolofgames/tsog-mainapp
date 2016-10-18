@@ -6,7 +6,7 @@
         "bee",
         "dog",
         "fox",
-        "box",
+        "book",
         "pig",
         "fly",
         "map"
@@ -74,32 +74,32 @@
         {
           "id": "word_i",
           "value": "I",
-          "amount": "20"
+          "amount": "50"
         },
         {
           "id": "word_i",
           "value": "i",
-          "amount": "20"
+          "amount": "50"
         },
         {
           "id": "word_o",
           "value": "O",
-          "amount": "20"
+          "amount": "50"
         },
         {
           "id": "word_o",
           "value": "o",
-          "amount": "20"
+          "amount": "50"
         },
         {
           "id": "word_u",
           "value": "U",
-          "amount": "20"
+          "amount": "50"
         },
         {
           "id": "word_u",
           "value": "u",
-          "amount": "20"
+          "amount": "50"
         }
       ]
     },
