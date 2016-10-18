@@ -4,44 +4,44 @@
       "name": "alpharacing",
       "data": [
         {
-          "type": "word",
+          "type": "word_q",
           "value": "Q",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_q",
           "value": "q",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_r",
           "value": "R",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_r",
           "value": "r",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_n",
           "value": "N",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_n",
           "value": "n",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_p",
           "value": "P",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "type": "word_p",
           "value": "p",
-          "amount": "10"
+          "amount": "50"
         }
       ]
     },

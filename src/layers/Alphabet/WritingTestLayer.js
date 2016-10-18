@@ -586,10 +586,12 @@ var WritingTestLayer = TestLayer.extend({
                 var charIndex = i * charsPerLine[0] + j;
                 if (charIndex > objName.length)
                     break;
-
-                var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + ".png");
+                var option = "";
+                if(objName.toUpperCase() != objName.toLowerCase())
+                    option = "_lowercase"
+                var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + option + ".png");
                 this.addChild(s);
-
+                s.anchorY = 0;
                 this._characterNodes.push(s);
                 tempArr.push(s);
 
@@ -606,18 +608,21 @@ var WritingTestLayer = TestLayer.extend({
         for (var i = 0; i < charArrays.length; i++) {
             charArrays[i][0].scale = this._wordScale;
             charArrays[i][0].x = cc.winSize.width * 0.65 - totalWidths[i]/2 * this._wordScale + charArrays[i][0].width/2 * this._wordScale - 10;
-            charArrays[i][0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale;
+            charArrays[i][0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale - 60;
 
             for (var j = 1; j < charArrays[i].length; j++) {
                 charArrays[i][j].scale = this._wordScale;
                 charArrays[i][j].x = charArrays[i][j-1].x + (charArrays[i][j-1].width/2 + CHAR_SPACE + charArrays[i][j].width/2) * this._wordScale;
-                charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale;
+                charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale - 60;
             }
         }
     },
 
     _moveToNextCharacter: function() {
-        this._tmpRender.setPosition(this._characterNodes[this._charIdx].getPosition());
+        cc.log("this._wordScale: " +this._wordScale);
+        var pos = this._characterNodes[this._charIdx].getPosition();
+        pos.y = this._characterNodes[this._charIdx].y + this._characterNodes[this._charIdx].height/2 * this._wordScale;
+        this._tmpRender.setPosition(pos);
 
         this.fetchCharacterConfig();
         this._displayNewDashedLine();
@@ -748,7 +753,7 @@ var WritingTestLayer = TestLayer.extend({
         if (data)
             this._names = data.map(function(id) {
                 if (id.value)
-                    return id.value.toUpperCase();
+                    return id.value.toLowerCase();
                 else
                     return id;
             });

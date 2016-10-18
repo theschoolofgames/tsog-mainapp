@@ -48,16 +48,25 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._basket.scale = this._basketScale;
         this._basket.x = cc.winSize.width/2;
         this._basket.y = cc.winSize.height/2 - 50* Utils.getScaleFactorTo16And9();
+        this._basket.ZOder = 0;
         this.addChild(this._basket);
+
 
         this._basketBBox = this._basket.getBoundingBox();
         this._calcPossibleSlots();
+        var strap = new cc.Sprite(res.Basket_strap_png);
+        strap.scale = this._basketScale;
+        this.addChild(strap);
+        strap.setAnchorPoint(1,0.5);
+        strap.ZOder = 2;
+        strap.x = this._basket.x;
+        strap.y = this._basket.y;
     },
 
     _calcPossibleSlots: function() {
         for (var i = 0; i < this._goal; i++) {
-            var x = (Math.random(0.2) + 0.9) * this._basket.x;
-            var y = (Math.random(0.2) + 0.9) * this._basket.y;
+            var x = this._basket.x  + (Math.random() * 0.6) * this._basket.width ;
+            var y = this._basket.y  + (Math.random() * 0.7) * this._basket.height/2;
             this._activateSlots.push(cc.p(x*this._basketScale, y*this._basketScale));
             cc.log("x : %f - y: %f", x, y);
         }
@@ -86,6 +95,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             else
                 continue;
             obj.tag = i;
+            obj.ZOder = 3;
             // cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > SHOPPING_OBJECT_DEFAULT_WIDTH) ? SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width : SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = obj.width * obj.scale * 2 + (obj.width*obj.scale + 20) * tempX;
@@ -240,7 +250,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentObjectMoving.setPosition(this._currentAvailableSlot);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
-
+        this._currentObjectMoving.ZOder = 1;
         //set for playSoundObjectOder
         // this._currentObjectOder += 1;
         

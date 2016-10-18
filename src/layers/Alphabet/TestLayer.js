@@ -7,7 +7,7 @@ var TestLayer = cc.LayerColor.extend({
     _adiDog: null,
     _isTestScene: false,
     data: null,
-
+    _canVoildCompletedScene: true,
     _removeHud: false,
 
     // storytime case for Listenting test
@@ -113,6 +113,10 @@ var TestLayer = cc.LayerColor.extend({
     },
     
     completedScene: function(){
+        // if(!this._canVoildCompletedScene)
+        //     return;
+        // cc.log("_canVoildCompletedScene: "  + this._canVoildCompletedScene);
+        this._canVoildCompletedScene = !this._canVoildCompletedScene
         this._moveToNextScene();
     },
 

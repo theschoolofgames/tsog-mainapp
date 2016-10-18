@@ -275,7 +275,8 @@ var res = {
 
     Circle_png: "circle.png",
 
-    Basket_png: "shopping-basket.jpg",
+    Basket_png: "shopping-basket.png",
+    Basket_strap_png: "strap.png",
 
     // TMX
     ABC_TMX: "res/abc.tmx",

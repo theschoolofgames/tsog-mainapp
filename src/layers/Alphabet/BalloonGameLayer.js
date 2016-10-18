@@ -31,7 +31,8 @@ var BalloonGameLayer = TestLayer.extend({
     greenAnimation: null,
     blueAnimation: null,
     grayAnimation: null,
-
+    _canVoildCompletedScene: true,
+    
     ctor: function(objectIdArray) {
         this._super(cc.color.WHITE);
         this.init(objectIdArray);
@@ -189,7 +190,10 @@ var BalloonGameLayer = TestLayer.extend({
 
     completedScene: function() {
         this._canTouch = false;
-
+        if(!this._canVoildCompletedScene)
+            return;
+        this._canVoildCompletedScene = !this._canVoildCompletedScene;
+        cc.log("_canVoildCompletedScene: "  + this._canVoildCompletedScene);
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = "You Win";

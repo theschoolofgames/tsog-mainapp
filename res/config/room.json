@@ -379,6 +379,15 @@
             "z": 6
         },
         {
+            "imageName" : "nest",
+            "type":"LIGHT_WEIGHT_ITEM",
+            "x": 488,
+            "y": 264,
+            "anchorX": 0.5 ,
+            "anchorY": 0.5,
+            "z":6 
+        },
+        {
             "imageName": "medicine",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 922,
