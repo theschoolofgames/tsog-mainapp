@@ -1,134 +1,443 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="368">
- <tileset firstgid="1" name="A" tilewidth="231" tileheight="254">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="554">
+ <tileset firstgid="1" name="A" tilewidth="231" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/A.png" width="231" height="254"/>
  </tileset>
- <tileset firstgid="2" name="B" tilewidth="226" tileheight="246">
+ <tileset firstgid="2" name="B" tilewidth="226" tileheight="246" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/B.png" width="226" height="246"/>
  </tileset>
- <tileset firstgid="3" name="C" tilewidth="231" tileheight="256">
+ <tileset firstgid="3" name="C" tilewidth="231" tileheight="256" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/C.png" width="231" height="256"/>
  </tileset>
- <tileset firstgid="4" name="D" tilewidth="230" tileheight="246">
+ <tileset firstgid="4" name="D" tilewidth="230" tileheight="246" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/D.png" width="230" height="246"/>
  </tileset>
- <tileset firstgid="5" name="E" tilewidth="212" tileheight="246">
+ <tileset firstgid="5" name="E" tilewidth="212" tileheight="246" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/E.png" width="212" height="246"/>
  </tileset>
- <tileset firstgid="6" name="F" tilewidth="201" tileheight="250">
+ <tileset firstgid="6" name="F" tilewidth="201" tileheight="250" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/F.png" width="201" height="250"/>
  </tileset>
- <tileset firstgid="7" name="G" tilewidth="244" tileheight="256">
+ <tileset firstgid="7" name="G" tilewidth="244" tileheight="256" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/G.png" width="244" height="256"/>
  </tileset>
- <tileset firstgid="8" name="H" tilewidth="235" tileheight="254">
+ <tileset firstgid="8" name="H" tilewidth="235" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/H.png" width="235" height="254"/>
  </tileset>
- <tileset firstgid="9" name="I" tilewidth="99" tileheight="254">
+ <tileset firstgid="9" name="I" tilewidth="99" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/I.png" width="99" height="254"/>
  </tileset>
- <tileset firstgid="10" name="J" tilewidth="194" tileheight="255">
+ <tileset firstgid="10" name="J" tilewidth="194" tileheight="255" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/J.png" width="194" height="255"/>
  </tileset>
- <tileset firstgid="11" name="K" tilewidth="228" tileheight="254">
+ <tileset firstgid="11" name="K" tilewidth="228" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/K.png" width="228" height="254"/>
  </tileset>
- <tileset firstgid="12" name="L" tilewidth="201" tileheight="250">
+ <tileset firstgid="12" name="L" tilewidth="201" tileheight="250" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/L.png" width="201" height="250"/>
  </tileset>
- <tileset firstgid="13" name="M" tilewidth="271" tileheight="254">
+ <tileset firstgid="13" name="M" tilewidth="271" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/M.png" width="271" height="254"/>
  </tileset>
- <tileset firstgid="14" name="N" tilewidth="235" tileheight="256">
+ <tileset firstgid="14" name="N" tilewidth="235" tileheight="256" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/N.png" width="235" height="256"/>
  </tileset>
- <tileset firstgid="15" name="O" tilewidth="253" tileheight="256">
+ <tileset firstgid="15" name="O" tilewidth="253" tileheight="256" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/O.png" width="253" height="256"/>
  </tileset>
- <tileset firstgid="16" name="P" tilewidth="225" tileheight="250">
+ <tileset firstgid="16" name="P" tilewidth="225" tileheight="250" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/P.png" width="225" height="250"/>
  </tileset>
- <tileset firstgid="17" name="Q" tilewidth="253" tileheight="270">
+ <tileset firstgid="17" name="Q" tilewidth="253" tileheight="270" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/Q.png" width="253" height="270"/>
  </tileset>
- <tileset firstgid="18" name="R" tilewidth="226" tileheight="250">
+ <tileset firstgid="18" name="R" tilewidth="226" tileheight="250" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/R.png" width="226" height="250"/>
  </tileset>
- <tileset firstgid="19" name="S" tilewidth="215" tileheight="256">
+ <tileset firstgid="19" name="S" tilewidth="215" tileheight="256" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/S.png" width="215" height="256"/>
  </tileset>
- <tileset firstgid="20" name="T" tilewidth="239" tileheight="250">
+ <tileset firstgid="20" name="T" tilewidth="239" tileheight="250" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/T.png" width="239" height="250"/>
  </tileset>
- <tileset firstgid="21" name="U" tilewidth="237" tileheight="255">
+ <tileset firstgid="21" name="U" tilewidth="237" tileheight="255" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/U.png" width="237" height="255"/>
  </tileset>
- <tileset firstgid="22" name="V" tilewidth="225" tileheight="254">
+ <tileset firstgid="22" name="V" tilewidth="225" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/V.png" width="225" height="254"/>
  </tileset>
- <tileset firstgid="23" name="W" tilewidth="303" tileheight="254">
+ <tileset firstgid="23" name="W" tilewidth="303" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/W.png" width="303" height="254"/>
  </tileset>
- <tileset firstgid="24" name="X" tilewidth="209" tileheight="254">
+ <tileset firstgid="24" name="X" tilewidth="209" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/X.png" width="209" height="254"/>
  </tileset>
- <tileset firstgid="25" name="Y" tilewidth="215" tileheight="254">
+ <tileset firstgid="25" name="Y" tilewidth="215" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/Y.png" width="215" height="254"/>
  </tileset>
- <tileset firstgid="26" name="Z" tilewidth="233" tileheight="246">
+ <tileset firstgid="26" name="Z" tilewidth="233" tileheight="246" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/Z.png" width="233" height="246"/>
  </tileset>
- <tileset firstgid="27" name="dash-1" tilewidth="200" tileheight="8">
+ <tileset firstgid="27" name="dash-1" tilewidth="200" tileheight="8" tilecount="0" columns="0">
   <image source="../_sourceart/abc/dash-1.png" width="198" height="8"/>
  </tileset>
- <tileset firstgid="27" name="dash-2" tilewidth="161" tileheight="178">
+ <tileset firstgid="27" name="dash-2" tilewidth="161" tileheight="178" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-2.png" width="161" height="178"/>
  </tileset>
- <tileset firstgid="28" name="dash-3" tilewidth="166" tileheight="186">
+ <tileset firstgid="28" name="dash-3" tilewidth="166" tileheight="186" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-3.png" width="166" height="186"/>
  </tileset>
- <tileset firstgid="29" name="dash-4" tilewidth="106" tileheight="102">
+ <tileset firstgid="29" name="dash-4" tilewidth="106" tileheight="102" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-4.png" width="106" height="102"/>
  </tileset>
- <tileset firstgid="30" name="dash-5" tilewidth="99" tileheight="175">
+ <tileset firstgid="30" name="dash-5" tilewidth="99" tileheight="175" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-5.png" width="99" height="175"/>
  </tileset>
- <tileset firstgid="31" name="dash-6" tilewidth="156" tileheight="191">
+ <tileset firstgid="31" name="dash-6" tilewidth="156" tileheight="191" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-6.png" width="156" height="191"/>
  </tileset>
- <tileset firstgid="32" name="dash-7" tilewidth="123" tileheight="185">
+ <tileset firstgid="32" name="dash-7" tilewidth="123" tileheight="185" tilecount="1" columns="1">
   <image source="../_sourceart/abc/dash-7.png" width="123" height="185"/>
  </tileset>
- <tileset firstgid="33" name="2" tilewidth="207" tileheight="247">
+ <tileset firstgid="33" name="2" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/2.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="34" name="3" tilewidth="207" tileheight="247">
+ <tileset firstgid="34" name="3" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/3.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="35" name="5" tilewidth="207" tileheight="247">
+ <tileset firstgid="35" name="5" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/5.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="36" name="6" tilewidth="207" tileheight="247">
+ <tileset firstgid="36" name="6" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/6.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="37" name="7" tilewidth="207" tileheight="247">
+ <tileset firstgid="37" name="7" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/7.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="38" name="8" tilewidth="207" tileheight="247">
+ <tileset firstgid="38" name="8" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/8.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="39" name="9" tilewidth="207" tileheight="247">
+ <tileset firstgid="39" name="9" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/9.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="40" name="4" tilewidth="215" tileheight="249">
+ <tileset firstgid="40" name="4" tilewidth="215" tileheight="249" tilecount="1" columns="1">
   <image source="../_sourceart/abc/4.png" width="215" height="249"/>
  </tileset>
- <tileset firstgid="41" name="0" tilewidth="207" tileheight="247">
+ <tileset firstgid="41" name="0" tilewidth="207" tileheight="247" tilecount="1" columns="1">
   <image source="../_sourceart/abc/0.png" width="207" height="247"/>
  </tileset>
- <tileset firstgid="42" name="1" tilewidth="99" tileheight="254">
+ <tileset firstgid="42" name="1" tilewidth="99" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/abc/1.png" width="99" height="254"/>
  </tileset>
+ <tileset firstgid="43" name="A_lowercase" tilewidth="204" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/A_lowercase.png" width="204" height="195"/>
+ </tileset>
+ <tileset firstgid="44" name="B_lowercase" tilewidth="202" tileheight="254" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/B_lowercase.png" width="202" height="254"/>
+ </tileset>
+ <tileset firstgid="45" name="C_lowercase" tilewidth="190" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/C_lowercase.png" width="190" height="195"/>
+ </tileset>
+ <tileset firstgid="46" name="D_lowercase" tilewidth="202" tileheight="254" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/D_lowercase.png" width="202" height="254"/>
+ </tileset>
+ <tileset firstgid="47" name="E_lowercase" tilewidth="207" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/E_lowercase.png" width="207" height="195"/>
+ </tileset>
+ <tileset firstgid="48" name="F_lowercase" tilewidth="157" tileheight="255" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/F_lowercase.png" width="157" height="255"/>
+ </tileset>
+ <tileset firstgid="49" name="G_lowercase" tilewidth="201" tileheight="253" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/G_lowercase.png" width="201" height="253"/>
+ </tileset>
+ <tileset firstgid="50" name="H_lowercase" tilewidth="199" tileheight="254" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/H_lowercase.png" width="199" height="254"/>
+ </tileset>
+ <tileset firstgid="51" name="I_lowercase" tilewidth="91" tileheight="264" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/I_lowercase.png" width="91" height="264"/>
+ </tileset>
+ <tileset firstgid="52" name="J_lowercase" tilewidth="118" tileheight="319" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/J_lowercase.png" width="118" height="319"/>
+ </tileset>
+ <tileset firstgid="53" name="K_lowercase" tilewidth="186" tileheight="254" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/K_lowercase.png" width="186" height="254"/>
+ </tileset>
+ <tileset firstgid="54" name="L_lowercase" tilewidth="91" tileheight="254" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/L_lowercase.png" width="91" height="254"/>
+ </tileset>
+ <tileset firstgid="55" name="M_lowercase" tilewidth="297" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/M_lowercase.png" width="297" height="195"/>
+ </tileset>
+ <tileset firstgid="56" name="N_lowercase" tilewidth="199" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/N_lowercase.png" width="199" height="195"/>
+ </tileset>
+ <tileset firstgid="57" name="O_lowercase" tilewidth="205" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/O_lowercase.png" width="205" height="195"/>
+ </tileset>
+ <tileset firstgid="58" name="P_lowercase" tilewidth="202" tileheight="253" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/P_lowercase.png" width="202" height="253"/>
+ </tileset>
+ <tileset firstgid="59" name="Q_lowercase" tilewidth="202" tileheight="253" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/Q_lowercase.png" width="202" height="253"/>
+ </tileset>
+ <tileset firstgid="60" name="R_lowercase" tilewidth="151" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/R_lowercase.png" width="151" height="195"/>
+ </tileset>
+ <tileset firstgid="61" name="S_lowercase" tilewidth="189" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/S_lowercase.png" width="189" height="195"/>
+ </tileset>
+ <tileset firstgid="62" name="T_lowercase" tilewidth="157" tileheight="241" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/T_lowercase.png" width="157" height="241"/>
+ </tileset>
+ <tileset firstgid="63" name="U_lowercase" tilewidth="199" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/U_lowercase.png" width="199" height="195"/>
+ </tileset>
+ <tileset firstgid="64" name="V_lowercase" tilewidth="187" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/V_lowercase.png" width="187" height="195"/>
+ </tileset>
+ <tileset firstgid="65" name="W_lowercase" tilewidth="283" tileheight="195" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/W_lowercase.png" width="283" height="195"/>
+ </tileset>
+ <tileset firstgid="66" name="X_lowercase" tilewidth="160" tileheight="175" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/X_lowercase.png" width="160" height="175"/>
+ </tileset>
+ <tileset firstgid="67" name="Y_lowercase" tilewidth="165" tileheight="242" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/Y_lowercase.png" width="165" height="242"/>
+ </tileset>
+ <tileset firstgid="68" name="Z_lowercase" tilewidth="147" tileheight="175" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/Z_lowercase.png" width="147" height="175"/>
+ </tileset>
+ <objectgroup name="z">
+  <object id="546" name="z" gid="68" x="86.5" y="248" width="147" height="175"/>
+  <object id="551" name="Path1" x="111" y="103">
+   <polyline points="0,0 37,0 84,0"/>
+  </object>
+  <object id="552" name="Path2" x="188" y="119">
+   <polyline points="0,0 -24,30 -53,71 -70,99"/>
+  </object>
+  <object id="553" name="Path3" x="130" y="221">
+   <polyline points="0,0 25,0 79,1"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="y" visible="0">
+  <object id="540" name="y" gid="67" x="78" y="281" width="165" height="242"/>
+  <object id="541" name="Path1" x="106" y="59">
+   <polyline points="0,0 19,41 34,80 53,115"/>
+  </object>
+  <object id="542" name="Path2" x="213" y="59">
+   <polyline points="0,0 -17,51 -33,92 -56,135 -72,168 -107,193"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="x" visible="0">
+  <object id="534" name="x" gid="66" x="80" y="247" width="160" height="175"/>
+  <object id="535" name="Path1" x="119" y="95">
+   <polyline points="0,0 21,33 52,75 92,133"/>
+  </object>
+  <object id="536" name="Path2" x="210" y="90">
+   <polyline points="0,0 -22,30 -58,80 -88,117 -101,139"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="w" visible="0">
+  <object id="521" name="w" gid="65" x="18.5" y="257" width="283" height="195"/>
+  <object id="525" name="Path1" x="48" y="82">
+   <polyline points="0,0 17,45 37,96 60,144"/>
+  </object>
+  <object id="526" name="Path2" x="111" y="220">
+   <polyline points="0,0 15,-52 26,-94 43,-130"/>
+  </object>
+  <object id="527" name="Path3" x="160" y="93">
+   <polyline points="0,0 19,48 31,86 53,130"/>
+  </object>
+  <object id="528" name="Path4" x="225" y="218">
+   <polyline points="0,0 16,-48 30,-81 41,-122"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="v" visible="0">
+  <object id="513" name="v" gid="64" x="66" y="257" width="187" height="195"/>
+  <object id="514" name="Path1" x="103" y="86">
+   <polyline points="0,0 21,49 36,98 53,137"/>
+  </object>
+  <object id="515" name="Path2" x="221" y="89">
+   <polyline points="0,0 -18,37 -32,77 -61,132"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="u" visible="0">
+  <object id="507" name="u" gid="63" x="49" y="263" width="199" height="195"/>
+  <object id="508" name="Path1" x="94" y="96">
+   <polyline points="0,0 0,64 6,122 55,127"/>
+  </object>
+  <object id="509" name="Path2" x="205" y="93">
+   <polyline points="0,0 0,65 1,95 2,137"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="t" visible="0">
+  <object id="500" name="t" gid="62" x="82" y="280" width="157" height="241"/>
+  <object id="501" name="Path1" x="159" y="61">
+   <polyline points="0,0 0,45 1,126 8,177 48,185"/>
+  </object>
+  <object id="502" name="Path2" x="103" y="123">
+   <polyline points="0,0 54,-1 104,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="s" visible="0">
+  <object id="496" name="s" gid="61" x="65" y="257" width="189" height="195"/>
+  <object id="497" name="Path1" x="213" y="111">
+   <polyline points="0,0 -58,-13 -111,-1 -94,38 -2,77 -39,116 -117,99"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="r" visible="0">
+  <object id="490" name="r" gid="60" x="85" y="258" width="151" height="195"/>
+  <object id="491" name="Path1" x="122" y="83">
+   <polyline points="0,0 1,39 4,105 2,148"/>
+  </object>
+  <object id="492" name="Path2" x="159" y="120">
+   <polyline points="0,0 48,-25"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="q" visible="0">
+  <object id="483" name="q" gid="59" x="59" y="287" width="202" height="253"/>
+  <object id="485" name="Path1" x="177" y="84">
+   <polyline points="0,0 -56,-10 -74,34 -73,83 -38,104 0,97"/>
+  </object>
+  <object id="486" name="Path2" x="215" y="60">
+   <polyline points="0,0 -1,47 3,111 1,168 1,201"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="p" visible="0">
+  <object id="477" name="p" gid="58" x="59" y="287" width="202" height="253"/>
+  <object id="478" name="Path1" x="101" y="75">
+   <polyline points="0,0 1,48 3,97 3,148 3,179"/>
+  </object>
+  <object id="479" name="Path2" x="127" y="80">
+   <polyline points="0,0 48,-11 89,21 90,86 56,112 18,106"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="o" visible="0">
+  <object id="472" name="o" gid="57" x="67" y="257" width="205" height="195"/>
+  <object id="473" name="Path1" x="166" y="98">
+   <polyline points="0,0 -53,26 -52,80 -22,119 39,122 65,78 55,22 10,2"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="n" visible="0">
+  <object id="466" name="n" gid="56" x="60" y="257" width="199" height="195"/>
+  <object id="467" name="Path1" x="99" y="98">
+   <polyline points="0,0 2,47 2,93 2,134"/>
+  </object>
+  <object id="468" name="Path2" x="142" y="110">
+   <polyline points="0,0 36,-9 76,1 78,67 76,110"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="m" visible="0">
+  <object id="458" name="m" gid="55" x="11" y="257" width="297" height="195"/>
+  <object id="459" name="Path1" x="50" y="88">
+   <polyline points="0,0 2,51 2,109 3,148"/>
+  </object>
+  <object id="460" name="Path2" x="95" y="111">
+   <polyline points="0,0 41,-14 64,7 64,50 65,115"/>
+  </object>
+  <object id="461" name="Path3" x="200" y="111">
+   <polyline points="0,0 41,-15 65,7 65,67 64,120"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="l" visible="0">
+  <object id="454" name="l" gid="54" x="114.5" y="287" width="91" height="254"/>
+  <object id="455" name="Path1" x="162" y="73">
+   <polyline points="0,0 -2,54 -2,106 -1,156 0,186"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="k" visible="0">
+  <object id="448" name="k" gid="53" x="67" y="287" width="186" height="254"/>
+  <object id="449" name="Path1" x="109" y="64">
+   <polyline points="0,0 0,59 1,117 2,185"/>
+  </object>
+  <object id="450" name="Path2" x="215" y="124">
+   <polyline points="0,0 -26,27 -50,57 -28,87 0,124"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="j" visible="0">
+  <object id="440" name="j" gid="52" x="101" y="320" width="118" height="319"/>
+  <object id="441" name="Path1" x="175" y="103">
+   <polyline points="0,0 1,52 -3,97 -3,142 -13,183 -53,185"/>
+  </object>
+  <object id="443" name="k" x="174" y="40">
+   <polyline points="0,0 0,6"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="i" visible="0">
+  <object id="429" name="i" gid="51" x="114.5" y="292" width="91" height="264"/>
+  <object id="430" name="Path1" x="158" y="130">
+   <polyline points="0,0 -1,59 0,127"/>
+  </object>
+  <object id="433" name="Path2" x="160" y="62">
+   <polyline points="0,0 0,9"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="h" visible="0">
+  <object id="423" name="h" gid="50" x="60" y="287" width="199" height="254"/>
+  <object id="424" name="Path1" x="100" y="65">
+   <polyline points="0,0 0,74 3,145 4,196"/>
+  </object>
+  <object id="425" name="Path2" x="147" y="142">
+   <polyline points="0,0 40,-20 75,-9 75,48 71,109"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="g" visible="0">
+  <object id="416" name="g" gid="49" x="60" y="286.5" width="201" height="253"/>
+  <object id="419" name="Path1" x="184" y="79">
+   <polyline points="0,0 -52,-11 -85,23 -75,77 -45,98 -3,93"/>
+  </object>
+  <object id="420" name="Path2" x="219" y="61">
+   <polyline points="0,0 1,61 -1,119 -11,171 -63,191 -118,171"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="f" visible="0">
+  <object id="408" name="f" gid="48" x="82" y="288" width="157" height="255"/>
+  <object id="409" name="Path1" x="202" y="66">
+   <polyline points="0,0 -41,10 -41,64 -41,144 -42,199"/>
+  </object>
+  <object id="412" name="Path2" x="105" y="130">
+   <polyline points="0,0 56,1 110,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="e" visible="0">
+  <object id="404" name="e" gid="47" x="56.5" y="257.5" width="207" height="195"/>
+  <object id="405" name="Path1" x="141" y="161">
+   <polyline points="0,0 44,3 82,-2 85,-39 29,-61 -31,-44 -40,10 -13,60 44,65 82,47"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="d" visible="0">
+  <object id="398" name="d" gid="46" x="59" y="287" width="202" height="254"/>
+  <object id="399" name="Path1" x="170" y="142">
+   <polyline points="0,0 -46,-10 -72,19 -74,71 -43,106 8,99"/>
+  </object>
+  <object id="400" name="Path2" x="219" y="66">
+   <polyline points="0,0 -3,71 0,119 -2,160 0,178"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="c" visible="0">
+  <object id="394" name="c" gid="45" x="65" y="257.5" width="190" height="195"/>
+  <object id="395" name="Path1" x="218" y="123">
+   <polyline points="0,0 -58,-21 -106,6 -102,62 -79,103 -33,100 7,74"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="b" visible="0">
+  <object id="382" name="b" gid="44" x="59" y="287" width="202" height="254"/>
+  <object id="386" name="Path1" x="102" y="63">
+   <polyline points="0,0 0,58 1,117 1,185"/>
+  </object>
+  <object id="387" name="Path2" x="142" y="142">
+   <polyline points="0,0 51,-11 73,29 62,97 5,99"/>
+  </object>
+ </objectgroup>
+ <objectgroup name="a" visible="0">
+  <object id="375" name="a" gid="43" x="58" y="257" width="204" height="195"/>
+  <object id="377" name="Path1" x="163" y="163">
+   <polyline points="0,0 -47,5 -60,37 -30,67 6,54"/>
+  </object>
+  <object id="378" name="Path2" x="104" y="113">
+   <polyline points="0,0 49,-21 109,-9 111,52 113,100"/>
+  </object>
+ </objectgroup>
  <objectgroup name="Z" visible="0">
   <object id="204" name="Z" gid="26" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="209" name="Path1" x="97" y="84">
@@ -177,7 +486,7 @@
    <polyline points="0,0 -13,19 -23,34 -34,51 -66.5,100.5 -80.5,121.5 -93,140.5 -103,155.5"/>
   </object>
  </objectgroup>
- <objectgroup name="W" visible="0">
+ <objectgroup name="w" visible="0">
   <object id="28" name="W" gid="23" x="0" y="320" width="320" height="320" visible="0"/>
   <object id="288" name="Path1" x="45.5" y="67">
    <polyline points="0,0 5.5,19 10.5,37.5 16,55.5 22.5,77 28.5,96.5 34,116.5 39.5,136 45,155 51,175.5 55,190"/>
@@ -498,7 +807,7 @@
   </object>
   <object id="362" name="1" gid="42" x="111" y="287" width="99" height="254"/>
  </objectgroup>
- <objectgroup name="2">
+ <objectgroup name="2" visible="0">
   <object id="314" name="2" gid="33" x="55" y="285" width="207" height="247"/>
   <object id="318" name="Path2" x="111" y="243">
    <polyline points="0,0 84,-1"/>

@@ -586,8 +586,10 @@ var WritingTestLayer = TestLayer.extend({
                 var charIndex = i * charsPerLine[0] + j;
                 if (charIndex > objName.length)
                     break;
-
-                var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + ".png");
+                var option = "";
+                if(objName.toUpperCase() != objName.toLowerCase())
+                    option = "_lowercase"
+                var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + option + ".png");
                 this.addChild(s);
 
                 this._characterNodes.push(s);
@@ -748,7 +750,7 @@ var WritingTestLayer = TestLayer.extend({
         if (data)
             this._names = data.map(function(id) {
                 if (id.value)
-                    return id.value.toUpperCase();
+                    return id.value.toLowerCase();
                 else
                     return id;
             });

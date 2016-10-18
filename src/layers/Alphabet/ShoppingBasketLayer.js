@@ -56,8 +56,8 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _calcPossibleSlots: function() {
         for (var i = 0; i < this._goal; i++) {
-            var x = (Math.random(0.2) + 0.9) * this._basket.x;
-            var y = (Math.random(0.2) + 0.9) * this._basket.y;
+            var x = this._basket.x  + (Math.random() * 0.6) * this._basket.width ;
+            var y = this._basket.y  + (Math.random() * 0.7) * this._basket.height/2;
             this._activateSlots.push(cc.p(x*this._basketScale, y*this._basketScale));
             cc.log("x : %f - y: %f", x, y);
         }
@@ -86,6 +86,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             else
                 continue;
             obj.tag = i;
+            obj.ZOder = 3;
             // cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > SHOPPING_OBJECT_DEFAULT_WIDTH) ? SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width : SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = obj.width * obj.scale * 2 + (obj.width*obj.scale + 20) * tempX;
@@ -240,7 +241,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentObjectMoving.setPosition(this._currentAvailableSlot);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
-
+        this._currentObjectMoving.ZOder = 1;
         //set for playSoundObjectOder
         // this._currentObjectOder += 1;
         
