@@ -48,10 +48,19 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._basket.scale = this._basketScale;
         this._basket.x = cc.winSize.width/2;
         this._basket.y = cc.winSize.height/2 - 50* Utils.getScaleFactorTo16And9();
+        this._basket.ZOder = 0;
         this.addChild(this._basket);
+
 
         this._basketBBox = this._basket.getBoundingBox();
         this._calcPossibleSlots();
+        var strap = new cc.Sprite(res.Basket_strap_png);
+        strap.scale = this._basketScale;
+        this.addChild(strap);
+        strap.setAnchorPoint(1,0.5);
+        strap.ZOder = 2;
+        strap.x = this._basket.x;
+        strap.y = this._basket.y;
     },
 
     _calcPossibleSlots: function() {
