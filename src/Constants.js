@@ -651,3 +651,8 @@ var KEYBOARD_ANIMATION_DURATION = 0.1;
 var SUBSCRIPTION_IAP_NAME = "subscription_monthly";
 var SUBSCRIPTION_IAP_ID_IOS = "com.theschoolofgames.tsog.subscription.monthly";
 var SUBSCRIPTION_IAP_ID_ANDROID = "com.theschoolofgames.tsog.subscription.month";
+
+var STORYTIME_VOICE_FOR_LISTENING = {
+    "animal": "Pick the animal in the story",
+    "object": "Pick the objects in the story"
+};

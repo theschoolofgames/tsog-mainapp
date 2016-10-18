@@ -10,6 +10,8 @@ var TestLayer = cc.LayerColor.extend({
 
     _removeHud: false,
 
+    _storytimeDataForListening: null,
+
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
         this._names = [];
@@ -68,6 +70,14 @@ var TestLayer = cc.LayerColor.extend({
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
         // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
+    },
+
+    setStoryTimeForListeningData: function(data) {
+        this._storytimeDataForListening = data;
+    },
+
+    getStoryTimeForListeningData: function() {
+        return this._storytimeDataForListening;
     },
 
     _setIsTestScene: function(isTestScene) {

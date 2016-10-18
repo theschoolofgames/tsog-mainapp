@@ -21,7 +21,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     ctor: function(data) {
         this._super();
-        cc.log("ctor ListeningTestLayer: ");
+        // cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
         
