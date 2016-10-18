@@ -82,6 +82,16 @@
             "tree",
             "salt",
             "socks"
+          ],
+          "voice": [
+            "animal",
+            "object",
+            "object"
+          ],
+          "speaking": [
+            "tiger",
+            "donkey",
+            "bee"
           ]
         }
       ]

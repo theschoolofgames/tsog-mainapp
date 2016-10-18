@@ -43,7 +43,7 @@
         {
           "min": 2,
           "max": 5
-        } 
+        }
       ]
     },
     "2": {
@@ -63,8 +63,12 @@
     "1": {
       "name": "storytime",
       "data": [
-        { 
-          "key": ["bird", "duck", "bear"],
+        {
+          "key": [
+            "bird",
+            "duck",
+            "bear"
+          ],
           "option": "the_hare_and_the_tortoise",
           "data": [
             "hare",
@@ -76,6 +80,16 @@
             "forest",
             "school",
             "house"
+          ],
+          "voice": [
+            "animal",
+            "animal",
+            "live"
+          ],
+          "speaking": [
+            "bird",
+            "duck",
+            "bear"
           ]
         }
       ]
@@ -92,7 +106,7 @@
         "forest",
         "school",
         "house"
-       ]
+      ]
     },
     "3": {
       "name": "speaking",

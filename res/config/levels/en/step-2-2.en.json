@@ -79,8 +79,12 @@
       "name": "storytime",
       "data": [
         {
-          "key": ["goose", "egg", "nest"],
-          "option":"goose_with_golden_egg",
+          "key": [
+            "goose",
+            "egg",
+            "nest"
+          ],
+          "option": "goose_with_golden_egg",
           "data": [
             "goose",
             "hen",
@@ -91,6 +95,16 @@
             "nest",
             "chair",
             "key"
+          ],
+          "voice": [
+            "bird",
+            "object",
+            "object"
+          ],
+          "speaking": [
+            "goose",
+            "egg",
+            "nest"
           ]
         }
       ]

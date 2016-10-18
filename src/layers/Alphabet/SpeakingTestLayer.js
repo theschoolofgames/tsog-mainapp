@@ -352,9 +352,16 @@ var SpeakingTestLayer = TestLayer.extend({
             this._currentObjectShowUp = null;
         }
 
+
         var isNumber = false;
 
         var objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
+
+        var d = this.getStoryTimeForSpeakingData();
+        if (d) {
+            this.storytimeCurrentDataIndex++;
+            objectName = d.data[this.storytimeCurrentDataIndex];
+        }
         this._soundName = "";
         var objectNameToCheck = "res/SD/" + objectName + ".png";
         cc.log(objectNameToCheck);
@@ -432,6 +439,13 @@ var SpeakingTestLayer = TestLayer.extend({
             this._data = [];    
         this.setData(this._data);
         cc.log("data after map: " + JSON.stringify(this._names));
+    },
+
+
+    onExit: function () {
+        this._super();
+
+        this.removeStoryTimeForSpeakingData();
     },
 });
 

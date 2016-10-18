@@ -121,6 +121,16 @@
             "jar",
             "pen",
             "chair"
+          ],
+          "voice": [
+            "animal",
+            "animal",
+            "object"
+          ],
+          "speaking": [
+            "fox",
+            "stork",
+            "chair"
           ]
         }
       ]

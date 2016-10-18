@@ -394,18 +394,22 @@ var StoryMainLayer = TestLayer.extend({
                     return id;
             });
         this.setData(JSON.stringify(dataNextScene[0]));
-        // var data = dataNextScene[0].data;
-        // var voices = dataNextScene[0].voice;
-        // var d = {};
-        // d["data"] = [];
-        // d["voice"] = [];
-        // for (var i = 0; i < 3; i++) {
-        //     d["data"].push([data[0], data[1], data[2]]);
-        //     d["voice"].push(voices[0]);
-        //     data.splice(0, 3);
-        //     voices.splice(0, 1);
-        // }
-        // this.setStoryTimeForListeningData(d);
+        /* uncomment after implement all missing art TODO
+            var data = dataNextScene[0].data;
+            var voices = dataNextScene[0].voice;
+            var speaking = dataNextScene[0].speaking;
+            var d = {};
+            d["data"] = [];
+            d["voice"] = [];
+            for (var i = 0; i < 3; i++) {
+                d["data"].push([data[0], data[1], data[2]]);
+                d["voice"].push(voices[0]);
+                data.splice(0, 3);
+                voices.splice(0, 1);
+            }
+            this.setStoryTimeForListeningData(d);
+            this.setStoryTimeForSpeakingData(speaking);
+        */
         // cc.log("setStoryTimeForListeningData: " + JSON.stringify(d));
         // cc.log("set data: " + JSON.stringify(dataNextScene[0]));
     },

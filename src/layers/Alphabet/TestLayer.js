@@ -10,7 +10,11 @@ var TestLayer = cc.LayerColor.extend({
 
     _removeHud: false,
 
+    // storytime case for Listenting test
     _storytimeDataForListening: null,
+    _storytimeDataForSpeaking: null,
+
+    storytimeCurrentDataIndex: -1,
 
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
@@ -51,6 +55,8 @@ var TestLayer = cc.LayerColor.extend({
     onEnter: function() {
         this._super();
 
+        this.storytimeCurrentDataIndex = -1;
+
         if (this._removeHud)
             return;
         cc.log("this._hudNeeded: " + this._hudNeeded);
@@ -73,11 +79,33 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     setStoryTimeForListeningData: function(data) {
-        this._storytimeDataForListening = data;
+        KVDatabase.getInstance().set("storytimeForListeningData", JSON.stringify(data));
     },
 
     getStoryTimeForListeningData: function() {
-        return this._storytimeDataForListening;
+        var d = KVDatabase.getInstance().getString("storytimeForListeningData", null);
+        if (d)
+            d = JSON.parse(d);
+        return d;
+    },
+
+    removeStoryTimeForListeningData: function() {
+        KVDatabase.getInstance().remove("storytimeForListeningData");
+    },
+
+    setStoryTimeForSpeakingData: function(data) {
+        KVDatabase.getInstance().set("storytimeForSpeakingData", JSON.stringify(data));
+    },
+
+    getStoryTimeForSpeakingData: function() {
+        var d = KVDatabase.getInstance().getString("storytimeForSpeakingData", null);
+        if (d)
+            d = JSON.parse(d);
+        return d;
+    },
+
+    removeStoryTimeForSpeakingData: function() {
+        KVDatabase.getInstance().remove("storytimeForSpeakingData");
     },
 
     _setIsTestScene: function(isTestScene) {

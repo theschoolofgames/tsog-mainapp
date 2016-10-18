@@ -654,5 +654,7 @@ var SUBSCRIPTION_IAP_ID_ANDROID = "com.theschoolofgames.tsog.subscription.month"
 
 var STORYTIME_VOICE_FOR_LISTENING = {
     "animal": "Pick the animal in the story",
-    "object": "Pick the objects in the story"
+    "object": "Pick the objects in the story",
+    "bird": "Pick the bird in the story",
+    "live": "Where did the animals live"
 };

@@ -225,6 +225,12 @@ var ListeningTestLayer = TestLayer.extend({
         }
 
         shownObjNames = shuffle(shownObjNames);
+        var d = this.getStoryTimeForListeningData();
+        if (d)
+            shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
+
+        // cc.log("shownObjNames: " + shownObjNames);
+        // cc.log("d: " + d);
         var secondNumberImageName;
         for (var i = 0; i < 3; i++) {
             cc.log("i -> " + i);
@@ -326,6 +332,15 @@ var ListeningTestLayer = TestLayer.extend({
         // cc.log("this._names: " + this._names);
         // cc.log("this._names: " + this._names[this._nameIdx]);
         var objName = text.toLowerCase();
+        var d = this.getStoryTimeForListeningData();
+        var bannerString;
+        if (d) {
+            this.storytimeCurrentDataIndex++;
+            objName = d.voice[this.storytimeCurrentDataIndex];
+
+            this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
+        }
+
         this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
@@ -531,6 +546,11 @@ var ListeningTestLayer = TestLayer.extend({
             this.setData(this._data);
     },
 
+    onExit: function () {
+        this._super();
+
+        this.removeStoryTimeForListeningData();
+    },
     
 });
 
