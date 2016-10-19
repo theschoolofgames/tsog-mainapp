@@ -17,7 +17,22 @@
                 <key>textureRect</key>
                 <string>{{1,1},{118,117}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>stone.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,75}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,75}</string>
+                <key>textureRect</key>
+                <string>{{121,1},{65,75}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -27,9 +42,9 @@
             <key>realTextureFileName</key>
             <string>alpha-racing-obstacles.png</string>
             <key>size</key>
-            <string>{119,120}</string>
+            <string>{187,119}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3b507f886a3f26ae563ab3afacb68df0:2ed7a3ba8ac222a16a80054ef3056a5a:064ca70082808efb4e3c7fd26cca356a$</string>
+            <string>$TexturePacker:SmartUpdate:c571f03c268045cfc095aa1455c85d18:a44851cea4d5747ad7352647e82dd3e8:064ca70082808efb4e3c7fd26cca356a$</string>
             <key>textureFileName</key>
             <string>alpha-racing-obstacles.png</string>
         </dict>

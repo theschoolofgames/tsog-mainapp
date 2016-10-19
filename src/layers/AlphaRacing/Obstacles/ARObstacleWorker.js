@@ -11,7 +11,11 @@ var ARObstacleWorker = cc.Class.extend({
     },
 
     addObstacle: function(params) {
-        var object = new ARBeeHive(this._player);
+        if (params.type == "hanging") {
+            var object = new ARBeeHive(this._player);
+        } else if (params.type == "standing") {
+            var object = new ARStone(this._player);
+        }
         // object.setScale(0.8);
         object.x = params.x;
         object.y = params.y;
