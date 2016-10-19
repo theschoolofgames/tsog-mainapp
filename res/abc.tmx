@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="554">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="32" tileheight="32" nextobjectid="568">
  <tileset firstgid="1" name="A" tilewidth="231" tileheight="254" tilecount="1" columns="1">
   <image source="../_sourceart/ABC/A.png" width="231" height="254"/>
  </tileset>
@@ -198,43 +198,43 @@
  <tileset firstgid="65" name="W_lowercase" tilewidth="283" tileheight="195" tilecount="1" columns="1">
   <image source="../_sourceart/abc/W_lowercase.png" width="283" height="195"/>
  </tileset>
- <tileset firstgid="66" name="X_lowercase" tilewidth="160" tileheight="175" tilecount="1" columns="1">
-  <image source="../_sourceart/abc/X_lowercase.png" width="160" height="175"/>
+ <tileset firstgid="66" name="X_lowercase" tilewidth="171" tileheight="196" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/X_lowercase.png" width="171" height="196"/>
  </tileset>
- <tileset firstgid="67" name="Y_lowercase" tilewidth="165" tileheight="242" tilecount="1" columns="1">
-  <image source="../_sourceart/abc/Y_lowercase.png" width="165" height="242"/>
+ <tileset firstgid="67" name="Y_lowercase" tilewidth="186" tileheight="252" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/Y_lowercase.png" width="186" height="252"/>
  </tileset>
- <tileset firstgid="68" name="Z_lowercase" tilewidth="147" tileheight="175" tilecount="1" columns="1">
-  <image source="../_sourceart/abc/Z_lowercase.png" width="147" height="175"/>
+ <tileset firstgid="68" name="Z_lowercase" tilewidth="186" tileheight="194" tilecount="1" columns="1">
+  <image source="../_sourceart/abc/Z_lowercase.png" width="186" height="194"/>
  </tileset>
  <objectgroup name="z">
-  <object id="546" name="z" gid="68" x="86.5" y="248" width="147" height="175"/>
-  <object id="551" name="Path1" x="111" y="103">
-   <polyline points="0,0 37,0 84,0"/>
+  <object id="564" name="z" gid="68" x="67" y="257" width="186" height="194"/>
+  <object id="565" name="Path1" x="101" y="104">
+   <polyline points="0,0 34,0 74,-1 106,0"/>
   </object>
-  <object id="552" name="Path2" x="188" y="119">
-   <polyline points="0,0 -24,30 -53,71 -70,99"/>
+  <object id="566" name="Path2" x="199" y="116">
+   <polyline points="0,0 -36,31 -68,67 -97,106"/>
   </object>
-  <object id="553" name="Path3" x="130" y="221">
-   <polyline points="0,0 25,0 79,1"/>
+  <object id="567" name="Path3" x="115" y="221">
+   <polyline points="0,0 34,0 71,2 113,2"/>
   </object>
  </objectgroup>
  <objectgroup name="y" visible="0">
-  <object id="540" name="y" gid="67" x="78" y="281" width="165" height="242"/>
-  <object id="541" name="Path1" x="106" y="59">
-   <polyline points="0,0 19,41 34,80 53,115"/>
+  <object id="560" name="y" gid="67" x="67" y="286" width="186" height="252"/>
+  <object id="562" name="Path1" x="102" y="61">
+   <polyline points="0,0 18,40 31,79 54,132"/>
   </object>
-  <object id="542" name="Path2" x="213" y="59">
-   <polyline points="0,0 -17,51 -33,92 -56,135 -72,168 -107,193"/>
+  <object id="563" name="Path2" x="222" y="72">
+   <polyline points="0,0 -21,40 -43,92 -69,136 -83,164 -117,178"/>
   </object>
  </objectgroup>
  <objectgroup name="x" visible="0">
-  <object id="534" name="x" gid="66" x="80" y="247" width="160" height="175"/>
-  <object id="535" name="Path1" x="119" y="95">
-   <polyline points="0,0 21,33 52,75 92,133"/>
+  <object id="557" name="x" gid="66" x="75" y="258" width="171" height="196"/>
+  <object id="558" name="Path1" x="113" y="95">
+   <polyline points="0,0 22,33 50,75 75,106 95,132"/>
   </object>
-  <object id="536" name="Path2" x="210" y="90">
-   <polyline points="0,0 -22,30 -58,80 -88,117 -101,139"/>
+  <object id="559" name="Path2" x="205" y="98">
+   <polyline points="0,0 -25,32 -47,62 -73,95 -94,128"/>
   </object>
  </objectgroup>
  <objectgroup name="w" visible="0">
