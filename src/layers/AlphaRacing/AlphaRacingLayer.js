@@ -166,7 +166,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     initPlatforms: function() {
-        this._player = new ARPlayer();
+        this._player = new ARAdiDog();
+
+        ARObstacleWorker.getInstance().setPlayer(this._player);
         
         // Check current goal and update UI
         this._initChallenges();
@@ -571,15 +573,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Obstacles" )[0];
 
         if (group && group.posArray.length > 0) {
-            group.posArray.forEach((pos) => {
-                var object = new ARBeeHive(self._player);
-                // object.setScale(0.8);
-                object.x = pos.x;
-                object.y = pos.y;
-                object.setActive(true);
-                
-                ARObstacleWorker.getInstance().addObstacle(object);
-                self.gameLayer.addChild(object, AR_WORD_ZODER);
+            group.posArray.forEach((params) => {                
+                var obstacle = ARObstacleWorker.getInstance().addObstacle(params);
+                self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
             });
         }
     }, 
@@ -628,14 +624,19 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         tmxMap.getObjectGroups().forEach(function(group) {
             var groupPos = {
                 name: group.getGroupName(),
-                posArray: [],
+                posArray: []
             };
 
             group.getObjects().forEach(function(obj) {
-                groupPos.posArray.push({
-                    x: (obj.x + self._gameLayerSize.width - self._mapWidth) * _csf,
-                    y: obj.y * _csf
-                }); 
+                var keys = Object.keys(obj);
+                var copy = {};
+
+                keys.forEach(k => copy[k] = obj[k]);
+
+                copy.x = (copy.x + self._gameLayerSize.width - self._mapWidth) * _csf;
+                copy.y = copy.y * _csf;
+
+                groupPos.posArray.push(copy); 
             });
 
             posArray.push(groupPos);

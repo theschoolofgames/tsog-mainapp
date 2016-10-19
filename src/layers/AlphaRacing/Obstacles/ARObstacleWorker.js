@@ -1,12 +1,25 @@
 var ARObstacleWorker = cc.Class.extend({
     _obstacles: [],
+    _player: null,
 
     ctor: function() {
 
     },
 
-    addObstacle: function(obstacle) {
-        this._obstacles.push(obstacle);
+    setPlayer: function(player) {
+        this._player = player;
+    },
+
+    addObstacle: function(params) {
+        var object = new ARBeeHive(this._player);
+        // object.setScale(0.8);
+        object.x = params.x;
+        object.y = params.y;
+        object.setActive(true);
+
+        this._obstacles.push(object);
+
+        return object;
     },
 
     removeObstacle: function(obstacle) {
