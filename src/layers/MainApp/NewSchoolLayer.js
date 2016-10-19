@@ -45,6 +45,8 @@ var NewSchoolLayer = cc.Layer.extend({
         tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
         tf.color = cc.color.YELLOW;
         tf.setTouchAreaEnabled(true);
+        tf.setPasswordEnabled(true);
+        tf.setMaxLengthEnabled(true);
         this._tf = tf;
         fieldHolder.addChild(tf);
         holder.addChild(fieldHolder);

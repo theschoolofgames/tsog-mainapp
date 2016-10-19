@@ -216,7 +216,10 @@ var MatchGameLayer = TestLayer.extend({
                 string = d[1].value + " - " + d[2].value;
         })
         var lb = new cc.LabelBMFont(string, res.CustomFont_fnt);
-        lb.scale = 2;
+        var currentScale = 2;
+        if(string.length > 14)
+            currentScale = 1.5;
+        // lb.scale = currentScale;
         lb.x = cc.winSize.width/2;
         lb.y = cc.winSize.height/2 + 80;
         this.addChild(lb);
@@ -224,7 +227,7 @@ var MatchGameLayer = TestLayer.extend({
             cc.callFunc(function() { 
                 AnimatedEffect.create(lb, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5)),
+            cc.scaleTo(3, currentScale).easing(cc.easeElasticOut(0.5)),
             cc.delayTime(1),
             cc.callFunc(function(){
                 lb.removeFromParent();

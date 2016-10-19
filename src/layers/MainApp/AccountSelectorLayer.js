@@ -515,7 +515,7 @@ var AccountSelectorLayer = cc.Layer.extend({
                 var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
                 var scene;
                 if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-                    scene = new RoomScene();
+                    scene = new MapScene();
                 else
                     scene = new window[nextSceneName]();
                 cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));

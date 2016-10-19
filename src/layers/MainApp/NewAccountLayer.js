@@ -116,6 +116,8 @@ var NewAccountLayer = cc.Layer.extend({
         this._tf.setTouchSize(cc.size(fieldHolder.width, fieldHolder.height));
         this._tf.color = cc.color.RED;
         this._tf.setTouchAreaEnabled(true);
+        this._tf.setMaxLengthEnabled(true);
+        this._tf.setMaxLength(20);
         fieldHolder.addChild(this._tf);
         holder.addChild(fieldHolder);
 

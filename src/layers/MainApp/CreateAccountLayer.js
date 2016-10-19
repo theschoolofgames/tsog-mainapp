@@ -47,6 +47,8 @@ var CreateAccountLayer = cc.Layer.extend({
         tfUsername.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
         tfUsername.color = cc.color.YELLOW;
         tfUsername.setTouchAreaEnabled(true);
+        tfUsername.setMaxLengthEnabled(true);
+        tfUsername.setMaxLength(20);
         this.tfUsername = tfUsername;
         fieldHolderUsername.addChild(tfUsername);
         holder.addChild(fieldHolderUsername);
@@ -64,6 +66,8 @@ var CreateAccountLayer = cc.Layer.extend({
         tfPassword1.color = cc.color.YELLOW;
         tfPassword1.setTouchAreaEnabled(true);
         tfPassword1.setPasswordEnabled(true);
+        tfPassword1.setMaxLengthEnabled(true);
+        tfPassword1.setMaxLength(20);
         this.tfPassword1 = tfPassword1;
         fieldHolderPassword1.addChild(tfPassword1);
         holder.addChild(fieldHolderPassword1);
@@ -81,6 +85,8 @@ var CreateAccountLayer = cc.Layer.extend({
         tfPassword2.color = cc.color.YELLOW;
         tfPassword2.setTouchAreaEnabled(true);
         tfPassword2.setPasswordEnabled(true);
+        tfPassword2.setMaxLengthEnabled(true);
+        tfPassword2.setMaxLength(20);
         this.tfPassword2 = tfPassword2;
         fieldHolderPassword2.addChild(tfPassword2);
         holder.addChild(fieldHolderPassword2);
