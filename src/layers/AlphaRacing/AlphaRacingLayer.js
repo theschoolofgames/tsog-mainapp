@@ -155,6 +155,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this.setViewpointCenter(this._player.getPosition());
             this._checkAndScrollBackgrounds(this._player.getPosition());
         }
+
+        ARObstacleWorker.getInstance().update(dt);
     },
 
     _playBackgroundMusic: function() {
@@ -164,6 +166,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     initPlatforms: function() {
+        this._player = new ARAdiDog();
+
+        ARObstacleWorker.getInstance().setPlayer(this._player);
+        
         // Check current goal and update UI
         this._initChallenges();
 
@@ -203,11 +209,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this.historyMapIndexArray.push(index);
 
             this.addAlphabet(this.maps[index]);
+            this.addObstacles(this.maps[index]);
         }
 
         // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
-
-        this._player = new ARPlayer();
         this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
@@ -365,6 +370,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                     this.historyMapIndexArray.push(index);
 
                     this.addAlphabet(this.maps[index]);
+                    this.addObstacles(this.maps[index]);
                     break;
                 }
             }
@@ -562,8 +568,20 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
     },
 
+    addObstacles: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Obstacles" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {                
+                var obstacle = ARObstacleWorker.getInstance().addObstacle(params);
+                self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
+    }, 
+
     addAlphabet: function(tmxMap) {
-        let posArray = this.getGroupPositions(tmxMap);
+        let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
         let inputArray = this._inputData.slice(0);
         let groupIndex = 0;
         let self = this;
@@ -606,15 +624,19 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         tmxMap.getObjectGroups().forEach(function(group) {
             var groupPos = {
                 name: group.getGroupName(),
-                posArray: [],
+                posArray: []
             };
 
-            var that = self;
             group.getObjects().forEach(function(obj) {
-                groupPos.posArray.push({
-                    x: (obj.x + that._gameLayerSize.width - that._mapWidth) * _csf,
-                    y: obj.y * _csf
-                }); 
+                var keys = Object.keys(obj);
+                var copy = {};
+
+                keys.forEach(k => copy[k] = obj[k]);
+
+                copy.x = (copy.x + self._gameLayerSize.width - self._mapWidth) * _csf;
+                copy.y = copy.y * _csf;
+
+                groupPos.posArray.push(copy); 
             });
 
             posArray.push(groupPos);
@@ -787,13 +809,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         for (var i = 0; i < tiles.length; i++) {
 
             var dic = tiles[i];
-            let _tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
+            // let _tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
             
             // cc.log("Gid Json => %s", JSON.stringify(dic));
             // cc.log("Player Rect => (%d, %d, %d, %d)", pRect.x, pRect.y, pRect.width, pRect.height);
             var gid = dic.gid;
             if (gid) {
-                let tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
+                let tileRect = cc.rect(dic.x, dic.y + this._tileSize.height/2, this._tileSize.width, this._tileSize.height/2); 
                 if (cc.rectIntersectsRect(pRect, tileRect)) {               
 
                     this.drawRectWithLabel(cc.p(dic.x, dic.y),

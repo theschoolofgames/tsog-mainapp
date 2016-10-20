@@ -21,6 +21,8 @@ var res = {
     AdiDog_Run_plist: "adidog_run/adidog_run.plist",
     AR_Background_png: "alpha-racing-background.png",
     AR_Background_plist: "alpha-racing-background.plist",
+    AR_Obstacles_png: "alpha-racing-obstacles.png",
+    AR_Obstacles_plist: "alpha-racing-obstacles.plist",
     Balloon_Animation_png: "balloon-animations/balloon-animations.png",
     Balloon_Animation_plist: "balloon-animations/balloon-animations.plist",
 

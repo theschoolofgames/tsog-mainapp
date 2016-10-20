@@ -46,6 +46,8 @@ var LoginLayer = cc.Layer.extend({
         tfUsername.y = fieldHolderUsername.height / 2;
         tfUsername.setTextColor(cc.color(127, 127, 127));
         tfUsername.setPlaceHolderColor(cc.color.WHITE);
+        tfUsername.setMaxLengthEnabled(true);
+        tfUsername.setMaxLength(20);
         tfUsername.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
         tfUsername.setTouchAreaEnabled(true);
         this.tfUsername = tfUsername;
@@ -82,6 +84,8 @@ var LoginLayer = cc.Layer.extend({
         tfPassword.setPlaceHolderColor(cc.color.WHITE);
         tfPassword.setTouchSize(cc.size(fieldHolderUsername.width, fieldHolderUsername.height));
         tfPassword.setTouchAreaEnabled(true);
+        tfPassword.setMaxLengthEnabled(true);
+        tfPassword.setMaxLength(20);
         tfPassword.setPasswordEnabled(true);
         this.tfPassword = tfPassword;
         fieldHolderPassword.addChild(tfPassword);

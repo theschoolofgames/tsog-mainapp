@@ -378,6 +378,10 @@ var CardGameLayer = TestLayer.extend({
 
         self._activateObjects.forEach(function(obj){
             var bBox = obj.getBoundingBox();
+            bBox.x = bBox.x - bBox.width/2;
+            bBox.y = bBox.y - bBox.height/2;
+            bBox.width = bBox.width * 2;
+            bBox.height = bBox.height * 2;
             if (cc.rectContainsPoint(bBox, touchLoc)) {
                 // cc.log("touch _activateObjects with tag: " + obj.tag);
                 self._didObjectAllowedToMove = true;

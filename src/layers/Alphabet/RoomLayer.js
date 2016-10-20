@@ -48,7 +48,7 @@ var RoomLayer = cc.Layer.extend({
         // this.addRefreshButton();
         // this.addBackButton();
         this.addHud();
-        this.runTutorial(false);
+        
         this.runHintObjectUp();
         this.runSoundCountDown();
         cc.eventManager.addListener({
@@ -91,7 +91,10 @@ var RoomLayer = cc.Layer.extend({
             )
         )
     },
-
+    onEnter: function() {
+        this._super();
+        this.runTutorial(false);
+    },
     onExit: function() {
         this._super();
 

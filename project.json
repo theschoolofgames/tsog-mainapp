@@ -79,6 +79,11 @@
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARPlayer.js",
+        "src/layers/AlphaRacing/Players/ARAdiDog.js",
+        "src/layers/AlphaRacing/Obstacles/ARObstacle.js",
+        "src/layers/AlphaRacing/Obstacles/ARObstacleWorker.js",
+        "src/layers/AlphaRacing/Obstacles/ARBeeHive.js",
+        "src/layers/AlphaRacing/Obstacles/ARStone.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

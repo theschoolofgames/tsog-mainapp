@@ -306,7 +306,8 @@ var SchoolSelectorLayer = cc.Layer.extend({
         var size = cc.size(field.width, field.height);
         // cc.log(field.width + " - " + field.height);  
         var tf = new ccui.TextField("Your School Name", "Arial", 32);
-
+        tf.setPasswordEnabled(true);
+        tf.setMaxLengthEnabled(true);
         tf.x = field.width / 2;
         tf.y = field.height / 2;
 
