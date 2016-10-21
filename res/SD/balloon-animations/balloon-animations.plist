@@ -9,376 +9,684 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{7.5,-18}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{112,227}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{155,274}}</string>
+                <string>{{1,323},{112,227}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 3 4 1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>218 99 154 286 141 284 106 114 161 59</string>
+                <key>verticesUV</key>
+                <string>113 363 49 550 36 548 1 378 56 323</string>
             </dict>
             <key>balloon_blue_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-9,29}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{131,119}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1,277},{155,274}}</string>
+                <string>{{476,95},{131,119}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>2 3 4 0 1 2 0 2 4</string>
+                <key>vertices</key>
+                <string>211 95 211 167 143 185 80 101 167 66</string>
+                <key>verticesUV</key>
+                <string>607 124 607 196 539 214 476 130 563 95</string>
             </dict>
             <key>balloon_blue_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{25,19.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{223,228}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1,553},{155,274}}</string>
+                <string>{{570,323},{223,228}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>1 5 6 1 3 4 1 2 3 1 4 5 0 1 6</string>
+                <key>vertices</key>
+                <string>246 54 221 114 291 131 174 249 68 143 90 50 164 21</string>
+                <key>verticesUV</key>
+                <string>748 356 723 416 793 433 676 551 570 445 592 352 666 323</string>
             </dict>
             <key>balloon_blue_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{4.5,7}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{276,285}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{158,1},{155,274}}</string>
+                <string>{{279,1105},{276,285}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>10 11 12 8 9 10 1 10 12 5 3 4 5 7 8 5 6 7 8 1 5 1 3 5 1 8 10 1 2 3 0 1 12 0 12 13</string>
+                <key>vertices</key>
+                <string>270 19 227 116 297 118 274 195 163 290 131 190 99 235 83 219 117 170 21 122 94 104 23 33 151 27 158 5</string>
+                <key>verticesUV</key>
+                <string>528 1119 485 1216 555 1218 532 1295 421 1390 389 1290 357 1335 341 1319 375 1270 279 1222 352 1204 281 1133 409 1127 416 1105</string>
             </dict>
             <key>balloon_blue_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{2,17}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{305,263}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{158,277},{155,274}}</string>
+                <string>{{311,559},{305,263}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>13 14 15 11 12 13 1 13 15 8 10 11 8 9 10 1 5 11 8 11 5 5 6 7 8 5 7 3 4 5 1 2 3 1 3 5 1 11 13 0 1 15</string>
+                <key>vertices</key>
+                <string>289 14 213 128 289 119 309 202 304 260 172 219 177 269 149 269 106 214 75 268 58 251 111 187 19 125 76 96 4 24 162 6</string>
+                <key>verticesUV</key>
+                <string>596 567 520 681 596 672 616 755 611 813 479 772 484 822 456 822 413 767 382 821 365 804 418 740 326 678 383 649 311 577 469 559</string>
             </dict>
             <key>balloon_blue_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{1.5,-1}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{306,299}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{158,553},{155,274}}</string>
+                <string>{{309,1394},{306,299}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 1 2 5 6 7 3 4 5 7 3 5 8 9 10 11 12 13 14 15 16 20 22 23 20 21 22 18 20 23 17 23 24 18 19 20 17 18 23 25 26 27 25 27 28</string>
+                <key>vertices</key>
+                <string>83 305 46 265 83 231 309 199 309 270 262 209 242 229 221 186 179 269 151 269 166 237 295 130 270 155 263 98 98 139 40 139 40 119 263 45 187 90 110 90 107 50 55 43 78 20 187 40 263 6 47 36 43 68 3 28 11 11</string>
+                <key>verticesUV</key>
+                <string>389 1693 352 1653 389 1619 615 1587 615 1658 568 1597 548 1617 527 1574 485 1657 457 1657 472 1625 601 1518 576 1543 569 1486 404 1527 346 1527 346 1507 569 1433 493 1478 416 1478 413 1438 361 1431 384 1408 493 1428 569 1394 353 1424 349 1456 309 1416 317 1399</string>
+            </dict>
+            <key>balloon_blue_7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{17.5,95}</string>
+                <key>spriteSize</key>
+                <string>{124,51}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{248,1},{124,51}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3 4 5 6</string>
+                <key>vertices</key>
+                <string>183 85 110 85 110 35 183 35 234 64 204 64 204 34</string>
+                <key>verticesUV</key>
+                <string>321 52 248 52 248 2 321 2 372 31 342 31 342 1</string>
+            </dict>
+            <key>balloon_blue_8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{12,98}</string>
+                <key>spriteSize</key>
+                <string>{151,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{645,1},{151,73}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>2 3 4 0 1 2 4 0 2</string>
+                <key>vertices</key>
+                <string>242 33 223 75 207 62 91 93 146 20</string>
+                <key>verticesUV</key>
+                <string>796 14 777 56 761 43 645 74 700 1</string>
             </dict>
             <key>balloon_gray_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{10.5,-23.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{112,229}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,276}</string>
                 <key>textureRect</key>
-                <string>{{315,1},{155,274}}</string>
+                <string>{{795,323},{112,229}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 4 5 0 3 4 1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>221 86 152 274 139 276 139 179 109 92 161 47</string>
+                <key>verticesUV</key>
+                <string>907 362 838 550 825 552 825 455 795 368 847 323</string>
             </dict>
             <key>balloon_gray_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{10,27}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{107,107}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{315,277},{155,274}}</string>
+                <string>{{234,95},{107,107}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 2 3 0 1 2</string>
+                <key>vertices</key>
+                <string>199 181 111 180 111 75 218 74</string>
+                <key>verticesUV</key>
+                <string>322 202 234 201 234 96 341 95</string>
             </dict>
             <key>balloon_gray_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{15.5,22}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{194,215}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{315,553},{155,274}}</string>
+                <string>{{609,95},{194,215}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 4 5 2 3 4 0 2 4 0 1 2</string>
+                <key>vertices</key>
+                <string>267 171 163 240 73 139 73 73 121 25 237 25</string>
+                <key>verticesUV</key>
+                <string>803 241 699 310 609 209 609 143 657 95 773 95</string>
             </dict>
             <key>balloon_gray_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{2.5,8}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{264,287}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{472,1},{155,274}}</string>
+                <string>{{557,1105},{264,287}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>11 12 13 9 11 13 9 10 11 0 9 13 5 7 8 3 8 9 5 6 7 3 4 5 3 5 8 1 2 3 0 1 3 0 3 9</string>
+                <key>vertices</key>
+                <string>255 37 289 174 240 223 178 191 172 290 118 200 100 236 83 219 123 173 103 138 30 144 79 89 25 35 207 3</string>
+                <key>verticesUV</key>
+                <string>787 1139 821 1276 772 1325 710 1293 704 1392 650 1302 632 1338 615 1321 655 1275 635 1240 562 1246 611 1191 557 1137 739 1105</string>
             </dict>
             <key>balloon_gray_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{2.5,9}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{298,279}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{472,277},{155,274}}</string>
+                <string>{{560,824},{298,279}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 1 2 3 4 5 7 8 9 6 7 9 11 12 13 10 11 13 17 18 19 14 15 16 14 16 17 19 14 17 20 21 22 25 26 27 24 25 27 23 24 27</string>
+                <key>vertices</key>
+                <string>177 285 135 243 172 207 77 270 58 251 116 191 258 214 243 228 205 181 225 181 306 202 296 219 255 191 277 173 191 133 185 183 135 183 97 138 44 141 21 117 289 142 226 136 289 94 296 13 197 100 76 96 8 28 215 6</string>
+                <key>verticesUV</key>
+                <string>729 1103 687 1061 724 1025 629 1088 610 1069 668 1009 810 1032 795 1046 757 999 777 999 858 1020 848 1037 807 1009 829 991 743 951 737 1001 687 1001 649 956 596 959 573 935 841 960 778 954 841 912 848 831 749 918 628 914 560 846 767 824</string>
             </dict>
             <key>balloon_gray_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0,8}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{309,269}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{472,553},{155,274}}</string>
+                <string>{{1,824},{309,269}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 19 22 23 20 21 22 19 20 22 18 19 23 18 23 24</string>
+                <key>vertices</key>
+                <string>63 281 45 269 124 187 178 268 152 268 166 235 264 207 242 229 228 200 309 229 272 197 309 197 289 154 256 121 289 121 98 139 40 139 40 119 81 18 112 41 243 20 273 34 152 113 0 32 12 12</string>
+                <key>verticesUV</key>
+                <string>64 1093 46 1081 125 999 179 1080 153 1080 167 1047 265 1019 243 1041 229 1012 310 1041 273 1009 310 1009 290 966 257 933 290 933 99 951 41 951 41 931 82 830 113 853 244 832 274 846 153 925 1 844 13 824</string>
+            </dict>
+            <key>balloon_gray_7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{15,94.5}</string>
+                <key>spriteSize</key>
+                <string>{119,50}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{119,50}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3 4 5 6</string>
+                <key>vertices</key>
+                <string>183 85 110 85 110 35 183 35 229 55 204 70 204 39</string>
+                <key>verticesUV</key>
+                <string>74 51 1 51 1 1 74 1 120 21 95 36 95 5</string>
+            </dict>
+            <key>balloon_gray_8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{10.5,93}</string>
+                <key>spriteSize</key>
+                <string>{116,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{527,1},{116,73}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3 4 5 6</string>
+                <key>vertices</key>
+                <string>198 30 131 98 107 74 132 28 223 75 198 50 223 25</string>
+                <key>verticesUV</key>
+                <string>618 6 551 74 527 50 552 4 643 51 618 26 643 1</string>
             </dict>
             <key>balloon_green_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{7.5,-18.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{112,226}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{629,1},{155,274}}</string>
+                <string>{{805,95},{112,226}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 3 4 1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>218 97 154 286 141 284 106 110 160 60</string>
+                <key>verticesUV</key>
+                <string>917 132 853 321 840 319 805 145 859 95</string>
             </dict>
             <key>balloon_green_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{-9,29}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{131,119}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{629,277},{155,274}}</string>
+                <string>{{343,95},{131,119}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>2 3 4 0 1 2 0 2 4</string>
+                <key>vertices</key>
+                <string>211 95 211 167 143 185 80 101 167 66</string>
+                <key>verticesUV</key>
+                <string>474 124 474 196 406 214 343 130 430 95</string>
             </dict>
             <key>balloon_green_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{25,19.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{223,228}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{629,553},{155,274}}</string>
+                <string>{{345,323},{223,228}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>1 5 6 1 3 4 1 2 3 1 4 5 0 1 6</string>
+                <key>vertices</key>
+                <string>246 54 221 114 291 131 174 249 68 143 90 50 164 21</string>
+                <key>verticesUV</key>
+                <string>523 356 498 416 568 433 451 551 345 445 367 352 441 323</string>
             </dict>
             <key>balloon_green_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{4.5,7}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{276,285}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{786,1},{155,274}}</string>
+                <string>{{1,1105},{276,285}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>10 11 12 8 9 10 1 10 12 5 3 4 5 7 8 5 6 7 8 1 5 1 3 5 1 8 10 1 2 3 0 1 12 0 12 13</string>
+                <key>vertices</key>
+                <string>270 19 227 116 297 118 274 195 163 290 131 190 99 235 83 219 117 170 21 122 94 104 23 33 151 27 158 5</string>
+                <key>verticesUV</key>
+                <string>250 1119 207 1216 277 1218 254 1295 143 1390 111 1290 79 1335 63 1319 97 1270 1 1222 74 1204 3 1133 131 1127 138 1105</string>
             </dict>
             <key>balloon_green_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{2,17}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{305,263}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{786,277},{155,274}}</string>
+                <string>{{618,559},{305,263}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>13 14 15 11 12 13 1 13 15 8 10 11 8 9 10 1 5 11 8 11 5 5 6 7 8 5 7 3 4 5 1 2 3 1 3 5 1 11 13 0 1 15</string>
+                <key>vertices</key>
+                <string>289 14 213 128 289 119 309 202 304 260 172 219 177 269 149 269 106 214 75 268 58 251 111 187 19 125 76 96 4 24 162 6</string>
+                <key>verticesUV</key>
+                <string>903 567 827 681 903 672 923 755 918 813 786 772 791 822 763 822 720 767 689 821 672 804 725 740 633 678 690 649 618 577 776 559</string>
             </dict>
             <key>balloon_green_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{1.5,-1}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{306,299}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{786,553},{155,274}}</string>
+                <string>{{617,1394},{306,299}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 1 2 5 6 7 3 4 5 7 3 5 8 9 10 11 12 13 14 15 16 20 22 23 20 21 22 18 20 23 17 23 24 18 19 20 17 18 23 25 26 27 25 27 28</string>
+                <key>vertices</key>
+                <string>83 305 46 265 83 231 309 199 309 270 262 209 242 229 221 186 179 269 151 269 166 237 295 130 270 155 263 98 98 139 40 139 40 119 263 45 187 90 110 90 107 50 55 43 78 20 187 40 263 6 47 36 43 68 3 28 11 11</string>
+                <key>verticesUV</key>
+                <string>697 1693 660 1653 697 1619 923 1587 923 1658 876 1597 856 1617 835 1574 793 1657 765 1657 780 1625 909 1518 884 1543 877 1486 712 1527 654 1527 654 1507 877 1433 801 1478 724 1478 721 1438 669 1431 692 1408 801 1428 877 1394 661 1424 657 1456 617 1416 625 1399</string>
+            </dict>
+            <key>balloon_green_7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{17.5,95}</string>
+                <key>spriteSize</key>
+                <string>{124,51}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{122,1},{124,51}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3 4 5 6</string>
+                <key>vertices</key>
+                <string>183 85 110 85 110 35 183 35 234 64 204 64 204 34</string>
+                <key>verticesUV</key>
+                <string>195 52 122 52 122 2 195 2 246 31 216 31 216 1</string>
+            </dict>
+            <key>balloon_green_8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{12,98}</string>
+                <key>spriteSize</key>
+                <string>{151,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{374,1},{151,73}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>2 3 4 0 1 2 4 0 2</string>
+                <key>vertices</key>
+                <string>242 33 223 75 207 62 91 93 146 20</string>
+                <key>verticesUV</key>
+                <string>525 14 506 56 490 43 374 74 429 1</string>
             </dict>
             <key>balloon_red_1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{10.5,-19.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{94,234}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{943,1},{155,274}}</string>
+                <string>{{909,323},{94,234}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 3 4 0 2 3 0 1 2</string>
+                <key>vertices</key>
+                <string>212 121 150 291 120 249 118 85 193 57</string>
+                <key>verticesUV</key>
+                <string>1003 387 941 557 911 515 909 351 984 323</string>
             </dict>
             <key>balloon_red_2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{6.5,28.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{100,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{943,277},{155,274}}</string>
+                <string>{{132,95},{100,104}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>211 178 111 178 111 74 211 74</string>
+                <key>verticesUV</key>
+                <string>232 199 132 199 132 95 232 95</string>
             </dict>
             <key>balloon_red_3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{27.5,19.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{228,228}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{943,553},{155,274}}</string>
+                <string>{{115,323},{228,228}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>1 3 4 1 2 3 1 4 5 0 1 5</string>
+                <key>vertices</key>
+                <string>258 29 225 118 296 126 174 249 68 143 97 21</string>
+                <key>verticesUV</key>
+                <string>305 331 272 420 343 428 221 551 115 445 144 323</string>
             </dict>
             <key>balloon_red_4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{20.5,13.5}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{246,272}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1100,1},{155,274}}</string>
+                <string>{{312,824},{246,272}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>8 9 10 7 0 2 7 8 10 4 6 7 4 5 6 4 2 3 4 7 2 7 10 0 0 1 2 0 10 11</string>
+                <key>vertices</key>
+                <string>250 16 298 209 186 224 165 277 122 207 99 235 83 219 120 179 52 142 53 11 126 46 163 5</string>
+                <key>verticesUV</key>
+                <string>510 835 558 1028 446 1043 425 1096 382 1026 359 1054 343 1038 380 998 312 961 313 830 386 865 423 824</string>
             </dict>
             <key>balloon_red_5.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{0.5,15}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{308,259}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1100,277},{155,274}}</string>
+                <string>{{1,559},{308,259}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>15 16 17 13 14 15 10 12 13 10 11 12 7 8 9 7 9 10 7 10 13 1 7 13 7 1 2 1 13 15 2 4 5 2 3 4 2 5 6 7 2 6 0 1 15 0 15 17</string>
+                <key>vertices</key>
+                <string>292 11 189 144 248 168 232 126 289 119 309 202 267 244 182 205 177 269 131 269 107 213 75 268 58 251 117 161 1 132 94 87 6 59 36 10</string>
+                <key>verticesUV</key>
+                <string>292 560 189 693 248 717 232 675 289 668 309 751 267 793 182 754 177 818 131 818 107 762 75 817 58 800 117 710 1 681 94 636 6 608 36 559</string>
             </dict>
             <key>balloon_red_6.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{1.5,-1}</string>
                 <key>spriteSize</key>
-                <string>{155,274}</string>
+                <string>{306,299}</string>
                 <key>spriteSourceSize</key>
-                <string>{155,274}</string>
+                <string>{309,309}</string>
                 <key>textureRect</key>
-                <string>{{1100,553},{155,274}}</string>
+                <string>{{1,1394},{306,299}}</string>
                 <key>textureRotated</key>
                 <false/>
+                <key>triangles</key>
+                <string>0 1 2 5 6 7 3 4 5 7 3 5 8 9 10 11 12 13 14 15 16 19 21 22 18 22 23 19 20 21 18 19 22 17 18 23 24 17 23 25 26 27 25 27 28</string>
+                <key>vertices</key>
+                <string>83 305 46 265 83 231 309 199 309 270 262 209 242 229 221 186 179 269 151 269 166 237 295 130 270 155 263 98 98 139 40 139 40 119 263 95 110 89 100 43 55 43 78 20 107 40 233 34 263 6 43 34 43 68 3 28 11 11</string>
+                <key>verticesUV</key>
+                <string>81 1693 44 1653 81 1619 307 1587 307 1658 260 1597 240 1617 219 1574 177 1657 149 1657 164 1625 293 1518 268 1543 261 1486 96 1527 38 1527 38 1507 261 1483 108 1477 98 1431 53 1431 76 1408 105 1428 231 1422 261 1394 41 1422 41 1456 1 1416 9 1399</string>
+            </dict>
+            <key>balloon_red_7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{17,104.5}</string>
+                <key>spriteSize</key>
+                <string>{147,92}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{798,1},{147,92}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>0 1 2</string>
+                <key>vertices</key>
+                <string>245 63 98 96 143 4</string>
+                <key>verticesUV</key>
+                <string>945 60 798 93 843 1</string>
+            </dict>
+            <key>balloon_red_8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{15,94.5}</string>
+                <key>spriteSize</key>
+                <string>{129,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{309,309}</string>
+                <key>textureRect</key>
+                <string>{{1,95},{129,100}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>234 50 144 110 105 71 141 10</string>
+                <key>verticesUV</key>
+                <string>130 135 40 195 1 156 37 95</string>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
             <integer>3</integer>
-            <key>pixelFormat</key>
-            <string>RGBA8888</string>
-            <key>premultiplyAlpha</key>
-            <false/>
             <key>realTextureFileName</key>
             <string>balloon-animations.png</string>
             <key>size</key>
-            <string>{1256,828}</string>
+            <string>{1004,1694}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c498cf34257688dcc621258a01ba250b:fa4b9f6cfa61723537ac16f6823ac2e2:61f0b1649903ca25126f88604f94ccb2$</string>
+            <string>$TexturePacker:SmartUpdate:c80a33dc4e51755771abae8cc26f0962:de6f525d5f5d2f2562475f29634b1870:61f0b1649903ca25126f88604f94ccb2$</string>
             <key>textureFileName</key>
             <string>balloon-animations.png</string>
         </dict>

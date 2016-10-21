@@ -15,6 +15,10 @@ var ARPlayer = cc.Layer.extend({
 	runAnimationFrames: [],
 	isRunningAnim: false,
 
+	_health: 1,
+
+	_lbHealth: null,
+
 	ctor: function () {
 		this._super();
 		this.setAnchorPoint(0.5,0.5);
@@ -23,8 +27,6 @@ var ARPlayer = cc.Layer.extend({
         this.setDesiredPosition(cc.p(200,450));
         this.setContentSize(cc.size(65, 100));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
-		
-		return this;
 	},
 
 	onEnter: function() {
@@ -39,6 +41,12 @@ var ARPlayer = cc.Layer.extend({
 
     reduceHealth: function() {
         cc.log("ARPlayer: reduceHealth");
+    },
+
+    die: function() {
+    	var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
+    	cc.eventManager.dispatchEvent(event);
+    	this.rotation = -90;
     },
 	
  	updatea: function(dt) { 	

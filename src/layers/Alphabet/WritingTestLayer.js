@@ -587,7 +587,7 @@ var WritingTestLayer = TestLayer.extend({
                 if (charIndex > objName.length)
                     break;
                 var option = "";
-                if(objName.toUpperCase() != objName.toLowerCase())
+                if(objName.toUpperCase() != objName)
                     option = "_lowercase"
                 var s = new cc.Sprite("#" + objName.toUpperCase()[charIndex] + option + ".png");
                 this.addChild(s);

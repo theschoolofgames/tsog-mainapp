@@ -21,6 +21,10 @@ var ARObstacle = cc.Sprite.extend({
         }
     },
 
+    isActive: function() {
+        return this._isActive;
+    },
+
     start: function() {
 
     },

@@ -4,10 +4,6 @@ var ARStone = ARObstacle.extend({
         this._super(player, "stone.png");
     },
 
-    start: function() {
-
-    },
-
     willStart: function() {
         cc.log("ARStone: willStart");
     },
@@ -16,19 +12,14 @@ var ARStone = ARObstacle.extend({
         cc.log("ARStone: didStart");
     },
 
-    end: function() {
+
+    willEnd: function() {
         ARObstacleWorker.getInstance().removeObstacle(this);
         this.removeFromParent();
-
         this._player.reduceHealth();
     },
 
-    willEnd: function() {
-        cc.log("ARStone: willEnd");
-    },
-
     didEnded: function() {
-        cc.log("ARStone: didEnded");
     },
 
     // update: function(dt) {

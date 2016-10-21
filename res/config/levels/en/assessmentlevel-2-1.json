@@ -1,0 +1,179 @@
+{
+  "1": {
+    "1": {
+      "name": "room",
+      "data": [
+        "egg",
+        "book",
+        "lamp",
+        "chair",
+        "lemon",
+        "duster",
+        "hat"
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "egg",
+        "book",
+        "lamp",
+        "chair",
+        "lemon",
+        "duster",
+        "hat"
+      ]
+    },
+    "3": {
+      "name": "speaking",
+      "data": [
+        "egg",
+        "book",
+        "lamp",
+        "chair",
+        "lemon",
+        "duster",
+        "hat"
+      ]
+    }
+  },
+  "2": {
+    "1": {
+      "name": "forest",
+      "data": [
+        "cat",
+        "bee",
+        "dog",
+        "fox",
+        "ant",
+        "goat",
+        "horse"
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "cat",
+        "bee",
+        "dog",
+        "fox",
+        "ant",
+        "goat",
+        "horse"
+      ]
+    },
+    "3": {
+      "name": "speaking",
+      "data": [
+        "cat",
+        "bee",
+        "dog",
+        "fox",
+        "ant",
+        "goat",
+        "horse"
+      ]
+    }
+  },
+  "3": {
+    "1": {
+      "name": "fruiddition",
+      "data": [
+        {
+          "min": 1,
+          "max": 5
+        }
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    }
+  },
+  "4": {
+    "1": {
+      "name": "buildingblocks",
+      "data": [
+        {
+          "min": 2,
+          "max": 5
+        }
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    },
+    "3": {
+      "name": "writing",
+      "data": []
+    },
+    "4": {
+      "name": "speaking",
+      "data": []
+    }
+  },
+  "5": {
+    "1": {
+      "name": "balloon",
+      "data": [
+        {
+          "type": "word",
+          "value": "A",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "b",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "C",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "d",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "E",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "f",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "G",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "H",
+          "amount": "10"
+        }
+      ]
+    },
+    "2": {
+      "name": "listening",
+      "data": []
+    },
+    "3": {
+      "name": "writing",
+      "data": []
+    },
+    "4": {
+      "name": "writing",
+      "data": []
+    },
+    "5": {
+      "name": "writing",
+      "data": []
+    }
+  }
+}

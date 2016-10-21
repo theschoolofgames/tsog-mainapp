@@ -658,3 +658,6 @@ var STORYTIME_VOICE_FOR_LISTENING = {
     "bird": "Pick the bird in the story",
     "live": "Where did the animals live"
 };
+
+var EVENT_AR_FIREBALL_ACTIVE = "event_ar_fireball_active";
+var EVENT_AR_GAMEOVER = "event_ar_gameover";
