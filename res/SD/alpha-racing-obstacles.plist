@@ -17,6 +17,21 @@
                 <key>textureRect</key>
                 <string>{{1,1},{118,117}}</string>
                 <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>fireball.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{244,65}</string>
+                <key>spriteSourceSize</key>
+                <string>{244,65}</string>
+                <key>textureRect</key>
+                <string>{{187,1},{244,65}}</string>
+                <key>textureRotated</key>
                 <false/>
             </dict>
             <key>stone.png</key>
@@ -30,7 +45,22 @@
                 <key>spriteSourceSize</key>
                 <string>{65,75}</string>
                 <key>textureRect</key>
-                <string>{{121,1},{65,75}}</string>
+                <string>{{120,1},{65,75}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>warning-sign.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{56,56}</string>
+                <key>spriteSourceSize</key>
+                <string>{56,56}</string>
+                <key>textureRect</key>
+                <string>{{187,68},{56,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -42,9 +72,9 @@
             <key>realTextureFileName</key>
             <string>alpha-racing-obstacles.png</string>
             <key>size</key>
-            <string>{187,119}</string>
+            <string>{432,125}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c571f03c268045cfc095aa1455c85d18:a44851cea4d5747ad7352647e82dd3e8:064ca70082808efb4e3c7fd26cca356a$</string>
+            <string>$TexturePacker:SmartUpdate:2a7fe3ded5df372837a77175542f7d48:ebc369dacafae7f96ff4bb53197172fa:064ca70082808efb4e3c7fd26cca356a$</string>
             <key>textureFileName</key>
             <string>alpha-racing-obstacles.png</string>
         </dict>

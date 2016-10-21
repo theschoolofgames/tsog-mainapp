@@ -2,6 +2,8 @@ var ARObstacleWorker = cc.Class.extend({
     _obstacles: [],
     _player: null,
 
+    _deltaTime: 1 / 60,
+
     ctor: function() {
 
     },
@@ -15,6 +17,8 @@ var ARObstacleWorker = cc.Class.extend({
             var object = new ARBeeHive(this._player);
         } else if (params.type == "standing") {
             var object = new ARStone(this._player);
+        } else if (params.type == "flying") {
+            var object = new ARFire(this._player);
         }
         // object.setScale(0.8);
         object.x = params.x;
@@ -32,10 +36,20 @@ var ARObstacleWorker = cc.Class.extend({
             this._obstacles.splice(idx, 1);
     },
 
+    removeAll: function() {
+        this._obstacles.forEach(obj => obj.removeFromParent());
+        this._obstacles = [];
+    },
+
     update: function(dt) {
-        this._obstacles.forEach(function(ob) {
-            ob.update(dt);
-        })
+        var updateTimes = Math.round(dt / this._deltaTime);
+
+        for (var i = 0; i < updateTimes; i++) {
+            this._obstacles.forEach(function(ob) {
+                if (ob.isActive())
+                    ob.update(dt);
+            })
+        }
     }
 })
 

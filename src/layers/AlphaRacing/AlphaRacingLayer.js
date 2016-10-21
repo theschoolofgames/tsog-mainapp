@@ -11,6 +11,7 @@ var AR_MAP_VERTICLE_TILES = 20;
 var AlphaRacingLayer = cc.LayerColor.extend({
 	
     gameLayer: null,
+    arEffectLayer: null,
     maps: [],
     mapIndexArray: [],
     historyMapIndexArray: [],
@@ -58,6 +59,20 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._tempInputData = inputData.slice();
 
         this._elapsedTime = 0;
+
+        this.addRefreshButton();
+    },
+
+    addRefreshButton: function() {
+        NativeHelper.callNative("customLogging", ["Button", "res/refresh-button.png"]);
+        var refreshButton = new ccui.Button("res/refresh-button.png", "", "");
+        refreshButton.x = cc.winSize.width - refreshButton.width;
+        refreshButton.y = refreshButton.height / 2;
+        this.addChild(refreshButton, 100);
+        var self = this;
+        refreshButton.addClickEventListener(function() {
+            cc.director.replaceScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
+        });
     },
 
     _init: function() {
@@ -84,6 +99,15 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         
         this._init();
         this._playBackgroundMusic();
+
+        this._eventGameOver = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: EVENT_AR_GAMEOVER,
+            callback: function(event) {
+                this.unscheduleUpdate();
+            }.bind(this)
+        });
+        cc.eventManager.addListener(this._eventGameOver, 1);
     },
 
     onExit: function() {
@@ -98,10 +122,14 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._alphabetObjectArray = [];
         this.layers = [];
 
+        ARObstacleWorker.getInstance().removeAll();
+
         for (var i = 0; i < this.maps.length; i++) {
             this.gameLayer.removeChild(this.maps[i]);
         }
         this.maps = [];
+
+        cc.eventManager.removeListener(this._eventGameOver);
     },
 
     resetData: function() {
@@ -224,6 +252,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.addChild(this._tileBorder);
 
         this.addChild(this.gameLayer);
+
+        this.arEffectLayer = new AREffectLayer();
+        this.addChild(this.arEffectLayer, 10);
     },
 
     _addBackground: function() {
@@ -915,6 +946,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.gameLayer.setPosition(cc.p(
             Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
             Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
+
+        this.arEffectLayer.y = this.gameLayer.y;
     },
 
 });

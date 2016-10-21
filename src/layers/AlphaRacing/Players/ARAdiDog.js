@@ -1,5 +1,5 @@
 var ARAdiDog = ARPlayer.extend({
-    _health: 1,
+    _health: 5,
 
     ctor: function() {
         this._super();
@@ -48,6 +48,7 @@ var ARAdiDog = ARPlayer.extend({
 
         if (this._health <= 0) {
             cc.log("Die");
+            this.die();
         }
     },
 })
