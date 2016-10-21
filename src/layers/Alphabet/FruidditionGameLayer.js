@@ -176,8 +176,13 @@ var FruidditionGameLayer = TestLayer.extend({
         // if (!data)
         //     return;
         cc.log("fruiddition _fetchObjectData");
-        this._type = FRUIDDITION_DATA["type"];
-        this._data = JSON.parse(JSON.stringify(FRUIDDITION_DATA["data"][0]));
+        // this._type = FRUIDDITION_DATA["type"];
+        // this._data = JSON.parse(JSON.stringify(FRUIDDITION_DATA["data"][0]));
+        // if (data)
+        //     data = JSON.parse(data);
+        cc.log("data:" + JSON.stringify(data));
+        this._type = data["type"];
+        this._data = data["data"][0];
 
         this._data["first"] = this._prepareData(this._data["first"]);
         this._data["second"] = this._prepareData(this._data["second"]);
