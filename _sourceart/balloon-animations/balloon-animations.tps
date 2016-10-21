@@ -2,18 +2,18 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>4</int>
+        <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.2.3</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/balloon-animations/balloon-animations.tps</string>
+        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/balloon-animations/balloon-animations.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.5</double>
+                <double>1</double>
                 <key>extension</key>
-                <string></string>
+                <string>SD</string>
                 <key>spriteFilter</key>
                 <string></string>
                 <key>acceptFractionalValues</key>
@@ -21,13 +21,15 @@
                 <key>maxTextureSize</key>
                 <QSize>
                     <key>width</key>
-                    <int>-1</int>
+                    <int>2048</int>
                     <key>height</key>
-                    <int>-1</int>
+                    <int>2048</int>
                 </QSize>
             </struct>
         </array>
         <key>allowRotation</key>
+        <true/>
+        <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>
         <false/>
@@ -97,16 +99,20 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
+        <key>reduceBorderArtifacts</key>
+        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
             <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
+            <key>forceWordAligned</key>
+            <true/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
                 <key>heuristic</key>
@@ -141,13 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/SD/balloon-animations/balloon-animations.plist</filename>
-            </struct>
-            <key>header</key>
-            <key>source</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
+                <filename>../../res/{v}/balloon-animations/balloon-animations.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -156,19 +156,19 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
-        <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <false/>
+        <true/>
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>cleanTransparentPixels</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -182,47 +182,14 @@
             <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">None</enum>
+            <enum type="SpriteSettings::TrimMode">Polygon</enum>
             <key>tracerTolerance</key>
-            <int>200</int>
+            <int>1000</int>
             <key>heuristicMask</key>
             <false/>
-            <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
-            <key>writePivotPoints</key>
-            <false/>
+            <key>pivotPoint</key>
+            <enum type="SpriteSettings::PivotPoint">Center</enum>
         </struct>
-        <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">balloon_blue_1.png</key>
-            <key type="filename">balloon_blue_2.png</key>
-            <key type="filename">balloon_blue_3.png</key>
-            <key type="filename">balloon_blue_4.png</key>
-            <key type="filename">balloon_blue_5.png</key>
-            <key type="filename">balloon_blue_6.png</key>
-            <key type="filename">balloon_gray_1.png</key>
-            <key type="filename">balloon_gray_2.png</key>
-            <key type="filename">balloon_gray_3.png</key>
-            <key type="filename">balloon_gray_4.png</key>
-            <key type="filename">balloon_gray_5.png</key>
-            <key type="filename">balloon_gray_6.png</key>
-            <key type="filename">balloon_green_1.png</key>
-            <key type="filename">balloon_green_2.png</key>
-            <key type="filename">balloon_green_3.png</key>
-            <key type="filename">balloon_green_4.png</key>
-            <key type="filename">balloon_green_5.png</key>
-            <key type="filename">balloon_green_6.png</key>
-            <key type="filename">balloon_red_1.png</key>
-            <key type="filename">balloon_red_2.png</key>
-            <key type="filename">balloon_red_3.png</key>
-            <key type="filename">balloon_red_4.png</key>
-            <key type="filename">balloon_red_5.png</key>
-            <key type="filename">balloon_red_6.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-            </struct>
-        </map>
         <key>fileList</key>
         <array>
             <filename>.</filename>

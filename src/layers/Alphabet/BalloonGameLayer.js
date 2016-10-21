@@ -32,6 +32,7 @@ var BalloonGameLayer = TestLayer.extend({
     blueAnimation: null,
     grayAnimation: null,
     _canVoildCompletedScene: true,
+    _canRunActionPop: true,
     
     ctor: function(objectIdArray) {
         this._super(cc.color.WHITE);
@@ -230,13 +231,14 @@ var BalloonGameLayer = TestLayer.extend({
 
         var self = this;
         var touchedPos = touch.getLocation();
-
+        this._canRunActionPop = true;
         this._balloons.forEach(function(obj) {
             var bounding = obj.getBoundingBox();
             if (cc.rectContainsPoint(cc.rect(bounding.x, bounding.y + bounding.height / 2, bounding.width, bounding.height / 2), touchedPos)) {
+                if(!self._canRunActionPop)
+                    return;
                 if (obj.touched)
                     return;
-
                 obj.touched = true;
 
                 if (obj.name === self._currentObject.value){
@@ -287,10 +289,10 @@ var BalloonGameLayer = TestLayer.extend({
 
                 var labelBalloon = obj.getChildByTag(100);
 
-                self.redAnimation = new cc.Animation(self.redAnimFrames, 0.1);
-                self.greenAnimation = new cc.Animation(self.greenAnimFrames, 0.1);
-                self.blueAnimation = new cc.Animation(self.blueAnimFrames, 0.1);
-                self.grayAnimation = new cc.Animation(self.grayAnimFrames, 0.1);
+                self.redAnimation = new cc.Animation(self.redAnimFrames, 0.05);
+                self.greenAnimation = new cc.Animation(self.greenAnimFrames, 0.05);
+                self.blueAnimation = new cc.Animation(self.blueAnimFrames, 0.05);
+                self.grayAnimation = new cc.Animation(self.grayAnimFrames, 0.05);
 
                 let currentAnimation = self.grayAnimation;
 
@@ -320,7 +322,8 @@ var BalloonGameLayer = TestLayer.extend({
                     labelBalloon.runAction(cc.sequence(cc.fadeOut(0.3), cc.callFunc(() => {
                         labelBalloon.stopAllActions();
                     }, self)));
-                }
+                };
+                self._canRunActionPop = false;
             }
         });
 
@@ -387,7 +390,9 @@ var BalloonGameLayer = TestLayer.extend({
         balloon.attr({x: ranX, y: - balloon.width});
 
         //create the move action
-        var actionTo = new cc.MoveTo(this._balloonLifeTime, cc.p(ranX, winSize.height + 100));
+        this._balloonLifeTime = 6;
+        this._balloonLifeTime = this._balloonLifeTime - 2 + 3 * Math.random();
+        var actionTo = new cc.MoveTo(this._balloonLifeTime, cc.p(ranX - 300 + 300 * Math.random(), winSize.height + 100));
         balloon.runAction(new cc.Sequence(actionTo, cc.callFunc(() => {
             balloon.x = -100;
             balloon.y = -100;
@@ -408,7 +413,7 @@ var BalloonGameLayer = TestLayer.extend({
         this.greenAnimFrames = [];
         this.blueAnimFrames = [];
         this.grayAnimFrames = [];
-        for (var i = 1; i <= 6; i++) {
+        for (var i = 1; i <= 8; i++) {
             var strRed = "balloon_red_" + i + ".png";
             var strGreen = "balloon_green_" + i + ".png";
             var strBlue = "balloon_blue_" + i + ".png";
@@ -431,6 +436,8 @@ var BalloonGameLayer = TestLayer.extend({
             balloonSprite.attr({x: -100, y: -100});   
             balloonSprite.setVisible(false);
             balloonSprite.touched = false;
+            this._balloonScale = Math.random() * 0.6 + 0.7;
+            // balloonSprite.scale = scale;
             balloonSprite.name = "Balloon" + i;
             balloonSprite.index = i;
             balloonSprite.setScale(this._balloonScale);
