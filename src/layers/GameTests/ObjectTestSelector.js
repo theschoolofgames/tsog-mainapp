@@ -283,6 +283,10 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
             case "alphabet":
                 cc.director.runScene(new AlphabetGameScene(checkedItems));   
                 break;
+            case "fruiddition":
+                cc.log("fruiddition");
+                cc.director.runScene(new FruidditionGameScene(checkedItems));  
+                break;
             case "storytime":
                 checkedItems = checkedItems.filter(function(obj) {
                     if (obj.indexOf("number") > -1)
