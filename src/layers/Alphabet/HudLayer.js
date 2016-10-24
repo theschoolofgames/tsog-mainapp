@@ -11,7 +11,7 @@ var HudLayer = cc.Layer.extend({
     _starEarned: 0,
     _trophiesEarned: 0,
 
-    ctor: function(layer, withoutClock) {
+    ctor: function(layer, withoutClock, timeForScene) {
         this._super();
 
         this._layer = layer;
@@ -21,8 +21,8 @@ var HudLayer = cc.Layer.extend({
         this.addGameProgressBar();
         this.addGoalImage();
         if(withoutClock == false || withoutClock == null )
-            this.addClockImage(true);
-        else this.addClockImage(false);
+            this.addClockImage(true,timeForScene);
+        else this.addClockImage(false, timeForScene);
 
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
@@ -97,7 +97,7 @@ var HudLayer = cc.Layer.extend({
         this.addProgressLabel(goalBg, this._trophiesEarned);
     },
 
-    addClockImage: function(visible) {
+    addClockImage: function(visible, timeForScene) {
         var clockBg = new cc.Sprite("#whitespace.png");
         clockBg.x = this._goalImg.x + this._goalImg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
         clockBg.y = this._goalImg.y;
@@ -109,7 +109,7 @@ var HudLayer = cc.Layer.extend({
         clockBg.addChild(clockImg);
         clockBg.setVisible(visible);
         this._clockImg = clockBg;
-        this.addCountDownClock(visible);
+        this.addCountDownClock(visible, timeForScene);
     },
 
     addProgressLabel: function(object, text) {
@@ -137,9 +137,12 @@ var HudLayer = cc.Layer.extend({
         }
     },
 
-    addCountDownClock: function(withClock) {
+    addCountDownClock: function(withClock, timeForScene) {
         var self = this;
         var clockInitTime = GAME_CONFIG.levelTime;
+        if(timeForScene) {
+            clockInitTime = timeForScene;
+        };
         var clock = new Clock(clockInitTime, function(){
             if(withClock == true)
                 self._layer.completedScene();

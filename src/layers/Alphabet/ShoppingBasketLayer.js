@@ -21,7 +21,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     _currentObjectOriginPos: null,
     _goal: 0,
 
-    ctor: function(data, timePlayed) {
+    ctor: function(data, timePlayed, timeForScene) {
         this._super();
         this.timePlayed = timePlayed || 0;
         this._fetchObjectData(data);
@@ -300,10 +300,10 @@ var ShoppingBasketLayer = TestLayer.extend({
 ShoppingBasketLayer._data = null;
 
 var ShoppingBasketScene = cc.Scene.extend({
-    ctor: function(data, timePlayed) {
+    ctor: function(data, timePlayed, timeForScene) {
         this._super();
 
-        var l = new ShoppingBasketLayer(data, timePlayed);
+        var l = new ShoppingBasketLayer(data, timePlayed, timeForScene);
         this.addChild(l);
     }
 });

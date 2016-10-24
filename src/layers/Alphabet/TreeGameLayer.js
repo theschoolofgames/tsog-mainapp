@@ -19,7 +19,7 @@ var TreeGameLayer = TestLayer.extend({
     _scrollView: null,
     _scrollToX: 0,
 
-    ctor: function(data, isTestScene) {
+    ctor: function(data, isTestScene, timeForScene) {
         this._super();
         this._scrollToX = 0;
         this._isTestScene = isTestScene;
@@ -346,10 +346,10 @@ TreeGameLayer.TOTAL_TREE_APPEAR = 5;
 TreeGameLayer.TOTAL_NUMBERS_IN_A_TREE = 5;
 
 var TreeGameScene = cc.Scene.extend({
-    ctor:function(data, isTestScene){
+    ctor:function(data, isTestScene, timeForScene){
         this._super();
 
-        var l = new TreeGameLayer(data, isTestScene);
+        var l = new TreeGameLayer(data, isTestScene, timeForScene);
         this.addChild(l);
     }
 });

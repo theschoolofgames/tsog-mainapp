@@ -7,7 +7,7 @@ var ARFire = ARObstacle.extend({
 
 
     ctor: function(player) {
-        this._super(player, "fireball.png");
+        this._super(player, "ar-obstacles/fireball.png");
         this.visible = false;
     },
 

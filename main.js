@@ -138,6 +138,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Level_Dialog_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Lands_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Obstacles_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
         
         // cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
@@ -216,6 +217,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
             cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
             cc.spriteFrameCache.addSpriteFrames(res.AR_Obstacles_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
         });
     }, this);
 };

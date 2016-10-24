@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>beehive.png</key>
+            <key>ar-obstacles/beehive.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -19,7 +19,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>fireball.png</key>
+            <key>ar-obstacles/fireball.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>stone.png</key>
+            <key>ar-obstacles/stone.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>warning-sign.png</key>
+            <key>ar-obstacles/warning-sign.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -74,7 +74,7 @@
             <key>size</key>
             <string>{432,125}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2a7fe3ded5df372837a77175542f7d48:ebc369dacafae7f96ff4bb53197172fa:064ca70082808efb4e3c7fd26cca356a$</string>
+            <string>$TexturePacker:SmartUpdate:71a2520ce89b4d642bc480cf4845e28c:ebc369dacafae7f96ff4bb53197172fa:064ca70082808efb4e3c7fd26cca356a$</string>
             <key>textureFileName</key>
             <string>alpha-racing-obstacles.png</string>
         </dict>

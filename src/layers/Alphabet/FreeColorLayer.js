@@ -36,7 +36,7 @@ var FreeColorLayer = TestLayer.extend({
     _colorButtonScale: 0.5,
     _currentObjectShowing: null,
 
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene, timeForScene) {
         this._super(true);
         this._objects = [];
         this._brushColorButtons = [];
@@ -46,7 +46,7 @@ var FreeColorLayer = TestLayer.extend({
 
         this._filterObjectsByType(objectIdArray);
         this.addObjects(this._objectsArray);
-
+        // this._addHudLayer(timeForScene);
         this._addColorButton();
 
         cc.eventManager.addListener({
@@ -60,9 +60,9 @@ var FreeColorLayer = TestLayer.extend({
         this._addNextButton();
     },
 
-    _addHudLayer: function(){
+    _addHudLayer: function(timeForScene){
         cc.log("_addHudLayer");
-        var hudLayer = new HudLayer(this, true);
+        var hudLayer = new HudLayer(this, true, timeForScene);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -459,9 +459,9 @@ var FreeColorLayer = TestLayer.extend({
 })
 
 var FreeColorScene = cc.Scene.extend({
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene, timeForScene) {
         this._super();
-        var layer = new FreeColorLayer(objectIdArray);
+        var layer = new FreeColorLayer(objectIdArray, timeForScene, timeForScene);
         this.addChild(layer);
     }
 });

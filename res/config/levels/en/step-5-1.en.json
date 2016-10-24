@@ -9,15 +9,56 @@
         "pencils",
         "potato",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen",
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen",
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 120
+    },
+    "4": {
+      "name": "writing",
+      "data": [
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 240
     }
   },
   "2": {
@@ -29,15 +70,53 @@
         "puppy",
         "rabbit",
         "rat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 120
     },
     "3": {
+      "name": "writing",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 240
+    },
+    "4": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -46,13 +125,15 @@
       "data": [
         {
           "min": 1,
-          "max": 15
+          "max": 5
         }
-      ]
+      ],
+      "duration": 180
     },
     "2": {
-      "name": "listening",
-      "data": []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -62,20 +143,24 @@
         {
           "min": 1,
           "max": 15
-        } 
-      ]
+        }
+      ],
+      "duration": 120
     },
     "2": {
-        "name": "listening",
-        "data" : []
+      "name": "listening",
+      "data": [],
+      "duration": 60
     },
     "3": {
-        "name": "writing",
-        "data" : []
+      "name": "writing",
+      "data": [],
+      "duration": 180
     },
     "4": {
-        "name": "speaking",
-        "data" : []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "5": {
@@ -102,23 +187,28 @@
           "value": "P",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
-        "name": "listening",
-        "data" : []
+      "name": "listening",
+      "data": [],
+      "duration": 60
     },
     "3": {
-        "name": "writing",
-        "data" : []
+      "name": "writing",
+      "data": [],
+      "duration": 240
     },
     "4": {
-        "name": "writing",
-        "data" : []
+      "name": "writing",
+      "data": [],
+      "duration": 240
     },
     "5": {
-        "name": "writing",
-        "data" : []
+      "name": "writing",
+      "data": [],
+      "duration": 240
     }
   }
 }

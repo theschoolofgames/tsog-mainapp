@@ -1,7 +1,7 @@
 var ARStone = ARObstacle.extend({
 
     ctor: function(player) {
-        this._super(player, "stone.png");
+        this._super(player, "ar-obstacles/stone.png");
     },
 
     willStart: function() {

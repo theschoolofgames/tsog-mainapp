@@ -10,7 +10,8 @@
         "shape_rectangle",
         "shape_triangle",
         "shape_circle"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -22,7 +23,8 @@
         "shape_rectangle",
         "shape_triangle",
         "shape_circle"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "shape_rectangle",
         "shape_triangle",
         "shape_circle"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -51,7 +54,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -66,7 +70,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "writing",
@@ -81,7 +86,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -92,7 +98,8 @@
         "hat",
         "apple",
         "kite"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

@@ -8,7 +8,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -18,7 +19,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -28,7 +30,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -40,7 +43,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -50,7 +54,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -60,7 +65,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -82,23 +88,28 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "5": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -115,42 +126,48 @@
           "value": "a",
           "amount": "50"
         }
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
       "data": [
         "A",
         "a"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "writing",
       "data": [
         "A",
         "a"
-      ]
+      ],
+      "duration": 240
     },
     "4": {
       "name": "writing",
       "data": [
         "A",
         "a"
-      ]
+      ],
+      "duration": 60
     },
     "5": {
       "name": "writing",
       "data": [
         "A",
         "a"
-      ]
+      ],
+      "duration": 120
     },
     "6": {
       "name": "speaking",
       "data": [
         "A",
         "a"
-      ]
+      ],
+      "duration": 60
     }
   }
 }

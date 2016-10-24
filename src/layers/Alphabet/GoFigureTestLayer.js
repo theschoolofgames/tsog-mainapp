@@ -39,7 +39,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _option: null,
 
-    ctor: function(data, option) {
+    ctor: function(data, option, timeForScene) {
         this._super();
 
         this._data = data;
@@ -727,7 +727,7 @@ var GoFigureTestLayer = TestLayer.extend({
 GoFigureTestLayer.CHAR_CONFIG = null;
 
 var GoFigureTestScene = cc.Scene.extend({
-    ctor: function(data, oldSceneName, isTestScene){
+    ctor: function(data, oldSceneName, isTestScene, timeForScene){
         this._super();
 
         if (GoFigureTestLayer.CHAR_CONFIG == null) {
@@ -783,7 +783,7 @@ var GoFigureTestScene = cc.Scene.extend({
             });
         }
 
-        var layer = new GoFigureTestLayer(data, oldSceneName, isTestScene);
+        var layer = new GoFigureTestLayer(data, oldSceneName, isTestScene, timeForScene);
         this.addChild(layer);
 
     }

@@ -8,15 +8,18 @@
         "flag",
         "gift",
         "insect"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -28,15 +31,18 @@
         "giraffe",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -89,15 +95,23 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
+    },
+    "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
     }
   },
   "4": {
@@ -133,7 +147,8 @@
             "chair"
           ]
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -147,7 +162,8 @@
         "jar",
         "pen",
         "chair"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "writing",
@@ -157,7 +173,8 @@
         "kitchen",
         "hungry",
         "narrow"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

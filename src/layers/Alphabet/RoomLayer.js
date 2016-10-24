@@ -34,10 +34,9 @@ var RoomLayer = cc.Layer.extend({
 
     _data: null,
 
-    ctor: function(data) {
-        // cc.log("Dev: " + whoAmI);
+    ctor: function(data, timeForScene) {
         this._super();
-        cc.log("Data: " + JSON.stringify(data));
+        cc.log("Data: " + timeForScene);
         this._fetchObjectData(data);
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
@@ -47,7 +46,7 @@ var RoomLayer = cc.Layer.extend({
         this.addObjects();
         // this.addRefreshButton();
         // this.addBackButton();
-        this.addHud();
+        this.addHud(timeForScene);
         
         this.runHintObjectUp();
         this.runSoundCountDown();
@@ -140,8 +139,8 @@ var RoomLayer = cc.Layer.extend({
         this._effectLayers = [];
     },
 
-    addHud: function() {
-        var hudLayer = new HudLayer(this);
+    addHud: function(timeForScene) {
+        var hudLayer = new HudLayer(this,false, timeForScene);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -909,10 +908,10 @@ var RoomLayer = cc.Layer.extend({
 });
 
 var RoomScene = cc.Scene.extend({
-    ctor: function(data) {
+    ctor: function(data, timeForScene) {
         this._super();
         this.name = "room";
-        var roomLayer = new RoomLayer(data);
+        var roomLayer = new RoomLayer(data, timeForScene);
         this.addChild(roomLayer);
     }
 });

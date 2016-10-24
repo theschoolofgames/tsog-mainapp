@@ -12,15 +12,18 @@
         "pie",
         "pig",
         "pot"
-      ]
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -31,11 +34,13 @@
           "min": 1,
           "max": 20
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -44,21 +49,25 @@
       "data": [
         {
           "min": 1,
-          "max": 20
+          "max": 5
         }
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 180
     },
     "4": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -94,7 +103,8 @@
             "bee"
           ]
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -108,7 +118,8 @@
         "tree",
         "salt",
         "socks"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -118,7 +129,8 @@
         "river",
         "light",
         "heavy"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

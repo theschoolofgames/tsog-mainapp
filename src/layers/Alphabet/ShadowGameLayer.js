@@ -36,7 +36,7 @@ var ShadowGameLayer = TestLayer.extend({
     _objectsArray: [],
 
 
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene) {
         // console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
         // console.log("Array Checked Length => " + objectIdArray.length);
         this._super(cc.color.WHITE);
@@ -52,7 +52,7 @@ var ShadowGameLayer = TestLayer.extend({
 
         this.addObjects(this._objectsArray);
         
-        this.addHud();
+        this.addHud(timeForScene);
         // this.runTutorial(false);
         this.runHintObjectUp();
         this.runSoundCountDown();
@@ -190,8 +190,8 @@ var ShadowGameLayer = TestLayer.extend({
         this._effectLayers = [];
     },
 
-    addHud: function() {
-        var hudLayer = new HudLayer(this);
+    addHud: function(timeForScene) {
+        var hudLayer = new HudLayer(this, false ,timeForScene);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -1048,9 +1048,9 @@ var ShadowGameLayer = TestLayer.extend({
 });
 
 var ShadowGameScene = cc.Scene.extend({
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene) {
         this._super();
-        var layer = new ShadowGameLayer(objectIdArray);
+        var layer = new ShadowGameLayer(objectIdArray, timeForScene);
         this.addChild(layer);
     }
 });

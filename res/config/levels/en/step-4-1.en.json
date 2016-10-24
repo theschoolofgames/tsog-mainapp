@@ -10,15 +10,18 @@
         "pig",
         "fly",
         "map"
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -56,15 +59,18 @@
         "mat",
         "cat",
         "rat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 180
     }
   },
   "3": {
@@ -101,27 +107,23 @@
           "value": "u",
           "amount": "50"
         }
-      ]
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "4": {
       "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
-    },
-    "6": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 240
     }
   }
 }

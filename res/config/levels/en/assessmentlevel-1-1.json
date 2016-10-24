@@ -12,7 +12,8 @@
         "computer",
         "duster",
         "crayon"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -34,7 +35,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -47,7 +49,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 180
     },
     "4": {
       "name": "speaking",
@@ -69,7 +72,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -86,7 +90,8 @@
         "deer",
         "camel",
         "cheetah"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -109,7 +114,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -122,7 +128,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 180
     },
     "4": {
       "name": "speaking",
@@ -145,7 +152,8 @@
         "B",
         "C",
         "D"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -162,7 +170,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -177,7 +186,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "writing",
@@ -192,7 +202,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 180
     },
     "4": {
       "name": "speaking",
@@ -207,7 +218,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

@@ -10,7 +10,8 @@
         "computer",
         "map",
         "pen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -22,7 +23,8 @@
         "computer",
         "map",
         "pen"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "computer",
         "map",
         "pen"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -48,7 +51,8 @@
         "hamster",
         "dog",
         "fly"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -60,7 +64,8 @@
         "hamster",
         "dog",
         "fly"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -72,7 +77,8 @@
         "hamster",
         "dog",
         "fly"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -94,43 +100,74 @@
         "sock",
         "banana",
         "grape"
-      ]
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
+      "duration": 120
+    },
+    "4": {
+      "name": "speaking",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
+      "duration": 120
     }
   },
   "4": {
     "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "id": "word_c",
-          "value": "C",
-          "amount": "50"
-        },
-        {
-          "id": "word_c",
-          "value": "c",
-          "amount": "50"
-        },
-        {
-          "id": "word_d",
-          "value": "D",
-          "amount": "50"
-        },
-        {
-          "id": "word_d",
-          "value": "d",
-          "amount": "50"
-        }
-      ]
-    },
-    "2": {
       "name": "listening",
       "data": [
         "C",
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "writing",
+      "data": [
+        "C",
+        "c",
+        "D",
+        "d"
+      ],
+      "duration": 240
     },
     "3": {
       "name": "writing",
@@ -139,7 +176,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     },
     "4": {
       "name": "writing",
@@ -148,25 +186,18 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     },
     "5": {
-      "name": "writing",
-      "data": [
-        "C",
-        "c",
-        "D",
-        "d"
-      ]
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "C",
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

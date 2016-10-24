@@ -1,4 +1,4 @@
-var ARObstacle = cc.Sprite.extend({
+var ARBooster = cc.Sprite.extend({
     _player: null,
     _isActive: false,
 
@@ -50,7 +50,7 @@ var ARObstacle = cc.Sprite.extend({
     },
 
     update: function(dt) {
-        if (!this._player.hasBoostFlag(ARInvisible.getBoostFlag()) && cc.rectIntersectsRect(this._player.getCollisionBoundingBox(), this.getBoundingBox())) {
+        if (cc.rectIntersectsRect(this._player.getCollisionBoundingBox(), this.getBoundingBox())) {
             this.onCollide();
         }
     },
@@ -58,4 +58,11 @@ var ARObstacle = cc.Sprite.extend({
     onCollide: function() {
         this.setActive(false);
     }
-})
+}); 
+
+ARBooster.State = {
+    NONE        : 0,
+    INVISIBLE   : 1 << 0,
+    MAGNET      : 1 << 1,
+    DOUBLE      : 1 << 2
+}

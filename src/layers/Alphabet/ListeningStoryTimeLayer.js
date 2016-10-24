@@ -1,5 +1,5 @@
 var ListeningStoryTimeLayer = ListeningTestLayer.extend({
-    ctor: function(data) {
+    ctor: function(data, timeForScene) {
         this._super(data);
     },
 
@@ -82,10 +82,10 @@ var ListeningStoryTimeLayer = ListeningTestLayer.extend({
 });
 
 var ListeningStoryTimeScene = cc.Scene.extend({
-    ctor: function(data) {
+    ctor: function(data, timeForScene) {
         this._super();
 
-        var l = new ListeningStoryTimeLayer(data);
+        var l = new ListeningStoryTimeLayer(data, timeForScene);
         this.addChild(l);
     }
 });

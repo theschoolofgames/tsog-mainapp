@@ -48,7 +48,7 @@ var MapLayer = cc.Layer.extend({
         var isAllLevelUnlocked = KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
-
+        var level = 0;
         var scrollView = new cc.ScrollView();
         for (var map in this._mapData) {
             if (this._mapData.hasOwnProperty(map) && map.indexOf("assessment") < 0) {
@@ -64,14 +64,14 @@ var MapLayer = cc.Layer.extend({
                 for (var step in _map) {
                     if (_map.hasOwnProperty(step)) {
                         var val = _map[step];
-
+                        level++;
                         var pos = this._btnStepCoordinates[stepIndex-1];
                         var enabled = (val == "1-1") ? true : false;
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
                         btn.y = pos.y + btn.height * 1.5;
                         btn.setEnabled(isAllLevelUnlocked ? true : enabled);
-                        var lb = new cc.LabelBMFont(val, res.MapFont_fnt);
+                        var lb = new cc.LabelBMFont(level, res.MapFont_fnt);
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;
                         btn.addChild(lb);

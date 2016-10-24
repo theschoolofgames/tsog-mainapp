@@ -9,8 +9,12 @@
         "chair",
         "lemon",
         "duster",
-        "hat"
-      ]
+        "hat",
+        "insect",
+        "feature",
+        "eraser"
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -21,10 +25,46 @@
         "chair",
         "lemon",
         "duster",
-        "hat"
-      ]
+        "hat",
+        "insect",
+        "feature",
+        "eraser",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 120
     },
     "3": {
+      "name": "writing",
+      "data": [
+        "egg",
+        "book",
+        "lamp",
+        "chair",
+        "lemon",
+        "duster",
+        "hat",
+        "insect",
+        "feature",
+        "eraser",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 240
+    },
+    "4": {
       "name": "speaking",
       "data": [
         "egg",
@@ -33,46 +73,114 @@
         "chair",
         "lemon",
         "duster",
-        "hat"
-      ]
+        "hat",
+        "insect",
+        "feature",
+        "eraser",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 120
     }
   },
   "2": {
     "1": {
       "name": "forest",
       "data": [
-        "cat",
-        "bee",
-        "dog",
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
         "fox",
-        "ant",
+        "frog",
+        "giraffe",
         "goat",
+        "goldfish",
+        "hamster",
         "horse"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
       "data": [
-        "cat",
-        "bee",
-        "dog",
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
         "fox",
-        "ant",
+        "frog",
+        "giraffe",
         "goat",
-        "horse"
-      ]
+        "goldfish",
+        "hamster",
+        "horse",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 120
     },
     "3": {
+      "name": "writing",
+      "data": [
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox",
+        "frog",
+        "giraffe",
+        "goat",
+        "goldfish",
+        "hamster",
+        "horse",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 240
+    },
+    "4": {
       "name": "speaking",
       "data": [
-        "cat",
-        "bee",
-        "dog",
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
         "fox",
-        "ant",
+        "frog",
+        "giraffe",
         "goat",
-        "horse"
-      ]
+        "goldfish",
+        "hamster",
+        "horse",
+        "e",
+        "f",
+        "g",
+        "h",
+        "E",
+        "F",
+        "G",
+        "H"
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -83,11 +191,23 @@
           "min": 1,
           "max": 5
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -98,19 +218,23 @@
           "min": 2,
           "max": 5
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 360
     },
     "4": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "5": {
@@ -157,23 +281,23 @@
           "value": "H",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   }
 }

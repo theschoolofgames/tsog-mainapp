@@ -43,19 +43,23 @@
           "value": "m",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 360
     },
     "3": {
-      "name": "writing",
-      "data": []
+      "name": "listening",
+      "data": [],
+      "duration": 60
     },
     "4": {
-      "name": "writing",
-      "data": []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -96,12 +100,14 @@
               "equal"
             ]
           }
-        ]
+        ],
+        "duration": 120
       }
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -111,20 +117,24 @@
         {
           "min": 6,
           "max": 10
-        } 
-      ]
+        }
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 480
     },
     "4": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 240
     }
   },
   "4": {
@@ -136,7 +146,8 @@
         "cap",
         "cup",
         "fan"
-      ]
+      ],
+      "duration": 300
     }
   }
 }

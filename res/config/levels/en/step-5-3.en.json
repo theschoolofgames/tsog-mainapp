@@ -23,19 +23,23 @@
           "value": "r",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
-      "name": "writing",
-      "data": []
+      "name": "listening",
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -43,14 +47,26 @@
       "name": "fruiddition",
       "data": [
         {
-          "min": 1,
-          "max": 5
+          "min": 6,
+          "max": 10
         }
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -58,22 +74,26 @@
       "name": "buildingblocks",
       "data": [
         {
-          "min": 1,
-          "max": 5
+          "min": 6,
+          "max": 10
         }
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 180
     },
     "4": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -85,7 +105,8 @@
         "apple",
         "banana",
         "cap"
-      ]
+      ],
+      "duration": 180
     }
   },
   "5": {
@@ -104,7 +125,8 @@
         "puppy",
         "rabbit",
         "rat"
-      ]
+      ],
+      "duration": 240
     }
   }
 }

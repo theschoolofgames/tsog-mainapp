@@ -8,15 +8,18 @@
         "insect",
         "feature",
         "eraser"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -29,15 +32,18 @@
         "horse",
         "goldfish",
         "hamster"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -79,15 +85,18 @@
         "watermelon",
         "strawberry",
         "xylophone"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 240
     }
   },
   "4": {
@@ -109,23 +118,18 @@
         "number_13",
         "number_14",
         "number_15"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
-    },
-    "4": {
-      "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "5": {
@@ -152,27 +156,23 @@
           "value": "f",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "s",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "4": {
       "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
-    },
-    "6": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 60
     }
   }
 }

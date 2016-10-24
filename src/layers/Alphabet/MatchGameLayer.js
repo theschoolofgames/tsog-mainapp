@@ -22,7 +22,7 @@ var MatchGameLayer = TestLayer.extend({
     _count: 0,
     _maxCollum: 0, 
 
-    ctor: function(array) {
+    ctor: function(array, timeForScene) {
         this._super();
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= array.length ? array.length : MAX_SLOT_ALLOWED;
         data = this._fetchObjectData(array);
@@ -420,9 +420,9 @@ var MatchGameLayer = TestLayer.extend({
 });
 MatchGameLayer._testData = null;
 var MatchGameScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(timeForScene) {
         this._super();
-        var l = new MatchGameLayer(OBJECTS_ARRAY);
+        var l = new MatchGameLayer(OBJECTS_ARRAY, timeForScene);
         this.addChild(l);
     }
 });

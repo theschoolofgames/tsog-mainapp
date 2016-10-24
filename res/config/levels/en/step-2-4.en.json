@@ -8,7 +8,8 @@
         "apple",
         "chair",
         "abacus"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -18,7 +19,8 @@
         "apple",
         "chair",
         "abacus"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -28,7 +30,8 @@
         "apple",
         "chair",
         "abacus"
-      ]
+      ],
+      "duration": 300
     },
     "4": {
       "name": "writing",
@@ -38,7 +41,8 @@
         "apple",
         "chair",
         "abacus"
-      ]
+      ],
+      "duration": 120
     },
     "5": {
       "name": "speaking",
@@ -48,7 +52,8 @@
         "apple",
         "chair",
         "abacus"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -61,7 +66,8 @@
         "shape_double_curved_line",
         "shape_semi_circle",
         "shape_six_straight_line"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -73,7 +79,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -83,7 +90,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -93,7 +101,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 300
     },
     "4": {
       "name": "writing",
@@ -103,7 +112,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "5": {
       "name": "speaking",
@@ -113,7 +123,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "6": {
       "name": "freecolor",
@@ -123,7 +134,8 @@
         "dog",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     }
   },
   "4": {
@@ -140,27 +152,33 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 360
     },
     "4": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "5": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "6": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "5": {
@@ -207,7 +225,8 @@
           "value": "d",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "listening",
@@ -220,7 +239,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -233,7 +253,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 300
     },
     "4": {
       "name": "writing",
@@ -246,7 +267,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     },
     "5": {
       "name": "writing",
@@ -259,7 +281,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     },
     "6": {
       "name": "speaking",
@@ -272,7 +295,8 @@
         "c",
         "D",
         "d"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

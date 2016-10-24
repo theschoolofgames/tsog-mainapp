@@ -49,8 +49,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _elapsedTime: 0,
 
     _deltaTime: 1 / 60,
+    _timeForSence: 0,
 
-	ctor: function(inputData) {
+	ctor: function(inputData, timeForScene) {
         this._super(cc.color("#ebfcff"));
 
         this.resetData();
@@ -59,7 +60,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._tempInputData = inputData.slice();
 
         this._elapsedTime = 0;
-
+        this._timeForSence = timeForScene;
         this.addRefreshButton();
     },
 
@@ -123,6 +124,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.layers = [];
 
         ARObstacleWorker.getInstance().removeAll();
+        ARBoosterWorker.getInstance().removeAll();
 
         for (var i = 0; i < this.maps.length; i++) {
             this.gameLayer.removeChild(this.maps[i]);
@@ -185,6 +187,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         ARObstacleWorker.getInstance().update(dt);
+        ARBoosterWorker.getInstance().update(dt);
     },
 
     _playBackgroundMusic: function() {
@@ -197,6 +200,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._player = new ARAdiDog();
 
         ARObstacleWorker.getInstance().setPlayer(this._player);
+        ARBoosterWorker.getInstance().setPlayer(this._player);
         
         // Check current goal and update UI
         this._initChallenges();
@@ -238,6 +242,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
             this.addAlphabet(this.maps[index]);
             this.addObstacles(this.maps[index]);
+            this.addBoosters(this.maps[index]);
         }
 
         // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
@@ -402,6 +407,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
                     this.addAlphabet(this.maps[index]);
                     this.addObstacles(this.maps[index]);
+                    this.addBoosters(this.maps[index]);
                     break;
                 }
             }
@@ -411,7 +417,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     addHud: function() {
-        var hudLayer = new HudLayer(this);
+        var hudLayer = new HudLayer(this, false, this._timeForSence);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -580,7 +586,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         for (var i = 0; i < this._alphabetObjectArray.length; i++) {
             if (this._alphabetObjectArray[i].x < this._player.x - this._mapWidth / 2){
                 this.gameLayer.removeChild(this._alphabetObjectArray[i]);
-                this._alphabetObjectArray.splice(i, 1);
+                this._alphabetObjectArray.splice(i--, 1);
                 continue;
             }
 
@@ -593,7 +599,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
 
                 this.gameLayer.removeChild(this._alphabetObjectArray[i]);
-                this._alphabetObjectArray.splice(i, 1);
+                this._alphabetObjectArray.splice(i--, 1);
             }
             
         }
@@ -610,6 +616,18 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             });
         }
     }, 
+
+    addBoosters: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Boosters" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {                
+                var obstacle = ARBoosterWorker.getInstance().addBooster(params);
+                self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
+    },
 
     addAlphabet: function(tmxMap) {
         let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
@@ -953,10 +971,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 });
 
 var AlphaRacingScene = cc.Scene.extend({
-    ctor: function(inputData) {
+    ctor: function(inputData, timeForScene) {
         this._super();
         this.name = "alpha-racing";
-        var layer = new AlphaRacingLayer(inputData);
+        var layer = new AlphaRacingLayer(inputData, timeForScene);
         this.addChild(layer);
     }
 });

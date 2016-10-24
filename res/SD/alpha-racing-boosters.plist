@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>ar-boosters/invisible.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{65,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{65,70}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{65,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>realTextureFileName</key>
+            <string>alpha-racing-boosters.png</string>
+            <key>size</key>
+            <string>{67,72}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:19a4e0d11ab371426401287fb07423a0:5f034d8017ab0a452637b70332ec22cd:d8e764855649a19a008d5dca5c66afa7$</string>
+            <key>textureFileName</key>
+            <string>alpha-racing-boosters.png</string>
+        </dict>
+    </dict>
+</plist>
