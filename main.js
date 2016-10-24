@@ -151,7 +151,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new NewSchoolScene());
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene([{"type": "word","value": "A","amount": "3"},{"type": "color","value": "color_blue","amount": "3"},{"type": "word","value": "a","amount": "3"},]));
-        cc.director.runScene(new MainScene());
+        // cc.director.runScene(new MainScene());
         // cc.director.runScene(new ShadowGameScene(["egg","hat","hat","jar","jar","book","book","apple","key"]));
         // cc.director.runScene(new AlphabetGameScene(["cat", "banana"]));
         // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
@@ -164,7 +164,43 @@ cc.game.onStart = function(){
         // cc.director.runScene(new RoomScene());
         // cc.director.runScene(new ForestScene(["19", "2", "3", "4", "5", "123","cat", "bee"], true));
         // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
-        // cc.director.runScene(new FruidditionGameScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        cc.director.runScene(new FruidditionGameScene({
+        "type": "apple",
+        "data": [
+          {
+            "first": [
+              "number_1",
+              "number_2",
+              "number_3",
+              "number_4"
+            ],
+            "second": [
+              "number_1",
+              "number_1",
+              "number_1",
+              "number_1"
+            ],
+            "third": [
+              "number_2",
+              "number_3",
+              "number_4",
+              "number_5"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ]
+      }));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);

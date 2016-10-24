@@ -12,6 +12,7 @@ var FRUIDDITION_UNCOMPLETED_TAG = 0;
 var FRUIDDITION_COMPLETED_TAG = 1;
 var MOVING_OBJECT_ZORDER = 10;
 var STAND_OBJECT_ZORDER = 2;
+var FRUIDDITION_HOLDER_WIDTH = 350;
 var FruidditionGameLayer = TestLayer.extend({
     _type: null,
     _data: null,
@@ -63,7 +64,7 @@ var FruidditionGameLayer = TestLayer.extend({
         // 1st row
 
         var firstObj = new cc.Node();
-        firstObj.width = 350;
+        firstObj.width = FRUIDDITION_HOLDER_WIDTH;
         firstObj.x = 0;
         firstObj.y = cc.winSize.height/2;
         this.addChild(firstObj);
@@ -88,7 +89,7 @@ var FruidditionGameLayer = TestLayer.extend({
         this.addChild(secondOperation);
 
         var thirdObj = new cc.Node();
-        thirdObj.width = 300;
+        thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
         thirdObj.x = secondOperation.x + secondOperation.width/2;
         thirdObj.y = cc.winSize.height/2;
         this.addChild(thirdObj);
@@ -109,6 +110,7 @@ var FruidditionGameLayer = TestLayer.extend({
 
         // 1st row
         var idx = 0;
+        
         for (var key in this._data) {
             if (key.indexOf("operation") > -1)
                 continue;
@@ -117,11 +119,14 @@ var FruidditionGameLayer = TestLayer.extend({
             var objCount = d[this._currentOperationId];
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
-
+            var heightIdx = -1;
             for (var i = 0; i < objCount; i++) {
+                if (i%3 == 0)
+                    heightIdx++;
                 var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
-                o.scale = 1/objCount;
-                o.x = o.width/2 + o.width * i * o.scale;
+                o.scale = 0.5;
+                o.x = o.width/2 + o.width * (i%3) * o.scale;
+                o.y = -(o.height + 10) * heightIdx * o.scale;
                 this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
 
                 if (key.indexOf("third") > -1) {
@@ -155,6 +160,7 @@ var FruidditionGameLayer = TestLayer.extend({
             o.x = o.width/2 + i*(o.width + 5);
             o.y = o.height;
             o.tag = FRUIDDITION_UNCOMPLETED_TAG;
+            o.setUserData(i);
             this.addChild(o);
             this._draggingObjects.push(o);
             this._playDraggingObjectIdleAction(o);
@@ -205,12 +211,16 @@ var FruidditionGameLayer = TestLayer.extend({
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
 
-        if (self._blockTouch || self._currentObjectMoving || self._draggingObjects.length == 0)
+        if (self._blockTouch || self._currentObjectMoving || self._draggingObjects.length == 0) {
+            cc.log("onTouchBegan return false");
             return false;
+        }
 
         self._draggingObjects.forEach(function(draggingObj) {
             var bBox = draggingObj.getBoundingBox();
+            cc.log("onTouchBegan ");
             if (draggingObj.tag == FRUIDDITION_UNCOMPLETED_TAG && cc.rectContainsPoint(bBox, touchLoc)) {
+                cc.log("onTouchBegan go in draggingObj loop");
                 self._currentObjectMoving = draggingObj;
                 self._oldPosition = draggingObj.getPosition();
                 self._oldScale = draggingObj.scale;
@@ -218,7 +228,7 @@ var FruidditionGameLayer = TestLayer.extend({
                 return true;
             }
         });
-
+        cc.log("onTouchBegan go to the end and return true");
         return true;
     },
 
@@ -244,9 +254,10 @@ var FruidditionGameLayer = TestLayer.extend({
             var spotWorldPos = dropSpot.convertToWorldSpace(dropSpot.getPosition());
             var objectPos = self._currentObjectMoving.getPosition();
 
-            if (cc.pDistance(spotWorldPos, objectPos) < 100) {
-                spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale * (i+1));
-                self._handleSuccessfulAction(i, spotWorldPos);
+            if (cc.pDistance(spotWorldPos, objectPos) < 50) {
+                var parent = dropSpot.parent;
+                spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
+                self._handleSuccessfulAction(i, parent);
                 return;
             }
         }
@@ -254,22 +265,30 @@ var FruidditionGameLayer = TestLayer.extend({
         self._currentObjectMoving.setPosition(self._oldPosition);
         self._currentObjectMoving.scale = self._oldScale;
         self._currentObjectMoving = null;
+        cc.log("return object to _oldPosition");
     },
 
-    _handleSuccessfulAction: function(index, dropSpotPos) {
+    _handleSuccessfulAction: function(index, parent) {
+        cc.log("_handleSuccessfulAction");
         this._blockTouch = true;
         var scale = this._dropSpots[index].scale;
+        var position = this._dropSpots[index].getPosition();
         this._dropSpots[index].removeFromParent();
 
+        // this._draggingObjects.splice(this._currentObjectMoving.getUserData(), 1);
+        this._currentObjectMoving.removeFromParent(false);
+        parent.addChild(this._currentObjectMoving);
         this._currentObjectMoving.setLocalZOrder(STAND_OBJECT_ZORDER);
         this._currentObjectMoving.stopAllActions();
         this._currentObjectMoving.scale = scale;
-        this._currentObjectMoving.setPosition(dropSpotPos);
+        this._currentObjectMoving.setPosition(position);
         this._currentObjectMoving.tag = FRUIDDITION_COMPLETED_TAG;
         this._currentObjectMoving = null;
 
         this._dropSpots.splice(index, 1);
 
+        // this._reorderArray(this._draggingObjects);
+        
         this._completedObjectsCount++;
         this._playOperationSound(this._completedObjectsCount);
 
@@ -301,19 +320,12 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _cleanPreviousSession: function() {
+        cc.log("_cleanPreviousSession this._draggingObjects: " + this._draggingObjects);
+        cc.log("_cleanPreviousSession this._objects: " + this._objects);
         this._completedObjectsCount = 0;
-        this._objects.forEach(function(obj) {
-            obj.removeAllChildren();
-        });
-        this._operations.forEach(function(obj) {
-            obj.removeAllChildren();
-        });
-        this._dropSpots.forEach(function(obj) {
-            obj.removeAllChildren();
-        });
-        this._draggingObjects.forEach(function(obj) {
-            obj.removeFromParent();
-        });
+        this._objects.forEach(obj => obj.removeAllChildren());
+        this._operations.forEach(obj => obj.removeAllChildren());
+        this._dropSpots.forEach(obj => obj.removeAllChildren());
 
         this._draggingObjects = [];
         this._dropSpots = [];
@@ -342,6 +354,13 @@ var FruidditionGameLayer = TestLayer.extend({
                 cc.scaleTo(0.2, scale)
             )
         ))
+    },
+
+    _reorderArray: function(array) {
+        cc.log("_reorderArray" + array);
+        for (var i = 0; i < array.length;i++) {
+            array[i].tag = i;
+        }
     },
 });
 
