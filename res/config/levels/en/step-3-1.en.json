@@ -8,15 +8,18 @@
         "feather",
         "flag",
         "gift"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -28,15 +31,18 @@
         "fish",
         "fly",
         "fox"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -79,15 +85,18 @@
         "watermelon",
         "strawberry",
         "xylophone"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -134,27 +143,18 @@
           "value": "h",
           "amount": "50"
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 240
     },
     "3": {
       "name": "speaking",
-      "data": []
-    },
-    "4": {
-      "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
-    },
-    "6": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   }
 }

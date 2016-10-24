@@ -27,7 +27,7 @@ var AlphabetGameLayer = TestLayer.extend({
     _successLettersAmount: 0,
     _totalLetters: 0,
 
-    ctor: function(objArr, isTestScene) {
+    ctor: function(objArr, isTestScene, timeForScene) {
         this._super();
         // this._data = this._filterObjectData(objArr);
         this._data = objArr;
@@ -437,10 +437,10 @@ var AlphabetGameLayer = TestLayer.extend({
 });
 
 var AlphabetGameScene = cc.Scene.extend({
-    ctor:function (data, isTestScene){
+    ctor:function (data, isTestScene, timeForScene){
         this._super();
 
-        var l = new AlphabetGameLayer(data, isTestScene);
+        var l = new AlphabetGameLayer(data, isTestScene, timeForScene);
         this.addChild(l);
     }
 });

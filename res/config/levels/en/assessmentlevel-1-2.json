@@ -11,7 +11,8 @@
         "pen",
         "rat",
         "book"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -24,7 +25,8 @@
         "pen",
         "rat",
         "book"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -37,7 +39,8 @@
         "pen",
         "rat",
         "book"
-      ]
+      ],
+      "duration": 60
     }
   },
   "2": {
@@ -54,7 +57,8 @@
         "pig",
         "rat",
         "owl"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -69,7 +73,8 @@
         "pig",
         "rat",
         "owl"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -84,7 +89,8 @@
         "pig",
         "rat",
         "owl"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -100,7 +106,8 @@
         "book",
         "apple",
         "key"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -114,7 +121,8 @@
         "book",
         "apple",
         "key"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -128,7 +136,8 @@
         "book",
         "apple",
         "key"
-      ]
+      ],
+      "duration": 60
     }
   }
 }

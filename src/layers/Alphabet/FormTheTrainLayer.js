@@ -23,7 +23,7 @@ var FormTheTrainLayer = TestLayer.extend({
     _blockFlag: false,
     _data: null,
 
-    ctor: function(objArr, isTestScene) {
+    ctor: function(objArr, isTestScene, timeForScene) {
         this._super();
         cc.log("FormTheTrainLayer");
         this._fetchObjectData(objArr);
@@ -345,10 +345,10 @@ var FormTheTrainLayer = TestLayer.extend({
 FormTheTrainLayer.NUMBER_OF_BOX = 6;
 
 var FormTheTrainScene = cc.Scene.extend({
-    ctor:function (isTestScene){
+    ctor:function (isTestScene, timeForScene){
         this._super();
 
-        var l = new FormTheTrainLayer(isTestScene);
+        var l = new FormTheTrainLayer(isTestScene, timeForScene);
         this.addChild(l);
     }
 });

@@ -15,7 +15,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -32,7 +33,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -49,7 +51,8 @@
         "lemon",
         "onion",
         "queen"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -68,7 +71,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -85,7 +89,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -102,7 +107,8 @@
         "fish",
         "frog",
         "goat"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -134,7 +140,8 @@
         "sock",
         "banana",
         "grape"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -149,7 +156,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -164,7 +172,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

@@ -42,7 +42,7 @@ var CardGameLayer = TestLayer.extend({
     timePlayed: 0,
     timePlayedOderSound: 0,
 
-    ctor: function(objArr, isTestScene, timePlayed) {
+    ctor: function(objArr, isTestScene, timePlayed, timeForScene) {
         this._super();
         // this._blockFlag = true;
         this.timePlayed = timePlayed || 0;
@@ -523,10 +523,10 @@ var CardGameLayer = TestLayer.extend({
 });
 CardGameLayer._testData = null;
 var CardGameScene = cc.Scene.extend({
-    ctor: function(objArr, isTestScene, timePlayed) {
+    ctor: function(objArr, isTestScene, timePlayed, timeForScene) {
         this._super();
         CardGameLayer._testData = objArr;
-        var l = new CardGameLayer(objArr, isTestScene, timePlayed);
+        var l = new CardGameLayer(objArr, isTestScene, timePlayed, timeForScene);
         this.addChild(l);
     }
 })

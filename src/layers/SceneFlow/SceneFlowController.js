@@ -147,7 +147,7 @@ var SceneFlowController = cc.Class.extend({
         this._lastedStepPressed = null;
     },
 
-    moveToNextScene: function(sceneName, data) {
+    moveToNextScene: function(sceneName, data, timeForScene) {
         var option = null;
         // if (data[0].option){
         //     data = data[0].data;
@@ -162,55 +162,55 @@ var SceneFlowController = cc.Class.extend({
         cc.log("moveToNextScene: " + sceneName);
         switch(sceneName) {
             case "room":
-                cc.director.runScene(new RoomScene(data));
+                cc.director.runScene(new RoomScene(data, timeForScene));
                 break;
             case "listening":
-                cc.director.runScene(new ListeningTestScene(data));
+                cc.director.runScene(new ListeningTestScene(data, timeForScene));
                 break;
             case "speaking":
-                cc.director.runScene(new SpeakingTestScene(data));
+                cc.director.runScene(new SpeakingTestScene(data, timeForScene));
                 break;
             case "shadow":
-                cc.director.runScene(new ShadowGameScene(data));
+                cc.director.runScene(new ShadowGameScene(data, timeForScene));
                 break;
             case "writing":
-                cc.director.runScene(new WritingTestScene(data));
+                cc.director.runScene(new WritingTestScene(data, timeForScene));
                 break;
             case "forest":
-                cc.director.runScene(new ForestScene(data));
+                cc.director.runScene(new ForestScene(data, timeForScene));
                 break;
             case "gofigure":
                 option = data[0].option;
-                cc.director.runScene(new GoFigureTestScene(data, option));
+                cc.director.runScene(new GoFigureTestScene(data, option, timeForScene));
                 break;
             case "card":
-                cc.director.runScene(new CardGameScene(data));
+                cc.director.runScene(new CardGameScene(data, timeForScene));
                 break;
             case "train":
-                cc.director.runScene(new FormTheTrainScene(data));
+                cc.director.runScene(new FormTheTrainScene(data, timeForScene));
                 break;
             case "tree":
-                cc.director.runScene(new TreeGameScene(data));
+                cc.director.runScene(new TreeGameScene(data, timeForScene));
                 break;
             case "balloon":
-                cc.director.runScene(new BalloonGameScene(data));
+                cc.director.runScene(new BalloonGameScene(data, timeForScene));
                 break;
             case "storytime":
                 option = data[0].option;
                 // cc.log("option: " + option);
-                cc.director.runScene(new StoryMainScene(data, option));
+                cc.director.runScene(new StoryMainScene(data, option, timeForScene));
                 break;
             case "alpharacing":
-                cc.director.runScene(new AlphaRacingScene(data, option));
+                cc.director.runScene(new AlphaRacingScene(data, option, timeForScene));
                 break;
             case "alphabet":
-                cc.director.runScene(new AlphabetGameScene(data, option));
+                cc.director.runScene(new AlphabetGameScene(data, option, timeForScene));
                 break;
             case "shoppingbasket":
-                cc.director.runScene(new ShoppingBasketScene(data));
+                cc.director.runScene(new ShoppingBasketScene(data, timeForScene));
                 break;
             case "fruiddition":
-                cc.director.runScene(new FruidditionGameScene(data));
+                cc.director.runScene(new FruidditionGameScene(data, timeForScene));
                 break;
             case "freecolor":
                 // remove after implement free color game

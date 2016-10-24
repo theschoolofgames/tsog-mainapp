@@ -163,12 +163,12 @@ var LevelDialog = Dialog.extend({
         var stepData = b.getUserData();
         var gameName = GAME_IDS[b.tag];
         var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
-
+        var timeForScene = this._data[stepData]["1"].duration;
         // cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
-        cc.log("stepData  : " + stepData);
+        cc.log("stepData  : " + timeForScene);
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
-        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData); 
+        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene); 
     },
 
 });

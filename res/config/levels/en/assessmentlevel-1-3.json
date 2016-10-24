@@ -18,7 +18,8 @@
           "value": "color_blue",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -26,7 +27,8 @@
         "Red",
         "Blue",
         "Green"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "Red",
         "Blue",
         "Green"
-      ]
+      ],
+      "duration": 60
     }
   },
   "2": {
@@ -51,7 +54,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "2": {
       "name": "listening",
@@ -66,7 +70,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -81,7 +86,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -98,7 +104,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "writing",
@@ -108,7 +115,8 @@
         "number_3",
         "number_4",
         "number_5"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -123,7 +131,8 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

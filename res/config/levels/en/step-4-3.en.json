@@ -10,15 +10,18 @@
         "can",
         "dad",
         "fan"
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
@@ -59,12 +62,14 @@
               "equal"
             ]
           }
-        ]
+        ],
+        "duration": 300
       }
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "3": {
@@ -75,19 +80,23 @@
           "min": 2,
           "max": 5
         }
-      ]
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 240
     },
     "4": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -123,7 +132,8 @@
             "bear"
           ]
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -137,7 +147,8 @@
         "forest",
         "school",
         "house"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -150,7 +161,8 @@
         "cheer",
         "yawn",
         "stop"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

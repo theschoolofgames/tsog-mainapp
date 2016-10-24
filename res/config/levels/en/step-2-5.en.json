@@ -7,7 +7,8 @@
         "computer",
         "duster",
         "apple"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -17,7 +18,8 @@
         "duster",
         "crayon",
         "apple"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -27,7 +29,8 @@
         "duster",
         "crayon",
         "apple"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -39,7 +42,8 @@
         "duster",
         "crayon",
         "apple"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -51,7 +55,8 @@
         "deer",
         "camel",
         "cheetah"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -61,7 +66,8 @@
         "deer",
         "camel",
         "cheetah"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -71,7 +77,8 @@
         "deer",
         "camel",
         "cheetah"
-      ]
+      ],
+      "duration": 120
     }
   },
   "4": {
@@ -102,27 +109,33 @@
         "juice",
         "computer",
         "sock"
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 360
     },
     "4": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "5": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "6": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "5": {
@@ -139,23 +152,23 @@
         "number_8",
         "number_9",
         "number_10"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 360
     },
     "4": {
       "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   }
 }

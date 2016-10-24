@@ -8,15 +8,42 @@
         "umbrella",
         "uniform",
         "insect"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "I",
+        "O",
+        "U",
+        "i",
+        "o",
+        "u",
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella"
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "I",
+        "O",
+        "U",
+        "i",
+        "o",
+        "u",
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella"
+      ],
+      "duration": 240
     }
   },
   "2": {
@@ -28,11 +55,18 @@
         "insect",
         "horse",
         "hamster"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
     }
   },
   "3": {
@@ -59,23 +93,23 @@
         "number_18",
         "number_19",
         "number_20"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
-      "name": "writing",
-      "data": []
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     },
     "4": {
       "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 600
     }
   },
   "4": {
@@ -102,19 +136,23 @@
           "value": "h",
           "amount": "10"
         }
-      ]
+      ],
+      "duration": 240
     },
     "2": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 480
     },
     "4": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   }
 }

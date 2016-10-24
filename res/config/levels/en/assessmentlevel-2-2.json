@@ -10,7 +10,8 @@
         "rat",
         "sat",
         "fat"
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
@@ -22,7 +23,8 @@
         "rat",
         "sat",
         "fat"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "rat",
         "sat",
         "fat"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -45,12 +48,26 @@
           "min": 6,
           "max": 10
         }
-      ]
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
       "data": [
-      ]
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+      ],
+      "duration": 240
+    },
+    "4": {
+      "name": "speaking",
+      "data": [
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -93,27 +110,23 @@
           "type": "c",
           "value": "20"
         }
-      ]
+      ],
+      "duration": 300
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "4": {
       "name": "writing",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
-    },
-    "6": {
-      "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 180
     }
   }
 }

@@ -10,7 +10,8 @@
         "watermelon",
         "jar",
         "key"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -22,7 +23,8 @@
         "watermelon",
         "jar",
         "key"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "watermelon",
         "jar",
         "key"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -47,7 +50,8 @@
         "monkey",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -59,7 +63,8 @@
         "spider",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -71,7 +76,8 @@
         "spider",
         "bee",
         "cow"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -107,7 +113,8 @@
             "nest"
           ]
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -121,7 +128,8 @@
         "nest",
         "chair",
         "key"
-      ]
+      ],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -129,7 +137,8 @@
         "goose",
         "egg",
         "nest"
-      ]
+      ],
+      "duration": 60
     }
   },
   "4": {
@@ -156,7 +165,8 @@
           "value": "b",
           "amount": "50"
         }
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -165,7 +175,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "writing",
@@ -174,7 +185,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 240
     },
     "4": {
       "name": "writing",
@@ -183,7 +195,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 120
     },
     "5": {
       "name": "writing",
@@ -192,7 +205,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 120
     },
     "6": {
       "name": "listening",
@@ -201,7 +215,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 120
     },
     "7": {
       "name": "speaking",
@@ -210,7 +225,8 @@
         "a",
         "B",
         "b"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

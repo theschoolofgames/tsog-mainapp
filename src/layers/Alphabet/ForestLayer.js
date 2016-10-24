@@ -32,7 +32,7 @@ var ForestLayer = cc.Layer.extend({
     _data: [],
     _isTestScene: false,
 
-    ctor: function(data, isTestScene) {
+    ctor: function(data, isTestScene, timeForScene) {
         this._super();
         // cc.log("isTestScene: " + isTestScene);
         this._isTestScene = isTestScene;
@@ -48,7 +48,7 @@ var ForestLayer = cc.Layer.extend({
         // this.addBackButton();
         // this.addRefreshButton();
         // this.createStarsLabel();
-        this.addHud();
+        this.addHud(timeForScene);
         this.runTutorial();
         this.runHintObjectUp();
         this.runSoundCountDown();
@@ -98,8 +98,8 @@ var ForestLayer = cc.Layer.extend({
         cc.audioEngine.setEffectsVolume(0.7);
     },
 
-    addHud: function() {
-        var hudLayer = new HudLayer(this);
+    addHud: function(timeForScene) {
+        var hudLayer = new HudLayer(this, false, timeForScene);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -1018,10 +1018,10 @@ var ForestLayer = cc.Layer.extend({
     }
 });
 var ForestScene = cc.Scene.extend({
-    ctor: function(data, isTestScene) {
+    ctor: function(data, isTestScene, timeForScene) {
         this._super();
         this.name = "forest";
-        var forestLayer = new ForestLayer(data, isTestScene);
+        var forestLayer = new ForestLayer(data, isTestScene, timeForScene);
         this.addChild(forestLayer);
     }
 });

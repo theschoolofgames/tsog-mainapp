@@ -10,47 +10,274 @@
         "pig",
         "fly",
         "map"
-      ]
+      ],
+      "duration": 180
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
     "1": {
-      "name": "fruiddition",
+      "name": "room",
       "data": [
-        "1+1 =2",
-        "3+2= 5",
-        "4+6= 10",
-        "3+4=7",
-        "5+4=9"
-      ]
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella"
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U",
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella"
+      ],
+      "duration": 120
     },
     "3": {
-      "name": "buildingblocks",
-      "data": []
+      "name": "writing",
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U"
+      ],
+      "duration": 120
     },
     "4": {
-      "name": "listening",
-      "data": []
-    },
-    "5": {
-      "name": "writing",
-      "data": []
-    },
-    "6": {
       "name": "speaking",
-      "data": []
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U",
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella"
+      ],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "forest",
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U",
+        "octopus",
+        "owl",
+        "insect",
+        "horse",
+        "hamster"
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U",
+        "octopus",
+        "owl",
+        "insect",
+        "horse",
+        "hamster"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U"
+      ],
+      "duration": 120
+    },
+    "4": {
+      "name": "speaking",
+      "data": [
+        "i",
+        "o",
+        "u",
+        "I",
+        "O",
+        "U",
+        "octopus",
+        "owl",
+        "insect",
+        "horse",
+        "hamster"
+      ],
+      "duration": 120
+    }
+  },
+  "4": {
+    "1": {
+      "name": "card",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20",
+        "egg",
+        "hat",
+        "jar",
+        "key",
+        "map",
+        "pen",
+        "rat",
+        "book",
+        "desk",
+        "flag",
+        "gift",
+        "kite",
+        "lamp",
+        "nail",
+        "nest",
+        "salt",
+        "vest",
+        "xmas",
+        "sock",
+        "apple",
+        "chair",
+        "grape",
+        "joker",
+        "lemon",
+        "onion",
+        "queen"
+      ],
+      "duration": 240
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
+      ],
+      "duration": 240
+    },
+    "4": {
+      "name": "speaking",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
+      ],
+      "duration": 120
     }
   }
 }

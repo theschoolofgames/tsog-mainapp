@@ -10,7 +10,8 @@
         "vegetable",
         "egg",
         "hat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -22,7 +23,8 @@
         "vegetable",
         "egg",
         "hat"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -34,7 +36,8 @@
         "vegetable",
         "egg",
         "hat"
-      ]
+      ],
+      "duration": 120
     }
   },
   "2": {
@@ -48,7 +51,8 @@
         "snake",
         "ant",
         "cat"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
@@ -60,7 +64,8 @@
         "snake",
         "ant",
         "cat"
-      ]
+      ],
+      "duration": 120
     },
     "3": {
       "name": "speaking",
@@ -72,7 +77,8 @@
         "snake",
         "ant",
         "cat"
-      ]
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -86,27 +92,33 @@
         "number_5",
         "number_6",
         "number_7"
-      ]
+      ],
+      "duration": 120
     },
     "2": {
       "name": "listening",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 300
     },
     "4": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "5": {
       "name": "writing",
-      "data": []
+      "data": [],
+      "duration": 120
     },
     "6": {
       "name": "speaking",
-      "data": []
+      "data": [],
+      "duration": 120
     }
   },
   "4": {
@@ -117,7 +129,8 @@
         "shape_rectangle",
         "shape_triangle",
         "shape_circle"
-      ]
+      ],
+      "duration": 120
     }
   }
 }

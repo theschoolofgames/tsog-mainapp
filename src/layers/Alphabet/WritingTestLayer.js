@@ -31,7 +31,7 @@ var WritingTestLayer = TestLayer.extend({
 
     _currentChar: "",
 
-    ctor: function(data, oldSceneName, isTestScene) {
+    ctor: function(data, oldSceneName, isTestScene, timeForScene) {
         this._super();
 
         this._setIsTestScene(isTestScene);
@@ -769,7 +769,7 @@ var WritingTestLayer = TestLayer.extend({
 WritingTestLayer.CHAR_CONFIG = null;
 
 var WritingTestScene = cc.Scene.extend({
-    ctor: function(data, oldSceneName, isTestScene){
+    ctor: function(data, oldSceneName, isTestScene, timeForScene){
         this._super();
 
         if (WritingTestLayer.CHAR_CONFIG == null) {
@@ -825,7 +825,7 @@ var WritingTestScene = cc.Scene.extend({
             });
         }
         // cc.log("WritingTestLayer.CHAR_CONFIG: " + JSON.stringify(WritingTestLayer.CHAR_CONFIG));
-        var layer = new WritingTestLayer(data, oldSceneName, isTestScene);
+        var layer = new WritingTestLayer(data, oldSceneName, isTestScene, timeForScene);
         this.addChild(layer);
 
     }

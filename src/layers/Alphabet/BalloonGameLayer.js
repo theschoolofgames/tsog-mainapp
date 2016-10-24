@@ -34,14 +34,14 @@ var BalloonGameLayer = TestLayer.extend({
     _canVoildCompletedScene: true,
     _canRunActionPop: true,
     
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene) {
         this._super(cc.color.WHITE);
-        this.init(objectIdArray);
+        this.init(objectIdArray, timeForScene);
         // this.init(this._objectIdArray); // For testing
 
     },
 
-    init: function(objectIdArray) {
+    init: function(objectIdArray, timeForScene) {
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -63,7 +63,7 @@ var BalloonGameLayer = TestLayer.extend({
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
         // this._addGoalList(this._currentObject.id, this._currentObject.amount);
-        this.addHud();
+        this.addHud(timeForScene);
         this._updateCurrentIdHud(this._currentObject);
         this._updateGoalLabel(0);
 
@@ -126,8 +126,8 @@ var BalloonGameLayer = TestLayer.extend({
         });
     },
 
-    addHud: function() {
-        var hudLayer = new HudLayer(this);
+    addHud: function(timeForScene) {
+        var hudLayer = new HudLayer(this, false,timeForScene);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -511,11 +511,11 @@ var BalloonGameLayer = TestLayer.extend({
 });
 
 var BalloonGameScene = cc.Scene.extend({
-    ctor: function(objectIdArray) {
+    ctor: function(objectIdArray, timeForScene) {
         this._super();
 
         this.name = "balloon";
-        var layer = new BalloonGameLayer(objectIdArray);
+        var layer = new BalloonGameLayer(objectIdArray, timeForScene);
         this.addChild(layer);
     }
 });

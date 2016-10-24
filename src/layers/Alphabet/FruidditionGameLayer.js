@@ -33,7 +33,7 @@ var FruidditionGameLayer = TestLayer.extend({
 
     _blockTouch: false,
 
-    ctor: function(data) {
+    ctor: function(data, timeForScene) {
         this._super();
 
         this._draggingObjects = [];
@@ -365,10 +365,10 @@ var FruidditionGameLayer = TestLayer.extend({
 });
 
 var FruidditionGameScene = cc.Scene.extend({
-    ctor: function(data) {
+    ctor: function(data, timeForScene) {
         this._super();
 
-        var l = new FruidditionGameLayer(data);
+        var l = new FruidditionGameLayer(data, timeForScene);
         this.addChild(l);
     }
 });
