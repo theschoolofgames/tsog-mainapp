@@ -1,7 +1,7 @@
 var ARBeeHive = ARObstacle.extend({
 
     ctor: function(player) {
-        this._super(player, "beehive.png");
+        this._super(player, "ar-obstacles/beehive.png");
     },
 
     willStart: function() {

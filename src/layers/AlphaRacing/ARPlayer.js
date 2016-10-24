@@ -19,6 +19,8 @@ var ARPlayer = cc.Layer.extend({
 
 	_lbHealth: null,
 
+    _boostState: ARBooster.State.NONE,
+
 	ctor: function () {
 		this._super();
 		this.setAnchorPoint(0.5,0.5);
@@ -167,4 +169,22 @@ var ARPlayer = cc.Layer.extend({
  	setMightJump: function(mightAsWellJump) {
  		this._mightAsWellJump = mightAsWellJump;
  	},
+
+    // BOOSTER STATE
+    // Follow up this one: http://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/
+    setBoostFlag: function(flag) {
+        this._boostState |= flag;
+    },
+
+    unsetBoostFlag: function(flag) {
+        this._boostState &= ~flag;
+    },
+
+    hasBoostFlag: function(flag) {
+        return (this._boostState & flag) == flag;
+    },
+
+    toggleBoostFlag: function(flag) {
+        this._boostState ^= flag;
+    },
 });

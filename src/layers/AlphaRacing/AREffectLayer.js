@@ -30,7 +30,7 @@ var AREffectLayer = cc.Layer.extend({
         var yPos = event.getUserData().y;
         var time = event.getUserData().time;
 
-        var sign = new cc.Sprite("#warning-sign.png");
+        var sign = new cc.Sprite("#ar-obstacles/warning-sign.png");
         sign.x = cc.winSize.width - 50;
         sign.y = yPos;
 
