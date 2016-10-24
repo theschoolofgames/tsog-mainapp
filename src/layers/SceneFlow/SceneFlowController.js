@@ -212,6 +212,9 @@ var SceneFlowController = cc.Class.extend({
             case "fruiddition":
                 cc.director.runScene(new FruidditionGameScene(data));
                 break;
+            case "buildingblocks":
+                cc.director.runScene(new BuildingBlocksScene(data));
+                break;
             case "freecolor":
                 // remove after implement free color game
                 // Utils.updateStepData();

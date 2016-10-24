@@ -77,6 +77,7 @@
         "src/layers/Alphabet/AlphabetGameLayer.js",
         "src/layers/Alphabet/ShoppingBasketLayer.js",
         "src/layers/Alphabet/FruidditionGameLayer.js",
+        "src/layers/Alphabet/BuildingBlocksLayer.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARPlayer.js",
