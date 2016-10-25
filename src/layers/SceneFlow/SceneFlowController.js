@@ -177,7 +177,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new ShadowGameScene(data, timeForScene));
                 break;
             case "writing":
-                cc.director.runScene(new WritingTestScene(data, timeForScene));
+                cc.director.runScene(new WritingTestScene(data, null, null,timeForScene));
                 break;
             case "forest":
                 cc.director.runScene(new ForestScene(data, timeForScene));

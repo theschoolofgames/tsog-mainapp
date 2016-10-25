@@ -16,7 +16,7 @@ var HudLayer = cc.Layer.extend({
 
         this._layer = layer;
         this._trophiesEarned = KVDatabase.getInstance().getInt("trophiesEarned", 0);
-        cc.log("createHUD");
+        cc.log("createHUD: " +  timeForScene);
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
@@ -143,6 +143,7 @@ var HudLayer = cc.Layer.extend({
         if(timeForScene) {
             clockInitTime = timeForScene;
         };
+        cc.log("clockInitTime: " + clockInitTime);
         var clock = new Clock(clockInitTime, function(){
             if(withClock == true)
                 self._layer.completedScene();

@@ -24,21 +24,20 @@ var ListeningTestLayer = TestLayer.extend({
         // cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-        
+        this._duration = duration;
         this._addedObject = [];
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-        this._addHudLayer(duration);
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
     },
-    _addHudLayer: function(duration){
-        this._super(duration)
+    _addHudLayer: function(){
+        this._super(this._duration);
     },
 
     onEnterTransitionDidFinish: function() {

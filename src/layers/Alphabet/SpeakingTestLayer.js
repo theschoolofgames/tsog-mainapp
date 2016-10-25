@@ -19,7 +19,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-
+        this._duration = duration;
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -30,8 +30,8 @@ var SpeakingTestLayer = TestLayer.extend({
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
-    _addHudLayer: function(duration){
-        this._super(duration)
+    _addHudLayer: function(){
+        this._super(this._duration)
     },
 
     onEnter: function() {
