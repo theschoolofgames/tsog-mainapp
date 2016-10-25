@@ -51,11 +51,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _deltaTime: 1 / 60,
     _timeForSence: 0,
 
-	ctor: function(inputData, timeForScene) {
+	ctor: function(inputData, option, timeForScene) {
         this._super(cc.color("#ebfcff"));
 
         this.resetData();
-
+        cc.log("timeForScene:" + timeForScene);
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
 
@@ -417,6 +417,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     addHud: function() {
+        cc.log("timeForScene: " + this._timeForSence);
         var hudLayer = new HudLayer(this, false, this._timeForSence);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
@@ -971,10 +972,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 });
 
 var AlphaRacingScene = cc.Scene.extend({
-    ctor: function(inputData, timeForScene) {
+    ctor: function(inputData, option, timeForScene) {
         this._super();
+        cc.log("timeForScene: " + timeForScene);
         this.name = "alpha-racing";
-        var layer = new AlphaRacingLayer(inputData, timeForScene);
+        var layer = new AlphaRacingLayer(inputData,option, timeForScene);
         this.addChild(layer);
     }
 });

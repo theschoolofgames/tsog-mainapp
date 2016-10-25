@@ -159,6 +159,9 @@ var SceneFlowController = cc.Class.extend({
         //     cc.director.runScene(new MapScene());
         //     return;
         // }
+        var sceneNumber = KVDatabase.getInstance().getInt("scene_number");
+
+        KVDatabase.getInstance().set("scene_number", sceneNumber + 1);
         cc.log("moveToNextScene: " + sceneName);
         switch(sceneName) {
             case "room":

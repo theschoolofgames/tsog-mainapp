@@ -3,18 +3,18 @@
     "1": {
       "name": "room",
       "data": [
-        "grape",
-        "hat",
-        "insect",
+        "egg",
+        "eraser",
         "feather",
-        "eraser"
+        "flag",
+        "gift"
       ],
-      "duration": 120
+      "duration": 60
     },
     "2": {
       "name": "listening",
       "data": [],
-      "duration": 120
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -26,19 +26,18 @@
     "1": {
       "name": "forest",
       "data": [
-        "frog",
-        "giraffe",
-        "goat",
-        "horse",
-        "goldfish",
-        "hamster"
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox"
       ],
-      "duration": 120
+      "duration": 60
     },
     "2": {
       "name": "listening",
       "data": [],
-      "duration": 120
+      "duration": 60
     },
     "3": {
       "name": "speaking",
@@ -48,7 +47,7 @@
   },
   "3": {
     "1": {
-      "name": "card",
+      "name": "shoppingbasket",
       "data": [
         "number_1",
         "number_2",
@@ -73,12 +72,13 @@
         "eraser",
         "insect",
         "orange",
-        "pencils",
+        "pencil",
         "potato",
         "tomato",
         "umbrella",
         "uniform",
         "vegetable",
+        "crayon",
         "feather",
         "vehicle",
         "medicine",
@@ -96,65 +96,52 @@
     "3": {
       "name": "speaking",
       "data": [],
-      "duration": 240
+      "duration": 120
     }
   },
   "4": {
     "1": {
-      "name": "tree",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15"
-      ],
-      "duration": 120
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "5": {
-    "1": {
-      "name": "balloon",
+      "name": "alpharacing",
       "data": [
         {
-          "type": "word",
+          "id": "word_e",
           "value": "E",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "id": "word_e",
           "value": "e",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "id": "word_f",
           "value": "F",
-          "amount": "10"
+          "amount": "50"
         },
         {
-          "type": "word",
+          "id": "word_f",
           "value": "f",
-          "amount": "10"
+          "amount": "50"
+        },
+        {
+          "id": "word_g",
+          "value": "G",
+          "amount": "50"
+        },
+        {
+          "id": "word_g",
+          "value": "g",
+          "amount": "50"
+        },
+        {
+          "id": "word_h",
+          "value": "H",
+          "amount": "50"
+        },
+        {
+          "id": "word_h",
+          "value": "h",
+          "amount": "50"
         }
       ],
       "duration": 120
@@ -162,17 +149,12 @@
     "2": {
       "name": "listening",
       "data": [],
-      "duration": 60
+      "duration": 240
     },
     "3": {
-      "name": "s",
+      "name": "speaking",
       "data": [],
       "duration": 120
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 60
     }
   }
 }

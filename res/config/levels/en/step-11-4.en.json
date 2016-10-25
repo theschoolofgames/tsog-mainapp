@@ -1,0 +1,137 @@
+{
+  "1": {
+    "1": {
+      "name": "alpharacing",
+      "data": [
+        {
+          "type": "word_q",
+          "value": "Q",
+          "amount": "50"
+        },
+        {
+          "type": "word_q",
+          "value": "q",
+          "amount": "50"
+        },
+        {
+          "type": "word_r",
+          "value": "R",
+          "amount": "50"
+        },
+        {
+          "type": "word_r",
+          "value": "r",
+          "amount": "50"
+        },
+        {
+          "type": "word_n",
+          "value": "N",
+          "amount": "50"
+        },
+        {
+          "type": "word_n",
+          "value": "n",
+          "amount": "50"
+        },
+        {
+          "type": "word_p",
+          "value": "P",
+          "amount": "50"
+        },
+        {
+          "type": "word_p",
+          "value": "p",
+          "amount": "50"
+        }
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    },
+    "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    }
+  },
+  "2": {
+    "1": {
+      "name": "fruiddition",
+      "data": [
+        {
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "duration": 180
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "buildingblocks",
+      "data": [
+        {
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "duration": 180
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "4": {
+    "1": {
+      "name": "freecolor",
+      "data": [
+        "sun",
+        "grass",
+        "trees",
+        "hills",
+        "river",
+        "bird",
+        "animals",
+        "stars",
+        "flowers",
+        "leaf"
+      ],
+      "duration": 300
+    }
+  }
+}

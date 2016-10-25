@@ -160,12 +160,22 @@ var LevelDialog = Dialog.extend({
     },
 
     _gameSelectorPressed: function(b) {
+        var durationsArray = [];
+        cc.log(JSON.stringify(durationsArray));
         var stepData = b.getUserData();
+        var dataLength = Object.keys(this._data[stepData]).length;
         var gameName = GAME_IDS[b.tag];
+        cc.log("data:::: "  + JSON.stringify(this._data));
+        for(var i = 1; i < dataLength + 1; i ++) {
+            cc.log("stepData: "  + i);
+            durationsArray.push(this._data[stepData][i].duration);
+        };
+        KVDatabase.getInstance().remove("scene_number");
+        KVDatabase.getInstance().set("durationsString", JSON.stringify(durationsArray));
         var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
         var timeForScene = this._data[stepData]["1"].duration;
         // cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
-        cc.log("stepData  : " + timeForScene);
+        cc.log("stepData  : " + JSON.stringify(durationsArray));
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene); 

@@ -1,0 +1,153 @@
+{
+  "1": {
+    "1": {
+      "name": "balloon",
+      "data": [
+        {
+          "type": "word",
+          "value": "J",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "j",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "K",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "k",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "L",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "l",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "M",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "m",
+          "amount": "10"
+        }
+      ],
+      "duration": 240
+    },
+    "2": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "3": {
+      "name": "listening",
+      "data": [],
+      "duration": 60
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "2": {
+    "1": {
+      "name": "fruiddition",
+      "data": {
+        "type": "apple",
+        "data": [
+          {
+            "first": [
+              "number_1",
+              "number_2",
+              "number_3",
+              "number_4"
+            ],
+            "second": [
+              "number_1",
+              "number_1",
+              "number_1",
+              "number_1"
+            ],
+            "third": [
+              "number_2",
+              "number_3",
+              "number_4",
+              "number_5"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ],
+        "duration": 120
+      }
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "buildingblocks",
+      "data": [
+        {
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "duration": 300
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 240
+    }
+  },
+  "4": {
+    "1": {
+      "name": "freecolor",
+      "data": [
+        "tortoise",
+        "hare",
+        "cap",
+        "cup",
+        "fan"
+      ],
+      "duration": 300
+    }
+  }
+}

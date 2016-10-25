@@ -1,0 +1,132 @@
+{
+  "1": {
+    "1": {
+      "name": "balloon",
+      "data": [
+        {
+          "type": "word",
+          "value": "Q",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "q",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "R",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "r",
+          "amount": "10"
+        }
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 60
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "2": {
+    "1": {
+      "name": "fruiddition",
+      "data": [
+        {
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "duration": 180
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "buildingblocks",
+      "data": [
+        {
+          "min": 6,
+          "max": 10
+        }
+      ],
+      "duration": 180
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "4": {
+    "1": {
+      "name": "gofigure",
+      "data": [
+        "flower",
+        "bus",
+        "apple",
+        "banana",
+        "cap"
+      ],
+      "duration": 180
+    }
+  },
+  "5": {
+    "1": {
+      "name": "freecolor",
+      "data": [
+        "nest",
+        "owl",
+        "pan",
+        "pear",
+        "pen",
+        "pig",
+        "pot",
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat"
+      ],
+      "duration": 240
+    }
+  }
+}
