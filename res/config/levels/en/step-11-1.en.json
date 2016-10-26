@@ -1,0 +1,214 @@
+{
+  "1": {
+    "1": {
+      "name": "room",
+      "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen"
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen",
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "speaking",
+      "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen",
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 120
+    },
+    "4": {
+      "name": "writing",
+      "data": [
+        "n",
+        "p",
+        "q",
+        "N",
+        "P",
+        "Q"
+      ],
+      "duration": 240
+    }
+  },
+  "2": {
+    "1": {
+      "name": "forest",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat"
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 240
+    },
+    "4": {
+      "name": "speaking",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "fruiddition",
+      "data": [
+        {
+          "min": 1,
+          "max": 5
+        }
+      ],
+      "duration": 180
+    },
+    "2": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "4": {
+    "1": {
+      "name": "buildingblocks",
+      "data": [
+        {
+          "min": 1,
+          "max": 15
+        }
+      ],
+      "duration": 120
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 60
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 180
+    },
+    "4": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "5": {
+    "1": {
+      "name": "balloon",
+      "data": [
+        {
+          "type": "word",
+          "value": "N",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "n",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "p",
+          "amount": "10"
+        },
+        {
+          "type": "word",
+          "value": "P",
+          "amount": "10"
+        }
+      ],
+      "duration": 240
+    },
+    "2": {
+      "name": "listening",
+      "data": [],
+      "duration": 60
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    }
+  }
+}

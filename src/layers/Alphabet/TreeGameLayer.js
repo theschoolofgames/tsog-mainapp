@@ -217,10 +217,10 @@ var TreeGameLayer = TestLayer.extend({
                         self.runAction(cc.sequence(
                             cc.delayTime(2),
                             cc.callFunc(function() {
-                                if (self._isTestScene) {
-                                    cc.director.replaceScene(new GameTestScene());
-                                    return;
-                                }
+                                // if (self._isTestScene) {
+                                //     cc.director.replaceScene(new GameTestScene());
+                                //     return;
+                                // }
 
                                 self._moveToNextScene();
                             })

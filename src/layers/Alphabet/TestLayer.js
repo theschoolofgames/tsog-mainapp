@@ -68,9 +68,9 @@ var TestLayer = cc.LayerColor.extend({
         this._adiDog = null;
     },
 
-    _addHudLayer: function(){
-        cc.log("_addHudLayer");
-        var hudLayer = new HudLayer(this, false);
+    _addHudLayer: function(duration){
+        cc.log("_addHudLayer: " + duration);
+        var hudLayer = new HudLayer(this, false, duration);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
@@ -122,20 +122,24 @@ var TestLayer = cc.LayerColor.extend({
 
     _moveToNextScene: function() {
         cc.log("TestLayer moveToNextScene");
-        if (this._isTestScene)
-            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-        else {
+        // if (this._isTestScene)
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+        // else {
             var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
             cc.log("nextSceneName: " + nextSceneName); 
-            if (nextSceneName)
-                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data);
+            if (nextSceneName) {
+                var numberScene = KVDatabase.getInstance().getInt("scene_number");
+                var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
+                cc.log("durationArray: " + JSON.stringify(durationArray));
+                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data, durationArray[numberScene]);
+            }
             else {
                 Utils.updateStepData();
                 SceneFlowController.getInstance().clearData();
                 cc.director.runScene(new MapScene());
             }
-        }
+        // }
 
 
         // var scene;

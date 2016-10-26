@@ -165,8 +165,8 @@ var BalloonGameLayer = TestLayer.extend({
             this.hudTypeLabel = new cc.LabelBMFont(text + "", "hud-font.fnt");
             this.hudTypeLabel.setScale(2.0);
             this.hudTypeLabel.color = cc.color("#ffd902");
-            this.hudTypeLabel.x = this.hudBalloonBg.width / 2;
-            this.hudTypeLabel.y = this.hudBalloonBg.height - 60;
+            this.hudTypeLabel.x = this.hudBalloonBg.width / 2 + 10;
+            this.hudTypeLabel.y = this.hudBalloonBg.height/2 + 40;
             this.hudBalloonBg.addChild(this.hudTypeLabel);
         }
 
@@ -447,9 +447,10 @@ var BalloonGameLayer = TestLayer.extend({
 
             var lbBalloon = new cc.LabelBMFont("", res.CustomFont_fnt);
             lbBalloon.scale = 1.2;
-            lbBalloon.x = balloonSprite.width/2;
-            lbBalloon.y = balloonSprite.height - 50;
+            lbBalloon.x = balloonSprite.width/2 + 10;
+            lbBalloon.y = balloonSprite.height/2 + 40;
             lbBalloon.tag = 100;
+            lbBalloon.scale = this._balloonScale - 0.1;
             balloonSprite.addChild(lbBalloon);
 
             this._balloons.push(balloonSprite);

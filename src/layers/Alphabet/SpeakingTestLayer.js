@@ -14,21 +14,24 @@ var SpeakingTestLayer = TestLayer.extend({
     _oldSceneName: null,
     _wrongAnswerTime: 0,
 
-    ctor: function(data) {
+    ctor: function(data, duration) {
         this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-
+        this._duration = duration;
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) {return true;}
         }, this);
-
+        this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
 
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
+    },
+    _addHudLayer: function(){
+        this._super(this._duration)
     },
 
     onEnter: function() {
@@ -452,10 +455,10 @@ var SpeakingTestLayer = TestLayer.extend({
 SpeakingTestLayer.shouldSkipTest = null;
 
 var SpeakingTestScene = cc.Scene.extend({
-    ctor: function(data){
+    ctor: function(data, duration){
         this._super();
 
-        var layer = new SpeakingTestLayer(data);
+        var layer = new SpeakingTestLayer(data, duration);
         this.addChild(layer);
     }
 });

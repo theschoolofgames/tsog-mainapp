@@ -41,7 +41,7 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("WritingTestLayer ctor");
         this._fetchObjectData(data);
-
+        this._duration = timeForScene;
         // this._names = data.map(function(obj) {
         //     if (obj !== null && (typeof obj === 'object'))
         //         return obj.name.toUpperCase();
@@ -75,6 +75,9 @@ var WritingTestLayer = TestLayer.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
+    },
+    _addHudLayer: function(){
+        this._super(this._duration);
     },
 
     onEnterTransitionDidFinish: function() {

@@ -19,23 +19,25 @@ var ListeningTestLayer = TestLayer.extend({
     _keyObject: [],
     _currentKeyIndex: 0,
 
-    ctor: function(data) {
+    ctor: function(data, duration) {
         this._super();
         // cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
-        
+        this._duration = duration;
         this._addedObject = [];
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
 
         this._addAdiDog();
-
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan.bind(this)
         }, this);
+    },
+    _addHudLayer: function(){
+        this._super(this._duration);
     },
 
     onEnterTransitionDidFinish: function() {
@@ -531,7 +533,7 @@ var ListeningTestLayer = TestLayer.extend({
         cc.log("_fetchObjectData data: " + data);
         if (data) {
             this._names = data.map(function(id) {
-                cc.log("value: %s", id.value)
+                // cc.log("value: %s", id.value)
                 if (id)
                     return id.value || id;
             });
@@ -555,9 +557,10 @@ var ListeningTestLayer = TestLayer.extend({
 });
 
 var ListeningTestScene = cc.Scene.extend({
-    ctor: function(data, nextSceneName, oldSceneName) {
+    ctor: function(data, duration) {
         this._super();
-        var layer = new ListeningTestLayer(data, nextSceneName, oldSceneName);
+        cc.log("listening: " + duration);
+        var layer = new ListeningTestLayer(data, duration);
         this.addChild(layer);
     }
 });
