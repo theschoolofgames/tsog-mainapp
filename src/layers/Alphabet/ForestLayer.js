@@ -959,7 +959,7 @@ var ForestLayer = cc.Layer.extend({
         }
         
         this._hudLayer.removeFromParent();
-
+        cc.log("_addSpeakingTest");
         var self = this;
         cc.audioEngine.stopMusic();
         // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
@@ -967,13 +967,17 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
-        if (this._isTestScene) {
-            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-            return;
-        }
-
+        // if (this._isTestScene) {
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+        //     return;
+        // }
+        var numberScene = KVDatabase.getInstance().getInt("scene_number");
+        var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
+        cc.log("numberScene: " + numberScene);
+        cc.log("durationArray: " + JSON.stringify(durationArray));
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data));
+        cc.log("nextSceneName: " + nextSceneName);
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data), durationArray[numberScene]);
     },
 
     _fetchObjectData: function(data) {

@@ -5,9 +5,9 @@
       "data": [
         "doctor",
         "teacher",
-        "police man",
+        "policeman",
         "lawyer",
-        "fire Fighter",
+        "firefighter",
         "soldier",
         "engineer",
         "driver",
@@ -50,7 +50,7 @@
       "data": [],
       "duration": 180
     },
-    "5": {
+    "4": {
       "name": "speaking",
       "data": [],
       "duration": 120

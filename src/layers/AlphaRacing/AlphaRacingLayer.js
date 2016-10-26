@@ -491,9 +491,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         var self = this;
         cc.audioEngine.stopMusic();
-
+        var numberScene = KVDatabase.getInstance().getInt("scene_number");
+        var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
+        cc.log("numberScene: " + numberScene);
+        cc.log("durationArray: " + JSON.stringify(durationArray));
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._inputData));
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._inputData), durationArray[numberScene]);
+
     },
 
     _backToHome: function() {

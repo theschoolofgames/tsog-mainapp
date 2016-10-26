@@ -165,7 +165,7 @@ var LevelDialog = Dialog.extend({
         var stepData = b.getUserData();
         var dataLength = Object.keys(this._data[stepData]).length;
         var gameName = GAME_IDS[b.tag];
-        cc.log("data:::: "  + JSON.stringify(this._data));
+        cc.log("data:::: "  + JSON.stringify(this._data[stepData]));
         for(var i = 1; i < dataLength + 1; i ++) {
             cc.log("stepData: "  + i);
             durationsArray.push(this._data[stepData][i].duration);

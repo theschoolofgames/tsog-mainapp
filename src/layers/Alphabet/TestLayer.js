@@ -122,9 +122,9 @@ var TestLayer = cc.LayerColor.extend({
 
     _moveToNextScene: function() {
         cc.log("TestLayer moveToNextScene");
-        if (this._isTestScene)
-            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-        else {
+        // if (this._isTestScene)
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+        // else {
             var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
             cc.log("nextSceneName: " + nextSceneName); 
@@ -139,7 +139,7 @@ var TestLayer = cc.LayerColor.extend({
                 SceneFlowController.getInstance().clearData();
                 cc.director.runScene(new MapScene());
             }
-        }
+        // }
 
 
         // var scene;

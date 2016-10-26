@@ -533,7 +533,7 @@ var ListeningTestLayer = TestLayer.extend({
         cc.log("_fetchObjectData data: " + data);
         if (data) {
             this._names = data.map(function(id) {
-                cc.log("value: %s", id.value)
+                // cc.log("value: %s", id.value)
                 if (id)
                     return id.value || id;
             });
