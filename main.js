@@ -170,16 +170,16 @@ cc.game.onStart = function(){
         //     "data": [
         //       {
         //         "first": [
-        //           "number_1",
-        //           "number_2",
-        //           "number_3",
-        //           "number_4"
+        //           ["number_1"],
+        //           ["number_2"],
+        //           ["number_3", "number_2"],
+        //           ["number_4", "number_2"]
         //         ],
         //         "second": [
-        //           "number_1",
-        //           "number_1",
-        //           "number_1",
-        //           "number_1"
+        //           ["number_1"],
+        //           ["number_1"],
+        //           ["number_1", "number_2"],
+        //           ["number_1", "number_3"]
         //         ],
         //         "third": [
         //           "number_2",

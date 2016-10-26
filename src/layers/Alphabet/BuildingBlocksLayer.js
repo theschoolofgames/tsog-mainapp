@@ -1,3 +1,5 @@
+var BUILDINGBLOCKS_COMPLETED_TAG = 0;
+var BUILDING_BLOCKS_TAG = 9;
 var BuildingBlocksLayer = TestLayer.extend({
     _type: null,
     _data: null,
@@ -15,6 +17,9 @@ var BuildingBlocksLayer = TestLayer.extend({
     _currentObjectMoving: null,
     _oldPosition: null,
     _oldScale: 1,
+
+    _gameScale: 0.7,
+    _labelScale: 0.3,
 
     _blockTouch: false,
 
@@ -50,106 +55,161 @@ var BuildingBlocksLayer = TestLayer.extend({
 
         var firstObj = new cc.Node();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
-        firstObj.x = 0;
+        firstObj.x = firstObj.width/4;
         firstObj.y = cc.winSize.height/2;
         this.addChild(firstObj);
         this._objects.push(firstObj);
 
-        var firstOperation = new cc.Sprite("#plus_button-pressed.png");
-        firstOperation.x = firstObj.width + firstOperation.width/2;
-        firstOperation.y = cc.winSize.height/2;
-        this.addChild(firstOperation);
-        this._operations.push(firstOperation);
+        
+        // this._operations.push(firstOperation);
 
         var secondObj = new cc.Node();
         secondObj.width = 250;
+        secondObj.visible = false; // comment it later
+
         secondObj.x = cc.winSize.width/2;
         secondObj.y = cc.winSize.height/2;
         this.addChild(secondObj);
         this._objects.push(secondObj);
 
-        var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
-        secondOperation.x = cc.winSize.width/4 *3 - secondOperation.width/2;
-        secondOperation.y = cc.winSize.height/2;
-        this.addChild(secondOperation);
-
         var thirdObj = new cc.Node();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
-        thirdObj.x = secondOperation.x + secondOperation.width/2;
-        thirdObj.y = cc.winSize.height/2;
+        thirdObj.x = cc.winSize.width/2;
+        thirdObj.y = cc.winSize.height/2 + 20;
         this.addChild(thirdObj);
         this._objects.push(thirdObj);
-
-        // 2nd row
-        var draggingNode = new cc.Node();
-        draggingNode.width = cc.winSize.width;
-        draggingNode.x = draggingNode.width/2;
-        draggingNode.y = cc.winSize.height/2;
-        this.addChild(draggingNode);
-        this._draggingNode = draggingNode;
     },
 
     _showNextOperation: function() {
         // clear previous session
         this._cleanPreviousSession();
+        var node = new cc.Node();
+        node.tag = BUILDING_BLOCKS_TAG;
+        this.addChild(node);
+        // 1st node
+        var firstObjectData = this._data["first"];
+        var secondObjectData = this._data["second"];
 
-        // 1st row
-        var idx = 0;
-        
-        for (var key in this._data) {
-            if (key.indexOf("operation") > -1)
-                continue;
+        var firstObjectCounts = firstObjectData[this._currentOperationId];
+        var secondObjectCounts = secondObjectData[this._currentOperationId];
+        for (var i = 0; i < firstObjectCounts.length; i++) {
+            var currentSpotX = i * cc.winSize.width/4*3 + 150;
+            var currentSpotY = 0;
 
-            var d = this._data[key];
-            var objCount = d[this._currentOperationId];
-            if (!isNaN(objCount))
-                objCount = parseInt(objCount);
-            var heightIdx = -1;
-            for (var i = 0; i < objCount; i++) {
-                if (i%3 == 0)
-                    heightIdx++;
-                var o = new cc.Sprite("#" + this._type + ".png");
-                o.scale = 0.5;
-                o.x = o.width/2 + o.width * (i%3) * o.scale;
-                o.y = -(o.height + 10) * heightIdx * o.scale;
-                this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
-
-                if (key.indexOf("third") > -1) {
-                    var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
-                    var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-                    shaderState.setUniformFloat("width", o.width * o.scale * cc.contentScaleFactor());
-                    shaderState.setUniformFloat("height", o.height * o.scale * cc.contentScaleFactor());
-                    o.shaderProgram = shader;
-
-                    this._dropSpots.push(o);
-                }
+            var firstNodeBlocksCount = parseInt(firstObjectCounts[i]);
+            var firstNodeBlocks = new cc.Node();
+            firstNodeBlocks.x = currentSpotX;
+            firstNodeBlocks.y = cc.winSize.height/2;
+            firstNodeBlocks.tag = firstNodeBlocksCount;
+            node.addChild(firstNodeBlocks);
+            this._dropSpots.push(firstNodeBlocks);
+            for (var k = 0; k < firstNodeBlocksCount; k++) {
+                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                // o.x = currentSpotX;
+                o.scale = this._gameScale;
+                o.y = (o.height - 10) * (firstNodeBlocksCount-k) * o.scale;
+                firstNodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
                 this._dropSpotScale = o.scale;
+                firstNodeBlocks.width = o.width * this._gameScale;
+                firstNodeBlocks.height = o.height*firstNodeBlocksCount * this._gameScale;
             }
-            idx++;
+
+            var lb = new cc.LabelBMFont(firstNodeBlocksCount, res.CustomFont_fnt);
+            lb.scale = this._labelScale * this._gameScale;
+            lb.y = firstNodeBlocks.height/2 * (firstNodeBlocksCount) * lb.scale;
+            // firstNodeBlocks.addChild(lb);
+
+            // dragging node
+            var draggingNode = new cc.Node();
+            draggingNode.x = 100 + i * 300;
+            draggingNode.y = 50;
+            draggingNode.tag = firstNodeBlocksCount;
+            node.addChild(draggingNode);
+            this._draggingObjects.push(draggingNode);
+            for (var k = 0; k < firstNodeBlocksCount; k++) {
+                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                o.scale = this._gameScale;
+                o.y = (o.height - 10) * (firstNodeBlocksCount-k) * o.scale;
+                o.setUserData(k);
+                draggingNode.addChild(o);
+                draggingNode.width = o.width * this._gameScale;
+                draggingNode.height = o.height*(k+1) * this._gameScale;
+            }
+
+            var lb = new cc.LabelBMFont(firstNodeBlocksCount, res.CustomFont_fnt);
+            lb.scale = this._labelScale * this._gameScale;
+            lb.y = draggingNode.height/2 * (firstNodeBlocksCount) * lb.scale;
+            // draggingNode.addChild(lb);
+
+            var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
+            firstOperation.scale = 0.5 * this._gameScale;
+            firstOperation.x = currentSpotX;
+            firstOperation.y = firstNodeBlocks.y - firstOperation.height*firstOperation.scale;
+            node.addChild(firstOperation);
+
+            var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
+            secondOperation.scale = 0.5 * this._gameScale;
+            secondOperation.x = cc.winSize.width/3 * (1 + i);
+            secondOperation.y = cc.winSize.height/2;
+            node.addChild(secondOperation);
+
+            var secondNodeBlocksCount = parseInt(secondObjectCounts[i]);
+            var secondNodeBlocks = new cc.Node();
+            secondNodeBlocks.x = currentSpotX;
+            secondNodeBlocks.y = firstOperation.y - firstOperation.height*firstOperation.scale - 50;
+            secondNodeBlocks.tag = secondNodeBlocksCount;
+            node.addChild(secondNodeBlocks);
+            this._dropSpots.push(secondNodeBlocks);
+            for (var k = 0; k < secondNodeBlocksCount; k++) {
+                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                o.scale = this._gameScale;
+                o.y = (o.height - 10) * (secondNodeBlocksCount-k) * o.scale;
+                secondNodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
+                this._dropSpotScale = o.scale;
+                secondNodeBlocks.width = o.width * o.scale;
+                secondNodeBlocks.height = o.height*secondNodeBlocksCount* o.scale;
+            }
+
+            var lb = new cc.LabelBMFont(secondNodeBlocksCount, res.CustomFont_fnt);
+            lb.scale = this._labelScale * this._gameScale;
+            lb.y = secondNodeBlocks.height/2 * (secondNodeBlocksCount) * lb.scale;
+            // secondNodeBlocks.addChild(lb);
+
+            var draggingNode = new cc.Node();
+            draggingNode.x = 250 + i * 300;
+            draggingNode.y = 50;
+            draggingNode.tag = secondNodeBlocksCount;
+            node.addChild(draggingNode);
+            this._draggingObjects.push(draggingNode);
+            for (var k = 0; k < secondNodeBlocksCount; k++) {
+                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                o.scale = this._gameScale;
+                o.y = (o.height - 10) * (secondNodeBlocksCount-k) * o.scale;
+                o.setUserData(k);
+                draggingNode.addChild(o);
+                draggingNode.width = o.width;
+                draggingNode.height = o.height*(k+1);
+            }
+
+            var lb = new cc.LabelBMFont(secondNodeBlocksCount, res.CustomFont_fnt);
+            lb.scale = this._labelScale * this._gameScale;
+            lb.y = draggingNode.height/2 * (secondNodeBlocksCount) * lb.scale;
+            // draggingNode.addChild(lb);
         }
-
-        var firstOperation = this._data["firstOperation"][this._currentOperationId];
-        var spriteFrame = "";
-        if (firstOperation.indexOf("plus") > -1)
-            spriteFrame = "plus_button-pressed.png";
-
-        this._operations[0].setSpriteFrame(spriteFrame);       
-
-        // 2nd row
-        this._draggingObjects = [];
-        var goal = this._data["third"][this._currentOperationId];
-        if (!isNaN(goal))
-            goal = parseInt(goal);
-        for (var i = 0; i < goal; i++) {
-            var o = new cc.Sprite("#"+ this._type + ".png");
-            o.x = o.width/2 + i*(o.width + 5);
-            o.y = o.height;
-            o.tag = FRUIDDITION_UNCOMPLETED_TAG;
-            o.setUserData(i);
-            this.addChild(o);
-            this._draggingObjects.push(o);
-            this._playDraggingObjectIdleAction(o);
+        this._objects[2].removeAllChildren();
+        var thirdObjectData = this._data["third"];
+        var thirdObjectCounts = thirdObjectData[this._currentOperationId];
+        for (var i = 0; i < thirdObjectCounts; i++) {
+            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            o.scale = this._gameScale;
+            o.x = 0;
+            o.y = -(o.height - 10) * i * o.scale;
+            this._objects[2].addChild(o, STAND_OBJECT_ZORDER);
         }
+        var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
+        lb.scale = this._labelScale * this._gameScale;
+        lb.y = this._objects[2].height/2 * (thirdObjectCounts) * lb.scale;
+        // this._objects[2].addChild(lb);
 
         this._currentOperationId++;
     },
@@ -164,14 +224,7 @@ var BuildingBlocksLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        // if (!data)
-        //     return;
-        cc.log("fruiddition _fetchObjectData");
-        // this._type = FRUIDDITION_DATA["type"];
-        // this._data = JSON.parse(JSON.stringify(FRUIDDITION_DATA["data"][0]));
-        // if (data)
-        //     data = JSON.parse(data);
-        cc.log("data:" + JSON.stringify(data));
+        // cc.log("data:" + JSON.stringify(data));
         this._type = data["type"];
         this._data = data["data"][0];
 
@@ -182,12 +235,17 @@ var BuildingBlocksLayer = TestLayer.extend({
 
     _prepareData: function(array) {
         array = array.map(function(obj) {
-            if (obj)
+            if (Array.isArray(obj)) {
+                obj = obj.map(function(o) {
+                    var object = GameObject.getInstance().findById(o);
+                    return object[0].value;
+                });
+            }
+            else {
                 obj = GameObject.getInstance().findById(obj);
-            if (obj && obj[0] && obj[0].value)
-                return obj[0].value;
-            else
-                return obj;
+                obj = obj[0].value;
+            }
+            return obj;
         });
         return array;
     },
@@ -202,14 +260,17 @@ var BuildingBlocksLayer = TestLayer.extend({
         }
 
         self._draggingObjects.forEach(function(draggingObj) {
+            // cc.log("draggingObj: " +draggingObj);
             var bBox = draggingObj.getBoundingBox();
-            cc.log("onTouchBegan ");
-            if (draggingObj.tag == FRUIDDITION_UNCOMPLETED_TAG && cc.rectContainsPoint(bBox, touchLoc)) {
+            // cc.log("onTouchBegan ");
+            var nodePoint = draggingObj.getParent().convertToNodeSpace(touchLoc);
+            nodePoint = cc.p(nodePoint.x + draggingObj.width/2, nodePoint.y);
+            if (draggingObj.tag > 0 && cc.rectContainsPoint(bBox, nodePoint)) {
                 cc.log("onTouchBegan go in draggingObj loop");
                 self._currentObjectMoving = draggingObj;
                 self._oldPosition = draggingObj.getPosition();
                 self._oldScale = draggingObj.scale;
-                self._currentObjectMoving.scale = self._dropSpotScale;
+                self._currentObjectMoving.scale = self._oldScale+0.2;
                 return true;
             }
         });
@@ -233,15 +294,11 @@ var BuildingBlocksLayer = TestLayer.extend({
 
         if (!self._currentObjectMoving)
             return;
-
         for (var i = 0; i < self._dropSpots.length; i++) {
             var dropSpot = self._dropSpots[i];
-            var spotWorldPos = dropSpot.convertToWorldSpace(dropSpot.getPosition());
             var objectPos = self._currentObjectMoving.getPosition();
-
-            if (cc.pDistance(spotWorldPos, objectPos) < 50) {
+            if (cc.pDistance(dropSpot.getPosition(), objectPos) < 100 && self._currentObjectMoving.tag == dropSpot.tag) {
                 var parent = dropSpot.parent;
-                spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
                 self._handleSuccessfulAction(i, parent);
                 return;
             }
@@ -259,23 +316,17 @@ var BuildingBlocksLayer = TestLayer.extend({
         var scale = this._dropSpots[index].scale;
         var position = this._dropSpots[index].getPosition();
         this._dropSpots[index].removeFromParent();
+        this._dropSpots.splice(index, 1);
 
-        // this._draggingObjects.splice(this._currentObjectMoving.getUserData(), 1);
-        this._currentObjectMoving.removeFromParent(false);
-        parent.addChild(this._currentObjectMoving);
+        var blocksCount = this._currentObjectMoving.tag;
         this._currentObjectMoving.setLocalZOrder(STAND_OBJECT_ZORDER);
         this._currentObjectMoving.stopAllActions();
         this._currentObjectMoving.scale = scale;
+        this._currentObjectMoving.tag = BUILDINGBLOCKS_COMPLETED_TAG;
         this._currentObjectMoving.setPosition(position);
-        this._currentObjectMoving.tag = FRUIDDITION_COMPLETED_TAG;
-        this._currentObjectMoving = null;
-
-        this._dropSpots.splice(index, 1);
-
-        // this._reorderArray(this._draggingObjects);
         
-        this._completedObjectsCount++;
-        this._playOperationSound(this._completedObjectsCount);
+        this._playOperationSound(blocksCount);
+        this._currentObjectMoving = null;
 
         if (this._dropSpots.length == 0) {
             if (!this._checkWonGame()) {
@@ -309,8 +360,8 @@ var BuildingBlocksLayer = TestLayer.extend({
         cc.log("_cleanPreviousSession this._objects: " + this._objects);
         this._completedObjectsCount = 0;
         this._objects.forEach(obj => obj.removeAllChildren());
-        this._operations.forEach(obj => obj.removeAllChildren());
         this._dropSpots.forEach(obj => obj.removeAllChildren());
+        this.removeChildByTag(BUILDING_BLOCKS_TAG);
 
         this._draggingObjects = [];
         this._dropSpots = [];
@@ -343,8 +394,9 @@ var BuildingBlocksLayer = TestLayer.extend({
 
     _reorderArray: function(array) {
         cc.log("_reorderArray" + array);
-        for (var i = 0; i < array.length;i++) {
-            array[i].tag = i;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i])
+                array[i].tag = i;
         }
     },
 });
