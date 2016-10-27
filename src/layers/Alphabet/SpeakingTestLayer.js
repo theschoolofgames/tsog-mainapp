@@ -28,7 +28,7 @@ var SpeakingTestLayer = TestLayer.extend({
         }, this);
         this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
-
+        cc.log("SpeakingTestLayer");
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
     _addHudLayer: function(){
@@ -144,7 +144,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_SpeakingTestScene", 0);
         if (didInstructionSoundPlay == 0) {
             var nation = Utils.getLanguage();
-        
+            cc.log("if");
             this._adiDog.adiTalk();
             
             var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/speak-after_" + nation + ".mp3", false);
@@ -159,7 +159,7 @@ var SpeakingTestLayer = TestLayer.extend({
         } else {
             if (mask)
                 mask.removeFromParent();
-
+            cc.log("else");
             // self._addLabel();
             this._showNextObject();
         }
@@ -218,6 +218,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._touchCounting++;
         this.updateProgressBar();
         var self = this;
+        cc.log("correctAction");
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -249,6 +250,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _showNextObject: function() {
+        cc.log("_showNextObject");
         if (!this._checkCompleted()) {
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
@@ -275,6 +277,8 @@ var SpeakingTestLayer = TestLayer.extend({
             // callback();
             cc.log("no matching file -> currentObjectShowUpId ++");
             this.currentObjectShowUpId++;
+            cc.log("_playObjectSound: " + this._currentObjectShowUp);
+            
             this._showNextObject();
             return;
         }
@@ -351,13 +355,15 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _showObject: function() {
         if (this._currentObjectShowUp) {
+            cc.log("removeFromParent");
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
-        }
+        };
 
 
         var isNumber = false;
-
+        var isWord = false;
+        var spritePath = "";
         var objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
 
         var d = this.getStoryTimeForSpeakingData();
@@ -385,8 +391,15 @@ var SpeakingTestLayer = TestLayer.extend({
                 // number case
                 var number = parseInt(this._names[this.currentObjectShowUpId]);
                 this._objectName = number;
-                if (!isNaN(number))
+                if (!isNaN(number)) {
+                    spritePath = this._names[this.currentObjectShowUpId];
                     isNumber = true;
+                }
+                else {
+                    isWord = true;
+                    spritePath = this._names[this.currentObjectShowUpId];
+                };
+                cc.log("spritePath: " + spritePath);
                 
                 if (!jsb.fileUtils.isFileExist(this._soundName))
                     this._soundName = "res/sounds/numbers/" + number + ".mp3";
@@ -398,14 +411,23 @@ var SpeakingTestLayer = TestLayer.extend({
                     this._soundName = "res/sounds/colors/" + name.substr(name.indexOf("_") + 1, name.length-1) + ".mp3";
                 }
             }
-        }
+        };
+        this.currentObjectName = this._names[this.currentObjectShowUpId];
+        
         cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
-        this.currentObjectName = this._names[this.currentObjectShowUpId];
         if (this.currentObjectName.indexOf("color") > -1) {
             this.currentObjectName = this.currentObjectName.substr(this.currentObjectName.indexOf("_") + 1, this.currentObjectName.length-1);
         }
         var self = this;
+        if (isNumber || isWord) 
+            this._currentObjectShowUp = new cc.LabelBMFont(spritePath, res.CustomFont_fnt);
+        else    
+            this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
+        this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
+        this._currentObjectShowUp.y = cc.winSize.height/2;
+        this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;
+        this.addChild(this._currentObjectShowUp);
         this._playObjectSound(function(audioId) {
             if(self._timesUp) 
                 return;
@@ -414,14 +436,9 @@ var SpeakingTestLayer = TestLayer.extend({
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
             self._adiDog.onStartedListening();
         });
-        if (isNumber) 
-            this._currentObjectShowUp = new cc.LabelBMFont(this._names[this.currentObjectShowUpId], res.CustomFont_fnt);
-        else    
-            this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
-        this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
-        this._currentObjectShowUp.y = cc.winSize.height/2;
-        this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;
-        this.addChild(this._currentObjectShowUp);
+        
+        cc.log("currentObjectName: " + objectName);
+        cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
 
