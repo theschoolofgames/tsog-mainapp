@@ -3092,8 +3092,8 @@
 			baseConfigurationReference = 3879C2E3DA2F966272FC4E96 /* Pods-tsog.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 34F8D32X5G;
@@ -3129,7 +3129,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "eb465657-687d-4f69-b8dd-1fb9d9537eb7";
+				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

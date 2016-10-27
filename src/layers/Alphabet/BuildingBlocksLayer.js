@@ -94,57 +94,16 @@ var BuildingBlocksLayer = TestLayer.extend({
         var secondObjectCounts = secondObjectData[this._currentOperationId];
         for (var i = 0; i < firstObjectCounts.length; i++) {
             var currentSpotX = i * cc.winSize.width/4*3 + 150;
-            var currentSpotY = 0;
+            var currentSpotY = cc.winSize.height/2 + 50;
 
             var firstNodeBlocksCount = parseInt(firstObjectCounts[i]);
-            var firstNodeBlocks = new cc.Node();
-            firstNodeBlocks.x = currentSpotX;
-            firstNodeBlocks.y = cc.winSize.height/2;
-            firstNodeBlocks.tag = firstNodeBlocksCount;
-            node.addChild(firstNodeBlocks);
-            this._dropSpots.push(firstNodeBlocks);
-            for (var k = 0; k < firstNodeBlocksCount; k++) {
-                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
-                // o.x = currentSpotX;
-                o.scale = this._gameScale;
-                o.y = (o.height - 10) * (firstNodeBlocksCount-k) * o.scale;
-                firstNodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
-                this._dropSpotScale = o.scale;
-                firstNodeBlocks.width = o.width * this._gameScale;
-                firstNodeBlocks.height = o.height*firstNodeBlocksCount * this._gameScale;
-            }
-
-            var lb = new cc.LabelBMFont(firstNodeBlocksCount, res.CustomFont_fnt);
-            lb.scale = this._labelScale * this._gameScale;
-            lb.y = firstNodeBlocks.height/2 * (firstNodeBlocksCount) * lb.scale;
-            // firstNodeBlocks.addChild(lb);
-
-            // dragging node
-            var draggingNode = new cc.Node();
-            draggingNode.x = 100 + i * 300;
-            draggingNode.y = 50;
-            draggingNode.tag = firstNodeBlocksCount;
-            node.addChild(draggingNode);
-            this._draggingObjects.push(draggingNode);
-            for (var k = 0; k < firstNodeBlocksCount; k++) {
-                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
-                o.scale = this._gameScale;
-                o.y = (o.height - 10) * (firstNodeBlocksCount-k) * o.scale;
-                o.setUserData(k);
-                draggingNode.addChild(o);
-                draggingNode.width = o.width * this._gameScale;
-                draggingNode.height = o.height*(k+1) * this._gameScale;
-            }
-
-            var lb = new cc.LabelBMFont(firstNodeBlocksCount, res.CustomFont_fnt);
-            lb.scale = this._labelScale * this._gameScale;
-            lb.y = draggingNode.height/2 * (firstNodeBlocksCount) * lb.scale;
-            // draggingNode.addChild(lb);
-
+            this._createSpotNodeBlocks(firstNodeBlocksCount, node, currentSpotX, currentSpotY);
+            this._createDraggingNodeBlocks(firstNodeBlocksCount, node, i, 100);
+            cc.log("currentSpotY " + currentSpotY);
             var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
             firstOperation.scale = 0.5 * this._gameScale;
             firstOperation.x = currentSpotX;
-            firstOperation.y = firstNodeBlocks.y - firstOperation.height*firstOperation.scale;
+            firstOperation.y = currentSpotY - firstOperation.height*firstOperation.scale;
             node.addChild(firstOperation);
 
             var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
@@ -154,64 +113,107 @@ var BuildingBlocksLayer = TestLayer.extend({
             node.addChild(secondOperation);
 
             var secondNodeBlocksCount = parseInt(secondObjectCounts[i]);
-            var secondNodeBlocks = new cc.Node();
-            secondNodeBlocks.x = currentSpotX;
-            secondNodeBlocks.y = firstOperation.y - firstOperation.height*firstOperation.scale - 50;
-            secondNodeBlocks.tag = secondNodeBlocksCount;
-            node.addChild(secondNodeBlocks);
-            this._dropSpots.push(secondNodeBlocks);
-            for (var k = 0; k < secondNodeBlocksCount; k++) {
-                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
-                o.scale = this._gameScale;
-                o.y = (o.height - 10) * (secondNodeBlocksCount-k) * o.scale;
-                secondNodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
-                this._dropSpotScale = o.scale;
-                secondNodeBlocks.width = o.width * o.scale;
-                secondNodeBlocks.height = o.height*secondNodeBlocksCount* o.scale;
-            }
-
-            var lb = new cc.LabelBMFont(secondNodeBlocksCount, res.CustomFont_fnt);
-            lb.scale = this._labelScale * this._gameScale;
-            lb.y = secondNodeBlocks.height/2 * (secondNodeBlocksCount) * lb.scale;
-            // secondNodeBlocks.addChild(lb);
-
-            var draggingNode = new cc.Node();
-            draggingNode.x = 250 + i * 300;
-            draggingNode.y = 50;
-            draggingNode.tag = secondNodeBlocksCount;
-            node.addChild(draggingNode);
-            this._draggingObjects.push(draggingNode);
-            for (var k = 0; k < secondNodeBlocksCount; k++) {
-                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
-                o.scale = this._gameScale;
-                o.y = (o.height - 10) * (secondNodeBlocksCount-k) * o.scale;
-                o.setUserData(k);
-                draggingNode.addChild(o);
-                draggingNode.width = o.width;
-                draggingNode.height = o.height*(k+1);
-            }
-
-            var lb = new cc.LabelBMFont(secondNodeBlocksCount, res.CustomFont_fnt);
-            lb.scale = this._labelScale * this._gameScale;
-            lb.y = draggingNode.height/2 * (secondNodeBlocksCount) * lb.scale;
-            // draggingNode.addChild(lb);
+            currentSpotY = currentSpotY - firstOperation.height*firstOperation.scale - 100;
+            this._createSpotNodeBlocks(secondNodeBlocksCount, node, currentSpotX, currentSpotY, true);
+            this._createDraggingNodeBlocks(secondNodeBlocksCount, node, i, 250);
         }
         this._objects[2].removeAllChildren();
         var thirdObjectData = this._data["third"];
         var thirdObjectCounts = thirdObjectData[this._currentOperationId];
+        var labelAdded = false;
         for (var i = 0; i < thirdObjectCounts; i++) {
+            if (i > 5)
+                break;
             var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
             o.scale = this._gameScale;
             o.x = 0;
             o.y = -(o.height - 10) * i * o.scale;
             this._objects[2].addChild(o, STAND_OBJECT_ZORDER);
+            
+            if (i == Math.floor(thirdObjectCounts/2) || (thirdObjectCounts > 5 && i == Math.floor(5/2) )) {
+                if (!labelAdded) {
+                    var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
+                    lb.scale = this._labelScale;
+                    lb.x = o.width/2;
+                    lb.y = o.height/2;
+                    o.addChild(lb);
+
+                    labelAdded = true;
+                }
+            }
         }
-        var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
-        lb.scale = this._labelScale * this._gameScale;
-        lb.y = this._objects[2].height/2 * (thirdObjectCounts) * lb.scale;
-        // this._objects[2].addChild(lb);
 
         this._currentOperationId++;
+    },
+
+    _createSpotNodeBlocks: function(count, parent, currentSpotX, currentSpotY, isSecondPart) {
+        var isSecondOperationPart = isSecondPart || false;
+        var labelAdded = false;
+        var nodeBlocks = new cc.Node();
+        nodeBlocks.x = currentSpotX;
+        nodeBlocks.y = currentSpotY;
+        nodeBlocks.tag = count;
+        parent.addChild(nodeBlocks);
+        this._dropSpots.push(nodeBlocks);
+        for (var k = 0; k < count; k++) {
+            if (k > 5)
+                break;
+            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            o.scale = this._gameScale;
+            o.y = (o.height - 10) * (isSecondOperationPart ? (-k) : (count-k)) * o.scale;
+            nodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
+            this._dropSpotScale = o.scale;
+            nodeBlocks.width = o.width * this._gameScale;
+            nodeBlocks.height = o.height*count * this._gameScale;
+
+            if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
+                if (!labelAdded) {
+                    var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
+                    lb.scale = this._labelScale;
+                    lb.x = o.width/2;
+                    lb.y = o.height/2;
+                    o.addChild(lb);
+
+                    labelAdded = true;
+                }
+            }
+        }
+    },
+
+    _createDraggingNodeBlocks: function(count, parent, i, startWidth) {
+        var draggingNode = new cc.Node();
+        draggingNode.x = startWidth + i * 300;
+        draggingNode.y = 50;
+        draggingNode.tag = count;
+        draggingNode.scale = 0.5;
+        parent.addChild(draggingNode);
+        this._draggingObjects.push(draggingNode);
+
+        var labelAdded = false;
+        for (var k = 0; k < count; k++) {
+            if (k > 5)
+                break;
+            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            o.scale = this._gameScale;
+            o.y = (o.height - 10) * (count-k) * o.scale;
+            o.setUserData(k);
+            draggingNode.addChild(o);
+            draggingNode.width = o.width * this._gameScale;
+            draggingNode.height = o.height*(k+1) * this._gameScale;
+
+            if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
+                if (!labelAdded) {
+                    var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
+                    lb.scale = this._labelScale;
+                    lb.x = o.width/2;
+                    lb.y = o.height/2;
+                    cc.log("lb.y " + lb.y);
+                    o.addChild(lb);
+
+                    labelAdded = true;
+                }
+            }
+        }
     },
 
     _playOperationSound: function(completedObjectsCount) {
@@ -270,7 +272,7 @@ var BuildingBlocksLayer = TestLayer.extend({
                 self._currentObjectMoving = draggingObj;
                 self._oldPosition = draggingObj.getPosition();
                 self._oldScale = draggingObj.scale;
-                self._currentObjectMoving.scale = self._oldScale+0.2;
+                self._currentObjectMoving.scale = 1;
                 return true;
             }
         });
@@ -324,7 +326,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         this._currentObjectMoving.scale = scale;
         this._currentObjectMoving.tag = BUILDINGBLOCKS_COMPLETED_TAG;
         this._currentObjectMoving.setPosition(position);
-        
+        cc.log("this._currentObjectMoving.scale: " + this._currentObjectMoving.scale);
         this._playOperationSound(blocksCount);
         this._currentObjectMoving = null;
 
