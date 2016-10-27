@@ -144,7 +144,11 @@ var HudLayer = cc.Layer.extend({
             clockInitTime = timeForScene;
         };
         cc.log("clockInitTime: " + clockInitTime);
+        var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
+        cc.log("currentSceneName: " + currentSceneName ); 
         var clock = new Clock(clockInitTime, function(){
+            if(currentSceneName == "speaking")
+                self._layer._timesUp = true;
             if(withClock == true)
                 self._layer.completedScene();
         });

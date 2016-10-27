@@ -13,6 +13,7 @@ var SpeakingTestLayer = TestLayer.extend({
     _nextSceneName: null,
     _oldSceneName: null,
     _wrongAnswerTime: 0,
+    _timesUp: false,
 
     ctor: function(data, duration) {
         this._super();
@@ -305,7 +306,6 @@ var SpeakingTestLayer = TestLayer.extend({
         var self = this;
         this._adiDog.onStoppedListening();
         this._adiDog.adiShakeHead();
-          
         this.runAction(cc.sequence(
             cc.delayTime(2),
             cc.callFunc(function() { 
@@ -407,6 +407,8 @@ var SpeakingTestLayer = TestLayer.extend({
         }
         var self = this;
         this._playObjectSound(function(audioId) {
+            if(self._timesUp) 
+                return;
             self._addLabel("GO");
             NativeHelper.callNative("startSpeechRecognition", [5000]);
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
