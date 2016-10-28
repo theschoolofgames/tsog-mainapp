@@ -755,7 +755,7 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
-                if (id.value)
+                if (id.value && id)
                     return id.value.toLowerCase();
                 else
                     return id;

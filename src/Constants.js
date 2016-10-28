@@ -638,6 +638,37 @@ var STORY_RESOURCES = [
             "res/sounds/stories/story04-03.mp3"
         ]
     },
+    {
+        "subtitles": [
+            "res/subtitles/story05-01.ass",
+            "res/subtitles/story05-02.ass",
+            "res/subtitles/story05-03.ass"
+        ],
+        "arts": [
+            "stories/Storytime5-1.jpg",
+            "stories/Storytime5-2.jpg",
+            "stories/Storytime5-3.jpg"
+        ],
+        "sounds": [
+            "res/sounds/stories/story05-01.mp3",
+            "res/sounds/stories/story05-02.mp3",
+            "res/sounds/stories/story05-03.mp3"
+        ]
+    },
+    {
+        "subtitles": [
+            "res/subtitles/story06-01.ass",
+            "res/subtitles/story06-02.ass"
+        ],
+        "arts": [
+            "stories/Storytime6-1.jpg",
+            "stories/Storytime6-2.jpg"
+        ],
+        "sounds": [
+            "res/sounds/stories/story06-01.mp3",
+            "res/sounds/stories/story06-02.mp3"
+        ]
+    },
 ];
 
 var AR_TMX_LEVELS = [res.AR_Level_01_TMX, res.AR_Level_02_TMX, res.AR_Level_03_TMX];

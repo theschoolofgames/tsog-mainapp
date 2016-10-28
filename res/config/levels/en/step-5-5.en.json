@@ -59,8 +59,8 @@
         "scorpion",
         "seal",
         "shark",
-        "tomato",
-        "towel"
+        "sheep",
+        "snail"
       ],
       "duration": 120
     },
@@ -113,39 +113,63 @@
       "data": {
         "type": "block",
         "data": [
-              {
-                "first": [
-                  ["number_1", "number_3"],
-                  ["number_2", "number_3"],
-                  ["number_3", "number_4"],
-                  ["number_4", "number_3"]
-                ],
-                "second": [
-                  ["number_5", "number_3"],
-                  ["number_5", "number_4"],
-                  ["number_5", "number_4"],
-                  ["number_5", "number_6"]
-                ],
-                "third": [
-                  "number_6",
-                  "number_7",
-                  "number_8",
-                  "number_9"
-                ],
-                "firstOperation": [
-                  "plus",
-                  "plus",
-                  "plus",
-                  "plus"
-                ],
-                "secondOperation": [
-                  "equal",
-                  "equal",
-                  "equal",
-                  "equal"
-                ]
-              }
+          {
+            "first": [
+              [
+                "number_1",
+                "number_3"
+              ],
+              [
+                "number_2",
+                "number_3"
+              ],
+              [
+                "number_3",
+                "number_4"
+              ],
+              [
+                "number_4",
+                "number_3"
+              ]
+            ],
+            "second": [
+              [
+                "number_5",
+                "number_3"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_6"
+              ]
+            ],
+            "third": [
+              "number_6",
+              "number_7",
+              "number_8",
+              "number_9"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
             ]
+          }
+        ]
       },
       "duration": 180
     },
@@ -192,20 +216,20 @@
       ],
       "duration": 120
     },
-    "2" : {
-      "name" : "listening",
+    "2": {
+      "name": "listening",
       "data": [],
       "duration": 60
     },
-    "3" : {
-      "name" : "writing",
+    "3": {
+      "name": "writing",
       "data": [],
       "duration": 240
     },
-    "4" : {
-      "name" : "writing",
+    "4": {
+      "name": "writing",
       "data": [],
       "duration": 120
     }
-  }  
+  }
 }

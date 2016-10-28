@@ -111,7 +111,7 @@
             "donkey",
             "bee"
           ],
-          "option": "",
+          "option": "a_merchant_and_his_donkey",
           "data": [
             "tiger",
             "donkey",
@@ -121,7 +121,7 @@
             "banana",
             "tree",
             "salt",
-            "socks"
+            "sock"
           ],
           "voice": [
             "animal",
@@ -148,7 +148,7 @@
         "banana",
         "tree",
         "salt",
-        "socks"
+        "sock"
       ],
       "duration": 60
     },
