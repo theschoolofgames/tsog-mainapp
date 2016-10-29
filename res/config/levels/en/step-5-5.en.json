@@ -59,8 +59,8 @@
         "scorpion",
         "seal",
         "shark",
-        "tomato",
-        "towel"
+        "sheep",
+        "snail"
       ],
       "duration": 120
     },
@@ -84,7 +84,10 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["banana", "apple"],
+        "type": [
+          "banana",
+          "apple"
+        ],
         "data": [
           {
             "first": [
@@ -144,39 +147,63 @@
       "data": {
         "type": "block",
         "data": [
-              {
-                "first": [
-                  ["number_1", "number_3"],
-                  ["number_10", "number_9"],
-                  ["number_3", "number_4"],
-                  ["number_10", "number_6"]
-                ],
-                "second": [
-                  ["number_5", "number_3"],
-                  ["number_3", "number_2"],
-                  ["number_5", "number_4"],
-                  ["number_5", "number_1"]
-                ],
-                "third": [
-                  "number_6",
-                  "number_7",
-                  "number_8",
-                  "number_5"
-                ],
-                "firstOperation": [
-                  "plus",
-                  "sub",
-                  "plus",
-                  "sub"
-                ],
-                "secondOperation": [
-                  "equal",
-                  "equal",
-                  "equal",
-                  "equal"
-                ]
-              }
+          {
+            "first": [
+              [
+                "number_1",
+                "number_3"
+              ],
+              [
+                "number_10",
+                "number_9"
+              ],
+              [
+                "number_3",
+                "number_4"
+              ],
+              [
+                "number_10",
+                "number_6"
+              ]
+            ],
+            "second": [
+              [
+                "number_5",
+                "number_3"
+              ],
+              [
+                "number_3",
+                "number_2"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_1"
+              ]
+            ],
+            "third": [
+              "number_6",
+              "number_7",
+              "number_8",
+              "number_5"
+            ],
+            "firstOperation": [
+              "plus",
+              "sub",
+              "plus",
+              "sub"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
             ]
+          }
+        ]
       },
       "duration": 180
     },
@@ -223,20 +250,20 @@
       ],
       "duration": 120
     },
-    "2" : {
-      "name" : "listening",
+    "2": {
+      "name": "listening",
       "data": [],
       "duration": 60
     },
-    "3" : {
-      "name" : "writing",
+    "3": {
+      "name": "writing",
       "data": [],
       "duration": 240
     },
-    "4" : {
-      "name" : "writing",
+    "4": {
+      "name": "writing",
       "data": [],
       "duration": 120
     }
-  }  
+  }
 }

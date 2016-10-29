@@ -35,6 +35,12 @@ var StoryMainLayer = TestLayer.extend({
             case "the_hare_and_the_tortoise":
                 this._currentStory = STORY_RESOURCES[3];
                 break;
+            case "a_merchant_and_his_donkey":
+                this._currentStory = STORY_RESOURCES[4];
+                break;
+            case "the_fox_and_the_grapes":
+                this._currentStory = STORY_RESOURCES[5];
+                break;
             default:
                 this._currentStory = STORY_RESOURCES[0];
                 break;
