@@ -375,6 +375,46 @@
     "value": "watermelon"
   },
   {
+    "id": "asleep",
+    "type": "object",
+    "value": "asleep"
+  },
+  {
+    "id": "cheer",
+    "type": "object",
+    "value": "cheer"
+  },
+  {
+    "id": "fat",
+    "type": "object",
+    "value": "fat"
+  },
+  {
+    "id": "happy",
+    "type": "object",
+    "value": "happy"
+  },
+  {
+    "id": "hungry",
+    "type": "object",
+    "value": "hungry"
+  },
+  {
+    "id": "sat",
+    "type": "object",
+    "value": "sat"
+  },
+  {
+    "id": "walk",
+    "type": "object",
+    "value": "walk"
+  },
+  {
+    "id": "yawn",
+    "type": "object",
+    "value": "yawn"
+  },
+  {
     "id": "strawberry",
     "type": "object",
     "value": "strawberry"
