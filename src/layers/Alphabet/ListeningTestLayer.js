@@ -92,6 +92,7 @@ var ListeningTestLayer = TestLayer.extend({
         }
 
         this._objectNodes.forEach(function(obj) {
+            cc.log("obj size: %f, %f", obj.width, obj.height);
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
                 var currentKeyNames;
                 if (self._keyObject.length>0)
@@ -473,6 +474,7 @@ var ListeningTestLayer = TestLayer.extend({
                     })
                 ));
             } else {
+                cc.log("fadeOut incorrectedObj");
                 obj.runAction(cc.fadeOut(0.5));
             }
         });
