@@ -99,6 +99,7 @@ var FreeColorLayer = TestLayer.extend({
 
     // only accept object with type: animals and objects
     _filterObjectsByType: function(objectIdArray) {
+        cc.log("FreeColorLayer: " + JSON.stringify(objectIdArray));
         this._parseGameObjectJSON();
         var tempArray = [];
         if (!this._gameObjectJson || this._gameObjectJson.length == 0)
@@ -290,12 +291,12 @@ var FreeColorLayer = TestLayer.extend({
             )
         );
 
-        this.runObjectAction(this, 0,
-            function(){
-                if (Global.NumberGamePlayed > 1)
-                self._lastClickTime = self._hudLayer.getRemainingTime();
-            }
-        )
+        // this.runObjectAction(this, 0,
+        //     function(){
+        //         if (Global.NumberGamePlayed > 1)
+        //         self._lastClickTime = self._hudLayer.getRemainingTime();
+        //     }
+        // )
     },
 
     runObjectAction: function(object, delayTime, func) {

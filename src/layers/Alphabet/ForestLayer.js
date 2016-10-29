@@ -158,6 +158,7 @@ var ForestLayer = cc.Layer.extend({
         var animals = [];
         var allAnimals = this._dsInstance.getObjects(FOREST_ID);
         var rdmAnimalType = this._getRandomAnimalType(this._data.length);
+        cc.log("forestLayer: " + JSON.stringify(this._data));
         if (this._data.length) {
             for (var i = 0; i < this._data.length; i++) {
                 var obj = this._data[i];

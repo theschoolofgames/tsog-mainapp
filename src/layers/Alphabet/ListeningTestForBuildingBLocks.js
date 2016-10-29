@@ -84,6 +84,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
             }
         }
         firstOperation.x = this._objects[0].width + firstOperation.width/2;
+        secondObj.x = firstOperation.x + this._objects[1].width/2;
     },
 
     _displayCurrentName: function() {
