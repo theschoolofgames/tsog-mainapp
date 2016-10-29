@@ -32,12 +32,58 @@
   "2": {
     "1": {
       "name": "fruiddition",
-      "data": [
-        {
-          "min": 1,
-          "max": 15
-        }
-      ],
+      "data": {
+        "type": ["apple"],
+        "data": [
+          {
+            "first": [
+              "number_6",
+              "number_3",
+              "number_2",
+              "number_3",
+              "number_9",
+              "number_9",
+              "number_7"
+            ],
+            "second": [
+              "number_1",
+              "number_5",
+              "number_8",
+              "number_9",
+              "number_6",
+              "number_4",
+              "number_4"
+            ],
+            "third": [
+              "number_7",
+              "number_8",
+              "number_10",
+              "number_12",
+              "number_15",
+              "number_13",
+              "number_11"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ]
+      },
       "duration": 300
     },
     "2": {

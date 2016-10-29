@@ -172,12 +172,43 @@
   "4": {
     "1": {
       "name": "buildingblocks",
-      "data": [
-        {
-          "min": 1,
-          "max": 15
-        }
-      ],
+      "data": {
+        "type": "block",
+        "data": [
+          {
+            "first": [
+              "number_1",
+              "number_2",
+              "number_3",
+              "number_4"
+            ],
+            "second": [
+              "number_5",
+              "number_6",
+              "number_7",
+              "number_11"
+            ],
+            "third": [
+              "number_6",
+              "number_8",
+              "number_10",
+              "number_15"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ]
+      },
       "duration": 120
     },
     "2": {

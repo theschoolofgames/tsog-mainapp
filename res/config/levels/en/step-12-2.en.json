@@ -178,7 +178,6 @@
         "Y",
         "Z"
       ],
->>>>>>> 3c4c9f0437d39cd3f84e1f87a3c24f7a89b7d95c
       "duration": 120
     }
   },
@@ -231,20 +230,6 @@
       "duration": 300
     },
     "2": {
-<<<<<<< HEAD
-      "name": "listening-buildingblocks",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing-buildingblocks",
-      "data": [],
-      "duration": 180
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [],
-=======
       "name": "listening",
       "data": [
         "number_1",
@@ -385,7 +370,6 @@
         "number_39",
         "number_40"
       ],
->>>>>>> 3c4c9f0437d39cd3f84e1f87a3c24f7a89b7d95c
       "duration": 120
     }
   },
