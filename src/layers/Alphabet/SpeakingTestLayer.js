@@ -42,9 +42,9 @@ var SpeakingTestLayer = TestLayer.extend({
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
 
-        if (SpeakingTestLayer.shouldSkipTest != null)
-            this.playBeginSound();
-        else
+        // if (SpeakingTestLayer.shouldSkipTest != null)
+        //     this.playBeginSound();
+        // else
             this.testBackgroundNoise();
     },
 

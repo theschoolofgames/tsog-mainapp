@@ -230,6 +230,126 @@
     "value": "toytrain"
   },
   {
+    "id": "sun",
+    "type": "object",
+    "value": "sun"
+  },
+  {
+    "id": "trees",
+    "type": "object",
+    "value": "trees"
+  },
+  {
+    "id": "leaf",
+    "type": "object",
+    "value": "leaf"
+  },
+  {
+    "id": "animals",
+    "type": "object",
+    "value": "animals"
+  },
+  {
+    "id": "grass",
+    "type": "object",
+    "value": "grass"
+  },
+  {
+    "id": "stars",
+    "type": "object",
+    "value": "stars"
+  },
+  {
+    "id": "artist",
+    "type": "object",
+    "value": "artist"
+  },
+  {
+    "id": "doctor",
+    "type": "object",
+    "value": "doctor"
+  },
+  {
+    "id": "engineer",
+    "type": "object",
+    "value": "engineer"
+  },
+  {
+    "id": "musician",
+    "type": "object",
+    "value": "musician"
+  },
+  {
+    "id": "nurse",
+    "type": "object",
+    "value": "nurse"
+  },
+  {
+    "id": "police",
+    "type": "object",
+    "value": "police"
+  },
+  {
+    "id": "teacher",
+    "type": "object",
+    "value": "teacher"
+  },
+  {
+    "id": "grandmother",
+    "type": "object",
+    "value": "grandmother"
+  },
+  {
+    "id": "grandfather",
+    "type": "object",
+    "value": "grandfather"
+  },
+  {
+    "id": "mother",
+    "type": "object",
+    "value": "mother"
+  },
+  {
+    "id": "father",
+    "type": "object",
+    "value": "father"
+  },
+  {
+    "id": "brother",
+    "type": "object",
+    "value": "brother"
+  },
+  {
+    "id": "sister",
+    "type": "object",
+    "value": "sister"
+  },
+  {
+    "id": "uncle",
+    "type": "object",
+    "value": "uncle"
+  },
+  {
+    "id": "aunt",
+    "type": "object",
+    "value": "aunt"
+  },
+  {
+    "id": "cousin",
+    "type": "object",
+    "value": "cousin"
+  },
+  {
+    "id": "pet",
+    "type": "animal",
+    "value": "pet"
+  },
+  {
+    "id": "flowers",
+    "type": "object",
+    "value": "flowers"
+  },
+  {
     "id": "feather",
     "type": "object",
     "value": "feather"
@@ -498,6 +618,11 @@
     "id": "kangaroo",
     "type": "animal",
     "value": "kangaroo"
+  },
+  {
+    "id": "spider",
+    "type": "animal",
+    "value": "spider"
   },
   {
     "id": "turtle",

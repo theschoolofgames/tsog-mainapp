@@ -129,6 +129,10 @@
             "type": "LIE_ITEM"
         },
         {
+            "imageName": "spider",
+            "type": "LIE_ITEM"
+        },
+        {
             "imageName": "insect",
             "type": "LIE_ITEM"
         },
