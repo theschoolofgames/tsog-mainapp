@@ -200,6 +200,11 @@
     "value": "potato"
   },
   {
+    "id": "pot",
+    "type": "object",
+    "value": "pot"
+  },
+  {
     "id": "tomato",
     "type": "object",
     "value": "tomato"
@@ -593,6 +598,16 @@
     "id": "panda",
     "type": "animal",
     "value": "panda"
+  },
+  {
+    "id": "pan",
+    "type": "object",
+    "value": "pan"
+  },
+  {
+    "id": "pear",
+    "type": "object",
+    "value": "pear"
   },
   {
     "id": "snake",
