@@ -70,7 +70,7 @@ var FruidditionGameLayer = TestLayer.extend({
         this.addChild(firstObj);
         this._objects.push(firstObj);
 
-        var firstOperation = new cc.Sprite("#plus_button-pressed.png");
+        var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
         firstOperation.x = firstObj.width + firstOperation.width/2;
         firstOperation.y = cc.winSize.height/2;
         this.addChild(firstOperation);
@@ -146,9 +146,11 @@ var FruidditionGameLayer = TestLayer.extend({
         var firstOperation = this._data["firstOperation"][this._currentOperationId];
         var spriteFrame = "";
         if (firstOperation.indexOf("plus") > -1)
-            spriteFrame = "plus_button-pressed.png";
+            this._operations[0].setString("+");
+        else
+            this._operations[0].setString("-");
 
-        this._operations[0].setSpriteFrame(spriteFrame);       
+          
 
         // 2nd row
         this._draggingObjects = [];
@@ -193,6 +195,8 @@ var FruidditionGameLayer = TestLayer.extend({
         this._data["first"] = this._prepareData(this._data["first"]);
         this._data["second"] = this._prepareData(this._data["second"]);
         this._data["third"] = this._prepareData(this._data["third"]);
+        this._data["type"] = this._type;
+        this.setData(this._data);
     },
 
     _prepareData: function(array) {

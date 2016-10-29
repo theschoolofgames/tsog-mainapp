@@ -158,7 +158,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
-        // cc.director.runScene(new ListeningTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
+        // cc.director.runScene(new ListeningTestForFruidditionScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}]));
         // cc.director.runScene(new SchoolSelectorScene());
         // cc.director.runScene(new AccountSelectorScene());
         // cc.director.runScene(new TalkingAdiScene());

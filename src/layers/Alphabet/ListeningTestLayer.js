@@ -379,14 +379,17 @@ var ListeningTestLayer = TestLayer.extend({
         cc.log("self._objSoundPath: " + self._objSoundPath);
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
-        var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            if (!self._adiDog)
-                return;
+        if (self._objSoundPath) {
+            var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                if (!self._adiDog)
+                    return;
 
-            self._adiDog.adiIdling();
-            self._objSoundIsPlaying = false;
-        });
+                self._adiDog.adiIdling();
+                self._objSoundIsPlaying = false;
+            });
+        }
+        
     },
 
     _animateObjectIn: function(object, delay) {

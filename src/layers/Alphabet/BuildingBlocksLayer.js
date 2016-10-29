@@ -99,8 +99,12 @@ var BuildingBlocksLayer = TestLayer.extend({
             var firstNodeBlocksCount = parseInt(firstObjectCounts[i]);
             this._createSpotNodeBlocks(firstNodeBlocksCount, node, currentSpotX, currentSpotY);
             this._createDraggingNodeBlocks(firstNodeBlocksCount, node, i, 100);
-            cc.log("currentSpotY " + currentSpotY);
-            var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
+            // cc.log("currentSpotY " + currentSpotY);
+            var currentOperation = this._data["firstOperation"][this._currentOperationId];
+            var string = "+";
+            if (currentOperation.indexOf("sub") > -1)
+                string = "-";
+            var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
             firstOperation.scale = 0.5 * this._gameScale;
             firstOperation.x = currentSpotX;
             firstOperation.y = currentSpotY - firstOperation.height*firstOperation.scale;

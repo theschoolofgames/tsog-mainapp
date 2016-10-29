@@ -51,28 +51,28 @@
         "data": [
               {
                 "first": [
-                  ["number_1"],
                   ["number_2"],
-                  ["number_3", "number_2"],
-                  ["number_4", "number_2"]
+                  ["number_3", "number_4"],
+                  ["number_4", "number_5"],
+                  ["number_5"]
                 ],
                 "second": [
                   ["number_1"],
-                  ["number_1"],
                   ["number_1", "number_2"],
-                  ["number_1", "number_3"]
+                  ["number_1", "number_2"],
+                  ["number_1"]
                 ],
                 "third": [
+                  "number_1",
                   "number_2",
                   "number_3",
-                  "number_4",
-                  "number_5"
+                  "number_4"
                 ],
                 "firstOperation": [
-                  "plus",
-                  "plus",
-                  "plus",
-                  "plus"
+                  "sub",
+                  "sub",
+                  "sub",
+                  "sub"
                 ],
                 "secondOperation": [
                   "equal",

@@ -168,7 +168,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new RoomScene(data, timeForScene));
                 break;
             case "listening":
-                cc.director.runScene(new ListeningTestScene(data, timeForScene));
+                cc.director.runScene(new ListeningTestForFruidditionScene(data, timeForScene));
                 break;
             case "speaking":
                 cc.director.runScene(new SpeakingTestScene(data, timeForScene));
