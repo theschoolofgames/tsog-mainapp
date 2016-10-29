@@ -1,4 +1,4 @@
-var ListeningTestForFruiddition = ListeningTestLayer.extend({
+var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     _type: null,
     _objects: [],
 
@@ -53,9 +53,8 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             for (var k = 0; k < objCount; k++) {
                 if (k%3 == 0)
                     heightIdx++;
-                var randomType = this._randomType();
-                var o = new cc.Sprite("res/SD/objects/"+ this._type[randomType] + ".png");
-                o.scale = 0.5;
+                var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
+                o.scale = 0.4;
                 o.x = o.width/2 + o.width * (k%3) * o.scale;
                 o.y = -(o.height + 10) * heightIdx * o.scale;
                 this._objects[i].addChild(o, STAND_OBJECT_ZORDER);
@@ -120,16 +119,15 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             for (var k = 0; k < shownObjNames[i]; k++) {
                 if (k >= 3 && k%3 == 0)
                     heightIdx++;
-                var randomType = this._randomType();
-                var o = new cc.Sprite("res/SD/objects/"+ this._type[randomType] + ".png");
-                // o.scale = 0.5;
+                var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
+                o.scale = 0.5;
                 node.setContentSize(o.width * 3 *o.scale, o.height*shownObjNames[i] * o.scale);
                 o.x = node.width/2 - o.width/2* o.scale + o.width * (k%3) * o.scale;
                 o.y = node.height/2 - (o.height + 10) * heightIdx * o.scale;
                 node.addChild(o, STAND_OBJECT_ZORDER);
             }
             node.name = shownObjNames[i];
-            node.scale = Math.min(150 / node.width, 300 / node.height) * Utils.screenRatioTo43();
+            node.scale = Math.min(200 / node.width, 350 / node.height) * Utils.screenRatioTo43();
             node.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43() - node.width/2;
             node.y = this._objCenter.y - node.height/2;
 
@@ -171,10 +169,6 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
         }
     },
 
-    _randomType: function() {
-        return Math.floor(Math.random() * this._type.length);
-    },
-
     _fetchObjectData: function(data) {
         cc.log("data: " + data);
         this._type = data["type"];
@@ -186,7 +180,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
     },
 });
 
-var ListeningTestForFruidditionScene = cc.Scene.extend({
+var ListeningTestForBuildingBLocksScene = cc.Scene.extend({
     ctor: function(data, duration) {
         this._super();
         cc.log("listening: " + duration);

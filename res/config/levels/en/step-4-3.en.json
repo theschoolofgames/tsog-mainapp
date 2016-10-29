@@ -28,7 +28,7 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": "apple",
+        "type": ["apple"],
         "data": [
           {
             "first": [
