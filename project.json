@@ -79,6 +79,7 @@
         "src/layers/Alphabet/FruidditionGameLayer.js",
         "src/layers/Alphabet/BuildingBlocksLayer.js",
         "src/layers/Alphabet/ListeningTestForFruiddition.js",
+        "src/layers/Alphabet/ListeningTestForBuildingBLocks.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/Boosters/ARBoosterWorker.js",

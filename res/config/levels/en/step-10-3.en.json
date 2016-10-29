@@ -67,7 +67,7 @@
       }
     },
     "2": {
-      "name": "listening",
+      "name": "listening-fruiddition",
       "data": [],
       "duration": 120
     }
@@ -115,17 +115,17 @@
       "duration": 300
     },
     "2": {
-      "name": "listening",
+      "name": "listening-buildingblocks",
       "data": [],
       "duration": 120
     },
     "3": {
-      "name": "writing",
+      "name": "writing-buildingblocks",
       "data": [],
       "duration": 240
     },
     "4": {
-      "name": "speaking",
+      "name": "speaking-buildingblocks",
       "data": [],
       "duration": 120
     }

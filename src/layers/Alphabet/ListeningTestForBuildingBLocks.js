@@ -7,7 +7,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     ctor: function(data, duration) {
         this._super(data, duration);
 
-        this._objCenter = cc.p(cc.winSize.width * 0.55, cc.winSize.height/2 * 0.8);
+        this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2 * 0.8);
     },
 
     onEnterTransitionDidFinish: function() {
@@ -22,11 +22,18 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
 
         var firstObj = new cc.Layer();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
+        firstObj.height = 100;
         this._nameNode.addChild(firstObj);
         this._objects.push(firstObj);
-
-        var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
+        var string = "";
+        if (this._data["firstOperation"][this._nameIdx] == "plus")
+            string = "+";
+        else
+            string = "-";
+        var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
+        firstOperation.scale = 0.5;
         firstOperation.x = firstObj.width + firstOperation.width/2;
+        firstOperation.y = firstOperation.height/2;
         this._nameNode.addChild(firstOperation);
         this._operations.push(firstOperation);
 
@@ -46,20 +53,37 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
                 objCount = this._data["first"][this._nameIdx];
             else
                 objCount = this._data["second"][this._nameIdx];
-
+            cc.log("objCount " + objCount);
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
+            else {
+                var rdmIndex = Math.floor(Math.random() * objCount.length)
+                objCount = objCount[rdmIndex];
+            }
             var heightIdx = -1;
+            var labelAdded = false;
             for (var k = 0; k < objCount; k++) {
                 if (k%3 == 0)
                     heightIdx++;
-                var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
-                o.scale = 0.4;
-                o.x = o.width/2 + o.width * (k%3) * o.scale;
-                o.y = -(o.height + 10) * heightIdx * o.scale;
+                var o = new cc.Sprite("#"+ this._type + "-empty.png");
+                o.scale = (firstObj.height < o.height*objCount) ? (firstObj.height / (o.height*objCount)) : 0.7;
+                o.y = (o.height - 10) *  (objCount-k) * o.scale;
                 this._objects[i].addChild(o, STAND_OBJECT_ZORDER);
+                this._objects[i].width = o.width*o.scale;
+                if (k == Math.floor(objCount/2) || (objCount > 5 && k == Math.floor(5/2) )) {
+                    if (!labelAdded) {
+                        var lb = new cc.LabelBMFont(objCount, res.CustomFont_fnt);
+                        lb.scale = 0.5*o.scale;
+                        lb.x = o.width/2;
+                        lb.y = o.height/2;
+                        o.addChild(lb);
+
+                        labelAdded = true;
+                    }
+                }
             }
         }
+        firstOperation.x = this._objects[0].width + firstOperation.width/2;
     },
 
     _displayCurrentName: function() {
@@ -72,7 +96,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         this._nameNode.setCascadeOpacityEnabled(true);
         this._nameNode.x = cc.winSize.width/2;
         this._nameNode.y = cc.winSize.height - 150;
-        this._nameNode.scale = 0.5;
+        this._nameNode.scale = 0.7;
         this.addChild(this._nameNode);
 
         this._createOperation();
@@ -114,20 +138,32 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
             var node = new cc.Layer();
             node.setCascadeOpacityEnabled(true);
-            var heightIdx = 0;
-
+            var labelAdded = false;
             for (var k = 0; k < shownObjNames[i]; k++) {
-                if (k >= 3 && k%3 == 0)
-                    heightIdx++;
-                var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
-                o.scale = 0.5;
-                node.setContentSize(o.width * 3 *o.scale, o.height*shownObjNames[i] * o.scale);
-                o.x = node.width/2 - o.width/2* o.scale + o.width * (k%3) * o.scale;
-                o.y = node.height/2 - (o.height + 10) * heightIdx * o.scale;
-                node.addChild(o, STAND_OBJECT_ZORDER);
+                if (k > 5)
+                    break;
+                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                o.x = o.width/2;
+                o.y = (o.height - 10) *  (shownObjNames[i]-k) * o.scale;
+                node.addChild(o, STAND_OBJECT_ZORDER);      
+                node.width = o.width;
+                node.height = o.height*shownObjNames[i];
+
+                if (k == Math.floor(shownObjNames[i]/2) || (shownObjNames[i] > 5 && k == Math.floor(5/2) )) {
+                    if (!labelAdded) {
+                        o.setCascadeOpacityEnabled(true);
+                        var lb = new cc.LabelBMFont(shownObjNames[i], res.CustomFont_fnt);
+                        lb.scale = 0.5;
+                        lb.x = o.width/2;
+                        lb.y = o.height/2;
+                        o.addChild(lb);
+
+                        labelAdded = true;
+                    }
+                }
             }
             node.name = shownObjNames[i];
-            node.scale = Math.min(200 / node.width, 350 / node.height) * Utils.screenRatioTo43();
+            node.scale = Math.min(100 / node.width, 250 / node.height) * Utils.screenRatioTo43();
             node.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43() - node.width/2;
             node.y = this._objCenter.y - node.height/2;
 
@@ -184,7 +220,7 @@ var ListeningTestForBuildingBLocksScene = cc.Scene.extend({
     ctor: function(data, duration) {
         this._super();
         cc.log("listening: " + duration);
-        var layer = new ListeningTestForFruiddition(data, duration);
+        var layer = new ListeningTestForBuildingBLocks(data, duration);
         this.addChild(layer);
     }
 });

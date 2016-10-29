@@ -237,6 +237,9 @@ var BuildingBlocksLayer = TestLayer.extend({
         this._data["first"] = this._prepareData(this._data["first"]);
         this._data["second"] = this._prepareData(this._data["second"]);
         this._data["third"] = this._prepareData(this._data["third"]);
+
+        this._data["type"] = this._type;
+        this.setData(this._data);
     },
 
     _prepareData: function(array) {

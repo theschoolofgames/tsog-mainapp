@@ -25,7 +25,12 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
         this._nameNode.addChild(firstObj);
         this._objects.push(firstObj);
 
-        var firstOperation = new cc.LabelBMFont("+", res.CustomFont_fnt);
+        var string = "";
+        if (this._data["firstOperation"][this._nameIdx] == "plus")
+            string = "+";
+        else
+            string = "-";
+        var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
         firstOperation.x = firstObj.width + firstOperation.width/2;
         this._nameNode.addChild(firstOperation);
         this._operations.push(firstOperation);

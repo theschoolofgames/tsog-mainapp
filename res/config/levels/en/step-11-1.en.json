@@ -122,16 +122,49 @@
   "3": {
     "1": {
       "name": "fruiddition",
-      "data": [
-        {
-          "min": 1,
-          "max": 5
-        }
-      ],
+      "data": {
+        "type": [
+          "apple"
+        ],
+        "data": [
+          {
+            "first": [
+              "number_1",
+              "number_2",
+              "number_3",
+              "number_4"
+            ],
+            "second": [
+              "number_1",
+              "number_1",
+              "number_1",
+              "number_1"
+            ],
+            "third": [
+              "number_2",
+              "number_3",
+              "number_4",
+              "number_5"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ]
+      },
       "duration": 180
     },
     "2": {
-      "name": "speaking",
+      "name": "speaking-fruiddition",
       "data": [],
       "duration": 120
     }
@@ -148,17 +181,17 @@
       "duration": 120
     },
     "2": {
-      "name": "listening",
+      "name": "listening-buildingblocks",
       "data": [],
       "duration": 60
     },
     "3": {
-      "name": "writing",
+      "name": "writing-buildingblocks",
       "data": [],
       "duration": 180
     },
     "4": {
-      "name": "speaking",
+      "name": "speaking-buildingblocks",
       "data": [],
       "duration": 120
     }

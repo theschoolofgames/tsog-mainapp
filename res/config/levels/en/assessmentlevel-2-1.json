@@ -226,17 +226,17 @@
       "duration": 120
     },
     "2": {
-      "name": "listening",
+      "name": "listening-fruiddition",
       "data": [],
       "duration": 120
     },
     "3": {
-      "name": "writing",
+      "name": "writing-fruiddition",
       "data": [],
       "duration": 360
     },
     "4": {
-      "name": "speaking",
+      "name": "speaking-fruiddition",
       "data": [],
       "duration": 120
     }
@@ -304,17 +304,17 @@
       "duration": 120
     },
     "2": {
-      "name": "listening",
+      "name": "listening-buildingblocks",
       "data": [],
       "duration": 120
     },
     "3": {
-      "name": "writing",
+      "name": "writing-buildingblocks",
       "data": [],
       "duration": 360
     },
     "4": {
-      "name": "speaking",
+      "name": "speaking-buildingblocks",
       "data": [],
       "duration": 120
     }
