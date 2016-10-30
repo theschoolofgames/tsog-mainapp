@@ -179,6 +179,12 @@ var SceneFlowController = cc.Class.extend({
             case "speaking":
                 cc.director.runScene(new SpeakingTestScene(data, timeForScene));
                 break;
+            case "speaking-fruiddition":
+                cc.director.runScene(new SpeakingTestForFruidditionScene(data, timeForScene));
+                break;
+            case "speaking-buildingblocks":
+                cc.director.runScene(new SpeakingTestForBuildingBlocksScene(data, timeForScene));
+                break;
             case "shadow":
                 cc.director.runScene(new ShadowGameScene(data, timeForScene));
                 break;
