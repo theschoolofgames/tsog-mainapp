@@ -15,9 +15,18 @@ var WritingTestForFruidition = WritingTestLayer.extend({
     _addOperation: function(char) {
         this.removeChildByTag(WRITINGTEST_OPERATION_TAG);
         var ope = new cc.Layer();
+        ope.anchorX = 0;
         ope.tag = WRITINGTEST_OPERATION_TAG;
         ope.y = char.y;
-        var lbFirst = new cc.LabelBMFont(this._data["first"][this._nameIdx], res.CustomFont_fnt);
+
+        var firstVal = this._data["first"][this._nameIdx];
+        var rdmIdx = -1;
+        if (Array.isArray(firstVal)) {
+            rdmIdx = Math.floor(Math.random() * firstVal.length);
+            firstVal = firstVal[rdmIdx];
+        }
+
+        var lbFirst = new cc.LabelBMFont(firstVal, res.CustomFont_fnt);
         ope.addChild(lbFirst);
 
         var string = "+";
@@ -30,7 +39,10 @@ var WritingTestForFruidition = WritingTestLayer.extend({
         lbFirstOperation.x = lbFirst.x + lbFirst.width * lbFirst.scale + 15;
         ope.addChild(lbFirstOperation);
 
-        var lbSecond = new cc.LabelBMFont(this._data["second"][this._nameIdx], res.CustomFont_fnt);
+        var secondVal = this._data["second"][this._nameIdx];
+        if (rdmIdx > -1)
+            secondVal = secondVal[rdmIdx];
+        var lbSecond = new cc.LabelBMFont(secondVal, res.CustomFont_fnt);
         lbSecond.x = lbFirstOperation.x + lbFirstOperation.width * lbFirstOperation.scale + 15;
         ope.addChild(lbSecond);
 
@@ -38,9 +50,7 @@ var WritingTestForFruidition = WritingTestLayer.extend({
         secondOperation.x = lbSecond.x + lbSecond.width * lbSecond.scale + 15;
         ope.addChild(secondOperation);
         
-        ope.width = lbFirst.width + lbFirstOperation.width + lbSecond.width + secondOperation.width;
-        ope.height = lbFirst.height;
-        ope.x = cc.rectGetMaxX(this._adiDog.getBoundingBox()) + ope.width/2 + 20;
+        ope.x = cc.rectGetMaxX(this._adiDog.getBoundingBox()) + 50;
         this.addChild(ope);
     },
 
