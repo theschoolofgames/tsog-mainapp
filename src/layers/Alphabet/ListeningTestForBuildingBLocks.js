@@ -214,6 +214,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         cc.log("_fetchObjectData: " + this._objectName);
         cc.log("_fetchObjectData: " + this._keyObject);
 
+        this.setData(this._data);
     },
 });
 

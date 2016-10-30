@@ -123,7 +123,10 @@ var FruidditionGameLayer = TestLayer.extend({
             for (var i = 0; i < objCount; i++) {
                 if (i%3 == 0)
                     heightIdx++;
-                var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
+                var objectName = this._type;
+                if (Array.isArray(this._type))
+                    objectName = this._type[Math.floor(Math.random() * this._type.length)];
+                var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
                 o.scale = 0.5;
                 o.x = o.width/2 + o.width * (i%3) * o.scale;
                 o.y = -(o.height + 10) * heightIdx * o.scale;
@@ -158,7 +161,10 @@ var FruidditionGameLayer = TestLayer.extend({
         if (!isNaN(goal))
             goal = parseInt(goal);
         for (var i = 0; i < goal; i++) {
-            var o = new cc.Sprite("res/SD/objects/"+ this._type + ".png");
+            var objectName = this._type;
+            if (Array.isArray(this._type))
+                objectName = this._type[Math.floor(Math.random() * this._type.length)];
+            var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
             o.x = o.width/2 + i*(o.width + 5);
             o.y = o.height;
             o.tag = FRUIDDITION_UNCOMPLETED_TAG;

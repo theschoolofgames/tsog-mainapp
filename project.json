@@ -80,6 +80,7 @@
         "src/layers/Alphabet/BuildingBlocksLayer.js",
         "src/layers/Alphabet/ListeningTestForFruiddition.js",
         "src/layers/Alphabet/ListeningTestForBuildingBLocks.js",
+        "src/layers/Alphabet/WritingTestForFruidition.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/Boosters/ARBoosterWorker.js",
