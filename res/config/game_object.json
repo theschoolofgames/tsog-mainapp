@@ -25,6 +25,101 @@
     "value": "cup"
   },
   {
+    "id": "arm",
+    "type": "object",
+    "value": "arm"
+  },
+  {
+    "id": "hang",
+    "type": "object",
+    "value": "hang"
+  },
+  {
+    "id": "light",
+    "type": "object",
+    "value": "light"
+  },
+  {
+    "id": "nose",
+    "type": "object",
+    "value": "nose"
+  },
+  {
+    "id": "river",
+    "type": "object",
+    "value": "river"
+  },
+  {
+    "id": "seed",
+    "type": "object",
+    "value": "seed"
+  },
+  {
+    "id": "seed",
+    "type": "object",
+    "value": "seed"
+  },
+  {
+    "id": "steep",
+    "type": "object",
+    "value": "steep"
+  },
+  {
+    "id": "stew",
+    "type": "object",
+    "value": "stew"
+  },
+  {
+    "id": "tent",
+    "type": "object",
+    "value": "tent"
+  },
+  {
+    "id": "test",
+    "type": "object",
+    "value": "test"
+  },
+  {
+    "id": "tub",
+    "type": "object",
+    "value": "tub"
+  },
+  {
+    "id": "van",
+    "type": "object",
+    "value": "van"
+  },
+  {
+    "id": "wing",
+    "type": "object",
+    "value": "wing"
+  },
+  {
+    "id": "toe",
+    "type": "object",
+    "value": "toe"
+  },
+  {
+    "id": "toes",
+    "type": "object",
+    "value": "toes"
+  },
+  {
+    "id": "heavy",
+    "type": "object",
+    "value": "heavy"
+  },
+  {
+    "id": "sour",
+    "type": "object",
+    "value": "sour"
+  },
+  {
+    "id": "xmas",
+    "type": "object",
+    "value": "xmas"
+  },
+  {
     "id": "hat",
     "type": "object",
     "value": "hat"
@@ -348,6 +443,11 @@
     "id": "pet",
     "type": "animal",
     "value": "pet"
+  },
+  {
+    "id": "chimpanze",
+    "type": "animal",
+    "value": "chimpanze"
   },
   {
     "id": "flowers",
