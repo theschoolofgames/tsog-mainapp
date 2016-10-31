@@ -3,7 +3,16 @@ var RENDER_TEXTURE_HEIGHT = 320;
 
 var CHAR_SPACE = 10;
 var MAX_AVAILABLE_WIDTH = 850;
-var GOFIGURE_BRUSH_COLOR = ["red", "blue", "green", "yellow"];
+var GOFIGURE_BRUSH_COLOR_INDEX = ["red", "blue", "green", "yellow", "pink", "orange", "brown"];
+var GOFIGURE_BRUSH_COLOR = {
+    "red": cc.color.RED, 
+    "blue": cc.color("#00aaff"), 
+    "green": cc.color.GREEN, 
+    "yellow": cc.color.YELLOW, 
+    "pink": cc.color("#ff69b4"), 
+    "orange": cc.color("#8B4513"), 
+    "brown": cc.color("#7f5200")
+}
 var GOFIGURE_SPECIAL_CASE = 1;
 
 var GoFigureTestLayer = TestLayer.extend({
@@ -73,8 +82,8 @@ var GoFigureTestLayer = TestLayer.extend({
         
         this._addAdiDog();
         this._addBoard();
-        this._displayWord();
         this._addRenderTextures();
+        this._displayWord();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -121,21 +130,6 @@ var GoFigureTestLayer = TestLayer.extend({
             this._adiDog.adiIdling();
             this._moveToNextShape();
         }
-
-        // var nation = Utils.getLanguage();
-
-        // this._blockTouch = true;
-        // this._adiDog.adiTalk();
-
-        // var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
-        // jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-        //     self._blockTouch = false;
-        //     if (!self._adiDog)
-        //         return;
-
-        //     self._adiDog.adiIdling();
-        //     self._moveToNextShape();
-        // });
     },
 
     onTouchBegan: function(touch, event) {
@@ -343,11 +337,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._nameIdx++;
         this._pathIdx = 0;
         this._writeFailCount = 0;
-
-        // if (self.checkChangingWord())
         self._changeWord();
-        // else
-        //     self._moveToNextShape();
     },
 
     checkChangingCharacter: function() {
@@ -390,43 +380,23 @@ var GoFigureTestLayer = TestLayer.extend({
 
                 self._baseRender.getSprite().runAction(cc.fadeOut(0.5));
             }),
-            cc.delayTime(0.25),
-            cc.callFunc(function() {
-                // sprite = self._addObjImage(self._names[self._nameIdx-1]);
-                // sprite.runAction(cc.spawn(
-                //     cc.fadeIn(0.5),
-                //     cc.scaleTo(0.5, 1.5)
-                // ));
-
-                // objName = self._addObjName(self._names[self._nameIdx-1], self._writingWords[self._nameIdx-1].length);
-                // objName.opacity = 0;
-                // objName.runAction(cc.fadeIn(0.5));
-            }),
-            cc.delayTime(0.5),
+            cc.delayTime(0.75),
             cc.callFunc(function() {
                 self._playObjSound(self._names[self._nameIdx-1], function() {
                     self.runAction(cc.sequence(
                         cc.delayTime(1.2),
                         cc.callFunc(function() {
-                            // sprite.runAction(cc.sequence(
-                            //     cc.fadeOut(0.3),
-                                // cc.callFunc(function() {
-                                    if (self._nameIdx >= self._writingWords.length) {
-                                        self._moveToNextScene();
-                                        return;
-                                    }
+                            if (self._nameIdx >= self._writingWords.length) {
+                                self._moveToNextScene();
+                                return;
+                            }
+                            self._baseRender.getSprite().opacity = 128;
 
-                                    // sprite.removeFromParent();
-                                    // objName.removeFromParent();
-                                    self._baseRender.getSprite().opacity = 128;
+                            self._displayWord();
+                            self._baseRender.clear(0,0,0,0);
+                            self._moveToNextShape();
 
-                                    self._displayWord();
-                                    self._baseRender.clear(0,0,0,0);
-                                    self._moveToNextShape();
-
-                                    self._blockTouch = false;
-                                // })
-                            // ));
+                            self._blockTouch = false;
                         })
                     ));
                 });
@@ -487,8 +457,6 @@ var GoFigureTestLayer = TestLayer.extend({
         } else {
             cb && cb();
         }
-
-        
     },
 
     _displayWord: function() {
@@ -498,17 +466,14 @@ var GoFigureTestLayer = TestLayer.extend({
             this._characterNodes.forEach(function(obj) {obj.removeFromParent();});
         }
         this._characterNodes = [];
+        this._wordScale = 1;
 
         var objName = this._writingWords[this._nameIdx];
-        // cc.log("objName: " + objName);
-        // cc.log("objName: " + JSON.stringify(objName));
-        // cc.log("_nameIdx: " + this._nameIdx);
-        this._wordScale = 1;
-        var optionIdx = (this._option) ? this._option.index : 1;
+        var optionIdx = (this._option) ? this._option[this._nameIdx] : 0;
+
         var charArrays = [];
         var totalWidth = 0;
         var totalWords = (Array.isArray(objName)) ? objName.length : 1;
-        // cc.log("totalWords: " + totalWords);
         var s = new cc.Sprite("#" + objName + ".png");
         this.addChild(s);
 
@@ -521,11 +486,8 @@ var GoFigureTestLayer = TestLayer.extend({
         s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
         s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
 
-
-        // for (var j = 1; j < charArrays[i].length; j++) {
-        //     charArrays[i][j].scale = this._wordScale;
-        //     charArrays[i][j].x = charArrays[i][j-1].x + (charArrays[i][j-1].width/2 + CHAR_SPACE + charArrays[i][j].width/2) * this._wordScale;
-        //     charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale;
+        this._currentBrushColor = GOFIGURE_BRUSH_COLOR[optionIdx];
+        this._baseRender.getSprite().color = GOFIGURE_BRUSH_COLOR[optionIdx];
     },
 
     _moveToNextShape: function() {
@@ -602,16 +564,6 @@ var GoFigureTestLayer = TestLayer.extend({
         actions.push(cc.moveTo(0, this.convertToWSpace(this.convertScaledPath(pathCfg[0]))));
         actions.push(cc.fadeIn(0.15));
 
-        // var optionIdx = this._option.index;
-        // for (var k = 0; k < optionIdx.length; k++) {
-        //     var opt = optionIdx[k];
-        //     if (opt == this._nameIdx) {
-        //         for (var i = 1; i < pathCfg.length; i++) {
-        //             pathCfg[i] = cc.pRotateByAngle(pathCfg[i], pathCfg[0], 0.5*Math.PI);
-        //         }
-        //     }
-        // }
-
         for (var i = 1; i < pathCfg.length; i++) {
             var distToPrevPoint = cc.pDistance(this.convertScaledPath(pathCfg[i]), this.convertScaledPath(pathCfg[i-1]));
             actions.push(cc.moveTo(distToPrevPoint * 0.005, this.convertToWSpace(this.convertScaledPath(pathCfg[i]))));
@@ -677,9 +629,13 @@ var GoFigureTestLayer = TestLayer.extend({
         this._board.y = 0;
         // cc.log("Utils.getScaleFactorTo16And9() " + Utils.getScaleFactorTo16And9());
         this.addChild(this._board);
-        for (var i = 0; i < GOFIGURE_BRUSH_COLOR.length; i++) {
-            var btnImgNameNormal = "btn_" + GOFIGURE_BRUSH_COLOR[i] +".png";
-            var btnImgNamePressed = "btn_" + GOFIGURE_BRUSH_COLOR[i] +"-pressed.png";
+
+        var numberBtn = 4;
+        if (GOFIGURE_BRUSH_COLOR_INDEX.length < 4)
+            numberBtn = GOFIGURE_BRUSH_COLOR_INDEX.length;
+        for (var i = 0; i < numberBtn; i++) {
+            var btnImgNameNormal = "btn_" + GOFIGURE_BRUSH_COLOR_INDEX[i] +".png";
+            var btnImgNamePressed = "btn_" + GOFIGURE_BRUSH_COLOR_INDEX[i] +"-pressed.png";
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
             b.y = 104 * Utils.getScaleFactorTo16And9();
@@ -705,6 +661,15 @@ var GoFigureTestLayer = TestLayer.extend({
                 break;
             case 3:
                 color = cc.color.YELLOW;
+                break;
+            case 4:
+                color = cc.color.PINK;
+                break;
+            case 5:
+                color = cc.color.ORANGE;
+                break;
+            case 6:
+                color = cc.color.BROWN;
                 break;
             default:
                 color = cc.color.GREEN;

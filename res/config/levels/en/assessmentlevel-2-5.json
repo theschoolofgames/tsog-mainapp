@@ -212,12 +212,18 @@
     "1": {
       "name": "gofigure",
       "data": [
-        "shape_triangle",
-        "shape_square",
-        "shape_circle",
-        "shape_double_curved_line",
-        "shape_semi_circle",
-        "shape_six_straight_line"
+        {
+          "option": ["red", "blue", "pink", "yellow", "brown", "green", "orange"],
+          "data": [
+            "shape_triangle",
+            "shape_square",
+            "shape_rectangle",
+            "shape_circle",
+            "shape_double_curved_line",
+            "shape_semi_circle",
+            "shape_six_straight_line"
+          ]
+        }
       ],
       "duration": 120
     }

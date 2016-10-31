@@ -145,7 +145,16 @@ cc.game.onStart = function(){
         // cc.director.runScene(new DesignTestScene(1, true));
         // cc.director.runScene(new FormTheTrainScene());
         // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
-        // cc.director.runScene(new GoFigureTestScene(["shape_square", "shape_rectangle", "shape_triangle", "shape_straight_line", "shape_curved_line", "shape_semi_circle", "shape_circle"]));
+        // cc.director.runScene(new GoFigureTestScene([
+        //         "shape_triangle",
+        //         "shape_square",
+        //         "shape_rectangle",
+        //         "shape_circle",
+        //         "shape_double_curved_line",
+        //         "shape_semi_circle",
+        //         "shape_six_straight_line"
+        //     ], ["red", "blue", "pink", "yellow", "brown", "green", "orange"]
+        // ));
         // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
         // cc.director.runScene(new LoginScene());
         // cc.director.runScene(new SignUpScene());

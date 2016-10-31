@@ -149,16 +149,6 @@ var SceneFlowController = cc.Class.extend({
 
     moveToNextScene: function(sceneName, data, timeForScene) {
         var option = null;
-        // if (data[0].option){
-        //     data = data[0].data;
-        //     option = data[0].option;
-        // }
-        // if (cc.director.getRunningScene().name == "balloon") {
-        //     Utils.updateStepData();
-        //     SceneFlowController.getInstance().clearData();
-        //     cc.director.runScene(new MapScene());
-        //     return;
-        // }
         var sceneNumber = KVDatabase.getInstance().getInt("scene_number");
 
         KVDatabase.getInstance().set("scene_number", sceneNumber + 1);
@@ -201,7 +191,11 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new ForestScene(data, timeForScene));
                 break;
             case "gofigure":
-                option = data[0].option;
+                if (Array.isArray(data[0])) {
+                    option = data[0].option;
+                    data = data[0].data;
+                }
+
                 cc.director.runScene(new GoFigureTestScene(data, option, timeForScene));
                 break;
             case "card":
@@ -237,12 +231,6 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new BuildingBlocksScene(data));
                 break;
             case "freecolor":
-                // remove after implement free color game
-                // Utils.updateStepData();
-                // SceneFlowController.getInstance().clearData();
-                // cc.director.runScene(new MapScene());
-                // remove upper code after implement free color game
-
                 cc.director.runScene(new FreeColorScene(data));
                 break;
             default:
