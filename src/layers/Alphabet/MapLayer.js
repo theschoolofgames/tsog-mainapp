@@ -48,20 +48,29 @@ var MapLayer = cc.Layer.extend({
         var isAllLevelUnlocked = KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
+        var mapLabel = 0;
         var level = 0;
         var scrollView = new cc.ScrollView();
         for (var map in this._mapData) {
-            if (this._mapData.hasOwnProperty(map) && map.indexOf("assessment") < 0) {
+            cc.log("this._mapData: " + JSON.stringify(this._mapData));
+            if (this._mapData.hasOwnProperty(map)) {
                 var path = "Map_Part" + mapIndex + "_jpg";
                 var mapPart = new cc.Sprite(res[path]);
                 mapPart.x = lastPartXPos + mapPart.width/2;
                 mapPart.y = cc.winSize.height/2;
-                
+
+                if (map.indexOf("assessment") > -1)
+                    mapLabel++;
+                else
+                    mapLabel = parseInt(map);
+                cc.log("mapLabel: " + mapLabel);
                 var _map = this._mapData[map];
+                cc.log("_map: " + JSON.stringify(_map));
                 var _mapInArray = Object.keys(_map);
                 var totalSteps = _mapInArray.length;
 
                 for (var step in _map) {
+                    cc.log("_map: %s, step: %s", _map, step);
                     if (_map.hasOwnProperty(step)) {
                         var val = _map[step];
                         level++;
@@ -69,7 +78,7 @@ var MapLayer = cc.Layer.extend({
                         var pos = this._btnStepCoordinates[stepIndex-1];
                         var enabled = (val == "1-1") ? true : false;
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
-                        btn.x = pos.x + btn.width * 0.5 + mapPart.width * (parseInt(map) - 1);
+                        btn.x = pos.x + btn.width * 0.5 + mapPart.width * (mapLabel - 1);
                         btn.y = pos.y + btn.height * 1.5;
                         btn.setEnabled(isAllLevelUnlocked ? true : enabled);
                         var lb = new cc.LabelBMFont(level, res.MapFont_fnt);
@@ -157,6 +166,8 @@ var MapLayer = cc.Layer.extend({
         // var starPosDif = [2.2, 1.6, 1.2, 1.2, 1.6, 2.2];
         // getTotalGame in step
         var dataPath = "res/config/levels/" + currentLanguage + "/" + "step-" + step + "." + currentLanguage +".json";
+        if(step.indexOf("assessment") > -1)
+            dataPath = "res/config/levels/" + currentLanguage + "/" + step +".json";
         // cc.log("_addStepStars dataPath: " + dataPath);
         if (!jsb.fileUtils.isFileExist(dataPath))
             return;

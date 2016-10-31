@@ -13,7 +13,7 @@ var TestLayer = cc.LayerColor.extend({
     // storytime case for Listenting test
     _storytimeDataForListening: null,
     _storytimeDataForSpeaking: null,
-
+    _timesUp: false,
     storytimeCurrentDataIndex: -1,
 
     ctor: function(removeHud) {
@@ -48,6 +48,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     callQuickTest:function() {
+        this._timesUp = true;
         cc.audioEngine.stopMusic();
         this._moveToNextScene();
     },
