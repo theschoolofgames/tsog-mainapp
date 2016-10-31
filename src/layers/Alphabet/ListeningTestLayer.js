@@ -166,6 +166,8 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _showObjects: function() {
+        if(this._tutorial)
+            this._tutorial.removeFromParent();
         this._objectNodes.forEach(function(obj) { obj.removeFromParent(); });
         this._objectNodes = [];
 
@@ -290,6 +292,8 @@ var ListeningTestLayer = TestLayer.extend({
                     cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || UPDATED_CONFIG.listeningTestWaitToShowHand),
                     cc.callFunc(function(sender) {
                         cc.log("set finger tutorial");
+                        if(self._tutorial)
+                            self._tutorial.removeFromParent();
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial, 999);
                     }),

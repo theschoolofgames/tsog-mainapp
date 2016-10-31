@@ -373,10 +373,10 @@ var StoryMainLayer = TestLayer.extend({
 
     backToHome:function (sender) {
         this._stopStory();
-        if (this._isTestScene) {
-            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255))); 
-            return;
-        }
+        // if (this._isTestScene) {
+        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255))); 
+        //     return;
+        // }
 
         // TODO remove after complete listening and speaking flow after story game
         Utils.updateStepData();

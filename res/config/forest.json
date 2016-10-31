@@ -53,6 +53,10 @@
             "type": "STAND_ITEM"
         },
         {
+            "imageName": "chimpanze",
+            "type": "STAND_ITEM"
+        },
+        {
             "imageName": "fish",
             "type": "WATER_ITEM"
         },

@@ -142,6 +142,9 @@ var LevelDialog = Dialog.extend({
     _fetchDataAtLevel: function(level) {
         var self = this;
         var dataPath = "res/config/levels/" + currentLanguage + "/" + "step-" + level + "." + currentLanguage +".json";
+        if(level.indexOf("assessment") > -1)
+            dataPath = "res/config/levels/" + currentLanguage + "/" + level + ".json";
+        cc.log("dataPath: " + dataPath);
         cc.loader.loadJson(dataPath, function(err, data){
             if (!err) {
                 self._data = data;

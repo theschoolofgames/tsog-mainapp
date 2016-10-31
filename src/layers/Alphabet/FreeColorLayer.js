@@ -56,7 +56,13 @@ var FreeColorLayer = TestLayer.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
-
+        var self  = this;
+        this.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function(){
+                self._begin = true;
+            })
+        ));
         this._addNextButton();
     },
 
@@ -321,7 +327,8 @@ var FreeColorLayer = TestLayer.extend({
 
         var distance = cc.pDistance(touchedPos, prevPos);
         var dif = cc.pSub(touchedPos, prevPos);
-
+        if(!this._begin)
+            return;
         this._tmpRenderer.begin();
         for (var i = 0; i < distance; i++) {
             var delta = i / distance;
