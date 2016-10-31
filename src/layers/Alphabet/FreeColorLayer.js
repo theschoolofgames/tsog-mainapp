@@ -415,7 +415,7 @@ var FreeColorLayer = TestLayer.extend({
 
         var imgName = object.getUserData().imageName;
         var sprite = new cc.Sprite(imgName);
-        sprite.scale = (sprite.width > FREECOLOR_SHADER_WIDTH) ? FREECOLOR_SHADER_HEIGHT/sprite.width : FREECOLOR_SHADER_HEIGHT/sprite.height;
+        sprite.scale = (sprite.width > FREECOLOR_SHADER_WIDTH) ? FREECOLOR_SHADER_HEIGHT/sprite.width/sprite.height/sprite.width : FREECOLOR_SHADER_HEIGHT/sprite.height;
         sprite.x = cc.winSize.width/2;
         sprite.y = cc.winSize.height/2;
         this.addChild(sprite);

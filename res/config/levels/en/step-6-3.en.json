@@ -268,7 +268,7 @@
           "key": [
             "fox",
             "grape",
-            "apple"
+            "walk"
           ],
           "option": "the_fox_and_the_grapes",
           "data": [
@@ -277,7 +277,11 @@
             "duck",
             "apple",
             "grape",
-            "banana"
+            "banana",
+            "sing",
+            "walk",
+            "jump"
+
           ]
         }
       ],

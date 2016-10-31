@@ -119,7 +119,7 @@
             "rat",
             "ant",
             "dog",
-            "hat",
+            "tree",
             "hat",
             "key"
           ],
@@ -130,7 +130,10 @@
           ],
           "speaking": [
             "lion",
-            "mouse"
+            "mouse",
+            "king",
+            "tree",
+            "happy"
           ]
         }
       ],
