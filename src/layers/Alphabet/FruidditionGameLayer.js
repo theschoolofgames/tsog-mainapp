@@ -264,7 +264,7 @@ var FruidditionGameLayer = TestLayer.extend({
             var spotWorldPos = dropSpot.convertToWorldSpace(dropSpot.getPosition());
             var objectPos = self._currentObjectMoving.getPosition();
 
-            if (cc.pDistance(spotWorldPos, objectPos) < 50) {
+            if (cc.pDistance(spotWorldPos, objectPos) < 100) {
                 var parent = dropSpot.parent;
                 spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
                 self._handleSuccessfulAction(i, parent);

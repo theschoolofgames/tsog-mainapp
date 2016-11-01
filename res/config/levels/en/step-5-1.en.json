@@ -123,7 +123,7 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": "banana",
+        "type": ["banana"],
         "data": [
           {
             "first": [
@@ -162,6 +162,16 @@
       "duration": 180
     },
     "2": {
+      "name": "listening-fruiddition",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing-fruiddition",
+      "data": [],
+      "duration": 120
+    },
+    "4": {
       "name": "speaking-fruiddition",
       "data": [],
       "duration": 120

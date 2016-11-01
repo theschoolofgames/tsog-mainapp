@@ -50,7 +50,7 @@ var WritingTestForFruidition = WritingTestLayer.extend({
         secondOperation.x = lbSecond.x + lbSecond.width * lbSecond.scale + 15;
         ope.addChild(secondOperation);
         
-        ope.x = cc.rectGetMaxX(this._adiDog.getBoundingBox()) + 50;
+        ope.x = cc.rectGetMaxX(this._adiDog.getBoundingBox()) + 100 * Utils.screenRatioTo43();
         this.addChild(ope);
     },
 

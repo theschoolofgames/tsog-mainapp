@@ -9,7 +9,7 @@ var SpeakingTestForFruiddition = SpeakingTestLayer.extend({
 
     _fetchObjectData: function(data) {
         this._data = data;
-        this._names = _data["third"];   
+        this._names = this._data["third"];   
         this.setData(this._data);
         cc.log("data after map: " + JSON.stringify(this._names));
     },

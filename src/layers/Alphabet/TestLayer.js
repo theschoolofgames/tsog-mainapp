@@ -16,6 +16,8 @@ var TestLayer = cc.LayerColor.extend({
     _timesUp: false,
     storytimeCurrentDataIndex: -1,
 
+    _callingQuickTest: false,
+
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
         this._names = [];
@@ -48,6 +50,10 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     callQuickTest:function() {
+        if (this._callingQuickTest)
+            return;
+
+        this._callingQuickTest = true
         this._timesUp = true;
         cc.audioEngine.stopMusic();
         this._moveToNextScene();

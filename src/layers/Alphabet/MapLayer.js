@@ -52,7 +52,7 @@ var MapLayer = cc.Layer.extend({
         var level = 0;
         var scrollView = new cc.ScrollView();
         for (var map in this._mapData) {
-            cc.log("this._mapData: " + JSON.stringify(this._mapData));
+            // cc.log("this._mapData: " + JSON.stringify(this._mapData));
             if (this._mapData.hasOwnProperty(map)) {
                 var path = "Map_Part" + mapIndex + "_jpg";
                 var mapPart = new cc.Sprite(res[path]);
@@ -63,9 +63,9 @@ var MapLayer = cc.Layer.extend({
                     mapLabel++;
                 else
                     mapLabel = parseInt(map);
-                cc.log("mapLabel: " + mapLabel);
+                // cc.log("mapLabel: " + mapLabel);
                 var _map = this._mapData[map];
-                cc.log("_map: " + JSON.stringify(_map));
+                // cc.log("_map: " + JSON.stringify(_map));
                 var _mapInArray = Object.keys(_map);
                 var totalSteps = _mapInArray.length;
 

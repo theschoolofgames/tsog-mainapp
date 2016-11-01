@@ -30,6 +30,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             string = "+";
         else
             string = "-";
+        cc.log("ListeningTestForFruiddition _createOperation");
         var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
         firstOperation.x = firstObj.width + firstOperation.width/2;
         this._nameNode.addChild(firstOperation);
@@ -59,6 +60,8 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
                 if (k%3 == 0)
                     heightIdx++;
                 var randomType = this._randomType();
+                cc.log("randomType: " + randomType);
+                cc.log("this._type[randomType]: " + this._type[randomType]);
                 var o = new cc.Sprite("res/SD/objects/"+ this._type[randomType] + ".png");
                 o.scale = 0.5;
                 o.x = o.width/2 + o.width * (k%3) * o.scale;

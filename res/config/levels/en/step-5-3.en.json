@@ -46,7 +46,7 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": "banana",
+        "type": ["banana"],
         "data": [
           {
             "first": [
