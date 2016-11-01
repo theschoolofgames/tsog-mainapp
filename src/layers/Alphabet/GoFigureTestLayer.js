@@ -469,7 +469,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._wordScale = 1;
 
         var objName = this._writingWords[this._nameIdx];
-        var optionIdx = (this._option) ? this._option[this._nameIdx] : 0;
+        var optionIdx = (this._option) ? this._option[this._nameIdx] : "green";
 
         var charArrays = [];
         var totalWidth = 0;
@@ -486,6 +486,7 @@ var GoFigureTestLayer = TestLayer.extend({
         s.x = cc.winSize.width * 0.65 - totalWidth/2 * this._wordScale + s.width/2 * this._wordScale - 10;
         s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
 
+        cc.log(GOFIGURE_BRUSH_COLOR[optionIdx]);
         this._currentBrushColor = GOFIGURE_BRUSH_COLOR[optionIdx];
         this._baseRender.getSprite().color = GOFIGURE_BRUSH_COLOR[optionIdx];
     },

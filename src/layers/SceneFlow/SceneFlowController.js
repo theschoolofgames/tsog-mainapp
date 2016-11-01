@@ -195,7 +195,11 @@ var SceneFlowController = cc.Class.extend({
                 if (Array.isArray(data[0])) {
                     option = data[0].option;
                     data = data[0].data;
+                } else {
+                    option = null;
+                    data = data;
                 }
+
 
                 cc.director.runScene(new GoFigureTestScene(data, option, timeForScene));
                 break;
