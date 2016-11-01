@@ -52,28 +52,38 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 480
     },
     "4": {
       "name": "writing",
       "data": [],
       "duration": 480
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "6": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "2": {
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["apple"],
+        "type": ["banana", "apple"],
         "data": [
           {
             "first": [
-              "number_1",
-              "number_2",
+              "number_5",
+              "number_4",
               "number_3",
-              "number_4"
+              "number_2"
             ],
             "second": [
               "number_1",
@@ -82,15 +92,15 @@
               "number_1"
             ],
             "third": [
-              "number_2",
-              "number_3",
               "number_4",
-              "number_5"
+              "number_5",
+              "number_2",
+              "number_3"
             ],
             "firstOperation": [
+              "sub",
               "plus",
-              "plus",
-              "plus",
+              "sub",
               "plus"
             ],
             "secondOperation": [
@@ -129,27 +139,27 @@
               {
                 "first": [
                   ["number_1"],
-                  ["number_2"],
+                  ["number_4"],
                   ["number_3", "number_2"],
-                  ["number_4", "number_2"]
+                  ["number_4", "number_5"]
                 ],
                 "second": [
                   ["number_1"],
                   ["number_1"],
                   ["number_1", "number_2"],
-                  ["number_1", "number_3"]
+                  ["number_2", "number_3"]
                 ],
                 "third": [
                   "number_2",
                   "number_3",
                   "number_4",
-                  "number_5"
+                  "number_2"
                 ],
                 "firstOperation": [
                   "plus",
+                  "sub",
                   "plus",
-                  "plus",
-                  "plus"
+                  "sub"
                 ],
                 "secondOperation": [
                   "equal",

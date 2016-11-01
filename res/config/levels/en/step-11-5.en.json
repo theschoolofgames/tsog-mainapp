@@ -37,19 +37,34 @@
       "duration": 240
     },
     "4": {
-      "name": "speaking",
+      "name": "writing",
       "data": [
-        "salt",
-        "sock",
-        "strawberry",
-        "tomato",
-        "towel",
         "s",
         "t",
         "S",
         "T"
       ],
-      "duration": 120
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [
+        "s",
+        "t",
+        "S",
+        "T"
+      ],
+      "duration": 240
+    },
+    "6": {
+      "name": "speaking",
+      "data": [
+        "s",
+        "t",
+        "S",
+        "T"
+      ],
+      "duration": 240
     }
   },
   "2": {
@@ -75,6 +90,16 @@
       "duration": 240
     },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "6": {
       "name": "speaking",
       "data": [],
       "duration": 120
@@ -84,39 +109,37 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["apple"],
+        "type": [
+          "banana",
+          "apple"
+        ],
         "data": [
           {
             "first": [
-              "number_5",
-              "number_3",
+              "number_10",
               "number_2",
-              "number_2",
-              "number_6"
+              "number_8",
+              "number_1"
             ],
             "second": [
-              "number_1",
+              "number_3",
               "number_4",
-              "number_6",
-              "number_7",
-              "number_4"
+              "number_5",
+              "number_6"
             ],
             "third": [
-              "number_6",
               "number_7",
-              "number_8",
-              "number_9",
-              "number_10"
+              "number_6",
+              "number_3",
+              "number_7"
             ],
             "firstOperation": [
+              "sub",
               "plus",
-              "plus",
-              "plus",
-              "plus",
+              "sub",
               "plus"
             ],
             "secondOperation": [
-              "equal",
               "equal",
               "equal",
               "equal",
@@ -156,16 +179,16 @@
                 "number_3"
               ],
               [
-                "number_2",
-                "number_3"
+                "number_10",
+                "number_9"
               ],
               [
                 "number_3",
                 "number_4"
               ],
               [
-                "number_4",
-                "number_3"
+                "number_10",
+                "number_6"
               ]
             ],
             "second": [
@@ -174,8 +197,8 @@
                 "number_3"
               ],
               [
-                "number_5",
-                "number_4"
+                "number_3",
+                "number_2"
               ],
               [
                 "number_5",
@@ -183,20 +206,20 @@
               ],
               [
                 "number_5",
-                "number_6"
+                "number_1"
               ]
             ],
             "third": [
               "number_6",
               "number_7",
               "number_8",
-              "number_9"
+              "number_5"
             ],
             "firstOperation": [
               "plus",
+              "sub",
               "plus",
-              "plus",
-              "plus"
+              "sub"
             ],
             "secondOperation": [
               "equal",
@@ -263,6 +286,16 @@
       "duration": 240
     },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "6": {
       "name": "writing",
       "data": [],
       "duration": 120

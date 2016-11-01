@@ -37,6 +37,16 @@
       "duration": 240
     },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "6": {
       "name": "speaking",
       "data": [],
       "duration": 120
@@ -46,39 +56,34 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["apple"],
+        "type": "banana",
         "data": [
           {
             "first": [
-              "number_5",
-              "number_3",
-              "number_2",
-              "number_2",
-              "number_6"
+              "number_10",
+              "number_9",
+              "number_8",
+              "number_7"
             ],
             "second": [
-              "number_1",
               "number_4",
-              "number_6",
-              "number_7",
+              "number_4",
+              "number_4",
               "number_4"
             ],
             "third": [
               "number_6",
-              "number_7",
-              "number_8",
-              "number_9",
-              "number_10"
+              "number_5",
+              "number_4",
+              "number_3"
             ],
             "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus"
+              "sub",
+              "sub",
+              "sub",
+              "sub"
             ],
             "secondOperation": [
-              "equal",
               "equal",
               "equal",
               "equal",
@@ -109,46 +114,41 @@
     "1": {
       "name": "buildingblocks",
       "data": {
-        "type": ["apple"],
+        "type": "block",
         "data": [
-          {
-            "first": [
-              "number_5",
-              "number_3",
-              "number_2",
-              "number_2",
-              "number_6"
-            ],
-            "second": [
-              "number_1",
-              "number_4",
-              "number_6",
-              "number_7",
-              "number_4"
-            ],
-            "third": [
-              "number_6",
-              "number_7",
-              "number_8",
-              "number_9",
-              "number_10"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal"
+              {
+                "first": [
+                  ["number_10"],
+                  ["number_9", "number_8"],
+                  ["number_7", "number_6"],
+                  ["number_5"]
+                ],
+                "second": [
+                  ["number_4"],
+                  ["number_4", "number_3"],
+                  ["number_3", "number_2"],
+                  ["number_2"]
+                ],
+                "third": [
+                  "number_6",
+                  "number_5",
+                  "number_4",
+                  "number_3"
+                ],
+                "firstOperation": [
+                  "sub",
+                  "sub",
+                  "sub",
+                  "sub"
+                ],
+                "secondOperation": [
+                  "equal",
+                  "equal",
+                  "equal",
+                  "equal"
+                ]
+              }
             ]
-          }
-        ]
       },
       "duration": 180
     },

@@ -30,6 +30,11 @@
     "value": "arm"
   },
   {
+    "id": "jump",
+    "type": "object",
+    "value": "jump"
+  },
+  {
     "id": "hang",
     "type": "object",
     "value": "hang"
@@ -718,6 +723,11 @@
     "id": "shark",
     "type": "animal",
     "value": "shark"
+  },
+  {
+    "id": "afternoon",
+    "type": "object",
+    "value": "afternoon"
   },
   {
     "id": "sheep",
