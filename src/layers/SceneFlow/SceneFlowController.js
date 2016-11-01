@@ -35,6 +35,7 @@ var SceneFlowController = cc.Class.extend({
             return;
 
         data = JSON.parse(data);
+        cc.log("getNextSceneName data : %s", JSON.stringify(data));
 
         this._currentStepIndex = data.currentStepIndex || 0;
         this._currentLoopSceneName = data.currentLoopSceneName || "";

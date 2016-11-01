@@ -178,9 +178,9 @@
       "data": [
         {
           "key": [
-            "tiger",
             "donkey",
-            "bee"
+            "bag",
+            "tree"
           ],
           "option": "a_merchant_and_his_donkey",
           "data": [
@@ -200,9 +200,11 @@
             "object"
           ],
           "speaking": [
-            "tiger",
+            "merchant",
             "donkey",
-            "bee"
+            "river",
+            "light",
+            "heavy"
           ]
         }
       ],
