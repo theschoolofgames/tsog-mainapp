@@ -380,14 +380,24 @@
     "value": "musician"
   },
   {
+    "id": "firefighter",
+    "type": "object",
+    "value": "firefighter"
+  },
+  {
+    "id": "lawyer",
+    "type": "object",
+    "value": "lawyer"
+  },
+  {
     "id": "nurse",
     "type": "object",
     "value": "nurse"
   },
   {
-    "id": "police",
+    "id": "policeman",
     "type": "object",
-    "value": "police"
+    "value": "policeman"
   },
   {
     "id": "teacher",
@@ -438,6 +448,41 @@
     "id": "cousin",
     "type": "object",
     "value": "cousin"
+  },
+  {
+    "id": "boy",
+    "type": "object",
+    "value": "boy"
+  },
+  {
+    "id": "son",
+    "type": "object",
+    "value": "son"
+  },
+  {
+    "id": "carpenter",
+    "type": "object",
+    "value": "carpenter"
+  },
+  {
+    "id": "merchant",
+    "type": "object",
+    "value": "merchant"
+  },
+  {
+    "id": "soldier",
+    "type": "object",
+    "value": "soldier"
+  },
+  {
+    "id": "driver",
+    "type": "object",
+    "value": "driver"
+  },
+  {
+    "id": "sing",
+    "type": "object",
+    "value": "sing"
   },
   {
     "id": "pet",

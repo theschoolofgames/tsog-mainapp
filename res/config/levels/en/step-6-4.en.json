@@ -116,12 +116,10 @@
         "ball",
         "Bat",
         "Bear",
-        "Bed",
         "Bee",
         "bird",
         "book",
-        "boy",
-        "bun"
+        "boy"
       ],
       "duration": 300
     },
@@ -315,7 +313,7 @@
       "data": [
         "toe",
         "tub",
-        "Van",
+        "van",
         "tent",
         "test",
         "toes",
