@@ -168,7 +168,10 @@ var FruidditionGameLayer = TestLayer.extend({
             if (Array.isArray(this._type))
                 objectName = this._type[Math.floor(Math.random() * this._type.length)];
             var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
-            o.scale = (cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) / (o.width*goal);
+            if ((cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) >= (o.width*goal))
+                o.scale = 1;
+            else
+                o.scale = (cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) / (o.width*goal);
             cc.log("goal scale" + o.scale);
             o.x = o.width/2 + i*(o.width + 5) * o.scale;
             o.y = o.height/2;

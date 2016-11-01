@@ -24,6 +24,9 @@ var ShoppingBasketLayer = TestLayer.extend({
     ctor: function(data, timePlayed, timeForScene) {
         this._super();
         this.timePlayed = timePlayed || 0;
+
+        this._deactivateObjects = [];
+        this._activateObjects = [];
         this._fetchObjectData(data);
 
         this._addBasket();
@@ -263,6 +266,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentAvailableSlot = this._activateSlots[0];
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
+        cc.log("_activateSlots: " + this._activateSlots.length);
         this._checkCompletedScene();
         this.updateProgressBar();
     },
