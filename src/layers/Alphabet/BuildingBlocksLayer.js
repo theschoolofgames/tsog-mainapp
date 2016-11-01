@@ -137,7 +137,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             if (i == Math.floor(thirdObjectCounts/2) || (thirdObjectCounts > 5 && i == Math.floor(5/2) )) {
                 if (!labelAdded) {
                     var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
-                    lb.scale = this._labelScale;
+                    // lb.scale = this._labelScale;
                     lb.x = o.width/2;
                     lb.y = o.height/2;
                     o.addChild(lb);
@@ -173,7 +173,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
                 if (!labelAdded) {
                     var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-                    lb.scale = this._labelScale;
+                    // lb.scale = this._labelScale;
                     lb.x = o.width/2;
                     lb.y = o.height/2;
                     o.addChild(lb);
@@ -208,7 +208,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
                 if (!labelAdded) {
                     var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-                    lb.scale = this._labelScale;
+                    // lb.scale = this._labelScale;
                     lb.x = o.width/2;
                     lb.y = o.height/2;
                     cc.log("lb.y " + lb.y);

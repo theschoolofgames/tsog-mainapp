@@ -73,7 +73,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
                 if (k == Math.floor(objCount/2) || (objCount > 5 && k == Math.floor(5/2) )) {
                     if (!labelAdded) {
                         var lb = new cc.LabelBMFont(objCount, res.CustomFont_fnt);
-                        lb.scale = 0.5*o.scale;
+                        lb.scale = (1/o.scale);
                         lb.x = o.width/2;
                         lb.y = o.height/2;
                         o.addChild(lb);

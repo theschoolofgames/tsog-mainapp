@@ -110,6 +110,17 @@ var MapLayer = cc.Layer.extend({
             }
         }
 
+        // case that last map part has 1 level is on outside of the map
+        if (mapIndex == 3) {
+            var path = "Map_Part" + (mapIndex) + "_jpg";
+            var mapPardPlus = new cc.Sprite(res[path]);
+            mapPardPlus.x = lastPartXPos + mapPardPlus.width/2;
+            mapPardPlus.y = cc.winSize.height/2;
+            scrollView.addChild(mapPardPlus);
+
+            lastPartXPos+= mapPardPlus.width;
+        }
+
         scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         scrollView.setContentSize(cc.size(lastPartXPos, mapPart.height));
         scrollView.setViewSize(cc.director.getWinSize());

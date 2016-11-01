@@ -455,7 +455,8 @@ var ListeningTestLayer = TestLayer.extend({
             if (obj == correctedObj) {
 
                 var targetPosY = Math.min(self._objCenter.y, self._nameNode.y - self._nameNode.height/2 - obj.height/2 * obj.scale * 1.5 - 20);
-
+                cc.log("targetPosY: " + targetPosY);
+                cc.log("self._objCenter.y: " + self._objCenter.y);
                 obj.stopAllActions();
                 obj.setLocalZOrder(10);
                 obj.runAction(cc.sequence(

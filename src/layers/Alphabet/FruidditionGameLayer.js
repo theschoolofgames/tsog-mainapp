@@ -78,7 +78,7 @@ var FruidditionGameLayer = TestLayer.extend({
 
         var secondObj = new cc.Node();
         secondObj.width = 250;
-        secondObj.x = cc.winSize.width/2;
+        secondObj.x = cc.winSize.width/2 - secondObj.width/2;
         secondObj.y = cc.winSize.height/2;
         this.addChild(secondObj);
         this._objects.push(secondObj);
@@ -147,13 +147,16 @@ var FruidditionGameLayer = TestLayer.extend({
         }
 
         var firstOperation = this._data["firstOperation"][this._currentOperationId];
-        var spriteFrame = "";
+        var string = "-";
         if (firstOperation.indexOf("plus") > -1)
-            this._operations[0].setString("+");
-        else
-            this._operations[0].setString("-");
+            string = "+";
 
-          
+        var lb = new cc.LabelBMFont(string, res.CustomFont_fnt);
+        lb.x = this._operations[0].x;
+        lb.y = this._operations[0].y;
+        this.addChild(lb);
+        this._operations[0].removeFromParent();
+        this._operations[0] = lb;
 
         // 2nd row
         this._draggingObjects = [];
@@ -165,8 +168,10 @@ var FruidditionGameLayer = TestLayer.extend({
             if (Array.isArray(this._type))
                 objectName = this._type[Math.floor(Math.random() * this._type.length)];
             var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
-            o.x = o.width/2 + i*(o.width + 5);
-            o.y = o.height;
+            o.scale = (cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) / (o.width*goal);
+            cc.log("goal scale" + o.scale);
+            o.x = o.width/2 + i*(o.width + 5) * o.scale;
+            o.y = o.height/2;
             o.tag = FRUIDDITION_UNCOMPLETED_TAG;
             o.setUserData(i);
             this.addChild(o);
