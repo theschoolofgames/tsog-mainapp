@@ -2,20 +2,18 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>4</int>
-        <key>texturePackerVersion</key>
-        <string>4.2.3</string>
-        <key>fileName</key>
-        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/level-dialog/level-dialog.tps</string>
+        <int>1</int>
+        <key>variation</key>
+        <string>main</string>
+        <key>verbose</key>
+        <false/>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>1</double>
+                <double>0.41667</double>
                 <key>extension</key>
-                <string>SD</string>
-                <key>spriteFilter</key>
-                <string></string>
+                <string>/SD/</string>
                 <key>acceptFractionalValues</key>
                 <false/>
                 <key>maxTextureSize</key>
@@ -29,32 +27,20 @@
         </array>
         <key>allowRotation</key>
         <true/>
+        <key>quiet</key>
+        <false/>
+        <key>premultiplyAlpha</key>
+        <false/>
         <key>shapeDebug</key>
         <false/>
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>cocos2d-x</string>
+        <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename></filename>
+        <filename>../../res/HD/loading.png</filename>
         <key>flipPVR</key>
         <false/>
-        <key>pvrCompressionQuality</key>
-        <enum type="SettingsBase::PvrCompressionQuality">PVR_QUALITY_NORMAL</enum>
-        <key>atfCompressData</key>
-        <false/>
-        <key>mipMapMinSize</key>
-        <uint>32768</uint>
-        <key>etc1CompressionQuality</key>
-        <enum type="SettingsBase::Etc1CompressionQuality">ETC1_QUALITY_LOW_PERCEPTUAL</enum>
-        <key>dxtCompressionMode</key>
-        <enum type="SettingsBase::DxtCompressionMode">DXT_PERCEPTUAL</enum>
-        <key>jxrColorFormat</key>
-        <enum type="SettingsBase::JpegXrColorMode">JXR_YUV444</enum>
-        <key>jxrTrimFlexBits</key>
-        <uint>0</uint>
-        <key>jxrCompressionLevel</key>
-        <uint>0</uint>
         <key>ditherType</key>
         <enum type="SettingsBase::DitherType">NearestNeighbour</enum>
         <key>backgroundColor</key>
@@ -70,19 +56,17 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>1</uint>
-        <key>webpQualityLevel</key>
-        <uint>101</uint>
+        <uint>0</uint>
         <key>textureSubPath</key>
         <string></string>
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>0</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -97,6 +81,8 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
+        <key>reduceBorderArtifacts</key>
+        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -104,8 +90,10 @@
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
-            <enum type="AlgorithmSettings::SizeConstraints">WordAligned</enum>
+            <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
+            <false/>
+            <key>forceWordAligned</key>
             <false/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
@@ -126,6 +114,8 @@
             <enum type="AndEngine::MinFilter">Linear</enum>
             <key>packageName</key>
             <string>Texture</string>
+            <key>javaFileName</key>
+            <filename>../../res/HD/loading.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -136,28 +126,16 @@
             <key>magFilter</key>
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
-        <key>dataFileNames</key>
-        <map type="GFileNameMap">
-            <key>data</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename>../../res/{v}/level-dialog.plist</filename>
-            </struct>
-            <key>header</key>
-            <key>source</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
-            </struct>
-        </map>
+        <key>dataFileName</key>
+        <filename>../../res/HD/loading.plist</filename>
         <key>multiPack</key>
         <false/>
+        <key>mainExtension</key>
+        <string>/HD/</string>
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
-        <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -167,62 +145,26 @@
         <true/>
         <key>trimSpriteNames</key>
         <false/>
-        <key>prependSmartFolderName</key>
-        <false/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
             <double>1</double>
             <key>scaleMode</key>
             <enum type="ScaleMode">Smooth</enum>
+            <key>innerPadding</key>
+            <uint>0</uint>
             <key>extrude</key>
-            <uint>1</uint>
+            <uint>0</uint>
             <key>trimThreshold</key>
-            <uint>1</uint>
-            <key>trimMargin</key>
             <uint>1</uint>
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Trim</enum>
-            <key>tracerTolerance</key>
-            <int>200</int>
             <key>heuristicMask</key>
             <false/>
-            <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
-            <key>writePivotPoints</key>
-            <false/>
         </struct>
-        <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">btn_x-pressed.png</key>
-            <key type="filename">btn_x.png</key>
-            <key type="filename">icon game bài đã ấn.png</key>
-            <key type="filename">icon_game_alphabet.png</key>
-            <key type="filename">icon_game_alpharacing.png</key>
-            <key type="filename">icon_game_balloon.png</key>
-            <key type="filename">icon_game_buildingblocks.png</key>
-            <key type="filename">icon_game_card.png</key>
-            <key type="filename">icon_game_forest.png</key>
-            <key type="filename">icon_game_freecolor.png</key>
-            <key type="filename">icon_game_fruiddition.png</key>
-            <key type="filename">icon_game_gofigure.png</key>
-            <key type="filename">icon_game_room.png</key>
-            <key type="filename">icon_game_shadow.png</key>
-            <key type="filename">icon_game_shoppingbasket.png</key>
-            <key type="filename">icon_game_storytime.png</key>
-            <key type="filename">icon_game_train.png</key>
-            <key type="filename">icon_game_tree.png</key>
-            <key type="filename">icon_game_writing.png</key>
-            <key type="filename">level_dialog_banner.png</key>
-            <key type="filename">level_dialog_frame.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-            </struct>
-        </map>
         <key>fileList</key>
         <array>
-            <filename>.</filename>
+            <filename></filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -234,15 +176,5 @@
         <uint>1</uint>
         <key>commonDivisorY</key>
         <uint>1</uint>
-        <key>packNormalMaps</key>
-        <false/>
-        <key>autodetectNormalMaps</key>
-        <true/>
-        <key>normalMapFilter</key>
-        <string></string>
-        <key>normalMapSuffix</key>
-        <string></string>
-        <key>normalMapSheetFileName</key>
-        <filename></filename>
     </struct>
 </data>
