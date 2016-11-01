@@ -4,8 +4,8 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
-var TSOG_DEBUG = true;
-var SHOW_VERSION_LABEL = false;
+var TSOG_DEBUG = false;
+var SHOW_VERSION_LABEL = true;
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
 var MOVE_DELAY_TIME = 1.5;

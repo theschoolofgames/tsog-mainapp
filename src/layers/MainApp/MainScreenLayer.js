@@ -64,8 +64,8 @@ var MainScreenLayer = cc.Layer.extend({
             this._playBackgroundMusic();
         }
 
-        if (TSOG_DEBUG)
-            Utils.addBuildVersionText(this);
+        // if (TSOG_DEBUG)
+            Utils.showVersionLabel(this);
     },
 
     _addDialog: function() {
