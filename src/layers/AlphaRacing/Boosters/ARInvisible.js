@@ -18,18 +18,20 @@ var ARInvisible = ARBooster.extend({
         cc.log("ARInvisible: didStart");
         this.visible = false;
         this._player.setBoostFlag(ARInvisible.getBoostFlag());
-        this._player.opacity = 128;
+        this._player.sprite.opacity = 128;
 
         this.runAction(cc.sequence(
             cc.delayTime(this.effectiveTime/3),
             cc.callFunc(obj => {
-                obj._player.runAction(cc.sequence(
-                    cc.fadeTo(obj.effectiveTime/6, 255),
-                    cc.fadeTo(obj.effectiveTime/6, 128),
-                    cc.fadeTo(obj.effectiveTime/6, 255),
-                    cc.fadeTo(obj.effectiveTime/6, 128),
-                    cc.fadeTo(obj.effectiveTime/6, 255)
-                ))
+                let sequence = [];
+                let loopTimes = Math.ceil(obj.effectiveTime/3 * 2 / 0.5);
+                for (var i = 0; i < loopTimes; i++) {
+                    sequence.push(cc.fadeTo(0.25, 255));
+                    sequence.push(cc.fadeTo(0.25, 128));
+                }
+                sequence.push(cc.fadeTo(0.25, 255   ));
+
+                obj._player.sprite.runAction(cc.sequence(sequence))
             }),
             cc.delayTime(this.effectiveTime/ 3 * 2),
             cc.callFunc(obj => {
@@ -50,8 +52,9 @@ var ARInvisible = ARBooster.extend({
     },
 
     onCollide: function() {
-        if (!this.isActive())
+        if (!this.isActive()) {
             this.setActive(true);
+        }
     }
 });
 

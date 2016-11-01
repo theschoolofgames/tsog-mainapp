@@ -47,16 +47,26 @@
       "duration": 240
     },
     "2": {
-      "name": "writing",
-      "data": [],
-      "duration": 360
-    },
-    "3": {
       "name": "listening",
       "data": [],
       "duration": 60
     },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "6": {
       "name": "speaking",
       "data": [],
       "duration": 120

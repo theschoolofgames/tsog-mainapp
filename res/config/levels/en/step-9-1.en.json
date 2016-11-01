@@ -94,6 +94,16 @@
       "duration": 120
     },
     "3": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "4": {
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "5": {
       "name": "speaking",
       "data": [],
       "duration": 120
@@ -148,6 +158,21 @@
     },
     "2": {
       "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "2": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "2": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "2": {
+      "name": "writing",
       "data": [],
       "duration": 240
     },

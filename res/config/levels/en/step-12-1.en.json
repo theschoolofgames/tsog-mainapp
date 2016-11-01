@@ -2,7 +2,18 @@
   "1": {
     "1": {
       "name": "freecolor",
-      "data": [],
+      "data": [
+        "grandmother",
+        "grandfather",
+        "mother",
+        "father",
+        "brother",
+        "sister",
+        "uncle",
+        "aunt",
+        "cousin",
+        "pet"
+      ],
       "duration": 300
     },
     "2": {

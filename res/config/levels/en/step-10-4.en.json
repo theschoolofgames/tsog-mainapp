@@ -47,16 +47,26 @@
       "duration": 240
     },
     "2": {
-      "name": "writing",
-      "data": [],
-      "duration": 360
-    },
-    "3": {
       "name": "listening",
       "data": [],
       "duration": 60
     },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "6": {
       "name": "speaking",
       "data": [],
       "duration": 120
@@ -70,22 +80,99 @@
         "data": [
           {
             "first": [
-              "number_1",
-              "number_2",
+              "number_5",
               "number_3",
-              "number_4"
+              "number_2",
+              "number_2",
+              "number_6"
             ],
             "second": [
               "number_1",
-              "number_1",
-              "number_1",
-              "number_1"
+              "number_4",
+              "number_6",
+              "number_7",
+              "number_4"
             ],
             "third": [
-              "number_2",
-              "number_3",
-              "number_4",
-              "number_5"
+              "number_6",
+              "number_7",
+              "number_8",
+              "number_9",
+              "number_10"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal",
+              "equal"
+            ]
+          }
+        ]
+      },
+      "duration": 120
+    },
+    "2": {
+      "name": "listening-fruiddition",
+      "data": [],
+      "duration": 120
+    }
+  },
+  "3": {
+    "1": {
+      "name": "buildingblocks",
+      "data": {
+        "type": "block",
+        "data": [
+          {
+            "first": [
+              [
+                "number_1",
+                "number_3"
+              ],
+              [
+                "number_2",
+                "number_3"
+              ],
+              [
+                "number_3",
+                "number_4"
+              ],
+              [
+                "number_4",
+                "number_3"
+              ]
+            ],
+            "second": [
+              [
+                "number_5",
+                "number_3"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_6"
+              ]
+            ],
+            "third": [
+              "number_6",
+              "number_7",
+              "number_8",
+              "number_9"
             ],
             "firstOperation": [
               "plus",
@@ -100,25 +187,8 @@
               "equal"
             ]
           }
-        ],
-        "duration": 120
-      }
-    },
-    "2": {
-      "name": "listening-fruiddition",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "3": {
-    "1": {
-      "name": "buildingblocks",
-      "data": [
-        {
-          "min": 6,
-          "max": 10
-        }
-      ],
+        ]
+      },
       "duration": 300
     },
     "2": {

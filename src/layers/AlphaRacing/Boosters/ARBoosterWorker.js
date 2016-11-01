@@ -13,15 +13,6 @@ var ARBoosterWorker = cc.Class.extend({
     },
 
     addBooster: function(params) {
-        let flags = this._boosters.filter(b => b.isActive()).map(b => b.getBoostFlag());
-        let idx = flags.indexOf(ARBooster.State.INVISIBLE);
-
-        if (idx >= 0) {
-            let oldBooster = this._boosters[idx];
-            oldBooster.setActive(false);
-            this._boosters.splice(idx, 1);
-        }
-
         var object = new ARInvisible(this._player);
         // object.setScale(0.8);
         object.x = params.x;

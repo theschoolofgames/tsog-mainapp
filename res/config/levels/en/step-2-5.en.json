@@ -125,12 +125,12 @@
     "4": {
       "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 360
     },
     "5": {
       "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 360
     },
     "6": {
       "name": "speaking",
@@ -166,6 +166,16 @@
       "duration": 360
     },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 360
+    },
+    "6": {
       "name": "writing",
       "data": [],
       "duration": 120

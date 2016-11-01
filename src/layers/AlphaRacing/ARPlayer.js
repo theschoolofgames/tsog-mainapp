@@ -23,7 +23,6 @@ var ARPlayer = cc.Layer.extend({
 
 	ctor: function () {
 		this._super();
-		this.setAnchorPoint(0.5,0.5);
 		this.setScale(Utils.screenRatioTo43() * 0.15);
         this.setPosition(cc.p(200,450));
         this.setDesiredPosition(cc.p(200,450));

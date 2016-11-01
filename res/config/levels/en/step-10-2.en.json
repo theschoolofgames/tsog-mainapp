@@ -49,6 +49,78 @@
         "K"
       ],
       "duration": 240
+    },
+    "4": {
+      "name": "writing",
+      "data": [
+        "jar",
+        "joker",
+        "key",
+        "kite",
+        "lamp",
+        "lemon",
+        "map",
+        "medicine",
+        "j",
+        "k",
+        "J",
+        "K"
+      ],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [
+        "jar",
+        "joker",
+        "key",
+        "kite",
+        "lamp",
+        "lemon",
+        "map",
+        "medicine",
+        "j",
+        "k",
+        "J",
+        "K"
+      ],
+      "duration": 240
+    },
+    "6": {
+      "name": "speaking",
+      "data": [
+        "jar",
+        "joker",
+        "key",
+        "kite",
+        "lamp",
+        "lemon",
+        "map",
+        "medicine",
+        "j",
+        "k",
+        "J",
+        "K"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "jar",
+        "joker",
+        "key",
+        "kite",
+        "lamp",
+        "lemon",
+        "map",
+        "medicine",
+        "j",
+        "k",
+        "J",
+        "K"
+      ],
+      "duration": 240
     }
   },
   "2": {
@@ -79,7 +151,7 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [
         "kangaroo",
         "kitten",
@@ -91,7 +163,7 @@
         "l",
         "m"
       ],
-      "duration": 120
+      "duration": 240
     },
     "4": {
       "name": "writing",
@@ -107,6 +179,36 @@
         "m"
       ],
       "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [
+        "kangaroo",
+        "kitten",
+        "lion",
+        "lobster",
+        "monkey",
+        "L",
+        "M",
+        "l",
+        "m"
+      ],
+      "duration": 240
+    },
+    "6": {
+      "name": "speaking",
+      "data": [
+        "kangaroo",
+        "kitten",
+        "lion",
+        "lobster",
+        "monkey",
+        "L",
+        "M",
+        "l",
+        "m"
+      ],
+      "duration": 120
     }
   },
   "3": {
@@ -151,6 +253,16 @@
       "duration": 240
     },
     "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "6": {
       "name": "speaking",
       "data": [],
       "duration": 120
@@ -209,14 +321,24 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 240
     },
     "4": {
       "name": "writing",
       "data": [],
       "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 240
+    },
+    "6": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   }
 }

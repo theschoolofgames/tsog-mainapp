@@ -104,6 +104,36 @@
       "duration": 240
     },
     "4": {
+      "name": "writing",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 240
+    },
+    "5": {
+      "name": "writing",
+      "data": [
+        "panda",
+        "pig",
+        "puppy",
+        "rabbit",
+        "rat",
+        "P",
+        "R",
+        "p",
+        "r"
+      ],
+      "duration": 240
+    },
+    "6": {
       "name": "speaking",
       "data": [
         "panda",
@@ -123,16 +153,14 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": [
-          "apple"
-        ],
+        "type": "banana",
         "data": [
           {
             "first": [
-              "number_1",
-              "number_2",
+              "number_5",
+              "number_4",
               "number_3",
-              "number_4"
+              "number_2"
             ],
             "second": [
               "number_1",
@@ -141,16 +169,16 @@
               "number_1"
             ],
             "third": [
-              "number_2",
-              "number_3",
               "number_4",
-              "number_5"
+              "number_3",
+              "number_2",
+              "number_1"
             ],
             "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
+              "sub",
+              "sub",
+              "sub",
+              "sub"
             ],
             "secondOperation": [
               "equal",
@@ -175,39 +203,39 @@
       "data": {
         "type": "block",
         "data": [
-          {
-            "first": [
-              "number_1",
-              "number_2",
-              "number_3",
-              "number_4"
-            ],
-            "second": [
-              "number_5",
-              "number_6",
-              "number_7",
-              "number_11"
-            ],
-            "third": [
-              "number_6",
-              "number_8",
-              "number_10",
-              "number_15"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal"
+              {
+                "first": [
+                  ["number_1", "number_3"],
+                  ["number_2", "number_3"],
+                  ["number_3", "number_4"],
+                  ["number_4", "number_3"]
+                ],
+                "second": [
+                  ["number_4", "number_3"],
+                  ["number_5", "number_4"],
+                  ["number_5", "number_4"],
+                  ["number_5", "number_6"]
+                ],
+                "third": [
+                  "number_6",
+                  "number_7",
+                  "number_8",
+                  "number_9"
+                ],
+                "firstOperation": [
+                  "plus",
+                  "plus",
+                  "plus",
+                  "plus"
+                ],
+                "secondOperation": [
+                  "equal",
+                  "equal",
+                  "equal",
+                  "equal"
+                ]
+              }
             ]
-          }
-        ]
       },
       "duration": 120
     },
@@ -273,6 +301,11 @@
       "name": "writing",
       "data": [],
       "duration": 240
+    },
+    "5": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   }
 }

@@ -52,14 +52,24 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 480
     },
     "4": {
       "name": "writing",
       "data": [],
       "duration": 480
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "6": {
+      "name": "speaking",
+      "data": [],
+      "duration": 120
     }
   },
   "2": {

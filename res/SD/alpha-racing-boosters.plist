@@ -19,6 +19,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>ar-boosters/magnet.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{48,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{48,46}</string>
+                <key>textureRect</key>
+                <string>{{1,73},{48,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -27,9 +42,9 @@
             <key>realTextureFileName</key>
             <string>alpha-racing-boosters.png</string>
             <key>size</key>
-            <string>{67,72}</string>
+            <string>{67,120}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:19a4e0d11ab371426401287fb07423a0:5f034d8017ab0a452637b70332ec22cd:d8e764855649a19a008d5dca5c66afa7$</string>
+            <string>$TexturePacker:SmartUpdate:cd3303a92320244fbccbfb09c6000012:9a007529fdbd17974f6dec3e648c8a6c:d8e764855649a19a008d5dca5c66afa7$</string>
             <key>textureFileName</key>
             <string>alpha-racing-boosters.png</string>
         </dict>

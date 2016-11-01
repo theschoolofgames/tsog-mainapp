@@ -62,9 +62,9 @@
               "equal"
             ]
           }
-        ],
-        "duration": 300
-      }
+        ]
+      },
+      "duration": 300
     },
     "2": {
       "name": "listening-fruiddition",
@@ -78,39 +78,39 @@
       "data": {
         "type": "block",
         "data": [
-          {
-            "first": [
-              "number_1",
-              "number_2",
-              "number_3",
-              "number_4"
-            ],
-            "second": [
-              "number_1",
-              "number_1",
-              "number_1",
-              "number_1"
-            ],
-            "third": [
-              "number_2",
-              "number_3",
-              "number_4",
-              "number_5"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal"
+              {
+                "first": [
+                  ["number_1"],
+                  ["number_2"],
+                  ["number_3", "number_2"],
+                  ["number_4", "number_2"]
+                ],
+                "second": [
+                  ["number_1"],
+                  ["number_1"],
+                  ["number_1", "number_2"],
+                  ["number_1", "number_3"]
+                ],
+                "third": [
+                  "number_2",
+                  "number_3",
+                  "number_4",
+                  "number_5"
+                ],
+                "firstOperation": [
+                  "plus",
+                  "plus",
+                  "plus",
+                  "plus"
+                ],
+                "secondOperation": [
+                  "equal",
+                  "equal",
+                  "equal",
+                  "equal"
+                ]
+              }
             ]
-          }
-        ]
       },
       "duration": 300
     },

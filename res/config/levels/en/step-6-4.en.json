@@ -41,9 +41,9 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 300
     },
     "4": {
       "name": "writing",
@@ -56,9 +56,9 @@
       "duration": 300
     },
     "6": {
-      "name": "writing",
+      "name": "speaking",
       "data": [],
-      "duration": 300
+      "duration": 120
     }
   },
   "2": {
@@ -114,9 +114,9 @@
         "xylophone",
         "arm",
         "ball",
-        "Bat",
-        "Bear",
-        "Bee",
+        "bat",
+        "bear",
+        "bee",
         "bird",
         "book",
         "boy"

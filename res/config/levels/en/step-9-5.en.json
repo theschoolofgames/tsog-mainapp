@@ -79,12 +79,22 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [],
       "duration": 600
     },
     "4": {
       "name": "writing",
+      "data": [],
+      "duration": 600
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 600
+    },
+    "6": {
+      "name": "speaking",
       "data": [],
       "duration": 120
     }

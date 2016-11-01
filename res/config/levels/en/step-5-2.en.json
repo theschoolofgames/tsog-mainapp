@@ -28,88 +28,78 @@
   },
   "2": {
     "1": {
-      "name": "fruiddition",
-      "data": {
-        "type": ["apple"],
-        "data": [
-          {
-            "first": [
-              "number_6",
-              "number_3",
-              "number_2",
-              "number_3",
-              "number_9",
-              "number_9",
-              "number_7",
-              "number_8",
-              "number_9",
-              "number_9",
-              "number_10",
-              "number_10"
-            ],
-            "second": [
-              "number_1",
-              "number_5",
-              "number_8",
-              "number_9",
-              "number_6",
-              "number_4",
-              "number_4",
-              "number_8",
-              "number_9",
-              "number_8",
-              "number_9",
-              "number_10"
-            ],
-            "third": [
-              "number_7",
-              "number_8",
-              "number_10",
-              "number_12",
-              "number_15",
-              "number_13",
-              "number_11",
-              "number_16",
-              "number_18",
-              "number_17",
-              "number_19",
-              "number_20"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal",
-              "equal"
-            ]
-          }
-        ]
-      },
-      "duration": 240
+      "name": "shoppingbasket",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30",
+        "book",
+        "flag",
+        "owl",
+        "gift",
+        "bird",
+        "kite",
+        "apple",
+        "lamp",
+        "nail",
+        "dog",
+        "fish",
+        "salt",
+        "sock",
+        "banana",
+        "grape"
+      ],
+      "duration": 120
     },
     "2": {
-      "name": "listening-fruiddition",
+      "name": "listening",
+      "data": [],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "4": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "5": {
+      "name": "writing",
+      "data": [],
+      "duration": 480
+    },
+    "6": {
+      "name": "speaking",
       "data": [],
       "duration": 120
     }
@@ -178,9 +168,9 @@
       "data": [
         {
           "key": [
+            "tiger",
             "donkey",
-            "bag",
-            "tree"
+            "salt"
           ],
           "option": "a_merchant_and_his_donkey",
           "data": [
@@ -200,10 +190,10 @@
             "object"
           ],
           "speaking": [
-            "merchant",
             "donkey",
-            "river",
+            "merchant",
             "light",
+            "river",
             "heavy"
           ]
         }

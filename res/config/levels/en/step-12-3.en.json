@@ -214,7 +214,7 @@
       "duration": 480
     },
     "6": {
-      "name": "writing",
+      "name": "speaking",
       "data": [
         "number_1",
         "number_2",
@@ -268,7 +268,7 @@
           "key": [
             "fox",
             "grape",
-            "walk"
+            "jump"
           ],
           "option": "the_fox_and_the_grapes",
           "data": [
@@ -281,7 +281,21 @@
             "sing",
             "walk",
             "jump"
-
+          ],
+          "voice": [
+            "animal",
+            "object",
+            "object"
+          ],
+          "speaking" : [
+            "fox",
+            "grape",
+            "afternoon",
+            "bunch",
+            "hang",
+            "sour",
+            "nose",
+            "step"
           ]
         }
       ],
@@ -308,7 +322,8 @@
         "bunch",
         "hang",
         "sour",
-        "nose"
+        "nose",
+        "step"
       ],
       "duration": 120
     }

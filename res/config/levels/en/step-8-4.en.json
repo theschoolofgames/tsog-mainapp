@@ -42,9 +42,20 @@
         "chair",
         "abacus"
       ],
-      "duration": 120
+      "duration": 300
     },
     "5": {
+      "name": "writing",
+      "data": [
+        "book",
+        "desk",
+        "apple",
+        "chair",
+        "abacus"
+      ],
+      "duration": 300
+    },
+    "6": {
       "name": "speaking",
       "data": [
         "book",
@@ -96,26 +107,46 @@
     "3": {
       "name": "writing",
       "data": [
-        "ant",
-        "cat",
-        "dog",
-        "bee",
-        "cow"
+        "A",
+        "B",
+        "C",
+        "D",
+        "a",
+        "b",
+        "c",
+        "d"
       ],
       "duration": 300
     },
     "4": {
       "name": "writing",
       "data": [
-        "ant",
-        "cat",
-        "dog",
-        "bee",
-        "cow"
+        "A",
+        "B",
+        "C",
+        "D",
+        "a",
+        "b",
+        "c",
+        "d"
       ],
-      "duration": 120
+      "duration": 300
     },
     "5": {
+      "name": "writing",
+      "data": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "duration": 300
+    },
+    "6": {
       "name": "speaking",
       "data": [
         "ant",
@@ -126,7 +157,7 @@
       ],
       "duration": 120
     },
-    "6": {
+    "7": {
       "name": "freecolor",
       "data": [
         "ant",
@@ -168,12 +199,12 @@
     "4": {
       "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 360
     },
     "5": {
       "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 360
     },
     "6": {
       "name": "speaking",

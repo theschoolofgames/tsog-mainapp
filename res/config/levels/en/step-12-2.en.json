@@ -107,7 +107,7 @@
       "duration": 120
     },
     "2": {
-      "name": "listening-fruiddition",
+      "name": "listening",
       "data": [
         "wolf",
         "zebra",
@@ -381,7 +381,6 @@
         "ball",
         "bat",
         "bear",
-        "bed",
         "bee",
         "bird",
         "book",
