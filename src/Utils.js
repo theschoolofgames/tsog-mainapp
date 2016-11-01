@@ -8,18 +8,11 @@ Utils.delayOneFrame = function(target, callback) {
 
 Utils.showVersionLabel = function(parent) {
     if (parent && SHOW_VERSION_LABEL) {
-        var lb = cc.Label.create();
-        lb.setString(NativeHelper.callNative("getVersionName") + "(" + NativeHelper.callNative("getBuildNumber") + ")");
-        // lb.enableOutline(cc.color.WHITE, 2);
-        lb.color = cc.color.BLACK;
-        lb.setSystemFontSize(20);
-        lb.x = cc.winSize.width - 20;
-        lb.y = 20;
-        lb.anchorX = 1;
-        lb.anchorY = 0;
+        var lb = new cc.LabelBMFont(NativeHelper.callNative("getVersionName") + "(" + NativeHelper.callNative("getBuildNumber") + ")", res.CustomFont_fnt);
+        lb.x = cc.winSize.width-lb.width/2 - 10;
+        lb.y = cc.winSize.height-lb.height/2 - 10;
+        lb.scale = 0.5;
         parent.addChild(lb, 9999);
-
-        cc.log(NativeHelper.callNative("getVersionName"));
     }
 }
 
