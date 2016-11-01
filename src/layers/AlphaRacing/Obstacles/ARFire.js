@@ -1,7 +1,7 @@
 var ARFire = ARObstacle.extend({
 
     timeForWarning: 3,
-    velocity: cc.p(-200, 0),
+    velocity: cc.p(-500, 0),
 
     _state: "none",
 

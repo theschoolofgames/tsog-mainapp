@@ -106,6 +106,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
+                this.completedScene();
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
@@ -477,27 +478,20 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     _moveToNextScene: function() {
-        Utils.updateStepData();
+        if (this._isTestScene)
+            cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
+        else {
+            var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
-        this._hudLayer.removeFromParent();
-
-        this._inputData = this._inputData.map(function(id) {
-            var o = GameObject.getInstance().findById(id);
-            if (o[0])
-                return o[0]; // return the name of the word
-            else
-                return id;
-        });
-
-        var self = this;
-        cc.audioEngine.stopMusic();
-        var numberScene = KVDatabase.getInstance().getInt("scene_number");
-        var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-        cc.log("numberScene: " + numberScene);
-        cc.log("durationArray: " + JSON.stringify(durationArray));
-        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._inputData), durationArray[numberScene]);
-
+            cc.log("nextSceneName: " + nextSceneName); 
+            if (nextSceneName)
+                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data);
+            else {
+                Utils.updateStepData();
+                SceneFlowController.getInstance().clearData();
+                cc.director.runScene(new MapScene());
+            }
+        }
     },
 
     _backToHome: function() {
@@ -971,8 +965,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
 
         this.arEffectLayer.y = this.gameLayer.y;
-    },
-
+    }
 });
 
 var AlphaRacingScene = cc.Scene.extend({

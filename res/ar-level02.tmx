@@ -42,7 +42,7 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="17" x="832" y="830">
+  <object id="17" x="832" y="833">
    <properties>
     <property name="type" value="hanging"/>
    </properties>
