@@ -140,7 +140,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         }
         var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
         lb.scale = (thirdObjectCounts == 1) ? 0.4 : 1;
-        lb.y = totalHeight/2;
+        lb.y = totalHeight/2 + 10;
         this._objects[2].addChild(lb, 9);
 
         this._currentOperationId++;
@@ -171,7 +171,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
         lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y = (count == 1) ? 26* Utils.screenRatioTo43() : nodeBlocks.height/2;
+        lb.y = (count == 1) ? 25* Utils.screenRatioTo43() : nodeBlocks.height/2;
         nodeBlocks.addChild(lb, 9);
     },
 
@@ -199,7 +199,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
         lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y =(count == 1) ? 26* Utils.screenRatioTo43() : draggingNode.height/2;
+        lb.y =(count == 1) ? 25* Utils.screenRatioTo43() : draggingNode.height/2;
         draggingNode.addChild(lb, 9);
     },
 
