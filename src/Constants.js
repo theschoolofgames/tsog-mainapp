@@ -346,6 +346,18 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "JUICE", length:2},
     {name: "CRAYON", length: 2}
 ];
+var NUMBERS_SOUNDS_LENGTH = [
+    {name: "1", length: 2},
+    {name: "2", length: 2},
+    {name: "3", length: 2},
+    {name: "4", length: 2},
+    {name: "5", length: 2},
+    {name: "6", length: 2},
+    {name: "7", length: 2},
+    {name: "8", length: 2},
+    {name: "9", length: 2},
+    {name: "10", length: 2}
+];
 
 // bitmap font
 var FONT_COLOR = [

@@ -134,7 +134,7 @@ var TestLayer = cc.LayerColor.extend({
         // else {
             var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
-            cc.log("nextSceneName: " + nextSceneName); 
+            
             if (nextSceneName) {
                 var numberScene = KVDatabase.getInstance().getInt("scene_number");
                 var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));

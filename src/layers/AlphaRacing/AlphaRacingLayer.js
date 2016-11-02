@@ -483,9 +483,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         else {
             var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
-            cc.log("nextSceneName: " + nextSceneName); 
-            if (nextSceneName)
-                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data);
+            cc.log("nextSceneName: " + JSON.stringify(this._inputData)); 
+            if (nextSceneName) {
+                var numberScene = KVDatabase.getInstance().getInt("scene_number");
+                var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
+                cc.log("nextSceneName: " + durationArray[numberScene]);
+                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this._inputData, durationArray[numberScene]);
+            }
             else {
                 Utils.updateStepData();
                 SceneFlowController.getInstance().clearData();

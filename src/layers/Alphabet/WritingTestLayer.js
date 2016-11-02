@@ -750,8 +750,10 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        cc.log("data WritingTestLayer: " + typeof(data));
         this._data = data;
-        data = JSON.parse(data);
+        if(typeof(data) != "object")
+            data = JSON.parse(data);
         // cc.log(typeof data);
         cc.log("_fetchObjectData data: " + data);
         if (data)
