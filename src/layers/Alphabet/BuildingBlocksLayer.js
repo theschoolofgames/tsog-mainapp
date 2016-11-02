@@ -1,5 +1,6 @@
 var BUILDINGBLOCKS_COMPLETED_TAG = 0;
 var BUILDING_BLOCKS_TAG = 9;
+var BUILDING_BLOCKS_HEIGHT = 50;
 var BuildingBlocksLayer = TestLayer.extend({
     _type: null,
     _data: null,
@@ -117,7 +118,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             node.addChild(secondOperation);
 
             var secondNodeBlocksCount = parseInt(secondObjectCounts[i]);
-            currentSpotY = currentSpotY - firstOperation.height*firstOperation.scale - 100;
+            currentSpotY = currentSpotY - firstOperation.height*firstOperation.scale - 100 - secondNodeBlocksCount*BUILDING_BLOCKS_HEIGHT/2;
             this._createSpotNodeBlocks(secondNodeBlocksCount, node, currentSpotX, currentSpotY, true);
             this._createDraggingNodeBlocks(secondNodeBlocksCount, node, i, 250);
         }
@@ -125,27 +126,22 @@ var BuildingBlocksLayer = TestLayer.extend({
         var thirdObjectData = this._data["third"];
         var thirdObjectCounts = thirdObjectData[this._currentOperationId];
         var labelAdded = false;
+        var totalHeight = 0;
         for (var i = 0; i < thirdObjectCounts; i++) {
-            if (i > 5)
+            if (i > 4)
                 break;
             var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
             o.scale = this._gameScale;
             o.x = 0;
             o.y = -(o.height - 10) * i * o.scale;
             this._objects[2].addChild(o, STAND_OBJECT_ZORDER);
-            
-            if (i == Math.floor(thirdObjectCounts/2) || (thirdObjectCounts > 5 && i == Math.floor(5/2) )) {
-                if (!labelAdded) {
-                    var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
-                    // lb.scale = this._labelScale;
-                    lb.x = o.width/2;
-                    lb.y = o.height/2;
-                    o.addChild(lb);
-
-                    labelAdded = true;
-                }
-            }
+                
+            totalHeight = o.y;
         }
+        var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
+        lb.scale = (thirdObjectCounts == 1) ? 0.4 : 1;
+        lb.y = totalHeight/2;
+        this._objects[2].addChild(lb, 9);
 
         this._currentOperationId++;
     },
@@ -153,6 +149,7 @@ var BuildingBlocksLayer = TestLayer.extend({
     _createSpotNodeBlocks: function(count, parent, currentSpotX, currentSpotY, isSecondPart) {
         var isSecondOperationPart = isSecondPart || false;
         var labelAdded = false;
+        var totalHeight = 0;
         var nodeBlocks = new cc.Node();
         nodeBlocks.x = currentSpotX;
         nodeBlocks.y = currentSpotY;
@@ -160,28 +157,22 @@ var BuildingBlocksLayer = TestLayer.extend({
         parent.addChild(nodeBlocks);
         this._dropSpots.push(nodeBlocks);
         for (var k = 0; k < count; k++) {
-            if (k > 5)
+            if (k > 4)
                 break;
             var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
             o.scale = this._gameScale;
-            o.y = (o.height - 10) * (isSecondOperationPart ? (-k) : (count-k)) * o.scale;
+            o.y = (o.height - 10) * (count-k) * o.scale;
             nodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
             this._dropSpotScale = o.scale;
             nodeBlocks.width = o.width * this._gameScale;
             nodeBlocks.height = o.height*count * this._gameScale;
 
-            if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
-                if (!labelAdded) {
-                    var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-                    // lb.scale = this._labelScale;
-                    lb.x = o.width/2;
-                    lb.y = o.height/2;
-                    o.addChild(lb);
-
-                    labelAdded = true;
-                }
-            }
+            totalHeight = (o.height - 10) * (count) * o.scale;
         }
+        var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
+        lb.scale = (count == 1) ? 0.4 : 1;
+        lb.y = (count == 1) ? 26* Utils.screenRatioTo43() : nodeBlocks.height/2;
+        nodeBlocks.addChild(lb, 9);
     },
 
     _createDraggingNodeBlocks: function(count, parent, i, startWidth) {
@@ -192,10 +183,10 @@ var BuildingBlocksLayer = TestLayer.extend({
         draggingNode.scale = 0.5;
         parent.addChild(draggingNode);
         this._draggingObjects.push(draggingNode);
-
+        var totalHeight = 0;
         var labelAdded = false;
         for (var k = 0; k < count; k++) {
-            if (k > 5)
+            if (k > 4)
                 break;
             var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
             o.scale = this._gameScale;
@@ -204,20 +195,12 @@ var BuildingBlocksLayer = TestLayer.extend({
             draggingNode.addChild(o);
             draggingNode.width = o.width * this._gameScale;
             draggingNode.height = o.height*(k+1) * this._gameScale;
-
-            if (k == Math.floor(count/2) || (count > 5 && k == Math.floor(5/2) )) {
-                if (!labelAdded) {
-                    var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-                    // lb.scale = this._labelScale;
-                    lb.x = o.width/2;
-                    lb.y = o.height/2;
-                    cc.log("lb.y " + lb.y);
-                    o.addChild(lb);
-
-                    labelAdded = true;
-                }
-            }
+            totalHeight = (o.height - 10) * (count) * o.scale;
         }
+        var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
+        lb.scale = (count == 1) ? 0.4 : 1;
+        lb.y =(count == 1) ? 26* Utils.screenRatioTo43() : draggingNode.height/2;
+        draggingNode.addChild(lb, 9);
     },
 
     _playOperationSound: function(completedObjectsCount) {

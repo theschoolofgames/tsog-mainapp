@@ -103,6 +103,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             obj.scale = (obj.width > SHOPPING_OBJECT_DEFAULT_WIDTH) ? SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width : SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = obj.width * obj.scale * 2 + (obj.width*obj.scale + 20) * tempX;
             obj.y = (inSecondRow) ? (cc.rectGetMinY(this._basketBBox) - obj.height * obj.scale) : (cc.rectGetMaxY(this._basketBBox) + obj.height * obj.scale);
+            obj.setUserData(objImageName);
 
             if (obj.x > (cc.winSize.width - 200)) {
                 inSecondRow = true;
@@ -217,7 +218,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
 
     _checkCompletedScene: function() {
-        if (this._activateSlots.length == 0) {
+        if (this._activateObjects.length == 0) {
             this._blockFlag = true;
             if (this.timePlayed < 3)
                 this.runAction(cc.sequence(
@@ -266,7 +267,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentAvailableSlot = this._activateSlots[0];
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
-        cc.log("_activateSlots: " + this._activateSlots.length);
+        cc.log("_activateSlots: %d", this._activateSlots.length);
         this._checkCompletedScene();
         this.updateProgressBar();
     },
