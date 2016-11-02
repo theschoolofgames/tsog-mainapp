@@ -51,6 +51,7 @@ var MapLayer = cc.Layer.extend({
         var mapLabel = 0;
         var level = 0;
         var scrollView = new cc.ScrollView();
+        scrollView.setBounceable(false);
         for (var map in this._mapData) {
             // cc.log("this._mapData: " + JSON.stringify(this._mapData));
             if (this._mapData.hasOwnProperty(map)) {

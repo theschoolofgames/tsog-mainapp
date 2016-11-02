@@ -266,9 +266,9 @@ var res = {
     // BG sound 
     BACKGROUND_mp3: "sounds/background.mp3",
  
-    Adidog_json: "Adidog/ConCho.json",
-    Adidog_atlas: "AdiDog/ConCho.atlas",
-    Adidog_png2: "AdiDog/ConCho.png",
+    // Adidog_json: "Adidog/ConCho.json",
+    // Adidog_atlas: "AdiDog/ConCho.atlas",
+    // Adidog_png2: "AdiDog/ConCho.png",
 
     // Adidog_Run_png: "adidog_run/1.png",
  

@@ -368,6 +368,7 @@ var ShadowGameLayer = TestLayer.extend({
             imageDir = "#";
             imageName += "-shadow";
         }
+        else if (gameObject.type === "")
 
         shadeImageName = imageDir + imageName + ".png";
         console.log("ShadeImageName => " + shadeImageName);
@@ -555,6 +556,9 @@ var ShadowGameLayer = TestLayer.extend({
         }
         else if (objectType == "animal"){
             soundArray = ANIMAL_SOUNDS_LENGTH;
+        }
+        else if (objectType == "number"){
+            soundArray = NUMBERS_SOUNDS_LENGTH;
         }
 
         var strName = imageName.toUpperCase();
@@ -828,7 +832,7 @@ var ShadowGameLayer = TestLayer.extend({
         // Check type of current object
         var soundDir = "";
         var touchedObjectType = this._getTypeObjectByName(objectName);
-
+        cc.log("touchedObjectType: " + touchedObjectType );
         if (touchedObjectType == "object"){
             soundDir = "res/sounds/objects/";
         }
@@ -839,8 +843,15 @@ var ShadowGameLayer = TestLayer.extend({
             soundDir = "res/sounds/alphabets/";
             objectName = objectName.toUpperCase();
         }
-
+        else if (touchedObjectType == "number"){
+            soundDir = "res/sounds/numbers/";
+            soundSuffix = "";
+            objectName = objectName.substring(7);
+        }
+        cc.log("objectName; " + objectName);
         if (object.userData.hasClone){
+            cc.log("object.userData.hasClone: " + object.userData.hasClone);
+            cc.log("object.userData.index: " + object.userData.index);
             let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + (object.userData.index + 1) + ".mp3", isDragging);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);

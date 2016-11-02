@@ -216,7 +216,9 @@ var ListeningTestLayer = TestLayer.extend({
         if (shownObjNames[2] == null || shownObjNames[2] == undefined) {
             if (!this._addedObject.length) {
                 var self = this;
-                var data = JSON.parse(this._data);
+                data = this._data;
+                if(typeof(this._data) != "object")
+                    data = JSON.parse(this._data);
                 var currentMainObjectId = data.map(function(obj) {
                     // cc.log("shownObjNames null case value: " + obj.value);
                     if (obj && obj.value == self._names[self._nameIdx])
@@ -530,9 +532,11 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        cc.log("data listening: " + (typeof(data)!= "object"));
         this._data = data;
         this._keyObject = [];
-        data = JSON.parse(data);
+        if(typeof(data) != "object")
+            data = JSON.parse(data);
 
         if (data && data.option) {
             this._keyObject = data.key;

@@ -450,7 +450,8 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         this._data = data;
-        data = JSON.parse(data);
+        if(typeof(data) != "object")
+            data = JSON.parse(data);
         cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
