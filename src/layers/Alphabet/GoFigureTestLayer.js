@@ -487,8 +487,8 @@ var GoFigureTestLayer = TestLayer.extend({
         s.y = cc.winSize.height/2 * Utils.getScaleFactorTo16And9();
 
         cc.log(GOFIGURE_BRUSH_COLOR[optionIdx]);
-        this._currentBrushColor = GOFIGURE_BRUSH_COLOR[optionIdx];
-        this._baseRender.getSprite().color = GOFIGURE_BRUSH_COLOR[optionIdx];
+        // this._currentBrushColor = GOFIGURE_BRUSH_COLOR[optionIdx];
+        // this._baseRender.getSprite().color = GOFIGURE_BRUSH_COLOR[optionIdx];
     },
 
     _moveToNextShape: function() {

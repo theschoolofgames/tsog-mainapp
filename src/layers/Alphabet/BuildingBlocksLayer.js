@@ -335,11 +335,12 @@ var BuildingBlocksLayer = TestLayer.extend({
     },
 
     _checkWonGame: function() {
+        var self = this;
         if (this._currentOperationId === (this._data["first"].length)) {
             this.runAction(cc.sequence(
                 cc.delayTime(1),
                 cc.callFunc(function() {
-                    cc.director.replaceScene(new MapScene());
+                    self._moveToNextScene();
                 })
             ));
             return true;
