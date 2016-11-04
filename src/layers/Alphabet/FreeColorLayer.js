@@ -58,7 +58,7 @@ var FreeColorLayer = TestLayer.extend({
         }, this);
         var self  = this;
         this.runAction(cc.sequence(
-            cc.delayTime(1),
+            cc.delayTime(2),
             cc.callFunc(function(){
                 self._begin = true;
             })

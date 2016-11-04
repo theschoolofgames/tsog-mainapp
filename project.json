@@ -42,6 +42,8 @@
         "src/layers/MainApp/NewAccountLayer.js",
         "src/layers/MainApp/ChooseLanguageLayer.js",
         "src/layers/MainApp/LoginLayer.js",
+        "src/layers/MainApp/HomeScreenLayer.js",
+        
 
         "src/layers/TestGameLayer.js",
 

@@ -14,6 +14,7 @@ var SpeakingTestLayer = TestLayer.extend({
     _oldSceneName: null,
     _wrongAnswerTime: 0,
     _timesUp: false,
+    _event_time_up: null,
 
     ctor: function(data, duration) {
         this._super();
@@ -37,19 +38,28 @@ var SpeakingTestLayer = TestLayer.extend({
 
     onEnter: function() {
         this._super();
-        
         this._addAdiDog();
         this._userId = KVDatabase.getInstance().getString(STRING_USER_ID);
         KVDatabase.getInstance().set("startSceneTime", Date.now()/1000);
-
         // if (SpeakingTestLayer.shouldSkipTest != null)
         //     this.playBeginSound();
         // else
             this.testBackgroundNoise();
     },
+   
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        var self = this;
+        this._event_time_up = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self._timesUp = true;
+                cc.log("_timesUp evnet: " + self._timesUp);
+            }
+        });
+        cc.eventManager.addListener(self._event_time_up, 1);
         // this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
@@ -467,7 +477,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
     onExit: function () {
         this._super();
-
+        cc.eventManager.removeListener(this._event_time_up);
         this.removeStoryTimeForSpeakingData();
     },
 });
