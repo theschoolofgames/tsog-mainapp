@@ -241,6 +241,16 @@ cc.MenuItemLabel = cc.MenuItem.extend(/** @lends cc.MenuItemLabel# */{
             this._disabledColor = cc.color(126, 126, 126);
             this.setLabel(label);
 
+            if (label.textureLoaded && !label.textureLoaded()) {
+                label.addEventListener("load", function (sender) {
+                    this.width = sender.width;
+                    this.height = sender.height;
+                    if (this.parent instanceof cc.Menu) {
+                        this.parent.updateAlign();
+                    }
+                }, this);
+            }
+
             this.setCascadeColorEnabled(true);
             this.setCascadeOpacityEnabled(true);
         }
@@ -338,7 +348,7 @@ cc.MenuItemLabel = cc.MenuItem.extend(/** @lends cc.MenuItemLabel# */{
     },
     /**
      * return the string of cc.MenuItemLabel
-     * @returns {*|string|_p.string|ret.string|q.string|String}
+     * @returns {String}
      */
     getString: function () {
         return this._label.string;
@@ -691,10 +701,11 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
         this._normalImage = null;
         this._selectedImage = null;
         this._disabledImage = null;
+        this._loader = new cc.Sprite.LoadManager();
 
-        if (selectedSprite !== undefined) {
+        if (normalSprite !== undefined) {
             //normalSprite = normalSprite;
-            //selectedSprite = selectedSprite;
+            selectedSprite = selectedSprite || null;
             var disabledImage, target, callback;
             //when you send 4 arguments, five is undefined
             if (five !== undefined) {
@@ -711,7 +722,17 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
             } else if (three === undefined) {
                 disabledImage = null;
             }
+
+            this._loader.clear();
+            if (normalSprite.textureLoaded && !normalSprite.textureLoaded()) {
+                this._loader.once(normalSprite, function () {
+                    this.initWithNormalSprite(normalSprite, selectedSprite, disabledImage, callback, target);
+                }, this);
+                return false;
+            }
+
             this.initWithNormalSprite(normalSprite, selectedSprite, disabledImage, callback, target);
+            return true;
         }
     },
 
@@ -739,7 +760,7 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
         if (this._normalImage) {
             this.removeChild(this._normalImage, true);
         }
-        
+
         this._normalImage = normalImage;
         if(!this._normalImage)
             return;
@@ -752,6 +773,9 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
             normalImage.addEventListener("load", function (sender) {
                 this.width = sender.width;
                 this.height = sender.height;
+                if (this.parent instanceof cc.Menu) {
+                    this.parent.updateAlign();
+                }
             }, this);
         }
     },
@@ -825,6 +849,13 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
      * @return {Boolean}
      */
     initWithNormalSprite: function (normalSprite, selectedSprite, disabledSprite, callback, target) {
+        this._loader.clear();
+        if (normalSprite.textureLoaded && !normalSprite.textureLoaded()) {
+            this._loader.once(normalSprite, function () {
+                this.initWithNormalSprite(normalSprite, selectedSprite, disabledSprite, callback, target);
+            }, this);
+            return false;
+        }
         this.initWithCallback(callback, target);
         this.setNormalImage(normalSprite);
         this.setSelectedImage(selectedSprite);
@@ -833,15 +864,6 @@ cc.MenuItemSprite = cc.MenuItem.extend(/** @lends cc.MenuItemSprite# */{
         if (locNormalImage) {
             this.width = locNormalImage.width;
             this.height = locNormalImage.height;
-
-            if (locNormalImage.textureLoaded && !locNormalImage.textureLoaded()) {
-                locNormalImage.addEventListener("load", function (sender) {
-                    this.width = sender.width;
-                    this.height = sender.height;
-                    this.setCascadeColorEnabled(true);
-                    this.setCascadeOpacityEnabled(true);
-                }, this);
-            }
         }
         this.setCascadeColorEnabled(true);
         this.setCascadeOpacityEnabled(true);
@@ -988,6 +1010,7 @@ cc.MenuItemImage = cc.MenuItemSprite.extend(/** @lends cc.MenuItemImage# */{
             normalSprite = new cc.Sprite(normalImage);
             selectedImage &&
             (selectedSprite = new cc.Sprite(selectedImage));
+
             if (four === undefined) {
                 callback = three;
             }
@@ -1211,9 +1234,9 @@ cc.MenuItemToggle = cc.MenuItem.extend(/** @lends cc.MenuItemToggle# */{
 
     /**
      * initializes a cc.MenuItemToggle with items
-     * @param {cc.MenuItem} args[0...last-2] the rest in the array are cc.MenuItems
-     * @param {function|String} args[last-1] the second item in the args array is the callback
-     * @param {cc.Node} args[last] the first item in the args array is a target
+     * @param {...cc.MenuItem} array the rest in the array are cc.MenuItems
+     * @param {function|String} secondTolast the second item in the args array is the callback
+     * @param {cc.Node} last the first item in the args array is a target
      * @return {Boolean}
      */
     initWithItems: function (args) {
@@ -1338,7 +1361,6 @@ cc.defineGetterSetter(_p, "selectedIndex", _p.getSelectedIndex, _p.setSelectedIn
  * The inner items can be any MenuItem
  * @deprecated since v3.0 please use new cc.MenuItemToggle(params) instead
  * @return {cc.MenuItemToggle}
- * @example
  */
 cc.MenuItemToggle.create = function (/*Multiple arguments follow*/) {
     if ((arguments.length > 0) && (arguments[arguments.length - 1] == null))

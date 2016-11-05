@@ -99,6 +99,11 @@ public class Cocos2dxEditBox extends EditText {
      */
     private final int kEditBoxInputFlagInitialCapsAllCharacters = 4;
 
+    /**
+     *  Lowercase all characters automatically.
+     */
+    private final int kEditBoxInputFlagLowercaseAllCharacters = 5;
+
     private final int kKeyboardReturnTypeDefault = 0;
     private final int kKeyboardReturnTypeDone = 1;
     private final int kKeyboardReturnTypeSend = 2;
@@ -106,7 +111,7 @@ public class Cocos2dxEditBox extends EditText {
     private final int kKeyboardReturnTypeGo = 4;
 
     private int mInputFlagConstraints;
-    private int mInputModeContraints;
+    private int mInputModeConstraints;
     private  int mMaxLength;
 
     //OpenGL view scaleX
@@ -146,7 +151,7 @@ public class Cocos2dxEditBox extends EditText {
     }
 
     public void setMultilineEnabled(boolean flag){
-        this.mInputModeContraints |= InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+        this.mInputModeConstraints |= InputType.TYPE_TEXT_FLAG_MULTI_LINE;
     }
 
     public void setReturnType(int returnType) {
@@ -176,32 +181,32 @@ public class Cocos2dxEditBox extends EditText {
 
         switch (inputMode) {
             case kEditBoxInputModeAny:
-                this.mInputModeContraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE;
                 break;
             case kEditBoxInputModeEmailAddr:
-                this.mInputModeContraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
                 break;
             case kEditBoxInputModeNumeric:
-                this.mInputModeContraints = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED;
                 break;
             case kEditBoxInputModePhoneNumber:
-                this.mInputModeContraints = InputType.TYPE_CLASS_PHONE;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_PHONE;
                 break;
             case kEditBoxInputModeUrl:
-                this.mInputModeContraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI;
                 break;
             case kEditBoxInputModeDecimal:
-                this.mInputModeContraints = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED;
                 break;
             case kEditBoxInputModeSingleLine:
-                this.mInputModeContraints = InputType.TYPE_CLASS_TEXT;
+                this.mInputModeConstraints = InputType.TYPE_CLASS_TEXT;
                 break;
             default:
 
                 break;
         }
 
-        this.setInputType(this.mInputModeContraints | this.mInputFlagConstraints);
+        this.setInputType(this.mInputModeConstraints | this.mInputFlagConstraints);
 
     }
 
@@ -243,10 +248,13 @@ public class Cocos2dxEditBox extends EditText {
             case kEditBoxInputFlagInitialCapsAllCharacters:
                 this.mInputFlagConstraints = InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS;
                 break;
+            case kEditBoxInputFlagLowercaseAllCharacters:
+                this.mInputFlagConstraints = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL;
+                break;
             default:
                 break;
         }
 
-        this.setInputType(this.mInputFlagConstraints | this.mInputModeContraints);
+        this.setInputType(this.mInputFlagConstraints | this.mInputModeConstraints);
     }
 }

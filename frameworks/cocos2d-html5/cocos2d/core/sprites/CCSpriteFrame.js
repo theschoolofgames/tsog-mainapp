@@ -243,7 +243,7 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
             if(!locLoaded){
                 texture.addEventListener("load", function(sender){
                     this._textureLoaded = true;
-                    if(this._rotated && cc._renderType === cc._RENDER_TYPE_CANVAS){
+                    if(this._rotated && cc._renderType === cc.game.RENDER_TYPE_CANVAS){
                         var tempElement = sender.getHtmlElementObj();
                         tempElement = cc.Sprite.CanvasRenderCmd._cutRotateImageToCanvas(tempElement, this.getRect());
                         var tempTexture = new cc.Texture2D();
@@ -347,8 +347,8 @@ cc.SpriteFrame = cc.Class.extend(/** @lends cc.SpriteFrame# */{
         texture = this.getTexture();
 
         this._rectInPixels = rect;
-        rect = this._rect = cc.rectPixelsToPoints(rect);
-        
+        this._rect = cc.rectPixelsToPoints(rect);
+
         if(texture && texture.url && texture.isLoaded()) {
             var _x, _y;
             if(rotated){

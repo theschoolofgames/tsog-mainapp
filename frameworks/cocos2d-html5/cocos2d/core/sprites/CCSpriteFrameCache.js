@@ -180,7 +180,7 @@ cc.spriteFrameCache = /** @lends cc.spriteFrameCache# */{
                     }
                 }
 
-                if (cc._renderType === cc._RENDER_TYPE_CANVAS && spriteFrame.isRotated()) {
+                if (cc._renderType === cc.game.RENDER_TYPE_CANVAS && spriteFrame.isRotated()) {
                     //clip to canvas
                     var locTexture = spriteFrame.getTexture();
                     if (locTexture.isLoaded()) {
@@ -204,10 +204,10 @@ cc.spriteFrameCache = /** @lends cc.spriteFrameCache# */{
      * <p>
      *   Adds multiple Sprite Frames from a plist or json file.<br/>
      *   A texture will be loaded automatically. The texture name will composed by replacing the .plist or .json suffix with .png<br/>
-     *   If you want to use another texture, you should use the addSpriteFrames:texture method.<br/>
+     *   If you want to use another texture, you should use the addSpriteFrames:texture parameter.<br/>
      * </p>
      * @param {String} url file path
-     * @param {HTMLImageElement|cc.Texture2D|string} texture
+     * @param {HTMLImageElement|cc.Texture2D|string} [texture]
      * @example
      * // add SpriteFrames to SpriteFrameCache With File
      * cc.spriteFrameCache.addSpriteFrames(s_grossiniPlist);

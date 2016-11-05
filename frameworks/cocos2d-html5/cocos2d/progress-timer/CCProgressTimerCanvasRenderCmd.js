@@ -37,6 +37,7 @@
         this._startAngle = 270;
         this._endAngle = 270;
         this._counterClockWise = false;
+        this._canUseDirtyRegion = true;
     };
 
     var proto = cc.ProgressTimer.CanvasRenderCmd.prototype = Object.create(cc.Node.CanvasRenderCmd.prototype);
@@ -75,29 +76,30 @@
         if (node._type === cc.ProgressTimer.TYPE_BAR) {
             var locBarRect = this._barRect;
             context.beginPath();
-            context.rect(locBarRect.x * scaleX, locBarRect.y * scaleY, locBarRect.width * scaleX, locBarRect.height * scaleY);
+            context.rect(locBarRect.x , locBarRect.y , locBarRect.width , locBarRect.height );
             context.clip();
             context.closePath();
         } else if (node._type === cc.ProgressTimer.TYPE_RADIAL) {
-            var locOriginX = this._origin.x * scaleX;
-            var locOriginY = this._origin.y * scaleY;
+            var locOriginX = this._origin.x ;
+            var locOriginY = this._origin.y ;
             context.beginPath();
-            context.arc(locOriginX, locOriginY, this._radius * scaleY, this._PI180 * this._startAngle, this._PI180 * this._endAngle, this._counterClockWise);
+            context.arc(locOriginX, locOriginY, this._radius , this._PI180 * this._startAngle, this._PI180 * this._endAngle, this._counterClockWise);
             context.lineTo(locOriginX, locOriginY);
             context.clip();
             context.closePath();
         }
 
         //draw sprite
-        var image = locSprite._texture.getHtmlElementObj();
+        var texture = locSprite._renderCmd._textureToRender || locSprite._texture;
+        var image = texture.getHtmlElementObj();
         if (locSprite._renderCmd._colorized) {
             context.drawImage(image,
                 0, 0, locTextureCoord.width, locTextureCoord.height,
-                locX * scaleX, locY * scaleY, locWidth * scaleX, locHeight * scaleY);
+                locX , locY , locWidth , locHeight );
         } else {
             context.drawImage(image,
                 locTextureCoord.renderX, locTextureCoord.renderY, locTextureCoord.width, locTextureCoord.height,
-                locX * scaleX, locY * scaleY, locWidth * scaleX, locHeight * scaleY);
+                locX , locY , locWidth , locHeight );
         }
         wrapper.restore();
         cc.g_NumberOfDraws++;
@@ -105,9 +107,10 @@
 
     proto.releaseData = function(){};
 
-    proto.initCmd = function(){};
+    proto.resetVertexData = function(){};
 
     proto._updateProgress = function(){
+        this.setDirtyFlag(cc.Node._dirtyFlags.contentDirty);
         var node = this._node;
         var locSprite = node._sprite;
         var sw = locSprite.width, sh = locSprite.height;
@@ -192,8 +195,6 @@
         }
     };
 
-    proto._updateColor = function(){};
-
     proto._syncStatus = function (parentCmd) {
         var node = this._node;
         if(!node._sprite)
@@ -220,20 +221,27 @@
 
         if (colorDirty){
             spriteCmd._syncDisplayColor();
+            spriteCmd._dirtyFlag = spriteCmd._dirtyFlag & flags.colorDirty ^ spriteCmd._dirtyFlag;
+            this._dirtyFlag = this._dirtyFlag & flags.colorDirty ^ this._dirtyFlag;
         }
 
         if (opacityDirty){
             spriteCmd._syncDisplayOpacity();
+            spriteCmd._dirtyFlag = spriteCmd._dirtyFlag & flags.opacityDirty ^ spriteCmd._dirtyFlag;
+            this._dirtyFlag = this._dirtyFlag & flags.opacityDirty ^ this._dirtyFlag;
         }
 
         if(colorDirty || opacityDirty){
             spriteCmd._updateColor();
-            //this._updateColor();
         }
 
         if (locFlag & flags.transformDirty) {
             //update the transform
             this.transform(parentCmd);
+        }
+
+        if (locFlag & flags.orderDirty) {
+            this._dirtyFlag = this._dirtyFlag & flags.orderDirty ^ this._dirtyFlag;
         }
     };
 
@@ -250,20 +258,26 @@
 
         if(colorDirty){
             spriteCmd._updateDisplayColor();
+            spriteCmd._dirtyFlag = spriteCmd._dirtyFlag & flags.colorDirty ^ spriteCmd._dirtyFlag;
+            this._dirtyFlag = this._dirtyFlag & flags.colorDirty ^ this._dirtyFlag;
         }
 
         if(opacityDirty){
             spriteCmd._updateDisplayOpacity();
+            spriteCmd._dirtyFlag = spriteCmd._dirtyFlag & flags.opacityDirty ^ spriteCmd._dirtyFlag;
+            this._dirtyFlag = this._dirtyFlag & flags.opacityDirty ^ this._dirtyFlag;
         }
 
         if(colorDirty || opacityDirty){
             spriteCmd._updateColor();
-            //this._updateColor();
         }
 
         if(locFlag & flags.transformDirty){
             //update the transform
             this.transform(this.getParentRenderCmd(), true);
+        }
+        if(locFlag & flags.contentDirty) {
+            this._notifyRegionStatus && this._notifyRegionStatus(cc.Node.CanvasRenderCmd.RegionStatus.Dirty);
         }
         this._dirtyFlag = 0;
     };

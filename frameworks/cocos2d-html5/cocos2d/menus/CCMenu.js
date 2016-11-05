@@ -51,7 +51,7 @@ cc.DEFAULT_PADDING = 5;
  *  - But the only accepted children are MenuItem objects</p>
  * @class
  * @extends cc.Layer
- * @param {...cc.MenuItem|null} menuItems}
+ * @param {...cc.MenuItem|null} menuItems
  * @example
  * var layer = new cc.Menu(menuitem1, menuitem2, menuitem3);
  */
@@ -198,6 +198,17 @@ cc.Menu = cc.Layer.extend(/** @lends cc.Menu# */{
         cc.Layer.prototype.addChild.call(this, child, zOrder, tag);
     },
 
+    updateAlign: function () {
+        switch (this._align) {
+            case 'vertically':
+                this.alignItemsVertically();
+                break;
+            case 'horizontally':
+                this.alignItemsHorizontally();
+                break;
+        }
+    },
+
     /**
      * align items vertically with default padding
      */
@@ -210,6 +221,7 @@ cc.Menu = cc.Layer.extend(/** @lends cc.Menu# */{
      * @param {Number} padding
      */
     alignItemsVerticallyWithPadding: function (padding) {
+        this._align = 'vertically';
         var height = -padding, locChildren = this._children, len, i, locScaleY, locHeight, locChild;
         if (locChildren && locChildren.length > 0) {
             for (i = 0, len = locChildren.length; i < len; i++)
@@ -239,6 +251,7 @@ cc.Menu = cc.Layer.extend(/** @lends cc.Menu# */{
      * @param {Number} padding
      */
     alignItemsHorizontallyWithPadding: function (padding) {
+        this._align = 'horizontally';
         var width = -padding, locChildren = this._children, i, len, locScaleX, locWidth, locChild;
         if (locChildren && locChildren.length > 0) {
             for (i = 0, len = locChildren.length; i < len; i++)

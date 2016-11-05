@@ -116,8 +116,7 @@ static bool stringEndWith(const std::string str, const std::string needle)
 
 static void initGLContextAttrs()
 {
-    //set OpenGL context attributions,now can only set six attributions:
-    //red,green,blue,alpha,depth,stencil
+    // set OpenGL context attributes: red,green,blue,alpha,depth,stencil
     GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
 
     GLView::setGLContextAttrs(glContextAttrs);
@@ -406,6 +405,10 @@ int SimulatorWin::run()
     {
         RECT rect;
         GetWindowRect(_hwnd, &rect);
+        if (pos.x < 0)
+            pos.x = 0;
+        if (pos.y < 0)
+            pos.y = 0;
         MoveWindow(_hwnd, pos.x, pos.y, rect.right - rect.left, rect.bottom - rect.top, FALSE);
     }
 
@@ -424,7 +427,9 @@ int SimulatorWin::run()
     updateWindowTitle();
 
     // startup message loop
-    return app->run();
+    int ret = app->run();
+    CC_SAFE_DELETE(_app);
+    return ret;
 }
 
 // services
@@ -793,7 +798,7 @@ std::string SimulatorWin::getUserDocumentPath()
     char* tempstring = new char[length + 1];
     wcstombs(tempstring, filePath, length + 1);
     string userDocumentPath(tempstring);
-    free(tempstring);
+    delete [] tempstring;
 
     userDocumentPath = convertPathFormatToUnixStyle(userDocumentPath);
     userDocumentPath.append("/");

@@ -124,7 +124,7 @@ cc.Particle.TemporaryPoints = [
  * <p>
  *     Particle System base class. <br/>
  *     Attributes of a Particle System:<br/>
- *     - emmision rate of the particles<br/>
+ *     - emission rate of the particles<br/>
  *     - Gravity Mode (Mode A): <br/>
  *     - gravity <br/>
  *     - direction <br/>
@@ -204,7 +204,7 @@ cc.Particle.TemporaryPoints = [
  * @property {Number}               positionType        - Particles movement type: cc.ParticleSystem.TYPE_FREE | cc.ParticleSystem.TYPE_GROUPED.
  * @property {Number}               totalParticles      - Maximum particles of the system.
  * @property {Boolean}              autoRemoveOnFinish  - Indicate whether the node will be auto-removed when it has no particles left.
- * @property {cc.Texture2D}         texture             - Texture of Particle System.
+ * @property {cc.Texture2D|HTMLImageElement|HTMLCanvasElement}         texture             - Texture of Particle System.
  *
  * @example
  *  emitter.radialAccel = 15;
@@ -349,7 +349,7 @@ cc.ParticleSystem = cc.Node.extend(/** @lends cc.ParticleSystem# */{
     },
 
     _createRenderCmd: function(){
-        if(cc._renderType === cc._RENDER_TYPE_CANVAS)
+        if(cc._renderType === cc.game.RENDER_TYPE_CANVAS)
             return new cc.ParticleSystem.CanvasRenderCmd(this);
         else
             return new cc.ParticleSystem.WebGLRenderCmd(this);
@@ -1449,7 +1449,7 @@ cc.ParticleSystem = cc.Node.extend(/** @lends cc.ParticleSystem# */{
                             return false;
                         }
 
-                        var canvasObj = cc.newElement("canvas");
+                        var canvasObj = document.createElement("canvas");
                         if(imageFormat === cc.FMT_PNG){
                             var myPngObj = new cc.PNGReader(buffer);
                             myPngObj.render(canvasObj);

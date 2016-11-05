@@ -35,6 +35,8 @@ THE SOFTWARE.
 #include "renderer/CCGLProgramState.h"
 #include "renderer/ccShaders.h"
 #include "2d/CCCamera.h"
+#include "2d/CCSprite.h"
+#include "ui/UIScale9Sprite.h"
 
 NS_CC_BEGIN
 
@@ -289,6 +291,11 @@ LayoutComponent* Widget::getOrCreateLayoutComponent()
 
 void Widget::setContentSize(const cocos2d::Size &contentSize)
 {
+    Size previousSize = ProtectedNode::getContentSize();
+    if(previousSize.equals(contentSize))
+    {
+        return;
+    }
     ProtectedNode::setContentSize(contentSize);
 
     _customSize = contentSize;
@@ -298,7 +305,7 @@ void Widget::setContentSize(const cocos2d::Size &contentSize)
     }
     else if (_ignoreSize)
     {
-        _contentSize = getVirtualRendererSize();
+        ProtectedNode::setContentSize(getVirtualRendererSize());
     }
     if (!_usingLayoutComponent && _running)
     {
@@ -602,9 +609,14 @@ bool Widget::isHighlighted() const
     return _highlight;
 }
 
-void Widget::setHighlighted(bool hilight)
+void Widget::setHighlighted(bool highlight)
 {
-    _highlight = hilight;
+    if (highlight == _highlight)
+    {
+        return;
+    }
+
+    _highlight = highlight;
     if (_bright)
     {
         if (_highlight)
@@ -883,6 +895,12 @@ void Widget::moveEvent()
 void Widget::releaseUpEvent()
 {
     this->retain();
+
+    if (isFocusEnabled())
+    {
+        requestFocus();
+    }
+
     if (_touchEventCallback)
     {
         _touchEventCallback(this, TouchEventType::ENDED);
@@ -945,7 +963,7 @@ bool Widget::hitTest(const Vec2 &pt, const Camera* camera, Vec3 *p) const
 bool Widget::isClippingParentContainsPoint(const Vec2 &pt)
 {
     _affectByClipping = false;
-    Widget* parent = getWidgetParent();
+    Node* parent = getParent();
     Widget* clippingParent = nullptr;
     while (parent)
     {
@@ -959,7 +977,7 @@ bool Widget::isClippingParentContainsPoint(const Vec2 &pt)
                 break;
             }
         }
-        parent = parent->getWidgetParent();
+        parent = parent->getParent();
     }
 
     if (!_affectByClipping)
@@ -1182,14 +1200,40 @@ void Widget::copyClonedWidgetChildren(Widget* model)
 GLProgramState* Widget::getNormalGLProgramState()const
 {
     GLProgramState *glState = nullptr;
-    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP);
+
+    // ETC1 Gray supports.
+    // currently, Only AbstractCheckButton, ui::Slider called this function, them's VirtualRender is Sprite
+    auto virtualRender = const_cast<Widget*>(this)->getVirtualRenderer();
+    Texture2D* virtualTexture = nullptr;
+    if (auto sp = dynamic_cast<Sprite*>(virtualRender))
+    {
+        virtualTexture = sp->getTexture();
+    }
+    else if (auto scale9sp = dynamic_cast<Scale9Sprite*>(virtualRender))
+    {
+        virtualTexture = scale9sp->getSprite() != nullptr ? scale9sp->getSprite()->getTexture() : nullptr;
+    }
+    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_TEXTURE_COLOR_NO_MVP, virtualTexture);
     return glState;
 }
 
 GLProgramState* Widget::getGrayGLProgramState()const
 {
     GLProgramState *glState = nullptr;
-    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_GRAYSCALE);
+
+    // ETC1 Gray supports.
+    // currently, Only AbstractCheckButton, ui::Slider called this function, them's VirtualRender is Sprite
+    auto virtualRender = const_cast<Widget*>(this)->getVirtualRenderer();
+    Texture2D* virtualTexture = nullptr;
+    if (auto sp = dynamic_cast<cocos2d::Sprite*>(virtualRender))
+    {
+        virtualTexture = sp->getTexture();
+    }
+    else if (auto scale9sp = dynamic_cast<Scale9Sprite*>(virtualRender))
+    {
+        virtualTexture = scale9sp->getSprite() != nullptr ? scale9sp->getSprite()->getTexture() : nullptr;
+    }
+    glState = GLProgramState::getOrCreateWithGLProgramName(GLProgram::SHADER_NAME_POSITION_GRAYSCALE, virtualTexture);
     return glState;
 }
 
@@ -1226,6 +1270,8 @@ void Widget::copyProperties(Widget *widget)
     setFlippedY(widget->isFlippedY());
     setColor(widget->getColor());
     setOpacity(widget->getOpacity());
+    setCascadeColorEnabled(widget->isCascadeColorEnabled());
+    setCascadeOpacityEnabled(widget->isCascadeOpacityEnabled());
     _touchEventCallback = widget->_touchEventCallback;
     _touchEventListener = widget->_touchEventListener;
     _touchEventSelector = widget->_touchEventSelector;
@@ -1294,7 +1340,7 @@ void Widget::copyProperties(Widget *widget)
         float originalScale = Node::getScaleX();
         if (_flippedX)
         {
-            originalScale = originalScale * -1.0;
+            originalScale = originalScale * -1.0f;
         }
         return originalScale;
     }
@@ -1304,7 +1350,7 @@ void Widget::copyProperties(Widget *widget)
         float originalScale = Node::getScaleY();
         if (_flippedY)
         {
-            originalScale = originalScale * -1.0;
+            originalScale = originalScale * -1.0f;
         }
         return originalScale;
     }
@@ -1444,7 +1490,7 @@ void Widget::onFocusChange(Widget* widgetLostFocus, Widget* widgetGetFocus)
     }
 }
 
-Widget* Widget::getCurrentFocusedWidget()const
+Widget* Widget::getCurrentFocusedWidget()
 {
     return _focusedWidget;
 }

@@ -36,11 +36,10 @@ cc.Layer = cc.Node.extend(/** @lends cc.Layer# */{
      * <p>Constructor of cc.Layer, override it to extend the construction behavior, remember to call "this._super()" in the extended "ctor" function.</p>
      */
     ctor: function () {
-        var nodep = cc.Node.prototype;
-        nodep.ctor.call(this);
+        cc.Node.prototype.ctor.call(this);
         this._ignoreAnchorPointForPosition = true;
-        nodep.setAnchorPoint.call(this, 0.5, 0.5);
-        nodep.setContentSize.call(this, cc.winSize);
+        this.setAnchorPoint(0.5, 0.5);
+        this.setContentSize(cc.winSize);
     },
 
     /**
@@ -92,7 +91,7 @@ cc.Layer = cc.Node.extend(/** @lends cc.Layer# */{
     },
 
     _createRenderCmd: function(){
-        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
             return new cc.Layer.CanvasRenderCmd(this);
         else
             return new cc.Layer.WebGLRenderCmd(this);
@@ -191,7 +190,7 @@ cc.LayerColor = cc.Layer.extend(/** @lends cc.LayerColor# */{
      */
     ctor: function(color, width, height){
         cc.Layer.prototype.ctor.call(this);
-        this._blendFunc = new cc.BlendFunc(cc.SRC_ALPHA, cc.ONE_MINUS_SRC_ALPHA);
+        this._blendFunc = cc.BlendFunc._alphaNonPremultiplied();
         cc.LayerColor.prototype.init.call(this, color, width, height);
     },
 
@@ -203,9 +202,6 @@ cc.LayerColor = cc.Layer.extend(/** @lends cc.LayerColor# */{
      * @return {Boolean}
      */
     init: function (color, width, height) {
-        if (cc._renderType !== cc._RENDER_TYPE_CANVAS)
-            this.shaderProgram = cc.shaderCache.programForKey(cc.SHADER_POSITION_COLOR);
-
         var winSize = cc.director.getWinSize();
         color = color || cc.color(0, 0, 0, 255);
         width = width === undefined ? winSize.width : width;
@@ -239,23 +235,8 @@ cc.LayerColor = cc.Layer.extend(/** @lends cc.LayerColor# */{
         this._renderCmd.updateBlendFunc(locBlendFunc);
     },
 
-    _setWidth: function(width){
-        cc.Node.prototype._setWidth.call(this, width);
-        this._renderCmd._updateSquareVerticesWidth(width);
-    },
-
-    _setHeight: function(height){
-        cc.Node.prototype._setHeight.call(this, height);
-        this._renderCmd._updateSquareVerticesHeight(height);
-    },
-
-    setContentSize: function(size, height){
-        cc.Layer.prototype.setContentSize.call(this, size, height);
-        this._renderCmd._updateSquareVertices(size, height);
-    },
-
     _createRenderCmd: function(){
-        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
             return new cc.LayerColor.CanvasRenderCmd(this);
         else
             return new cc.LayerColor.WebGLRenderCmd(this);
@@ -574,7 +555,7 @@ cc.LayerGradient = cc.LayerColor.extend(/** @lends cc.LayerGradient# */{
     },
 
     _createRenderCmd: function(){
-        if (cc._renderType === cc._RENDER_TYPE_CANVAS)
+        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS)
             return new cc.LayerGradient.CanvasRenderCmd(this);
         else
             return new cc.LayerGradient.WebGLRenderCmd(this);

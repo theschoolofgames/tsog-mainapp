@@ -8,6 +8,9 @@ var ARBooster = cc.Sprite.extend({
     },
 
     setActive: function(active) {
+        if (this._isActive == active)
+            return;
+
         this._isActive = active;
         if (this._isActive) {
             this.willStart();
@@ -26,26 +29,14 @@ var ARBooster = cc.Sprite.extend({
     },
 
     start: function() {
-
-    },
-
-    willStart: function() {
-
-    },
-
-    didStart: function() {
-
+        this._player.setBoostFlag(this.getBoostFlag());
     },
 
     end: function() {
 
     },
 
-    willEnd: function() {
-
-    },
-
-    didEnded: function() {
+    fixUpdate: function() {
 
     },
 
@@ -56,8 +47,20 @@ var ARBooster = cc.Sprite.extend({
     },
 
     onCollide: function() {
-        this.setActive(false);
-    }
+        if (this._player.hasBoostFlag(this.getBoostFlag())) {
+            let boosters = ARBoosterWorker.getInstance().findBooster(this.getBoostFlag(), true);
+            cc.log(boosters.length);
+            boosters.forEach(b => b.setActive(false));
+        }
+    },
+
+    willStart: function() {},
+
+    didStart: function() {},
+
+    willEnd: function() {},
+
+    didEnded: function() {},
 }); 
 
 ARBooster.State = {

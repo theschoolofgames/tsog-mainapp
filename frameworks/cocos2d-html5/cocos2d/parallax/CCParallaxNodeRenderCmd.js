@@ -41,11 +41,11 @@
     proto._syncStatus = function(parentCmd){
         this._node._updateParallaxPosition();
         cc.Node.CanvasRenderCmd.prototype._syncStatus.call(this, parentCmd);
-    }
+    };
 })();
 
-(function(){
-    if(cc._renderType !== cc._RENDER_TYPE_WEBGL)
+cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
+    if(cc._renderType !== cc.game.RENDER_TYPE_WEBGL)
         return;
 
     cc.ParallaxNode.WebGLRenderCmd = function(renderable){
@@ -64,6 +64,6 @@
     proto._syncStatus = function(parentCmd){
         this._node._updateParallaxPosition();
         cc.Node.WebGLRenderCmd.prototype._syncStatus.call(this, parentCmd);
-    }
-})();
+    };
+});
 

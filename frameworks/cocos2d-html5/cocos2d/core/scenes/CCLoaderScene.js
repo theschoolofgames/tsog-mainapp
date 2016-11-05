@@ -40,19 +40,22 @@ cc.LoaderScene = cc.Scene.extend({
      * Contructor of cc.LoaderScene
      * @returns {boolean}
      */
-    init : function(){
+    init : function(customText){
         var self = this;
+        this.customText = customText;
 
         //logo
         var logoWidth = 160;
         var logoHeight = 200;
 
         // bg
-        var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
+        var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(0, 0, 0, 255));
+        // var bgLayer = self._bgLayer = new cc.LayerColor(cc.color(32, 32, 32, 255));
         self.addChild(bgLayer, 0);
 
         //image move to CCSceneFile.js
-        var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
+        var fontSize = 36, lblHeight =  -logoHeight / 2 + 100;
+        // var fontSize = 24, lblHeight =  -logoHeight / 2 + 100;
         if(cc._loaderImage){
             //loading logo
             cc.loader.loadImg(cc._loaderImage, {isCrossOrigin : false }, function(err, img){
@@ -60,11 +63,13 @@ cc.LoaderScene = cc.Scene.extend({
                 logoHeight = img.height;
                 self._initStage(img, cc.visibleRect.center);
             });
-            fontSize = 14;
+            fontSize = 21;
+            // fontSize = 14;
             lblHeight = -logoHeight / 2 - 10;
         }
         //loading percent
-        var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
+        var label = self._label = new cc.LabelTTF(this.customText + " 0%", "Impact", fontSize);
+        // var label = self._label = new cc.LabelTTF("Loading... 0%", "Arial", fontSize);
         label.setPosition(cc.pAdd(cc.visibleRect.center, cc.p(0, lblHeight)));
         label.setColor(cc.color(180, 180, 180));
         bgLayer.addChild(this._label, 10);
@@ -95,7 +100,8 @@ cc.LoaderScene = cc.Scene.extend({
      */
     onExit: function () {
         cc.Node.prototype.onExit.call(this);
-        var tmpStr = "Loading... 0%";
+        var tmpStr = this.customText + " 0%";
+        // var tmpStr = "Loading... 0%";
         this._label.setString(tmpStr);
     },
 
@@ -119,13 +125,22 @@ cc.LoaderScene = cc.Scene.extend({
         var res = self.resources;
         cc.loader.load(res,
             function (result, count, loadedCount) {
+                cc.log("loading %s...", res[loadedCount]);
                 var percent = (loadedCount / count * 100) | 0;
                 percent = Math.min(percent, 100);
-                self._label.setString("Loading... " + percent + "%");
+                self._label.setString(self.customText + " " + percent + "%");
+                // self._label.setString("Loading... " + percent + "%");
             }, function () {
                 if (self.cb)
                     self.cb.call(self.target);
             });
+    },
+
+    _updateTransform: function(){
+        this._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+        this._bgLayer._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+        this._label._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
+        this._logo._renderCmd.setDirtyFlag(cc.Node._dirtyFlags.transformDirty);
     }
 });
 /**
@@ -141,12 +156,19 @@ cc.LoaderScene = cc.Scene.extend({
         cc.director.runScene(new HelloWorldScene());
     }, this);
  */
-cc.LoaderScene.preload = function(resources, cb, target){
+cc.LoaderScene.preload = function(resources, cb, target, customText){
+// cc.LoaderScene.preload = function(resources, cb, target){
     var _cc = cc;
+    var customText = customText || "Loading...";
     if(!_cc.loaderScene) {
         _cc.loaderScene = new cc.LoaderScene();
-        _cc.loaderScene.init();
+        _cc.loaderScene.init(customText);
+        // _cc.loaderScene.init();
+        cc.eventManager.addCustomListener(cc.Director.EVENT_PROJECTION_CHANGED, function(){
+            _cc.loaderScene._updateTransform();
+        });
     }
+    _cc.loaderScene.customText = customText;
     _cc.loaderScene.initWithResources(resources, cb, target);
 
     cc.director.runScene(_cc.loaderScene);

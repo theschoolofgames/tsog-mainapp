@@ -88,8 +88,10 @@ cc.PlistParser = cc.SAXParser.extend(/** @lends cc.plistParser# */{
     parse : function (xmlTxt) {
         var xmlDoc = this._parseXML(xmlTxt);
         var plist = xmlDoc.documentElement;
-        if (plist.tagName !== 'plist')
-            throw new Error("Not a plist file!");
+        if (plist.tagName !== 'plist') {
+            cc.warn("Not a plist file!");
+            return {};
+        }
 
         // Get first real node
         var node = null;
@@ -156,5 +158,13 @@ cc.PlistParser = cc.SAXParser.extend(/** @lends cc.plistParser# */{
         }
         return data;
     }
-
 });
+
+cc.saxParser = new cc.SAXParser();
+/**
+ * A Plist Parser
+ * @type {cc.PlistParser}
+ * @name plistParser
+ * @memberof cc
+ */
+cc.plistParser = new cc.PlistParser();

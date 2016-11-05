@@ -28,16 +28,22 @@
         ccui.ProtectedNode.CanvasRenderCmd.call(this, renderable);
         this._needDraw = false;
 
-        this._clipElemType = false;
-        this._locCache = null;
         this._rendererSaveCmd = new cc.CustomRenderCmd(this, this._onRenderSaveCmd);
-        this._rendererSaveCmdSprite = new cc.CustomRenderCmd(this, this._onRenderSaveSpriteCmd);
         this._rendererClipCmd = new cc.CustomRenderCmd(this, this._onRenderClipCmd);
         this._rendererRestoreCmd = new cc.CustomRenderCmd(this, this._onRenderRestoreCmd);
+        this._rendererSaveCmd._canUseDirtyRegion = true;
+        this._rendererClipCmd._canUseDirtyRegion = true;
+        this._rendererRestoreCmd._canUseDirtyRegion = true;
     };
 
     var proto = ccui.Layout.CanvasRenderCmd.prototype = Object.create(ccui.ProtectedNode.CanvasRenderCmd.prototype);
     proto.constructor = ccui.Layout.CanvasRenderCmd;
+
+    cc.game.addEventListener(cc.game.EVENT_RENDERER_INITED, function () {
+        if (ccui.Widget.CanvasRenderCmd) {
+            ccui.Layout.CanvasRenderCmd.prototype.widgetVisit = ccui.Widget.CanvasRenderCmd.prototype.widgetVisit;
+        }
+    });
 
     proto.visit = function(parentCmd){
         var node = this._node;
@@ -57,92 +63,63 @@
                 default:
                     break;
             }
-        } else
-            ccui.Widget.CanvasRenderCmd.prototype.visit.call(this, parentCmd);
-    };
-
-    proto._onRenderSaveCmd = function(ctx, scaleX, scaleY){
-        var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
-        if (this._clipElemType) {
-            var canvas = context.canvas;
-            this._locCache = ccui.Layout.CanvasRenderCmd._getSharedCache();
-            this._locCache.width = canvas.width;
-            this._locCache.height = canvas.height;
-            var locCacheCtx = this._locCache.getContext("2d");
-            locCacheCtx.drawImage(canvas, 0, 0);
         } else {
-            wrapper.save();
-            wrapper.save();
-            wrapper.setTransform(this._worldTransform, scaleX, scaleY);
+            this.widgetVisit(parentCmd);
         }
     };
 
-    proto._onRenderSaveSpriteCmd = function(ctx){
-        var wrapper = ctx || cc._renderContext;
-        //var node = this._node;
-        if (this._clipElemType) {
-            wrapper.setCompositeOperation("destination-in");
+    proto.layoutVisit = proto.visit;
+
+    proto._onRenderSaveCmd = function(ctx, scaleX, scaleY){
+        var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
+        wrapper.save();
+        wrapper.save();
+        wrapper.setTransform(this._worldTransform, scaleX, scaleY);
+        var buffer = this._node._clippingStencil._renderCmd._buffer;
+
+        for (var i = 0, bufLen = buffer.length; i < bufLen; i++) {
+            var element = buffer[i], vertices = element.verts;
+            var firstPoint = vertices[0];
+            context.beginPath();
+            context.moveTo(firstPoint.x, -firstPoint.y );
+            for (var j = 1, len = vertices.length; j < len; j++)
+                context.lineTo(vertices[j].x , -vertices[j].y );
+            context.closePath();
         }
     };
 
     proto._onRenderClipCmd = function(ctx){
         var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
-        if (!this._clipElemType) {
-            wrapper.restore();
-            context.clip();
-        }
+        wrapper.restore();
+        context.clip();
     };
 
     proto._onRenderRestoreCmd = function(ctx){
         var wrapper = ctx || cc._renderContext, context = wrapper.getContext();
 
-        if (this._clipElemType) {
-            // Redraw the cached canvas, so that the cliped area shows the background etc.
-            context.save();
-            context.setTransform(1, 0, 0, 1, 0, 0);
-            context.globalCompositeOperation = "destination-over";
-            context.drawImage(this._locCache, 0, 0);
-            context.restore();
-        }else{
-            wrapper.restore();                                  //use for restore clip operation
-        }
+        wrapper.restore();
     };
 
     proto.rebindStencilRendering = function(stencil){
         stencil._renderCmd.rendering = this.__stencilDraw;
+        stencil._renderCmd._canUseDirtyRegion = true;
     };
 
     proto.__stencilDraw = function(ctx,scaleX, scaleY){          //Only for Canvas
-        var wrapper = ctx || cc._renderContext, locContext = wrapper.getContext(), buffer = this._buffer;
-
-        for (var i = 0, bufLen = buffer.length; i < bufLen; i++) {
-            var element = buffer[i], vertices = element.verts;
-            var firstPoint = vertices[0];
-            locContext.beginPath();
-            locContext.moveTo(firstPoint.x * scaleX, -firstPoint.y * scaleY);
-            for (var j = 1, len = vertices.length; j < len; j++)
-                locContext.lineTo(vertices[j].x * scaleX, -vertices[j].y * scaleY);
-            locContext.closePath();
-        }
+        //do nothing, rendering in layout
     };
 
-    proto.stencilClippingVisit = proto.scissorClippingVisit = function(parentCmd){
+    proto.stencilClippingVisit = proto.scissorClippingVisit = function (parentCmd) {
         var node = this._node;
         if (!node._clippingStencil || !node._clippingStencil.isVisible())
             return;
 
-        this._clipElemType = node._stencil instanceof cc.Sprite;
         this._syncStatus(parentCmd);
 
         cc.renderer.pushRenderCommand(this._rendererSaveCmd);
-        if (this._clipElemType) {
-            cc.ProtectedNode.prototype.visit.call(node, parentCmd);
-            cc.renderer.pushRenderCommand(this._rendererSaveCmdSprite);
-        }
         node._clippingStencil.visit(this);
 
         cc.renderer.pushRenderCommand(this._rendererClipCmd);
-        if (!this._clipElemType) {
             node.sortAllChildren();
             node.sortAllProtectedChildren();
 
@@ -169,11 +146,10 @@
             for (; j < jLen; j++)
                 locProtectChildren[j].visit(this);
             cc.renderer.pushRenderCommand(this._rendererRestoreCmd);
-        }
         this._dirtyFlag = 0;
     };
 
     ccui.Layout.CanvasRenderCmd._getSharedCache = function () {
-        return (cc.ClippingNode._sharedCache) || (cc.ClippingNode._sharedCache = cc.newElement("canvas"));
+        return (cc.ClippingNode._sharedCache) || (cc.ClippingNode._sharedCache = document.createElement("canvas"));
     };
 })();

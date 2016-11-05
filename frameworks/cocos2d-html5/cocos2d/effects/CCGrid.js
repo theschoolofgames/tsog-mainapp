@@ -53,7 +53,7 @@ cc.GridBase = cc.Class.extend(/** @lends cc.GridBase# */{
      * @param {cc.Rect} rect
      */
     ctor:function (gridSize, texture, flipped, rect) {
-        cc._checkWebGLRenderMode();
+        cc.sys._checkWebGLRenderMode();
         this._active=false;
         this._reuseGrid=0;
         this._gridSize=null;
@@ -238,6 +238,8 @@ cc.GridBase = cc.Class.extend(/** @lends cc.GridBase# */{
         this._directorProjection = cc.director.getProjection();
 
         //this.set2DProjection();    //TODO why?
+        var size = cc.director.getWinSizeInPixels();
+        gl.viewport(0, 0, size.width , size.height);
         this._grabber.beforeRender(this._texture);
     },
 
@@ -246,26 +248,7 @@ cc.GridBase = cc.Class.extend(/** @lends cc.GridBase# */{
 
         // restore projection
         //cc.director.setProjection(this._directorProjection);
-
-        if (target && target.getCamera().isDirty()) {
-            var offset = target.getAnchorPointInPoints();
-
-            //TODO hack
-            var stackMatrix = target._renderCmd._stackMatrix;
-            //
-            // XXX: Camera should be applied in the AnchorPoint
-            //
-            //cc.kmGLTranslatef(offset.x, offset.y, 0);
-            var translation = cc.math.Matrix4.createByTranslation(offset.x, offset.y, 0);
-            stackMatrix.multiply(translation);
-
-            //target.getCamera().locate();
-            target._camera._locateForRenderer(stackMatrix);
-
-            //cc.kmGLTranslatef(-offset.x, -offset.y, 0);
-            translation = cc.math.Matrix4.createByTranslation(-offset.x, -offset.y, 0, translation);
-            stackMatrix.multiply(translation);
-        }
+        cc.director.setViewport();
 
         cc.glBindTexture2D(this._texture);
         this.beforeBlit();
@@ -359,6 +342,9 @@ cc.Grid3D = cc.GridBase.extend(/** @lends cc.Grid3D# */{
         this._verticesBuffer=null;
         this._indicesBuffer=null;
 
+        this._matrix = new cc.math.Matrix4();
+        this._matrix.identity();
+
         if(gridSize !== undefined)
             this.initWithSize(gridSize, texture, flipped, rect);
     },
@@ -449,12 +435,23 @@ cc.Grid3D = cc.GridBase.extend(/** @lends cc.Grid3D# */{
 
     blit:function (target) {
         var n = this._gridSize.width * this._gridSize.height;
-        cc.glEnableVertexAttribs(cc.VERTEX_ATTRIB_FLAG_POSITION | cc.VERTEX_ATTRIB_FLAG_TEX_COORDS);
+
+        var wt = target._renderCmd._worldTransform;
+        this._matrix.mat[0] = wt.a;
+        this._matrix.mat[4] = wt.c;
+        this._matrix.mat[12] = wt.tx;
+        this._matrix.mat[1] = wt.b;
+        this._matrix.mat[5] = wt.d;
+        this._matrix.mat[13] = wt.ty;
+
         this._shaderProgram.use();
         //this._shaderProgram.setUniformsForBuiltins();
-        this._shaderProgram._setUniformForMVPMatrixWithMat4(target._renderCmd._stackMatrix);
+        this._shaderProgram._setUniformForMVPMatrixWithMat4(this._matrix);
 
         var gl = cc._renderContext, locDirty = this._dirty;
+
+        gl.enableVertexAttribArray(cc.VERTEX_ATTRIB_POSITION);
+        gl.enableVertexAttribArray(cc.VERTEX_ATTRIB_TEX_COORDS);
         //
         // Attributes
         //
@@ -620,6 +617,9 @@ cc.TiledGrid3D = cc.GridBase.extend(/** @lends cc.TiledGrid3D# */{
         this._verticesBuffer=null;
         this._indicesBuffer=null;
 
+        this._matrix = new cc.math.Matrix4();
+        this._matrix.identity();
+
         if(gridSize !== undefined)
             this.initWithSize(gridSize, texture, flipped, rect);
     },
@@ -707,15 +707,24 @@ cc.TiledGrid3D = cc.GridBase.extend(/** @lends cc.TiledGrid3D# */{
     blit: function (target) {
         var n = this._gridSize.width * this._gridSize.height;
 
+        var wt = target._renderCmd._worldTransform;
+        this._matrix.mat[0] = wt.a;
+        this._matrix.mat[4] = wt.c;
+        this._matrix.mat[12] = wt.tx;
+        this._matrix.mat[1] = wt.b;
+        this._matrix.mat[5] = wt.d;
+        this._matrix.mat[13] = wt.ty;
+
         this._shaderProgram.use();
-        this._shaderProgram._setUniformForMVPMatrixWithMat4(target._renderCmd._stackMatrix);
+        this._shaderProgram._setUniformForMVPMatrixWithMat4(this._matrix);
         //this._shaderProgram.setUniformsForBuiltins();
 
         //
         // Attributes
         //
         var gl = cc._renderContext, locDirty = this._dirty;
-        cc.glEnableVertexAttribs(cc.VERTEX_ATTRIB_FLAG_POSITION | cc.VERTEX_ATTRIB_FLAG_TEX_COORDS);
+        gl.enableVertexAttribArray(cc.VERTEX_ATTRIB_POSITION);
+        gl.enableVertexAttribArray(cc.VERTEX_ATTRIB_TEX_COORDS);
 
         // position
         gl.bindBuffer(gl.ARRAY_BUFFER, this._verticesBuffer);

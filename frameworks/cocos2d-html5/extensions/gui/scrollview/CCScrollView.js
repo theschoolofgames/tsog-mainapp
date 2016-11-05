@@ -581,14 +581,6 @@ cc.ScrollView = cc.Layer.extend(/** @lends cc.ScrollView# */{
         this._clippingToBounds = clippingToBounds;
     },
 
-    visit:function (parentCmd) {
-        // quick return if not visible
-        if (!this.isVisible())
-            return;
-
-        this._renderCmd.visit(parentCmd);
-    },
-
     addChild:function (child, zOrder, tag) {
         if (!child)
             throw new Error("child must not nil!");
@@ -776,7 +768,7 @@ cc.ScrollView = cc.Layer.extend(/** @lends cc.ScrollView# */{
     },
 
     _createRenderCmd: function(){
-        if (cc._renderType === cc._RENDER_TYPE_CANVAS) {
+        if (cc._renderType === cc.game.RENDER_TYPE_CANVAS) {
             return new cc.ScrollView.CanvasRenderCmd(this);
         } else {
             return new cc.ScrollView.WebGLRenderCmd(this);

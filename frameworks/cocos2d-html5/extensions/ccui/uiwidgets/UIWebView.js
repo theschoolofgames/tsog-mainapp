@@ -101,7 +101,11 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             if(iframe){
                 var win = iframe.contentWindow;
                 if(win && win.location)
-                    win.history.back.call(win);
+                    try {
+                        win.history.back.call(win);
+                    } catch (error) {
+                        win.history.back();
+                    }
             }
         }catch(err){
             cc.log(err);
@@ -119,7 +123,11 @@ ccui.WebView = ccui.Widget.extend(/** @lends ccui.WebView# */{
             if(iframe){
                 var win = iframe.contentWindow;
                 if(win && win.location)
-                    win.history.forward.call(win);
+                    try {
+                        win.history.forward.call(win);
+                    } catch (error) {
+                        win.history.forward();
+                    }
             }
         }catch(err){
             cc.log(err);
@@ -237,8 +245,15 @@ ccui.WebView.EventType = {
 
 (function(polyfill){
 
+    var RenderCmd = null;
+    if (cc._renderType === cc.game.RENDER_TYPE_WEBGL) {
+        RenderCmd = cc.Node.WebGLRenderCmd;
+    } else {
+        RenderCmd = cc.Node.CanvasRenderCmd;
+    }
+
     ccui.WebView.RenderCmd = function(node){
-        cc.Node.CanvasRenderCmd.call(this, node);
+        RenderCmd.call(this, node);
 
         this._div = null;
         this._iframe = null;
@@ -248,6 +263,8 @@ ccui.WebView.EventType = {
             this._div.style["-webkit-overflow"] = "auto";
             this._div.style["-webkit-overflow-scrolling"] = "touch";
             this._iframe = document.createElement("iframe");
+            this._iframe.style["width"] = "100%";
+            this._iframe.style["height"] = "100%";
             this._div.appendChild(this._iframe);
         }else{
             this._div = this._iframe = document.createElement("iframe");
@@ -270,9 +287,14 @@ ccui.WebView.EventType = {
         this.initStyle();
     };
 
-    var proto = ccui.WebView.RenderCmd.prototype = Object.create(cc.Node.CanvasRenderCmd.prototype);
+    var proto = ccui.WebView.RenderCmd.prototype = Object.create(RenderCmd.prototype);
     proto.constructor = ccui.WebView.RenderCmd;
 
+    proto.transform = function (parentCmd, recursive) {
+        this.originTransform(parentCmd, recursive);
+        this.updateMatrix(this._worldTransform, cc.view._scaleX, cc.view._scaleY);
+    };
+    
     proto.updateStatus = function(){
         polyfill.devicePixelRatio = cc.view.isRetinaEnabled();
         var flags = cc.Node._dirtyFlags, locFlag = this._dirtyFlag;
@@ -281,6 +303,10 @@ ccui.WebView.EventType = {
             this.transform(this.getParentRenderCmd(), true);
             this.updateMatrix(this._worldTransform, cc.view._scaleX, cc.view._scaleY);
             this._dirtyFlag = this._dirtyFlag & cc.Node._dirtyFlags.transformDirty ^ this._dirtyFlag;
+        }
+
+        if (locFlag & flags.orderDirty) {
+            this._dirtyFlag = this._dirtyFlag & flags.orderDirty ^ this._dirtyFlag;
         }
     };
 
@@ -326,8 +352,8 @@ ccui.WebView.EventType = {
 
     proto.updateMatrix = function(t, scaleX, scaleY){
         var node = this._node;
-        if(polyfill.devicePixelRatio && scaleX !== 1 && scaleX !== 1){
-            var dpr = window.devicePixelRatio;
+        if (polyfill.devicePixelRatio && scaleX !== 1 && scaleX !== 1) {
+            var dpr = cc.view.getDevicePixelRatio();
             scaleX = scaleX / dpr;
             scaleY = scaleY / dpr;
         }

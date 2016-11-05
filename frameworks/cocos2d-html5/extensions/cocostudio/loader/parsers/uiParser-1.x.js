@@ -613,7 +613,7 @@
         if(ph)
             widget.setPlaceHolder(ph);
         widget.setString(options["text"]||"");
-        var fs = options["fontSize1"];
+        var fs = options["fontSize"];
         if(fs)
             widget.setFontSize(fs);
         var fn = options["fontName"];
@@ -662,6 +662,13 @@
         var va = options["vAlignment"];
         if(va)
             widget.setTextVerticalAlignment(va);
+
+        var r = options["colorR"];
+        var g = options["colorG"];
+        var b = options["colorB"];
+        if (r !== undefined && g !== undefined && b !== undefined) {
+            widget.setTextColor(cc.color(r, g, b));
+        }
     };
 
     var register = [
