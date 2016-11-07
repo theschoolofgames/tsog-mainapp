@@ -4,7 +4,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
-var TSOG_DEBUG = false;
+var TSOG_DEBUG = true;
 var SHOW_VERSION_LABEL = true;
 
 var TAG_LOADING_INDICATOR_LAYER = 717;
@@ -704,3 +704,15 @@ var STORYTIME_VOICE_FOR_LISTENING = {
 
 var EVENT_AR_FIREBALL_ACTIVE = "event_ar_fireball_active";
 var EVENT_AR_GAMEOVER = "event_ar_gameover";
+var ALPHARACING_DATA =[
+    {
+      "id": "word_a",
+      "value": "A",
+      "amount": "50"
+    },
+    {
+      "id": "word_a",
+      "value": "a",
+      "amount": "50"
+    }
+];

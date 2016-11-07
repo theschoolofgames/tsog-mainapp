@@ -1,0 +1,14 @@
+[
+    {
+        "name": "adidog",
+        "price": 1000,
+        "path": "adidog",
+        "unlocked": true
+    },
+    {
+        "name": "monkey",
+        "price": 2000,
+        "path": "monkey",
+        "unlocked": false
+    }
+]

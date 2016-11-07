@@ -34,69 +34,151 @@
     var proto = ccui.Scale9Sprite.WebGLRenderCmd.prototype = Object.create(cc.Node.WebGLRenderCmd.prototype);
     proto.constructor = ccui.Scale9Sprite.WebGLRenderCmd;
 
-    proto.visit = function(parentCmd){
+    proto.setShaderProgram = function (shaderProgram) {
         var node = this._node;
-        if(!node._visible)
+        if (node._scale9Enabled) {
+            var renderers = node._renderers, l = renderers.length;
+            for (var i = 0; i < l; i++) {
+                if (renderers[i]) {
+                    renderers[i]._renderCmd._shaderProgram = shaderProgram;
+                }
+            }
+        }
+        else {
+            node._scale9Image._renderCmd._shaderProgram = shaderProgram;
+        }
+        this._shaderProgram = shaderProgram;
+    };
+
+    proto.visit = function(parentCmd) {
+        var node = this._node;
+        if (!node._visible)
+            return;
+        if (!node._scale9Image)
             return;
 
         if (node._positionsAreDirty) {
             node._updatePositions();
             node._positionsAreDirty = false;
-            node._scale9Dirty = true;
         }
-        cc.Node.WebGLRenderCmd.prototype.visit.call(this, parentCmd);
+
+        parentCmd = parentCmd || this.getParentRenderCmd();
+        if (node._parent && node._parent._renderCmd)
+            this._curLevel = node._parent._renderCmd._curLevel + 1;
+
+        this._syncStatus(parentCmd);
+
+        if (node._scale9Enabled) {
+            var locRenderers = node._renderers;
+            var rendererLen = locRenderers.length;
+            for (var j=0; j < rendererLen; j++) {
+                var renderer = locRenderers[j];
+                if (renderer) {
+                    var tempCmd = renderer._renderCmd;
+                    tempCmd.visit(this);
+                }
+                else
+                    break;
+            }
+        }
+        else {
+            node._adjustScale9ImageScale();
+            node._adjustScale9ImagePosition();
+            node._scale9Image._renderCmd.visit(this);
+        }
+        this._dirtyFlag = 0;
+        this.originVisit(parentCmd);
     };
 
     proto.transform = function(parentCmd, recursive){
         var node = this._node;
-        cc.Node.WebGLRenderCmd.prototype.transform.call(this, parentCmd, recursive);
+        parentCmd = parentCmd || this.getParentRenderCmd();
+        this.originTransform(parentCmd, recursive);
         if (node._positionsAreDirty) {
             node._updatePositions();
             node._positionsAreDirty = false;
-            node._scale9Dirty = true;
         }
+        if(node._scale9Enabled) {
+            var locRenderers = node._renderers;
+            var protectChildLen = locRenderers.length;
+            var flags = cc.Node._dirtyFlags;
+            for(var j=0; j < protectChildLen; j++) {
+                var pchild = locRenderers[j];
+                if(pchild) {
+                    pchild._vertexZ = parentCmd._node._vertexZ;
+                    var tempCmd = pchild._renderCmd;
+                    tempCmd.transform(this, true);
+                    tempCmd._dirtyFlag = tempCmd._dirtyFlag & flags.transformDirty ^ tempCmd._dirtyFlag;
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        else {
+            node._adjustScale9ImageScale();
+            node._adjustScale9ImagePosition();
+            node._scale9Image._renderCmd.transform(this, true);
+        }
+    };
+
+    proto.setDirtyFlag = function (dirtyFlag, child) {
+        // ignore cache dirty, it's only for canvas
+        if (dirtyFlag === cc.Node._dirtyFlags.cacheDirty)
+            dirtyFlag = cc.Node._dirtyFlags.transformDirty;
+        cc.Node.RenderCmd.prototype.setDirtyFlag.call(this, dirtyFlag, child);
+    };
+
+    proto._syncStatus = function (parentCmd){
+        cc.Node.WebGLRenderCmd.prototype._syncStatus.call(this, parentCmd);
+        this._updateDisplayColor(this._displayedColor);
+        this._updateDisplayOpacity(this._displayedOpacity);
     };
 
     proto._updateDisplayColor = function(parentColor){
         cc.Node.WebGLRenderCmd.prototype._updateDisplayColor.call(this, parentColor);
-
-        var scale9Image = this._node._scale9Image;
-        if(scale9Image){
-            var scaleChildren = scale9Image.getChildren();
-            for (var i = 0; i < scaleChildren.length; i++) {
-                var selChild = scaleChildren[i];
-                if (selChild){
-                    selChild._renderCmd._updateDisplayColor(parentColor);
-                    selChild._renderCmd._updateColor();
-                }
+        var node = this._node;
+        var scale9Image = node._scale9Image;
+        parentColor = this._displayedColor;
+        if(node._scale9Enabled) {
+            var pChildren = node._renderers;
+            for(var i=0; i<pChildren.length; i++) {
+                pChildren[i]._renderCmd._updateDisplayColor(parentColor);
+                pChildren[i]._renderCmd._updateColor();
             }
+        }
+        else {
+            scale9Image._renderCmd._updateDisplayColor(parentColor);
+            scale9Image._renderCmd._updateColor();
         }
     };
 
-    proto._updateDisplayOpacity = function(parentColor){
-        cc.Node.WebGLRenderCmd.prototype._updateDisplayOpacity.call(this, parentColor);
-
-        var scale9Image = this._node._scale9Image;
-        if(scale9Image){
-            var scaleChildren = scale9Image.getChildren();
-            for (var i = 0; i < scaleChildren.length; i++) {
-                var selChild = scaleChildren[i];
-                if (selChild){
-                    selChild._renderCmd._updateDisplayOpacity(parentColor);
-                    selChild._renderCmd._updateColor();
-                }
+    proto._updateDisplayOpacity = function(parentOpacity){
+        cc.Node.WebGLRenderCmd.prototype._updateDisplayOpacity.call(this, parentOpacity);
+        var node = this._node;
+        var scale9Image = node._scale9Image;
+        parentOpacity = this._displayedOpacity;
+        if(node._scale9Enabled) {
+            var pChildren = node._renderers;
+            for(var i=0; i<pChildren.length; i++)
+            {
+                pChildren[i]._renderCmd._updateDisplayOpacity(parentOpacity);
+                pChildren[i]._renderCmd._updateColor();
             }
+        }
+        else
+        {
+            scale9Image._renderCmd._updateDisplayOpacity(parentOpacity);
+            scale9Image._renderCmd._updateColor();
         }
     };
 
     proto.setState = function (state) {
-        var scale9Image = this._node._scale9Image;
-        if(scale9Image == null)
-            return;
         if (state === ccui.Scale9Sprite.state.NORMAL) {
-            scale9Image.setShaderProgram(cc.shaderCache.programForKey(cc.SHADER_POSITION_TEXTURECOLOR));
-        } else if (state === ccui.Scale9Sprite.state.GRAY) {
-            scale9Image.setShaderProgram(ccui.Scale9Sprite.WebGLRenderCmd._getGrayShaderProgram());
+            this.setShaderProgram(cc.shaderCache.programForKey(cc.SHADER_SPRITE_POSITION_TEXTURECOLOR));
+        }
+        else if (state === ccui.Scale9Sprite.state.GRAY) {
+            this.setShaderProgram(ccui.Scale9Sprite.WebGLRenderCmd._getGrayShaderProgram());
         }
     };
 
@@ -107,7 +189,7 @@
             return grayShader;
 
         grayShader = new cc.GLProgram();
-        grayShader.initWithVertexShaderByteArray(cc.SHADER_POSITION_TEXTURE_COLOR_VERT, ccui.Scale9Sprite.WebGLRenderCmd._grayShaderFragment);
+        grayShader.initWithVertexShaderByteArray(cc.SHADER_SPRITE_POSITION_TEXTURE_COLOR_VERT, ccui.Scale9Sprite.WebGLRenderCmd._grayShaderFragment);
         grayShader.addAttribute(cc.ATTRIBUTE_NAME_POSITION, cc.VERTEX_ATTRIB_POSITION);
         grayShader.addAttribute(cc.ATTRIBUTE_NAME_COLOR, cc.VERTEX_ATTRIB_COLOR);
         grayShader.addAttribute(cc.ATTRIBUTE_NAME_TEX_COORD, cc.VERTEX_ATTRIB_TEX_COORDS);

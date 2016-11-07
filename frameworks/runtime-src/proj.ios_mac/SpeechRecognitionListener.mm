@@ -111,7 +111,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
   NSArray* hypothesisArray = [hypothesis componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
   if ([hypothesisArray count] > 0 && ![[hypothesisArray objectAtIndex:0] isEqualToString:@""]) {
     NSString* command = [NSString stringWithFormat:@"SpeechRecognitionListener.getInstance().onResult('%@')", [hypothesisArray objectAtIndex:0]];
-    ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+    ScriptingCore::getInstance()->evalString([command UTF8String]);
   }
   
   [self suspend];

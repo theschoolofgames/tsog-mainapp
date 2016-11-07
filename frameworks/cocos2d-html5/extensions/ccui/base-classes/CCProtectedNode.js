@@ -231,8 +231,8 @@ cc.ProtectedNode = cc.Node.extend(/** @lends cc.ProtectedNode# */{
      * @override
      */
     cleanup: function(){
-       cc.Node.prototype.cleanup.call(this);
-       var locChildren = this._protectedChildren;
+        cc.Node.prototype.cleanup.call(this);
+        var locChildren = this._protectedChildren;
         for(var i = 0 , len = locChildren.length; i  < len; i++)
             locChildren[i].cleanup();
     },
@@ -288,7 +288,7 @@ cc.ProtectedNode = cc.Node.extend(/** @lends cc.ProtectedNode# */{
     },
 
     _createRenderCmd: function(){
-        if(cc._renderType === cc._RENDER_TYPE_CANVAS)
+        if(cc._renderType === cc.game.RENDER_TYPE_CANVAS)
             return new cc.ProtectedNode.CanvasRenderCmd(this);
         else
             return new cc.ProtectedNode.WebGLRenderCmd(this);

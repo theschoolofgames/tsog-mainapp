@@ -170,10 +170,10 @@ cc.IMEDispatcher = cc.Class.extend(/**  @lends cc.imeDispatcher# */{
         }
         var selfPointer = this;
         //add event listener
-        cc._addEventListener(this._domInputControl, "input", function () {
+        this._domInputControl.addEventListener("input", function () {
             selfPointer._processDomInputString(selfPointer._domInputControl.value);
         }, false);
-        cc._addEventListener(this._domInputControl, "keydown", function (e) {
+        this._domInputControl.addEventListener("keydown", function (e) {
             // ignore tab key
             if (e.keyCode === cc.KEY.tab) {
                 e.stopPropagation();
@@ -186,14 +186,14 @@ cc.IMEDispatcher = cc.Class.extend(/**  @lends cc.imeDispatcher# */{
         }, false);
 
         if (/msie/i.test(navigator.userAgent)) {
-            cc._addEventListener(this._domInputControl, "keyup", function (e) {
+            this._domInputControl.addEventListener("keyup", function (e) {
                 if (e.keyCode === cc.KEY.backspace) {
                     selfPointer._processDomInputString(selfPointer._domInputControl.value);
                 }
             }, false);
         }
 
-        cc._addEventListener(window, 'mousedown', function (event) {
+        window.addEventListener('mousedown', function (event) {
             var tx = event.pageX || 0;
             var ty = event.pageY || 0;
 
@@ -389,10 +389,11 @@ cc.IMEDispatcher = cc.Class.extend(/**  @lends cc.imeDispatcher# */{
             this._currentInputString = delegate.string || "";
 
             var tipMessage = delegate.getTipMessage ? delegate.getTipMessage() : "please enter your word:";
-            // wechat cover the prompt funciton .So need use the Window.prototype.prompt
+            // wechat cover the prompt function .So need use the Window.prototype.prompt
             var userInput;
-            if(window.Window && Window.prototype.prompt != prompt){
-                userInput = Window.prototype.prompt.call(window, tipMessage, this._currentInputString);
+            var win = window.Window;
+            if(win && win.prototype.prompt && win.prototype.prompt != prompt){
+                userInput = win.prototype.prompt.call(window, tipMessage, this._currentInputString);
             }else{
                 userInput = prompt(tipMessage, this._currentInputString);
             }
@@ -529,6 +530,6 @@ cc.imeDispatcher = new cc.IMEDispatcher();
 
 document.body ?
     cc.imeDispatcher.init() :
-    cc._addEventListener(window, 'load', function () {
+    window.addEventListener('load', function () {
         cc.imeDispatcher.init();
     }, false);

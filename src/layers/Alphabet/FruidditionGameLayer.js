@@ -35,7 +35,6 @@ var FruidditionGameLayer = TestLayer.extend({
 
     ctor: function(data, timeForScene) {
         this._super();
-
         this._draggingObjects = [];
         this._dropSpots = [];
         this._objects = [];
@@ -325,11 +324,12 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _checkWonGame: function() {
+        var self = this;
         if (this._currentOperationId === (this._data["first"].length)) {
             this.runAction(cc.sequence(
                 cc.delayTime(1),
                 cc.callFunc(function() {
-                    cc.director.replaceScene(new MapScene());
+                    self._moveToNextScene();
                 })
             ));
             return true;
@@ -338,8 +338,6 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _cleanPreviousSession: function() {
-        cc.log("_cleanPreviousSession this._draggingObjects: " + this._draggingObjects);
-        cc.log("_cleanPreviousSession this._objects: " + this._objects);
         this._completedObjectsCount = 0;
         this._objects.forEach(obj => obj.removeAllChildren());
         this._operations.forEach(obj => obj.removeAllChildren());

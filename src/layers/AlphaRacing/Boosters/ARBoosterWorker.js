@@ -29,6 +29,16 @@ var ARBoosterWorker = cc.Class.extend({
             this._boosters.splice(idx, 1);
     },
 
+    findBooster: function(flag, isActive) {
+        let boosters = this._boosters.filter(b => b.getBoostFlag() == flag);
+
+        if (isActive != undefined) {
+            boosters = boosters.filter(b => b.isActive() == isActive);
+        }
+
+        return boosters;
+    },
+
     removeAll: function() {
         this._boosters.forEach(obj => obj.removeFromParent());
         this._boosters = [];
@@ -39,17 +49,19 @@ var ARBoosterWorker = cc.Class.extend({
 
         var updateTimes = Math.round(dt / this._deltaTime);
 
-        for (var i = 0; i < updateTimes; i++) {
-            this._boosters.forEach((ob, idx) => {
+        this._boosters.forEach((ob, idx) => {
+            for (var i = 0; i < updateTimes; i++) {
                 if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
                     ob.removeFromParent();
                     self._boosters.splice(idx, 1);
                     return;
                 }
 
-                ob.update(dt);
-            })
-        }
+                ob.fixUpdate();
+            }
+
+            ob.update(dt);
+        })
     }
 })
 

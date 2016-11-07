@@ -103,25 +103,10 @@ ccui.Button = ccui.Widget.extend(/** @lends ccui.Button# */{
         this._titleColor = cc.color.WHITE;
         ccui.Widget.prototype.ctor.call(this);
         this.setTouchEnabled(true);
-        this.init(normalImage, selectedImage, disableImage, texType);
-    },
 
-    /**
-     * Initializes a button. please do not call this function by yourself, you should pass the parameters to constructor to initialize it.
-     * @param {String} normalImage
-     * @param {String} [selectedImage=""]
-     * @param {String} [disableImage=""]
-     * @param {Number} [texType=ccui.Widget.LOCAL_TEXTURE]
-     * @returns {boolean}
-     * @override
-     */
-    init: function (normalImage, selectedImage,disableImage, texType) {
-        if (ccui.Widget.prototype.init.call(this)) {
-            if(normalImage === undefined)
-                return true;
+        if (normalImage) {
             this.loadTextures(normalImage, selectedImage,disableImage, texType);
         }
-        return false;
     },
 
     _initRenderer: function () {
@@ -603,16 +588,6 @@ ccui.Button = ccui.Widget.extend(/** @lends ccui.Button# */{
             this.setContentSize(this.getVirtualRendererSize());
     },
 
-    _updateTexturesRGBA: function(){
-        this._buttonNormalRenderer.setColor(this.getColor());
-        this._buttonClickedRenderer.setColor(this.getColor());
-        this._buttonDisableRenderer.setColor(this.getColor());
-
-        this._buttonNormalRenderer.setOpacity(this.getOpacity());
-        this._buttonClickedRenderer.setOpacity(this.getOpacity());
-        this._buttonDisableRenderer.setOpacity(this.getOpacity());
-    },
-
     _onSizeChanged: function () {
         ccui.Widget.prototype._onSizeChanged.call(this);
         this._updateTitleLocation();
@@ -892,11 +867,6 @@ ccui.Button = ccui.Widget.extend(/** @lends ccui.Button# */{
         this.setTitleColor(uiButton.getTitleColor());
         this.setPressedActionEnabled(uiButton.pressedActionEnabled);
         this.setZoomScale(uiButton._zoomScale);
-    },
-
-    setColor: function(color){
-        cc.ProtectedNode.prototype.setColor.call(this, color);
-        this._updateTexturesRGBA();
     },
 
     _getNormalSize: function(){

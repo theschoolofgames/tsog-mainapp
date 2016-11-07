@@ -13,6 +13,7 @@ void js_h102_Utils_finalize(JSContext *cx, JSObject *obj);
 void js_register_h102_Utils(JSContext *cx, JS::HandleObject global);
 void register_all_h102(JSContext* cx, JS::HandleObject obj);
 bool js_h102_Utils_isPixelTransparent(JSContext *cx, uint32_t argc, jsval *vp);
+bool js_h102_Utils_imageMatchPercentage(JSContext *cx, uint32_t argc, jsval *vp);
 bool js_h102_Utils_forceRender(JSContext *cx, uint32_t argc, jsval *vp);
 
 #endif // __h102_h__

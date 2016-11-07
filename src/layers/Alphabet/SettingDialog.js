@@ -74,6 +74,8 @@ var SettingDialog = cc.Layer.extend({
 
         var self = this;
         logoutBtn.addClickEventListener(function() {
+            var event  = new cc.EventCustom("event_logout");
+            cc.eventManager.dispatchEvent(event);
             cc.director.resume();
             if (Utils.getUserName()){
                 Utils.logoutStudent();
@@ -83,7 +85,8 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new MainScene());
                 // cc.director.replaceScene(new MapScene());
                 // NativeHelper.callNative("moveToMainApp");
-            }
+            };
+            cc.log("logoutBtn");
         })
     },
 

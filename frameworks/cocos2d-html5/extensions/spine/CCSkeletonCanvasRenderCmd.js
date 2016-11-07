@@ -129,22 +129,30 @@
         }
     };
 
-    proto._createSprite = function(slot, attachment){
-        var rendererObject = attachment.rendererObject;
-        var texture = rendererObject.page._texture;
+    var loaded = function (sprite, texture, rendererObject, attachment) {
         var rect = new cc.Rect(rendererObject.x, rendererObject.y, rendererObject.width, rendererObject.height);
-        var sprite = new cc.Sprite();
-        sprite.initWithTexture(rendererObject.page._texture, rect, rendererObject.rotate, false);
+        sprite.initWithTexture(texture, rect, rendererObject.rotate, false);
         sprite._rect.width = attachment.width;
         sprite._rect.height = attachment.height;
         sprite.setContentSize(attachment.width, attachment.height);
         sprite.setRotation(-attachment.rotation);
         sprite.setScale(rendererObject.width / rendererObject.originalWidth * attachment.scaleX,
             rendererObject.height / rendererObject.originalHeight * attachment.scaleY);
+    };
 
+    proto._createSprite = function(slot, attachment){
+        var rendererObject = attachment.rendererObject;
+        var texture = rendererObject.page._texture;
+        var sprite = new cc.Sprite();
+        if (texture.isLoaded()) {
+            loaded(sprite, texture, rendererObject, attachment);
+        } else {
+            texture.addEventListener('load', function () {
+                loaded(sprite, texture, rendererObject, attachment);
+            }, this);
+        }
         slot.sprites = slot.sprites || {};
         slot.sprites[rendererObject.name] = sprite;
-
         return sprite;
     };
 
@@ -197,7 +205,7 @@
                 }
 
                 //hack for sprite
-                selSprite._renderCmd._displayedOpacity = 0 | (locSkeleton.a * slot.a * 255);
+                selSprite._renderCmd._displayedOpacity = 0 | (this._node.getOpacity() * locSkeleton.a * slot.a);
                 var r = 0 | (locSkeleton.r * slot.r * 255), g = 0 | (locSkeleton.g * slot.g * 255), b = 0 | (locSkeleton.b * slot.b * 255);
                 selSprite.setColor(cc.color(r,g,b));
                 selSprite._renderCmd._updateColor();

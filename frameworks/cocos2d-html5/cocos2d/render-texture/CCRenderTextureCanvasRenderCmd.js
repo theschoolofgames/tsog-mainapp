@@ -28,7 +28,7 @@
         this._needDraw = true;
         this._clearColorStr = "rgba(255,255,255,1)";
 
-        this._cacheCanvas = cc.newElement('canvas');
+        this._cacheCanvas = document.createElement('canvas');
         this._cacheContext = new cc.CanvasContextWrapper(this._cacheCanvas.getContext('2d'));
     };
 
@@ -88,6 +88,8 @@
 
         var scale = cc.contentScaleFactor();
         cc.renderer._renderingToCacheCanvas(this._cacheContext, node.__instanceId, scale, scale);
+        var spriteRenderCmd = node.sprite._renderCmd;
+        spriteRenderCmd._notifyRegionStatus && spriteRenderCmd._notifyRegionStatus(cc.Node.CanvasRenderCmd.RegionStatus.Dirty);
     };
 
     proto.clearRect = function(x, y, width, height){

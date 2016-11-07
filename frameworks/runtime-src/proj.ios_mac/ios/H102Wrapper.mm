@@ -165,7 +165,7 @@ static NSMutableArray* noiseDetectionArray = nil;
       NSLog(@"Start");
       startTime = [[NSDate date] timeIntervalSince1970];
       cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([]() {
-        ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()", NULL);
+        ScriptingCore::getInstance()->evalString("AudioListener.getInstance().onStartedListening()");
       });
     }
   } else {
@@ -175,7 +175,7 @@ static NSMutableArray* noiseDetectionArray = nil;
       [H102Wrapper stopFetchingAudio];
       cocos2d::Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
         NSString* command = [NSString stringWithFormat:@"AudioListener.getInstance().onStoppedListening('%@/%@', %f)", [SimpleAudioRecordEngine sharedEngine].documentsPath, @"record_sound.wav", deltaTime];
-        ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+        ScriptingCore::getInstance()->evalString([command UTF8String]);
       });
       return;
     }
@@ -217,7 +217,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 + (void)startSpeechRecognitionDelay {
   if ([[SpeechRecognitionListener sharedEngine] isListening]) {
     NSString* command = [NSString stringWithFormat:@"SpeechRecognitionListener.getInstance().onResult('%@')", @""];
-    ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+    ScriptingCore::getInstance()->evalString([command UTF8String]);
   }
   
   [[SpeechRecognitionListener sharedEngine] suspend];
@@ -241,7 +241,7 @@ static NSMutableArray* noiseDetectionArray = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
         //Your main thread code goes in here
         NSString* command = [NSString stringWithFormat:@"GameListener.getInstance().pauseGame()"];
-        ScriptingCore::getInstance()->evalString([command UTF8String], NULL);
+        ScriptingCore::getInstance()->evalString([command UTF8String]);
     });
 }
 
@@ -278,9 +278,9 @@ static NSMutableArray* noiseDetectionArray = nil;
     float avgAmpl = [[noiseDetectionArray valueForKeyPath:@"@avg.floatValue"] floatValue];
     NSLog(@"avgAmpl: %f", avgAmpl);
     if (avgAmpl > -25)
-      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=true", NULL);
+      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=true");
     else
-      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=false", NULL);
+      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=false");
   } else {
     float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
 //    NSLog(@"%f", maxAmplitude);

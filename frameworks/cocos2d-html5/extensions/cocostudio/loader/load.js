@@ -194,6 +194,30 @@ ccs.load = function(file, path){
 };
 ccs.load.validate = {};
 
+ccs.load.preload = true;
+
+/**
+ * Analysis of studio JSON file and layout ui widgets by visible size.
+ * The incoming file name, parse out the corresponding object
+ * Temporary support file list:
+ *   ui 1.*
+ *   node 1.* - 2.*
+ *   action 1.* - 2.*
+ *   scene 0.* - 1.*
+ * @param {String} file
+ * @param {String} [path=] Resource path
+ * @returns {{node: cc.Node, action: cc.Action}}
+ */
+ccs.loadWithVisibleSize = function(file, path){
+    var object = ccs.load(file, path);
+    var size = cc.director.getVisibleSize();
+    if(object.node && size){
+        object.node.setContentSize(size.width, size.height);
+        ccui.helper.doLayout(object.node);
+    }
+    return object;
+};
+
 //Forward compatible interface
 
 ccs.actionTimelineCache = {
@@ -233,11 +257,13 @@ cc.loader.register(["json"], {
                     list = [],
                     tmpUrl, normalUrl;
                 for(var i=0; i<UsedResources.length; i++){
+                    if (!ccs.load.preload && /\.(png|jpg$)/.test(UsedResources[i]))
+                        continue;
                     tmpUrl = path.join(dirname, UsedResources[i]);
                     normalUrl = path._normalize(tmpUrl);
                     if(!ccs.load.validate[normalUrl]){
                         ccs.load.validate[normalUrl] = true;
-                        list.push(tmpUrl);
+                        list.push(normalUrl);
                     }
                 }
                 cc.loader.load(list, function(){

@@ -59,6 +59,26 @@ enum
     TMXOrientationStaggered,
 };
 
+/** Possible stagger axis of the TMX map. */
+enum
+{
+    /** Stagger Axis x. */
+    TMXStaggerAxis_X,
+    
+    /** Stagger Axis y. */
+    TMXStaggerAxis_Y,
+};
+
+/** Possible stagger index of the TMX map. */
+enum
+{
+    /** Stagger Index: Odd */
+    TMXStaggerIndex_Odd,
+
+    /** Stagger Index: Even */
+    TMXStaggerIndex_Even,
+};
+
 /** @brief TMXTiledMap knows how to parse and render a TMX map.
 
  * It adds support for the TMX tiled map format used by http://www.mapeditor.org
@@ -173,12 +193,12 @@ public:
     Value getPropertiesForGID(int GID) const;
     CC_DEPRECATED_ATTRIBUTE Value propertiesForGID(int GID) const { return getPropertiesForGID(GID); };
 
-    /** Assings properties to argument value, returns true if it did found properties 
-     * for that GID and did assinged a value, else it returns false.
+    /** Assigns properties to argument value, returns true if it did found properties 
+     * for that GID and did assigned a value, else it returns false.
      *
      * @param GID The tile GID.
      * @param value Argument value.
-     * @return Return true if it did found properties for that GID and did assinged a value, else it returns false.
+     * @return Return true if it did found properties for that GID and did assigned a value, else it returns false.
      */
     bool getPropertiesForGID(int GID, Value** value);
 
@@ -251,7 +271,10 @@ public:
      * @js NA
      */
     virtual std::string getDescription() const override;
-    
+
+    int  getLayerNum();
+    const std::string& getResourceFile() const { return _tmxFile; }
+
 CC_CONSTRUCTOR_ACCESS:
     /**
      * @js ctor
@@ -287,6 +310,11 @@ protected:
     
     //! tile properties
     ValueMapIntKey _tileProperties;
+
+    std::string _tmxFile;
+    int _tmxLayerNum;
+
+    static const int TMXLayerTag = 32768;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(TMXTiledMap);

@@ -81,10 +81,16 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     ctor: function () {
         this._layoutType = ccui.Layout.ABSOLUTE;
         this._widgetType = ccui.Widget.TYPE_CONTAINER;
-        this._clippingType = ccui.Layout.CLIPPING_STENCIL;
+        this._clippingType = ccui.Layout.CLIPPING_SCISSOR;
         this._colorType = ccui.Layout.BG_COLOR_NONE;
 
         ccui.Widget.prototype.ctor.call(this);
+
+        this.ignoreContentAdaptWithSize(false);
+        this.setContentSize(cc.size(0, 0));
+        this.setAnchorPoint(0, 0);
+        this.onPassFocusToChild  = this._findNearestChildWidgetIndex.bind(this);
+
         this._backGroundImageCapInsets = cc.rect(0, 0, 0, 0);
 
         this._color = cc.color(255, 255, 255, 255);
@@ -237,22 +243,6 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     onPassFocusToChild: null,
 
     /**
-     * override "init" method of widget. please do not call this function by yourself, you should pass the parameters to constructor to initialize it.
-     * @returns {boolean}
-     * @override
-     */
-    init: function () {
-        if (ccui.Widget.prototype.init.call(this)) {
-            this.ignoreContentAdaptWithSize(false);
-            this.setContentSize(cc.size(0, 0));
-            this.setAnchorPoint(0, 0);
-            this.onPassFocusToChild  = this._findNearestChildWidgetIndex.bind(this);
-            return true;
-        }
-        return false;
-    },
-
-    /**
      * Adds a widget to the container.
      * @param {ccui.Widget} widget
      * @param {Number} [zOrder]
@@ -330,8 +320,9 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
                 default:
                     break;
             }
-        } else
+        } else {
             ccui.Widget.prototype.visit.call(this, parentCmd);
+        }
     },
 
     /**
@@ -344,6 +335,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
             return;
         this._clippingEnabled = able;
         switch (this._clippingType) {
+            case ccui.Layout.CLIPPING_SCISSOR:
             case ccui.Layout.CLIPPING_STENCIL:
                 if (able){
                     this._clippingStencil = new cc.DrawNode();
@@ -369,10 +361,6 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     setClippingType: function (type) {
         if (type === this._clippingType)
             return;
-        if(cc._renderType === cc._RENDER_TYPE_CANVAS && type === ccui.Layout.CLIPPING_SCISSOR){
-            cc.log("Only supports STENCIL on canvas mode.");
-            return;
-        }
         var clippingEnabled = this.isClippingEnabled();
         this.setClippingEnabled(false);
         this._clippingType = type;
@@ -388,7 +376,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     },
 
     _setStencilClippingSize: function (size) {
-        if (this._clippingEnabled && this._clippingType === ccui.Layout.CLIPPING_STENCIL) {
+        if (this._clippingEnabled) {
             var rect = [];
             rect[0] = cc.p(0, 0);
             rect[1] = cc.p(size.width, 0);
@@ -396,6 +384,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
             rect[3] = cc.p(0, size.height);
             var green = cc.color.GREEN;
             this._clippingStencil.clear();
+            this._clippingStencil.setLocalBB && this._clippingStencil.setLocalBB(0, 0, size.width, size.height);
             this._clippingStencil.drawPoly(rect, 4, green, 0, green);
         }
     },
@@ -419,38 +408,18 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
 
             if (this._clippingParent) {
                 parentClippingRect = this._clippingParent._getClippingRect();
-                var finalX = worldPos.x - (scissorWidth * this._anchorPoint.x);
-                var finalY = worldPos.y - (scissorHeight * this._anchorPoint.y);
-                var finalWidth = scissorWidth;
-                var finalHeight = scissorHeight;
 
-                var leftOffset = worldPos.x - parentClippingRect.x;
-                if (leftOffset < 0) {
-                    finalX = parentClippingRect.x;
-                    finalWidth += leftOffset;
-                }
-                var rightOffset = (worldPos.x + scissorWidth) - (parentClippingRect.x + parentClippingRect.width);
-                if (rightOffset > 0)
-                    finalWidth -= rightOffset;
-                var topOffset = (worldPos.y + scissorHeight) - (parentClippingRect.y + parentClippingRect.height);
-                if (topOffset > 0)
-                    finalHeight -= topOffset;
-                var bottomOffset = worldPos.y - parentClippingRect.y;
-                if (bottomOffset < 0) {
-                    finalY = parentClippingRect.x;
-                    finalHeight += bottomOffset;
-                }
-                if (finalWidth < 0)
-                    finalWidth = 0;
-                if (finalHeight < 0)
-                    finalHeight = 0;
-                this._clippingRect.x = finalX;
-                this._clippingRect.y = finalY;
-                this._clippingRect.width = finalWidth;
-                this._clippingRect.height = finalHeight;
+                this._clippingRect.x = Math.max(worldPos.x, parentClippingRect.x);
+                this._clippingRect.y = Math.max(worldPos.y, parentClippingRect.y);
+
+                var right = Math.min(worldPos.x + scissorWidth, parentClippingRect.x + parentClippingRect.width);
+                var top = Math.min(worldPos.y + scissorHeight, parentClippingRect.y + parentClippingRect.height);
+
+                this._clippingRect.width = Math.max(0.0, right -  this._clippingRect.x);
+                this._clippingRect.height = Math.max(0.0, top -  this._clippingRect.y);
             } else {
-                this._clippingRect.x = worldPos.x - (scissorWidth * this._anchorPoint.x);
-                this._clippingRect.y = worldPos.y - (scissorHeight * this._anchorPoint.y);
+                this._clippingRect.x = worldPos.x;
+                this._clippingRect.y = worldPos.y;
                 this._clippingRect.width = scissorWidth;
                 this._clippingRect.height = scissorHeight;
             }
@@ -1058,23 +1027,23 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
      * @private
      */
     _findProperSearchingFunctor: function(direction, baseWidget){
-        if (baseWidget == null)
+        if (baseWidget === undefined)
             return;
 
         var previousWidgetPosition = this._getWorldCenterPoint(baseWidget);
         var widgetPosition = this._getWorldCenterPoint(this._findFirstNonLayoutWidget());
         if (direction === ccui.Widget.LEFT) {
-            this.onPassFocusToChild = (previousWidgetPosition.x > widgetPosition.x) ? this._findNearestChildWidgetIndex.bind(this)
-                : this._findFarthestChildWidgetIndex.bind(this);
+            this.onPassFocusToChild = (previousWidgetPosition.x > widgetPosition.x) ? this._findNearestChildWidgetIndex
+                : this._findFarthestChildWidgetIndex;
         } else if (direction === ccui.Widget.RIGHT) {
-            this.onPassFocusToChild = (previousWidgetPosition.x > widgetPosition.x) ? this._findFarthestChildWidgetIndex.bind(this)
-                : this._findNearestChildWidgetIndex.bind(this);
+            this.onPassFocusToChild = (previousWidgetPosition.x > widgetPosition.x) ? this._findFarthestChildWidgetIndex
+                : this._findNearestChildWidgetIndex;
         }else if(direction === ccui.Widget.DOWN) {
-            this.onPassFocusToChild = (previousWidgetPosition.y > widgetPosition.y) ? this._findNearestChildWidgetIndex.bind(this)
-                : this._findFarthestChildWidgetIndex.bind(this);
+            this.onPassFocusToChild = (previousWidgetPosition.y > widgetPosition.y) ? this._findNearestChildWidgetIndex
+                : this._findFarthestChildWidgetIndex;
         }else if(direction === ccui.Widget.UP) {
-            this.onPassFocusToChild = (previousWidgetPosition.y < widgetPosition.y) ? this._findNearestChildWidgetIndex.bind(this)
-                : this._findFarthestChildWidgetIndex.bind(this);
+            this.onPassFocusToChild = (previousWidgetPosition.y < widgetPosition.y) ? this._findNearestChildWidgetIndex
+                : this._findFarthestChildWidgetIndex;
         }else
             cc.log("invalid direction!");
     },
@@ -1451,7 +1420,7 @@ ccui.Layout = ccui.Widget.extend(/** @lends ccui.Layout# */{
     },
 
     _createRenderCmd: function(){
-        if(cc._renderType === cc._RENDER_TYPE_WEBGL)
+        if(cc._renderType === cc.game.RENDER_TYPE_WEBGL)
             return new ccui.Layout.WebGLRenderCmd(this);
         else
             return new ccui.Layout.CanvasRenderCmd(this);

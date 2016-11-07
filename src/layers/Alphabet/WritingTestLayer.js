@@ -477,6 +477,7 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _addObjImage: function(name) {
+        cc.log("name: " + name);
         var spritePath = "objects/" + name.toLowerCase() + ".png";
         var secondNumberPath = null;
         if (!jsb.fileUtils.isFileExist(spritePath)) {
@@ -612,12 +613,12 @@ var WritingTestLayer = TestLayer.extend({
         for (var i = 0; i < charArrays.length; i++) {
             charArrays[i][0].scale = this._wordScale;
             charArrays[i][0].x = cc.winSize.width * 0.65 - totalWidths[i]/2 * this._wordScale + charArrays[i][0].width/2 * this._wordScale - 10;
-            charArrays[i][0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale - 60;
+            charArrays[i][0].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 280 * this._wordScale - 150;
 
             for (var j = 1; j < charArrays[i].length; j++) {
                 charArrays[i][j].scale = this._wordScale;
                 charArrays[i][j].x = charArrays[i][j-1].x + (charArrays[i][j-1].width/2 + CHAR_SPACE + charArrays[i][j].width/2) * this._wordScale;
-                charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 300 * this._wordScale - 60;
+                charArrays[i][j].y = cc.winSize.height/2 - (i - lines/2 + 0.5) * 280 * this._wordScale - 150;
             }
         }
     },
@@ -759,7 +760,7 @@ var WritingTestLayer = TestLayer.extend({
         if (data)
             this._names = data.map(function(id) {
                 if (id.value && id)
-                    return id.value.toLowerCase();
+                    return id.value;
                 else
                     return id;
             });

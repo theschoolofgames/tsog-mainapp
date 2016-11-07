@@ -1,34 +1,12 @@
 #include "jsb_cocos2dx_lwf.hpp"
-#include "cocos2d_specifics.hpp"
+#include "scripting/js-bindings/manual/cocos2d_specifics.hpp"
 #include "lwf.h"
 #include "lwf_cocos2dx.h"
 #include "LWFSprite.h"
 
 template<class T>
-static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
-    JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
-    JS::RootedValue initializing(cx);
-    bool isNewValid = true;
-    JS::RootedObject global(cx, ScriptingCore::getInstance()->getGlobalObject());
-    isNewValid = JS_GetProperty(cx, global, "initializing", &initializing) && initializing.toBoolean();
-    if (isNewValid)
-    {
-        TypeTest<T> t;
-        js_type_class_t *typeClass = nullptr;
-        std::string typeName = t.s_name();
-        auto typeMapIter = _js_global_type_map.find(typeName);
-        CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-        typeClass = typeMapIter->second;
-        CCASSERT(typeClass, "The value is null.");
-
-        JS::RootedObject proto(cx, typeClass->proto.get());
-        JS::RootedObject parent(cx, typeClass->parentProto.get());
-        JS::RootedObject _tmp(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
-        
-        args.rval().set(OBJECT_TO_JSVAL(_tmp));
-        return true;
-    }
-
+static bool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp)
+{
     JS_ReportError(cx, "Constructor for the requested class is not available, please refer to the API reference.");
     return false;
 }
@@ -41,7 +19,7 @@ static bool js_is_native_obj(JSContext *cx, uint32_t argc, jsval *vp)
 {
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     args.rval().setBoolean(true);
-    return true;    
+    return true;
 }
 JSClass  *jsb_cocos2d_LWFBitmap_class;
 JSObject *jsb_cocos2d_LWFBitmap_prototype;
@@ -56,14 +34,11 @@ bool js_cocos2dx_lwf_LWFBitmap_GetBitmap(JSContext *cx, uint32_t argc, jsval *vp
     if (argc == 0) {
         LWF::Bitmap* ret = cobj->GetBitmap();
         jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<LWF::Bitmap>(cx, (LWF::Bitmap*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
+        if (ret) {
+            jsret = OBJECT_TO_JSVAL(js_get_or_create_jsobject<LWF::Bitmap>(cx, (LWF::Bitmap*)ret));
+        } else {
+            jsret = JSVAL_NULL;
+        };
         args.rval().set(jsret);
         return true;
     }
@@ -81,14 +56,11 @@ bool js_cocos2dx_lwf_LWFBitmap_GetBitmapEx(JSContext *cx, uint32_t argc, jsval *
     if (argc == 0) {
         LWF::BitmapEx* ret = cobj->GetBitmapEx();
         jsval jsret = JSVAL_NULL;
-        do {
-            if (ret) {
-                js_proxy_t *jsProxy = js_get_or_create_proxy<LWF::BitmapEx>(cx, (LWF::BitmapEx*)ret);
-                jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-            } else {
-                jsret = JSVAL_NULL;
-            }
-        } while (0);
+        if (ret) {
+            jsret = OBJECT_TO_JSVAL(js_get_or_create_jsobject<LWF::BitmapEx>(cx, (LWF::BitmapEx*)ret));
+        } else {
+            jsret = JSVAL_NULL;
+        };
         args.rval().set(jsret);
         return true;
     }
@@ -99,9 +71,6 @@ bool js_cocos2dx_lwf_LWFBitmap_GetBitmapEx(JSContext *cx, uint32_t argc, jsval *
 
 extern JSObject *jsb_cocos2d_Sprite_prototype;
 
-void js_cocos2d_LWFBitmap_finalize(JSFreeOp *fop, JSObject *obj) {
-    CCLOGINFO("jsbindings: finalizing JS object %p (LWFBitmap)", obj);
-}
 void js_register_cocos2dx_lwf_LWFBitmap(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_LWFBitmap_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_LWFBitmap_class->name = "LWFBitmap";
@@ -112,11 +81,9 @@ void js_register_cocos2dx_lwf_LWFBitmap(JSContext *cx, JS::HandleObject global) 
     jsb_cocos2d_LWFBitmap_class->enumerate = JS_EnumerateStub;
     jsb_cocos2d_LWFBitmap_class->resolve = JS_ResolveStub;
     jsb_cocos2d_LWFBitmap_class->convert = JS_ConvertStub;
-    jsb_cocos2d_LWFBitmap_class->finalize = js_cocos2d_LWFBitmap_finalize;
     jsb_cocos2d_LWFBitmap_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_PS_END
     };
 
@@ -128,32 +95,24 @@ void js_register_cocos2dx_lwf_LWFBitmap(JSContext *cx, JS::HandleObject global) 
 
     JSFunctionSpec *st_funcs = NULL;
 
+    JS::RootedObject parent_proto(cx, jsb_cocos2d_Sprite_prototype);
     jsb_cocos2d_LWFBitmap_prototype = JS_InitClass(
         cx, global,
-        JS::RootedObject(cx, jsb_cocos2d_Sprite_prototype),
+        parent_proto,
         jsb_cocos2d_LWFBitmap_class,
         empty_constructor, 0,
         properties,
         funcs,
         NULL, // no static properties
         st_funcs);
-    // make the class enumerable in the registered namespace
-//  bool found;
-//FIXME: Removed in Firefox v27 
-//  JS_SetPropertyAttributes(cx, global, "LWFBitmap", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 
+    JS::RootedObject proto(cx, jsb_cocos2d_LWFBitmap_prototype);
+    JS::RootedValue className(cx, std_string_to_jsval(cx, "LWFBitmap"));
+    JS_SetProperty(cx, proto, "_className", className);
+    JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+    JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
     // add the proto and JSClass to the type->js info hash table
-    TypeTest<cocos2d::LWFBitmap> t;
-    js_type_class_t *p;
-    std::string typeName = t.s_name();
-    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
-    {
-        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
-        p->jsclass = jsb_cocos2d_LWFBitmap_class;
-        p->proto = jsb_cocos2d_LWFBitmap_prototype;
-        p->parentProto = jsb_cocos2d_Sprite_prototype;
-        _js_global_type_map.insert(std::make_pair(typeName, p));
-    }
+    jsb_register_class<cocos2d::LWFBitmap>(cx, jsb_cocos2d_LWFBitmap_class, proto, parent_proto);
 }
 
 JSClass  *jsb_cocos2d_LWFNode_class;
@@ -204,13 +163,13 @@ bool js_cocos2dx_lwf_LWFNode_handleTouch(JSContext *cx, uint32_t argc, jsval *vp
     cocos2d::LWFNode* cobj = (cocos2d::LWFNode *)(proxy ? proxy->ptr : NULL);
     JSB_PRECONDITION2( cobj, cx, false, "js_cocos2dx_lwf_LWFNode_handleTouch : Invalid Native Object");
     if (argc == 2) {
-        cocos2d::Touch* arg0;
-        cocos2d::Event* arg1;
+        cocos2d::Touch* arg0 = nullptr;
+        cocos2d::Event* arg1 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = args.get(0).toObjectOrNull();
+            JS::RootedObject tmpObj(cx, args.get(0).toObjectOrNull());
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg0 = (cocos2d::Touch*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -219,7 +178,7 @@ bool js_cocos2dx_lwf_LWFNode_handleTouch(JSContext *cx, uint32_t argc, jsval *vp
             if (args.get(1).isNull()) { arg1 = nullptr; break; }
             if (!args.get(1).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = args.get(1).toObjectOrNull();
+            JS::RootedObject tmpObj(cx, args.get(1).toObjectOrNull());
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg1 = (cocos2d::Event*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg1, cx, false, "Invalid Native Object");
@@ -274,12 +233,12 @@ bool js_cocos2dx_lwf_LWFNode_removeNodeFromParent(JSContext *cx, uint32_t argc, 
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     if (argc == 1) {
-        cocos2d::Node* arg0;
+        cocos2d::Node* arg0 = nullptr;
         do {
             if (args.get(0).isNull()) { arg0 = nullptr; break; }
             if (!args.get(0).isObject()) { ok = false; break; }
             js_proxy_t *jsProxy;
-            JSObject *tmpObj = args.get(0).toObjectOrNull();
+            JS::RootedObject tmpObj(cx, args.get(0).toObjectOrNull());
             jsProxy = jsb_get_js_proxy(tmpObj);
             arg0 = (cocos2d::Node*)(jsProxy ? jsProxy->ptr : NULL);
             JSB_PRECONDITION2( arg0, cx, false, "Invalid Native Object");
@@ -310,35 +269,20 @@ bool js_cocos2dx_lwf_LWFNode_constructor(JSContext *cx, uint32_t argc, jsval *vp
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     cocos2d::LWFNode* cobj = new (std::nothrow) cocos2d::LWFNode();
-    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
-    if (_ccobj) {
-        _ccobj->autorelease();
-    }
-    TypeTest<cocos2d::LWFNode> t;
-    js_type_class_t *typeClass = nullptr;
-    std::string typeName = t.s_name();
-    auto typeMapIter = _js_global_type_map.find(typeName);
-    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-    typeClass = typeMapIter->second;
-    CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-    JS::RootedObject proto(cx, typeClass->proto.get());
-    JS::RootedObject parent(cx, typeClass->parentProto.get());
-    JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
-    args.rval().set(OBJECT_TO_JSVAL(obj));
+
+    js_type_class_t *typeClass = js_get_type_from_native<cocos2d::LWFNode>(cobj);
+
     // link the native object with the javascript object
-    js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    AddNamedObjectRoot(cx, &p->obj, "cocos2d::LWFNode");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+    JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "cocos2d::LWFNode"));
+    args.rval().set(OBJECT_TO_JSVAL(jsobj));
+    if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
     return true;
 }
 
+
 extern JSObject *jsb_cocos2d_Sprite_prototype;
 
-void js_cocos2d_LWFNode_finalize(JSFreeOp *fop, JSObject *obj) {
-    CCLOGINFO("jsbindings: finalizing JS object %p (LWFNode)", obj);
-}
 void js_register_cocos2dx_lwf_LWFNode(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_LWFNode_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_cocos2d_LWFNode_class->name = "LWFNode";
@@ -349,11 +293,9 @@ void js_register_cocos2dx_lwf_LWFNode(JSContext *cx, JS::HandleObject global) {
     jsb_cocos2d_LWFNode_class->enumerate = JS_EnumerateStub;
     jsb_cocos2d_LWFNode_class->resolve = JS_ResolveStub;
     jsb_cocos2d_LWFNode_class->convert = JS_ConvertStub;
-    jsb_cocos2d_LWFNode_class->finalize = js_cocos2d_LWFNode_finalize;
     jsb_cocos2d_LWFNode_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_PS_END
     };
 
@@ -372,32 +314,24 @@ void js_register_cocos2dx_lwf_LWFNode(JSContext *cx, JS::HandleObject global) {
         JS_FS_END
     };
 
+    JS::RootedObject parent_proto(cx, jsb_cocos2d_Sprite_prototype);
     jsb_cocos2d_LWFNode_prototype = JS_InitClass(
         cx, global,
-        JS::RootedObject(cx, jsb_cocos2d_Sprite_prototype),
+        parent_proto,
         jsb_cocos2d_LWFNode_class,
         js_cocos2dx_lwf_LWFNode_constructor, 0, // constructor
         properties,
         funcs,
         NULL, // no static properties
         st_funcs);
-    // make the class enumerable in the registered namespace
-//  bool found;
-//FIXME: Removed in Firefox v27 
-//  JS_SetPropertyAttributes(cx, global, "LWFNode", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 
+    JS::RootedObject proto(cx, jsb_cocos2d_LWFNode_prototype);
+    JS::RootedValue className(cx, std_string_to_jsval(cx, "LWFNode"));
+    JS_SetProperty(cx, proto, "_className", className);
+    JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+    JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
     // add the proto and JSClass to the type->js info hash table
-    TypeTest<cocos2d::LWFNode> t;
-    js_type_class_t *p;
-    std::string typeName = t.s_name();
-    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
-    {
-        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
-        p->jsclass = jsb_cocos2d_LWFNode_class;
-        p->proto = jsb_cocos2d_LWFNode_prototype;
-        p->parentProto = jsb_cocos2d_Sprite_prototype;
-        _js_global_type_map.insert(std::make_pair(typeName, p));
-    }
+    jsb_register_class<cocos2d::LWFNode>(cx, jsb_cocos2d_LWFNode_class, proto, parent_proto);
 }
 
 JSClass  *jsb_h102_LWFSprite_class;
@@ -411,17 +345,11 @@ bool js_cocos2dx_lwf_LWFSprite_create(JSContext *cx, uint32_t argc, jsval *vp)
         std::string arg0;
         ok &= jsval_to_std_string(cx, args.get(0), &arg0);
         JSB_PRECONDITION2(ok, cx, false, "js_cocos2dx_lwf_LWFSprite_create : Error processing arguments");
-        h102::LWFSprite* ret = h102::LWFSprite::create(arg0);
-        jsval jsret = JSVAL_NULL;
-        do {
-        if (ret) {
-            js_proxy_t *jsProxy = js_get_or_create_proxy<h102::LWFSprite>(cx, (h102::LWFSprite*)ret);
-            jsret = OBJECT_TO_JSVAL(jsProxy->obj);
-        } else {
-            jsret = JSVAL_NULL;
-        }
-    } while (0);
-        args.rval().set(jsret);
+
+        auto ret = h102::LWFSprite::create(arg0);
+        js_type_class_t *typeClass = js_get_type_from_native<h102::LWFSprite>(ret);
+        JS::RootedObject jsret(cx, jsb_ref_autoreleased_create_jsobject(cx, ret, typeClass, "h102::LWFSprite"));
+        args.rval().set(OBJECT_TO_JSVAL(jsret));
         return true;
     }
     JS_ReportError(cx, "js_cocos2dx_lwf_LWFSprite_create : wrong number of arguments");
@@ -433,35 +361,20 @@ bool js_cocos2dx_lwf_LWFSprite_constructor(JSContext *cx, uint32_t argc, jsval *
     JS::CallArgs args = JS::CallArgsFromVp(argc, vp);
     bool ok = true;
     h102::LWFSprite* cobj = new (std::nothrow) h102::LWFSprite();
-    cocos2d::Ref *_ccobj = dynamic_cast<cocos2d::Ref *>(cobj);
-    if (_ccobj) {
-        _ccobj->autorelease();
-    }
-    TypeTest<h102::LWFSprite> t;
-    js_type_class_t *typeClass = nullptr;
-    std::string typeName = t.s_name();
-    auto typeMapIter = _js_global_type_map.find(typeName);
-    CCASSERT(typeMapIter != _js_global_type_map.end(), "Can't find the class type!");
-    typeClass = typeMapIter->second;
-    CCASSERT(typeClass, "The value is null.");
-    // JSObject *obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
-    JS::RootedObject proto(cx, typeClass->proto.get());
-    JS::RootedObject parent(cx, typeClass->parentProto.get());
-    JS::RootedObject obj(cx, JS_NewObject(cx, typeClass->jsclass, proto, parent));
-    args.rval().set(OBJECT_TO_JSVAL(obj));
+
+    js_type_class_t *typeClass = js_get_type_from_native<h102::LWFSprite>(cobj);
+
     // link the native object with the javascript object
-    js_proxy_t* p = jsb_new_proxy(cobj, obj);
-    AddNamedObjectRoot(cx, &p->obj, "h102::LWFSprite");
-    if (JS_HasProperty(cx, obj, "_ctor", &ok) && ok)
-        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(obj), "_ctor", args);
+    JS::RootedObject jsobj(cx, jsb_ref_create_jsobject(cx, cobj, typeClass, "h102::LWFSprite"));
+    args.rval().set(OBJECT_TO_JSVAL(jsobj));
+    if (JS_HasProperty(cx, jsobj, "_ctor", &ok) && ok)
+        ScriptingCore::getInstance()->executeFunctionWithOwner(OBJECT_TO_JSVAL(jsobj), "_ctor", args);
     return true;
 }
 
+
 extern JSObject *jsb_cocos2d_LWFNode_prototype;
 
-void js_h102_LWFSprite_finalize(JSFreeOp *fop, JSObject *obj) {
-    CCLOGINFO("jsbindings: finalizing JS object %p (LWFSprite)", obj);
-}
 void js_register_cocos2dx_lwf_LWFSprite(JSContext *cx, JS::HandleObject global) {
     jsb_h102_LWFSprite_class = (JSClass *)calloc(1, sizeof(JSClass));
     jsb_h102_LWFSprite_class->name = "LWFSprite";
@@ -472,11 +385,9 @@ void js_register_cocos2dx_lwf_LWFSprite(JSContext *cx, JS::HandleObject global) 
     jsb_h102_LWFSprite_class->enumerate = JS_EnumerateStub;
     jsb_h102_LWFSprite_class->resolve = JS_ResolveStub;
     jsb_h102_LWFSprite_class->convert = JS_ConvertStub;
-    jsb_h102_LWFSprite_class->finalize = js_h102_LWFSprite_finalize;
     jsb_h102_LWFSprite_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
     static JSPropertySpec properties[] = {
-        JS_PSG("__nativeObj", js_is_native_obj, JSPROP_PERMANENT | JSPROP_ENUMERATE),
         JS_PS_END
     };
 
@@ -489,32 +400,24 @@ void js_register_cocos2dx_lwf_LWFSprite(JSContext *cx, JS::HandleObject global) 
         JS_FS_END
     };
 
+    JS::RootedObject parent_proto(cx, jsb_cocos2d_LWFNode_prototype);
     jsb_h102_LWFSprite_prototype = JS_InitClass(
         cx, global,
-        JS::RootedObject(cx, jsb_cocos2d_LWFNode_prototype),
+        parent_proto,
         jsb_h102_LWFSprite_class,
         js_cocos2dx_lwf_LWFSprite_constructor, 0, // constructor
         properties,
         funcs,
         NULL, // no static properties
         st_funcs);
-    // make the class enumerable in the registered namespace
-//  bool found;
-//FIXME: Removed in Firefox v27 
-//  JS_SetPropertyAttributes(cx, global, "LWFSprite", JSPROP_ENUMERATE | JSPROP_READONLY, &found);
 
+    JS::RootedObject proto(cx, jsb_h102_LWFSprite_prototype);
+    JS::RootedValue className(cx, std_string_to_jsval(cx, "LWFSprite"));
+    JS_SetProperty(cx, proto, "_className", className);
+    JS_SetProperty(cx, proto, "__nativeObj", JS::TrueHandleValue);
+    JS_SetProperty(cx, proto, "__is_ref", JS::TrueHandleValue);
     // add the proto and JSClass to the type->js info hash table
-    TypeTest<h102::LWFSprite> t;
-    js_type_class_t *p;
-    std::string typeName = t.s_name();
-    if (_js_global_type_map.find(typeName) == _js_global_type_map.end())
-    {
-        p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
-        p->jsclass = jsb_h102_LWFSprite_class;
-        p->proto = jsb_h102_LWFSprite_prototype;
-        p->parentProto = jsb_cocos2d_LWFNode_prototype;
-        _js_global_type_map.insert(std::make_pair(typeName, p));
-    }
+    jsb_register_class<h102::LWFSprite>(cx, jsb_h102_LWFSprite_class, proto, parent_proto);
 }
 
 void register_all_cocos2dx_lwf(JSContext* cx, JS::HandleObject obj) {

@@ -250,7 +250,7 @@ bool AppDelegate::applicationDidFinishLaunching()
       CCLOG("%s", mess.c_str());
     Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
                                                                            CallFunc::create([mess](){
-      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
+      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str());
     }), NULL));
   });
   
@@ -290,7 +290,7 @@ void AppDelegate::chipmunkifySound()
   AudioEngine::preload(outFileDir.c_str());
 
   Director::getInstance()->getScheduler()->performFunctionInCocosThread([=]() {
-    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str(), nullptr);
+    ScriptingCore::getInstance()->evalString(StringUtils::format("AudioListener.getInstance().onAudioChipmunkified('%s')", outFileDir.c_str()).c_str());
   });
 }
 

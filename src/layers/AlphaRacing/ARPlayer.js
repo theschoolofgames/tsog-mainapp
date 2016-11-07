@@ -185,5 +185,5 @@ var ARPlayer = cc.Layer.extend({
 
     toggleBoostFlag: function(flag) {
         this._boostState ^= flag;
-    },
+    }
 });

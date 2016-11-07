@@ -20,24 +20,26 @@ var ARInvisible = ARBooster.extend({
         this._player.setBoostFlag(ARInvisible.getBoostFlag());
         this._player.sprite.opacity = 128;
 
-        this.runAction(cc.sequence(
-            cc.delayTime(this.effectiveTime/3),
-            cc.callFunc(obj => {
-                let sequence = [];
-                let loopTimes = Math.ceil(obj.effectiveTime/3 * 2 / 0.5);
-                for (var i = 0; i < loopTimes; i++) {
-                    sequence.push(cc.fadeTo(0.25, 255));
-                    sequence.push(cc.fadeTo(0.25, 128));
-                }
-                sequence.push(cc.fadeTo(0.25, 255   ));
+        let sequence = [];
+        sequence.push(cc.delayTime(this.effectiveTime/3 * 2));
 
-                obj._player.sprite.runAction(cc.sequence(sequence))
-            }),
-            cc.delayTime(this.effectiveTime/ 3 * 2),
+        let loopTimes = Math.ceil(this.effectiveTime/3 / 0.5);
+        for (var i = 0; i < loopTimes; i++) {
+            sequence.push(cc.fadeOut(0.25));
+            sequence.push(cc.fadeIn(0.25));
+        }
+        sequence.push(cc.fadeIn(0));
+        let action = cc.sequence(sequence);
+        action.tag = this.getBoostFlag();
+
+        this._player.sprite.runAction(action);
+
+        this.runAction(cc.sequence(
+            cc.delayTime(this.effectiveTime),
             cc.callFunc(obj => {
                 obj.setActive(false);
             })
-        ))
+        ));
     },
 
     willEnd: function() {
@@ -46,6 +48,10 @@ var ARInvisible = ARBooster.extend({
 
     didEnded: function() {
         cc.log("ARInvisible: didEnded");
+
+        this._player.sprite.opacity = 255;
+        this._player.sprite.stopActionByTag(this.getBoostFlag());
+
         this._player.unsetBoostFlag(ARInvisible.getBoostFlag());
         this.removeFromParent();
         ARBoosterWorker.getInstance().removeBooster(this);
@@ -53,6 +59,7 @@ var ARInvisible = ARBooster.extend({
 
     onCollide: function() {
         if (!this.isActive()) {
+            this._super();
             this.setActive(true);
         }
     }

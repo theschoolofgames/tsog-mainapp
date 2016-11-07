@@ -28,10 +28,10 @@
 
 #import <UIKit/UIKit.h>
 
-#include "CCEAGLView-ios.h"
-#include "CCDirectorCaller-ios.h"
-#include "CCGLViewImpl-ios.h"
-#include "CCSet.h"
+#include "platform/ios/CCEAGLView-ios.h"
+#include "platform/ios/CCDirectorCaller-ios.h"
+#include "platform/ios/CCGLViewImpl-ios.h"
+#include "deprecated/CCSet.h"
 #include "base/CCTouch.h"
 
 NS_CC_BEGIN
@@ -46,7 +46,7 @@ GLViewImpl* GLViewImpl::createWithEAGLView(void *eaglview)
         ret->autorelease();
         return ret;
     }
-
+    CC_SAFE_DELETE(ret);
     return nullptr;
 }
 
@@ -57,18 +57,18 @@ GLViewImpl* GLViewImpl::create(const std::string& viewName)
         ret->autorelease();
         return ret;
     }
-
+    CC_SAFE_DELETE(ret);
     return nullptr;
 }
 
-GLViewImpl* GLViewImpl::createWithRect(const std::string& viewName, Rect rect, float frameZoomFactor)
+GLViewImpl* GLViewImpl::createWithRect(const std::string& viewName, const Rect& rect, float frameZoomFactor)
 {
     auto ret = new (std::nothrow) GLViewImpl;
     if(ret && ret->initWithRect(viewName, rect, frameZoomFactor)) {
         ret->autorelease();
         return ret;
     }
-
+    CC_SAFE_DELETE(ret);
     return nullptr;
 }
 
@@ -79,7 +79,7 @@ GLViewImpl* GLViewImpl::createWithFullScreen(const std::string& viewName)
         ret->autorelease();
         return ret;
     }
-
+    CC_SAFE_DELETE(ret);
     return nullptr;
 }
 
@@ -130,7 +130,7 @@ bool GLViewImpl::initWithEAGLView(void *eaglview)
     return true;
 }
 
-bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float frameZoomFactor)
+bool GLViewImpl::initWithRect(const std::string& viewName, const Rect& rect, float frameZoomFactor)
 {
     CGRect r = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     convertAttrs();
@@ -142,7 +142,10 @@ bool GLViewImpl::initWithRect(const std::string& viewName, Rect rect, float fram
                                      multiSampling: NO
                                    numberOfSamples: 0];
 
+    // Not available on tvOS
+#if !defined(CC_TARGET_OS_TVOS)
     [eaglview setMultipleTouchEnabled:YES];
+#endif
 
     _screenSize.width = _designResolutionSize.width = [eaglview getWidth];
     _screenSize.height = _designResolutionSize.height = [eaglview getHeight];
