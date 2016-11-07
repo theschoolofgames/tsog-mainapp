@@ -29,7 +29,7 @@ var HomeScreenLayer = cc.Layer.extend({
         var lbLearn = new cc.LabelBMFont("LEARN", "yellow-font-export.fnt");
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2 + 5;
-        board.getRendererNormal().addChild(lbLearn);
+        board.addChild(lbLearn);
     },
 
     addAlphaRacingBoard: function(){
@@ -46,7 +46,7 @@ var HomeScreenLayer = cc.Layer.extend({
         var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
         lbPlay.x = board.width/2;
         lbPlay.y = board.height/2 + 5;
-        board.getRendererNormal().addChild(lbPlay);
+        board.addChild(lbPlay);
     },
 
     addShopBoard: function(){
@@ -57,12 +57,12 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = this._bg.height/2 + 25;
         this._bg.addChild(board);
         board.addClickEventListener(function(){
-
+            cc.director.runScene(new ShopScene());
         });
         var lbShop = new cc.LabelBMFont("SHOP", "yellow-font-export.fnt");
         lbShop.x = board.width/2;
         lbShop.y = board.height/2 + 5;
-        board.getRendererNormal().addChild(lbShop);
+        board.addChild(lbShop);
     },
 
     addLockBoard: function(){

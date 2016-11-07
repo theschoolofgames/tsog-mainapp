@@ -92,7 +92,7 @@ var AdiDogNode = cc.Node.extend({
 
     _createTalkingAdi: function() {
         cc.log("before creating adi");
-        this._talkingAdi = new sp.SkeletonAnimation("adidog/adidog.json", "adidog/adidog.atlas", 0.3);
+        this._talkingAdi = new sp.SkeletonAnimation("monkey/adidog.json", "monkey/adidog.atlas", 0.3);
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
