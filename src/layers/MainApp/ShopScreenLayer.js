@@ -1,8 +1,59 @@
 ShopScreenLayer = cc.LayerColor.extend({
+    _characterList: null,
+    _index : 0,
+    _character : null,
+    _touchPos: null,
+    _moveRight: null,
+    _isTouchMoved: null, 
+
     ctor: function() {
         this._super(cc.color(255,255,255,255));
         this.addBackToHomeScene();
         this.addCurrency();
+        this._characterList = CharacterManager.getInstance().getCharacterList();
+        cc.log("characterList: " + JSON.stringify(this._characterList));
+        this.showCharacter(this._index);
+
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: this.onTouchBegan.bind(this),
+                onTouchMoved: this.onTouchMoved.bind(this),
+                onTouchEnded: this.onTouchEnded.bind(this),
+        }, this);
+        CurrencyManager.getInstance().incCoin(10000);
+        CurrencyManager.getInstance().incDiamond(10000);
+    },
+    onTouchBegan: function(touch, event) {
+        cc.log("onTouchBegan");
+        this._touchPos = touch.getLocation();
+            return true;
+    },
+
+    onTouchMoved: function(touch, event){
+        cc.log("onTouchMoved");
+        var touchPos = touch.getLocation();
+        var delta = cc.pSub(touchPos, this._touchPos);
+        cc.log(cc.pLengthSQ(delta));
+        if(cc.pLengthSQ(delta) > 10) {
+            this._isTouchMoved = true;
+        };
+        if(this._touchPos.x > touchPos.x)
+            this._moveRight = false;
+        else this._moveRight = true;
+    },
+
+    onTouchEnded:function(touch, event) {
+        cc.log("onTouchEnded");
+        if(this._isTouchMoved) {
+            if(this._moveRight && this._index > 0) {
+                this._index -= 1;
+            }
+            else if(!this._moveRight && this._index < this._characterList.length - 1)
+                this._index += 1;
+            cc.log("this._index: " + this._index);
+            this.showCharacter(this._index);
+        }
     },
 
     addBackToHomeScene: function(){
@@ -17,7 +68,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         lb.scale = 0.5;
         lb.x = button.width/2;
         lb.y = button.height/2;
-        button.getRendererNormal().addChild(lb);
+        button.addChild(lb);
     },
 
 
@@ -26,13 +77,85 @@ ShopScreenLayer = cc.LayerColor.extend({
         coin.x = 100;
         coin.y = cc.winSize.height - coin.height/2 - 10;
         this.addChild(coin, 999);
+        var coinAmount = CurrencyManager.getInstance().getCoin();
+        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
+        lbCoin.scale = 0.4;
+        lbCoin.anchorX = 0;
+        lbCoin.x = 50;
+        lbCoin.y = coin.height/2;
+        coin.addChild(lbCoin);
 
         var diamond = new cc.Sprite("res/SD/diamond.png");
-        diamond.x = 200;
+        diamond.x = 400;
         diamond.y = cc.winSize.height - diamond.height/2 - 10;
         this.addChild(diamond, 999);
+        var diamondAmount = CurrencyManager.getInstance().getDiamond();
+        var lbDiamond = new cc.LabelBMFont(diamondAmount.toString(), "res/font/custom_font.fnt");
+        lbDiamond.scale = 0.4;
+        lbDiamond.anchorX = 0;
+        lbDiamond.x = 50;
+        lbDiamond.y = diamond.height/2;
+        diamond.addChild(lbDiamond);
 
+    },
+
+    showCharacter: function(index) {
+        cc.log("index: " + index);
+        if(this._character) {
+            this._character.removeFromParent();
+            this._character = null;
+        };
+
+        var characterCfg = this._characterList[index];
+        this._character = new AdiDogNode(true, characterCfg.name);
+        this.addChild(this._character);
+        this._character.x = cc.winSize.width/2;
+        this._character.y = cc.winSize.height/2 - 100;
+        var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
+        var lbButton = "BUY";
+        if(unlocked)
+            lbButton = "Choose";
+
+        cc.log("characterCfg.name: " + (CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name));
+        if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
+            lbButton = "";
+        };
+        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = this._character.width/2;
+        button.y = -100;
+        this._character.addChild(button, 9999);
+        button.addClickEventListener(function(){
+            cc.log("unlocked:  " + unlocked);
+            if(!unlocked) {
+                var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
+                if(buy)
+                    lb.setString("");
+            }
+            else {
+                lb.setString("");
+                CharacterManager.getInstance().selectCharacter(characterCfg.name);
+            }
+        });
+        var lb = new cc.LabelBMFont(lbButton, "res/font/custom_font.fnt");
+        lb.scale = 0.5;
+        lb.x = button.width/2;
+        lb.y = button.height/2;
+        button.addChild(lb);
+        if(!unlocked) {
+            var price = characterCfg.price;
+            var lbPrice =  new cc.LabelBMFont(price.toString(), "res/font/custom_font.fnt");
+            lbPrice.scale = 0.4;
+            lbPrice.x = button.width/2 - 20;
+            lbPrice.y = - 20;
+            button.addChild(lbPrice);
+            var diamondIcon = new cc.Sprite("res/SD/diamond.png");
+            diamondIcon.x = lbPrice.x + lbPrice.width/2 + 5;
+            diamondIcon.y = lbPrice.y;
+            button.addChild(diamondIcon);
+        }
     }
+
+    
 });
 var ShopScene = cc.Scene.extend({
     ctor: function(){

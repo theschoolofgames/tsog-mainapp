@@ -716,7 +716,3 @@ var ALPHARACING_DATA =[
       "amount": "50"
     }
 ];
-var CHARACTERARRAY = [
-    "adidog",
-    "monkey"
-];

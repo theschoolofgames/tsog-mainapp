@@ -12,10 +12,10 @@ var AdiDogNode = cc.Node.extend({
 
     listener: null,
 
-    ctor: function(setActive) {
+    ctor: function(setActive, characterName) {
         this._super();
 
-        this._createTalkingAdi();
+        this._createTalkingAdi(characterName);
 
         if(setActive)
             this._addTouchEvent();
@@ -90,9 +90,12 @@ var AdiDogNode = cc.Node.extend({
         }, this);
     },
 
-    _createTalkingAdi: function() {
+    _createTalkingAdi: function(characterName) {
         cc.log("before creating adi");
-        this._talkingAdi = new sp.SkeletonAnimation("monkey/adidog.json", "monkey/adidog.atlas", 0.3);
+        var name = CharacterManager.getInstance().getSelectedCharacter();
+        if(characterName)
+            name = characterName;
+        this._talkingAdi = new sp.SkeletonAnimation(name + "/adidog.json", name + "/adidog.atlas", 0.3);
 
         this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
         this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
