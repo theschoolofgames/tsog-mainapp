@@ -21,6 +21,10 @@
         "src/SpeechRecognitionListener.js",
         "src/GameListener.js",
         "src/SingleTouch.js",
+
+        "src/lang/Localization.js",
+        "res/lang/en.js",
+        "res/lang/swahili.js",
         
         "src/model/GameObject.js",
 

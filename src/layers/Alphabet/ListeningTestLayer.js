@@ -357,12 +357,13 @@ var ListeningTestLayer = TestLayer.extend({
             this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
-            this._objSoundPath = "res/sounds/alphabets/" + objName + ".mp3";
+            this._objSoundPath = "res/sounds/alphabets/" + localize(objName) + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
             this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
         }
 
+        cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
             cc.callFunc(function() {

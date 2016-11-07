@@ -242,16 +242,12 @@ var BalloonGameLayer = TestLayer.extend({
                 obj.touched = true;
 
                 if (obj.name === self._currentObject.value){
+                    var name = obj.name.substr(6);
+                    var localizedName = localize(name);
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
-                    if (obj.name == "color_blue"){
-                        jsb.AudioEngine.play2d(res.Blue_sound_mp3);
-                    }
-                    else if (obj.name == "color_green"){
-                        jsb.AudioEngine.play2d(res.Green_sound_mp3);
-                    }
-                    else if (obj.name == "color_red"){
-                        jsb.AudioEngine.play2d(res.Red_sound_mp3);
-                    }
+                    cc.log("localizedName: " + localizedName);  
+                    jsb.AudioEngine.play2d("res/sounds/colors/" + localizedName + ".mp3");
+                    
 
                     self._adiDog.adiHifi();
 

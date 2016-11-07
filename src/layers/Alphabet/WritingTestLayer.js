@@ -566,7 +566,7 @@ var WritingTestLayer = TestLayer.extend({
 
         var objName = this._writingWords[this._nameIdx];
         cc.log("objName: " + objName);
-
+        objName = (currentLanguage == "en") ? objName : localizeForWriting(objName);
         var lines = Math.ceil(objName.length / 5);
         var maxCharsPerLine = Math.ceil(objName.length / lines);
         var charsPerLine = [];
