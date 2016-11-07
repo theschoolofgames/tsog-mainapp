@@ -97,7 +97,7 @@ var WritingTestLayer = TestLayer.extend({
             this._blockTouch = true;
             this._adiDog.adiTalk();
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/writingTest_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + "en/" + "writingTest_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 self._blockTouch = false;
                 if (!self._adiDog)
@@ -537,14 +537,14 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _playObjSound: function(name, cb) {
-        var soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
+        var soundPath = "sounds/words/" + localize(name.toLowerCase()) + ".mp3";
 
         if (!jsb.fileUtils.isFileExist("res/" + soundPath)) {
-            soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
+            soundPath = "sounds/animals/" + localize(name.toLowerCase()) + ".mp3";
             if (!jsb.fileUtils.isFileExist("res/" + soundPath))
-                soundPath = "sounds/alphabets/" + name.toLowerCase() + ".mp3";
+                soundPath = "sounds/alphabets/" + localize(name.toLowerCase()) + ".mp3";
             if (!isNaN(name))
-                soundPath = "sounds/numbers/" + name.toLowerCase() + ".mp3";
+                soundPath = "sounds/numbers/" + localize(name.toLowerCase()) + ".mp3";
         }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
@@ -555,7 +555,6 @@ var WritingTestLayer = TestLayer.extend({
         } else {
             cb && cb();
         }
-
         
     },
 
@@ -566,7 +565,7 @@ var WritingTestLayer = TestLayer.extend({
         this._characterNodes = [];
 
         var objName = this._writingWords[this._nameIdx];
-        cc.log("objName: " + objName);
+        // cc.log("objName: " + objName);
         objName = (currentLanguage == "en") ? objName : localizeForWriting(objName);
         var lines = Math.ceil(objName.length / 5);
         var maxCharsPerLine = Math.ceil(objName.length / lines);

@@ -185,11 +185,11 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount) {
-        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + completedObjectsCount + ".mp3");
+        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            jsb.AudioEngine.play2d("res/sounds/objects/" + self._type + ".mp3");
+            jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._type) + ".mp3");
         });
     },
 

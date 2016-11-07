@@ -56,7 +56,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._blockTouch = true;
             this._adiDog.adiTalk();
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/listeningTest_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + "en/" + "listeningTest_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 self._blockTouch = false;
                 if (self._adiDog) {
@@ -331,7 +331,7 @@ var ListeningTestLayer = TestLayer.extend({
         if (text.indexOf("color") > -1) {
             text = text.substr(text.indexOf("_") + 1, text.length-1);
         }
-
+        text = (currentLanguage == "en") ? text : localizeForWriting(text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
@@ -349,8 +349,12 @@ var ListeningTestLayer = TestLayer.extend({
 
             this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
         }
-
-        this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
+            
+        objName = (currentLanguage == "en") ? objName : localize(objName);
+        cc.log("objName: " + objName);
+        cc.log("currentLanguage: " + currentLanguage);
+        this._objSoundPath = "res/sounds/words/" + objName + ".mp3";
+        // this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {

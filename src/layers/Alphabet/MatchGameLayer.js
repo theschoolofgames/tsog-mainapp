@@ -187,10 +187,16 @@ var MatchGameLayer = TestLayer.extend({
 
         var objSoundNameLeft = this._data[index][1].value;
         var objTypeLeft = this._data[index][1].type;
-        var soundPathLeft = "res/sounds/" + objTypeLeft + "s/" + objSoundNameLeft + ".mp3";
+        if (objTypeLeft == "object" || objTypeLeft == "animal")
+            objTypeLeft = "word";
+
+        var soundPathLeft = "res/sounds/" + objTypeLeft + "s/" + localize(objSoundNameLeft) + ".mp3";
+
         var objSoundNameRight = this._data[index][2].value;
         var objTypeRight = this._data[index][2].type;
-        var soundPathRight = "res/sounds/" + objTypeRight + "s/" + objSoundNameRight + ".mp3";
+        if (objTypeRight == "object" || objTypeRight == "animal")
+            objTypeRight = "word";
+        var soundPathRight = "res/sounds/" + objTypeRight + "s/" + localize(objSoundNameRight) + ".mp3";
 
         this.runAction(cc.sequence(
             cc.callFunc(function(){

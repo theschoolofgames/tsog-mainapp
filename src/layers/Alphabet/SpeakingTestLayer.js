@@ -157,7 +157,7 @@ var SpeakingTestLayer = TestLayer.extend({
             cc.log("if");
             this._adiDog.adiTalk();
             
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/speak-after_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + "en/" + "speak-after_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 if (mask)
                     mask.removeFromParent();

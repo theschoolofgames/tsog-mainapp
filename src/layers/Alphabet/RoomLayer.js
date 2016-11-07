@@ -120,7 +120,7 @@ var RoomLayer = cc.Layer.extend({
             var nation = Utils.getLanguage();
             // cc.log("nation: %s", nation);
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/beginroom-sound_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + "en/" + "beginroom-sound_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 // mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);
@@ -699,7 +699,9 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             jsb.AudioEngine.stop(this._effectAudioID);
-        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/objects/" + objectName + soundSuffix + ".mp3", isDragging);
+
+        // cc.log("soundpath: " + "res/sounds/objects/" + localize(objectName) + soundSuffix + ".mp3");
+        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
 
         if (!isDragging)
         {

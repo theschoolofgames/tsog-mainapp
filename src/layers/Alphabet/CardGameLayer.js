@@ -200,7 +200,7 @@ var CardGameLayer = TestLayer.extend({
                     ),
                     cc.callFunc(function() {
                         self._addCardNumber(self._card);
-                        jsb.AudioEngine.play2d( "sounds/smoke.mp3"),
+                        jsb.AudioEngine.play2d("sounds/smoke.mp3"),
                         AnimatedEffect.create(self._card, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false, 2);
                         self._addSlots();
                         self._addObjects();
@@ -463,14 +463,14 @@ var CardGameLayer = TestLayer.extend({
 
     _playObjectOderSound: function(){
         if(this.timePlayedOderSound < 1)
-            jsb.AudioEngine.play2d("res/sounds/numbers/" + this._currentObjectOder + ".mp3", false);
+            jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3", false);
         this.timePlayedOderSound += 1;
     },
 
     _handleObjectSucceedDrop: function() {
         var self = this;
         var succeedAudioId = jsb.AudioEngine.play2d(res.Succeed_sfx);
-        var path = "res/sounds/numbers/" + this._currentObjectOder + ".mp3";
+        var path = "res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3";
         this.runAction(cc.sequence(
             cc.delayTime(1),
             cc.callFunc(function() {

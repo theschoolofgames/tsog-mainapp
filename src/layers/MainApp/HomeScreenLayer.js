@@ -13,6 +13,8 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addAlphaRacingBoard();
         this.addLockBoard();
         this.addShopBoard();
+        
+        // setLanguage("swahili");
     },
 
     addPlayBoard: function(){
@@ -73,13 +75,21 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = this._bg.height/2 + 25;
         this._bg.addChild(board);
         board.addClickEventListener(function(){
-
+            var langToChange = (currentLanguage == "en") ? "swahili" : "en";
+            setLanguage(langToChange);
+            NativeHelper.callNative("showMessage", ["Message", "Change current language to " + langToChange]);
         });
 
-        var keylock = new cc.Sprite("res/SD/keylock.png");
-        keylock.x = board.width/2;
-        keylock.y = board.height/2;
-        board.addChild(keylock);
+        var lbChange = new cc.LabelBMFont("CHANGE LANGUAGE", "yellow-font-export.fnt");
+        lbChange.scale = 0.4;
+        lbChange.x = board.width/2;
+        lbChange.y = board.height/2 + 5;
+        board.getRendererNormal().addChild(lbChange);
+
+        // var keylock = new cc.Sprite("res/SD/keylock.png");
+        // keylock.x = board.width/2;
+        // keylock.y = board.height/2;
+        // board.addChild(keylock);
     },
 
 });

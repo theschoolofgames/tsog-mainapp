@@ -204,7 +204,7 @@ var BuildingBlocksLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount) {
-        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + completedObjectsCount + ".mp3");
+        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
             self._blockTouch = false;

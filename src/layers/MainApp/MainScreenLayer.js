@@ -67,7 +67,7 @@ var MainScreenLayer = cc.Layer.extend({
         // if (TSOG_DEBUG)
             Utils.showVersionLabel(this);
 
-        setLanguage("en");
+        // setLanguage("swahili");
     },
 
     _addDialog: function() {

@@ -257,8 +257,8 @@ var res = {
     BEGIN_SPEAKING_ADI_mp3: "sounds/begin-talkingAdi_english.mp3",
 
     // speaking effect
-    Succeed_sfx: "res/sounds/sentences/speaking-success.mp3",
-    Failed_sfx: "res/sounds/sentences/speaking-failure.mp3",
+    Succeed_sfx: "res/sounds/sentences/en/speaking-success.mp3",
+    Failed_sfx: "res/sounds/sentences/en/speaking-failure.mp3",
  
     //countdown
     COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",

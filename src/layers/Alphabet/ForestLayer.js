@@ -83,7 +83,7 @@ var ForestLayer = cc.Layer.extend({
             var nation = Utils.getLanguage();
             // cc.log("nation: %s", nation);
 
-            var audioId = jsb.AudioEngine.play2d("sounds/sentences/beginforest-sound_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("sounds/sentences/" + "en/" + "beginforest-sound_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 // mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);
@@ -811,7 +811,8 @@ var ForestLayer = cc.Layer.extend({
             }
         }, mask);
 
-        var soundPath = "sounds/animals/" + animalName + ".mp3";
+        animalName = localize(animalName);
+        var soundPath = "res/sounds/words/" + animalName + ".mp3";
         if (!jsb.fileUtils.isFileExist(soundPath)) {
             soundPath = "res/sounds/numbers/" + animalName + ".mp3";
         }

@@ -444,25 +444,14 @@ var FreeColorLayer = TestLayer.extend({
     _playObjectSound: function(object) {
         var name = object.getUserData().imageName;
         name = name.slice(0, -4);
+        name = name.substr(name.indexOf("/")+1, name.length);
         cc.log("name: " + name);
         // object case
-        var soundName = "res/sounds/" + name.toLowerCase() + ".mp3";
-        // if (!jsb.fileUtils.isFileExist(soundName)) {
-        //     // animal case
-        //     soundName = "res/sounds/animals/" + name.toLowerCase() + ".mp3";
-        //     if (!jsb.fileUtils.isFileExist(soundName)) {
-        //         // alphabets case
-        //         soundName = "res/sounds/alphabets/" + name.toUpperCase() + ".mp3";
-        //         // number case
-        //         if (!jsb.fileUtils.isFileExist(soundName))
-        //             soundName = "res/sounds/alphabets/A.mp3";
-        //     }
-        // }
+        name = localize(name);
+        var soundName = "res/sounds/words/" + name.toLowerCase() + ".mp3";
+
         cc.log("soundName: " + soundName);
         var audioId = jsb.AudioEngine.play2d(soundName);
-        // jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-        //     callback && callback(audioId);
-        // });
     },
 })
 

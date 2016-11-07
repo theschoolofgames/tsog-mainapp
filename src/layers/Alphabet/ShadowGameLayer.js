@@ -171,7 +171,7 @@ var ShadowGameLayer = TestLayer.extend({
             var nation = Utils.getLanguage();
             // cc.log("nation: %s", nation);
 
-            var audioId = jsb.AudioEngine.play2d("res/sounds/beginroom-sound_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/en/beginroom-sound_" + nation + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 // mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);
@@ -830,16 +830,10 @@ var ShadowGameLayer = TestLayer.extend({
             jsb.AudioEngine.stop(this._effectAudioID);
 
         // Check type of current object
-        var soundDir = "";
+        var soundDir = "res/sounds/words/";
         var touchedObjectType = this._getTypeObjectByName(objectName);
         cc.log("touchedObjectType: " + touchedObjectType );
-        if (touchedObjectType == "object"){
-            soundDir = "res/sounds/objects/";
-        }
-        else if (touchedObjectType == "animal"){
-            soundDir = "res/sounds/animals/";
-        }
-        else if (touchedObjectType == "word"){
+        if (touchedObjectType == "word"){
             soundDir = "res/sounds/alphabets/";
             objectName = objectName.toUpperCase();
         }
@@ -852,13 +846,13 @@ var ShadowGameLayer = TestLayer.extend({
         if (object.userData.hasClone){
             cc.log("object.userData.hasClone: " + object.userData.hasClone);
             cc.log("object.userData.index: " + object.userData.index);
-            let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + (object.userData.index + 1) + ".mp3", isDragging);
+            let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
+                jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
             });
         }
         else {
-            this._effectAudioID = jsb.AudioEngine.play2d(soundDir + objectName + soundSuffix + ".mp3", isDragging);
+            this._effectAudioID = jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
         }
 
         if (!isDragging)
