@@ -27,6 +27,8 @@ var res = {
     AR_Boosters_plist: "alpha-racing-boosters.plist",
     Balloon_Animation_png: "balloon-animations/balloon-animations.png",
     Balloon_Animation_plist: "balloon-animations/balloon-animations.plist",
+    Character_plist : "character.plist",
+    Character_png : "character.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

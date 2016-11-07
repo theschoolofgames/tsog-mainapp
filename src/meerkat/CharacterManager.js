@@ -33,7 +33,7 @@ var CharacterManager = cc.Class.extend({
     },
 
     getCharacterConfig: function(name) {
-        let cfg = this._characterCfg.filter(cfg => cfg.name == characterName);
+        let cfg = this._characterCfg.filter(cfg => cfg.name == name);
         cfg = cfg.length > 0 ? cfg[0] : null;
 
         return cfg;
@@ -62,6 +62,15 @@ var CharacterManager = cc.Class.extend({
         }
 
         return false;
+    },
+
+    selectCharacter: function(name) {
+        let idx = this._unlockedCharacterNames.indexOf(name);
+        if (idx < 0)
+            return false;
+
+        KVDatabase.getInstance().set(this.KEY_SELECTED_CHARACTER_IDX, idx);
+        return true;
     },
 
     getSelectedCharacter: function() {

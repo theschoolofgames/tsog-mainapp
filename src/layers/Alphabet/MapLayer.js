@@ -18,6 +18,7 @@ var MapLayer = cc.Layer.extend({
         this._loadMapData();
 
         this.addSettingButton();
+        this.addBackToHomeScene();
         this._updateMapData();
     },
 
@@ -39,6 +40,21 @@ var MapLayer = cc.Layer.extend({
             self.addChild(new SettingDialog(), 999);
         })
         this._settingBtn = settingBtn;
+    },
+
+    addBackToHomeScene: function(){
+        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width - button.width;
+        button.y = cc.winSize.height - button.height/2 - 10;
+        this.addChild(button, 9999);
+        button.addClickEventListener(function(){
+            cc.director.runScene(new HomeScene());
+        });
+        var lb = new cc.LabelBMFont("BACK TO HOME", "yellow-font-export.fnt");
+        lb.scale = 0.5;
+        lb.x = button.width/2;
+        lb.y = button.height/2;
+        button.getRendererNormal().addChild(lb);
     },
 
     _loadMapBg: function() {

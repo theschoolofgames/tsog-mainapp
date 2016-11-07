@@ -50,7 +50,7 @@
         "src/layers/MainApp/ChooseLanguageLayer.js",
         "src/layers/MainApp/LoginLayer.js",
         "src/layers/MainApp/HomeScreenLayer.js",
-        
+        "src/layers/MainApp/ShopScreenLayer.js",
 
         "src/layers/TestGameLayer.js",
 

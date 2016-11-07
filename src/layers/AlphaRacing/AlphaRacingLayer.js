@@ -539,7 +539,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         if (this._tempInputData.length == 0 && parseInt(this._currentChallange.amount) <= this._currentEarnedNumber)
-            return;
+            return false;
+
+        let returnVal = this._currentChallange.value == word;        
 
         if (this._currentChallange.value == word){
             jsb.AudioEngine.play2d(res.Succeed_sfx);
@@ -583,6 +585,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         let leftObjects = parseInt(this._currentChallange.amount) - this._currentEarnedNumber;
         this._hudLayer.updateProgressLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.value));
+
+        return returnVal;
     },
 
     checkForAlphabetCollisions: function(){
@@ -599,7 +603,24 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 this._alphabetObjectArray[i].getBoundingBox().width, 
                 this._alphabetObjectArray[i].getBoundingBox().height );
             if (cc.rectIntersectsRect(pRect, alphaRect)) {
-                this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
+                let val = this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
+
+                if (val) {
+                    CurrencyManager.getInstance().incCoin(1);
+
+                    var object = new cc.LabelBMFont("+1", res.CustomFont_fnt);
+                    object.scale = 0.5;
+                    object.setPosition(this._alphabetObjectArray[i].getPosition());
+                    this.gameLayer.addChild(object, AR_ADI_ZODER+1);
+
+                    object.runAction(cc.sequence(
+                        cc.spawn(
+                            cc.moveBy(0.8, cc.p(0, 100)),
+                            cc.fadeOut(0.8)
+                        ),
+                        cc.callFunc(sender => sender.removeFromParent())
+                    ));
+                }
 
                 this.gameLayer.removeChild(this._alphabetObjectArray[i]);
                 this._alphabetObjectArray.splice(i--, 1);
