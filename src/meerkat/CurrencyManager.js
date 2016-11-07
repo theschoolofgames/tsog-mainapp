@@ -16,13 +16,39 @@ var CurrencyManager = cc.Class.extend({
     },
 
     incCoin: function(c) {
-        if (c > 0)
+        if (c > 0) {
             KVDatabase.getInstance().set(this.KEY_COIN, this.getCoin() + c);
+            return true;
+        }
+
+        return false;
     },
 
     incDiamond: function(d) {
-        if (d > 0)
-            KVDatabase.getInstance().set(this.KEY_DIAMOND, this.getDiamond() + c);
+        if (d > 0) {
+            KVDatabase.getInstance().set(this.KEY_DIAMOND, this.getDiamond() + d);
+            return true;
+        }
+
+        return false;
+    },
+
+    decrCoin: function(c) {
+        if (c > 0 && c <= this.getCoin()) {
+            KVDatabase.getInstance().set(this.KEY_COIN, this.getCoin() - c); 
+            return true;
+        }
+
+        return false;
+    },
+
+    decrDiamond: function(d) {
+        if (d > 0 && d <= this.getDiamond()) {
+            KVDatabase.getInstance().set(this.KEY_DIAMOND, this.getDiamond() - d);
+            return true;
+        }
+
+        return false;
     },
 
     reset: function() {
