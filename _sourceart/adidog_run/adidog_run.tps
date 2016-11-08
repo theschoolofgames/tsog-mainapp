@@ -2,11 +2,11 @@
 <data version="1.0">
     <struct type="Settings">
         <key>fileFormatVersion</key>
-        <int>4</int>
+        <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.2.3</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/blue7un/Projects/Cocos2D/tsog-mainapp/_sourceart/adidog_run/adidog_run.tps</string>
+        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/adidog_run/adidog_run.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -28,6 +28,8 @@
             </struct>
         </array>
         <key>allowRotation</key>
+        <true/>
+        <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>
         <false/>
@@ -97,6 +99,8 @@
             <key>height</key>
             <int>-1</int>
         </QSize>
+        <key>reduceBorderArtifacts</key>
+        <false/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -107,6 +111,8 @@
             <enum type="AlgorithmSettings::SizeConstraints">AnySize</enum>
             <key>forceSquared</key>
             <false/>
+            <key>forceWordAligned</key>
+            <true/>
             <key>maxRects</key>
             <struct type="AlgorithmMaxRectsSettings">
                 <key>heuristic</key>
@@ -141,13 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/SD/adidog_run/adidog_run.plist</filename>
-            </struct>
-            <key>header</key>
-            <key>source</key>
-            <struct type="DataFile">
-                <key>name</key>
-                <filename></filename>
+                <filename>../../res/SD/adidog_run.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -156,8 +156,6 @@
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
-        <key>alphaHandling</key>
-        <enum type="SettingsBase::AlphaHandling">ClearTransparentPixels</enum>
         <key>contentProtection</key>
         <struct type="ContentProtection">
             <key>key</key>
@@ -169,6 +167,8 @@
         <false/>
         <key>prependSmartFolderName</key>
         <false/>
+        <key>cleanTransparentPixels</key>
+        <true/>
         <key>globalSpriteSettings</key>
         <struct type="SpriteSettings">
             <key>scale</key>
@@ -187,23 +187,9 @@
             <int>200</int>
             <key>heuristicMask</key>
             <false/>
-            <key>defaultPivotPoint</key>
-            <point_f>0.5,0.5</point_f>
-            <key>writePivotPoints</key>
-            <false/>
+            <key>pivotPoint</key>
+            <enum type="SpriteSettings::PivotPoint">Center</enum>
         </struct>
-        <key>individualSpriteSettings</key>
-        <map type="IndividualSpriteSettingsMap">
-            <key type="filename">adi_jump1.png</key>
-            <key type="filename">adi_run1.png</key>
-            <key type="filename">adi_run2.png</key>
-            <key type="filename">adi_run3.png</key>
-            <key type="filename">adi_run4.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-            </struct>
-        </map>
         <key>fileList</key>
         <array>
             <filename>.</filename>

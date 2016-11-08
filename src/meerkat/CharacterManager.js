@@ -54,9 +54,9 @@ var CharacterManager = cc.Class.extend({
                 return false;
 
             CurrencyManager.getInstance().decrDiamond(cfg.price);
-
             this._unlockedCharacterNames.push(cfg.name);
             KVDatabase.getInstance().set(this.KEY_UNLOCKED_CHARACTER_NAMES, JSON.stringify(this._unlockedCharacterNames));
+            this.selectCharacter(characterName);
 
             return true;
         }

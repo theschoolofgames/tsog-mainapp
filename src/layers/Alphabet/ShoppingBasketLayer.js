@@ -102,7 +102,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             // cc.log("add objects tag: " + obj.tag);
             obj.scale = (obj.width > SHOPPING_OBJECT_DEFAULT_WIDTH) ? SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width : SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height;
             obj.x = obj.width * obj.scale * 2 + (obj.width*obj.scale + 20) * tempX;
-            obj.y = (inSecondRow) ? (cc.rectGetMinY(this._basketBBox) - obj.height * obj.scale) : (cc.rectGetMaxY(this._basketBBox) + obj.height * obj.scale);
+            obj.y = (inSecondRow) ? (cc.rectGetMinY(this._basketBBox) - obj.height * obj.scale) : (cc.rectGetMaxY(this._basketBBox) + obj.height * obj.scale) - 10;
             obj.setUserData(objImageName);
 
             if (obj.x > (cc.winSize.width - 200)) {
