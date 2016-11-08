@@ -304,7 +304,8 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     fetchCharacterConfig: function() {
-        this._currentChar = this._writingWords[this._nameIdx][this._charIdx];
+        var currentName = this._writingWords[this._nameIdx];
+        this._currentChar = currentName[this._charIdx];
         this._currentCharConfig = WritingTestLayer.CHAR_CONFIG[this._currentChar];
         cc.log ("_currentChar: " + this._currentChar);
         cc.log ("this._currentCharConfig: " + JSON.stringify(this._currentCharConfig));
@@ -440,7 +441,7 @@ var WritingTestLayer = TestLayer.extend({
                     cc.scaleTo(0.5, 1.5)
                 ));
 
-                objName = self._addObjName(self._names[self._nameIdx-1], self._writingWords[self._nameIdx-1].length);
+                objName = self._addObjName(self._writingWords[self._nameIdx-1], self._writingWords[self._nameIdx-1].length);
                 objName.opacity = 0;
                 objName.runAction(cc.fadeIn(0.5));
             }),
@@ -537,14 +538,15 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _playObjSound: function(name, cb) {
-        var soundPath = "sounds/words/" + localize(name.toLowerCase()) + ".mp3";
+        var localizedName = localize(name.toLowerCase());
+        var soundPath = "sounds/words/" + localizedName + ".mp3";
 
         if (!jsb.fileUtils.isFileExist("res/" + soundPath)) {
-            soundPath = "sounds/animals/" + localize(name.toLowerCase()) + ".mp3";
+            soundPath = "sounds/animals/" + localizedName + ".mp3";
             if (!jsb.fileUtils.isFileExist("res/" + soundPath))
-                soundPath = "sounds/alphabets/" + localize(name.toLowerCase()) + ".mp3";
+                soundPath = "sounds/alphabets/" + localizedName + ".mp3";
             if (!isNaN(name))
-                soundPath = "sounds/numbers/" + localize(name.toLowerCase()) + ".mp3";
+                soundPath = "sounds/numbers/" + localizedName + ".mp3";
         }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
@@ -566,7 +568,6 @@ var WritingTestLayer = TestLayer.extend({
 
         var objName = this._writingWords[this._nameIdx];
         // cc.log("objName: " + objName);
-        objName = (currentLanguage == "en") ? objName : localizeForWriting(objName);
         var lines = Math.ceil(objName.length / 5);
         var maxCharsPerLine = Math.ceil(objName.length / lines);
         var charsPerLine = [];
@@ -709,7 +710,7 @@ var WritingTestLayer = TestLayer.extend({
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         cc.log("correct: " + correctedCharacter);
 
-        jsb.AudioEngine.play2d("res/sounds/alphabets/" + correctedCharacter + ".mp3");
+        jsb.AudioEngine.play2d("res/sounds/alphabets/" + localize(correctedCharacter) + ".mp3");
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._adiDog.adiJump();
@@ -768,7 +769,10 @@ var WritingTestLayer = TestLayer.extend({
 
         this.setData(this._data);
         this._writingWords = this._names;
-        // cc.log("data after map: " + JSON.stringify(this._names));
+        this._writingWords = this._writingWords.map(function(obj) {
+            return localizeForWriting(obj);  
+        }); 
+        cc.log("this._writingWords: " + JSON.stringify(this._writingWords));
     },
 });
 

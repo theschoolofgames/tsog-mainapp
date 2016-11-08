@@ -29,7 +29,6 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
-import com.segment.analytics.Analytics;
 
 import java.util.Locale;
 
@@ -49,12 +48,12 @@ public class AppActivity extends Cocos2dxActivity {
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
-            @Override
-            public void onReady(Object instance) {
-                Analytics.with(app).flush();
-            }
-        });
+        // Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
+        //     @Override
+        //     public void onReady(Object instance) {
+        //         Analytics.with(app).flush();
+        //     }
+        // });
 
         Wrapper.activity = this;
         SpeechRecognizer.setupInstance(this);

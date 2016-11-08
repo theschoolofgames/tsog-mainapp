@@ -14,7 +14,9 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addLockBoard();
         this.addShopBoard();
         
+        currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
         // setLanguage("swahili");
+
     },
 
     addPlayBoard: function(){
@@ -77,6 +79,7 @@ var HomeScreenLayer = cc.Layer.extend({
         board.addClickEventListener(function(){
             var langToChange = (currentLanguage == "en") ? "swahili" : "en";
             setLanguage(langToChange);
+            KVDatabase.getInstance().set("currentLanguage", langToChange);
             NativeHelper.callNative("showMessage", ["Message", "Change current language to " + langToChange]);
         });
 

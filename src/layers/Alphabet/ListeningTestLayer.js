@@ -340,7 +340,7 @@ var ListeningTestLayer = TestLayer.extend({
 
         // cc.log("this._names: " + this._names);
         // cc.log("this._names: " + this._names[this._nameIdx]);
-        var objName = text.toLowerCase();
+        var objName = this._names[this._nameIdx].toLowerCase();
         var d = this.getStoryTimeForListeningData();
         var bannerString;
         if (d) {
@@ -350,13 +350,11 @@ var ListeningTestLayer = TestLayer.extend({
             this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
         }
             
-        objName = (currentLanguage == "en") ? objName : localize(objName);
+        objName = localize(objName);
         cc.log("objName: " + objName);
         cc.log("currentLanguage: " + currentLanguage);
         this._objSoundPath = "res/sounds/words/" + objName + ".mp3";
         // this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
-        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
-            this._objSoundPath = "res/sounds/animals/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
             this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
         }

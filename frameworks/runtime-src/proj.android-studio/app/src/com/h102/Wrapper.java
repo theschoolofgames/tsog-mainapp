@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.hub102.tsog.BuildConfig;
-import com.segment.analytics.Analytics;
-import com.segment.analytics.Properties;
-import com.segment.analytics.Traits;
 
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -130,34 +127,34 @@ public class Wrapper
     }
 
     public static void segmentIdentity(final String userId, final String traits) {
-        new Thread() {
-            public void run() {
-                Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
-                }.getType());
+        // new Thread() {
+        //     public void run() {
+        //         Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {
+        //         }.getType());
 
-                Traits t = new Traits();
-                for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-                    t.putValue(entry.getKey(), entry.getValue());
-                }
+        //         Traits t = new Traits();
+        //         for (Map.Entry<String, Object> entry : retMap.entrySet()) {
+        //             t.putValue(entry.getKey(), entry.getValue());
+        //         }
 
-                Analytics.with(activity).identify(userId, t, null);
-            }
-        }.start();
+        //         Analytics.with(activity).identify(userId, t, null);
+        //     }
+        // }.start();
     }
 
     public static void segmentTrack(final String event, final String properties) {
-        new Thread() {
-            public void run() {
-                Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
-                }.getType());
+        // new Thread() {
+        //     public void run() {
+        //         Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {
+        //         }.getType());
 
-                Properties p = new Properties();
-                for (Map.Entry<String, Object> entry : retMap.entrySet()) {
-                    p.putValue(entry.getKey(), entry.getValue());
-                }
-                Analytics.with(activity).track(event, p);
-            }
-        }.start();
+        //         Properties p = new Properties();
+        //         for (Map.Entry<String, Object> entry : retMap.entrySet()) {
+        //             p.putValue(entry.getKey(), entry.getValue());
+        //         }
+        //         Analytics.with(activity).track(event, p);
+        //     }
+        // }.start();
     }
 
     public static void showMessage(String title, String message) {

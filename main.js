@@ -163,7 +163,8 @@ cc.game.onStart = function(){
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new BalloonGameScene([{"type": "word","value": "A","amount": "3"},{"type": "color","value": "color_blue","amount": "3"},{"type": "word","value": "a","amount": "3"},]));
         // cc.director.runScene(new MainScene());
-        cc.director.runScene(new ShopScene());
+        // cc.director.runScene(new ShopScene());
+        cc.director.runScene(new HomeScene());
         // cc.director.runScene(new ShadowGameScene(["egg","hat","hat","jar","jar","book","book","apple","key"]));
         // cc.director.runScene(new AlphabetGameScene(["cat", "banana"]));
         // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));

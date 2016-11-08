@@ -6,13 +6,13 @@ repositories {
 }
 
 android {
-    compileSdkVersion 22
+    compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 16110700
         versionName "1.3"
         ndk {
@@ -66,7 +66,6 @@ crashlytics {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
-    compile 'com.segment.analytics.android:analytics:4.+'
     compile 'com.google.code.gson:gson:2.4'
     compile 'commons-io:commons-io:2.4'
 
