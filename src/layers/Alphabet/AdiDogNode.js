@@ -93,6 +93,9 @@ var AdiDogNode = cc.Node.extend({
     _createTalkingAdi: function(characterName) {
         cc.log("before creating adi");
         var name = CharacterManager.getInstance().getSelectedCharacter();
+        if(!name) {
+            name = "adidog"
+        };
         if(characterName)
             name = characterName;
         this._talkingAdi = new sp.SkeletonAnimation(name + "/adidog.json", name + "/adidog.atlas", 0.3);

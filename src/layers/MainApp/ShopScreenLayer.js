@@ -98,6 +98,41 @@ ShopScreenLayer = cc.LayerColor.extend({
         diamond.addChild(lbDiamond);
 
     },
+    updateScrollView: function() {
+        // cc.log("updateScrollView");
+        if (this._exited)
+            return;
+        this._numberOfItem = [];
+        this._cells = [];
+        if (this._scrollView) {
+            this._scrollView.removeFromParent();
+            this._scrollView = null;
+        };
+
+        // cc.log("updateScrollView");
+        var scrollView = new ccui.ScrollView();
+        this._scrollView = scrollView;
+        numberOfCell = this._characterList.length;
+    
+        var viewSizeHeight = cc.winSize.height - 100;
+        var contentSizeHeight = numberOfCell * 80 + 10;
+        contentSizeHeight = contentSizeHeight >= viewSizeHeight ? contentSizeHeight : viewSizeHeight;
+        scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
+        scrollView.setTouchEnabled(true);
+
+        scrollView.setInnerContainerSize(cc.size(this._bgItemsList.width - 5, contentSizeHeight));
+        scrollView.setContentSize(cc.size(this._bgItemsList.width - 5, viewSizeHeight));
+        scrollView.setScrollBarOpacity(0);
+        scrollView.setSwallowTouches(false);
+        scrollView.setBounceEnabled(true);
+        scrollView.x = 0;
+        scrollView.y = 100;
+        this.addChild(scrollView);
+        var container = new cc.Node();
+        this._container = container;
+        scrollView.addChild(container);
+        return scrollView;
+    },
 
     showCharacter: function(index) {
         cc.log("index: " + index);
@@ -120,6 +155,12 @@ ShopScreenLayer = cc.LayerColor.extend({
         if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
             lbButton = "";
         };
+
+        var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
+        characterName.x = this._character.width/2 - 300;
+        characterName.y = this._character.height + 100;
+        this._character.addChild(characterName);
+
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         button.x = this._character.width/2;
         button.y = -100;
