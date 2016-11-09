@@ -12,8 +12,8 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addCurrency();
         this._characterList = CharacterManager.getInstance().getCharacterList();
         cc.log("characterList: " + JSON.stringify(this._characterList));
-        // this.showCharacter(this._index);
-        this.updateScrollView();
+        this.showCharacter(this._index);
+        // this.updateScrollView();
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -100,29 +100,29 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
     updateScrollView: function() {
         // cc.log("updateScrollView");
-        if (this._exited)
-            return;
-        this._numberOfItem = [];
-        this._cells = [];
-        if (this._scrollView) {
-            this._scrollView.removeFromParent();
-            this._scrollView = null;
-        };
+        // if (this._exited)
+        //     return;
+        // this._numberOfItem = [];
+        // this._cells = [];
+        // if (this._scrollView) {
+        //     this._scrollView.removeFromParent();
+        //     this._scrollView = null;
+        // };
 
         // cc.log("updateScrollView");
         var scrollView = new ccui.ScrollView();
         this._scrollView = scrollView;
         numberOfCell = this._characterList.length;
     
-        var viewSizeHeight = cc.winSize.height - 100;
-        var contentSizeHeight = numberOfCell * 80 + 10;
-        contentSizeHeight = contentSizeHeight >= viewSizeHeight ? contentSizeHeight : viewSizeHeight;
+        var viewSizeWidth = cc.winSize.width;
+        var contentSizeWidth = numberOfCell * cc.winSize.width/2 + 500;
+        contentSizeWidth = contentSizeWidth >= viewSizeWidth ? contentSizeWidth : viewSizeWidth;
         scrollView.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
         scrollView.setTouchEnabled(true);
 
-        scrollView.setInnerContainerSize(cc.size(this._bgItemsList.width - 5, contentSizeHeight));
-        scrollView.setContentSize(cc.size(this._bgItemsList.width - 5, viewSizeHeight));
-        scrollView.setScrollBarOpacity(0);
+        scrollView.setInnerContainerSize(cc.size(contentSizeWidth, cc.winSize.height));
+        scrollView.setContentSize(cc.size(viewSizeWidth, cc.winSize.height));
+        scrollView.setScrollBarOpacity(255);
         scrollView.setSwallowTouches(false);
         scrollView.setBounceEnabled(true);
         scrollView.x = 0;
@@ -130,23 +130,16 @@ ShopScreenLayer = cc.LayerColor.extend({
         for(var i = 0; i < numberOfCell; i ++){
             var characterCfg = this._characterList[i];
             var character = new AdiDogNode(true, characterCfg.name);
-            this.addChild(character);
-            character.x = 200 + i * 400;
-            character.y = 20;
+            scrollView.addChild(character);
+            character.x = 500 + i * cc.winSize.width/2;
+            character.y = 50;
             var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
-            var lbButton = "BUY";
-            if(unlocked)
-                lbButton = "Choose";
+            
 
-            cc.log("characterCfg.name: " + (CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name));
-            if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
-                lbButton = "";
-        };
-
-        var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
-        characterName.x = character.width/2 - 300;
-        characterName.y = character.height + 100;
-        character.addChild(characterName);
+            var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
+            characterName.x = character.width/2 - 300;
+            characterName.y = character.height + 100;
+            character.addChild(characterName);
         };
         this.addChild(scrollView);
         var container = new cc.Node();
@@ -163,10 +156,10 @@ ShopScreenLayer = cc.LayerColor.extend({
         };
 
         var characterCfg = this._characterList[index];
-        var character = new AdiDogNode(true, characterCfg.name);
-        this.addChild(character);
-        character.x = cc.winSize.width/2;
-        character.y = cc.winSize.height/2 - 100;
+        this._character = new AdiDogNode(true, characterCfg.name);
+        this.addChild(this._character);
+        this._character.x = cc.winSize.width/2;
+        this._character.y = cc.winSize.height/2 - 100;
         var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
         var lbButton = "BUY";
         if(unlocked)
@@ -178,14 +171,14 @@ ShopScreenLayer = cc.LayerColor.extend({
         };
 
         var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
-        characterName.x = character.width/2 - 300;
-        characterName.y = character.height + 100;
-        character.addChild(characterName);
+        characterName.x = this._character.width/2 - 300;
+        characterName.y = this._character.height + 100;
+        this._character.addChild(characterName);
 
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = character.width/2;
+        button.x = this._character.width/2;
         button.y = -100;
-        character.addChild(button, 9999);
+        this._character.addChild(button, 9999);
         button.addClickEventListener(function(){
             cc.log("unlocked:  " + unlocked);
             if(!unlocked) {
