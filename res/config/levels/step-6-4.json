@@ -1,68 +1,6 @@
 {
   "1": {
     "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "type": "word_x",
-          "value": "X",
-          "amount": "50"
-        },
-        {
-          "type": "word_x",
-          "value": "x",
-          "amount": "50"
-        },
-        {
-          "type": "word_y",
-          "value": "Y",
-          "amount": "50"
-        },
-        {
-          "type": "word_y",
-          "value": "y",
-          "amount": "50"
-        },
-        {
-          "type": "word_z",
-          "value": "Z",
-          "amount": "50"
-        },
-        {
-          "type": "word_z",
-          "value": "z",
-          "amount": "50"
-        }
-      ]
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 300
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 300
-    },
-    "5": {
-      "name": "writing",
-      "data": [],
-      "duration": 300
-    },
-    "6": {
-      "name": "speaking",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "2": {
-    "1": {
       "name": "card",
       "data": [
         "egg",
@@ -125,7 +63,8 @@
     },
     "2": {
       "name": "listening",
-      "data": ["number_1",
+      "data": [
+        "number_1",
         "number_2",
         "number_3",
         "number_4",
@@ -174,12 +113,14 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"],
+        "number_50"
+      ],
       "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": ["number_30",
+      "data": [
+        "number_30",
         "number_31",
         "number_32",
         "number_33",
@@ -199,12 +140,14 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"],
+        "number_50"
+      ],
       "duration": 480
     },
     "4": {
       "name": "writing",
-      "data": ["number_30",
+      "data": [
+        "number_30",
         "number_31",
         "number_32",
         "number_33",
@@ -224,12 +167,14 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"],
+        "number_50"
+      ],
       "duration": 600
     },
     "5": {
       "name": "writing",
-      "data": ["number_30",
+      "data": [
+        "number_30",
         "number_31",
         "number_32",
         "number_33",
@@ -249,12 +194,14 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"],
+        "number_50"
+      ],
       "duration": 480
     },
     "6": {
       "name": "speaking",
-      "data": ["number_1",
+      "data": [
+        "number_1",
         "number_2",
         "number_3",
         "number_4",
@@ -303,11 +250,12 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"],
+        "number_50"
+      ],
       "duration": 180
     }
   },
-  "3": {
+  "2": {
     "1": {
       "name": "alphabet",
       "data": [

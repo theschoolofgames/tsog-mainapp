@@ -31,6 +31,11 @@ var TestLayer = cc.LayerColor.extend({
 
     setData: function(data) {
         this.data = data;
+        data = JSON.parse(data);
+        cc.log("data TestLayer: " + JSON.stringify(data));
+        for(var i = 0; i < data.length; i ++) {
+            DataManager.getInstance().setDataAlpharacing(data[i]);
+        }
     },
 
     addQuickTestButton: function() {

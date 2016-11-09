@@ -49,7 +49,7 @@ var STRING_SCHOOL_DATA  = "school_data";
 var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_STUDENT_DATA  = "student_data";
 var STRING_GAME_DATA  = "game_data";
-
+var STRING_GAME_ALPHARACING = "game_alpharacing";
 var SEGMENT = {
     SELECT_SCHOOL: "select_school",
     ENTER_GAME: "enter_game",
@@ -706,12 +706,10 @@ var EVENT_AR_FIREBALL_ACTIVE = "event_ar_fireball_active";
 var EVENT_AR_GAMEOVER = "event_ar_gameover";
 var ALPHARACING_DATA =[
     {
-      "id": "word_a",
       "value": "A",
       "amount": "50"
     },
     {
-      "id": "word_a",
       "value": "a",
       "amount": "50"
     }

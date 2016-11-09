@@ -79,6 +79,45 @@ var DataManager = cc.Class.extend({
     setGameData: function(userId, data) {
         this._gameData[userId] = data;
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
+    },
+    setDataAlpharacing: function(data) {
+        cc.log("DataManager: " + JSON.stringify(data));
+        var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
+        if(currentData.length == 0)
+            currentData = 
+                [
+                    {
+                      "value": "A",
+                      "amount" : 20
+                    }
+                ];
+        if(data.value) {
+            for(var i = 0; i < currentData.length; i++ ) {
+                if(currentData[i].value == data.value)
+                    return;
+            }
+        };
+        if(data.value &&  (data.value.length == 1)){
+            cc.log("PUSH DATA");
+            currentData.push({
+                "value": data.value,
+                "amount": 20
+            })
+        };
+        KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData))
+    },
+    getDataAlpharacing: function(){
+        var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
+        cc.log("currentData == []: " + (currentData == []));
+        if(currentData.length == 0)
+            currentData = 
+                [
+                    {
+                      "value": "A",
+                      "amount" : 20
+                    }
+                ];
+        return currentData;
     }
 });
 

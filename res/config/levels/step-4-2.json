@@ -103,24 +103,6 @@
         "K"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [
-        "jar",
-        "joker",
-        "key",
-        "kite",
-        "lamp",
-        "lemon",
-        "map",
-        "medicine",
-        "j",
-        "k",
-        "J",
-        "K"
-      ],
-      "duration": 240
     }
   },
   "2": {
@@ -241,79 +223,6 @@
         "number_24",
         "number_25"
       ]
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "4": {
-    "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "id": "word_j",
-          "value": "J",
-          "amount": "50"
-        },
-        {
-          "id": "word_j",
-          "value": "j",
-          "amount": "50"
-        },
-        {
-          "id": "word_k",
-          "value": "K",
-          "amount": "50"
-        },
-        {
-          "id": "word_k",
-          "value": "k",
-          "amount": "50"
-        },
-        {
-          "id": "word_l",
-          "value": "L",
-          "amount": "50"
-        },
-        {
-          "id": "word_l",
-          "value": "l",
-          "amount": "50"
-        },
-        {
-          "id": "word_m",
-          "value": "M",
-          "amount": "50"
-        },
-        {
-          "id": "word_m",
-          "value": "m",
-          "amount": "50"
-        }
-      ],
-      "duration": 240
     },
     "2": {
       "name": "listening",
