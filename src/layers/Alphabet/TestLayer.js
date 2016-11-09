@@ -160,5 +160,9 @@ var TestLayer = cc.LayerColor.extend({
         // else
         //     scene = new window[nextSceneName]();
         // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    },
+
+    popGold: function(from) {
+        this._hudLayer.popGold(1, from.x, from.y);
     }
 });

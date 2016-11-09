@@ -104,6 +104,8 @@ var ListeningTestLayer = TestLayer.extend({
                     self._touchCounting ++;
                     self.updateProgressBar();
                     self._currentKeyIndex++;
+
+                    self.popGold(obj.getPosition());
                 } else {
                     self._incorrectAction(obj);
                 }
