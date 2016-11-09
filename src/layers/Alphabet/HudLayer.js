@@ -10,6 +10,7 @@ var HudLayer = cc.Layer.extend({
     _progressPercentage: 0,
     _starEarned: 0,
     _trophiesEarned: 0,
+    _lbCoin: null,
 
     ctor: function(layer, withoutClock, timeForScene) {
         this._super();
@@ -20,6 +21,7 @@ var HudLayer = cc.Layer.extend({
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
+        this.addCurrency();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true,timeForScene);
         else this.addClockImage(false, timeForScene);
@@ -27,15 +29,14 @@ var HudLayer = cc.Layer.extend({
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
-        
-
+        this.schedule(this.updatex, 0.5);
     },
 
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         settingBtn.x = settingBtn.width - 10;
-        settingBtn.y = settingBtn.height/2 - 10;
+        settingBtn.y = cc.winSize.height - 80 + settingBtn.height/2 - 10;
         this.addChild(settingBtn);
 
         var self = this;
@@ -153,10 +154,26 @@ var HudLayer = cc.Layer.extend({
                 self._layer.completedScene();
         });
         clock.x = this._clockImg.width / 2 + 10;
-        clock.y = this._clockImg.height / 2;
+        clock.y = cc.winSize.height - 80 + this._clockImg.height / 2;
         this._clockImg.addChild(clock, 99);
 
         this._clock = clock;
+    },
+
+    addCurrency: function() {
+        var coin = new cc.Sprite("gold.png");
+        coin.x = cc.winSize.width - coin.width/2 - 10;
+        coin.y = cc.winSize.height - 80 + coin.height/2 + 10;
+        this.addChild(coin, 999);
+        var coinAmount = CurrencyManager.getInstance().getCoin();
+        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
+        lbCoin.scale = 0.4;
+        lbCoin.anchorX = 1;
+        lbCoin.x = -coin.width/2;
+        lbCoin.y = coin.height/2;
+        coin.addChild(lbCoin);
+
+        this._lbCoin = lbCoin;
     },
 
     getRemainingTime: function() {
@@ -205,7 +222,9 @@ var HudLayer = cc.Layer.extend({
             currentPercentage += PROGRESSBAR_CHANGE_RATE*dt;
         }
         this._gameProgressBar.percentage = currentPercentage;
+    },
+
+    updatex: function() {
+        this._lbCoin.setString(CurrencyManager.getInstance().getCoin().toString());
     }
-
-
 });

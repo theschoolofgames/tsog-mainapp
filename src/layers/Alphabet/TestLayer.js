@@ -84,7 +84,7 @@ var TestLayer = cc.LayerColor.extend({
         cc.log("_addHudLayer: " + duration);
         var hudLayer = new HudLayer(this, false, duration);
         hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
+        hudLayer.y = 0;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
         // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
