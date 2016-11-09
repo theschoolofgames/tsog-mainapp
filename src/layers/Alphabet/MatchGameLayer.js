@@ -51,6 +51,8 @@ var MatchGameLayer = TestLayer.extend({
         //         self.runAnimation(self._objects[0]);
         //     })
         // ));
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-match") + ".mp3", false);
     },
 
     getMaxCollum: function(){

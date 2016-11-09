@@ -103,33 +103,28 @@ var GoFigureTestLayer = TestLayer.extend({
     _playBeginSound: function() {
         var self = this;
         var nation = Utils.getLanguage();
-        var soundPath = "res/sounds/writingTest_" + nation + ".mp3";
 
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_WritingTestScene", 0);
-        if (didInstructionSoundPlay == 0 && jsb.fileUtils.isFileExist(soundPath)) {
-            // cc.log("nation: %s", nation);
+        this._blockTouch = true;
+        this._adiDog.adiTalk();
 
-            this._blockTouch = true;
-            this._adiDog.adiTalk();
-
-            var audioId = jsb.AudioEngine.play2d(soundPath, false);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                self._blockTouch = false;
-                if (!self._adiDog)
-                    return;
-
-                self._adiDog.adiIdling();
-                self._moveToNextShape();
-            });
-            // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
-        }else {
-            this._blockTouch = false;
-            if (!this._adiDog)
+        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-shapes") + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            self._blockTouch = false;
+            if (!self._adiDog)
                 return;
 
-            this._adiDog.adiIdling();
-            this._moveToNextShape();
-        }
+            self._adiDog.adiIdling();
+            self._moveToNextShape();
+        });
+        // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
+        // }else {
+        //     this._blockTouch = false;
+        //     if (!this._adiDog)
+        //         return;
+
+        //     this._adiDog.adiIdling();
+        //     this._moveToNextShape();
+        // }
     },
 
     onTouchBegan: function(touch, event) {
@@ -440,9 +435,10 @@ var GoFigureTestLayer = TestLayer.extend({
     },
 
     _playObjSound: function(name, cb) {
-        var soundPath = "";
-        name = name || "";
+        var soundPath = "res/sounds/shapes/";
+        name = localize(name);
         cc.log("name: " + name);
+        soundPath += name + ".mp3";
         // if (this._oldSceneName == "RoomScene") {
         //     soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
         // } else {

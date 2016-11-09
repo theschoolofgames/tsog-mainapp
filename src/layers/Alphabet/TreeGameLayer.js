@@ -38,6 +38,8 @@ var TreeGameLayer = TestLayer.extend({
             onTouchBegan: this.onTouchBegan,
             onTouchEnded: this.onTouchEnded
         }, this);
+
+        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
     },
 
     _addHudLayer: function(){

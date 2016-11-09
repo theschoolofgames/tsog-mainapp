@@ -47,7 +47,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/begin-talkingAdi_"+ nation + ".mp3", false);
+        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-talkingAdi") + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             mask.removeFromParent();
             self._talkingAdi.adiIdling();

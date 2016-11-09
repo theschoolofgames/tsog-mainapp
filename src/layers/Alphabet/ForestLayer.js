@@ -83,7 +83,7 @@ var ForestLayer = cc.Layer.extend({
             var nation = Utils.getLanguage();
             // cc.log("nation: %s", nation);
 
-            var audioId = jsb.AudioEngine.play2d("sounds/sentences/" + "en/" + "beginforest-sound_" + nation + ".mp3", false);
+            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-forest") + ".mp3", false);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 // mask.removeFromParent();
                 cc.audioEngine.playMusic(res.background_mp3, true);
