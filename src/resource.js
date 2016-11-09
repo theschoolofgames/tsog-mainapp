@@ -203,8 +203,8 @@ var res = {
  
     // Hud
  
-    Hud_plist: "hud/hud.plist",
-    Hud_png: "hud/hud.png",
+    Hud_plist: "hud.plist",
+    Hud_png: "hud.png",
     Hud_progress_bar_png: "hud/progress-bar.jpg",
     Hud_progress_bar_alpha_png: "hud/progress-bar-alpha.jpg",
     HudFont_fnt: "hud-font.fnt",

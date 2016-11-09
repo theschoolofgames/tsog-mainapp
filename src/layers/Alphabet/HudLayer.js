@@ -1,16 +1,20 @@
 var HudLayer = cc.Layer.extend({
     _layer: null,
     _clock: null,
-    _clockImg: null,
+    _clockBg: null,
     _settingBtn: null,
     _goalImg: null,
     _progressBarBg: null,
     _progressLabel: null,
+    _totalGoalsLabel: null,
     _gameProgressBar: null,
+    _lbCoin: null,
+
     _progressPercentage: 0,
     _starEarned: 0,
     _trophiesEarned: 0,
-    _lbCoin: null,
+    _currentGoals: 0,
+    _totalGoals: 0,
 
     ctor: function(layer, withoutClock, timeForScene) {
         this._super();
@@ -20,13 +24,14 @@ var HudLayer = cc.Layer.extend({
         cc.log("createHUD: " +  timeForScene);
         this.addSettingButton();
         this.addGameProgressBar();
-        this.addGoalImage();
+        // this.addGoalImage();
         this.addCurrency();
+        this.addTotalGoals();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true,timeForScene);
         else this.addClockImage(false, timeForScene);
 
-        this.width = this._clockImg.x + this._clockImg.width/2;
+        this.width = this._clockBg.x + this._clockBg.width/2;
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
         this.schedule(this.updatex, 0.5);
@@ -36,7 +41,7 @@ var HudLayer = cc.Layer.extend({
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         settingBtn.x = settingBtn.width - 10;
-        settingBtn.y = cc.winSize.height - 80 + settingBtn.height/2 - 10;
+        settingBtn.y = cc.winSize.height - 80 + settingBtn.height/2 - 20 * Utils.screenRatioTo43();
         this.addChild(settingBtn);
 
         var self = this;
@@ -68,7 +73,7 @@ var HudLayer = cc.Layer.extend({
 
         var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 ;
-        gameProgressBar.y = progressBarBg.height/2 + 2;
+        gameProgressBar.y = progressBarBg.height/2 - 10;
         gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
         gameProgressBar.midPoint = cc.p(0, 1);
         gameProgressBar.barChangeRate = cc.p(1, 0);
@@ -100,8 +105,8 @@ var HudLayer = cc.Layer.extend({
 
     addClockImage: function(visible, timeForScene) {
         var clockBg = new cc.Sprite("#whitespace.png");
-        clockBg.x = this._goalImg.x + this._goalImg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
-        clockBg.y = this._goalImg.y;
+        clockBg.x = this._progressBarBg.x + this._progressBarBg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
+        clockBg.y = this._progressBarBg.y - 10* Utils.screenRatioTo43();
         this.addChild(clockBg);
 
         var clockImg = new cc.Sprite("#clock.png");
@@ -109,8 +114,9 @@ var HudLayer = cc.Layer.extend({
         clockImg.y = clockImg.height/2 - 5;
         clockBg.addChild(clockImg);
         clockBg.setVisible(visible);
-        this._clockImg = clockBg;
+        this._clockBg = clockBg;
         this.addCountDownClock(visible, timeForScene);
+        cc.log("visible %s, timeForScene %d", visible, timeForScene)
     },
 
     addProgressLabel: function(object, text) {
@@ -129,14 +135,25 @@ var HudLayer = cc.Layer.extend({
     },
 
     addStar: function(type, number) {
-        for ( var i = 0; i < number; i++) {
-            var star = new cc.Sprite("#star-" + type +".png");
-            star.x = (this._progressBarBg.width - 30)/3 * (i+1);
-            star.y = this._progressBarBg.height/2 + 5;
-            this._progressBarBg.addChild(star);
-            // cc.log("david add Star");
-        }
+        // for ( var i = 0; i < number; i++) {
+        //     var star = new cc.Sprite("#star-" + type +".png");
+        //     star.x = (this._progressBarBg.width - 30)/3 * (i+1);
+        //     star.y = this._progressBarBg.height/2 + 5;
+        //     this._progressBarBg.addChild(star);
+        //     // cc.log("david add Star");
+        // }
     },
+
+    addTotalGoals: function(totalGoals) {
+        this._currentGoals = 0;
+        this._totalGoals = totalGoals || 0;
+        var text = this._currentGoals + "/" + this._totalGoals;
+        this._totalGoalsLabel = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        this._totalGoalsLabel.scale = 0.4;
+        this._totalGoalsLabel.x = this._progressBarBg.width *0.75 - 1;
+        this._totalGoalsLabel.y = this._progressBarBg.height *0.75 + 1;
+        this._progressBarBg.addChild(this._totalGoalsLabel, 99);
+    },  
 
     addCountDownClock: function(withClock, timeForScene) {
         var self = this;
@@ -153,9 +170,9 @@ var HudLayer = cc.Layer.extend({
             if(withClock == true)
                 self._layer.completedScene();
         });
-        clock.x = this._clockImg.width / 2 + 10;
-        clock.y = cc.winSize.height - 80 + this._clockImg.height / 2;
-        this._clockImg.addChild(clock, 99);
+        clock.x = this._clockBg.width / 2 + 10;
+        clock.y = this._clockBg.height / 2;
+        this._clockBg.addChild(clock, 99);
 
         this._clock = clock;
     },
@@ -163,7 +180,7 @@ var HudLayer = cc.Layer.extend({
     addCurrency: function() {
         var coin = new cc.Sprite("gold.png");
         coin.x = cc.winSize.width - coin.width/2 - 10;
-        coin.y = cc.winSize.height - 80 + coin.height/2 + 10;
+        coin.y = cc.winSize.height - 80 + coin.height/2 - 10;
         this.addChild(coin, 999);
         var coinAmount = CurrencyManager.getInstance().getCoin();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
@@ -194,10 +211,15 @@ var HudLayer = cc.Layer.extend({
         //     numberItems = Global.NumberItems
         // else numberItems = numItems;
         // this._progressLabel.setString(text + "/" + numberItems);
-        cc.log("setProgressLabelStr");
-        this._trophiesEarned++;
-        this._progressLabel.setString(this._trophiesEarned);
-        KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
+        // cc.log("setProgressLabelStr");
+        // this._trophiesEarned++;
+        // this._progressLabel.setString(this._trophiesEarned);
+        // KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
+    },
+
+    updateTotalGoals: function(){
+        this._currentGoals++;
+        this._progressLabel.setString(this._currentGoals);
     },
 
     updateProgressLabel: function(text){

@@ -141,8 +141,8 @@ var RoomLayer = cc.Layer.extend({
 
     addHud: function(timeForScene) {
         var hudLayer = new HudLayer(this,false, timeForScene);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
+        // hudLayer.x = 0;
+        // hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
     },

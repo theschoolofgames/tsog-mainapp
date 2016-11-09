@@ -10,7 +10,7 @@ Utils.showVersionLabel = function(parent) {
     if (parent && SHOW_VERSION_LABEL) {
         var lb = new cc.LabelBMFont(NativeHelper.callNative("getVersionName") + "(" + NativeHelper.callNative("getBuildNumber") + ")", res.CustomFont_fnt);
         lb.x = cc.winSize.width-lb.width/2 - 10;
-        lb.y = lb.height/2+10;
+        lb.y = cc.winSize.height - lb.height;
         lb.scale = 0.5;
         parent.addChild(lb, 9999);
     }
