@@ -52,6 +52,15 @@ ShopScreenLayer = cc.LayerColor.extend({
             else if(!this._moveRight && this._index < this._characterList.length - 1)
                 this._index += 1;
             cc.log("this._index: " + this._index);
+            var self  = this;
+
+            // this._character.runAction(cc.sequence(
+            //     cc.delayTime(0.3),
+            //     cc.fadeTo(3, 0),
+            //     cc.callFunc(function(){
+            //         self.showCharacter(self._index);
+            //     })
+            // ));
             this.showCharacter(this._index);
         }
     },
@@ -158,10 +167,10 @@ ShopScreenLayer = cc.LayerColor.extend({
         var characterCfg = this._characterList[index];
         this._character = new AdiDogNode(true, characterCfg.name);
         this.addChild(this._character);
-        this._character.x = cc.winSize.width/2;
+        this._character.x = 200;
         this._character.y = cc.winSize.height/2 - 100;
         var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
-        var lbButton = "BUY";
+        var lbButton = "";
         if(unlocked)
             lbButton = "Choose";
 
@@ -170,21 +179,43 @@ ShopScreenLayer = cc.LayerColor.extend({
             lbButton = "";
         };
 
-        var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
-        characterName.x = this._character.width/2 - 300;
-        characterName.y = this._character.height + 100;
+        var characterName = new cc.LabelBMFont("Name: " + characterCfg.name, "res/font/custom_font.fnt");
+        characterName.scale = 0.4;
+        characterName.anchorX = 0;
+        characterName.x = this._character.width/2 + 300;
+        characterName.y = this._character.height + 300;
         this._character.addChild(characterName);
 
+        var characterHeathy = new cc.LabelBMFont("Heathy: ", "res/font/custom_font.fnt");
+        characterHeathy.scale = 0.4;
+        characterHeathy.anchorX = 0;
+        characterHeathy.x = this._character.width/2 + 300;
+        characterHeathy.y = this._character.height + 250;
+        for(var i = 0; i < 10; i ++) {
+            var heart = new cc.Sprite("res/SD/diamond.png");
+            heart.scale = 1/characterHeathy.scale - 0.4;
+            heart.x = characterHeathy.width + 100 + i * 120;
+            heart.y = characterHeathy.height/2;
+            characterHeathy.addChild(heart);
+            if(i > characterCfg.heathy - 1) {
+                cc.log("setColor");
+                heart.setColor(cc.color(0,0,100));
+            }
+        };
+        this._character.addChild(characterHeathy);
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = this._character.width/2;
-        button.y = -100;
+        button.x = this._character.width/2 + 500;
+        button.y = 0;
         this._character.addChild(button, 9999);
         button.addClickEventListener(function(){
             cc.log("unlocked:  " + unlocked);
             if(!unlocked) {
                 var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
-                if(buy)
-                    lb.setString("");
+                if(buy) {
+                    lbPrice.removeFromParent();
+                    lb.setString("Choose");
+                }
+
             }
             else {
                 lb.setString("");
@@ -192,21 +223,22 @@ ShopScreenLayer = cc.LayerColor.extend({
             }
         });
         var lb = new cc.LabelBMFont(lbButton, "res/font/custom_font.fnt");
-        lb.scale = 0.5;
+        lb.scale = 0.7;
         lb.x = button.width/2;
         lb.y = button.height/2;
         button.addChild(lb);
         if(!unlocked) {
             var price = characterCfg.price;
             var lbPrice =  new cc.LabelBMFont(price.toString(), "res/font/custom_font.fnt");
-            lbPrice.scale = 0.4;
+            lbPrice.scale = 0.7;
             lbPrice.x = button.width/2 - 20;
-            lbPrice.y = - 20;
+            lbPrice.y = button.height/2;;
             button.addChild(lbPrice);
             var diamondIcon = new cc.Sprite("res/SD/diamond.png");
-            diamondIcon.x = lbPrice.x + lbPrice.width/2 + 5;
-            diamondIcon.y = lbPrice.y;
-            button.addChild(diamondIcon);
+            diamondIcon.scale = 1/ lbPrice.scale;
+            diamondIcon.x = lbPrice.width + 50;
+            diamondIcon.y = lbPrice.height/2;
+            lbPrice.addChild(diamondIcon);
         }
     }
 
