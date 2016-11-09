@@ -1,69 +1,6 @@
 {
   "1": {
     "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "type": "word_u",
-          "value": "u",
-          "amount": "10"
-        },
-        {
-          "type": "word_v",
-          "value": "v",
-          "amount": "10"
-        },
-        {
-          "type": "word_w",
-          "value": "w",
-          "amount": "10"
-        },
-        {
-          "type": "word_u",
-          "value": "U",
-          "amount": "10"
-        },
-        {
-          "type": "word_v",
-          "value": "V",
-          "amount": "10"
-        },
-        {
-          "type": "word_w",
-          "value": "W",
-          "amount": "10"
-        }
-      ],
-      "duration": 60
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [],
-      "duration": 120
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "5": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "6": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    }
-  },
-  "2": {
-    "1": {
       "name": "shoppingbasket",
       "data": [
         "egg",
@@ -260,7 +197,7 @@
       "duration": 120
     }
   },
-  "3": {
+  "2": {
     "1": {
       "name": "storytime",
       "data": [

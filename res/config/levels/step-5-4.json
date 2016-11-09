@@ -1,82 +1,12 @@
 {
   "1": {
     "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "type": "word_q",
-          "value": "Q",
-          "amount": "50"
-        },
-        {
-          "type": "word_q",
-          "value": "q",
-          "amount": "50"
-        },
-        {
-          "type": "word_r",
-          "value": "R",
-          "amount": "50"
-        },
-        {
-          "type": "word_r",
-          "value": "r",
-          "amount": "50"
-        },
-        {
-          "type": "word_n",
-          "value": "N",
-          "amount": "50"
-        },
-        {
-          "type": "word_n",
-          "value": "n",
-          "amount": "50"
-        },
-        {
-          "type": "word_p",
-          "value": "P",
-          "amount": "50"
-        },
-        {
-          "type": "word_p",
-          "value": "p",
-          "amount": "50"
-        }
-      ],
-      "duration": 120
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "5": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "6": {
-      "name": "speaking",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "2": {
-    "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["banana", "apple"],
+        "type": [
+          "banana",
+          "apple"
+        ],
         "data": [
           {
             "first": [
@@ -130,45 +60,65 @@
       "duration": 120
     }
   },
-  "3": {
+  "2": {
     "1": {
       "name": "buildingblocks",
       "data": {
         "type": "block",
         "data": [
-              {
-                "first": [
-                  ["number_1"],
-                  ["number_4"],
-                  ["number_3", "number_2"],
-                  ["number_4", "number_5"]
-                ],
-                "second": [
-                  ["number_1"],
-                  ["number_1"],
-                  ["number_1", "number_2"],
-                  ["number_2", "number_3"]
-                ],
-                "third": [
-                  "number_2",
-                  "number_3",
-                  "number_4",
-                  "number_2"
-                ],
-                "firstOperation": [
-                  "plus",
-                  "sub",
-                  "plus",
-                  "sub"
-                ],
-                "secondOperation": [
-                  "equal",
-                  "equal",
-                  "equal",
-                  "equal"
-                ]
-              }
+          {
+            "first": [
+              [
+                "number_1"
+              ],
+              [
+                "number_4"
+              ],
+              [
+                "number_3",
+                "number_2"
+              ],
+              [
+                "number_4",
+                "number_5"
+              ]
+            ],
+            "second": [
+              [
+                "number_1"
+              ],
+              [
+                "number_1"
+              ],
+              [
+                "number_1",
+                "number_2"
+              ],
+              [
+                "number_2",
+                "number_3"
+              ]
+            ],
+            "third": [
+              "number_2",
+              "number_3",
+              "number_4",
+              "number_2"
+            ],
+            "firstOperation": [
+              "plus",
+              "sub",
+              "plus",
+              "sub"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
             ]
+          }
+        ]
       },
       "duration": 180
     },
@@ -188,7 +138,7 @@
       "duration": 120
     }
   },
-  "4": {
+  "3": {
     "1": {
       "name": "freecolor",
       "data": [

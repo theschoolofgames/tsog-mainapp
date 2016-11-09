@@ -166,6 +166,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
         this._blockTouch = true;
         if (this.imageMatched(image)) {
+
             this._pathIdx++;
             // cc.log("onTouchEnded this._pathIdx: " + this._pathIdx);
             this._tmpRender.getSprite().runAction(cc.sequence(
@@ -198,6 +199,8 @@ var GoFigureTestLayer = TestLayer.extend({
                         self._touchCounting++;
                         self.updateProgressBar();
                         self._correctAction(correctedCharacter);
+
+                        self.popGold(self._tmpRender.getPosition());
                     } else {
                         self._displayFinger();
                     }

@@ -39,6 +39,8 @@ var BalloonGameLayer = TestLayer.extend({
         this.init(objectIdArray, timeForScene);
         // this.init(this._objectIdArray); // For testing
 
+        this._removeHud = true;
+
     },
 
     init: function(objectIdArray, timeForScene) {
@@ -63,7 +65,7 @@ var BalloonGameLayer = TestLayer.extend({
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
         // this._addGoalList(this._currentObject.id, this._currentObject.amount);
-        this.addHud(timeForScene);
+        this._addHudLayer(timeForScene);
         this._updateCurrentIdHud(this._currentObject);
         this._updateGoalLabel(0);
 
@@ -124,14 +126,6 @@ var BalloonGameLayer = TestLayer.extend({
                 });
             }
         });
-    },
-
-    addHud: function(timeForScene) {
-        var hudLayer = new HudLayer(this, false,timeForScene);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
     },
 
     _updateCurrentIdHud: function(currentObj) {
@@ -242,6 +236,8 @@ var BalloonGameLayer = TestLayer.extend({
                 obj.touched = true;
 
                 if (obj.name === self._currentObject.value){
+                    self.popGold(obj.getPosition());
+
                     var name = obj.name.substr(6);
                     var localizedName = localize(name);
                     jsb.AudioEngine.play2d(res.Succeed_sfx);

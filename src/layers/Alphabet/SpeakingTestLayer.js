@@ -226,6 +226,8 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     correctAction: function() {
+        this.popGold(this._currentObjectShowUp.getPosition());
+
         this._touchCounting++;
         this.updateProgressBar();
         var self = this;

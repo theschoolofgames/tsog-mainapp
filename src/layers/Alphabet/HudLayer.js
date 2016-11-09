@@ -10,6 +10,7 @@ var HudLayer = cc.Layer.extend({
     _progressPercentage: 0,
     _starEarned: 0,
     _trophiesEarned: 0,
+    _lbCoin: null,
 
     ctor: function(layer, withoutClock, timeForScene) {
         this._super();
@@ -20,6 +21,7 @@ var HudLayer = cc.Layer.extend({
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
+        this.addCurrency();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true,timeForScene);
         else this.addClockImage(false, timeForScene);
@@ -27,15 +29,14 @@ var HudLayer = cc.Layer.extend({
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
-        
-
+        this.schedule(this.updatex, 0.5);
     },
 
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         settingBtn.x = settingBtn.width - 10;
-        settingBtn.y = settingBtn.height/2 - 10;
+        settingBtn.y = cc.winSize.height - 80 + settingBtn.height/2 - 10;
         this.addChild(settingBtn);
 
         var self = this;
@@ -153,10 +154,26 @@ var HudLayer = cc.Layer.extend({
                 self._layer.completedScene();
         });
         clock.x = this._clockImg.width / 2 + 10;
-        clock.y = this._clockImg.height / 2;
+        clock.y = cc.winSize.height - 80 + this._clockImg.height / 2;
         this._clockImg.addChild(clock, 99);
 
         this._clock = clock;
+    },
+
+    addCurrency: function() {
+        var coin = new cc.Sprite("gold.png");
+        coin.x = cc.winSize.width - coin.width/2 - 10;
+        coin.y = cc.winSize.height - 80 + coin.height/2 + 10;
+        this.addChild(coin, 999);
+        var coinAmount = CurrencyManager.getInstance().getCoin();
+        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
+        lbCoin.scale = 0.4;
+        lbCoin.anchorX = 1;
+        lbCoin.x = -coin.width/2;
+        lbCoin.y = coin.height/2;
+        coin.addChild(lbCoin);
+
+        this._lbCoin = lbCoin;
     },
 
     getRemainingTime: function() {
@@ -205,7 +222,124 @@ var HudLayer = cc.Layer.extend({
             currentPercentage += PROGRESSBAR_CHANGE_RATE*dt;
         }
         this._gameProgressBar.percentage = currentPercentage;
+    },
+
+    updatex: function() {
+        this._lbCoin.setString(CurrencyManager.getInstance().getCoin().toString());
+        // this.popGold(1, cc.winSize.width/3, cc.winSize.height/3);
+    },
+
+    popGold: function(amount, x, y, delay) {
+        if(amount == 0)
+            return;
+        var finalScale = 2;
+        var self = this;
+        var node = new ccui.Button("coin-empty.png", "", "");
+        // node.setTitleFontName(this._gameTheme.font);
+        // node.setTitleText(amount);
+        // node.setTitleFontSize(40);
+        // node.setTitleColor(cc.color(111, 96, 0))
+        node.addClickEventListener(this._tappedGoldNode.bind(this));
+        node.tag = amount;
+        node.x = x;
+        node.y = y;
+        node.setCascadeColorEnabled(true);
+        var goldNumber = new cc.LabelBMFont(amount.toString(), res.Font_gold_fnt);
+        goldNumber.scale = 0.7
+        goldNumber.x = node.width/2 - 0.5;
+        goldNumber.y = node.height/2 + 1.5;
+        goldNumber.setCascadeColorEnabled(true);
+        node.addChild(goldNumber);
+
+        node.scaleX = 0.2*finalScale;
+        node.scaleY = 0.5*finalScale;
+        node.visible = true;
+
+        var jumpHeight = 150 + Math.random()*50;
+        var jumpDistanceX = 20 + Math.random()*20;
+        var jumpDistanceY = 0;
+        if (Math.random() < 0.5) 
+            jumpDistanceX *= -0.5;
+        if(x > (cc.winSize.width - 80))
+            jumpDistanceX = - 20;
+        if(x < 40)
+            jumpDistanceX  = 10;
+        var duration = 0.4 * finalScale;
+
+        // node.runAction(cc.sequence(
+        //     cc.delayTime(delay),
+        //     cc.show(),
+        //     cc.spawn(
+        //         cc.scaleTo(duration, finalScale, finalScale),
+        //         cc.jumpBy(duration, jumpDistanceX*finalScale, jumpDistanceY*finalScale, jumpHeight*finalScale, 1)
+        //     )
+        // ));
+        // node.runAction(cc.repeatForever(cc.sequence(
+        //     cc.tintTo(0.15, 220, 220, 220),
+        //     cc.tintTo(0.15, 255, 255, 255)
+        // )));
+        node.runAction(cc.sequence(
+            cc.delayTime(0),
+            cc.callFunc(function(){
+                cc.log("runAction auto tap");
+                self._tappedGoldNode(node);
+            })
+        ));
+        this.addChild(node);
+    },
+
+    _tappedGoldNode: function(goldNode) {
+        if (goldNode.getNumberOfRunningActions() > 2)
+            return;
+
+        var amount = goldNode.tag;
+        // increase balance
+        CurrencyManager.getInstance().incCoin(amount);
+
+
+        for (var i = 0; i < amount; i++) {
+            var gold = new cc.Sprite("gold.png");
+            gold.x = goldNode.x;
+            gold.y = goldNode.y;
+            gold.scale = Math.random()*0.1 + 0.8;
+            this.addChild(gold,99999);
+
+            var flyTime = 0.8 + Math.random()*0.2;
+
+            var weight = 100 + Math.random()*150;
+            var goldBalanceNodeBox = this._lbCoin.parent.getBoundingBox()
+            var to = cc.p(cc.rectGetMidX(goldBalanceNodeBox), cc.rectGetMidY(goldBalanceNodeBox));
+            
+            var cp2x = (gold.x > to.x ? -1 : 1) * (Math.random()*600 - 300);
+            var cp1 = cc.p(gold.x, gold.y - weight);
+            var cp2 = cc.p(gold.x + cp2x, gold.y - weight);
+
+            var flyAction = cc.bezierTo(flyTime, [cp1, cp2, to]);
+            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, 260)));
+            var self = this;
+            gold.runAction(cc.sequence(
+                cc.spawn(
+                    // cc.callFunc(function(){
+                    //     cc.log("flyAction");
+                    // }),
+                    flyAction
+                ),
+                cc.callFunc(function(node) {
+                    // self._goldBalanceNode.stopAllActions();
+                    // self._goldBalanceNode.runAction(cc.sequence(
+                    //     cc.callFunc(function() {
+                    //         AudioManager.getInstance().play2d(res.EarnGold_sfx);
+                    //     }),
+                    //     cc.scaleTo(0.05, 1*1.2),
+                    //     cc.scaleTo(0.05, 1)
+                    // ));
+                    node.removeFromParent();
+                })
+            ));
+        };
+
+        goldNode.removeFromParent();
+        // count up balance gradually
+        // this._updateGoldAmountLabel(amount, 0.8);
     }
-
-
 });

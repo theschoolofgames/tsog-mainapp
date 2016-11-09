@@ -257,6 +257,9 @@ var WritingTestLayer = TestLayer.extend({
         return true;
     },
     updateProgressBar: function() {
+
+        this.popGold(this._tmpRender.getPosition());
+
         cc.log("updateProgressBar");
         var percent = this._touchCounting / this._names.length;
         cc.log("percent: " + percent);

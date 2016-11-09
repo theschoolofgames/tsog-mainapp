@@ -44,7 +44,9 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = this._bg.height/2 + 60;
         this._bg.addChild(board);
         board.addClickEventListener(function(){
-            cc.director.runScene(new AlphaRacingScene(ALPHARACING_DATA, null, 600));
+            var data = DataManager.getInstance().getDataAlpharacing();
+            cc.director.runScene(new AlphaRacingScene(data, null, 600));
+            cc.log("ALPHARACING: " + JSON.stringify(data));
         });
 
         var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");

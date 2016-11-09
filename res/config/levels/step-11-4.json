@@ -1,79 +1,6 @@
 {
   "1": {
     "1": {
-      "name": "alpharacing",
-      "data": [
-        {
-          "type": "word_q",
-          "value": "Q",
-          "amount": "50"
-        },
-        {
-          "type": "word_q",
-          "value": "q",
-          "amount": "50"
-        },
-        {
-          "type": "word_r",
-          "value": "R",
-          "amount": "50"
-        },
-        {
-          "type": "word_r",
-          "value": "r",
-          "amount": "50"
-        },
-        {
-          "type": "word_n",
-          "value": "N",
-          "amount": "50"
-        },
-        {
-          "type": "word_n",
-          "value": "n",
-          "amount": "50"
-        },
-        {
-          "type": "word_p",
-          "value": "P",
-          "amount": "50"
-        },
-        {
-          "type": "word_p",
-          "value": "p",
-          "amount": "50"
-        }
-      ],
-      "duration": 120
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "5": {
-      "name": "writing",
-      "data": [],
-      "duration": 480
-    },
-    "6": {
-      "name": "speaking",
-      "data": [],
-      "duration": 120
-    }
-  },
-  "2": {
-    "1": {
       "name": "fruiddition",
       "data": {
         "type": ["banana", "apple"],
@@ -130,7 +57,7 @@
       "duration": 120
     }
   },
-  "3": {
+  "2": {
     "1": {
       "name": "buildingblocks",
       "data": {
@@ -188,7 +115,7 @@
       "duration": 120
     }
   },
-  "4": {
+  "3": {
     "1": {
       "name": "freecolor",
       "data": [

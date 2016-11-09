@@ -3,12 +3,14 @@
         "name": "adidog",
         "price": 1000,
         "path": "adidog",
+        "heathy": 7,
         "unlocked": true
     },
     {
         "name": "monkey",
         "price": 2000,
         "path": "monkey",
+        "heathy": 5,
         "unlocked": false
     }
 ]

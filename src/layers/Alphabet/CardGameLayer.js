@@ -438,6 +438,8 @@ var CardGameLayer = TestLayer.extend({
             self._handleObjectSucceedDrop();
             if(self._activateSlots.length == 0 && self._flipCardResult > 0)
                 self._showNextObjects();
+
+            self.popGold(currSlotPos);
         } else // return object to origin pos
             self._currentObjectMoving.setPosition(self._currentObjectOriginPos);
 

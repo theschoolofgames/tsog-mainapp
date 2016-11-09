@@ -31,6 +31,11 @@ var TestLayer = cc.LayerColor.extend({
 
     setData: function(data) {
         this.data = data;
+        data = JSON.parse(data);
+        cc.log("data TestLayer: " + JSON.stringify(data));
+        for(var i = 0; i < data.length; i ++) {
+            DataManager.getInstance().setDataAlpharacing(data[i]);
+        }
     },
 
     addQuickTestButton: function() {
@@ -79,7 +84,7 @@ var TestLayer = cc.LayerColor.extend({
         cc.log("_addHudLayer: " + duration);
         var hudLayer = new HudLayer(this, false, duration);
         hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
+        hudLayer.y = 0;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
         // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
@@ -155,5 +160,9 @@ var TestLayer = cc.LayerColor.extend({
         // else
         //     scene = new window[nextSceneName]();
         // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+    },
+
+    popGold: function(from) {
+        this._hudLayer.popGold(1, from.x, from.y);
     }
 });

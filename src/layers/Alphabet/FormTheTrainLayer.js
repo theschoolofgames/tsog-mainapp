@@ -219,6 +219,8 @@ var FormTheTrainLayer = TestLayer.extend({
 
     _handleObjectSucceedDrop: function() {
 
+        this.popGold(this._currentAvailableSlot.getPosition());
+
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._runObjectDropAction(this._currentObjectMoving, this._slotScale);
