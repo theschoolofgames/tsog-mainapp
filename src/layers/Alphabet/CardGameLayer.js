@@ -230,6 +230,8 @@ var CardGameLayer = TestLayer.extend({
         this._flipCardResult = Math.ceil(Math.random() * MAX_OBJECT_ALLOWED);
         this._numberOfObjectWillShow = this._flipCardResult;
         this.calcShowObjectAmount();
+
+        this._hudLayer.setTotalGoals(this._numberOfObjectWillShow);
     },
 
     calcShowObjectAmount: function(){
@@ -332,32 +334,11 @@ var CardGameLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         var percent = this._deactivateObjects.length / this._numberOfObjectWillShow;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._deactivateObjects.length, this._numberOfObjectWillShow);
+        
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._deactivateObjects.length);
 
-        var starEarned = 0;
-        var objectCorrected = this._deactivateObjects.length;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._numberOfObjectWillShow/3);
-        var starGoal2 = Math.ceil(this._numberOfObjectWillShow/3 * 2);
-        var starGoal3 = this._numberOfObjectWillShow;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     onTouchBegan: function (touch, event) {

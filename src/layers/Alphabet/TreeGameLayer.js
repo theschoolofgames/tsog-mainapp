@@ -30,7 +30,6 @@ var TreeGameLayer = TestLayer.extend({
         this._addAdi();
         this._addScrollView();
         this._addTrees();
-        this._addHudLayer();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -42,12 +41,10 @@ var TreeGameLayer = TestLayer.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
     },
 
-    _addHudLayer: function(){
-        var hudLayer = new HudLayer(this, true);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 4);
-        this._hudLayer = hudLayer;
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        this._hudLayer.setTotalGoals((this._numberOfTrees*5));
     },
 
     _addScrollView: function() {
@@ -266,32 +263,11 @@ var TreeGameLayer = TestLayer.extend({
         var percent = this._totalJump / (this._numberOfTrees*5);
         cc.log("percent: " + percent);
         this._hudLayer.setProgressBarPercentage(percent);
+        this.setHUDProgressBarPercentage(percent);
         if (Math.round(this._totalJump/(this._numberOfTrees/5)))
-            this._hudLayer.setProgressLabelStr(this._totalJump, this._numberOfTrees*5);
+            this.setHUDCurrentGoals(this._totalJump);
 
-        var starEarned = 0;
-        var objectCorrected = this._totalJump;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._numberOfTrees*5/3);
-        var starGoal2 = Math.ceil(this._numberOfTrees*5/3 * 2);
-        var starGoal3 = this._numberOfTrees*5;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     _correctAction: function() {

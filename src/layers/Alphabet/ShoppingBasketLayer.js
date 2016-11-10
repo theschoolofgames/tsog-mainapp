@@ -44,6 +44,8 @@ var ShoppingBasketLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+
+        this._hudLayer.setTotalGoals(this._data.length);
     },
 
     _addBasket: function() {
@@ -274,32 +276,11 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         var percent = this._deactivateObjects.length / this._goal;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._deactivateObjects.length, this._goal);
+        
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._touchCounting);
 
-        var starEarned = 0;
-        var objectCorrected = this._deactivateObjects.length;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._goal/3);
-        var starGoal2 = Math.ceil(this._goal/3 * 2);
-        var starGoal3 = this._goal;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 });
 ShoppingBasketLayer._data = null;

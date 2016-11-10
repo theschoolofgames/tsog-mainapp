@@ -145,6 +145,8 @@ var RoomLayer = cc.Layer.extend({
         // hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
+
+        this._hudLayer.setTotalGoals(this._data.length);
     },
 
     runTutorial: function(shouldShuffle) {
@@ -735,29 +737,30 @@ var RoomLayer = cc.Layer.extend({
 
     updateProgressBar: function() {
         var percent = this._objectDisableds.length / this._data.length;
+        this._hudLayer.setCurrentGoals(this._objectDisableds.length);
+        this._hudLayer.updateTotalGoalsLabel();
         this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, this._data.length);
 
-        var starEarned = 0;
-        var objectCorrected = this._objectDisableds.length;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
+        // var starEarned = 0;
+        // var objectCorrected = this._objectDisableds.length;
+        // var starGoals = this.countingStars();
+        // if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
+        //     starEarned = 1;
+        // if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
+        //     starEarned = 2;
+        // if (objectCorrected >= starGoals.starGoal3)
+        //     starEarned = 3;
 
-        cc.log("starGoal1: " + starGoals.starGoal1);
-        cc.log("starGoal2: " + starGoals.starGoal2);
-        cc.log("starGoal3: " + starGoals.starGoal3);
-        cc.log("objectCorrected: " + objectCorrected);
-        // cc.log("starEarned: " + starEarned);
-        this._hudLayer.setStarEarned(starEarned);
+        // cc.log("starGoal1: " + starGoals.starGoal1);
+        // cc.log("starGoal2: " + starGoals.starGoal2);
+        // cc.log("starGoal3: " + starGoals.starGoal3);
+        // cc.log("objectCorrected: " + objectCorrected);
+        // // cc.log("starEarned: " + starEarned);
+        // this._hudLayer.setStarEarned(starEarned);
 
-        if (starEarned > 0) {
-            this._hudLayer.addStar("light", starEarned);
-        }
+        // if (starEarned > 0) {
+        //     this._hudLayer.addStar("light", starEarned);
+        // }
     },
 
     countingStars: function() {

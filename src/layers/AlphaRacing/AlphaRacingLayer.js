@@ -990,7 +990,16 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
 
         this.arEffectLayer.y = this.gameLayer.y;
-    }
+    },
+
+    updateProgressBar: function() {
+        cc.log("ListeningTestLayer - updateProgressBar");
+        var percent = this._touchCounting / this._names.length;
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._touchCounting);
+
+        this._super();
+    },
 });
 
 var AlphaRacingScene = cc.Scene.extend({

@@ -83,7 +83,7 @@ var HudLayer = cc.Layer.extend({
 
         this._gameProgressBar = gameProgressBar;
 
-        this.addStar("dark", DARK_STAR_NUMBERS);
+        // this.addStar("dark", DARK_STAR_NUMBERS);
     },
 
     addGoalImage: function() {
@@ -144,9 +144,9 @@ var HudLayer = cc.Layer.extend({
         // }
     },
 
-    addTotalGoals: function(totalGoals) {
+    addTotalGoals: function() {
         this._currentGoals = 0;
-        this._totalGoals = totalGoals || 0;
+        this._totalGoals = 0;
         var text = this._currentGoals + "/" + this._totalGoals;
         this._totalGoalsLabel = new cc.LabelBMFont(text, res.CustomFont_fnt);
         this._totalGoalsLabel.scale = 0.4;
@@ -217,13 +217,21 @@ var HudLayer = cc.Layer.extend({
         // KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
     },
 
-    updateTotalGoals: function(){
-        this._currentGoals++;
-        this._progressLabel.setString(this._currentGoals);
+    updateTotalGoalsLabel: function(){
+        this._totalGoalsLabel.setString(this._currentGoals + "/" + this._totalGoals);
     },
 
     updateProgressLabel: function(text){
         this._progressLabel.setString(text);
+    },
+
+    setTotalGoals: function(totalGoals) {
+        this._totalGoals = totalGoals || 0;
+        this.updateTotalGoalsLabel();
+    },
+
+    setCurrentGoals: function(currentGoals) {
+        this._currentGoals = currentGoals;
     },
 
     setProgressBarPercentage: function(percent){

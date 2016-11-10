@@ -143,6 +143,7 @@ var ShadowGameLayer = TestLayer.extend({
                 )
             )
         )
+        this._hudLayer.setTotalGoals(this._objectsArray.length);
     },
 
     onExit: function() {
@@ -905,23 +906,10 @@ var ShadowGameLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         var percent = this._objectDisableds.length / this._objectsArray.length;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._objectDisableds.length, this._objectsArray.length);
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._objectDisableds.length);
 
-        var starEarned = 0;
-        var objectCorrected = this._objectDisableds.length;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
+        this._super();
     },
 
     countingStars: function() {

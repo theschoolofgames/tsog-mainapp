@@ -62,36 +62,17 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.eventManager.addListener(self._event_time_up, 1);
         // this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+        this._hudLayer.setTotalGoals(this._names.length);
     },
 
     updateProgressBar: function() {
         var percent = this._touchCounting / this._names.length;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
 
-        var starEarned = 0;
-        var objectCorrected = this._touchCounting;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._touchCounting);
+        this._super();
     },
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._names.length/3);
-        var starGoal2 = Math.ceil(this._names.length/3 * 2);
-        var starGoal3 = this._names.length;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
-    },
+    
     testBackgroundNoise: function() {
         var self = this;
         var adiBBox = this._adiDog.getBoundingBox();

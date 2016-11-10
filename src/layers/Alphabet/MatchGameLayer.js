@@ -55,6 +55,12 @@ var MatchGameLayer = TestLayer.extend({
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-match") + ".mp3", false);
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        this._hudLayer.setTotalGoals(this._data.length);
+    },
+
     getMaxCollum: function(){
         return Math.ceil(this._data.length/5);
     },
@@ -367,32 +373,11 @@ var MatchGameLayer = TestLayer.extend({
     },
     updateProgressBar: function() {
         var percent = this._deactivateObjects.length / this._data.length;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._deactivateObjects.length, this._numberOfObjectWillShow);
+        
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._deactivateObjects.length);
 
-        var starEarned = 0;
-        var objectCorrected = this._deactivateObjects.length;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._data.length/3);
-        var starGoal2 = Math.ceil(this._data.length/3 * 2);
-        var starGoal3 = this._data.length;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     _highlightSlot: function(obj) {

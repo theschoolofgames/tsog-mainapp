@@ -164,5 +164,19 @@ var TestLayer = cc.LayerColor.extend({
 
     popGold: function(from) {
         this._hudLayer.popGold(1, from.x, from.y);
-    }
+    },
+
+    setHUDProgressBarPercentage: function(percent) {
+        this._hudProgressBarPercentage = percent;
+    },
+
+    setHUDCurrentGoals: function(currentGoals) {
+        this._hudCurrentGoals = currentGoals;
+    },
+
+    updateProgressBar: function() {
+        this._hudLayer.setCurrentGoals(this._hudCurrentGoals);
+        this._hudLayer.updateTotalGoalsLabel();
+        this._hudLayer.setProgressBarPercentage(this._hudProgressBarPercentage);
+    },
 });

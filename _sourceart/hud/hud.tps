@@ -6,12 +6,12 @@
         <key>texturePackerVersion</key>
         <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/level-dialog/level_dialog.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/hud/hud.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>1</double>
+                <double>0.5</double>
                 <key>extension</key>
                 <string>SD</string>
                 <key>spriteFilter</key>
@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../res/{v}/level-dialog.png</filename>
+        <filename>../../res/{v}/hud.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/level-dialog.plist</filename>
+                <filename>../../res/{v}/hud.plist</filename>
             </struct>
             <key>java</key>
             <struct type="DataFile">

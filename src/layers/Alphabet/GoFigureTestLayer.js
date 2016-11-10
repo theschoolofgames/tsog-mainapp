@@ -98,6 +98,8 @@ var GoFigureTestLayer = TestLayer.extend({
         this._super();
         this._playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+
+        this._hudLayer.setTotalGoals(this._names.length);
     },
 
     _playBeginSound: function() {
@@ -260,32 +262,11 @@ var GoFigureTestLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         var percent = this._touchCounting / this._data.length;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
+        
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._touchCounting);
 
-        var starEarned = 0;
-        var objectCorrected = this._touchCounting;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-        cc.log("starEarned" + starEarned);
-
-        this._hudLayer.setStarEarned(this._data.length);
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._data.length/3);
-        var starGoal2 = Math.ceil(this._data.length/3 * 2);
-        var starGoal3 = this._data.length;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     convertToRTSpace: function(p) {

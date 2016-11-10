@@ -56,6 +56,8 @@ var FruidditionGameLayer = TestLayer.extend({
 
         this._createOperation();
         this._showNextOperation();
+
+        this._hudLayer.setTotalGoals(this._data["first"].length);
     },
 
     _createOperation: function() {
@@ -377,6 +379,15 @@ var FruidditionGameLayer = TestLayer.extend({
         for (var i = 0; i < array.length;i++) {
             array[i].tag = i;
         }
+    },
+
+    updateProgressBar: function() {
+        cc.log("ListeningTestLayer - updateProgressBar");
+        var percent = this._currentOperationId / this._data["first"].length;
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._currentOperationId);
+
+        this._super();
     },
 });
 

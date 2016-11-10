@@ -12,6 +12,8 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+
+        this._hudLayer.setTotalGoals(this._names.length);
     },
 
     _createOperation: function() {
@@ -215,6 +217,15 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         cc.log("_fetchObjectData: " + this._keyObject);
 
         this.setData(this._data);
+    },
+
+    updateProgressBar: function() {
+        cc.log("ListeningTestLayer - updateProgressBar");
+        var percent = this._nameIdx / this._names.length;
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._nameIdx);
+
+        this._super();
     },
 });
 

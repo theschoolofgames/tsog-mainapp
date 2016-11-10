@@ -75,6 +75,7 @@ var ForestLayer = cc.Layer.extend({
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         // this.completedScene();
+        this._hudLayer.setTotalGoals(this._data);
     },
 
     playBeginSound: function(){
@@ -101,10 +102,11 @@ var ForestLayer = cc.Layer.extend({
     addHud: function(timeForScene) {
         var hudLayer = new HudLayer(this, false, timeForScene);
         hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
+        // hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
+        this._hudLayer.setTotalGoals(this._data.length);
         if (Global.NumberGamePlayed > 1 )
             this._lastClickTime = this._hudLayer.getRemainingTime();
     },
@@ -853,33 +855,11 @@ var ForestLayer = cc.Layer.extend({
     updateProgressBar: function() {
         var totalItems = this._data.length ? this._data.length : Global.NumberItems;
         var percent = this._touchCounting / totalItems;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._touchCounting, totalItems);
 
-        var starEarned = 0;
-        var objectCorrected = this._touchCounting;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._touchCounting);
 
-        if (starEarned > 0)
-        this._hudLayer.setStarEarned(starEarned);
-
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var totalItems = this._data.length ? this._data.length : Global.NumberItems;    
-        var starGoal1 = Math.ceil(totalItems/3);
-        var starGoal2 = Math.ceil(totalItems/3 * 2);
-        var starGoal3 = totalItems;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     runSoundCountDown: function() {

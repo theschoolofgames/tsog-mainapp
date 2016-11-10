@@ -55,6 +55,12 @@ var AlphabetGameLayer = TestLayer.extend({
         }, this);
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        this._hudLayer.setTotalGoals(this._totalLetters);
+    },
+
     _checkTotalLetters: function(data){
         let totalLetter = 0;
         for (var i = 0; i < data.length; i++){
@@ -355,32 +361,11 @@ var AlphabetGameLayer = TestLayer.extend({
     updateProgressBar: function() {
         // cc.log("Progress (%d / %d)", this._successLettersAmount, this._totalLetters);
         var percent = this._successLettersAmount / this._totalLetters;
-        this._hudLayer.setProgressBarPercentage(percent);
-        this._hudLayer.setProgressLabelStr(this._successLettersAmount, this._totalLetters);
+        
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._successLettersAmount);
 
-        var starEarned = 0;
-        var objectCorrected = this._successLettersAmount;
-        var starGoals = this.countingStars();
-        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-            starEarned = 1;
-        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-            starEarned = 2;
-        if (objectCorrected >= starGoals.starGoal3)
-            starEarned = 3;
-
-        this._hudLayer.setStarEarned(starEarned);
-
-        if (starEarned > 0)
-            this._hudLayer.addStar("light", starEarned);
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._totalLetters/3);
-        var starGoal2 = Math.ceil(this._totalLetters/3 * 2);
-        var starGoal3 = this._totalLetters;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
+        this._super();
     },
 
     _runObjectPickUpAction: function(obj) {

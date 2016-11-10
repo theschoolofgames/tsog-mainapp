@@ -74,6 +74,12 @@ var BalloonGameLayer = TestLayer.extend({
         this.schedule(this._spawnBalloons, this._waitForSpawn);
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        this._hudLayer.setTotalGoals(this._goalTotal);
+    },
+
     _addAdi: function() {
         this._adiDog = new AdiDogNode();
         this._adiDog.scale = Utils.screenRatioTo43() * 0.4;
@@ -91,6 +97,15 @@ var BalloonGameLayer = TestLayer.extend({
 
     _updateGoalLabel: function(correct) {
         this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
+    },
+
+    updateProgressBar: function() {
+        cc.log("ListeningTestLayer - updateProgressBar");
+        var percent = this._correctChoose / this._goalTotal;
+        this.setHUDProgressBarPercentage(percent);
+        this.setHUDCurrentGoals(this._correctChoose);
+
+        this._super();
     },
 
     // only accept object with type: colors, numbers and alphabets
@@ -250,7 +265,7 @@ var BalloonGameLayer = TestLayer.extend({
                     self._correctChoose++;
                     self._allCorrectChoose++;
                     self._updateGoalLabel(self._correctChoose);
-                    
+                    self.updateProgressBar();
                     // cc.log("Correct - Goal Total : (%d - %d)", self._allCorrectChoose, self._goalTotal);
                     var percent = self._allCorrectChoose / self._goalTotal;
                     self._hudLayer.setProgressBarPercentage(percent);
