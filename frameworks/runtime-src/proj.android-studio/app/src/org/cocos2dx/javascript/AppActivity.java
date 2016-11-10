@@ -26,6 +26,11 @@ package org.cocos2dx.javascript;
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+
+import android.os.Bundle;
+
 import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
@@ -74,20 +79,20 @@ public class AppActivity extends Cocos2dxActivity {
         super.onDestroy();
     }
 
-//    public static boolean openScheme(String bundleId, String data) {
-//        PackageManager manager = app.getPackageManager();
-//
-//        Intent i = manager.getLaunchIntentForPackage(bundleId);
-//        if (i == null) {
-//            AppActivity.showMessage("Error", "Target game not found");
-//            return false;
-//            //throw new PackageManager.NameNotFoundException();
-//        }
-//        i.setAction(Intent.ACTION_SEND);
-//        i.putExtra(Intent.EXTRA_TEXT, data);
-//        i.setType("text/plain");
-//        i.addCategory(Intent.CATEGORY_LAUNCHER);
-//        app.startActivity(i);
-//        return true;
-//    }
+    @Override
+    protected void onLoadNativeLibraries() {
+        try {
+            ApplicationInfo ai = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Bundle bundle = ai.metaData;
+
+            int resourceId = bundle.getInt("android.app.lib_names");
+            String[] libNameArray = getResources().getStringArray(resourceId);
+
+            for (String libName : libNameArray) {
+                System.loadLibrary(libName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
