@@ -310,14 +310,14 @@ ShopScreenLayer = cc.LayerColor.extend({
         this._arrowleft.y = cc.winSize.height/2;
         this.addChild(this._arrowleft);
         this._arrowleft.rotation = 90;
-        Utils.runAnimation(this._arrowleft, "navigate", 0.2, 2, true, 0.25);
+        Utils.runAnimation(this._arrowleft, "navigate", 0.3, 2, true, 0.3);
 
         this._arrowright = new cc.Sprite("#navigate-1.png");
         this._arrowright.x = cc.winSize.width - 100;
         this._arrowright.y = cc.winSize.height/2;
         this.addChild(this._arrowright);
         this._arrowright.rotation = - 90;
-        Utils.runAnimation(this._arrowright, "navigate", 0.2, 2, true, 0.25);
+        Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
     }
 
     
