@@ -322,7 +322,8 @@ var HudLayer = cc.Layer.extend({
             var cp2 = cc.p(gold.x + cp2x, gold.y - weight);
 
             var flyAction = cc.bezierTo(flyTime, [cp1, cp2, to]);
-            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, 260)));
+            var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
+            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, rotateValue)));
             var self = this;
             gold.runAction(cc.sequence(
                 cc.spawn(
