@@ -100,6 +100,7 @@
         "src/layers/AlphaRacing/Boosters/ARBoosterWorker.js",
         "src/layers/AlphaRacing/Boosters/ARBooster.js",
         "src/layers/AlphaRacing/Boosters/ARInvisible.js",
+        "src/layers/AlphaRacing/Boosters/ARMagnet.js",
         "src/layers/AlphaRacing/ARPlayer.js",
         "src/layers/AlphaRacing/AREffectLayer.js",
         "src/layers/AlphaRacing/Players/ARAdiDog.js",

@@ -17,20 +17,9 @@ var ARMagnet = ARBooster.extend({
         cc.log("ARMagnet: didStart");
         this.visible = false;
         this._player.setBoostFlag(ARMagnet.getBoostFlag());
-        this._player.opacity = 128;
 
         this.runAction(cc.sequence(
-            cc.delayTime(this.effectiveTime/3),
-            cc.callFunc(obj => {
-                obj._player.runAction(cc.sequence(
-                    cc.fadeTo(obj.effectiveTime/6, 255),
-                    cc.fadeTo(obj.effectiveTime/6, 128),
-                    cc.fadeTo(obj.effectiveTime/6, 255),
-                    cc.fadeTo(obj.effectiveTime/6, 128),
-                    cc.fadeTo(obj.effectiveTime/6, 255)
-                ))
-            }),
-            cc.delayTime(this.effectiveTime/ 3 * 2),
+            cc.delayTime(this.effectiveTime),
             cc.callFunc(obj => {
                 obj.setActive(false);
             })

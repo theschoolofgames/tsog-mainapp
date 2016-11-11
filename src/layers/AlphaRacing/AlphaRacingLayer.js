@@ -8,6 +8,8 @@ var AR_WORD_ZODER = 1001;
 var AR_MAP_HORIZONTAL_TILES = 30;
 var AR_MAP_VERTICLE_TILES = 20;
 
+var AR_TAG_ALPHABET_MARGET_ACTION = 834;
+
 var AlphaRacingLayer = cc.LayerColor.extend({
 	
     gameLayer: null,
@@ -181,7 +183,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this._player.updatea(this._deltaTime / TEST_SPEED);
             this._checkAndReloadMaps(this._player);
             this.checkForAndResolveCollisions(this._player);
-            this.checkForAlphabetCollisions();
+            this.checkForAlphabetCollisions(dt);
 
             this.setViewpointCenter(this._player.getPosition());
             this._checkAndScrollBackgrounds(this._player.getPosition());
@@ -421,6 +423,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         cc.log("timeForScene: " + this._timeForSence);
         var hudLayer = new SpecifyGoalHudLayer(this, this._timeForSence, "diamond");
 
+        // var hudLayer = new HudLayer(this, false, this._timeForSence);
+        // hudLayer.x = 0;
+        // hudLayer.y = 0;
+
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
 
@@ -574,12 +580,20 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         return returnVal;
     },
 
-    checkForAlphabetCollisions: function(){
+    checkForAlphabetCollisions: function(dt){
         for (var i = 0; i < this._alphabetObjectArray.length; i++) {
             if (this._alphabetObjectArray[i].x < this._player.x - this._mapWidth / 2){
                 this.gameLayer.removeChild(this._alphabetObjectArray[i]);
                 this._alphabetObjectArray.splice(i--, 1);
                 continue;
+            }
+
+            let delta = cc.pSub(this._player.getPosition(), this._alphabetObjectArray[i].getPosition());
+
+            if (this._player.hasBoostFlag(ARMagnet.getBoostFlag()) && 
+                cc.pLengthSQ(delta) < 200*200) { // 50 * 50
+
+                this._alphabetObjectArray[i].setPosition(cc.pLerp(this._player.getPosition(), this._alphabetObjectArray[i].getPosition(), 0.9));
             }
 
             let pRect = this._player.getCollisionBoundingBox();
