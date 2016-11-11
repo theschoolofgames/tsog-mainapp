@@ -4,35 +4,37 @@ var BalloonGameLayer = TestLayer.extend({
 
     _balloonsLimit: 15,
     _balloons: [],
-    _canTouch: false,
-    _adiDog: null,
-    _enableSpawn: false,
-    _waitForSpawn: 1.0,
-    _balloonScale: 1.0,
-    _balloonLifeTime: 6,
-    _objectsArray: [],
-    _tempArray: [],
-    _objectIdArray: ["color_green", "number_1", "word_a"],
-    _currentObject: null, 
-    // _currentIdLabel: null,
-    _hudLayer: null,
-    hudTypeLabel: null,
-    hudBalloonBg: null,
-    _goalTotal: 0,
-    _correctChoose: 0,
-    _allCorrectChoose: 0,
-    _lbGoal: null,
-    spriteSheet:null,
     redAnimFrames: [],
     greenAnimFrames: [],
     blueAnimFrames: [],
     grayAnimFrames: [],
+    _objectsArray: [],
+    _tempArray: [],
+
+    _canTouch: false,
+    _enableSpawn: false,
+    _canVoildCompletedScene: true,
+    _canRunActionPop: true,
+    _objectIdArray: ["color_green", "number_1", "word_a"],
+
+    _waitForSpawn: 1.0,
+    _balloonScale: 1.0,
+    _balloonLifeTime: 6,
+    _goalTotal: 0,
+    _correctChoose: 0,
+    _allCorrectChoose: 0,
+    
+    _currentObject: null, 
+    _adiDog: null,
+    _hudLayer: null,
+    hudTypeLabel: null,
+    hudBalloonBg: null,
+    _lbGoal: null,
+    spriteSheet:null,
     redAnimation: null,
     greenAnimation: null,
     blueAnimation: null,
     grayAnimation: null,
-    _canVoildCompletedScene: true,
-    _canRunActionPop: true,
     
     ctor: function(objectIdArray, timeForScene) {
         this._super(cc.color.WHITE);
@@ -76,7 +78,11 @@ var BalloonGameLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+    },
 
+    _addHudLayer: function(timeForScene) {
+        this._hudLayer = new SpecifyGoalHudLayer(this, timeForScene);
+        this.addChild(this._hudLayer);
         this._hudLayer.setTotalGoals(this._goalTotal);
     },
 
@@ -101,9 +107,10 @@ var BalloonGameLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         cc.log("ListeningTestLayer - updateProgressBar");
-        var percent = this._correctChoose / this._goalTotal;
+        var percent = this._allCorrectChoose / this._goalTotal;
+
         this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._correctChoose);
+        this.setHUDCurrentGoals(this._allCorrectChoose);
 
         this._super();
     },
@@ -145,7 +152,7 @@ var BalloonGameLayer = TestLayer.extend({
 
     _updateCurrentIdHud: function(currentObj) {
         let text = "";
-        
+
         if (currentObj.type === "number" || currentObj.type === "word")
             text = currentObj.value;
 
@@ -157,18 +164,22 @@ var BalloonGameLayer = TestLayer.extend({
             this.addChild(this.hudBalloonBg);
         }
 
+        var spriteFrame = "";
         if (currentObj.value.indexOf("red") !== -1){
-            this.hudBalloonBg.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_red_1.png"));
+            spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_red_1.png");
         }
         else if (currentObj.value.indexOf("green") !== -1){
-            this.hudBalloonBg.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_green_1.png"));
+            spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_green_1.png");
         }
         else if (currentObj.value.indexOf("blue") !== -1){
-            this.hudBalloonBg.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_blue_1.png"));
+            spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_blue_1.png");
         }
         else {
-            this.hudBalloonBg.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png"));   
+            spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png");
         }
+        this.hudBalloonBg.setSpriteFrame(spriteFrame);
+        this._hudLayer.addSpecifyGoal(spriteFrame);
+        this._hudLayer.setTotalSpecifyGoal(currentObj.amount);
 
         if (!this.hudTypeLabel){
             this.hudTypeLabel = new cc.LabelBMFont(text + "", "hud-font.fnt");
@@ -267,23 +278,7 @@ var BalloonGameLayer = TestLayer.extend({
                     self._updateGoalLabel(self._correctChoose);
                     self.updateProgressBar();
                     // cc.log("Correct - Goal Total : (%d - %d)", self._allCorrectChoose, self._goalTotal);
-                    var percent = self._allCorrectChoose / self._goalTotal;
-                    self._hudLayer.setProgressBarPercentage(percent);
-
-                    let starEarned = 0;
-                    if (self._allCorrectChoose == self._goalTotal)
-                        starEarned = 3;
-                    else if (percent > 0.6)
-                        starEarned = 2;
-                    else if (percent > 0.3)
-                        starEarned = 1;
-                    else 
-                        starEarned = 0;
                     
-                    self._hudLayer.setStarEarned(starEarned);
-                    if (starEarned > 0) {
-                        self._hudLayer.addStar("light", starEarned);
-                    }
 
                     if (self._correctChoose >= self._currentObject.amount){
                         self._checkCompleteScene();
@@ -514,7 +509,9 @@ var BalloonGameLayer = TestLayer.extend({
 
     _updateGoalLabel: function(correct) {
         // this._lbGoal.setString(correct + "/" + this._currentObject.amount);
-        this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
+        // this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
+        this._hudLayer.setCurrentSpecifyGoal(correct);
+        this._hudLayer.updateSpecifyGoal();
     },
 });
 

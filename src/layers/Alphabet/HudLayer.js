@@ -108,13 +108,13 @@ var HudLayer = cc.Layer.extend({
         clockBg.x = this._progressBarBg.x + this._progressBarBg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
         clockBg.y = this._progressBarBg.y - 10* Utils.screenRatioTo43();
         this.addChild(clockBg);
+        this._clockBg = clockBg;
 
         var clockImg = new cc.Sprite("#clock.png");
         clockImg.x = 0;
         clockImg.y = clockImg.height/2 - 5;
         clockBg.addChild(clockImg);
         clockBg.setVisible(visible);
-        this._clockBg = clockBg;
         this.addCountDownClock(visible, timeForScene);
         cc.log("visible %s, timeForScene %d", visible, timeForScene)
     },
@@ -148,10 +148,10 @@ var HudLayer = cc.Layer.extend({
         this._currentGoals = 0;
         this._totalGoals = 0;
         var text = this._currentGoals + "/" + this._totalGoals;
-        this._totalGoalsLabel = new cc.LabelBMFont(text, res.CustomFont_fnt);
-        this._totalGoalsLabel.scale = 0.4;
-        this._totalGoalsLabel.x = this._progressBarBg.width *0.75 - 1;
-        this._totalGoalsLabel.y = this._progressBarBg.height *0.75 + 1;
+        this._totalGoalsLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
+        this._totalGoalsLabel.scale = 0.5;
+        this._totalGoalsLabel.x = this._progressBarBg.width *0.5 - 1;
+        this._totalGoalsLabel.y = this._progressBarBg.height *0.25 + this._totalGoalsLabel.height/2*this._totalGoalsLabel.scale;
         this._progressBarBg.addChild(this._totalGoalsLabel, 99);
     },  
 
@@ -178,6 +178,12 @@ var HudLayer = cc.Layer.extend({
     },
 
     addCurrency: function() {
+        var bg = new cc.Sprite("#whitespace.png");
+        bg.x = this._clockBg.x + this._clockBg.width/2 + bg.width/2 + HUD_BAR_DISTANCE;
+        bg.y = this._clockBg.y;
+        this.addChild(bg);
+        this._bg = bg;
+        
         var coin = new cc.Sprite("gold.png");
         coin.x = cc.winSize.width - coin.width/2 - 10;
         coin.y = cc.winSize.height - 80 + coin.height/2 - 10;
@@ -206,15 +212,15 @@ var HudLayer = cc.Layer.extend({
     },
 
     setProgressLabelStr: function(text, numItems) {
-        // var numberItems = 0;
-        // if (numItems == null)
-        //     numberItems = Global.NumberItems
-        // else numberItems = numItems;
-        // this._progressLabel.setString(text + "/" + numberItems);
-        // cc.log("setProgressLabelStr");
-        // this._trophiesEarned++;
-        // this._progressLabel.setString(this._trophiesEarned);
-        // KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
+        var numberItems = 0;
+        if (numItems == null)
+            numberItems = Global.NumberItems
+        else numberItems = numItems;
+        this._progressLabel.setString(text + "/" + numberItems);
+        cc.log("setProgressLabelStr");
+        this._trophiesEarned++;
+        this._progressLabel.setString(this._trophiesEarned);
+        KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
     },
 
     updateTotalGoalsLabel: function(){
@@ -371,5 +377,21 @@ var HudLayer = cc.Layer.extend({
         goldNode.removeFromParent();
         // count up balance gradually
         // this._updateGoldAmountLabel(amount, 0.8);
-    }
+    },
+
+    addSpecifyGoal: function(imageName) {
+
+    },
+
+    setTotalSpecifyGoal: function(goal) {
+
+    },
+
+    setCurrentSpecifyGoal: function(goal) {
+
+    },
+
+    updateSpecifyGoal: function() {
+
+    },
 });

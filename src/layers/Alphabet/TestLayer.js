@@ -25,7 +25,7 @@ var TestLayer = cc.LayerColor.extend({
 
         this._removeHud = removeHud;
 
-        Utils.showVersionLabel(this);
+        // Utils.showVersionLabel(this);
         // this.addQuickTestButton();
     },
 

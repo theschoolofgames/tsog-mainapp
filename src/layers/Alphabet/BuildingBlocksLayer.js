@@ -215,7 +215,6 @@ var BuildingBlocksLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        // cc.log("data:" + JSON.stringify(data));
         this._type = data["type"];
         this._data = data["data"][0];
 
