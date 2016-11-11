@@ -28,8 +28,8 @@ ShopScreenLayer = cc.LayerColor.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
-        CurrencyManager.getInstance().incCoin(10000);
-        CurrencyManager.getInstance().incDiamond(10000);
+        // CurrencyManager.getInstance().incCoin(10000);
+        // CurrencyManager.getInstance().incDiamond(10000);
     },
     onTouchBegan: function(touch, event) {
         cc.log("onTouchBegan");
@@ -249,21 +249,39 @@ ShopScreenLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height/2 - 100;
         this._button = button;
         var self = this;
-        this.addChild(button, 9999);
+        this.addChild(button, 10);
         button.addClickEventListener(function(){
-            self._character.adiJump();
             cc.log("unlocked:  " + unlocked);
+            unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
             if(!unlocked) {
                 var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
                 if(buy) {
                     lbPrice.removeFromParent();
                     lb.setString("Choose");
+                    self._character.adiJump();
                 }
-
+                else {
+                    self._character.adiShakeHead();
+                    var diamondsNeed = characterCfg.price - CurrencyManager.getInstance().getDiamond();
+                    var text = "You need " + diamondsNeed + " diamonds to unlock this charater!"
+                    self.runAction(cc.sequence(
+                        cc.delayTime(1),
+                        cc.callFunc(function(){
+                            self.addChild(new AlertDialog(text), 99999);
+                        })
+                    ));
+                }
             }
             else {
                 lb.setString("");
+                self._character.adiJump();
                 CharacterManager.getInstance().selectCharacter(characterCfg.name);
+                self.runAction(cc.sequence(
+                    cc.delayTime(1),
+                    cc.callFunc(function(){
+                        cc.director.runScene(new TalkingAdiScene());
+                    })
+                ));
             }
         });
         var lb = new cc.LabelBMFont(lbButton, "res/font/custom_font.fnt");
