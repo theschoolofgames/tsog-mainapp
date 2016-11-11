@@ -419,11 +419,12 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     addHud: function() {
         cc.log("timeForScene: " + this._timeForSence);
-        var hudLayer = new HudLayer(this, false, this._timeForSence);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
+        var hudLayer = new SpecifyGoalHudLayer(this, this._timeForSence, "diamond");
+
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
+
+        this._hudLayer.addSpecifyGoal();
     },
 
     _addButtons: function() {
@@ -524,8 +525,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         this._currentChallange = this._tempInputData.shift();
-
-        this._hudLayer.updateProgressLabel("".concat(this._currentChallange.amount).concat("-").concat(this._currentChallange.value));
+        this._hudLayer.setCurrencyType("diamond");
+        this._hudLayer.setTotalGoals(this._totalGoalNumber);
+        this._hudLayer.updateSpecifyGoalLabel("".concat(this._currentChallange.amount).concat("-").concat(this._currentChallange.value));
     },
 
     _checkForGoalAccepted: function(word) {
@@ -550,24 +552,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this._totalEarned++;
             // this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
 
-            var percent = this._totalEarned / this._totalGoalNumber;
-            this._hudLayer.setProgressBarPercentage(percent);
-
-            let starEarned = 0;
-            if (this._totalEarned == this._totalGoalNumber)
-                starEarned = 3;
-            else if (percent > 0.6)
-                starEarned = 2;
-            else if (percent > 0.3)
-                starEarned = 1;
-            else 
-                starEarned = 0;
-            
-            this._hudLayer.setStarEarned(starEarned);
-            if (starEarned > 0) {
-                this._hudLayer.addStar("light", starEarned);
-            }
-
+            this.updateProgressBar();
             if (parseInt(this._currentChallange.amount) == this._currentEarnedNumber){
                 if (this._tempInputData.length > 0){
                     this._currentChallange = this._tempInputData.shift();
@@ -584,7 +569,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         let leftObjects = parseInt(this._currentChallange.amount) - this._currentEarnedNumber;
-        this._hudLayer.updateProgressLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.value));
+        this._hudLayer.updateSpecifyGoalLabel("".concat(leftObjects).concat("-").concat(this._currentChallange.value));
 
         return returnVal;
     },
@@ -994,11 +979,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     updateProgressBar: function() {
         cc.log("ListeningTestLayer - updateProgressBar");
-        var percent = this._touchCounting / this._names.length;
-        this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._touchCounting);
+        var percent = this._totalEarned / this._totalGoalNumber;
 
-        this._super();
+        this._hudLayer.setCurrentGoals(this._totalEarned);
+        this._hudLayer.updateTotalGoalsLabel();
+        this._hudLayer.setProgressBarPercentage(this.percent);
     },
 });
 

@@ -101,9 +101,9 @@ var BalloonGameLayer = TestLayer.extend({
         return total;
     },
 
-    _updateGoalLabel: function(correct) {
-        this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
-    },
+    // _updateGoalLabel: function(correct) {
+    //     this._hudLayer.updateSpecifyGoalLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
+    // },
 
     updateProgressBar: function() {
         cc.log("ListeningTestLayer - updateProgressBar");
@@ -509,9 +509,9 @@ var BalloonGameLayer = TestLayer.extend({
 
     _updateGoalLabel: function(correct) {
         // this._lbGoal.setString(correct + "/" + this._currentObject.amount);
-        // this._hudLayer.updateProgressLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
+        // this._hudLayer.updateSpecifyGoalLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
         this._hudLayer.setCurrentSpecifyGoal(correct);
-        this._hudLayer.updateSpecifyGoal();
+        this._hudLayer.updateSpecifyGoalLabel();
     },
 });
 

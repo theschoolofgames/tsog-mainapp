@@ -5,10 +5,11 @@ var HudLayer = cc.Layer.extend({
     _settingBtn: null,
     _goalImg: null,
     _progressBarBg: null,
-    _progressLabel: null,
     _totalGoalsLabel: null,
     _gameProgressBar: null,
     _lbCoin: null,
+
+    _currencyType: null,
 
     _progressPercentage: 0,
     _starEarned: 0,
@@ -24,13 +25,13 @@ var HudLayer = cc.Layer.extend({
         cc.log("createHUD: " +  timeForScene);
         this.addSettingButton();
         this.addGameProgressBar();
-        // this.addGoalImage();
-        this.addCurrency();
+
         this.addTotalGoals();
         if(withoutClock == false || withoutClock == null )
             this.addClockImage(true,timeForScene);
         else this.addClockImage(false, timeForScene);
 
+        this.addCurrency();
         this.width = this._clockBg.x + this._clockBg.width/2;
         this.height = this._settingBtn.height;
         this.scheduleUpdate();
@@ -87,20 +88,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     addGoalImage: function() {
-        var goalBg = new cc.Sprite("#whitespace.png");
-        goalBg.x = this._progressBar.x + this._progressBar.width/2 + goalBg.width/2 + HUD_BAR_DISTANCE;
-        goalBg.y = this._progressBar.y;
-        this.addChild(goalBg);
 
-        var cupImage = new cc.Sprite("#cup.png");
-        cupImage.x = 0;
-        cupImage.y = cupImage.height/2 - 5;
-        goalBg.addChild(cupImage);
-
-        this._goalImg = goalBg;
-        var numItems = Global.NumberItems;
-        // this.addProgressLabel(goalBg, "0/" + numItems);
-        this.addProgressLabel(goalBg, this._trophiesEarned);
     },
 
     addClockImage: function(visible, timeForScene) {
@@ -117,21 +105,6 @@ var HudLayer = cc.Layer.extend({
         clockBg.setVisible(visible);
         this.addCountDownClock(visible, timeForScene);
         cc.log("visible %s, timeForScene %d", visible, timeForScene)
-    },
-
-    addProgressLabel: function(object, text) {
-        // cc.log("text: " + text);
-        font =  "hud-font.fnt";
-
-        var label = new cc.LabelBMFont(text+"", font);
-        // label.scale = 0.5;
-        // var label = new cc.LabelTTF(text, "Arial", 32);
-        label.color = cc.color("#ffd902");
-        label.x = object.width/2 + 10;
-        label.y = object.height - 17;
-        object.addChild(label);
-
-        this._progressLabel = label;
     },
 
     addStar: function(type, number) {
@@ -179,21 +152,23 @@ var HudLayer = cc.Layer.extend({
 
     addCurrency: function() {
         var bg = new cc.Sprite("#whitespace.png");
-        bg.x = this._clockBg.x + this._clockBg.width/2 + bg.width/2 + HUD_BAR_DISTANCE;
+        bg.x = cc.winSize.width - bg.width/2 - 5;
         bg.y = this._clockBg.y;
         this.addChild(bg);
         this._bg = bg;
-        
-        var coin = new cc.Sprite("gold.png");
-        coin.x = cc.winSize.width - coin.width/2 - 10;
-        coin.y = cc.winSize.height - 80 + coin.height/2 - 10;
+
+        if (!this._currencyType)
+            this._currencyType = "gold";
+        var coin = new cc.Sprite("#" + this._currencyType + ".png");
+        coin.x = cc.winSize.width - coin.width/2;
+        coin.y = bg.y;
         this.addChild(coin, 999);
         var coinAmount = CurrencyManager.getInstance().getCoin();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
         lbCoin.scale = 0.4;
         lbCoin.anchorX = 1;
-        lbCoin.x = -coin.width/2;
-        lbCoin.y = coin.height/2;
+        lbCoin.x = -5;
+        lbCoin.y = coin.height/2 + 2;
         coin.addChild(lbCoin);
 
         this._lbCoin = lbCoin;
@@ -225,10 +200,6 @@ var HudLayer = cc.Layer.extend({
 
     updateTotalGoalsLabel: function(){
         this._totalGoalsLabel.setString(this._currentGoals + "/" + this._totalGoals);
-    },
-
-    updateProgressLabel: function(text){
-        this._progressLabel.setString(text);
     },
 
     setTotalGoals: function(totalGoals) {
@@ -334,7 +305,7 @@ var HudLayer = cc.Layer.extend({
 
 
         for (var i = 0; i < amount; i++) {
-            var gold = new cc.Sprite("gold.png");
+            var gold = new cc.Sprite("#" + this._currencyType + ".png");
             gold.x = goldNode.x;
             gold.y = goldNode.y;
             gold.scale = Math.random()*0.1 + 0.8;
@@ -379,6 +350,9 @@ var HudLayer = cc.Layer.extend({
         // this._updateGoldAmountLabel(amount, 0.8);
     },
 
+    setCurrencyType: function(name) {
+    },
+
     addSpecifyGoal: function(imageName) {
 
     },
@@ -391,7 +365,7 @@ var HudLayer = cc.Layer.extend({
 
     },
 
-    updateSpecifyGoal: function() {
+    updateSpecifyGoalLabel: function() {
 
     },
 });
