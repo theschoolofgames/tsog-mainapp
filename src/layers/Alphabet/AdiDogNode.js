@@ -14,7 +14,7 @@ var AdiDogNode = cc.Node.extend({
 
     ctor: function(setActive, characterName) {
         this._super();
-
+        this.setCascadeOpacityEnabled(true);
         this._createTalkingAdi(characterName);
 
         if(setActive)
@@ -94,34 +94,34 @@ var AdiDogNode = cc.Node.extend({
         cc.log("before creating adi");
         var name = CharacterManager.getInstance().getSelectedCharacter();
         if(!name) {
-            name = "adidog"
+            name = "adi"
         };
         if(characterName)
             name = characterName;
-        this._talkingAdi = new sp.SkeletonAnimation(name + "/adidog.json", name + "/adidog.atlas", 0.3);
+        this._talkingAdi = new sp.SkeletonAnimation("characters/" + name + "/character.json", "characters/" + name + "/character.atlas", 0.3);
+        this._talkingAdi.setCascadeOpacityEnabled(true);
+        this._talkingAdi.setMix('idle', 'listeningstart', 0.2);
+        this._talkingAdi.setMix('idle', 'talking', 0.2);
+        this._talkingAdi.setMix('listeningstart', 'listeningl-still', 0.2);
+        this._talkingAdi.setMix('listeningl-still', 'listeningfinish', 0.2);
+        this._talkingAdi.setMix('listeningl-still', 'shake', 0.3);
+        this._talkingAdi.setMix('listeningl-still', 'talking', 0.3);
+        this._talkingAdi.setMix('listeningfinish', 'talking', 0.2);
+        this._talkingAdi.setMix('listeningfinish', 'jump', 0.3);
+        this._talkingAdi.setMix('jump', 'hifi', 0.2);
+        this._talkingAdi.setMix('hifi', 'jump', 0.2);
+        this._talkingAdi.setMix('shake', 'talking', 0.5);
+        this._talkingAdi.setMix('talking', 'idle', 0.2);
+        this._talkingAdi.setMix('talking', 'listeningstart', 0.2);
 
-        this._talkingAdi.setMix('adidog-idle', 'adidog-listeningstart', 0.2);
-        this._talkingAdi.setMix('adidog-idle', 'adidog-talking', 0.2);
-        this._talkingAdi.setMix('adidog-listeningstart', 'adidog-listeningl-still', 0.2);
-        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-listeningfinish', 0.2);
-        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-shake', 0.3);
-        this._talkingAdi.setMix('adidog-listeningl-still', 'adidog-talking', 0.3);
-        this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-talking', 0.2);
-        this._talkingAdi.setMix('adidog-listeningfinish', 'adidog-jump', 0.3);
-        this._talkingAdi.setMix('adidog-jump', 'adidog-hifi', 0.2);
-        this._talkingAdi.setMix('adidog-hifi', 'adidog-jump', 0.2);
-        this._talkingAdi.setMix('adidog-shake', 'adidog-talking', 0.5);
-        this._talkingAdi.setMix('adidog-talking', 'adidog-idle', 0.2);
-        this._talkingAdi.setMix('adidog-talking', 'adidog-listeningstart', 0.2);
-
-        this._talkingAdi.setMix('adidog-jump', 'adidog-idle', 0.2);
-        this._talkingAdi.setMix('adidog-sneeze', 'adidog-idle', 0.2);
-        this._talkingAdi.setMix('adidog-sitdown', 'adidog-idle', 0.2);
-        this._talkingAdi.setMix('adidog-shake', 'adidog-idle', 0.2);
+        this._talkingAdi.setMix('jump', 'idle', 0.2);
+        this._talkingAdi.setMix('sneeze', 'idle', 0.2);
+        this._talkingAdi.setMix('sitdown', 'idle', 0.2);
+        this._talkingAdi.setMix('shake', 'idle', 0.2);
 
         // this._talkingAdi.setDebugSlotsEnabled(true);
 
-        this._talkingAdi.setAnimation(0, 'adidog-idle', true);
+        this._talkingAdi.setAnimation(0, 'idle', true);
 
         this.addChild(this._talkingAdi, 4);
         this._isAdiIdling = true;
@@ -131,52 +131,52 @@ var AdiDogNode = cc.Node.extend({
     onStartedListening: function() {
         cc.log("onStartedListening");
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-listeningstart', false);
-        this._talkingAdi.addAnimation(0, 'adidog-listeningl-still', true, 0.2);
+        this._talkingAdi.setAnimation(0, 'listeningstart', false);
+        this._talkingAdi.addAnimation(0, 'listeningl-still', true, 0.2);
     },
 
     onStoppedListening: function() {
         cc.log("onStoppedListening");
-        this._talkingAdi.setAnimation(0, 'adidog-listeningfinish', false);
+        this._talkingAdi.setAnimation(0, 'listeningfinish', false);
     },
 
     adiTalk: function() {
-        this._talkingAdi.addAnimation(0, 'adidog-talking', true, 0.3);
+        this._talkingAdi.addAnimation(0, 'talking', true, 0.3);
     },
 
     adiShakeHead: function() {
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-shake', false);  
+        this._talkingAdi.setAnimation(0, 'shake', false);  
     },
 
     adiSneeze: function() {
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-sneeze', false);  
+        this._talkingAdi.setAnimation(0, 'sneeze', false);  
     },
 
     adiHifi: function() {
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-hifi', false);  
+        this._talkingAdi.setAnimation(0, 'hifi', false);  
     },
 
     adiIdleHint: function() {
-        this._talkingAdi.setAnimation(0, 'adidog-idle-hint', false);  
+        this._talkingAdi.setAnimation(0, 'idle-hint', false);  
     },
 
     adiJump: function() {
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-jump', false);  
+        this._talkingAdi.setAnimation(0, 'jump', false);  
     },
 
     adiIdling: function() {
         this._isAdiIdling = true;
         // cc.log("setidling: " + this._isAdiIdling);
-        this._talkingAdi.setAnimation(0, 'adidog-idle', true);
+        this._talkingAdi.setAnimation(0, 'idle', true);
     },
 
     adiSitdown: function() {
         // cc.log("adiSitdown");
         this._isAdiIdling = false;
-        this._talkingAdi.setAnimation(0, 'adidog-sitdown', false);
+        this._talkingAdi.setAnimation(0, 'sitdown', false);
     }
 });

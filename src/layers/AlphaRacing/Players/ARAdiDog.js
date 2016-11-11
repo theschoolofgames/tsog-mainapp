@@ -1,6 +1,6 @@
 var ARAdiDog = ARPlayer.extend({
     _health: 5,
-    _characterName : "adidog",
+    _characterName : "adi",
 
     ctor: function() {
         this._super();

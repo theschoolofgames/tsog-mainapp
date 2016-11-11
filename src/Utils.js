@@ -373,3 +373,29 @@ Utils.addBuildVersionText = function(parent) {
     lb.scale = 0.5;
     parent.addChild(lb);
 }
+Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop, timeForNextLoop) {
+    var animFrames = [];
+    for (var i = 1; i < effectFrames + 1; i++) {
+        var str = effectName + "-" + i + ".png";
+        var frame = cc.spriteFrameCache.getSpriteFrame(str);
+        animFrames.push(frame);
+    };
+    var effectAnimation = new cc.Animation(animFrames, effectDelay);
+    var actions = [cc.animate(effectAnimation)];
+    var effectAction = null;
+    if (!loop) {
+        effectAction = cc.sequence(actions);
+    } else
+    {   
+        var time = Math.random() * 4 + 2;
+        if(timeForNextLoop){
+            time = timeForNextLoop
+        };
+        actions.push(cc.delayTime(time));
+        effectAction = cc.repeatForever(cc.sequence(
+            actions
+        ));
+    }
+    cc.log("runAction");
+    node.runAction(effectAction);
+}

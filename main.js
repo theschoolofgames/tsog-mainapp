@@ -140,6 +140,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.AR_Obstacles_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
+        cc.spriteFrameCache.addSpriteFrames("res/SD/homescreen.plist");
         
         // cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
@@ -231,6 +232,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.AR_Obstacles_plist);
             cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
+            cc.spriteFrameCache.addSpriteFrames("res/SD/homescreen.plist");
         });
     }, this);
 };
