@@ -4,7 +4,13 @@ ShopScreenLayer = cc.LayerColor.extend({
     _character : null,
     _touchPos: null,
     _moveRight: null,
-    _isTouchMoved: null, 
+    _isTouchMoved: false, 
+    _showOtherCharacter: null,
+    _heathy: null,
+    _name : null,
+    _oldPostion: null,
+    _arrowleft: null,
+    _arrowright: null,
 
     ctor: function() {
         this._super(cc.color(255,255,255,255));
@@ -12,6 +18,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addCurrency();
         this._characterList = CharacterManager.getInstance().getCharacterList();
         cc.log("characterList: " + JSON.stringify(this._characterList));
+        this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
         cc.eventManager.addListener({
@@ -26,6 +33,9 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
     onTouchBegan: function(touch, event) {
         cc.log("onTouchBegan");
+        this._isTouchMoved = false;
+        this._showOtherCharacter = false;
+        this._oldPostion = this._character.getPosition();
         this._touchPos = touch.getLocation();
             return true;
     },
@@ -35,7 +45,9 @@ ShopScreenLayer = cc.LayerColor.extend({
         var touchPos = touch.getLocation();
         var delta = cc.pSub(touchPos, this._touchPos);
         cc.log(cc.pLengthSQ(delta));
-        if(cc.pLengthSQ(delta) > 10) {
+        position = cc.p(this._oldPostion.x + delta.x, this._character.y);
+        this._character.setPosition(position);
+        if(cc.pLengthSQ(delta) > 10000) {
             this._isTouchMoved = true;
         };
         if(this._touchPos.x > touchPos.x)
@@ -44,25 +56,38 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     onTouchEnded:function(touch, event) {
-        cc.log("onTouchEnded");
+        cc.log("onTouchEnded: " + this._isTouchMoved);
+        var position = null;
         if(this._isTouchMoved) {
             if(this._moveRight && this._index > 0) {
                 this._index -= 1;
+                this._showOtherCharacter = true;
+                position = cc.p(this._character.x + 600, this._character.y);
             }
-            else if(!this._moveRight && this._index < this._characterList.length - 1)
+            else if(!this._moveRight && this._index < this._characterList.length - 1) {
+                this._showOtherCharacter = true;
                 this._index += 1;
+                position = cc.p(this._character.x - 600, this._character.y);
+            }
             cc.log("this._index: " + this._index);
             var self  = this;
-
-            // this._character.runAction(cc.sequence(
-            //     cc.delayTime(0.3),
-            //     cc.fadeTo(3, 0),
-            //     cc.callFunc(function(){
-            //         self.showCharacter(self._index);
-            //     })
-            // ));
-            this.showCharacter(this._index);
+            if(this._showOtherCharacter) {
+                this._character.runAction(cc.sequence(
+                    cc.spawn(
+                        cc.fadeTo(0.5, 0),
+                        cc.moveTo(0.5, position)    
+                    ),
+                    cc.callFunc(function(){
+                        self.showCharacter(self._index);
+                    })
+                ));
+            }
+            else
+                this._character.setPosition(this._oldPostion);
+            // this.showCharacter(this._index);
         }
+        else if (!this._isTouchMoved)
+            this._character.setPosition(this._oldPostion);
     },
 
     addBackToHomeScene: function(){
@@ -144,8 +169,9 @@ ShopScreenLayer = cc.LayerColor.extend({
             character.y = 50;
             var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
             
-
-            var characterName = new cc.LabelBMFont(characterCfg.name, "res/font/custom_font.fnt");
+            var name = characterCfg.name.toUpperCase();
+            // name[0] = name[0].toUpCase();
+            var characterName = new cc.LabelBMFont(name, "res/font/custom_font.fnt");
             characterName.x = character.width/2 - 300;
             characterName.y = character.height + 100;
             character.addChild(characterName);
@@ -158,16 +184,33 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     showCharacter: function(index) {
+        if(index == 0) {
+            this._arrowleft.setVisible(false);
+            this._arrowright.setVisible(true);
+        } else if  (index == this._characterList.length - 1) {
+            this._arrowleft.setVisible(true);
+            this._arrowright.setVisible(false);
+        } else if  (0 < index < this._characterList.length - 1) {
+            this._arrowleft.setVisible(true);
+            this._arrowright.setVisible(true);
+        };
         cc.log("index: " + index);
         if(this._character) {
             this._character.removeFromParent();
+            this._heathy.removeFromParent();
+            this._name.removeFromParent();
+            this._button.removeFromParent();
+            this._heathy = null,
+            this._name = null,
             this._character = null;
+            this._button = null;
         };
 
         var characterCfg = this._characterList[index];
         this._character = new AdiDogNode(true, characterCfg.name);
         this.addChild(this._character);
-        this._character.x = 200;
+        // this._character.opacity = 100;
+        this._character.x = 300;
         this._character.y = cc.winSize.height/2 - 100;
         var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
         var lbButton = "";
@@ -178,36 +221,37 @@ ShopScreenLayer = cc.LayerColor.extend({
         if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
             lbButton = "";
         };
-
-        var characterName = new cc.LabelBMFont("Name: " + characterCfg.name, "res/font/custom_font.fnt");
+        var name = characterCfg.name.toUpperCase();
+        var characterName = new cc.LabelBMFont("" + name, "res/font/custom_font.fnt");
         characterName.scale = 0.4;
         characterName.anchorX = 0;
-        characterName.x = this._character.width/2 + 300;
-        characterName.y = this._character.height + 300;
-        this._character.addChild(characterName);
+        characterName.x = cc.winSize.width/2;
+        characterName.y = cc.winSize.height/2 + 100;
+        this.addChild(characterName);
+        this._name = characterName;
 
-        var characterHeathy = new cc.LabelBMFont("Heathy: ", "res/font/custom_font.fnt");
+        var characterHeathy = new cc.LabelBMFont("", "res/font/custom_font.fnt");
         characterHeathy.scale = 0.4;
         characterHeathy.anchorX = 0;
-        characterHeathy.x = this._character.width/2 + 300;
-        characterHeathy.y = this._character.height + 250;
-        for(var i = 0; i < 10; i ++) {
+        characterHeathy.x = cc.winSize.width/2;;
+        characterHeathy.y = cc.winSize.height/2 + 50;
+        for(var i = 0; i < characterCfg.heathy; i ++) {
             var heart = new cc.Sprite("res/SD/diamond.png");
             heart.scale = 1/characterHeathy.scale - 0.4;
-            heart.x = characterHeathy.width + 100 + i * 120;
+            heart.x = characterHeathy.width + 50 + i * 120;
             heart.y = characterHeathy.height/2;
             characterHeathy.addChild(heart);
-            if(i > characterCfg.heathy - 1) {
-                cc.log("setColor");
-                heart.setColor(cc.color(0,0,100));
-            }
         };
-        this._character.addChild(characterHeathy);
+        this.addChild(characterHeathy);
+        this._heathy = characterHeathy;
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = this._character.width/2 + 500;
-        button.y = 0;
-        this._character.addChild(button, 9999);
+        button.x = cc.winSize.width/2 + 100;
+        button.y = cc.winSize.height/2 - 100;
+        this._button = button;
+        var self = this;
+        this.addChild(button, 9999);
         button.addClickEventListener(function(){
+            self._character.adiJump();
             cc.log("unlocked:  " + unlocked);
             if(!unlocked) {
                 var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
@@ -240,6 +284,22 @@ ShopScreenLayer = cc.LayerColor.extend({
             diamondIcon.y = lbPrice.height/2;
             lbPrice.addChild(diamondIcon);
         }
+    },
+
+    addArrows: function() {
+        this._arrowleft = new cc.Sprite("#navigate-1.png");
+        this._arrowleft.x = 100;
+        this._arrowleft.y = cc.winSize.height/2;
+        this.addChild(this._arrowleft);
+        this._arrowleft.rotation = 90;
+        Utils.runAnimation(this._arrowleft, "navigate", 0.2, 2, true, 0.25);
+
+        this._arrowright = new cc.Sprite("#navigate-1.png");
+        this._arrowright.x = cc.winSize.width - 100;
+        this._arrowright.y = cc.winSize.height/2;
+        this.addChild(this._arrowright);
+        this._arrowright.rotation = - 90;
+        Utils.runAnimation(this._arrowright, "navigate", 0.2, 2, true, 0.25);
     }
 
     
