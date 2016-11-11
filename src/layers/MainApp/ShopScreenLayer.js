@@ -263,7 +263,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                 else {
                     self._character.adiShakeHead();
                     var diamondsNeed = characterCfg.price - CurrencyManager.getInstance().getDiamond();
-                    var text = "You need " + diamondsNeed + " diamonds to unlock this charater!"
+                    var text = "You need " + diamondsNeed + " diamonds to unlock this charater from Alpharacing Game!"
                     self.runAction(cc.sequence(
                         cc.delayTime(1),
                         cc.callFunc(function(){
