@@ -609,6 +609,7 @@ var RoomLayer = cc.Layer.extend({
         var distance = cc.pDistance(objectPos, shadePos);
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
+            this.popGold(shadePos);
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(Z_OBJECT);
             this._objectTouching.userData.scaleFactor = 0.5;
@@ -912,6 +913,10 @@ var RoomLayer = cc.Layer.extend({
                 }
             }
         });
+    },
+
+    popGold: function(from) {
+        this._hudLayer.popGold(1, from.x, from.y);
     },
 });
 

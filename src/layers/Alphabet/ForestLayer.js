@@ -284,10 +284,7 @@ var ForestLayer = cc.Layer.extend({
             targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
         }
-        // cc.log("ontouchbegan after check object is disabled or not");
-        // if (targetNode._isTouchingDisabledObject(touchedPos))
-        //     return false;
-
+    
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
@@ -300,10 +297,9 @@ var ForestLayer = cc.Layer.extend({
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
         };
-        // cc.log("prepare to processGameLogic");
+        targetNode.popGold(touchedPos);
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
-        // cc.log("done to processGameLogic");
         if (targetNode._objectDisableds.length == Global.NumberItems) {
             SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
@@ -311,7 +307,6 @@ var ForestLayer = cc.Layer.extend({
                     time_taken: targetNode._hudLayer._clock.getElapseTime()
                 });
         };    
-        // cc.log("done onTouchBegan");
         return true;
     },
 
@@ -763,9 +758,9 @@ var ForestLayer = cc.Layer.extend({
     processGameLogic: function() {
         this._removeWarnLabel();
         this._touchCounting += 1;
+
         this.updateProgressBar();
-        // this._objectTouching.stopAllActions();
-        // this._objectTouching.removeAllChildren();
+
         this.removeAnimalEffect();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
@@ -1000,7 +995,11 @@ var ForestLayer = cc.Layer.extend({
         object.enableShadow(cc.color(0.0, 0.0, 0.0, 64.0), cc.size(fontSize*0.11, -fontSize*0.11), 0);
 
         return object;
-    }
+    },
+
+    popGold: function(from) {
+        this._hudLayer.popGold(1, from.x, from.y);
+    },
 });
 var ForestScene = cc.Scene.extend({
     ctor: function(data, isTestScene, timeForScene) {

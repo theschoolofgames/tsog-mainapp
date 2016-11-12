@@ -1,3 +1,4 @@
+var CURRENCY_SCALE = 0.8;
 var HudLayer = cc.Layer.extend({
     _layer: null,
     _clock: null,
@@ -10,6 +11,8 @@ var HudLayer = cc.Layer.extend({
     _lbCoin: null,
 
     _currencyType: null,
+    _coinEffect: null,
+    _coin: null,
 
     _progressPercentage: 0,
     _starEarned: 0,
@@ -160,9 +163,12 @@ var HudLayer = cc.Layer.extend({
         if (!this._currencyType)
             this._currencyType = "gold";
         var coin = new cc.Sprite("#" + this._currencyType + ".png");
+        coin.scale = CURRENCY_SCALE;
         coin.x = cc.winSize.width - coin.width/2;
         coin.y = bg.y;
         this.addChild(coin, 999);
+        this._coin = coin;
+
         var coinAmount = CurrencyManager.getInstance().getCoin();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
         lbCoin.scale = 0.4;
@@ -273,18 +279,6 @@ var HudLayer = cc.Layer.extend({
             jumpDistanceX  = 10;
         var duration = 0.4 * finalScale;
 
-        // node.runAction(cc.sequence(
-        //     cc.delayTime(delay),
-        //     cc.show(),
-        //     cc.spawn(
-        //         cc.scaleTo(duration, finalScale, finalScale),
-        //         cc.jumpBy(duration, jumpDistanceX*finalScale, jumpDistanceY*finalScale, jumpHeight*finalScale, 1)
-        //     )
-        // ));
-        // node.runAction(cc.repeatForever(cc.sequence(
-        //     cc.tintTo(0.15, 220, 220, 220),
-        //     cc.tintTo(0.15, 255, 255, 255)
-        // )));
         node.runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function(){
@@ -308,7 +302,7 @@ var HudLayer = cc.Layer.extend({
             var gold = new cc.Sprite("#" + this._currencyType + ".png");
             gold.x = goldNode.x;
             gold.y = goldNode.y;
-            gold.scale = Math.random()*0.1 + 0.8;
+            gold.scale = CURRENCY_SCALE;//Math.random()*0.1 + 0.8;
             this.addChild(gold,99999);
 
             var flyTime = 0.8 + Math.random()*0.2;
@@ -323,32 +317,25 @@ var HudLayer = cc.Layer.extend({
 
             var flyAction = cc.bezierTo(flyTime, [cp1, cp2, to]);
             var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
-            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, rotateValue)));
             var self = this;
+            
+            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, rotateValue)));
             gold.runAction(cc.sequence(
                 cc.spawn(
-                    // cc.callFunc(function(){
-                    //     cc.log("flyAction");
-                    // }),
+                    cc.callFunc(self.addCoinEffect.bind(this)),
                     flyAction
                 ),
                 cc.callFunc(function(node) {
-                    // self._goldBalanceNode.stopAllActions();
-                    // self._goldBalanceNode.runAction(cc.sequence(
-                    //     cc.callFunc(function() {
-                    //         AudioManager.getInstance().play2d(res.EarnGold_sfx);
-                    //     }),
-                    //     cc.scaleTo(0.05, 1*1.2),
-                    //     cc.scaleTo(0.05, 1)
-                    // ));
                     node.removeFromParent();
                 })
             ));
         };
 
         goldNode.removeFromParent();
-        // count up balance gradually
-        // this._updateGoldAmountLabel(amount, 0.8);
+    },
+
+    addCoinEffect: function() {
+        this._coinEffect = AnimatedEffect.create(this._coin, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, false);
     },
 
     setCurrencyType: function(name) {
