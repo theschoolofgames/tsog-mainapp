@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>adidog_jump1.png</key>
+            <key>adi_jump1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -19,7 +19,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adidog_run1.png</key>
+            <key>adi_run1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adidog_run2.png</key>
+            <key>adi_run2.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adidog_run3.png</key>
+            <key>adi_run3.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>adidog_run4.png</key>
+            <key>adi_run4.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -164,7 +164,7 @@
             <key>size</key>
             <string>{944,1016}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7eac0e70f19948685b2485bb1e9e2e27:770f5f99c1ad395d8823b436186aa514:b185c3e27966584cae848f0b59f2575c$</string>
+            <string>$TexturePacker:SmartUpdate:738eacdaba1d565bffc54c8a518ab34c:770f5f99c1ad395d8823b436186aa514:b185c3e27966584cae848f0b59f2575c$</string>
             <key>textureFileName</key>
             <string>adidog_run.png</string>
         </dict>
