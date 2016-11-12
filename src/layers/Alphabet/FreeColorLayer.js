@@ -42,6 +42,8 @@ var FreeColorLayer = TestLayer.extend({
         this._brushColorButtons = [];
         this._objectsArray = [];
         this._objectNames = [];
+        this._collidedRenderers = [];
+        this._objRenderers = [];
         this._createRenderTexture();
 
         this._filterObjectsByType(objectIdArray);
@@ -343,7 +345,7 @@ var FreeColorLayer = TestLayer.extend({
             // brush.scale = this._wordScale * 0.9;          
             brush.setPosition(newPos);
             brush.visit();
-
+            cc.log("this._objects.length: " + this._objects.length);
             for (var j = 0; j < this._objects.length; j++) {
                 if (cc.rectIntersectsRect(brush.getBoundingBox(), this._objects[j].getBoundingBox()) && 
                     this._collidedRenderers.indexOf(this._objRenderers[j]) < 0) {
@@ -381,6 +383,7 @@ var FreeColorLayer = TestLayer.extend({
 
                 var sprite = new cc.Sprite(self._tmpRenderer.getSprite().getTexture());
                 sprite.flippedY = true;
+                cc.log("texture name : " + JSON.stringify(self._tmpRenderer.getSprite().getTexture()));
                 sprite.setPosition(self._tmpRenderer.getPosition());
 
                 sprite.color = self._currentBrushColor;
@@ -388,11 +391,13 @@ var FreeColorLayer = TestLayer.extend({
                 sprite.visit();
                 self._baseRenderer.end();
                 h102.Utils.forceRender();
-
+                cc.log("self._collidedRenderers: " + self._collidedRenderers.length);
                 for (var i = 0; i < self._collidedRenderers.length; i++) {
                     var rt = self._collidedRenderers[i];
+                    cc.log("RT: " + !rt);
                     if (!rt)
                         continue;
+
                     var contentSize = rt.getSprite().getContentSize();
 
                     var rtOriginPos = cc.p(rt.x - contentSize.width/2, rt.y - contentSize.height/2);

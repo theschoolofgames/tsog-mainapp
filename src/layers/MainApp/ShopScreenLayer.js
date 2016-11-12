@@ -11,6 +11,7 @@ ShopScreenLayer = cc.LayerColor.extend({
     _oldPostion: null,
     _arrowleft: null,
     _arrowright: null,
+    _showDialog: true,
 
     _diamondLb: null,
     _coinLb: null,
@@ -21,7 +22,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addCurrency();
         this._characterList = CharacterManager.getInstance().getCharacterList();
         cc.log("characterList: " + JSON.stringify(this._characterList));
-        this.addArrows();
+        // this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
         cc.eventManager.addListener({
@@ -121,7 +122,9 @@ ShopScreenLayer = cc.LayerColor.extend({
         lbCoin.x = 50;
         lbCoin.y = coin.height/2;
         coin.addChild(lbCoin);
+
         this._coinLb = lbCoin;
+
 
         var diamond = new cc.Sprite("#diamond.png");
         diamond.x = 400;
@@ -190,16 +193,17 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     showCharacter: function(index) {
-        if(index == 0) {
-            this._arrowleft.setVisible(false);
-            this._arrowright.setVisible(true);
-        } else if  (index == this._characterList.length - 1) {
-            this._arrowleft.setVisible(true);
-            this._arrowright.setVisible(false);
-        } else if  (0 < index < this._characterList.length - 1) {
-            this._arrowleft.setVisible(true);
-            this._arrowright.setVisible(true);
-        };
+        this.showFinger(index);
+        // if(index == 0) {
+        //     this._arrowleft.setVisible(false);
+        //     this._arrowright.setVisible(true);
+        // } else if  (index == this._characterList.length - 1) {
+        //     this._arrowleft.setVisible(true);
+        //     this._arrowright.setVisible(false);
+        // } else if  (0 < index < this._characterList.length - 1) {
+        //     this._arrowleft.setVisible(true);
+        //     this._arrowright.setVisible(true);
+        // };
         cc.log("index: " + index);
         if(this._character) {
             this._character.removeFromParent();
@@ -266,17 +270,21 @@ ShopScreenLayer = cc.LayerColor.extend({
                     lb.setString("Choose");
                     self._character.adiJump();
                     self._updateBalance();
+
                 }
                 else {
                     self._character.adiShakeHead();
                     var diamondsNeed = characterCfg.price - CurrencyManager.getInstance().getDiamond();
-                    var text = "You need " + diamondsNeed + " diamonds to unlock this charater from Alpharacing Game!"
-                    self.runAction(cc.sequence(
-                        cc.delayTime(1),
-                        cc.callFunc(function(){
-                            self.addChild(new AlertDialog(text), 99999);
-                        })
-                    ));
+                    var text = "You need " + diamondsNeed + " diamonds to unlock this charater from Alpharacing Game!";
+                    if(self._showDialog) {
+                        self._showDialog = false;
+                        self.runAction(cc.sequence(
+                            cc.delayTime(1),
+                            cc.callFunc(function(){
+                                self.addChild(new AlertDialog(text), 99999);
+                            })
+                        ));
+                    }
                 }
             }
             else {
@@ -309,6 +317,31 @@ ShopScreenLayer = cc.LayerColor.extend({
             diamondIcon.y = lbPrice.height/2;
             lbPrice.addChild(diamondIcon);
         }
+    },
+
+    showFinger: function(index) {
+        if(this._fingerToRight)
+            this._fingerToRight.removeFromParent();
+        if(this._fingerToLeft)
+            this._fingerToLeft.removeFromParent();
+        this._fingerToLeft = null;
+        this._fingerToRight = null;
+
+        if(index == 0 ) {
+            this._fingerToRight = new TutorialLayer(cc.p(cc.winSize.width/3, 100),cc.p(50,100));
+            this.addChild(this._fingerToRight);
+        }
+        else if(index == this._characterList.length - 1) {
+            this._fingerToLeft = new TutorialLayer(cc.p(cc.winSize.width/3 * 2,100), cc.p(cc.winSize.width - 50, 100));
+            this.addChild(this._fingerToLeft);
+        }
+        else if(0 < index < this._characterList.length - 1) {
+            this._fingerToLeft = new TutorialLayer(cc.p(cc.winSize.width/3 * 2,100), cc.p(cc.winSize.width - 50, 100));
+            this.addChild(this._fingerToLeft);
+            this._fingerToRight = new TutorialLayer(cc.p(cc.winSize.width/3, 100),cc.p(50,100));
+            this.addChild(this._fingerToRight);
+        };
+
     },
 
     addArrows: function() {

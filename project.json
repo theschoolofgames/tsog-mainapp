@@ -26,6 +26,7 @@
         "res/lang/en.js",
         "res/lang/swahili.js",
         "res/lang/swahili_writing.js",
+        "res/lang/en_writing.js",
         
         "src/model/GameObject.js",
 
@@ -54,7 +55,7 @@
 
         "src/layers/TestGameLayer.js",
 
-        
+        "src/layers/Alphabet/DialogFinishAlpharacing.js",
         "src/layers/Alphabet/AlertDialog.js",
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",
@@ -100,6 +101,7 @@
         "src/layers/AlphaRacing/Boosters/ARBoosterWorker.js",
         "src/layers/AlphaRacing/Boosters/ARBooster.js",
         "src/layers/AlphaRacing/Boosters/ARInvisible.js",
+        "src/layers/AlphaRacing/Boosters/ARMagnet.js",
         "src/layers/AlphaRacing/ARPlayer.js",
         "src/layers/AlphaRacing/AREffectLayer.js",
         "src/layers/AlphaRacing/Players/ARAdiDog.js",

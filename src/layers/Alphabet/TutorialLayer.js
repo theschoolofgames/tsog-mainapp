@@ -61,7 +61,7 @@ var TutorialLayer = cc.Layer.extend({
  		finger.anchorX = 0.3;
  		finger.anchorY = 0.7;
  		this.addChild(finger);
- 		var correctPos = this._shadeObject.getPosition();
+ 		// var correctPos = this._shadeObject.getPosition();
 
  		var repeatAction = cc.sequence(
  			cc.delayTime(0.5),
@@ -70,7 +70,7 @@ var TutorialLayer = cc.Layer.extend({
  			}),
  			cc.delayTime(0.5),
 			cc.spawn(
-				cc.moveTo(1, correctPos),
+				cc.moveTo(1, cc.p(this._shadeObject.x, this._shadeObject.y)),
 				cc.fadeOut(1.2)
 			),
 			cc.delayTime(0.5),
@@ -86,6 +86,12 @@ var TutorialLayer = cc.Layer.extend({
  	},
 
 	getRandomObject: function(){
+        if(!(this._objects instanceof Array)) {
+            this._object = this._objects;
+            this._shadeObject = this._shadeObjects;
+            return;
+        };
+            
         if (this._shouldShuffle) {
             var i = Math.floor(Math.random() * (this._objects.length - 1));
             this._object = this._objects[i];

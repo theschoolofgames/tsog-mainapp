@@ -1,8 +1,9 @@
-tools/
 publish/
-simulator/
+simulator/*
 build/
+!frameworks/cocos2d-x/build
 .DS_Store
+xcuserdata/
 
 local.properties
 

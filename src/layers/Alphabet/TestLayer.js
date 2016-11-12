@@ -29,9 +29,13 @@ var TestLayer = cc.LayerColor.extend({
         // this.addQuickTestButton();
     },
 
+    // TODO: recheck type of this.data
     setData: function(data) {
         this.data = data;
-        data = JSON.parse(data);
+
+        if(data instanceof String)
+            data = JSON.parse(data);
+
         cc.log("data TestLayer: " + JSON.stringify(data));
         for(var i = 0; i < data.length; i ++) {
             DataManager.getInstance().setDataAlpharacing(data[i]);
@@ -71,7 +75,7 @@ var TestLayer = cc.LayerColor.extend({
 
         if (this._removeHud)
             return;
-        cc.log("this._hudNeeded: " + this._hudNeeded);
+
         this._addHudLayer();
     }, 
 
