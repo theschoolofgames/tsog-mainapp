@@ -1,11 +1,16 @@
-var AlertDialog = cc.LayerColor.extend({
+var DialogFinishAlpharacing = cc.LayerColor.extend({
     _dialogBg: null,
 
-    ctor: function(text){
+    ctor: function(){
         this._super(cc.color(0, 0, 0 , 200));
         this._addDialogBg();
         this._addButton();
-        this._addText(text);
+        this._addText();
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function() { return false },
+        }, this);
     },
     _addDialogBg: function() {
         var dialogBg = new cc.Sprite("#setting-dialog-bg.png");
@@ -14,8 +19,8 @@ var AlertDialog = cc.LayerColor.extend({
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
     },
-    _addText: function(text) {
-        var text = new cc.LabelTTF(text, "Arial", 30, cc.size(300, 80));
+    _addText: function() {
+        var text = new cc.LabelTTF("If you want to play more, press OK!", "Arial", 30, cc.size(300, 80));
         text.x = this._dialogBg.width/2 + 20;
         text.y = this._dialogBg.height/2;
         text.setColor(cc.color(0,0,0));
@@ -34,7 +39,6 @@ var AlertDialog = cc.LayerColor.extend({
         lbCancel.y = buttonCancel.height/2;
         buttonCancel.addChild(lbCancel);
         buttonCancel.addClickEventListener(function(){
-            self.parent._showDialog = true;
             self.removeFromParent();
         });
 
@@ -48,7 +52,9 @@ var AlertDialog = cc.LayerColor.extend({
         lbPlay.y = buttonPlay.height/2;
         buttonPlay.addChild(lbPlay);
         buttonPlay.addClickEventListener(function(){
+            CurrencyManager.getInstance().decrCoin(10);
             var data = DataManager.getInstance().getDataAlpharacing();
+            cc.director.resume();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));
         });
 

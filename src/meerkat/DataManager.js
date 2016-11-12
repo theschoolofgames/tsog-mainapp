@@ -81,7 +81,6 @@ var DataManager = cc.Class.extend({
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
     },
     setDataAlpharacing: function(data) {
-        cc.log("DataManager: " + JSON.stringify(data));
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
         if(currentData.length == 0)
             currentData = 
@@ -98,7 +97,6 @@ var DataManager = cc.Class.extend({
             }
         };
         if(data.value &&  (data.value.length == 1)){
-            cc.log("PUSH DATA");
             currentData.push({
                 "value": data.value,
                 "amount": 20

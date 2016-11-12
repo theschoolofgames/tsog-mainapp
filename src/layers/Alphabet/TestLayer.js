@@ -32,7 +32,8 @@ var TestLayer = cc.LayerColor.extend({
     // TODO: recheck type of this.data
     setData: function(data) {
         this.data = data;
-        if (typeof data == "string")
+
+        if(data instanceof String)
             data = JSON.parse(data);
 
         cc.log("data TestLayer: " + JSON.stringify(data));

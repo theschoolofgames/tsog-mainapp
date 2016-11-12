@@ -369,7 +369,6 @@ var ShadowGameLayer = TestLayer.extend({
             imageDir = "#";
             imageName += "-shadow";
         }
-        // else if (gameObject.type === "")
 
         shadeImageName = imageDir + imageName + ".png";
         console.log("ShadeImageName => " + shadeImageName);

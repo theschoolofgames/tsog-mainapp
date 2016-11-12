@@ -74,7 +74,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.addChild(refreshButton, 100);
         var self = this;
         refreshButton.addClickEventListener(function() {
-            cc.director.replaceScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
+            var data = DataManager.getInstance().getDataAlpharacing();
+            cc.director.replaceScene(new AlphaRacingScene(data, null, 600));
         });
     },
 
@@ -477,8 +478,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 cc.callFunc(function() {
                     if (warningLabel)
                         warningLabel.removeFromParent();
-
-                    self._moveToNextScene();
+                    cc.director.pause();
+                    if(CurrencyManager.getInstance().getCoin() > 10)
+                        self.addChild(new DialogFinishAlpharacing(),10)
+                    else cc.director.runScene(new HomeScene());
                 })
             )
         )

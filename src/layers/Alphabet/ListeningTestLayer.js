@@ -21,7 +21,6 @@ var ListeningTestLayer = TestLayer.extend({
 
     ctor: function(data, duration) {
         this._super();
-        // cc.log("ctor ListeningTestLayer: ");
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
         this._fetchObjectData(data);
         this._duration = duration;
@@ -519,7 +518,6 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data listening: " + (typeof(data)!= "object"));
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -547,6 +545,8 @@ var ListeningTestLayer = TestLayer.extend({
             this.setData(JSON.stringify(this._keyObject));
         else
             this.setData(this._data);
+        this._data = data;
+        cc.log("Data: " + JSON.stringify(this._data));
     },
 
     onExit: function () {

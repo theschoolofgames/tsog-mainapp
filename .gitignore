@@ -3,6 +3,7 @@ publish/
 simulator/
 build/
 .DS_Store
+xcuserdata/
 
 local.properties
 
