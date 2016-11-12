@@ -20,7 +20,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         this._bg = bg;
     },
 
-    addGoalImage: function() {
+    addGoalImage: function(imageName) {
         var specifyGoalSprite = new cc.Sprite(imageName);
         specifyGoalSprite.scale = this._bg.height * 2/specifyGoalSprite.height;
         specifyGoalSprite.x = 0;
@@ -50,10 +50,9 @@ var SpecifyGoalHudLayer = HudLayer.extend({
 
     addSpecifyGoal: function(imageName) {
         if (imageName)
-            this.addGoalImage();
+            this.addGoalImage(imageName);
         else
             this.addGoalLabel();
-        
     },
 
     setTotalSpecifyGoal: function(goal) {

@@ -12,6 +12,9 @@ ShopScreenLayer = cc.LayerColor.extend({
     _arrowleft: null,
     _arrowright: null,
 
+    _diamondLb: null,
+    _coinLb: null,
+
     ctor: function() {
         this._super(cc.color(255,255,255,255));
         this.addBackToHomeScene();
@@ -107,7 +110,7 @@ ShopScreenLayer = cc.LayerColor.extend({
 
 
     addCurrency: function(){
-        var coin = new cc.Sprite("res/SD/gold.png");
+        var coin = new cc.Sprite("#gold.png");
         coin.x = 100;
         coin.y = cc.winSize.height - coin.height/2 - 10;
         this.addChild(coin, 999);
@@ -118,8 +121,9 @@ ShopScreenLayer = cc.LayerColor.extend({
         lbCoin.x = 50;
         lbCoin.y = coin.height/2;
         coin.addChild(lbCoin);
+        this._coinLb = lbCoin;
 
-        var diamond = new cc.Sprite("res/SD/diamond.png");
+        var diamond = new cc.Sprite("#diamond.png");
         diamond.x = 400;
         diamond.y = cc.winSize.height - diamond.height/2 - 10;
         this.addChild(diamond, 999);
@@ -130,6 +134,8 @@ ShopScreenLayer = cc.LayerColor.extend({
         lbDiamond.x = 50;
         lbDiamond.y = diamond.height/2;
         diamond.addChild(lbDiamond);
+
+        this._diamondLb = lbDiamond;
 
     },
     updateScrollView: function() {
@@ -236,7 +242,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         characterHeathy.x = cc.winSize.width/2;;
         characterHeathy.y = cc.winSize.height/2 + 50;
         for(var i = 0; i < characterCfg.heathy; i ++) {
-            var heart = new cc.Sprite("res/SD/diamond.png");
+            var heart = new cc.Sprite("#diamond.png");
             heart.scale = 1/characterHeathy.scale - 0.4;
             heart.x = characterHeathy.width + 50 + i * 120;
             heart.y = characterHeathy.height/2;
@@ -259,6 +265,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     lbPrice.removeFromParent();
                     lb.setString("Choose");
                     self._character.adiJump();
+                    self._updateBalance();
                 }
                 else {
                     self._character.adiShakeHead();
@@ -296,7 +303,7 @@ ShopScreenLayer = cc.LayerColor.extend({
             lbPrice.x = button.width/2 - 20;
             lbPrice.y = button.height/2;;
             button.addChild(lbPrice);
-            var diamondIcon = new cc.Sprite("res/SD/diamond.png");
+            var diamondIcon = new cc.Sprite("#diamond.png");
             diamondIcon.scale = 1/ lbPrice.scale;
             diamondIcon.x = lbPrice.width + 50;
             diamondIcon.y = lbPrice.height/2;
@@ -318,9 +325,14 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addChild(this._arrowright);
         this._arrowright.rotation = - 90;
         Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
-    }
+    },
 
-    
+    _updateBalance: function() {
+        var coin = CurrencyManager.getInstance().getCoin();
+        var diamond = CurrencyManager.getInstance().getDiamond();
+        this._coinLb.setString(coin);
+        this._diamondLb.setString(diamond);
+    },
 });
 var ShopScene = cc.Scene.extend({
     ctor: function(){
