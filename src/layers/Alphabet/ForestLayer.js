@@ -75,7 +75,6 @@ var ForestLayer = cc.Layer.extend({
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         // this.completedScene();
-        this._hudLayer.setTotalGoals(this._data);
     },
 
     playBeginSound: function(){
