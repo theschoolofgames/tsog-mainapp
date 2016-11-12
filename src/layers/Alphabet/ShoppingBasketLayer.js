@@ -253,6 +253,8 @@ var ShoppingBasketLayer = TestLayer.extend({
     },
 
     _handleObjectSucceedDrop: function() {
+        this.popGold(this._currentAvailableSlot);
+
         this._currentObjectMoving.setPosition(this._currentAvailableSlot);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);

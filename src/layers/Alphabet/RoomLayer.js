@@ -618,6 +618,8 @@ var RoomLayer = cc.Layer.extend({
             this.playObjectSound(false);
             this.updateProgressBar();
             this._shadeObjects[index].setLocalZOrder(-1);
+
+            this._hudLayer.popGold(1, shadePos.x, shadePos.y);
         }
         if (!this.hadObjectRequired())
             this.showAllShadows();

@@ -101,7 +101,7 @@ var ForestLayer = cc.Layer.extend({
     addHud: function(timeForScene) {
         var hudLayer = new HudLayer(this, false, timeForScene);
         hudLayer.x = 0;
-        // hudLayer.y = cc.winSize.height - 80;
+        hudLayer.y = 0;
         this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
@@ -291,6 +291,9 @@ var ForestLayer = cc.Layer.extend({
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
+
+        targetNode._hudLayer.popGold(1, touchedPos.x, touchedPos.y);
+
         SegmentHelper.track(SEGMENT.ANIMAL_CLICK, 
                     { 
                         forest: "forest", 

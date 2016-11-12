@@ -34,9 +34,9 @@ var TreeGameLayer = TestLayer.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: false,
-            onTouchBegan: this.onTouchBegan,
-            onTouchEnded: this.onTouchEnded
-        }, this);
+            onTouchBegan: this.onTouchBegan.bind(this),
+            onTouchEnded: this.onTouchEnded.bind(this)
+        }, -1);
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
     },
@@ -46,7 +46,7 @@ var TreeGameLayer = TestLayer.extend({
 
         this._hudLayer.setTotalGoals((this._numberOfTrees*5));
     },
-
+    
     _addScrollView: function() {
         var scrollview = new cc.ScrollView();
         scrollview.x = 0;
@@ -177,10 +177,9 @@ var TreeGameLayer = TestLayer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        var self = event.getCurrentTarget();
-        self._prevTouchLoc = touch.getLocation();
+        this._prevTouchLoc = touch.getLocation();
 
-        if (self._isAdiJumping)
+        if (this._isAdiJumping)
             return false;
         cc.log("onTouchBegan");
         return true;
@@ -188,12 +187,15 @@ var TreeGameLayer = TestLayer.extend({
 
     onTouchEnded: function(touch, event) {
         var touchLoc = touch.getLocation();
-        var self = event.getCurrentTarget();
+        var self = this;
         
         for (var i = 0; i < self._numberGroup.length; i++) {
             var numb = self._numberGroup[i];
             if (cc.pDistance(cc.p(numb.x - self._scrollToX, numb.y), touchLoc) < 50) {
                 if ((parseInt(numb.getString()) == (self._totalJump+1))) {
+
+                    self.popGold(touchLoc);
+
                     self._isAdiJumping = true;
 
                     self._totalJump++;

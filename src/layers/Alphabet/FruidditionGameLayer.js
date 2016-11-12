@@ -294,6 +294,8 @@ var FruidditionGameLayer = TestLayer.extend({
         var position = this._dropSpots[index].getPosition();
         this._dropSpots[index].removeFromParent();
 
+        this.popGold(position);
+
         // this._draggingObjects.splice(this._currentObjectMoving.getUserData(), 1);
         this._currentObjectMoving.removeFromParent(false);
         parent.addChild(this._currentObjectMoving);
@@ -318,6 +320,7 @@ var FruidditionGameLayer = TestLayer.extend({
                 this.runAction(cc.sequence(
                     cc.delayTime(2),
                     cc.callFunc(function() {
+                        this._blockTouch = false;
                         this._showNextOperation();
                     }.bind(this))
                 ));

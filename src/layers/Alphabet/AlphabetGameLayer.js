@@ -315,6 +315,8 @@ var AlphabetGameLayer = TestLayer.extend({
     },
 
     _handleObjectSucceedDrop: function() {
+        this.popGold(this._currentAvailableSlot.getPosition());
+
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());

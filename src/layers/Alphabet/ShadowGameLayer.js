@@ -39,7 +39,7 @@ var ShadowGameLayer = TestLayer.extend({
     ctor: function(objectIdArray, timeForScene) {
         // console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
         // console.log("Array Checked Length => " + objectIdArray.length);
-        this._super(cc.color.WHITE);
+        this._super();
 
         // cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         
@@ -369,7 +369,7 @@ var ShadowGameLayer = TestLayer.extend({
             imageDir = "#";
             imageName += "-shadow";
         }
-        else if (gameObject.type === "")
+        // else if (gameObject.type === "")
 
         shadeImageName = imageDir + imageName + ".png";
         console.log("ShadeImageName => " + shadeImageName);
