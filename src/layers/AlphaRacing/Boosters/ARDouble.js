@@ -18,7 +18,14 @@ var ARDouble = ARBooster.extend({
         cc.log("ARDouble: didStart");
         
         this.visible = false;
-        this._player.setBoostFlag(ARInvisible.getBoostFlag());
+        this._player.setBoostFlag(ARDouble.getBoostFlag());
+
+        this.runAction(cc.sequence(
+            cc.delayTime(this.effectiveTime),
+            cc.callFunc(obj => {
+                obj.setActive(false);
+            })
+        ));
     },
 
     willEnd: function() {
@@ -28,7 +35,7 @@ var ARDouble = ARBooster.extend({
     didEnded: function() {
         cc.log("ARDouble: didEnded");
 
-        this._player.unsetBoostFlag(ARInvisible.getBoostFlag());
+        this._player.unsetBoostFlag(ARDouble.getBoostFlag());
         this.removeFromParent();
         ARBoosterWorker.getInstance().removeBooster(this);
     },
