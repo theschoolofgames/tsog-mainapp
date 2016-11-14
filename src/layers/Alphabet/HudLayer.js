@@ -170,8 +170,8 @@ var HudLayer = cc.Layer.extend({
         this._coin = coin;
 
         var coinAmount = CurrencyManager.getInstance().getCoin();
-        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
-        lbCoin.scale = 0.4;
+        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
+        // lbCoin.scale = 0.4;
         lbCoin.anchorX = 1;
         lbCoin.x = -5;
         lbCoin.y = coin.height/2 + 2;

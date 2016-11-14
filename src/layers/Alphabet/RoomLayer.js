@@ -609,7 +609,7 @@ var RoomLayer = cc.Layer.extend({
         var distance = cc.pDistance(objectPos, shadePos);
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
-            this.popGold(shadePos);
+            // this.popGold(shadePos);
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(Z_OBJECT);
             this._objectTouching.userData.scaleFactor = 0.5;
@@ -743,36 +743,6 @@ var RoomLayer = cc.Layer.extend({
         this._hudLayer.setCurrentGoals(this._objectDisableds.length);
         this._hudLayer.updateTotalGoalsLabel();
         this._hudLayer.setProgressBarPercentage(percent);
-
-        // var starEarned = 0;
-        // var objectCorrected = this._objectDisableds.length;
-        // var starGoals = this.countingStars();
-        // if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
-        //     starEarned = 1;
-        // if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
-        //     starEarned = 2;
-        // if (objectCorrected >= starGoals.starGoal3)
-        //     starEarned = 3;
-
-        // cc.log("starGoal1: " + starGoals.starGoal1);
-        // cc.log("starGoal2: " + starGoals.starGoal2);
-        // cc.log("starGoal3: " + starGoals.starGoal3);
-        // cc.log("objectCorrected: " + objectCorrected);
-        // // cc.log("starEarned: " + starEarned);
-        // this._hudLayer.setStarEarned(starEarned);
-
-        // if (starEarned > 0) {
-        //     this._hudLayer.addStar("light", starEarned);
-        // }
-    },
-
-    countingStars: function() {
-        var starGoal1 = Math.ceil(this._data.length/3);
-        var starGoal2 = Math.ceil(this._data.length/3 * 2);
-        var starGoal3 = this._data.length;
-        return {starGoal1: starGoal1,
-                starGoal2: starGoal2, 
-                starGoal3: starGoal3};
     },
 
     runSoundCountDown: function() {

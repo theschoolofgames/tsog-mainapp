@@ -300,7 +300,7 @@ var ForestLayer = cc.Layer.extend({
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
         };
-        targetNode.popGold(touchedPos);
+        // targetNode.popGold(touchedPos);
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
         if (targetNode._objectDisableds.length == Global.NumberItems) {
@@ -809,17 +809,17 @@ var ForestLayer = cc.Layer.extend({
                 }
             }
         }, mask);
-
-        animalName = localize(animalName);
-        var soundPath = "res/sounds/words/" + animalName + ".mp3";
+        // cc.log("animalName:" + animalName);
+        // animalName = localize(animalName);
+        var soundPath = "res/sounds/words/" + localize(animalName) + ".mp3";
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/numbers/" + animalName + ".mp3";
+            soundPath = "res/sounds/numbers/" + localize(animalName) + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/alphabets/" + animalName + ".mp3";
+            soundPath = "res/sounds/alphabets/" + localize(animalName) + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/colors/" + animalName + ".mp3";
+            soundPath = "res/sounds/colors/" + localize(animalName) + ".mp3";
         }
         jsb.AudioEngine.play2d(soundPath);
 
@@ -852,11 +852,9 @@ var ForestLayer = cc.Layer.extend({
     updateProgressBar: function() {
         var totalItems = this._data.length ? this._data.length : Global.NumberItems;
         var percent = this._touchCounting / totalItems;
-
-        this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._touchCounting);
-
-        this._super();
+        this._hudLayer.setCurrentGoals(this._touchCounting);
+        this._hudLayer.updateTotalGoalsLabel();
+        this._hudLayer.setProgressBarPercentage(percent);
     },
 
     runSoundCountDown: function() {
