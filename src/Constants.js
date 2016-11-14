@@ -569,7 +569,7 @@ var GAME_IDS = [
     "storytime",
     "matching",
     "alpharacing",
-    "alphabet",
+    "spelling",
     "shoppingbasket",
     "fruiddition",
     "buildingblocks"

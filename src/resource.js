@@ -29,6 +29,8 @@ var res = {
     Balloon_Animation_plist: "balloon-animations/balloon-animations.plist",
     Character_plist : "character.plist",
     Character_png : "character.png",
+    Homescreen_plist : "homescreen.plist",
+    Homescreen_png : "homescreen.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

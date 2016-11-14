@@ -321,13 +321,14 @@ var HudLayer = cc.Layer.extend({
             
             gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, rotateValue)));
             gold.runAction(cc.sequence(
-                cc.spawn(
-                    cc.callFunc(self.addCoinEffect.bind(this)),
-                    flyAction
-                ),
+                flyAction,
                 cc.callFunc(function(node) {
                     node.removeFromParent();
                 })
+            ));
+            gold.runAction(cc.sequence(
+                cc.delayTime(flyTime-0.1),
+                cc.callFunc(self.addCoinEffect.bind(this))
             ));
         };
 
@@ -335,7 +336,15 @@ var HudLayer = cc.Layer.extend({
     },
 
     addCoinEffect: function() {
-        this._coinEffect = AnimatedEffect.create(this._coin, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, false);
+        var coinScale = this._coin.scale;
+        this._coin.runAction(cc.sequence(
+            cc.scaleTo(0.15, 0.9 * coinScale),
+            cc.scaleTo(0.15, 1 * coinScale)
+        ));
+        this._bg.runAction(cc.sequence(
+            cc.scaleTo(0.15, 0.9),
+            cc.scaleTo(0.15, 1)
+        ));
     },
 
     setCurrencyType: function(name) {

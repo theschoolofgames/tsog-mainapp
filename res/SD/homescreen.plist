@@ -220,13 +220,13 @@
             <key>format</key>
             <integer>3</integer>
             <key>realTextureFileName</key>
-            <string>level-dialog.png</string>
+            <string>homescreen.png</string>
             <key>size</key>
             <string>{1640,510}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6b870a4a66752b7977f71012cac0c5dc:62465d33a3ac70bccad6a05d2bcff4a1:c1b6fa8710711fed867bc5b3e09794bb$</string>
+            <string>$TexturePacker:SmartUpdate:94ab934e0d4785262572a7a99ef0a5cc:62465d33a3ac70bccad6a05d2bcff4a1:fae1a3b897d198dfbf3fcdd2d231bbdf$</string>
             <key>textureFileName</key>
-            <string>level-dialog.png</string>
+            <string>homescreen.png</string>
         </dict>
     </dict>
 </plist>
