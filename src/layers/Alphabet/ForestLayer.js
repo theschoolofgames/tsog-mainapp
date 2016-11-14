@@ -182,6 +182,16 @@ var ForestLayer = cc.Layer.extend({
                         rdmAnimalType.splice(0, 1);
                         break;
                     }
+                    else if (obj.id.indexOf("word") > -1) {
+                        // cc.log("obj -> " + JSON.stringify(obj));
+                        // cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
+                        animals.push({
+                            "imageName": obj.value,
+                            "type": rdmAnimalType[0]
+                        });
+                        rdmAnimalType.splice(0, 1);
+                        break;
+                    }
                 }
             }
             // cc.log("animals : " + JSON.stringify(animals));
@@ -334,11 +344,14 @@ var ForestLayer = cc.Layer.extend({
         NativeHelper.callNative("customLogging", ["Sprite", "animals/" + animalObject.imageName + ".png"]);
         var animal;
         var objImageName = "animals/" + animalObject.imageName + ".png";
-        if (isNaN(animalObject.imageName)) {
+        cc.log("animalObject.imageName: " + animalObject.imageName);
+        if (isNaN(animalObject.imageName) && animalObject.imageName.length > 1) {
+            cc.log("Create Number");
             // normal Animal case
             animal = new cc.Sprite(objImageName);
             animal.userData = {imageName: objImageName};
         } else {
+            cc.log("Create: " + animalObject.imageName);
             // Number case
             animal = new cc.LabelBMFont(animalObject.imageName, res.CustomFont_fnt);
             // animal.scale = 2;
@@ -816,11 +829,13 @@ var ForestLayer = cc.Layer.extend({
             soundPath = "res/sounds/numbers/" + localize(animalName) + ".mp3";
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/alphabets/" + localize(animalName) + ".mp3";
+            soundPath = "res/sounds/alphabets/" + localize(animalName.toLowerCase()) + ".mp3";
+            cc.log("soundPath: " + soundPath);
         }
         if (!jsb.fileUtils.isFileExist(soundPath)) {
             soundPath = "res/sounds/colors/" + localize(animalName) + ".mp3";
         }
+        cc.log("Sound Path: " + soundPath);
         jsb.AudioEngine.play2d(soundPath);
 
         animal.runAction(cc.sequence(
