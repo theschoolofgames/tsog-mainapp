@@ -35,11 +35,6 @@ var ARObstacleWorker = cc.Class.extend({
             this._obstacles.splice(idx, 1);
     },
 
-    removeAll: function() {
-        this._obstacles.forEach(obj => obj.removeFromParent());
-        this._obstacles = [];
-    },
-
     update: function(dt) {
         var updateTimes = Math.round(dt / this._deltaTime);
 
@@ -49,6 +44,11 @@ var ARObstacleWorker = cc.Class.extend({
                     ob.update(dt);
             })
         }
+    },
+
+    end: function() {
+        this._obstacles.forEach(obj => obj.removeFromParent());
+        this._obstacles = [];
     }
 })
 

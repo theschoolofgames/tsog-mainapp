@@ -138,8 +138,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._alphabetObjectArray = [];
         this.layers = [];
 
-        this._obstacleWorker.removeAll();
-        this._boosterWorker.removeAll();
+        this._workers.forEach(w => w.end());
 
         for (var i = 0; i < this.maps.length; i++) {
             this.gameLayer.removeChild(this.maps[i]);

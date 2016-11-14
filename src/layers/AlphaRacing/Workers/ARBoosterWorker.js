@@ -41,11 +41,6 @@ var ARBoosterWorker = cc.Class.extend({
         return boosters;
     },
 
-    removeAll: function() {
-        this._boosters.forEach(obj => obj.removeFromParent());
-        this._boosters = [];
-    },
-
     update: function(dt) {
         var self = this;
 
@@ -69,6 +64,11 @@ var ARBoosterWorker = cc.Class.extend({
             self._boosters.splice(self._boosters.indexOf(ob), 1);
             ob.removeFromParent();
         })
+    },
+
+    end: function() {
+        this._boosters.forEach(obj => obj.removeFromParent());
+        this._boosters = [];
     }
 })
 

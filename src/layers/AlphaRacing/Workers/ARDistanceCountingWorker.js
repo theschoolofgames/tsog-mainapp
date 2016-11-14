@@ -2,6 +2,7 @@ var ARDistanceCountingWorker = cc.Class.extend({
 
     _player: null,
     _initPosition: null,
+    _distance: 0,
 
     _hudlayer: null,
 
@@ -12,6 +13,11 @@ var ARDistanceCountingWorker = cc.Class.extend({
     },
 
     update: function(dt) {
-        this._hudlayer.updateDistance((this._player.x - this._initPosition.x)/100);
+        this._distance = Math.round((this._player.x - this._initPosition.x)/100);
+        this._hudlayer.updateDistance(this._distance);
     },
+
+    end: function() {
+        UserStorage.getInstance().setARHighscore(this._distance);
+    }
 })

@@ -32,6 +32,7 @@
 
         "src/database/CocosKVImpl.js",
         "src/database/KVDatabase.js",
+        "src/database/UserStorage.js",
 
         "src/meerkat/DataManager.js",
         "src/meerkat/RequestsManager.js",
