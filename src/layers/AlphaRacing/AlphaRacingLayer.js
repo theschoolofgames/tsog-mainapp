@@ -622,9 +622,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 let val = this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
 
                 if (val) {
-                    CurrencyManager.getInstance().incCoin(1);
+                    var addedCoin = this._player.hasBoostFlag(ARDouble.getBoostFlag()) ? 2 : 1;
 
-                    var object = new cc.LabelBMFont("+1", res.CustomFont_fnt);
+                    CurrencyManager.getInstance().incCoin(addedCoin);
+
+                    var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                     object.scale = 0.5;
                     object.setPosition(this._alphabetObjectArray[i].getPosition());
                     this.gameLayer.addChild(object, AR_ADI_ZODER+1);
