@@ -49,7 +49,7 @@ var ARBooster = cc.Sprite.extend({
     onCollide: function() {
         if (this._player.hasBoostFlag(this.getBoostFlag())) {
             let boosters = ARBoosterWorker.getInstance().findBooster(this.getBoostFlag(), true);
-            cc.log(boosters.length);
+            // cc.log(boosters.length);
             boosters.forEach(b => b.setActive(false));
         }
     },

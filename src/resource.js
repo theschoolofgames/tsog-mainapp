@@ -55,6 +55,8 @@ var res = {
     CustomFont_fnt: "res/font/custom_font.fnt",
     MapFont_fnt: "res/font/font_map.fnt",
     MapFont_png: "res/font/font_map.png",
+    HomeFont_png: "home-font.png",
+    HomeFont_fnt: "home-font.fnt",
     // Sound
     bubble_sound_mp3: "res/sound/bubble.mp3",
     rustle_sound_mp3: "res/sound/rustle.mp3",

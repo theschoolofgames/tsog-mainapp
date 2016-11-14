@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>ar-boosters/double.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{46,27}</string>
+                <key>spriteSourceSize</key>
+                <string>{46,27}</string>
+                <key>textureRect</key>
+                <string>{{68,49},{46,27}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ar-boosters/invisible.png</key>
             <dict>
                 <key>aliases</key>
@@ -30,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{48,46}</string>
                 <key>textureRect</key>
-                <string>{{1,73},{48,46}}</string>
+                <string>{{68,1},{48,46}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -42,9 +57,9 @@
             <key>realTextureFileName</key>
             <string>alpha-racing-boosters.png</string>
             <key>size</key>
-            <string>{67,120}</string>
+            <string>{117,77}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:cd3303a92320244fbccbfb09c6000012:9a007529fdbd17974f6dec3e648c8a6c:d8e764855649a19a008d5dca5c66afa7$</string>
+            <string>$TexturePacker:SmartUpdate:33a89841e24bd934d46f6dfef8bb1304:0f85e21f5bc353c04e9414795ce2d498:d8e764855649a19a008d5dca5c66afa7$</string>
             <key>textureFileName</key>
             <string>alpha-racing-boosters.png</string>
         </dict>

@@ -53,6 +53,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _deltaTime: 1 / 60,
     _timeForSence: 0,
 
+    _workers: [],
+    _obstacleWorker: null,
+    _boosterWorker: null,
+
 	ctor: function(inputData, option, timeForScene) {
         this._super(cc.color("#ebfcff"));
 
@@ -64,6 +68,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._elapsedTime = 0;
         this._timeForSence = timeForScene;
         this.addRefreshButton();
+
+        this._workers = [];
     },
 
     addRefreshButton: function() {
@@ -80,8 +86,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     _init: function() {
+
+        this.gameLayer = new cc.Layer();
+        this.addChild(this.gameLayer, 1);
         
         this.addHud();
+        this.initPlayer();
+        this.initWorkers();
         this.initPlatforms();
 
         cc.eventManager.addListener({
@@ -127,8 +138,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._alphabetObjectArray = [];
         this.layers = [];
 
-        ARObstacleWorker.getInstance().removeAll();
-        ARBoosterWorker.getInstance().removeAll();
+        this._obstacleWorker.removeAll();
+        this._boosterWorker.removeAll();
 
         for (var i = 0; i < this.maps.length; i++) {
             this.gameLayer.removeChild(this.maps[i]);
@@ -190,8 +201,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this._checkAndScrollBackgrounds(this._player.getPosition());
         }
 
-        ARObstacleWorker.getInstance().update(dt);
-        ARBoosterWorker.getInstance().update(dt);
+        this._workers.forEach(w => w.update(dt));
     },
 
     _playBackgroundMusic: function() {
@@ -200,18 +210,21 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         cc.audioEngine.playMusic(res.background_mp3, true);
     },
 
-    initPlatforms: function() {
+    initPlayer: function() {
         this._player = new ARAdiDog();
+        this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
-        ARObstacleWorker.getInstance().setPlayer(this._player);
-        ARBoosterWorker.getInstance().setPlayer(this._player);
-        
+        this._playerBorder = cc.DrawNode.create();
+        // this._playerBorder.retain();
+        this.gameLayer.addChild(this._playerBorder, AR_ADI_ZODER+1);
+    },
+
+    initPlatforms: function() {        
         // Check current goal and update UI
         this._initChallenges();
 
         this._addBackground();
 
-        this.gameLayer = new cc.Layer();
         
         for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
             var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
@@ -249,21 +262,22 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this.addBoosters(this.maps[index]);
         }
 
-        // cc.log("GameLayerSize = (%d, %d)", this._gameLayerSize.width, this._gameLayerSize.height);
-        this.gameLayer.addChild(this._player, AR_ADI_ZODER);
-
-        this._playerBorder = cc.DrawNode.create();
-        // this._playerBorder.retain();
-        this.gameLayer.addChild(this._playerBorder, AR_ADI_ZODER+1);
-
         this._tileBorder = cc.DrawNode.create();
         // this._tileBorder.retain();
         this.addChild(this._tileBorder);
 
-        this.addChild(this.gameLayer);
-
         this.arEffectLayer = new AREffectLayer();
         this.addChild(this.arEffectLayer, 10);
+    },
+
+    initWorkers: function() {
+        this._workers.push(new ARDistanceCountingWorker(this._player, this._hudLayer));
+
+        this._obstacleWorker = new ARObstacleWorker(this._player);
+        this._workers.push(this._obstacleWorker);
+
+        this._boosterWorker = new ARBoosterWorker(this._player);
+        this._workers.push(this._boosterWorker);
     },
 
     _addBackground: function() {
@@ -422,7 +436,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     addHud: function() {
         cc.log("timeForScene: " + this._timeForSence);
-        var hudLayer = new SpecifyGoalHudLayer(this, this._timeForSence, "diamond");
+        var hudLayer = new ARHudLayer(this, this._timeForSence);
 
         // var hudLayer = new HudLayer(this, false, this._timeForSence);
         // hudLayer.x = 0;
@@ -608,9 +622,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 let val = this._checkForGoalAccepted(this._alphabetObjectArray[i].getName());
 
                 if (val) {
-                    CurrencyManager.getInstance().incCoin(1);
+                    var addedCoin = this._player.hasBoostFlag(ARDouble.getBoostFlag()) ? 2 : 1;
 
-                    var object = new cc.LabelBMFont("+1", res.CustomFont_fnt);
+                    CurrencyManager.getInstance().incCoin(addedCoin);
+
+                    var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                     object.scale = 0.5;
                     object.setPosition(this._alphabetObjectArray[i].getPosition());
                     this.gameLayer.addChild(object, AR_ADI_ZODER+1);
@@ -637,7 +653,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         if (group && group.posArray.length > 0) {
             group.posArray.forEach((params) => {                
-                var obstacle = ARObstacleWorker.getInstance().addObstacle(params);
+                var obstacle = self._obstacleWorker.addObstacle(params);
                 self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
             });
         }
@@ -649,7 +665,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         if (group && group.posArray.length > 0) {
             group.posArray.forEach((params) => {                
-                var obstacle = ARBoosterWorker.getInstance().addBooster(params);
+                var obstacle = self._boosterWorker.addBooster(params);
                 self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
             });
         }

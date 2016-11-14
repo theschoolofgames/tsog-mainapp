@@ -875,6 +875,131 @@
     "value": "squirrel"
   },
   {
+    "id": "word_A",
+    "type": "word",
+    "value": "A"
+  },
+  {
+    "id": "word_B",
+    "type": "word",
+    "value": "B"
+  },
+  {
+    "id": "word_C",
+    "type": "word",
+    "value": "C"
+  },
+  {
+    "id": "word_D",
+    "type": "word",
+    "value": "D"
+  },
+  {
+    "id": "word_E",
+    "type": "word",
+    "value": "E"
+  },
+  {
+    "id": "word_F",
+    "type": "word",
+    "value": "F"
+  },
+  {
+    "id": "word_G",
+    "type": "word",
+    "value": "G"
+  },
+  {
+    "id": "word_H",
+    "type": "word",
+    "value": "H"
+  },
+  {
+    "id": "word_I",
+    "type": "word",
+    "value": "I"
+  },
+  {
+    "id": "word_K",
+    "type": "word",
+    "value": "K"
+  },
+  {
+    "id": "word_L",
+    "type": "word",
+    "value": "L"
+  },
+  {
+    "id": "word_M",
+    "type": "word",
+    "value": "M"
+  },
+  {
+    "id": "word_N",
+    "type": "word",
+    "value": "N"
+  },
+  {
+    "id": "word_O",
+    "type": "word",
+    "value": "O"
+  },
+  {
+    "id": "word_P",
+    "type": "word",
+    "value": "P"
+  },
+  {
+    "id": "word_Q",
+    "type": "word",
+    "value": "Q"
+  },
+  {
+    "id": "word_R",
+    "type": "word",
+    "value": "R"
+  },
+  {
+    "id": "word_S",
+    "type": "word",
+    "value": "S"
+  },
+  {
+    "id": "word_T",
+    "type": "word",
+    "value": "T"
+  },
+  {
+    "id": "word_U",
+    "type": "word",
+    "value": "U"
+  },
+  {
+    "id": "word_V",
+    "type": "word",
+    "value": "V"
+  },
+  {
+    "id": "word_W",
+    "type": "word",
+    "value": "W"
+  },
+  {
+    "id": "word_X",
+    "type": "word",
+    "value": "X"
+  },
+  {
+    "id": "word_Y",
+    "type": "word",
+    "value": "Y"
+  },
+  {
+    "id": "word_Z",
+    "type": "word",
+    "value": "Z"
+  },
+  {
     "id": "word_a",
     "type": "word",
     "value": "a"

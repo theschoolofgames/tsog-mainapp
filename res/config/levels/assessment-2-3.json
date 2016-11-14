@@ -87,12 +87,12 @@
     "1": {
       "name": "forest",
       "data": [
-        "i",
-        "o",
-        "u",
-        "I",
-        "O",
-        "U",
+        "word_i",
+        "word_o",
+        "word_u",
+        "word_I",
+        "word_O",
+        "word_U",
         "octopus",
         "owl",
         "insect",

@@ -18,8 +18,13 @@ ShopScreenLayer = cc.LayerColor.extend({
 
     ctor: function() {
         this._super(cc.color(255,255,255,255));
+        var bg = new cc.Sprite("res/SD/BG-shop.jpg");
+        bg.x = cc.winSize.width/2;
+        bg.y = cc.winSize.height/2;
+        bg.scale = cc.winSize.height/bg.height;
+        this._scale = bg.scale;
+        this.addChild(bg, 0);
         this.addBackToHomeScene();
-        this.addCurrency();
         this._characterList = CharacterManager.getInstance().getCharacterList();
         cc.log("characterList: " + JSON.stringify(this._characterList));
         // this.addArrows();
@@ -95,52 +100,15 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     addBackToHomeScene: function(){
-        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = cc.winSize.width - button.width;
+        var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width/2 - 300;
         button.y = cc.winSize.height - button.height/2 - 10;
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
             cc.director.runScene(new HomeScene());
         });
-        var lb = new cc.LabelBMFont("BACK TO HOME", "yellow-font-export.fnt");
-        lb.scale = 0.5;
-        lb.x = button.width/2;
-        lb.y = button.height/2;
-        button.addChild(lb);
     },
 
-
-    addCurrency: function(){
-        var coin = new cc.Sprite("#gold.png");
-        coin.x = 100;
-        coin.y = cc.winSize.height - coin.height/2 - 10;
-        this.addChild(coin, 999);
-        var coinAmount = CurrencyManager.getInstance().getCoin();
-        var lbCoin = new cc.LabelBMFont(coinAmount.toString(), "res/font/custom_font.fnt");
-        lbCoin.scale = 0.4;
-        lbCoin.anchorX = 0;
-        lbCoin.x = 50;
-        lbCoin.y = coin.height/2;
-        coin.addChild(lbCoin);
-
-        this._coinLb = lbCoin;
-
-
-        var diamond = new cc.Sprite("#diamond.png");
-        diamond.x = 400;
-        diamond.y = cc.winSize.height - diamond.height/2 - 10;
-        this.addChild(diamond, 999);
-        var diamondAmount = CurrencyManager.getInstance().getDiamond();
-        var lbDiamond = new cc.LabelBMFont(diamondAmount.toString(), "res/font/custom_font.fnt");
-        lbDiamond.scale = 0.4;
-        lbDiamond.anchorX = 0;
-        lbDiamond.x = 50;
-        lbDiamond.y = diamond.height/2;
-        diamond.addChild(lbDiamond);
-
-        this._diamondLb = lbDiamond;
-
-    },
     updateScrollView: function() {
         // cc.log("updateScrollView");
         // if (this._exited)
@@ -220,8 +188,8 @@ ShopScreenLayer = cc.LayerColor.extend({
         this._character = new AdiDogNode(true, characterCfg.name);
         this.addChild(this._character);
         // this._character.opacity = 100;
-        this._character.x = 300;
-        this._character.y = cc.winSize.height/2 - 100;
+        this._character.x = cc.winSize.width/2 - 200;
+        this._character.y = cc.winSize.height/2 - 300 * this._scale;
         var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
         var lbButton = "";
         if(unlocked)
@@ -236,17 +204,17 @@ ShopScreenLayer = cc.LayerColor.extend({
         characterName.scale = 0.4;
         characterName.anchorX = 0;
         characterName.x = cc.winSize.width/2;
-        characterName.y = cc.winSize.height/2 + 100;
+        characterName.y = cc.winSize.height/2 + 50;
         this.addChild(characterName);
         this._name = characterName;
 
         var characterHeathy = new cc.LabelBMFont("", "res/font/custom_font.fnt");
         characterHeathy.scale = 0.4;
         characterHeathy.anchorX = 0;
-        characterHeathy.x = cc.winSize.width/2;;
-        characterHeathy.y = cc.winSize.height/2 + 50;
+        characterHeathy.x = cc.winSize.width/2;
+        characterHeathy.y = cc.winSize.height/2;
         for(var i = 0; i < characterCfg.heathy; i ++) {
-            var heart = new cc.Sprite("#diamond.png");
+            var heart = new cc.Sprite("#heart-1.png");
             heart.scale = 1/characterHeathy.scale - 0.4;
             heart.x = characterHeathy.width + 50 + i * 120;
             heart.y = characterHeathy.height/2;
@@ -254,9 +222,11 @@ ShopScreenLayer = cc.LayerColor.extend({
         };
         this.addChild(characterHeathy);
         this._heathy = characterHeathy;
-        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = cc.winSize.width/2 + 100;
+        var button = new ccui.Button("button-unlock.png", "button-unlock-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width/2 + 150;
         button.y = cc.winSize.height/2 - 100;
+        if(unlocked)
+            button.setVisible(false);
         this._button = button;
         var self = this;
         this.addChild(button, 10);
@@ -299,23 +269,18 @@ ShopScreenLayer = cc.LayerColor.extend({
                 ));
             }
         });
-        var lb = new cc.LabelBMFont(lbButton, "res/font/custom_font.fnt");
+        var lb = new cc.LabelBMFont(lbButton, res.HomeFont_fnt);
         lb.scale = 0.7;
         lb.x = button.width/2;
         lb.y = button.height/2;
         button.addChild(lb);
         if(!unlocked) {
             var price = characterCfg.price;
-            var lbPrice =  new cc.LabelBMFont(price.toString(), "res/font/custom_font.fnt");
+            var lbPrice =  new cc.LabelBMFont(price.toString(), res.HomeFont_fnt);
             lbPrice.scale = 0.7;
             lbPrice.x = button.width/2 - 20;
-            lbPrice.y = button.height/2;;
+            lbPrice.y = button.height/2 + 8;
             button.addChild(lbPrice);
-            var diamondIcon = new cc.Sprite("#diamond.png");
-            diamondIcon.scale = 1/ lbPrice.scale;
-            diamondIcon.x = lbPrice.width + 50;
-            diamondIcon.y = lbPrice.height/2;
-            lbPrice.addChild(diamondIcon);
         }
     },
 
@@ -329,17 +294,17 @@ ShopScreenLayer = cc.LayerColor.extend({
 
         if(index == 0 ) {
             this._fingerToRight = new TutorialLayer(cc.p(cc.winSize.width/3, 100),cc.p(50,100));
-            this.addChild(this._fingerToRight);
+            this.addChild(this._fingerToRight, 10);
         }
         else if(index == this._characterList.length - 1) {
             this._fingerToLeft = new TutorialLayer(cc.p(cc.winSize.width/3 * 2,100), cc.p(cc.winSize.width - 50, 100));
-            this.addChild(this._fingerToLeft);
+            this.addChild(this._fingerToLeft, 10);
         }
         else if(0 < index < this._characterList.length - 1) {
             this._fingerToLeft = new TutorialLayer(cc.p(cc.winSize.width/3 * 2,100), cc.p(cc.winSize.width - 50, 100));
-            this.addChild(this._fingerToLeft);
+            this.addChild(this._fingerToLeft, 10);
             this._fingerToRight = new TutorialLayer(cc.p(cc.winSize.width/3, 100),cc.p(50,100));
-            this.addChild(this._fingerToRight);
+            this.addChild(this._fingerToRight, 10);
         };
 
     },
