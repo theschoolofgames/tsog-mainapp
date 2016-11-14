@@ -4,12 +4,11 @@ var ARObstacleWorker = cc.Class.extend({
 
     _deltaTime: 1 / 60,
 
-    ctor: function() {
-
-    },
-
-    setPlayer: function(player) {
+    ctor: function(player) {
+        ARObstacleWorker._instance = this;
         this._player = player;
+
+        this._obstacles = [];
     },
 
     addObstacle: function(params) {
@@ -56,10 +55,10 @@ var ARObstacleWorker = cc.Class.extend({
 ARObstacleWorker._instance = null;
 
 ARObstacleWorker.getInstance = function () {
-    return ARObstacleWorker._instance || ARObstacleWorker.setupInstance();
+  return ARObstacleWorker._instance || ARObstacleWorker.setupInstance();
 };
 
 ARObstacleWorker.setupInstance = function () {
     ARObstacleWorker._instance = new ARObstacleWorker();
     return ARObstacleWorker._instance;
-};
+}

@@ -98,7 +98,7 @@
         "src/layers/Alphabet/SpeakingTestForBuildingBlocks.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
-        "src/layers/AlphaRacing/Boosters/ARBoosterWorker.js",
+        "src/layers/AlphaRacing/ARHudLayer.js",
         "src/layers/AlphaRacing/Boosters/ARBooster.js",
         "src/layers/AlphaRacing/Boosters/ARInvisible.js",
         "src/layers/AlphaRacing/Boosters/ARMagnet.js",
@@ -106,10 +106,12 @@
         "src/layers/AlphaRacing/AREffectLayer.js",
         "src/layers/AlphaRacing/Players/ARAdiDog.js",
         "src/layers/AlphaRacing/Obstacles/ARObstacle.js",
-        "src/layers/AlphaRacing/Obstacles/ARObstacleWorker.js",
         "src/layers/AlphaRacing/Obstacles/ARBeeHive.js",
         "src/layers/AlphaRacing/Obstacles/ARStone.js",
         "src/layers/AlphaRacing/Obstacles/ARFire.js",
+        "src/layers/AlphaRacing/Workers/ARBoosterWorker.js",
+        "src/layers/AlphaRacing/Workers/ARObstacleWorker.js",
+        "src/layers/AlphaRacing/Workers/ARDistanceCountingWorker.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

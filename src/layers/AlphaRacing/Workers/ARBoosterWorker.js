@@ -4,12 +4,11 @@ var ARBoosterWorker = cc.Class.extend({
 
     _deltaTime: 1 / 60,
 
-    ctor: function() {
-
-    },
-
-    setPlayer: function(player) {
+    ctor: function(player) {
+        ARBoosterWorker._instance = this;
         this._player = player;
+
+        this._boosters = [];
     },
 
     addBooster: function(params) {
@@ -48,19 +47,24 @@ var ARBoosterWorker = cc.Class.extend({
         var self = this;
 
         var updateTimes = Math.round(dt / this._deltaTime);
+        var beRemoved = [];
 
         this._boosters.forEach((ob, idx) => {
-            for (var i = 0; i < updateTimes; i++) {
-                if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
-                    ob.removeFromParent();
-                    self._boosters.splice(idx, 1);
-                    return;
-                }
+            if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
+                beRemoved.push(ob);
+                return;
+            }
 
+            for (var i = 0; i < updateTimes; i++) {
                 ob.fixUpdate();
             }
 
             ob.update(dt);
+        })
+
+        beRemoved.forEach(ob => {
+            self._boosters.splice(self._boosters.indexOf(ob), 1);
+            ob.removeFromParent();
         })
     }
 })
@@ -68,10 +72,10 @@ var ARBoosterWorker = cc.Class.extend({
 ARBoosterWorker._instance = null;
 
 ARBoosterWorker.getInstance = function () {
-    return ARBoosterWorker._instance || ARBoosterWorker.setupInstance();
+  return ARBoosterWorker._instance || ARBoosterWorker.setupInstance();
 };
 
 ARBoosterWorker.setupInstance = function () {
     ARBoosterWorker._instance = new ARBoosterWorker();
     return ARBoosterWorker._instance;
-};
+}
