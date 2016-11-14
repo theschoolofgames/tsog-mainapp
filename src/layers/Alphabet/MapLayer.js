@@ -104,7 +104,7 @@ var MapLayer = cc.Layer.extend({
                         btn.addChild(lb);
 
                         scrollView.addChild(btn, 1);
-
+                        btn.tag = level;
                         btn.setUserData(val);
                         btn.addClickEventListener(this._stepPressed.bind(this));
 
@@ -263,6 +263,7 @@ var MapLayer = cc.Layer.extend({
 
             if (step == userData) {
                 this._steps[i+1].setEnabled(true);
+                UserStorage.getInstance().setLastLevelPlay(stepBtn.tag);
                 SceneFlowController.getInstance().setLastedStepUnlocked(this._steps[i+1].getUserData());
             }
         }
@@ -286,7 +287,7 @@ var MapLayer = cc.Layer.extend({
     _stepPressed: function(b) {
         if (this._touchBlocked)
             return;
-
+        cc.log("Level: " + b.tag);
         var level = SceneFlowController.getInstance().getLastedStepPressed();
         if (!level)
             level = SceneFlowController.getInstance().getLastedStepUnlocked();

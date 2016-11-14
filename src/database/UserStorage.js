@@ -1,7 +1,7 @@
 var UserStorage = cc.Class.extend({
 
     KEY_AR_HS: "UserStorage:KEY_AR_HS",
-
+    LAST_LEVEL: "UserStorage: LAST_LEVEL",
     _arhs: 0,
 
     ctor: function () {
@@ -19,6 +19,12 @@ var UserStorage = cc.Class.extend({
 
     getARHighscore: function() {
         return this._arhs;
+    },
+    setLastLevelPlay: function(level){
+        KVDatabase.getInstance().set(this.LAST_LEVEL, level)
+    },
+    getLastLevelPlay: function(level){
+        return KVDatabase.getInstance().getInt(this.LAST_LEVEL, 1)
     }
 });
 
