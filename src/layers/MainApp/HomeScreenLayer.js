@@ -39,11 +39,17 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var lbLearn = new cc.LabelBMFont("PLAY", res.HomeFont_fnt);
-        lbLearn.scale = 0.5;
-        lbLearn.x = board.width/2;
-        lbLearn.y = board.height/2 + 15;
-        board.addChild(lbLearn);
+        var lbPlay = new cc.LabelBMFont("PLAY", res.HomeFont_fnt);
+        lbPlay.scale = 0.5;
+        lbPlay.x = board.width/2;
+        lbPlay.y = board.height/2 + 15;
+        board.addChild(lbPlay);
+
+        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString(), res.CustomFont_fnt);
+        lbHighScore.scale = 0.5;
+        lbHighScore.x = lbPlay.x;
+        lbHighScore.y = lbPlay.y - 37;
+        board.addChild(lbHighScore);
 
     },
 
@@ -69,6 +75,14 @@ var HomeScreenLayer = cc.Layer.extend({
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
+        cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
+        var lastLevel = UserStorage.getInstance().getLastLevelPlay();
+        lastLevel = "L. " + lastLevel;
+        var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
+        lbHighScore.scale = 0.5;
+        lbHighScore.x = lbLearn.x;
+        lbHighScore.y = lbLearn.y - 37;
+        board.addChild(lbHighScore);
     },
 
     addHomeDoor: function(){
@@ -80,7 +94,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
-            cc.director.runScene(new ShopScene());
+            cc.director.runScene(new TalkingAdiScene());
         });
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
