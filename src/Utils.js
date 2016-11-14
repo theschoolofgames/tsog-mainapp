@@ -34,7 +34,10 @@ Utils.removeLoadingIndicatorLayer = function() {
     if (layer)
         layer.removeFromParent();    
 }
-
+Utils.getScaleFactorTo16And9 = function() {
+    var winSize = cc.director.getWinSize();
+    return (winSize.height / winSize.width) / (16/9);
+}
 Utils.loadImg = function(imgUrl, spriteNode, cb) {
     if (!spriteNode) return;
 

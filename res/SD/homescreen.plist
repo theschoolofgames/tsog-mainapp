@@ -4,18 +4,153 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>board.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{137,105}</string>
+                <key>spriteSourceSize</key>
+                <string>{137,105}</string>
+                <key>textureRect</key>
+                <string>{{1475,333},{137,105}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>button-unlock-pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{329,74}</string>
+                <key>spriteSourceSize</key>
+                <string>{329,74}</string>
+                <key>textureRect</key>
+                <string>{{1475,2},{329,74}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>button-unlock.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{329,74}</string>
+                <key>spriteSourceSize</key>
+                <string>{329,74}</string>
+                <key>textureRect</key>
+                <string>{{1551,2},{329,74}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>heart-1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,56}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,56}</string>
+                <key>textureRect</key>
+                <string>{{1582,333},{60,56}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>heart-2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{60,56}</string>
+                <key>spriteSourceSize</key>
+                <string>{60,56}</string>
+                <key>textureRect</key>
+                <string>{{1582,395},{60,56}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>home_door.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>home_door_pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{493,2},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>learn_door.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{984,2},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>learn_door_pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{2,256},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>navigate-1.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,18}</string>
+                <string>{0,9}</string>
                 <key>spriteSize</key>
-                <string>{80,74}</string>
+                <string>{40,37}</string>
                 <key>spriteSourceSize</key>
-                <string>{80,110}</string>
+                <string>{40,55}</string>
                 <key>textureRect</key>
-                <string>{{2,2},{80,74}}</string>
+                <string>{{1582,457},{40,37}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -24,15 +159,60 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,-27}</string>
+                <string>{0,-13}</string>
                 <key>spriteSize</key>
-                <string>{80,56}</string>
+                <string>{40,29}</string>
                 <key>spriteSourceSize</key>
-                <string>{80,110}</string>
+                <string>{40,55}</string>
                 <key>textureRect</key>
-                <string>{{2,78},{80,56}}</string>
+                <string>{{1524,472},{40,29}}</string>
                 <key>textureRotated</key>
                 <false/>
+            </dict>
+            <key>navigate.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{24,47}</string>
+                <key>spriteSourceSize</key>
+                <string>{24,47}</string>
+                <key>textureRect</key>
+                <string>{{1475,472},{24,47}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>play_door.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{493,256},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>play_door_pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{252,489}</string>
+                <key>spriteSourceSize</key>
+                <string>{252,489}</string>
+                <key>textureRect</key>
+                <string>{{984,256},{252,489}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -42,9 +222,9 @@
             <key>realTextureFileName</key>
             <string>level-dialog.png</string>
             <key>size</key>
-            <string>{84,136}</string>
+            <string>{1640,510}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:1dd2783c163660704fb05fc2f6c6ff80:cfc6076a26d66062d55e4de0b0008781:c1b6fa8710711fed867bc5b3e09794bb$</string>
+            <string>$TexturePacker:SmartUpdate:6b870a4a66752b7977f71012cac0c5dc:62465d33a3ac70bccad6a05d2bcff4a1:c1b6fa8710711fed867bc5b3e09794bb$</string>
             <key>textureFileName</key>
             <string>level-dialog.png</string>
         </dict>

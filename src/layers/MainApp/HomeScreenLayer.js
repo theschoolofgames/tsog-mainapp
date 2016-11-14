@@ -1,101 +1,104 @@
 var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
-
+    _scale: null,
     ctor: function () {
         // body...
         this._super();
-        var bg = new cc.Sprite("res/SD/background.png");
+        var bg = new cc.Sprite("res/SD/BG_home.jpg");
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
+        bg.scale = cc.winSize.width / bg.width;
+        cc.log("Scale: " + bg.scale);
+        this._scale = bg.scale;
         this.addChild(bg);
         this._bg = bg;
-        this.addPlayBoard();
-        this.addAlphaRacingBoard();
-        this.addLockBoard();
-        this.addShopBoard();
+        this.addPlayDoor();
+        this.addLearnDoor();
+        this.addHomeDoor();
         
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
         // setLanguage("swahili");
 
     },
 
-    addPlayBoard: function(){
-        var board  = new ccui.Button("res/SD/blackboard.png","res/SD/blackboard.png", "");
-        board.anchorX = 1;
-        board.anchorY = 0;
-        board.x = this._bg.width/2 - 50;
-        board.y = this._bg.height/2 + 60;
-        this._bg.addChild(board);
-        board.addClickEventListener(function(){
-            cc.director.runScene(new MapScene());
-        });
-
-        var lbLearn = new cc.LabelBMFont("LEARN", "yellow-font-export.fnt");
-        lbLearn.x = board.width/2;
-        lbLearn.y = board.height/2 + 5;
-        board.addChild(lbLearn);
-    },
-
-    addAlphaRacingBoard: function(){
-        var board  = new ccui.Button("res/SD/blackboard.png","res/SD/blackboard.png", "");
-        board.anchorX = 0;
-        board.anchorY = 0;
-        board.x = this._bg.width/2 + 50;
-        board.y = this._bg.height/2 + 60;
-        this._bg.addChild(board);
-        board.addClickEventListener(function(){
+    addPlayDoor: function(){
+        var door  = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        // door.anchorX = 1;
+        door.anchorY = 0;
+        door.x = cc.winSize.width/2;
+        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.scale = this._scale;
+        this.addChild(door);
+        door.addClickEventListener(function(){
             var data = DataManager.getInstance().getDataAlpharacing();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));
             cc.log("ALPHARACING: " + JSON.stringify(data));
         });
+        var board = new cc.Sprite("#board.png");
+        board.x = door.width/2;
+        board.y = door.height - 130;
+        door.addChild(board);
 
-        var lbPlay = new cc.LabelBMFont("PLAY", "yellow-font-export.fnt");
-        lbPlay.x = board.width/2;
-        lbPlay.y = board.height/2 + 5;
-        board.addChild(lbPlay);
+        var lbLearn = new cc.LabelBMFont("PLAY", res.HomeFont_fnt);
+        lbLearn.scale = 0.5;
+        lbLearn.x = board.width/2;
+        lbLearn.y = board.height/2 + 15;
+        board.addChild(lbLearn);
+
     },
 
-    addShopBoard: function(){
-        var board  = new ccui.Button("res/SD/blueboard.png","res/SD/blueboard.png", "");
-        board.anchorX = 1;
-        board.anchorY = 1;
-        board.x = this._bg.width/2 - 50;
-        board.y = this._bg.height/2 + 25;
-        this._bg.addChild(board);
-        board.addClickEventListener(function(){
+    addLearnDoor: function(){
+        var door  = new ccui.Button("learn_door.png","learn_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        door.anchorX = 0;
+        door.anchorY = 0;
+        door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
+        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.scale = this._scale;
+        this.addChild(door);
+        door.addClickEventListener(function(){
+            cc.director.runScene(new MapScene());
+        });
+
+        var board = new cc.Sprite("#board.png");
+        board.x = door.width/2;
+        board.y = door.height - 130;
+        door.addChild(board);
+
+        var lbLearn = new cc.LabelBMFont("LEARN", res.HomeFont_fnt);
+        lbLearn.scale = 0.5;
+        lbLearn.x = board.width/2;
+        lbLearn.y = board.height/2 + 15;
+        board.addChild(lbLearn);
+    },
+
+    addHomeDoor: function(){
+        var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        door.anchorX = 1;
+        door.anchorY = 0;
+        door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
+        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.scale = this._scale;
+        this.addChild(door);
+        door.addClickEventListener(function(){
             cc.director.runScene(new ShopScene());
         });
-        var lbShop = new cc.LabelBMFont("SHOP", "yellow-font-export.fnt");
-        lbShop.x = board.width/2;
-        lbShop.y = board.height/2 + 5;
-        board.addChild(lbShop);
-    },
+        var board = new cc.Sprite("#board.png");
+        board.x = door.width/2;
+        board.y = door.height - 130;
+        door.addChild(board);
 
-    addLockBoard: function(){
-        var board  = new ccui.Button("res/SD/blueboard.png","res/SD/blueboard.png", "");
-        board.anchorX = 0;
-        board.anchorY = 1;
-        board.x = this._bg.width/2 + 50;
-        board.y = this._bg.height/2 + 25;
-        this._bg.addChild(board);
-        board.addClickEventListener(function(){
-            var langToChange = (currentLanguage == "en") ? "swahili" : "en";
-            setLanguage(langToChange);
-            KVDatabase.getInstance().set("currentLanguage", langToChange);
-            NativeHelper.callNative("showMessage", ["Message", "Change current language to " + langToChange]);
-        });
+        var lbLearn = new cc.LabelBMFont("HOME", res.HomeFont_fnt);
+        lbLearn.scale = 0.5;
+        lbLearn.x = board.width/2;
+        lbLearn.y = board.height/2 + 15;
+        board.addChild(lbLearn);
 
-        var lbChange = new cc.LabelBMFont("CHANGE LANGUAGE", "yellow-font-export.fnt");
-        lbChange.scale = 0.4;
-        lbChange.x = board.width/2;
-        lbChange.y = board.height/2 + 5;
-        board.getRendererNormal().addChild(lbChange);
-
-        // var keylock = new cc.Sprite("res/SD/keylock.png");
-        // keylock.x = board.width/2;
-        // keylock.y = board.height/2;
-        // board.addChild(keylock);
-    },
+        var character = new AdiDogNode(true);
+        character.scale  = 0.5;
+        character.x = 0;
+        character.y = 0;
+        door.addChild(character);
+    }
 
 });
 
