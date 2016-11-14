@@ -33,6 +33,21 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
+    addShopButton: function() {
+        var shopBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        shopBtn.x = cc.winSize.width - shopBtn.width;
+        shopBtn.y = cc.winSize.height - shopBtn.height/2;
+        this.addChild(shopBtn, 9999);
+        shopBtn.addClickEventListener(function(){
+            cc.director.runScene(new ShopScene());
+        });
+
+        var lbButton = new cc.LabelBMFont("SHOP", "yellow-font-export.fnt");
+        lbButton.scale = 0.3;
+        lbButton.x = shopBtn.width/2;
+        lbButton.y = shopBtn.height/2;
+        shopBtn.getRendererNormal().addChild(lbButton);
+    },
 
     playBeginSound: function(){
         self = this;

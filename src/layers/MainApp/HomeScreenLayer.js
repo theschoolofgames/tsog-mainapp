@@ -80,7 +80,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
-            cc.director.runScene(new ShopScene());
+            cc.director.runScene(new TalkingAdiScene());
         });
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
