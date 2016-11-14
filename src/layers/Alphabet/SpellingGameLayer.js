@@ -1,6 +1,6 @@
 var kTagTrainSlotAction = 1;
 var kTagMaxZOrder = 999999;
-var AlphabetGameLayer = TestLayer.extend({
+var SpellingGameLayer = TestLayer.extend({
 
     _slotScale: 0.4,
     _objectScale: 0.35,
@@ -401,7 +401,7 @@ var AlphabetGameLayer = TestLayer.extend({
         b.y = cc.winSize.height-b.height/2 - 10;
         b.setTitleText("RESET GAME");
         b.addClickEventListener(function() {
-            cc.director.runScene(new AlphabetGameScene());
+            cc.director.runScene(new SpellingGameScene());
         });
         this.addChild(b);
     },
@@ -423,11 +423,11 @@ var AlphabetGameLayer = TestLayer.extend({
     },
 });
 
-var AlphabetGameScene = cc.Scene.extend({
+var SpellingGameScene = cc.Scene.extend({
     ctor:function (data, isTestScene, timeForScene){
         this._super();
 
-        var l = new AlphabetGameLayer(data, isTestScene, timeForScene);
+        var l = new SpellingGameLayer(data, isTestScene, timeForScene);
         this.addChild(l);
     }
 });

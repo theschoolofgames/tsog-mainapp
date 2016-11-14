@@ -322,6 +322,8 @@ var BuildingBlocksLayer = TestLayer.extend({
         this._currentObjectMoving = null;
 
         if (this._dropSpots.length == 0) {
+            this.popGold(cc.p(position.x + parent.x, position.y + parent.y));
+            this.updateProgressBar();
             if (!this._checkWonGame()) {
                 // play end of operation sound
                 this._completeOperationAction();

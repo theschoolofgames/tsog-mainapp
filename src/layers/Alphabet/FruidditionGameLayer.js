@@ -187,10 +187,12 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount) {
+        cc.log("completedObjectsCount: " + completedObjectsCount);
         var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            self._blockTouch = false;
+            cc.log("self._type: " + self._type);
+            jsb.AudioEngine.stopAll();
             jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._type) + ".mp3");
         });
     },
@@ -198,12 +200,12 @@ var FruidditionGameLayer = TestLayer.extend({
     _fetchObjectData: function(data) {
         // if (!data)
         //     return;
-        cc.log("fruiddition _fetchObjectData");
+        // cc.log("fruiddition _fetchObjectData");
         // this._type = FRUIDDITION_DATA["type"];
         // this._data = JSON.parse(JSON.stringify(FRUIDDITION_DATA["data"][0]));
         // if (data)
         //     data = JSON.parse(data);
-        cc.log("data:" + JSON.stringify(data));
+        // cc.log("data:" + JSON.stringify(data));
         this._type = data["type"];
         this._data = data["data"][0];
 
@@ -229,7 +231,9 @@ var FruidditionGameLayer = TestLayer.extend({
     _onTouchBegan: function(touch, event){
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
-
+        // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
+        // cc.log("self._currentObjectMoving: " + self._currentObjectMoving);
+        // cc.log("self._blockTouch: " + self._blockTouch);
         if (self._blockTouch || self._currentObjectMoving || self._draggingObjects.length == 0) {
             cc.log("onTouchBegan return false");
             return false;
@@ -294,9 +298,9 @@ var FruidditionGameLayer = TestLayer.extend({
         var position = this._dropSpots[index].getPosition();
         this._dropSpots[index].removeFromParent();
 
-        this.popGold(position);
+        this.popGold(cc.p(position.x + parent.x, position.y + parent.y));
+        this.updateProgressBar();
 
-        // this._draggingObjects.splice(this._currentObjectMoving.getUserData(), 1);
         this._currentObjectMoving.removeFromParent(false);
         parent.addChild(this._currentObjectMoving);
         this._currentObjectMoving.setLocalZOrder(STAND_OBJECT_ZORDER);
@@ -325,7 +329,9 @@ var FruidditionGameLayer = TestLayer.extend({
                     }.bind(this))
                 ));
             }
-        }
+        } else
+            this._blockTouch = false;
+
     },
 
     _checkWonGame: function() {

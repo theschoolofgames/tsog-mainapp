@@ -278,10 +278,10 @@ var ObjectTestSelectorLayer = cc.Layer.extend({
                 cc.director.runScene(new BalloonGameScene(checkedItems));   
                 break;
             case "matching":
-                cc.director.runScene(new MatchGameScene(checkedItems));   
+                cc.director.runScene(new SpellingGameScene(checkedItems));   
                 break;
             case "alphabet":
-                cc.director.runScene(new AlphabetGameScene(checkedItems));   
+                cc.director.runScene(new SpellingGameScene(checkedItems));   
                 break;
             case "fruiddition":
                 cc.log("fruiddition");

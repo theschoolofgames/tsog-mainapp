@@ -167,7 +167,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new ShopScene());
         cc.director.runScene(new HomeScene());
         // cc.director.runScene(new ShadowGameScene(["egg","hat","hat","jar","jar","book","book","apple","key"]));
-        // cc.director.runScene(new AlphabetGameScene(["cat", "banana"]));
+        // cc.director.runScene(new SpellingGameScene(["cat", "banana"]));
         // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
