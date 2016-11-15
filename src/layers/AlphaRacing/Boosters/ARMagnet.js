@@ -33,8 +33,6 @@ var ARMagnet = ARBooster.extend({
     didEnded: function() {
         cc.log("ARMagnet: didEnded");
         this._player.unsetBoostFlag(ARMagnet.getBoostFlag());
-        this.removeFromParent();
-        ARBoosterWorker.getInstance().removeBooster(this);
     },
 
     onCollide: function() {

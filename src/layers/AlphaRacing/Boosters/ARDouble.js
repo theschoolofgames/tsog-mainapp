@@ -36,8 +36,6 @@ var ARDouble = ARBooster.extend({
         cc.log("ARDouble: didEnded");
 
         this._player.unsetBoostFlag(ARDouble.getBoostFlag());
-        this.removeFromParent();
-        ARBoosterWorker.getInstance().removeBooster(this);
     },
 
     onCollide: function() {

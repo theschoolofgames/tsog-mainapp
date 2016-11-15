@@ -1,13 +1,25 @@
 var ARObstacle = cc.Sprite.extend({
     _player: null,
     _isActive: false,
+    _isDead: false,
 
     ctor: function(player, spriteName) {
         this._super("#" + spriteName);
         this._player = player;
     },
 
+    isDead: function() {
+        return this._isDead;
+    },
+
+    setIsDead: function(d) {
+        this._isDead = d;
+    },
+
     setActive: function(active) {
+        if (this._isDead || this._isActive == active)
+            return;
+
         this._isActive = active;
         if (this._isActive) {
             this.willStart();
@@ -38,7 +50,7 @@ var ARObstacle = cc.Sprite.extend({
     },
 
     end: function() {
-
+        this._isDead = true;
     },
 
     willEnd: function() {
@@ -46,6 +58,10 @@ var ARObstacle = cc.Sprite.extend({
     },
 
     didEnded: function() {
+
+    },
+
+    fixUpdate: function() {
 
     },
 
