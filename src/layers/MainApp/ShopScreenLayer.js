@@ -27,7 +27,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addBackToHomeScene();
         this._characterList = CharacterManager.getInstance().getCharacterList();
         cc.log("characterList: " + JSON.stringify(this._characterList));
-        // this.addArrows();
+        this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
         cc.eventManager.addListener({
@@ -37,8 +37,8 @@ ShopScreenLayer = cc.LayerColor.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
-        // CurrencyManager.getInstance().incCoin(10000);
-        // CurrencyManager.getInstance().incDiamond(10000);
+        CurrencyManager.getInstance().incCoin(10000);
+        CurrencyManager.getInstance().incDiamond(10000);
     },
     onTouchBegan: function(touch, event) {
         cc.log("onTouchBegan");
@@ -161,17 +161,17 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     showCharacter: function(index) {
-        this.showFinger(index);
-        // if(index == 0) {
-        //     this._arrowleft.setVisible(false);
-        //     this._arrowright.setVisible(true);
-        // } else if  (index == this._characterList.length - 1) {
-        //     this._arrowleft.setVisible(true);
-        //     this._arrowright.setVisible(false);
-        // } else if  (0 < index < this._characterList.length - 1) {
-        //     this._arrowleft.setVisible(true);
-        //     this._arrowright.setVisible(true);
-        // };
+        // this.showFinger(index);
+        if(index == 0) {
+            this._arrowleft.setVisible(false);
+            this._arrowright.setVisible(true);
+        } else if  (index == this._characterList.length - 1) {
+            this._arrowleft.setVisible(true);
+            this._arrowright.setVisible(false);
+        } else if  (0 < index < this._characterList.length - 1) {
+            this._arrowleft.setVisible(true);
+            this._arrowright.setVisible(true);
+        };
         cc.log("index: " + index);
         if(this._character) {
             this._character.removeFromParent();
@@ -203,15 +203,15 @@ ShopScreenLayer = cc.LayerColor.extend({
         var characterName = new cc.LabelBMFont("" + name, "res/font/custom_font.fnt");
         characterName.scale = 0.4;
         characterName.anchorX = 0;
-        characterName.x = cc.winSize.width/2;
+        characterName.x = this._character.width/2 + 185;
         characterName.y = cc.winSize.height/2 + 50;
-        this.addChild(characterName);
+        this._character.addChild(characterName);
         this._name = characterName;
 
         var characterHeathy = new cc.LabelBMFont("", "res/font/custom_font.fnt");
         characterHeathy.scale = 0.4;
         characterHeathy.anchorX = 0;
-        characterHeathy.x = cc.winSize.width/2;
+        characterHeathy.x = this._character.width/2 + 185;
         characterHeathy.y = cc.winSize.height/2;
         for(var i = 0; i < characterCfg.heathy; i ++) {
             var heart = new cc.Sprite("#heart-1.png");
@@ -220,12 +220,16 @@ ShopScreenLayer = cc.LayerColor.extend({
             heart.y = characterHeathy.height/2;
             characterHeathy.addChild(heart);
         };
-        this.addChild(characterHeathy);
+        this._character.addChild(characterHeathy);
         this._heathy = characterHeathy;
         var button = new ccui.Button("button-unlock.png", "button-unlock-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         button.x = cc.winSize.width/2 + 150;
         button.y = cc.winSize.height/2 - 100;
-        if(unlocked)
+        if(unlocked) {
+            button.x = cc.winSize.width/2 + 80;
+            button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        }
+        if(characterCfg.name == CharacterManager.getInstance().getSelectedCharacter())
             button.setVisible(false);
         this._button = button;
         var self = this;
@@ -236,11 +240,12 @@ ShopScreenLayer = cc.LayerColor.extend({
             if(!unlocked) {
                 var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
                 if(buy) {
+                    cc.log("button.x");
+                    button.x = cc.winSize.width/2;
                     lbPrice.removeFromParent();
                     lb.setString("Choose");
                     self._character.adiJump();
-                    self._updateBalance();
-
+                    button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
                 }
                 else {
                     self._character.adiShakeHead();
@@ -310,19 +315,18 @@ ShopScreenLayer = cc.LayerColor.extend({
     },
 
     addArrows: function() {
-        this._arrowleft = new cc.Sprite("#navigate-1.png");
+        this._arrowleft = new cc.Sprite("#navigate.png");
         this._arrowleft.x = 100;
         this._arrowleft.y = cc.winSize.height/2;
         this.addChild(this._arrowleft);
-        this._arrowleft.rotation = 90;
-        Utils.runAnimation(this._arrowleft, "navigate", 0.3, 2, true, 0.3);
+        // Utils.runAnimation(this._arrowleft, "navigate", 0.3, 2, true, 0.3);
 
-        this._arrowright = new cc.Sprite("#navigate-1.png");
+        this._arrowright = new cc.Sprite("#navigate.png");
         this._arrowright.x = cc.winSize.width - 100;
         this._arrowright.y = cc.winSize.height/2;
         this.addChild(this._arrowright);
-        this._arrowright.rotation = - 90;
-        Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
+        this._arrowright.rotation = - 180;
+        // Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
     },
 
     _updateBalance: function() {

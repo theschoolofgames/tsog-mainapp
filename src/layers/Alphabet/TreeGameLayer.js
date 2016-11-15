@@ -46,6 +46,10 @@ var TreeGameLayer = TestLayer.extend({
 
         this._hudLayer.setTotalGoals((this._numberOfTrees*5));
     },
+    onExit: function(){
+        this._super();
+        this._cantouch = false;
+    },
     
     _addScrollView: function() {
         var scrollview = new cc.ScrollView();
@@ -186,6 +190,8 @@ var TreeGameLayer = TestLayer.extend({
     },
 
     onTouchEnded: function(touch, event) {
+        if(!this._cantouch)
+            return;
         var touchLoc = touch.getLocation();
         var self = this;
         
