@@ -3,8 +3,6 @@ var res = {
     Account_png: "account.png",
     School_plist: "school.plist",
     School_png: "school.png",
-    Loading_plist: "loading.plist",
-    Loading_png: "loading.png",
     Abc_plist: "abc.plist",
     Abc_png: "abc.png",
     Card_game_plist: "card-game.plist",

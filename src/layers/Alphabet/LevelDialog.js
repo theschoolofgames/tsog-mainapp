@@ -68,7 +68,7 @@ var LevelDialog = Dialog.extend({
                 var gameData = dt["1"].data;
 
                 var gameSelectorImageName = "icon_game_" + gameName + ".png";
-
+                cc.log("gameSelectorImageName: " + gameSelectorImageName);
                 var gameSelector = new ccui.Button(gameSelectorImageName, "", "", ccui.Widget.PLIST_TEXTURE);
                 gameSelector.x = lastSelectorXPos + gameSelector.width/2 + 50 * this._csf;
                 gameSelector.y = (itemIdx < itemInARow) ? (layerContentSizeHeight/2 + gameSelector.height/2) : (layerContentSizeHeight/2 - gameSelector.height/2);

@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,69}</string>
                 <key>textureRect</key>
-                <string>{{1240,336},{68,69}}</string>
+                <string>{{1400,125},{68,69}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{68,69}</string>
                 <key>textureRect</key>
-                <string>{{1310,336},{68,69}}</string>
+                <string>{{1400,196},{68,69}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1075,292},{121,163}}</string>
+                <string>{{1242,292},{121,163}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -180,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{908,125},{121,165}}</string>
+                <string>{{1260,2},{121,165}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>icon_game_shadow.png</key>
             <dict>
@@ -195,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1031,125},{121,165}}</string>
+                <string>{{908,125},{121,165}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1277,2},{121,165}}</string>
+                <string>{{1075,292},{121,165}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>icon_game_tree.png</key>
             <dict>
@@ -270,7 +270,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,165}</string>
                 <key>textureRect</key>
-                <string>{{1277,169},{121,165}}</string>
+                <string>{{1277,125},{121,165}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -327,9 +327,9 @@
             <key>realTextureFileName</key>
             <string>level-dialog.png</string>
             <key>size</key>
-            <string>{1400,455}</string>
+            <string>{1470,455}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:fa5d3554161ba4650ac8b78b8ce63bdb:be9fbdc07c6d724c0b449ca7f39b1f20:d59aa5d04c7cc5909012dd7a24ef3720$</string>
+            <string>$TexturePacker:SmartUpdate:a0b901b5d9ab99c13b5dfd0fefa6291b:4c793f0742291b9897f443194576e6f2:d59aa5d04c7cc5909012dd7a24ef3720$</string>
             <key>textureFileName</key>
             <string>level-dialog.png</string>
         </dict>

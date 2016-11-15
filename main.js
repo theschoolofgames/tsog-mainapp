@@ -128,7 +128,6 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.School_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Abc_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
         cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
         cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);
@@ -225,7 +224,6 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.School_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Abc_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Account_plist);
-            cc.spriteFrameCache.addSpriteFrames(res.Loading_plist);
             cc.spriteFrameCache.addSpriteFrames(res.NewAccount_Plist);
             cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
             cc.spriteFrameCache.addSpriteFrames(res.Card_game_plist);

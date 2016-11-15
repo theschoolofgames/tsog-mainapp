@@ -13,8 +13,7 @@ ShopScreenLayer = cc.LayerColor.extend({
     _arrowright: null,
     _showDialog: true,
 
-    _diamondLb: null,
-    _coinLb: null,
+    _hudLayer: null,
 
     ctor: function() {
         this._super(cc.color(255,255,255,255));
@@ -24,9 +23,9 @@ ShopScreenLayer = cc.LayerColor.extend({
         bg.scale = cc.winSize.height/bg.height;
         this._scale = bg.scale;
         this.addChild(bg, 0);
-        this.addBackToHomeScene();
+        // this.addBackToHomeScene();
         this._characterList = CharacterManager.getInstance().getCharacterList();
-        cc.log("characterList: " + JSON.stringify(this._characterList));
+        // cc.log("characterList: " + JSON.stringify(this._characterList));
         // this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
@@ -37,9 +36,14 @@ ShopScreenLayer = cc.LayerColor.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
-        // CurrencyManager.getInstance().incCoin(10000);
-        // CurrencyManager.getInstance().incDiamond(10000);
+        this._addHudLayer();
     },
+
+    _addHudLayer: function() {
+        this._hudLayer = new ShopHUDLayer(this);
+        this.addChild(this._hudLayer);
+    },
+
     onTouchBegan: function(touch, event) {
         cc.log("onTouchBegan");
         this._isTouchMoved = false;
@@ -239,7 +243,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     lbPrice.removeFromParent();
                     lb.setString("Choose");
                     self._character.adiJump();
-                    self._updateBalance();
+                    self._hudLayer.updateBalance();
 
                 }
                 else {
@@ -323,13 +327,6 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addChild(this._arrowright);
         this._arrowright.rotation = - 90;
         Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
-    },
-
-    _updateBalance: function() {
-        var coin = CurrencyManager.getInstance().getCoin();
-        var diamond = CurrencyManager.getInstance().getDiamond();
-        this._coinLb.setString(coin);
-        this._diamondLb.setString(diamond);
     },
 });
 var ShopScene = cc.Scene.extend({

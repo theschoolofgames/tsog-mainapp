@@ -66,6 +66,7 @@
         "src/layers/Alphabet/ForestLayer.js",
         "src/layers/Alphabet/HudLayer.js",
         "src/layers/Alphabet/SpecifyGoalHudLayer.js",
+        "src/layers/Alphabet/ShopHUDLayer.js",
         "src/layers/Alphabet/RoomLayer.js",
         "src/layers/Alphabet/SettingDialog.js",
         "src/layers/Alphabet/TalkingAdiLayer.js",

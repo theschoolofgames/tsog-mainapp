@@ -287,7 +287,7 @@ var MapLayer = cc.Layer.extend({
     _stepPressed: function(b) {
         if (this._touchBlocked)
             return;
-        cc.log("Level: " + b.tag);
+        // cc.log("Level: " + b.tag);
         var level = SceneFlowController.getInstance().getLastedStepPressed();
         if (!level)
             level = SceneFlowController.getInstance().getLastedStepUnlocked();
