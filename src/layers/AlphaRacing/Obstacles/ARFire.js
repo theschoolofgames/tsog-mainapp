@@ -20,8 +20,6 @@ var ARFire = ARObstacle.extend({
     },
 
     willEnd: function() {
-        ARObstacleWorker.getInstance().removeObstacle(this);
-        this.removeFromParent();
         this._player.reduceHealth();
     },
 
@@ -63,18 +61,16 @@ var ARFire = ARObstacle.extend({
         this.setState("showUp");
     },
 
-    update: function(dt) {
+    fixUpdate: function() {
         // cc.log((this._player.getColli sionBoundingBox().x + this.timeForWarning * this._player.getVelocity().x) + " " + this.x)
         if ( this._state == "none" &&
              (this._player.getDesiredPosition().x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
             this.setState("preparing");
             this.prepare();
         } else if (this._state == "showUp") {
-            this.x += this.velocity.x * dt;
-            this.y += this.velocity.y * dt;
+            this.x += this.velocity.x * 1/60;
+            this.y += this.velocity.y * 1/60;
         }
-
-        this._super(dt);
     },
 })
 

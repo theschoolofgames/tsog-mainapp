@@ -1010,7 +1010,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     updateProgressBar: function() {
-        cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._totalEarned / this._totalGoalNumber;
 
         this._hudLayer.setCurrentGoals(this._totalEarned);

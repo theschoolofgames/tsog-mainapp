@@ -42,14 +42,19 @@ var ARBoosterWorker = cc.Class.extend({
     },
 
     update: function(dt) {
-        var self = this;
+        for (var i = this._boosters.length-1; i >= 0; i--) {
+            if (this._boosters[i].isDead()) {
+                this._boosters[i].removeFromParent();
+                this._boosters.splice(i, 1);
+            }
+        }
 
+        var self = this;
         var updateTimes = Math.round(dt / this._deltaTime);
-        var beRemoved = [];
 
         this._boosters.forEach((ob, idx) => {
             if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
-                beRemoved.push(ob);
+                ob.setIsDead(true);
                 return;
             }
 
@@ -59,11 +64,6 @@ var ARBoosterWorker = cc.Class.extend({
 
             ob.update(dt);
         })
-
-        beRemoved.forEach(ob => {
-            self._boosters.splice(self._boosters.indexOf(ob), 1);
-            ob.removeFromParent();
-        })
     },
 
     end: function() {
@@ -71,14 +71,3 @@ var ARBoosterWorker = cc.Class.extend({
         this._boosters = [];
     }
 })
-
-ARBoosterWorker._instance = null;
-
-ARBoosterWorker.getInstance = function () {
-  return ARBoosterWorker._instance || ARBoosterWorker.setupInstance();
-};
-
-ARBoosterWorker.setupInstance = function () {
-    ARBoosterWorker._instance = new ARBoosterWorker();
-    return ARBoosterWorker._instance;
-}

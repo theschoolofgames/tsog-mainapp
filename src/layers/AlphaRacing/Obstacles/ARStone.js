@@ -14,8 +14,6 @@ var ARStone = ARObstacle.extend({
 
 
     willEnd: function() {
-        ARObstacleWorker.getInstance().removeObstacle(this);
-        this.removeFromParent();
         this._player.reduceHealth();
     },
 

@@ -36,14 +36,29 @@ var ARObstacleWorker = cc.Class.extend({
     },
 
     update: function(dt) {
+        for (var i = this._obstacles.length-1; i >= 0; i--) {
+            if (this._obstacles[i].isDead()) {
+                this._obstacles[i].removeFromParent();
+                this._obstacles.splice(i, 1);
+            }
+        }
+
         var updateTimes = Math.round(dt / this._deltaTime);
 
-        for (var i = 0; i < updateTimes; i++) {
-            this._obstacles.forEach(function(ob) {
+        this._obstacles.forEach(function(ob) {
+            if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
+                ob.setIsDead(true);
+                return;
+            }
+            
+            for (var i = 0; i < updateTimes; i++) {
                 if (ob.isActive())
-                    ob.update(dt);
-            })
-        }
+                    ob.fixUpdate();
+            }
+
+            ob.update(dt);
+        })
+        
     },
 
     end: function() {
@@ -51,14 +66,3 @@ var ARObstacleWorker = cc.Class.extend({
         this._obstacles = [];
     }
 })
-
-ARObstacleWorker._instance = null;
-
-ARObstacleWorker.getInstance = function () {
-  return ARObstacleWorker._instance || ARObstacleWorker.setupInstance();
-};
-
-ARObstacleWorker.setupInstance = function () {
-    ARObstacleWorker._instance = new ARObstacleWorker();
-    return ARObstacleWorker._instance;
-}

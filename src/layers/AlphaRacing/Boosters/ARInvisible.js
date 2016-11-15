@@ -53,8 +53,6 @@ var ARInvisible = ARBooster.extend({
         this._player.sprite.stopActionByTag(this.getBoostFlag());
 
         this._player.unsetBoostFlag(ARInvisible.getBoostFlag());
-        this.removeFromParent();
-        ARBoosterWorker.getInstance().removeBooster(this);
     },
 
     onCollide: function() {
