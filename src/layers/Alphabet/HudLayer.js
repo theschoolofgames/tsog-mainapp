@@ -295,7 +295,7 @@ var HudLayer = cc.Layer.extend({
 
         var amount = goldNode.tag;
         // increase balance
-        CurrencyManager.getInstance().incCoin(amount);
+        // CurrencyManager.getInstance().incCoin(amount);
 
 
         for (var i = 0; i < amount; i++) {
@@ -328,7 +328,10 @@ var HudLayer = cc.Layer.extend({
             ));
             gold.runAction(cc.sequence(
                 cc.delayTime(flyTime-0.1),
-                cc.callFunc(self.addCoinEffect.bind(this))
+                cc.callFunc(function() {
+                    CurrencyManager.getInstance().incCoin(amount);
+                    self.addCoinEffect.bind(this);
+                })
             ));
         };
 

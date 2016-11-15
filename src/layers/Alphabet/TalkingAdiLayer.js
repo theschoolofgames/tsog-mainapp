@@ -26,6 +26,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         Utils.showVersionLabel(this);
         this.addShopButton();
         NativeHelper.callNative("changeAudioRoute");
+
+        this.addChild(new ShopHUDLayer());
     },
 
     onEnterTransitionDidFinish: function() {

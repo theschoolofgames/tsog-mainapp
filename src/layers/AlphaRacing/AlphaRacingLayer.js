@@ -1014,7 +1014,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         this._hudLayer.setCurrentGoals(this._totalEarned);
         this._hudLayer.updateTotalGoalsLabel();
-        this._hudLayer.setProgressBarPercentage(this.percent);
+        this._hudLayer.setProgressBarPercentage(percent);
     },
 });
 
