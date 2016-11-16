@@ -17,8 +17,10 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addHomeDoor();
         
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
-        // setLanguage("swahili");
 
+        KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
+
+        this.addChild(new HomeHUDLayer());
     },
 
     addPlayDoor: function(){

@@ -8,7 +8,7 @@ var ShopHUDLayer = cc.Layer.extend({
     _lbCoin: null,
 
     ctor: function() {
-        this._super(); // true -> no clock
+        this._super();
 
         this.addBackButton();
         this.addCurrency();

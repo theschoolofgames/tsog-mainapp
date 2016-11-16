@@ -124,6 +124,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
         for (var i = 0; i < 3; i++) {
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
             var node = new cc.Layer();
+            // node.setAnchorPoint(0, 0.5);
             node.setCascadeOpacityEnabled(true);
             var heightIdx = 0;
 

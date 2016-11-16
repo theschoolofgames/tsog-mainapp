@@ -56,7 +56,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         cc.log("_createOperation");
         // 1st row
 
-        var firstObj = new cc.Node();
+        var firstObj = new cc.Layer();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
         firstObj.x = firstObj.width/4;
         firstObj.y = cc.winSize.height/2;
@@ -66,16 +66,16 @@ var BuildingBlocksLayer = TestLayer.extend({
         
         // this._operations.push(firstOperation);
 
-        var secondObj = new cc.Node();
+        var secondObj = new cc.Layer();
         secondObj.width = 250;
-        secondObj.visible = false; // comment it later
+        // secondObj.visible = false; // comment it later
 
         secondObj.x = cc.winSize.width/2;
         secondObj.y = cc.winSize.height/2;
         this.addChild(secondObj);
         this._objects.push(secondObj);
 
-        var thirdObj = new cc.Node();
+        var thirdObj = new cc.Layer();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
         thirdObj.x = cc.winSize.width/2;
         thirdObj.y = cc.winSize.height/2 + 20;
@@ -86,7 +86,7 @@ var BuildingBlocksLayer = TestLayer.extend({
     _showNextOperation: function() {
         // clear previous session
         this._cleanPreviousSession();
-        var node = new cc.Node();
+        var node = new cc.Layer();
         node.tag = BUILDING_BLOCKS_TAG;
         this.addChild(node);
         // 1st node
@@ -152,7 +152,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         var isSecondOperationPart = isSecondPart || false;
         var labelAdded = false;
         var totalHeight = 0;
-        var nodeBlocks = new cc.Node();
+        var nodeBlocks = new cc.Layer();
         nodeBlocks.x = currentSpotX;
         nodeBlocks.y = currentSpotY;
         nodeBlocks.tag = count;
@@ -167,13 +167,13 @@ var BuildingBlocksLayer = TestLayer.extend({
             nodeBlocks.addChild(o, STAND_OBJECT_ZORDER);      
             this._dropSpotScale = o.scale;
             nodeBlocks.width = o.width * this._gameScale;
-            nodeBlocks.height = o.height*count * this._gameScale;
+            nodeBlocks.height = o.height*count * o.scale;
 
             totalHeight = (o.height - 10) * (count) * o.scale;
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
         lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y = (count == 1) ? 25* Utils.screenRatioTo43() : nodeBlocks.height/2;
+        lb.y = 25*count * Utils.screenRatioTo43();
         nodeBlocks.addChild(lb, 9);
     },
 
@@ -201,7 +201,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
         lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y =(count == 1) ? 25* Utils.screenRatioTo43() : draggingNode.height/2;
+        lb.y = 25*count * Utils.screenRatioTo43();
         draggingNode.addChild(lb, 9);
     },
 
@@ -255,10 +255,13 @@ var BuildingBlocksLayer = TestLayer.extend({
         self._draggingObjects.forEach(function(draggingObj) {
             // cc.log("draggingObj: " +draggingObj);
             var bBox = draggingObj.getBoundingBox();
+            cc.log("bBox: " + JSON.stringify(bBox));
+            var newBBox = cc.rect(bBox.x - bBox.width/2, bBox.y + bBox.height/2, bBox.width*1.5, bBox.height*1.5);
+            cc.log("newBBox: " + JSON.stringify(newBBox));
             // cc.log("onTouchBegan ");
-            var nodePoint = draggingObj.getParent().convertToNodeSpace(touchLoc);
-            nodePoint = cc.p(nodePoint.x + draggingObj.width/2, nodePoint.y);
-            if (draggingObj.tag > 0 && cc.rectContainsPoint(bBox, nodePoint)) {
+            // var nodePoint = draggingObj.getParent().convertToNodeSpace(touchLoc);
+            // nodePoint = cc.p(nodePoint.x + draggingObj.width/2, nodePoint.y + draggingObj.height/2);
+            if (draggingObj.tag > 0 && cc.rectContainsPoint(newBBox, touchLoc)) {
                 cc.log("onTouchBegan go in draggingObj loop");
                 self._currentObjectMoving = draggingObj;
                 self._oldPosition = draggingObj.getPosition();

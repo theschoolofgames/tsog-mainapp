@@ -10,7 +10,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var self= this;
         this.tag = 1;
         this._createTalkingAdi();
-        this._addSettingButton();
+        // this._addSettingButton();
         // this.runAction(cc.sequence(
         //     cc.delayTime(5),
         //     cc.callFunc(function(){
@@ -69,20 +69,20 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             mask.removeFromParent();
             self._talkingAdi.adiIdling();
 
-            self._addCountDownClock();
+            // self._addCountDownClock();
             // self._addNextButton();
             NativeHelper.callNative("startFetchingAudio");
 
-            cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: true,
-                onTouchBegan: function(touch, event) { 
-                    var touchedPos = touch.getLocation();
-                    if (touchedPos.x > self._clock.x - 50)
-                        self._moveToNextScene();
-                    return true; 
-                }
-            }, self);
+            // cc.eventManager.addListener({
+            //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            //     swallowTouches: true,
+            //     onTouchBegan: function(touch, event) { 
+            //         var touchedPos = touch.getLocation();
+            //         if (touchedPos.x > self._clock.x - 50)
+            //             self._moveToNextScene();
+            //         return true; 
+            //     }
+            // }, self);
         });
     },
 

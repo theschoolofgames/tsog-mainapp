@@ -178,6 +178,7 @@ cc.game.onStart = function(){
         // cc.director.runScene(new ForestScene(["19", "2", "3", "4", "5", "123","cat", "bee"], true));
         // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
         // cc.director.runScene(new BuildingBlocksScene({
+        // cc.director.runScene(new BuildingBlocksScene({
         //     "type": "block",
         //     "data": [
         //       {
