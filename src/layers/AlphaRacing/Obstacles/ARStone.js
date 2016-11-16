@@ -14,7 +14,7 @@ var ARStone = ARObstacle.extend({
 
 
     willEnd: function() {
-        this._player.reduceHealth();
+        this._player.reduceHP();
     },
 
     didEnded: function() {

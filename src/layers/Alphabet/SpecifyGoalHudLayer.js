@@ -4,11 +4,13 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     _totalSpecifyGoal: 0,
     _currentSpecifyGoal: 0,
 
+    _showClock: true,
 
     ctor: function(layer, timeForScene, currencyType) {
         if (currencyType)
             this.setCurrencyType(currencyType);
-        this._super(layer, false, timeForScene);
+
+        this._super(layer, !this._showClock, timeForScene);
         this.addBackGround();
     },
 

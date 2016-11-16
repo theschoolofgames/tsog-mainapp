@@ -36,7 +36,7 @@ var TestLayer = cc.LayerColor.extend({
         if(data instanceof String)
             data = JSON.parse(data);
 
-        cc.log("data TestLayer: " + JSON.stringify(data));
+        // cc.log("data TestLayer: " + JSON.stringify(data));
         for(var i = 0; i < data.length; i ++) {
             DataManager.getInstance().setDataAlpharacing(data[i]);
         }

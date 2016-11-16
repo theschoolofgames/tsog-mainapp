@@ -20,7 +20,7 @@ var ARFire = ARObstacle.extend({
     },
 
     willEnd: function() {
-        this._player.reduceHealth();
+        this._player.reduceHP();
     },
 
     didEnded: function() {
@@ -37,7 +37,7 @@ var ARFire = ARObstacle.extend({
         var randomY = Math.random() * cc.winSize.height + 300;
 
         this.y = randomY;
-        this.x += cc.winSize.width * Math.abs(this.velocity.x / this._player.getVelocity().x);
+        this.x += cc.winSize.width * 2 / 3;
 
         // cc.log("randomY: " + randomY);
 

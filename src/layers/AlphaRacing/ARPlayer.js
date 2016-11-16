@@ -15,7 +15,7 @@ var ARPlayer = cc.Layer.extend({
 	runAnimationFrames: [],
 	isRunningAnim: false,
 
-	_health: 1,
+	_hp: 1,
 
 	_lbHealth: null,
 
@@ -40,8 +40,17 @@ var ARPlayer = cc.Layer.extend({
         this.unscheduleUpdate();
     },
 
-    reduceHealth: function() {
-        cc.log("ARPlayer: reduceHealth");
+    getHP: function() {
+        return this._hp;
+    },
+
+    reduceHP: function() {
+        this._hp -= 1;
+
+        if (this._hp <= 0) {
+            cc.log("Die");
+            this.die();
+        }
     },
 
     die: function() {

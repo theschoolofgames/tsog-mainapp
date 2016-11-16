@@ -127,7 +127,7 @@ var SceneFlowController = cc.Class.extend({
         var data = KVDatabase.getInstance().getString("sceneFlowCache");
         if (data == null || data == "")
             return;
-        cc.log("SceneFlowController: " + data);
+        // cc.log("SceneFlowController: " + data);
         data = JSON.parse(data);
 
         this._currentPreLoopSceneIdx = data.currentPreLoopSceneIdx || 0;

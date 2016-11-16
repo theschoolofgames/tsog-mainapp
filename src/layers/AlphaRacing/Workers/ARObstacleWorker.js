@@ -36,6 +36,7 @@ var ARObstacleWorker = cc.Class.extend({
     },
 
     update: function(dt) {
+        var self = this;
         for (var i = this._obstacles.length-1; i >= 0; i--) {
             if (this._obstacles[i].isDead()) {
                 this._obstacles[i].removeFromParent();
@@ -46,7 +47,7 @@ var ARObstacleWorker = cc.Class.extend({
         var updateTimes = Math.round(dt / this._deltaTime);
 
         this._obstacles.forEach(function(ob) {
-            if (!ob.isActive() && ob.x < this._player.x - cc.winSize.width / 2) {
+            if (!ob.isActive() && ob.x < self._player.x - cc.winSize.width / 2) {
                 ob.setIsDead(true);
                 return;
             }

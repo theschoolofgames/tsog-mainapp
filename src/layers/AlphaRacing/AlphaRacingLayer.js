@@ -57,16 +57,14 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _obstacleWorker: null,
     _boosterWorker: null,
 
-	ctor: function(inputData, option, timeForScene) {
+	ctor: function(inputData, option) {
         this._super(cc.color("#ebfcff"));
 
         this.resetData();
-        cc.log("timeForScene:" + timeForScene);
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
 
         this._elapsedTime = 0;
-        this._timeForSence = timeForScene;
         this.addRefreshButton();
 
         this._workers = [];
@@ -90,8 +88,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.gameLayer = new cc.Layer();
         this.addChild(this.gameLayer, 1);
         
-        this.addHud();
         this.initPlayer();
+        this.addHud();
+        
         this.initWorkers();
         this.initPlatforms();
 
@@ -435,7 +434,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     addHud: function() {
         cc.log("timeForScene: " + this._timeForSence);
-        var hudLayer = new ARHudLayer(this, this._timeForSence);
+        var hudLayer = new ARHudLayer(this, this._player);
 
         // var hudLayer = new HudLayer(this, false, this._timeForSence);
         // hudLayer.x = 0;
@@ -1020,11 +1019,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 });
 
 var AlphaRacingScene = cc.Scene.extend({
-    ctor: function(inputData, option, timeForScene) {
+    ctor: function(inputData, option) {
         this._super();
-        cc.log("timeForScene: " + timeForScene);
         this.name = "alpha-racing";
-        var layer = new AlphaRacingLayer(inputData,option, timeForScene);
+        var layer = new AlphaRacingLayer(inputData,option);
         this.addChild(layer);
     }
 });

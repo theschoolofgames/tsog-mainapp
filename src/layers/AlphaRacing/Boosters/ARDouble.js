@@ -2,8 +2,8 @@ var ARDouble = ARBooster.extend({
 
     effectiveTime: 6, // second
 
-    ctor: function(player) {
-        this._super(player, "ar-boosters/double.png")
+    ctor: function(worker, player) {
+        this._super(worker, player, "ar-boosters/double.png")
     },
 
     willStart: function() {
