@@ -88,8 +88,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.gameLayer = new cc.Layer();
         this.addChild(this.gameLayer, 1);
         
-        this.addHud();
         this.initPlayer();
+        this.addHud();
+        
         this.initWorkers();
         this.initPlatforms();
 
@@ -433,7 +434,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     addHud: function() {
         cc.log("timeForScene: " + this._timeForSence);
-        var hudLayer = new ARHudLayer(this);
+        var hudLayer = new ARHudLayer(this, this._player);
 
         // var hudLayer = new HudLayer(this, false, this._timeForSence);
         // hudLayer.x = 0;

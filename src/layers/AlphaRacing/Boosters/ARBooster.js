@@ -7,6 +7,7 @@ var ARBooster = cc.Sprite.extend({
     ctor: function(worker, player, spriteName) {
         this._super("#" + spriteName);
         this._player = player;
+        this._worker = worker;
     },
 
     isDead: function() {
