@@ -623,7 +623,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 if (val) {
                     var addedCoin = this._player.hasBoostFlag(ARDouble.getBoostFlag()) ? 2 : 1;
 
-                    CurrencyManager.getInstance().incCoin(addedCoin);
+                    this._hudLayer.popGold(addedCoin, cc.winSize.width/3, cc.winSize.height/3);
+                    CurrencyManager.getInstance().incDiamond(addedCoin);
 
                     var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                     object.scale = 0.5;

@@ -22,5 +22,5 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     updateDistance: function(d) {
         this._distance = Math.round(d);
         this._lbDistance.setString(this._distance.toString() + "m");
-    }
+    },
 });

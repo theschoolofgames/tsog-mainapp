@@ -245,39 +245,13 @@ var HudLayer = cc.Layer.extend({
     popGold: function(amount, x, y, delay) {
         if(amount == 0)
             return;
-        var finalScale = 2;
         var self = this;
-        var node = new ccui.Button("coin-empty.png", "", "");
-        // node.setTitleFontName(this._gameTheme.font);
-        // node.setTitleText(amount);
-        // node.setTitleFontSize(40);
-        // node.setTitleColor(cc.color(111, 96, 0))
+        var node = new ccui.Button(this._currencyType + ".png", "", "");
+
         node.addClickEventListener(this._tappedGoldNode.bind(this));
         node.tag = amount;
         node.x = x;
         node.y = y;
-        node.setCascadeColorEnabled(true);
-        var goldNumber = new cc.LabelBMFont(amount.toString(), res.Font_gold_fnt);
-        goldNumber.scale = 0.7
-        goldNumber.x = node.width/2 - 0.5;
-        goldNumber.y = node.height/2 + 1.5;
-        goldNumber.setCascadeColorEnabled(true);
-        node.addChild(goldNumber);
-
-        node.scaleX = 0.2*finalScale;
-        node.scaleY = 0.5*finalScale;
-        node.visible = true;
-
-        var jumpHeight = 150 + Math.random()*50;
-        var jumpDistanceX = 20 + Math.random()*20;
-        var jumpDistanceY = 0;
-        if (Math.random() < 0.5) 
-            jumpDistanceX *= -0.5;
-        if(x > (cc.winSize.width - 80))
-            jumpDistanceX = - 20;
-        if(x < 40)
-            jumpDistanceX  = 10;
-        var duration = 0.4 * finalScale;
 
         node.runAction(cc.sequence(
             cc.delayTime(0),
