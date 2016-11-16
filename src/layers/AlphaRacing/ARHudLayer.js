@@ -4,6 +4,8 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _lbDistance: null,
 
     ctor: function(layer, timeForScene) {
+        this._showClock = false;
+
         this._super(layer, timeForScene, "diamond");
 
         this._addDistanceLabel();

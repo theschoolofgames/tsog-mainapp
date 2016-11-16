@@ -15,7 +15,7 @@ var ARBoosterWorker = cc.Class.extend({
         let boosterName = ["ARMagnet", "ARInvisible", "ARDouble"];
         var randBooster = boosterName[Math.floor(Math.random() * boosterName.length)];
 
-        var object = new window[randBooster](this._player);
+        var object = new window[randBooster](this, this._player);
         // object.setScale(0.8);
         object.x = params.x;
         object.y = params.y;

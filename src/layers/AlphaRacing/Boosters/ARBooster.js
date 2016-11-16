@@ -1,9 +1,10 @@
 var ARBooster = cc.Sprite.extend({
     _player: null,
+    _worker: null,
     _isActive: false,
     _isDead: false,
 
-    ctor: function(player, spriteName) {
+    ctor: function(worker, player, spriteName) {
         this._super("#" + spriteName);
         this._player = player;
     },
@@ -57,7 +58,7 @@ var ARBooster = cc.Sprite.extend({
 
     onCollide: function() {
         if (this._player.hasBoostFlag(this.getBoostFlag())) {
-            let boosters = ARBoosterWorker.getInstance().findBooster(this.getBoostFlag(), true);
+            let boosters = this._worker.findBooster(this.getBoostFlag(), true);
             // cc.log(boosters.length);
             boosters.forEach(b => b.setActive(false));
         }
