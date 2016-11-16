@@ -94,7 +94,7 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _addSlots: function() {
-        cc.log("_activateSlots: " + this._activateSlots.length);
+        // cc.log("_activateSlots: " + this._activateSlots.length);
         if(this._activateSlots){
             this._activateSlots.forEach(function(obj){
                 obj.removeFromParent()
@@ -110,7 +110,7 @@ var CardGameLayer = TestLayer.extend({
             this.addChild(s);
             this._activateSlots.push(s);
         }
-        cc.log("SlOT: "+ this._activateSlots.length);
+        // cc.log("SlOT: "+ this._activateSlots.length);
         this._currentAvailableSlot = this._activateSlots[0];
         this._runSlotAction(this._currentAvailableSlot);
     },
@@ -178,7 +178,7 @@ var CardGameLayer = TestLayer.extend({
         this._card.stopActionByTag(kTagSelfCardAnimation);
         var self = this;
         if(!this._flipCardResult) {
-            cc.log("_doFlipCard");
+            // cc.log("_doFlipCard");
             this._fetchCardResult();
             
             var cardPos = this._card.getPosition();
@@ -218,7 +218,7 @@ var CardGameLayer = TestLayer.extend({
 
     _showNextObjects: function(){
         // run action
-        cc.log("_showNextObjects");
+        // cc.log("_showNextObjects");
         this.calcShowObjectAmount();
         this._addSlots();
         this._addObjects();
@@ -255,11 +255,11 @@ var CardGameLayer = TestLayer.extend({
                 var o = GameObject.getInstance().findById(id);
                 // cc.log("o" + JSON.stringify(o));
                 if (o[0]) {
-                    cc.log("o[0]: " + JSON.stringify(o[0]));
+                    // cc.log("o[0]: " + JSON.stringify(o[0]));
                     // cc.log("return o[0]");
                     return o[0];
                 } else {
-                    cc.log("return Id");
+                    // cc.log("return Id");
                     return id;
                 }
             });
@@ -288,7 +288,7 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _calcSlotCoordinates: function (totalSlots) {
-        cc.log("totalSlots: " + totalSlots);
+        // cc.log("totalSlots: " + totalSlots);
         var coors = [];
         var maxLine = Math.max(Math.floor(totalSlots/2), 1);
         
@@ -302,7 +302,7 @@ var CardGameLayer = TestLayer.extend({
                 coors.push(coor);
             }
         }
-        cc.log("coors: " + JSON.stringify(coors));
+        // cc.log("coors: " + JSON.stringify(coors));
         return coors;
     },
 
@@ -427,7 +427,7 @@ var CardGameLayer = TestLayer.extend({
         self._renewPlayTurn();
 
         self._blockFlag = false; // unlock 
-        cc.log("OBJECT ACTIVATE: " + self._activateSlots.length);
+        // cc.log("OBJECT ACTIVATE: " + self._activateSlots.length);
         if (self._activateSlots.length == 0) {
             self._blockFlag = true;
             if (self.timePlayed < 1)

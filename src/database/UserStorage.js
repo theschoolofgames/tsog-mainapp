@@ -21,7 +21,9 @@ var UserStorage = cc.Class.extend({
         return this._arhs;
     },
     setLastLevelPlay: function(level){
-        KVDatabase.getInstance().set(this.LAST_LEVEL, level)
+        cc.log("level: " + level);
+        if(level > this.getLastLevelPlay())
+            KVDatabase.getInstance().set(this.LAST_LEVEL, level)
     },
     getLastLevelPlay: function(level){
         return KVDatabase.getInstance().getInt(this.LAST_LEVEL, 1)

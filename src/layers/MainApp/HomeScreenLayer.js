@@ -21,7 +21,32 @@ var HomeScreenLayer = cc.Layer.extend({
 
     },
 
+    _showDialog: function(){
+        var dialog = new MessageDialog();
+        var lb = new cc.LabelTTF("You not enough 10 coin to play!", "Arial", 30, cc.size(300, 80));
+        lb.color = cc.color(0,0,0);
+        lb.x = dialog.background.width/2;
+        lb.y = dialog.background.height/2;
+        dialog.addComponent(lb);
+        this.addChild(dialog,100);
+
+        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = dialog.background.width/2;
+        button.y = 100;
+        dialog.addComponent(button);
+        button.addClickEventListener(function(){
+            dialog.removeFromParent();
+        });
+        var lbOK = new cc.LabelBMFont("OK", res.CustomFont_fnt); 
+        lbOK.scale = 0.5;
+        lbOK.x = button.width/2;
+        lbOK.y = button.height/2;
+        button.addChild(lbOK);
+
+    },
+
     addPlayDoor: function(){
+        var self = this;
         var door  = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         // door.anchorX = 1;
         door.anchorY = 0;
@@ -30,6 +55,9 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
+            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
+                self._showDialog();
+            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             var data = DataManager.getInstance().getDataAlpharacing();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));
             cc.log("ALPHARACING: " + JSON.stringify(data));
@@ -45,7 +73,7 @@ var HomeScreenLayer = cc.Layer.extend({
         lbPlay.y = board.height/2 + 15;
         board.addChild(lbPlay);
 
-        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString(), res.CustomFont_fnt);
+        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString() + " m", res.CustomFont_fnt);
         lbHighScore.scale = 0.5;
         lbHighScore.x = lbPlay.x;
         lbHighScore.y = lbPlay.y - 37;

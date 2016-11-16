@@ -125,11 +125,11 @@ var ShadowGameLayer = TestLayer.extend({
             }
         });
 
-        console.log("GameObjects => " + self._gameObjectJson.length);
+        // console.log("GameObjects => " + self._gameObjectJson.length);
     },
 
     onEnterTransitionDidFinish: function() {
-        cc.log("RoomLayer onEnterTransitionDidFinish");
+        // cc.log("RoomLayer onEnterTransitionDidFinish");
         this._super();
         // this.playBeginSound();
         this.runAction(
@@ -461,7 +461,7 @@ var ShadowGameLayer = TestLayer.extend({
         let touchedObject = this.getObjectByName(lbName);
         if (!touchedObject)
             return;
-        cc.log("Touched Object name %s, type %s, value %s", touchedObject.name, touchedObject.type, touchedObject.value);
+        // cc.log("Touched Object name %s, type %s, value %s", touchedObject.name, touchedObject.type, touchedObject.value);
 
         // var randSchoolIdx = Math.floor(Math.random() * 4);
         // font = FONT_COLOR[randSchoolIdx];
@@ -473,7 +473,7 @@ var ShadowGameLayer = TestLayer.extend({
         this._maskLayer.addChild(objLabel);
 
         if (touchedObject.type != "word" && touchedObject.type != "number"){
-            cc.log("Its not word or number");
+            // cc.log("Its not word or number");
             objLabel.scale = 1.5;
             this._completedObj = new cc.Sprite(this._objectTouching.userData.imageName);
             this._completedObj.x = cc.winSize.width/2;
@@ -832,7 +832,7 @@ var ShadowGameLayer = TestLayer.extend({
         // Check type of current object
         var soundDir = "res/sounds/words/";
         var touchedObjectType = this._getTypeObjectByName(objectName);
-        cc.log("touchedObjectType: " + touchedObjectType );
+        // cc.log("touchedObjectType: " + touchedObjectType );
         if (touchedObjectType == "word"){
             soundDir = "res/sounds/alphabets/";
             objectName = objectName.toUpperCase();
@@ -842,10 +842,8 @@ var ShadowGameLayer = TestLayer.extend({
             soundSuffix = "";
             objectName = objectName.substring(7);
         }
-        cc.log("objectName; " + objectName);
+        // cc.log("objectName; " + objectName);
         if (object.userData.hasClone){
-            cc.log("object.userData.hasClone: " + object.userData.hasClone);
-            cc.log("object.userData.index: " + object.userData.index);
             let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
                 jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);

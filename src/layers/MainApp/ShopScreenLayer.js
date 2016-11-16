@@ -30,17 +30,18 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
-        cc.eventManager.addListener({
-                event: cc.EventListener.TOUCH_ONE_BY_ONE,
-                swallowTouches: true,
-                onTouchBegan: this.onTouchBegan.bind(this),
-                onTouchMoved: this.onTouchMoved.bind(this),
-                onTouchEnded: this.onTouchEnded.bind(this),
-        }, this);
+        // cc.eventManager.addListener({
+        //         event: cc.EventListener.TOUCH_ONE_BY_ONE,
+        //         swallowTouches: true,
+        //         onTouchBegan: this.onTouchBegan.bind(this),
+        //         onTouchMoved: this.onTouchMoved.bind(this),
+        //         onTouchEnded: this.onTouchEnded.bind(this),
+        // }, this);
 
         this._addHudLayer();
         CurrencyManager.getInstance().incCoin(10000);
         CurrencyManager.getInstance().incDiamond(10000);
+        this._hudLayer.updateBalance();
     },
 
     _addHudLayer: function() {
@@ -90,10 +91,10 @@ ShopScreenLayer = cc.LayerColor.extend({
             var self  = this;
             if(this._showOtherCharacter) {
                 this._character.runAction(cc.sequence(
-                    cc.spawn(
+                    // cc.spawn(
                         cc.fadeTo(0.5, 0),
-                        cc.moveTo(0.5, position)    
-                    ),
+                        // cc.moveTo(0.5, position)    
+                    // ),
                     cc.callFunc(function(){
                         self.showCharacter(self._index);
                     })
@@ -323,18 +324,44 @@ ShopScreenLayer = cc.LayerColor.extend({
 
     },
 
+    _pressArrow: function(){
+        var self  = this;
+        this._character.runAction(cc.sequence(
+            // cc.spawn(
+                cc.fadeTo(0.5, 0),
+                // cc.moveTo(0.5, position)    
+            // ),
+            cc.callFunc(function(){
+                self.showCharacter(self._index);
+            })
+        ));
+    },
+
     addArrows: function() {
-        this._arrowleft = new cc.Sprite("#navigate.png");
+        var self = this;
+        this._arrowleft = new ccui.Button("navigate.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this._arrowleft.x = 100;
         this._arrowleft.y = cc.winSize.height/2;
         this.addChild(this._arrowleft);
+        this._arrowleft.addClickEventListener(function(){
+            if(self._index == 0)
+                return;
+            self._index --;
+            self._pressArrow();
+        });
         // Utils.runAnimation(this._arrowleft, "navigate", 0.3, 2, true, 0.3);
 
-        this._arrowright = new cc.Sprite("#navigate.png");
+        this._arrowright = new ccui.Button("navigate.png", "", "", ccui.Widget.PLIST_TEXTURE);
         this._arrowright.x = cc.winSize.width - 100;
         this._arrowright.y = cc.winSize.height/2;
         this.addChild(this._arrowright);
         this._arrowright.rotation = - 180;
+        this._arrowright.addClickEventListener(function(){
+            if(self._index == self._characterList.length - 1)
+                return;
+            self._index ++;
+            self._pressArrow();
+        });
         // Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
     },
 });

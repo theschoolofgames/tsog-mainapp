@@ -94,7 +94,7 @@ var ListeningTestLayer = TestLayer.extend({
         }
 
         this._objectNodes.forEach(function(obj) {
-            cc.log("obj size: %f, %f", obj.width, obj.height);
+            // cc.log("obj size: %f, %f", obj.width, obj.height);
             if (cc.rectContainsPoint(obj.getBoundingBox(), touchedPos)) {
                 var currentKeyNames;
                 if (self._keyObject.length>0)
@@ -118,7 +118,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        cc.log("ListeningTestLayer - updateProgressBar");
+        // cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._touchCounting / this._names.length;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._touchCounting);
@@ -158,7 +158,7 @@ var ListeningTestLayer = TestLayer.extend({
         var shownObjNames = [];
 
         var remainingObj = this._names.slice(0);
-        cc.log("remainingObj: " + remainingObj);
+        // cc.log("remainingObj: " + remainingObj);
         var currentKeyNames;
         if (this._keyObject.length > 0) {
             currentKeyNames = this._keyObject[this._currentKeyIndex]
@@ -170,7 +170,7 @@ var ListeningTestLayer = TestLayer.extend({
         remainingObj.splice(this._nameIdx, 1);
         remainingObj = shuffle(remainingObj);
         
-        cc.log("remainingObj: " + remainingObj);
+        // cc.log("remainingObj: " + remainingObj);
         var self = this;
         if (this._keyObject.length > 0) {
             for (var i = 1; i < remainingObj.length; i++) {
@@ -194,7 +194,7 @@ var ListeningTestLayer = TestLayer.extend({
         }
         // shownObjNames.push(remainingObj[1]);
 
-        cc.log("shownObjNames: " + shownObjNames);
+        // cc.log("shownObjNames: " + shownObjNames);
 
         if (shownObjNames[2] == null || shownObjNames[2] == undefined) {
             if (!this._addedObject.length) {
@@ -248,7 +248,7 @@ var ListeningTestLayer = TestLayer.extend({
                 }
             }
 
-            cc.log("sprite path: " + spritePath);
+            // cc.log("sprite path: " + spritePath);
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
 
             var sprite;
@@ -334,8 +334,8 @@ var ListeningTestLayer = TestLayer.extend({
         }
             
         objName = localize(objName);
-        cc.log("objName: " + objName);
-        cc.log("currentLanguage: " + currentLanguage);
+        // cc.log("objName: " + objName);
+        // cc.log("currentLanguage: " + currentLanguage);
         this._objSoundPath = "res/sounds/words/" + objName + ".mp3";
         // this._objSoundPath = "res/sounds/objects/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
@@ -348,7 +348,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
         }
 
-        cc.log(this._objSoundPath);
+        // cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
             cc.callFunc(function() {
@@ -369,7 +369,7 @@ var ListeningTestLayer = TestLayer.extend({
         //     this._showNextObject();
         //     return;
         // }
-        cc.log("self._objSoundPath: " + self._objSoundPath);
+        // cc.log("self._objSoundPath: " + self._objSoundPath);
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         if (self._objSoundPath) {
@@ -443,8 +443,8 @@ var ListeningTestLayer = TestLayer.extend({
             if (obj == correctedObj) {
 
                 var targetPosY = Math.min(self._objCenter.y, self._nameNode.y - self._nameNode.height/2 - obj.height/2 * obj.scale * 1.5 - 20);
-                cc.log("targetPosY: " + targetPosY);
-                cc.log("self._objCenter.y: " + self._objCenter.y);
+                // cc.log("targetPosY: " + targetPosY);
+                // cc.log("self._objCenter.y: " + self._objCenter.y);
                 obj.stopAllActions();
                 obj.setLocalZOrder(10);
                 obj.runAction(cc.sequence(
@@ -467,7 +467,7 @@ var ListeningTestLayer = TestLayer.extend({
                     })
                 ));
             } else {
-                cc.log("fadeOut incorrectedObj");
+                // cc.log("fadeOut incorrectedObj");
                 obj.runAction(cc.fadeOut(0.5));
             }
         });
@@ -529,7 +529,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = data;
         }
 
-        cc.log("_fetchObjectData data: " + data);
+        // cc.log("_fetchObjectData data: " + data);
         if (data) {
             this._names = data.map(function(id) {
                 // cc.log("value: %s", id.value)
@@ -540,13 +540,13 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this._data = [];
 
-        cc.log("listening names after map: " + JSON.stringify(this._names));
+        // cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject.length > 0)
             this.setData(JSON.stringify(this._keyObject));
         else
             this.setData(this._data);
         this._data = data;
-        cc.log("Data: " + JSON.stringify(this._data));
+        // cc.log("Data: " + JSON.stringify(this._data));
     },
 
     onExit: function () {

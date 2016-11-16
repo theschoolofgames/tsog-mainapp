@@ -73,7 +73,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             var x = this._basket.x  + (Math.random() * 0.6) * this._basket.width ;
             var y = this._basket.y  + (Math.random() * 0.7) * this._basket.height/2;
             this._activateSlots.push(cc.p(x*this._basketScale, y*this._basketScale));
-            cc.log("x : %f - y: %f", x, y);
+            // cc.log("x : %f - y: %f", x, y);
         }
         this._currentAvailableSlot = this._activateSlots[0];
     },
@@ -127,11 +127,11 @@ var ShoppingBasketLayer = TestLayer.extend({
                 var o = GameObject.getInstance().findById(id);
                 // cc.log("o" + JSON.stringify(o));
                 if (o[0]) {
-                    cc.log("o[0]: " + JSON.stringify(o[0]));
+                    // cc.log("o[0]: " + JSON.stringify(o[0]));
                     // cc.log("return o[0]");
                     return o[0];
                 } else {
-                    cc.log("return Id");
+                    // cc.log("return Id");
                     return id;
                 }
             });
@@ -140,7 +140,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
         this._goal = this._data.length;
         this.setData(JSON.stringify(this._data));
-        cc.log("data after map: " + JSON.stringify(this._data));
+        // cc.log("data after map: " + JSON.stringify(this._data));
     },
 
     onTouchBegan: function (touch, event) {
@@ -271,7 +271,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentAvailableSlot = this._activateSlots[0];
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
-        cc.log("_activateSlots: %d", this._activateSlots.length);
+        // cc.log("_activateSlots: %d", this._activateSlots.length);
         this._checkCompletedScene();
         this.updateProgressBar();
     },

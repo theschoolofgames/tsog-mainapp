@@ -18,6 +18,7 @@ var TreeGameLayer = TestLayer.extend({
 
     _scrollView: null,
     _scrollToX: 0,
+    _cantouch: true,
 
     ctor: function(data, isTestScene, timeForScene) {
         this._super();
@@ -107,7 +108,7 @@ var TreeGameLayer = TestLayer.extend({
         var innerHeight = cc.winSize.height - this._scrollView.y;
         this._scrollView.setContainer(parentNode);
         this._scrollView.setContentSize(cc.size(innerWidth, innerHeight));
-        cc.log("innerWidth: " + innerWidth);
+        // cc.log("innerWidth: " + innerWidth);
     },
 
     _createRandomNumberArray: function() {
@@ -159,18 +160,18 @@ var TreeGameLayer = TestLayer.extend({
             group.getObjects().forEach(function(obj) {
                 if (obj.name.startsWith("tree")){
                     self._treeCoors.push(obj);
-                    cc.log(obj.x + "-" + obj.y);
+                    // cc.log(obj.x + "-" + obj.y);
                 }
                 if (obj.name.startsWith("number")) {
                     self._numberCoors.push({
                         "x": obj.x,
                         "y": obj.y
                     });
-                    cc.log(obj.x + "-" + obj.y);    
+                    // cc.log(obj.x + "-" + obj.y);    
                 }
             });
         });
-        cc.log("self._numberCoors " + JSON.stringify(self._numberCoors));
+        // cc.log("self._numberCoors " + JSON.stringify(self._numberCoors));
     },
 
     _addAdi: function() {
@@ -207,7 +208,7 @@ var TreeGameLayer = TestLayer.extend({
                     self._totalJump++;
                     self._correctAction();
 
-                    cc.log("_scrollToX: " + self._scrollToX);
+                    // cc.log("_scrollToX: " + self._scrollToX);
                     if (self._totalJump > 5 && self._totalJump%5 == 1) {
                         var treeIndex = Math.floor(self._totalJump/5);
                         self._scrollToX = cc.winSize.width/6 * (treeIndex);
@@ -269,7 +270,7 @@ var TreeGameLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         var percent = this._totalJump / (this._numberOfTrees*5);
-        cc.log("percent: " + percent);
+        // cc.log("percent: " + percent);
         this._hudLayer.setProgressBarPercentage(percent);
         this.setHUDProgressBarPercentage(percent);
         if (Math.round(this._totalJump/(this._numberOfTrees/5)))

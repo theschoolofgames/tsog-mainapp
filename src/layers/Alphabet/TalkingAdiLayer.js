@@ -4,6 +4,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     _settingBtn: null,
     _isListening: false,
     _talkingAdi: null,
+    _block: true,
 
     ctor:function() {
         this._super(cc.color(255,255,255));
@@ -22,11 +23,16 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         // this._createBackground();
 
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
-
+        var self = this;
         Utils.showVersionLabel(this);
         this.addShopButton();
         NativeHelper.callNative("changeAudioRoute");
-
+        this.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                self._block = false;
+            })
+        ))
         this.addChild(new ShopHUDLayer());
     },
 
@@ -36,11 +42,14 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
     addShopButton: function() {
+        var self = this;
         var shopBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         shopBtn.x = cc.winSize.width - shopBtn.width;
         shopBtn.y = cc.winSize.height - shopBtn.height/2;
         this.addChild(shopBtn, 9999);
         shopBtn.addClickEventListener(function(){
+            if(self._block)
+                return;
             cc.director.runScene(new ShopScene());
         });
 

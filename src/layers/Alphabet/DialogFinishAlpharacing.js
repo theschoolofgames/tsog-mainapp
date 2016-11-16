@@ -26,33 +26,62 @@ var DialogFinishAlpharacing = cc.LayerColor.extend({
         text.setColor(cc.color(0,0,0));
         this._dialogBg.addChild(text);
     },
+    _showDialog: function(){
+        var dialog = new MessageDialog();
+        var lb = new cc.LabelTTF("You not enough 10 coin to play!", "Arial", 30, cc.size(300, 80));
+        lb.color = cc.color(0,0,0);
+        lb.x = dialog.background.width/2;
+        lb.y = dialog.background.height/2;
+        dialog.addComponent(lb);
+        this.addChild(dialog,100);
+
+        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = dialog.background.width/2;
+        button.y = 100;
+        dialog.addComponent(button);
+        button.addClickEventListener(function(){
+            dialog.removeFromParent();
+        });
+        var lbOK = new cc.LabelBMFont("OK", res.CustomFont_fnt); 
+        lbOK.scale = 0.5;
+        lbOK.x = button.width/2;
+        lbOK.y = button.height/2;
+        button.addChild(lbOK);
+
+    },
 
     _addButton: function(){
         var self = this;
         var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonCancel.x = this._dialogBg.width/2 - 50;
         buttonCancel.y = 100;
+        buttonCancel.scale = 0.6;
         this._dialogBg.addChild(buttonCancel);
         lbCancel = new cc.LabelBMFont("Cancel", "res/font/custom_font.fnt");
-        lbCancel.scale = 0.4;
+        lbCancel.scale = 0.6;
         lbCancel.x = buttonCancel.width/2;;
         lbCancel.y = buttonCancel.height/2;
         buttonCancel.addChild(lbCancel);
         buttonCancel.addClickEventListener(function(){
+            cc.director.resume();
             self.removeFromParent();
+            cc.director.runScene(new HomeScene());
         });
 
         var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonPlay.x = this._dialogBg.width/2 + 50;
         buttonPlay.y = 100;
+        buttonPlay.scale = 0.6;
         this._dialogBg.addChild(buttonPlay);
         lbPlay = new cc.LabelBMFont("Play", "res/font/custom_font.fnt");
-        lbPlay.scale = 0.4;
+        lbPlay.scale = 0.6;
         lbPlay.x = buttonPlay.width/2;
         lbPlay.y = buttonPlay.height/2;
         buttonPlay.addChild(lbPlay);
         buttonPlay.addClickEventListener(function(){
-            CurrencyManager.getInstance().decrCoin(10);
+            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
+                self._showDialog();
+            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             var data = DataManager.getInstance().getDataAlpharacing();
             cc.director.resume();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));

@@ -82,7 +82,7 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new AccountSelectorScene());
             }
             else {
-                cc.director.replaceScene(new MainScene());
+                cc.director.replaceScene(new HomeScene());
                 // cc.director.replaceScene(new MapScene());
                 // NativeHelper.callNative("moveToMainApp");
             };

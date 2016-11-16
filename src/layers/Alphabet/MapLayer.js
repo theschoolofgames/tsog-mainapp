@@ -48,9 +48,9 @@ var MapLayer = cc.Layer.extend({
         button.y = cc.winSize.height - button.height/2 - 10;
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
-            cc.director.runScene(new HomeScene());
+            cc.director.runScene(new MainScene());
         });
-        var lb = new cc.LabelBMFont("BACK TO HOME", "yellow-font-export.fnt");
+        var lb = new cc.LabelBMFont("BACK TO MAIN", "yellow-font-export.fnt");
         lb.scale = 0.5;
         lb.x = button.width/2;
         lb.y = button.height/2;
@@ -87,11 +87,11 @@ var MapLayer = cc.Layer.extend({
                 var totalSteps = _mapInArray.length;
 
                 for (var step in _map) {
-                    cc.log("_map: %s, step: %s", _map, step);
+                    // cc.log("_map: %s, step: %s", _map, step);
                     if (_map.hasOwnProperty(step)) {
                         var val = _map[step];
                         level++;
-                        cc.log("level: %d, step: %s", level, val);
+                        // cc.log("level: %d, step: %s", level, val);
                         var pos = this._btnStepCoordinates[stepIndex-1];
                         var enabled = (val == "1-1") ? true : false;
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
@@ -196,7 +196,7 @@ var MapLayer = cc.Layer.extend({
         var dataPath = "res/config/levels/" + "step-" + step +".json";
         if(step.indexOf("assessment") > -1)
             dataPath = "res/config/levels/" + step +".json";
-        cc.log("_addStepStars dataPath: " + dataPath);
+        // cc.log("_addStepStars dataPath: " + dataPath);
         if (!jsb.fileUtils.isFileExist(dataPath))
             return;
         cc.loader.loadJson(dataPath, function(err, data){
