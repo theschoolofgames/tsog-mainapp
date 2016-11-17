@@ -1,6 +1,8 @@
 var ARAdiDog = ARPlayer.extend({
     _characterName : "adi",
 
+    animationFrameCount: 4,
+
     ctor: function() {
         this._super();
         var name = CharacterManager.getInstance().getSelectedCharacter();
@@ -9,7 +11,10 @@ var ARAdiDog = ARPlayer.extend({
         };
 
         var cfg = CharacterManager.getInstance().getCharacterConfig(name);
-        this._hp = 1;
+        if (cfg) {
+            this.animationFrameCount = cfg.animationFrameCount;
+            this._hp = cfg.heathy;
+        }
     },
 
     configAnimation: function() {
@@ -19,13 +24,16 @@ var ARAdiDog = ARPlayer.extend({
         this.addChild(this.sprite);
 
         this.runAnimationFrames = [];
-        for (var i = 1; i <= 4; i++) {
+        for (var i = 1; i <= this.animationFrameCount; i++) {
             var str = this._characterName + "_run" + i + ".png";
+            cc.log("frame name: " + str);
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            cc.log("get sprite frame name: " + frame);
             this.runAnimationFrames.push(frame);
         }
-
+        cc.log("before create animation: ");
         var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        cc.log("after create animation: ");
         this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
         // this.sprite = new cc.Sprite("#adi_run1.png");
         this.sprite.runAction(this.runningAction);
@@ -34,7 +42,9 @@ var ARAdiDog = ARPlayer.extend({
 
     jumpAnimation: function() {
         this.sprite.stopAllActions();
+        cc.log("jumpAnimation");
         this.sprite.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        cc.log("done jumpAnimation");
         this.isRunningAnim = false;
     },
 

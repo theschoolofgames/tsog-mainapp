@@ -4,13 +4,15 @@
         "price": 1000,
         "path": "adidog",
         "heathy": 7,
-        "unlocked": true
+        "unlocked": true,
+        "animationFrameCount": 4
     },
     {
         "name": "monkey",
         "price": 2000,
         "path": "monkey",
         "heathy": 5,
-        "unlocked": false
+        "unlocked": false,
+        "animationFrameCount": 5
     }
 ]

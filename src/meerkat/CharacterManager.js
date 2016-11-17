@@ -28,7 +28,8 @@ var CharacterManager = cc.Class.extend({
                 price: cfg.price || 0,
                 path: cfg.path,
                 heathy: cfg.heathy,
-                unlocked: self.hasUnlocked(cfg.name)
+                unlocked: self.hasUnlocked(cfg.name),
+                animationFrameCount: cfg.animationFrameCount
             }
         });
     },
