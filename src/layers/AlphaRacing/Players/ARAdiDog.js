@@ -1,5 +1,4 @@
 var ARAdiDog = ARPlayer.extend({
-    _hp: 5,
     _characterName : "adi",
 
     ctor: function() {
@@ -8,6 +7,9 @@ var ARAdiDog = ARPlayer.extend({
         if(name) {
             this._characterName = name
         };
+
+        var cfg = CharacterManager.getInstance().getCharacterConfig(name);
+        this._hp = cfg.heathy;
     },
 
     configAnimation: function() {
