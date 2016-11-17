@@ -56,7 +56,7 @@
 
         "src/layers/TestGameLayer.js",
 
-        "src/layers/Alphabet/DialogFinishAlpharacing.js",
+        "src/layers/Alphabet/DialogPlayAlpharacing.js",
         "src/layers/Alphabet/AlertDialog.js",
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",

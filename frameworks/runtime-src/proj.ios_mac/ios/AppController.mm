@@ -31,11 +31,8 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
-#import <Analytics.h>
-
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <Optimizely/Optimizely.h>
 #import <H102Wrapper.h>
 
 #import "AudioEngine.h"
@@ -98,7 +95,7 @@ static AppDelegate s_sharedApplication;
 //  [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"GM3rlJ6aErRIkZq1Epvg6qzHbeB9oGDu"]]; // TEST
 //   [SEGAnalytics debug:YES];
   
-    [Fabric with:@[[Crashlytics class], [Optimizely class]]];
+    [Fabric with:@[[Crashlytics class]]];
   [[Fabric sharedSDK] setDebug: YES];
   
   [UIApplication sharedApplication].idleTimerDisabled = YES;

@@ -27,9 +27,9 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(new HomeHUDLayer());
     },
 
-    _showDialog: function(){
+    _showDialogIfNotEnoughCoin: function(){
         var dialog = new MessageDialog();
-        var lb = new cc.LabelTTF("You not enough 10 coin to play!", "Arial", 30, cc.size(300, 80));
+        var lb = new cc.LabelTTF("You not enough 10 coins to play!", "Arial", 30, cc.size(300, 80));
         lb.color = cc.color(0,0,0);
         lb.x = dialog.background.width/2;
         dialog.addComponent(lb);
@@ -50,6 +50,48 @@ var HomeScreenLayer = cc.Layer.extend({
 
     },
 
+    _showDialogIfEnoughCoin: function(){
+        var dialog = new MessageDialog();
+        var lb = new cc.LabelTTF("You have to spend 10 coins to play!", "Arial", 30, cc.size(300, 80));
+        lb.color = cc.color(0,0,0);
+        lb.x = dialog.background.width/2;
+        lb.y = dialog.background.height/2;
+        dialog.addComponent(lb);
+        this.addChild(dialog,100);
+
+        var buttonOk = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        buttonOk.x = dialog.background.width/2 + 100;
+        buttonOk.y = 100;
+        buttonOk.scale = 0.6;
+        dialog.addComponent(buttonOk);
+        buttonOk.addClickEventListener(function(){
+            dialog.removeFromParent();
+            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
+            var data = DataManager.getInstance().getDataAlpharacing();
+            cc.director.runScene(new AlphaRacingScene(data, null, 600));
+        });
+        var lbOK = new cc.LabelBMFont("OK", res.CustomFont_fnt); 
+        lbOK.scale = 0.6;
+        lbOK.x = buttonOk.width/2;
+        lbOK.y = buttonOk.height/2;
+        buttonOk.addChild(lbOK);
+
+        var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        buttonCancel.x = dialog.background.width/2 - 100;
+        buttonCancel.y = 100;
+        buttonCancel.scale = 0.6;
+        dialog.addComponent(buttonCancel);
+        buttonCancel.addClickEventListener(function(){
+            dialog.removeFromParent();
+        });
+        var lbCancel = new cc.LabelBMFont("CANCEL", res.CustomFont_fnt); 
+        lbCancel.scale = 0.6;
+        lbCancel.x = buttonCancel.width/2;
+        lbCancel.y = buttonCancel.height/2;
+
+        buttonCancel.addChild(lbCancel);
+    },
+
     addPlayDoor: function(){
         var self = this;
         var door  = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
@@ -61,11 +103,13 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(door);
         door.addClickEventListener(function(){
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
-                self._showDialog();
-            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
-            var data = DataManager.getInstance().getDataAlpharacing();
-            cc.director.runScene(new AlphaRacingScene(data, null, 600));
-            cc.log("ALPHARACING: " + JSON.stringify(data));
+                self._showDialogIfNotEnoughCoin();
+            // CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
+            // var data = DataManager.getInstance().getDataAlpharacing();
+            // cc.director.runScene(new AlphaRacingScene(data, null, 600));
+            // self._showDialogIfEnoughCoin();
+            self.addChild(new DialogPlayAlpharacing());
+            // cc.log("ALPHARACING: " + JSON.stringify(data));
         });
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;

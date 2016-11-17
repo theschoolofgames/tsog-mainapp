@@ -14,6 +14,7 @@ ShopScreenLayer = cc.LayerColor.extend({
     _showDialog: true,
 
     _hudLayer: null,
+    _canTouchArrow: true,
 
     ctor: function() {
         this._super(cc.color(255,255,255,255));
@@ -326,12 +327,25 @@ ShopScreenLayer = cc.LayerColor.extend({
 
     _pressArrow: function(){
         var self  = this;
+        var mask = new  cc.LayerColor(cc.color(0,0,0,0));
+        mask.width = cc.winSize.width;
+        mask.height = cc.winSize.height;
+        this._mask = mask;
+        this.addChild(this._mask, 9999);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; }
+        }, mask);
+        cc.log("_pressArrow");
         this._character.runAction(cc.sequence(
             // cc.spawn(
-                cc.fadeTo(0.5, 0),
+                cc.fadeOut(0.5),
                 // cc.moveTo(0.5, position)    
             // ),
             cc.callFunc(function(){
+                mask.removeFromParent();
                 self.showCharacter(self._index);
             })
         ));

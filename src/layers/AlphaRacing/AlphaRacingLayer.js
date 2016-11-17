@@ -119,7 +119,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
-                this.completedScene();
+                this.completedScene("Game Over");
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
@@ -470,10 +470,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     },
 
-    completedScene: function() {
+
+    completedScene: function(text) {
         this._hudLayer.pauseClock();
 
-        var lbText = "You Win";
+        var lbText = text;
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
@@ -488,12 +489,13 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             cc.sequence(
                 cc.delayTime(3),
                 cc.callFunc(function() {
-                    if (warningLabel)
-                        warningLabel.removeFromParent();
-                    cc.director.pause();
-                    if(CurrencyManager.getInstance().getCoin() > 10)
-                        self.addChild(new DialogFinishAlpharacing(),10)
-                    else cc.director.runScene(new HomeScene());
+                    // if (warningLabel)
+                    //     warningLabel.removeFromParent();
+                    // cc.director.pause();
+                    // if(CurrencyManager.getInstance().getCoin() > 10)
+                    //     self.addChild(new DialogFinishAlpharacing(),10)
+                    // cc.director.replaceScene(new cc.TransitionFade(1, new HomeScene(), cc.color(255, 255, 255, 255)));
+                    cc.director.runScene(new HomeScene());
                 })
             )
         )
@@ -546,6 +548,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         }
 
         this._currentChallange = this._tempInputData.shift();
+        this._tempInputData.push(this._currentChallange);
         this._hudLayer.setCurrencyType("diamond");
         this._hudLayer.setTotalGoals(this._totalGoalNumber);
         this._hudLayer.updateSpecifyGoalLabel("".concat(this._currentChallange.amount).concat("-").concat(this._currentChallange.value));
@@ -559,6 +562,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             }
 
             this._currentChallange = this._tempInputData.shift();
+            this._tempInputData.push(this._currentChallange);
         }
 
         if (this._tempInputData.length == 0 && parseInt(this._currentChallange.amount) <= this._currentEarnedNumber)
@@ -573,16 +577,17 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             this._totalEarned++;
             // this._hudLayer.setProgressBarPercentage(this._totalEarned / this._totalGoalNumber);
 
-            this.updateProgressBar();
+            // this.updateProgressBar();
             if (parseInt(this._currentChallange.amount) == this._currentEarnedNumber){
-                if (this._tempInputData.length > 0){
-                    this._currentChallange = this._tempInputData.shift();
-                    this._currentEarnedNumber = 0;
-                }
-                else {
-                    // Completed game
-                    this.completedScene();
-                }
+                // if (this._tempInputData.length > 0){
+                this._currentChallange = this._tempInputData.shift();
+                this._tempInputData.push(this._currentChallange);
+                this._currentEarnedNumber = 0;
+                // }
+                // else {
+                //     // Completed game
+                //     this.completedScene("You Win");
+                // }
             }
         }
         else {

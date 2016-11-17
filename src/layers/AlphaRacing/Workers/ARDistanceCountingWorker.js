@@ -15,6 +15,9 @@ var ARDistanceCountingWorker = cc.Class.extend({
     update: function(dt) {
         this._distance = Math.round((this._player.x - this._initPosition.x)/100);
         this._hudlayer.updateDistance(this._distance);
+
+        var factor = this._distance / 50 + 1;
+        this._player.setVelocityFactor(factor);
     },
 
     end: function() {
