@@ -546,7 +546,7 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this.setData(this._data);
         this._data = data;
-        // cc.log("Data: " + JSON.stringify(this._data));
+        cc.log("Data: " + JSON.stringify(this._data));
     },
 
     onExit: function () {

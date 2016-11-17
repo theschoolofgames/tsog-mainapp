@@ -119,7 +119,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
-                this.completedScene();
+                this.completedScene("Game Over");
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
@@ -470,10 +470,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     },
 
-    completedScene: function() {
+
+    completedScene: function(text) {
         this._hudLayer.pauseClock();
 
-        var lbText = "You Win";
+        var lbText = text;
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
@@ -490,10 +491,11 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 cc.callFunc(function() {
                     if (warningLabel)
                         warningLabel.removeFromParent();
-                    cc.director.pause();
-                    if(CurrencyManager.getInstance().getCoin() > 10)
-                        self.addChild(new DialogFinishAlpharacing(),10)
-                    else cc.director.runScene(new HomeScene());
+                    // cc.director.pause();
+                    // if(CurrencyManager.getInstance().getCoin() > 10)
+                    //     self.addChild(new DialogFinishAlpharacing(),10)
+                    cc.director.replaceScene(new cc.TransitionFade(1, new HomeScene(), cc.color(0, 0, 0)));
+                    // cc.director.runScene(new HomeScene());
                 })
             )
         )
@@ -581,7 +583,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 }
                 else {
                     // Completed game
-                    this.completedScene();
+                    this.completedScene("You Win");
                 }
             }
         }
