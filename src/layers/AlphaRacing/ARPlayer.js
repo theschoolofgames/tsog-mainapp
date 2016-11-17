@@ -16,9 +16,7 @@ var ARPlayer = cc.Layer.extend({
 	isRunningAnim: false,
 
 	_hp: 1,
-
-	_lbHealth: null,
-
+    _velocityFactor: 1,
     _boostState: ARBooster.State.NONE,
 
 	ctor: function () {
@@ -28,6 +26,8 @@ var ARPlayer = cc.Layer.extend({
         this.setDesiredPosition(cc.p(200,450));
         this.setContentSize(cc.size(65, 100));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
+
+        this._velocityFactor = 1;
 	},
 
 	onEnter: function() {
@@ -177,6 +177,10 @@ var ARPlayer = cc.Layer.extend({
  	setMightJump: function(mightAsWellJump) {
  		this._mightAsWellJump = mightAsWellJump;
  	},
+
+    setVelocityFactor: function(factor) {
+        this._velocityFactor = factor;
+    },
 
     // BOOSTER STATE
     // Follow up this one: http://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/
