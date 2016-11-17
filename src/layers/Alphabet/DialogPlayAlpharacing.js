@@ -30,6 +30,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
     },
     _addButton: function(){
         var self = this;
+        var canttouch = false;
         // var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         // buttonCancel.x = this._dialogBg.width/2 - 50;
         // buttonCancel.y = 100;
@@ -55,7 +56,9 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         lbPlay.y = buttonPlay.height/2;
         buttonPlay.addChild(lbPlay);
         buttonPlay.addClickEventListener(function(){
-            
+            if(canttouch)
+                return;
+            canttouch = true;
             CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             var data = DataManager.getInstance().getDataAlpharacing();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));

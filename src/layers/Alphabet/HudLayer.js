@@ -77,7 +77,7 @@ var HudLayer = cc.Layer.extend({
 
         var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 ;
-        gameProgressBar.y = progressBarBg.height/2 - 10;
+        gameProgressBar.y = progressBarBg.height/2;
         gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
         gameProgressBar.midPoint = cc.p(0, 1);
         gameProgressBar.barChangeRate = cc.p(1, 0);
@@ -127,7 +127,7 @@ var HudLayer = cc.Layer.extend({
         this._totalGoalsLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
         this._totalGoalsLabel.scale = 0.5;
         this._totalGoalsLabel.x = this._progressBarBg.width *0.5 - 1;
-        this._totalGoalsLabel.y = this._progressBarBg.height *0.25 + this._totalGoalsLabel.height/2*this._totalGoalsLabel.scale;
+        this._totalGoalsLabel.y = this._progressBarBg.height *0.5 + 2;
         this._progressBarBg.addChild(this._totalGoalsLabel, 99);
     },  
 

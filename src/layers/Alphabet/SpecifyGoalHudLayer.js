@@ -3,7 +3,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
 
     _totalSpecifyGoal: 0,
     _currentSpecifyGoal: 0,
-
+    _holder: null,
     _showClock: true,
 
     ctor: function(layer, timeForScene, currencyType) {
@@ -23,11 +23,16 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     },
 
     addGoalImage: function(imageName) {
+        var holder = new cc.Sprite("#holder.png");
+        holder.x = 0;
+        holder.y = this._bg.height/2 - 5;
+        this._holder = holder;
+        this._bg.addChild(holder);
         var specifyGoalSprite = new cc.Sprite(imageName);
         specifyGoalSprite.scale = this._bg.height * 2/specifyGoalSprite.height;
-        specifyGoalSprite.x = 0;
-        specifyGoalSprite.y = this._bg.height/2 - 5;
-        this._bg.addChild(specifyGoalSprite); 
+        specifyGoalSprite.x = holder.width/2;
+        specifyGoalSprite.y = holder.height/2 - 10;
+        holder.addChild(specifyGoalSprite); 
 
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
         this._specifyGoalLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
@@ -37,11 +42,11 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     },
 
     addGoalLabel: function() {
-        var cupImage = new cc.Sprite("#cup.png");
-        cupImage.x = 0;
-        cupImage.y = this._bg.height/2 - 5;
+        var cupImage = new cc.Sprite("#holder.png");
+        cupImage.x = -10;
+        cupImage.y = this._bg.height/2;
         this._bg.addChild(cupImage);
-
+        this._holder = cupImage;
         var label = new cc.LabelBMFont(0 + "", res.HudFont_fnt);
         label.x = this._bg.width/2 + 10;
         label.y = this._bg.height - 17;
@@ -67,8 +72,22 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     },
 
     updateSpecifyGoalLabel: function(text) {
-        if (text)
-            this._specifyGoalLabel.setString(text);
+        if (text) {
+            var index = text.indexOf("-");
+            cc.log("index: " + index);
+            var num = parseInt(text.slice(0, index));
+            string = (20 - num) + "/" + 20;
+            this._specifyGoalLabel.setString(string);
+            if(this._lbText)
+                this._lbText.setString(text.slice(index+ 1, text.length));
+            else {
+                var lbText = new cc.LabelBMFont(text.slice(index+ 1, text.length), res.HudFont_fnt);
+                lbText.x = this._holder.width/2;
+                lbText.y = this._holder.height/2;
+                this._holder.addChild(lbText);
+                this._lbText = lbText;
+            }
+        }
         else
             this._specifyGoalLabel.setString(this._currentSpecifyGoal + "/" + this._totalSpecifyGoal);
     },
