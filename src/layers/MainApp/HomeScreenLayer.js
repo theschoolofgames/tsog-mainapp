@@ -30,7 +30,6 @@ var HomeScreenLayer = cc.Layer.extend({
         var lb = new cc.LabelTTF("You not enough 10 coin to play!", "Arial", 30, cc.size(300, 80));
         lb.color = cc.color(0,0,0);
         lb.x = dialog.background.width/2;
-        lb.y = dialog.background.height/2;
         dialog.addComponent(lb);
         this.addChild(dialog,100);
 

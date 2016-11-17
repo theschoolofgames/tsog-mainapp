@@ -31,10 +31,15 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         this._whiteBg.addChild(specifyGoalSprite); 
 
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
-        this._specifyGoalLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
-        this._specifyGoalLabel.x = this._whiteBg.width/2 + 10;
-        this._specifyGoalLabel.y = this._whiteBg.height/2;
-        this._whiteBg.addChild(this._specifyGoalLabel);
+        if (this._specifyGoalLabel)
+            this.updateSpecifyGoalLabel();
+        else {
+            this._specifyGoalLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
+            this._specifyGoalLabel.scale = CURRENCY_SCALE;
+            this._specifyGoalLabel.x = this._whiteBg.width/2 + 10;
+            this._specifyGoalLabel.y = this._whiteBg.height/2;
+            this._whiteBg.addChild(this._specifyGoalLabel);
+        }
     },
 
     addGoalLabel: function() {
