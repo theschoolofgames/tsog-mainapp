@@ -9,7 +9,7 @@ var ARAdiDog = ARPlayer.extend({
         };
 
         var cfg = CharacterManager.getInstance().getCharacterConfig(name);
-        this._hp = cfg.heathy;
+        this._hp = 1;
     },
 
     configAnimation: function() {
