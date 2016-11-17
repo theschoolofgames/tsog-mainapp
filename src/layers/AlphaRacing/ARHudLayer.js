@@ -51,7 +51,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         var hp = this._player.getHP();
         for(var i = 0; i < hp; i ++){
             var heart = new cc.Sprite("#heart-1.png");
-            heart.x = (i%6) * 40 + this._settingBtn.x + 80;
+            heart.x = (i%6) * 40 + this._progressBar.x - this._progressBar.width/2 + 10;
             heart.y = - Math.floor(i/6) * 40 + this._bg.y + 20;
             this.addChild(heart);
             heart.scale = 0.5;
