@@ -303,8 +303,9 @@ var HudLayer = cc.Layer.extend({
             gold.runAction(cc.sequence(
                 cc.delayTime(flyTime-0.1),
                 cc.callFunc(function() {
+                    cc.log("prepare calling addCoinEffect");
+                    self.addCoinEffect();
                     CurrencyManager.getInstance().incCoin(amount);
-                    self.addCoinEffect.bind(this);
                 })
             ));
         };
@@ -313,6 +314,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     addCoinEffect: function() {
+        cc.log("HudLayer addCoinEffect");
         var coinScale = this._coin.scale;
         this._coin.runAction(cc.sequence(
             cc.scaleTo(0.15, 0.9 * coinScale),

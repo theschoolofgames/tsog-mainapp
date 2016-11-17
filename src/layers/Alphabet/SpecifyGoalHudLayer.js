@@ -5,6 +5,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     _currentSpecifyGoal: 0,
 
     _showClock: true,
+    _whiteBg: null,
 
     ctor: function(layer, timeForScene, currencyType) {
         if (currencyType)
@@ -19,33 +20,35 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         bg.x = this._clockBg.x + this._clockBg.width/2 + bg.width/2 + HUD_BAR_DISTANCE;
         bg.y = this._clockBg.y;
         this.addChild(bg);
-        this._bg = bg;
+        this._whiteBg = bg;
     },
 
     addGoalImage: function(imageName) {
         var specifyGoalSprite = new cc.Sprite(imageName);
-        specifyGoalSprite.scale = this._bg.height * 2/specifyGoalSprite.height;
+        specifyGoalSprite.scale = this._whiteBg.height * 2/specifyGoalSprite.height;
         specifyGoalSprite.x = 0;
-        specifyGoalSprite.y = this._bg.height/2 - 5;
-        this._bg.addChild(specifyGoalSprite); 
+        specifyGoalSprite.y = this._whiteBg.height/2 - 5;
+        this._whiteBg.addChild(specifyGoalSprite); 
 
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
         this._specifyGoalLabel = new cc.LabelBMFont(text, res.HudFont_fnt);
-        this._specifyGoalLabel.x = this._bg.width/2 + 10;
-        this._specifyGoalLabel.y = this._bg.height/2;
-        this._bg.addChild(this._specifyGoalLabel);
+        this._specifyGoalLabel.x = this._whiteBg.width/2 + 10;
+        this._specifyGoalLabel.y = this._whiteBg.height/2;
+        this._whiteBg.addChild(this._specifyGoalLabel);
     },
 
     addGoalLabel: function() {
         var cupImage = new cc.Sprite("#cup.png");
+        cupImage.scale = CURRENCY_SCALE;
         cupImage.x = 0;
-        cupImage.y = this._bg.height/2 - 5;
-        this._bg.addChild(cupImage);
+        cupImage.y = this._whiteBg.height/2 - 5;
+        this._whiteBg.addChild(cupImage);
 
         var label = new cc.LabelBMFont(0 + "", res.HudFont_fnt);
-        label.x = this._bg.width/2 + 10;
-        label.y = this._bg.height - 17;
-        this._bg.addChild(label);
+        label.scale = CURRENCY_SCALE;
+        label.x = this._whiteBg.width/2 + 10;
+        label.y = this._whiteBg.height/2;
+        this._whiteBg.addChild(label);
 
         this._specifyGoalLabel = label;
     },

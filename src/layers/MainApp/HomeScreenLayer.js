@@ -1,3 +1,4 @@
+var HOME_DOOR_OFFSET_Y = 260;
 var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
@@ -5,8 +6,9 @@ var HomeScreenLayer = cc.Layer.extend({
         // body...
         this._super();
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
+        bg.anchorY = 0;
         bg.x = cc.winSize.width/2;
-        bg.y = cc.winSize.height/2;
+        bg.y = -132;
         bg.scale = cc.winSize.width / bg.width;
         cc.log("Scale: " + bg.scale);
         this._scale = bg.scale;
@@ -53,7 +55,7 @@ var HomeScreenLayer = cc.Layer.extend({
         // door.anchorX = 1;
         door.anchorY = 0;
         door.x = cc.winSize.width/2;
-        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.y = cc.winSize.height/2 - HOME_DOOR_OFFSET_Y * this._scale;
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
@@ -88,7 +90,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.anchorX = 0;
         door.anchorY = 0;
         door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
-        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.y = cc.winSize.height/2 - HOME_DOOR_OFFSET_Y * this._scale;
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
@@ -120,7 +122,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.anchorX = 1;
         door.anchorY = 0;
         door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
-        door.y = cc.winSize.height/2 - 220 * this._scale;
+        door.y = cc.winSize.height/2 - HOME_DOOR_OFFSET_Y * this._scale;
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
