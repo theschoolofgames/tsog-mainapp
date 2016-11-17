@@ -13,11 +13,13 @@ var SpecifyGoalHudLayer = HudLayer.extend({
 
         this._super(layer, !this._showClock, timeForScene);
         this.addBackGround();
+        
+        this._clockBg.visible = false;
     },
 
     addBackGround: function() {
         var bg = new cc.Sprite("#whitespace.png");
-        bg.x = this._clockBg.x + this._clockBg.width/2 + bg.width/2 + HUD_BAR_DISTANCE;
+        bg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
         bg.y = this._clockBg.y;
         this.addChild(bg);
         this._whiteBg = bg;
@@ -26,9 +28,9 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     addGoalImage: function(imageName) {
         var holder = new cc.Sprite("#holder.png");
         holder.x = 0;
-        holder.y = this._bg.height/2 - 5;
+        holder.y = this._whiteBg.height/2 - 5;
         this._holder = holder;
-        this._bg.addChild(holder);
+        this._whiteBg.addChild(holder);
         var specifyGoalSprite = new cc.Sprite(imageName);
 
         specifyGoalSprite.scale = this._bg.height * 2/specifyGoalSprite.height;
@@ -51,8 +53,8 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     addGoalLabel: function() {
         var cupImage = new cc.Sprite("#holder.png");
         cupImage.x = -10;
-        cupImage.y = this._bg.height/2;
-        this._bg.addChild(cupImage);
+        cupImage.y = this._whiteBg.height/2;
+        this._whiteBg.addChild(cupImage);
         this._holder = cupImage;
 
         var label = new cc.LabelBMFont(0 + "", res.HudFont_fnt);

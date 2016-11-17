@@ -44,7 +44,7 @@ var HudLayer = cc.Layer.extend({
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        settingBtn.x = settingBtn.width - 10;
+        settingBtn.x = settingBtn.width - 20;
         settingBtn.y = cc.winSize.height - 80 + settingBtn.height/2 - 20 * Utils.screenRatioTo43();
         this.addChild(settingBtn);
 
