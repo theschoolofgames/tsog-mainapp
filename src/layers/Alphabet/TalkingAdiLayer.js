@@ -43,9 +43,10 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     },
     addShopButton: function() {
         var self = this;
-        var shopBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        shopBtn.x = cc.winSize.width - shopBtn.width;
-        shopBtn.y = cc.winSize.height - shopBtn.height/2;
+        var shopBtn = new ccui.Button("shopping-basket.png", "", "");
+        shopBtn.scale = 150/shopBtn.width;
+        shopBtn.x = cc.winSize.width - shopBtn.width * shopBtn.scale;
+        shopBtn.y = shopBtn.height/2 * shopBtn.scale + 10;
         this.addChild(shopBtn, 9999);
         shopBtn.addClickEventListener(function(){
             if(self._block)
@@ -54,7 +55,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         });
 
         var lbButton = new cc.LabelBMFont("SHOP", "yellow-font-export.fnt");
-        lbButton.scale = 0.3;
+        // lbButton.scale = 0.5;
         lbButton.x = shopBtn.width/2;
         lbButton.y = shopBtn.height/2;
         shopBtn.getRendererNormal().addChild(lbButton);

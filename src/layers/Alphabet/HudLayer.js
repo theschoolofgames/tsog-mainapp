@@ -252,6 +252,7 @@ var HudLayer = cc.Layer.extend({
         node.tag = amount;
         node.x = x;
         node.y = y;
+        node.visible = false;
 
         node.runAction(cc.sequence(
             cc.delayTime(0),
@@ -290,16 +291,18 @@ var HudLayer = cc.Layer.extend({
             var cp2 = cc.p(gold.x + cp2x, gold.y - weight);
 
             var flyAction = cc.bezierTo(flyTime, [cp1, cp2, to]);
-            var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
-            var self = this;
             
-            gold.runAction(cc.repeatForever(cc.rotateBy(flyTime, rotateValue)));
+            
+            this._playAdditionEffect(gold, flyTime);
+
             gold.runAction(cc.sequence(
                 flyAction,
                 cc.callFunc(function(node) {
                     node.removeFromParent();
                 })
             ));
+
+            var self = this;
             gold.runAction(cc.sequence(
                 cc.delayTime(flyTime-0.1),
                 cc.callFunc(function() {
@@ -311,6 +314,11 @@ var HudLayer = cc.Layer.extend({
         };
 
         goldNode.removeFromParent();
+    },
+
+    _playAdditionEffect: function(node, effectTime) {
+        var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
+        node.runAction(cc.repeatForever(cc.rotateBy(effectTime, rotateValue)));
     },
 
     addCoinEffect: function() {

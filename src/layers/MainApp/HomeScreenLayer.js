@@ -17,6 +17,8 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addPlayDoor();
         this.addLearnDoor();
         this.addHomeDoor();
+
+        this.addChooseLanguageButton();
         
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
 
@@ -143,8 +145,25 @@ var HomeScreenLayer = cc.Layer.extend({
         character.x = 0;
         character.y = 0;
         door.addChild(character);
-    }
+    },
 
+    addChooseLanguageButton: function() {
+        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width - button.width/2 - 10;
+        button.y = button.height/2 + 10;
+        this.addChild(button);
+
+        var self = this;
+        button.addClickEventListener(function() {
+            self.addChild(new ChooseLanguageLayer(function() {cc.director.replaceScene(new HomeScene())}));
+        });
+        
+        var lb = new cc.LabelBMFont("Choose Language", res.HudFont_fnt);
+        lb.scale = 0.5;
+        lb.x = button.width/2;
+        lb.y = button.height/2;
+        button.getVirtualRenderer().addChild(lb);
+    },
 });
 
 var HomeScene = cc.Scene.extend({

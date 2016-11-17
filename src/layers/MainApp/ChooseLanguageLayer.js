@@ -1,14 +1,14 @@
 var LANGUAGE = [
- ["English", "Hindi"], ["Spanish"]
+ ["English", "Swahili"]
 ];
-var ChooseLanguageLayer = cc.Layer.extend({
+var ChooseLanguageLayer = cc.LayerColor.extend({
     _popupDialog: null,
     _callback: null,
     _fontDef: null,
 
     ctor: function(callback) {
-        this._super();
-        // this._super(cc.color(0, 0, 0, 200));
+        // this._super();
+        this._super(cc.color(0, 0, 0, 200));
 
         // this.y = -55;
         this._callback = callback;
@@ -27,7 +27,7 @@ var ChooseLanguageLayer = cc.Layer.extend({
 
         this._popupDialog.runAction(
             cc.sequence(
-                cc.moveBy(0.5, cc.p(0, this._popupDialog.height+50)).easing(cc.easeElasticInOut(0.6))
+                cc.moveBy(0.5, cc.p(0, this._popupDialog.height)).easing(cc.easeElasticInOut(0.6))
                 // cc.scaleTo(0.2, 1.1),
                 // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
             )
@@ -75,7 +75,7 @@ var ChooseLanguageLayer = cc.Layer.extend({
                 if (!langName)
                     break;
 
-                cc.log("langName: ---> %s", langName);
+                // cc.log("langName: ---> %s", langName);
                 var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
 
                 var marginL = (scrollViewSize.width - 2*button.width)/3;
@@ -90,12 +90,7 @@ var ChooseLanguageLayer = cc.Layer.extend({
                 button.getRendererNormal().addChild(lb);
 
                 button.setUserData(langName);
-                button.addClickEventListener(function() {
-                    var language = this.getUserData().toLowerCase();
-                    KVDatabase.getInstance().set("language", language);
-                    cc.log("language: --> %s", language);
-                    self._callback();
-                });
+                button.addClickEventListener(this.changeLanguageFunc.bind(this));
 
                 box.addChild(button);
             }
@@ -108,6 +103,20 @@ var ChooseLanguageLayer = cc.Layer.extend({
         scrollView.y = this._popupDialog.height/4 - 10;
 
         this._popupDialog.addChild(scrollView);
+    },
+
+    changeLanguageFunc: function(button) {
+        var language = button.getUserData().toLowerCase();
+        if (language.indexOf("english") > -1)
+            language = "en";
+
+        var mess = "Set Current Language to " + button.getUserData();
+
+        KVDatabase.getInstance().set("currentLanguage", language);
+        
+        NativeHelper.callNative("showMessage", ["Message", mess]);
+        
+        this._callback && this._callback();
     },
 
 });

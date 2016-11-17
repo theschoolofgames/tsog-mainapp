@@ -18,6 +18,8 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this.schedule(this.updateHP, 0.5);
     },
 
+    _playAdditionEffect: function(node, effectTime) {},
+
     _addDistanceLabel: function() {
         var text = this._distance.toString() + "m";
 
