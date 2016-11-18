@@ -13,8 +13,8 @@ var CharacterManager = cc.Class.extend({
         cc.loader.loadJson("config/character.json", function(err, data) {
             self._characterCfg = data;
 
-            let unlockedCharNamesString = KVDatabase.getInstance().getString(this.KEY_UNLOCKED_CHARACTER_NAMES);
-
+            let unlockedCharNamesString = KVDatabase.getInstance().getString(self.KEY_UNLOCKED_CHARACTER_NAMES);
+            cc.log("CharacterManager: " + unlockedCharNamesString);
             self._unlockedCharacterNames = unlockedCharNamesString ? JSON.parse(unlockedCharNamesString) : self._characterCfg.filter(cfg => cfg.unlocked).map(cfg => cfg.name);
         });
     },
@@ -42,6 +42,7 @@ var CharacterManager = cc.Class.extend({
     },
 
     hasUnlocked: function(characterName) {
+        cc.log("unlockCharacter: " + JSON.stringify(this._unlockedCharacterNames));
         return this._unlockedCharacterNames.indexOf(characterName) >= 0;
     },
 

@@ -27,17 +27,17 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     _addDistanceLabel: function() {
-        var cup =  new cc.Sprite("#cup.png");
-        cup.x = this.width/2 + 100;
-        cup.y = this._bg.y;
-        cup.scale = 0.9;
-        this.addChild(cup);
-
         var whitespace = new cc.Sprite("#whitespace.png");
-        whitespace.anchorX = 0;
-        whitespace.x = 30;
-        whitespace.y = cup.height/2;
-        cup.addChild(whitespace, -1);
+        whitespace.x = this._whiteBg.x - this._whiteBg.width - HUD_BAR_DISTANCE + 10;
+        whitespace.y = this._whiteBg.y;
+        this.addChild(whitespace);
+
+        var cup =  new cc.Sprite("#cup.png");
+        cup.x = 0;
+        cup.y = whitespace.height/2;
+        cup.scale = 0.9;
+        whitespace.addChild(cup);
+
 
         var text = this._distance.toString() + "m";
 
@@ -51,10 +51,10 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         var hp = this._player.getHP();
         for(var i = 0; i < hp; i ++){
             var heart = new cc.Sprite("#heart-1.png");
-            heart.x = (i%6) * 40 + this._settingBtn.x + 80;
-            heart.y = - Math.floor(i/6) * 40 + this._bg.y + 20;
+            heart.x = (i%5) * 25 + this._progressBar.x - this._progressBar.width/2;
+            heart.y = - Math.floor(i/5) * 25 + this._bg.y + 10;
             this.addChild(heart);
-            heart.scale = 0.5;
+            heart.scale = 0.35;
             this._hearts.push(heart);
         }
     },

@@ -110,6 +110,7 @@ cc.game.onStart = function(){
         SpeechRecognitionListener.setupInstance();
         GameListener.setupInstance();
         IAPManager.setupInstance();
+        CharacterManager.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);

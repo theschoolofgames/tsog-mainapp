@@ -38,7 +38,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchMoved: this.onTouchMoved.bind(this),
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
-
+        cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         CurrencyManager.getInstance().incCoin(10000);
         CurrencyManager.getInstance().incDiamond(10000);
@@ -201,6 +201,8 @@ ShopScreenLayer = cc.LayerColor.extend({
         this._character.x = cc.winSize.width/2 - 200;
         this._character.y = cc.winSize.height/2 - 300 * this._scale;
         var unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
+        cc.log("unlocked: " + unlocked);
+        cc.log("name: " + characterCfg.name);
         var lbButton = "";
         if(unlocked)
             lbButton = "Choose";

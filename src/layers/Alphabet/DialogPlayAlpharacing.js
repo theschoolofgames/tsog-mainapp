@@ -68,6 +68,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         closeButton.x = this._dialogBg.width - 25;
         closeButton.y = this._dialogBg.height - 25;
         closeButton.addClickEventListener(function(){
+            self.parent._blocktouch = false;
             self.removeFromParent();
         });
         this._dialogBg.addChild(closeButton);

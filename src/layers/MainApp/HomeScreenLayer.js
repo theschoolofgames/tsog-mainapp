@@ -2,6 +2,7 @@ var HOME_DOOR_OFFSET_Y = 260;
 var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
+    _blocktouch: false,
     ctor: function () {
         // body...
         this._super();
@@ -20,6 +21,7 @@ var HomeScreenLayer = cc.Layer.extend({
 
         this.addChooseLanguageButton();
         
+        this._blocktouch = false;
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
 
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
@@ -51,6 +53,7 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     _showDialogIfEnoughCoin: function(){
+        var self = this;
         var dialog = new MessageDialog();
         var lb = new cc.LabelTTF("You have to spend 10 coins to play!", "Arial", 30, cc.size(300, 80));
         lb.color = cc.color(0,0,0);
@@ -83,6 +86,7 @@ var HomeScreenLayer = cc.Layer.extend({
         dialog.addComponent(buttonCancel);
         buttonCancel.addClickEventListener(function(){
             dialog.removeFromParent();
+            self._blocktouch = false;
         });
         var lbCancel = new cc.LabelBMFont("CANCEL", res.CustomFont_fnt); 
         lbCancel.scale = 0.6;
@@ -102,13 +106,17 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
+            if(self._blocktouch)
+                return;
+            self._blocktouch = true;
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
                 self._showDialogIfNotEnoughCoin();
             // CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             // var data = DataManager.getInstance().getDataAlpharacing();
             // cc.director.runScene(new AlphaRacingScene(data, null, 600));
             // self._showDialogIfEnoughCoin();
-            self.addChild(new DialogPlayAlpharacing());
+            else
+                self.addChild(new DialogPlayAlpharacing());
             // cc.log("ALPHARACING: " + JSON.stringify(data));
         });
         var board = new cc.Sprite("#board.png");
