@@ -65,7 +65,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._tempInputData = inputData.slice();
 
         this._elapsedTime = 0;
-        this.addRefreshButton();
+        // this.addRefreshButton();
 
         this._workers = [];
     },

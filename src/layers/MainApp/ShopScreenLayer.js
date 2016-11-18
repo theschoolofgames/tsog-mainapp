@@ -40,8 +40,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         // }, this);
         cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
-        CurrencyManager.getInstance().incCoin(10000);
-        CurrencyManager.getInstance().incDiamond(10000);
+        
         this._hudLayer.updateBalance();
     },
 

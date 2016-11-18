@@ -1,5 +1,5 @@
 var HUD_SPACE = 100;
-var ShopHUDLayer = cc.Layer.extend({
+var ShopHUDLayer = SpecifyGoalHudLayer.extend({
     _specifyGoalLabel: null,
 
     _totalSpecifyGoal: 0,
@@ -14,7 +14,16 @@ var ShopHUDLayer = cc.Layer.extend({
         this.addCurrency();
     },
 
-    addGameProgressBar: function() {},
+    addBackGround: function() {},
+    addSettingButton: function() {
+        this._super();
+        this._settingBtn.visible = false;
+    },
+
+    addGameProgressBar:function(){
+        this._super();
+        this._progressBarBg.visible = false;
+    },
 
     addBackButton: function() {
         var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);

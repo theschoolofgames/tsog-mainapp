@@ -238,7 +238,11 @@ var HudLayer = cc.Layer.extend({
     },
 
     updatex: function() {
-        this._lbCoin.setString(CurrencyManager.getInstance().getCoin().toString());
+        var balance = CurrencyManager.getInstance().getCoin().toString();
+        if (this._currencyType == "diamond")
+            balance = CurrencyManager.getInstance().getDiamond().toString();
+
+        this._lbCoin.setString(balance);
         // this.popGold(1, cc.winSize.width/3, cc.winSize.height/3);
     },
 
@@ -308,7 +312,8 @@ var HudLayer = cc.Layer.extend({
                 cc.callFunc(function() {
                     cc.log("prepare calling addCoinEffect");
                     self.addCoinEffect();
-                    CurrencyManager.getInstance().incCoin(amount);
+                    if (self._currencyType == "gold")
+                        CurrencyManager.getInstance().incCoin(amount);
                 })
             ));
         };
@@ -323,11 +328,12 @@ var HudLayer = cc.Layer.extend({
 
     addCoinEffect: function() {
         cc.log("HudLayer addCoinEffect");
-        var coinScale = this._coin.scale;
+        var coinScale = CURRENCY_SCALE;
         this._coin.runAction(cc.sequence(
             cc.scaleTo(0.15, 0.9 * coinScale),
-            cc.scaleTo(0.15, 1 * coinScale)
+            cc.scaleTo(0.15, coinScale)
         ));
+        
         this._bg.runAction(cc.sequence(
             cc.scaleTo(0.15, 0.9),
             cc.scaleTo(0.15, 1)

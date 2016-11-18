@@ -4,7 +4,15 @@ var HomeScreenLayer = cc.Layer.extend({
     _scale: null,
     _blocktouch: false,
     ctor: function () {
-        // body...
+        // init coin for testing
+        var didCoinInit = KVDatabase.getInstance().getInt("didCoinInit", 0);
+        if (!didCoinInit) {
+            KVDatabase.getInstance().set("didCoinInit", 1);
+
+            // CurrencyManager.getInstance().incCoin(1800);
+            // CurrencyManager.getInstance().incDiamond(1800);
+        }
+
         this._super();
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
         bg.anchorY = 0;
@@ -30,11 +38,15 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     _showDialogIfNotEnoughCoin: function(){
-        var dialog = new MessageDialog();
-        var lb = new cc.LabelTTF("You not enough 10 coins to play!", "Arial", 30, cc.size(300, 80));
-        lb.color = cc.color(0,0,0);
-        lb.x = dialog.background.width/2;
+        var dialog = new MessageDialog("#level_dialog_frame.png");
+        var lb = new cc.LabelBMFont("Need 10 coins to play!", res.HomeFont_fnt);
+        lb.scale = 0.7;
+        lb.x = dialog.background.width/2 + 20;
+        lb.y = dialog.background.height/2 + 100;
+        lb.setColor(cc.color(255,255,255));
+        lb.setBoundingWidth(550);
         dialog.addComponent(lb);
+
         this.addChild(dialog,100);
 
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -106,9 +118,9 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
-            if(self._blocktouch)
-                return;
-            self._blocktouch = true;
+            // if(self._blocktouch)
+            //     return;
+            // self._blocktouch = true;
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
                 self._showDialogIfNotEnoughCoin();
             // CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);

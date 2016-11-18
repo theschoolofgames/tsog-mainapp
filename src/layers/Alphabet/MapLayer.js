@@ -18,7 +18,7 @@ var MapLayer = cc.Layer.extend({
         this._loadMapData();
 
         this.addSettingButton();
-        this.addBackToHomeScene();
+        // this.addBackToHomeScene();
         this._updateMapData();
     },
 

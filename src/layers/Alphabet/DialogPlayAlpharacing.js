@@ -20,7 +20,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         this._dialogBg = dialogBg;
     },
     _addText: function() {
-        var text = new cc.LabelBMFont("You have to spend 10 coins to play!", res.HomeFont_fnt);
+        var text = new cc.LabelBMFont("Spend 10 coins to play!", res.HomeFont_fnt);
         text.scale = 0.7;
         text.x = this._dialogBg.width/2 + 20;
         text.y = this._dialogBg.height/2 + 100;

@@ -8,7 +8,7 @@ var AlertDialog = cc.LayerColor.extend({
         this._addText(text);
     },
     _addDialogBg: function() {
-        var dialogBg = new cc.Sprite("#setting-dialog-bg.png");
+        var dialogBg = new cc.Sprite("#level_dialog_frame.png");
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
@@ -22,13 +22,14 @@ var AlertDialog = cc.LayerColor.extend({
         this._dialogBg.addChild(text);
     },
     _showDialog: function(){
-        var dialog = new MessageDialog();
-        var lb = new cc.LabelTTF("You not enough 10 coin to play!", "Arial", 30, cc.size(300, 80));
-        lb.color = cc.color(0,0,0);
-        lb.x = dialog.background.width/2;
-        lb.y = dialog.background.height/2;
+        var dialog = new MessageDialog("#level_dialog_frame.png");
+        var lb = new cc.LabelBMFont("Need 10 coins to play!", res.HomeFont_fnt);
+        lb.scale = 0.7;
+        lb.x = dialog.background.width/2 + 20;
+        lb.y = dialog.background.height/2 + 100;
+        lb.setColor(cc.color(255,255,255));
+        lb.setBoundingWidth(550);
         dialog.addComponent(lb);
-        this.addChild(dialog,100);
 
         var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         button.x = dialog.background.width/2;
@@ -48,7 +49,7 @@ var AlertDialog = cc.LayerColor.extend({
     _addButton: function(){
         var self = this;
         var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonCancel.x = this._dialogBg.width/2 - 50;
+        buttonCancel.x = this._dialogBg.width/2 - buttonCancel.width;
         buttonCancel.y = 100;
         this._dialogBg.addChild(buttonCancel);
         lbCancel = new cc.LabelBMFont("Cancel", "res/font/custom_font.fnt");
@@ -62,7 +63,7 @@ var AlertDialog = cc.LayerColor.extend({
         });
 
         var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonPlay.x = this._dialogBg.width/2 + 50;
+        buttonPlay.x = this._dialogBg.width/2 + buttonPlay.width;
         buttonPlay.y = 100;
         this._dialogBg.addChild(buttonPlay);
         lbPlay = new cc.LabelBMFont("Play", "res/font/custom_font.fnt");
