@@ -9,7 +9,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
-            onTouchBegan: function() { return false },
+            onTouchBegan: function() { return true },
         }, this);
     },
     _addDialogBg: function() {

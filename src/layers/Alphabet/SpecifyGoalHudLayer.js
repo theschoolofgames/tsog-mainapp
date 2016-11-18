@@ -20,7 +20,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     addBackGround: function() {
         var bg = new cc.Sprite("#whitespace.png");
         bg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
-        bg.y = this._clockBg.y;
+        bg.y = this._progressBarBg.y;
         this.addChild(bg);
         this._whiteBg = bg;
     },

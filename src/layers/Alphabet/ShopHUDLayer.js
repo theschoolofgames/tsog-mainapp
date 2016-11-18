@@ -8,6 +8,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
     _lbCoin: null,
 
     ctor: function() {
+        this._showClock = false;
         this._super();
 
         this.addBackButton();

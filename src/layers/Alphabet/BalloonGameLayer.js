@@ -156,13 +156,13 @@ var BalloonGameLayer = TestLayer.extend({
         if (currentObj.type === "number" || currentObj.type === "word")
             text = currentObj.value;
 
-        if (!this.hudBalloonBg){
-            this.hudBalloonBg = new cc.Sprite("#balloon_gray_1.png");
-            this.hudBalloonBg.attr({x: 60, y: cc.winSize.height - 200});
-            this.hudBalloonBg.setScale(0.6);
-            // circle.setColor(cc.color.RED);   
-            this.addChild(this.hudBalloonBg);
-        }
+        // if (!this.hudBalloonBg){
+        //     this.hudBalloonBg = new cc.Sprite("#balloon_gray_1.png");
+        //     this.hudBalloonBg.attr({x: 60, y: cc.winSize.height - 200});
+        //     this.hudBalloonBg.setScale(0.6);
+        //     // circle.setColor(cc.color.RED);   
+        //     this.addChild(this.hudBalloonBg);
+        // }
 
         var spriteFrame = "";
         if (currentObj.value.indexOf("red") !== -1){
@@ -177,20 +177,20 @@ var BalloonGameLayer = TestLayer.extend({
         else {
             spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png");
         }
-        this.hudBalloonBg.setSpriteFrame(spriteFrame);
+        // this.hudBalloonBg.setSpriteFrame(spriteFrame);
         this._hudLayer.addSpecifyGoal(spriteFrame);
         this._hudLayer.setTotalSpecifyGoal(currentObj.amount);
 
-        if (!this.hudTypeLabel){
-            this.hudTypeLabel = new cc.LabelBMFont(text + "", "hud-font.fnt");
-            this.hudTypeLabel.setScale(2.0);
-            this.hudTypeLabel.color = cc.color("#ffd902");
-            this.hudTypeLabel.x = this.hudBalloonBg.width / 2 + 10;
-            this.hudTypeLabel.y = this.hudBalloonBg.height/2 + 40;
-            this.hudBalloonBg.addChild(this.hudTypeLabel);
-        }
+        // if (!this.hudTypeLabel){
+        //     this.hudTypeLabel = new cc.LabelBMFont(text + "", "hud-font.fnt");
+        //     this.hudTypeLabel.setScale(2.0);
+        //     this.hudTypeLabel.color = cc.color("#ffd902");
+        //     this.hudTypeLabel.x = this.hudBalloonBg.width / 2 + 10;
+        //     this.hudTypeLabel.y = this.hudBalloonBg.height/2 + 40;
+        //     this.hudBalloonBg.addChild(this.hudTypeLabel);
+        // }
 
-        this.hudTypeLabel.setString(text + "");
+        // this.hudTypeLabel.setString(text + "");
     },
 
     createWarnLabel: function(text, object, x, y) {

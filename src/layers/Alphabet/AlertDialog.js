@@ -7,6 +7,7 @@ var AlertDialog = cc.LayerColor.extend({
         this._addButton();
         this._addText(text);
     },
+
     _addDialogBg: function() {
         var dialogBg = new cc.Sprite("#level_dialog_frame.png");
         dialogBg.x = cc.winSize.width/2;
@@ -14,13 +15,17 @@ var AlertDialog = cc.LayerColor.extend({
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
     },
+
     _addText: function(text) {
-        var text = new cc.LabelTTF(text, "Arial", 30, cc.size(300, 80));
+        var text = new cc.LabelBMFont(text, res.HomeFont_fnt);
+        text.scale = 0.5;
         text.x = this._dialogBg.width/2 + 20;
-        text.y = this._dialogBg.height/2;
-        text.setColor(cc.color(0,0,0));
+        text.y = this._dialogBg.height/2 + 100;
+        text.setColor(cc.color(255,255,255));
+        text.setBoundingWidth(this._dialogBg.width - 50);
         this._dialogBg.addChild(text);
     },
+
     _showDialog: function(){
         var dialog = new MessageDialog("#level_dialog_frame.png");
         var lb = new cc.LabelBMFont("Need 10 coins to play!", res.HomeFont_fnt);
@@ -49,7 +54,7 @@ var AlertDialog = cc.LayerColor.extend({
     _addButton: function(){
         var self = this;
         var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonCancel.x = this._dialogBg.width/2 - buttonCancel.width;
+        buttonCancel.x = this._dialogBg.width/2 - buttonCancel.width/2;
         buttonCancel.y = 100;
         this._dialogBg.addChild(buttonCancel);
         lbCancel = new cc.LabelBMFont("Cancel", "res/font/custom_font.fnt");
@@ -63,7 +68,7 @@ var AlertDialog = cc.LayerColor.extend({
         });
 
         var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonPlay.x = this._dialogBg.width/2 + buttonPlay.width;
+        buttonPlay.x = this._dialogBg.width/2 + buttonPlay.width/2;
         buttonPlay.y = 100;
         this._dialogBg.addChild(buttonPlay);
         lbPlay = new cc.LabelBMFont("Play", "res/font/custom_font.fnt");
@@ -72,11 +77,16 @@ var AlertDialog = cc.LayerColor.extend({
         lbPlay.y = buttonPlay.height/2;
         buttonPlay.addChild(lbPlay);
         buttonPlay.addClickEventListener(function(){
-            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
-                self._showDialog();
-            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
-            var data = DataManager.getInstance().getDataAlpharacing();
-            cc.director.runScene(new AlphaRacingScene(data, null));
+            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING) {
+                // self._showDialog();
+                var mess = "Need " + (GOLD_NEED_TO_PLAY_ALPHARACING - CurrencyManager.getInstance().getCoin()) + " golds more to play";
+                NativeHelper.callNative("showMessage", ["Message", mess]);
+            }
+            else {
+                CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
+                var data = DataManager.getInstance().getDataAlpharacing();
+                cc.director.runScene(new AlphaRacingScene(data, null));
+            }
         });
 
     }

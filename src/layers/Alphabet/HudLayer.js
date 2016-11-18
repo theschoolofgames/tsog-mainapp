@@ -76,8 +76,8 @@ var HudLayer = cc.Layer.extend({
         // shaderScrollingState.setUniformTexture("u_alphaTexture", mask);
 
         var gameProgressBar = new cc.ProgressTimer(colorBar);
-        gameProgressBar.x = progressBarBg.width/2 ;
-        gameProgressBar.y = progressBarBg.height/2;
+        gameProgressBar.x = progressBarBg.width/2 - 1;
+        gameProgressBar.y = progressBarBg.height/2 + 2;
         gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
         gameProgressBar.midPoint = cc.p(0, 1);
         gameProgressBar.barChangeRate = cc.p(1, 0);
@@ -97,7 +97,7 @@ var HudLayer = cc.Layer.extend({
     addClockImage: function(visible, timeForScene) {
         var clockBg = new cc.Sprite("#whitespace.png");
         clockBg.x = this._progressBarBg.x + this._progressBarBg.width/2 + clockBg.width/2 + HUD_BAR_DISTANCE;
-        clockBg.y = this._progressBarBg.y - 10* Utils.screenRatioTo43();
+        clockBg.y = this._progressBarBg.y;
         this.addChild(clockBg);
         this._clockBg = clockBg;
 
@@ -156,7 +156,7 @@ var HudLayer = cc.Layer.extend({
     addCurrency: function() {
         var bg = new cc.Sprite("#whitespace.png");
         bg.x = cc.winSize.width - bg.width/2 - 5;
-        bg.y = this._clockBg.y;
+        bg.y = this._progressBarBg.y;
         this.addChild(bg);
         this._bg = bg;
 
