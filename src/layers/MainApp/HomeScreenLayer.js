@@ -123,13 +123,13 @@ var HomeScreenLayer = cc.Layer.extend({
             //     return;
             // self._blocktouch = true;
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
-                self._showDialogIfNotEnoughCoin();
+                self.addChild(new DialogPlayAlpharacing(true));
             // CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             // var data = DataManager.getInstance().getDataAlpharacing();
             // cc.director.runScene(new AlphaRacingScene(data, null, 600));
             // self._showDialogIfEnoughCoin();
             else
-                self.addChild(new DialogPlayAlpharacing());
+                self.addChild(new DialogPlayAlpharacing(false));
             // cc.log("ALPHARACING: " + JSON.stringify(data));
         });
         var board = new cc.Sprite("#board.png");

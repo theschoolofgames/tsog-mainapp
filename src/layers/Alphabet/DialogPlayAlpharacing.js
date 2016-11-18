@@ -1,11 +1,11 @@
 var DialogPlayAlpharacing = cc.LayerColor.extend({
     _dialogBg: null,
 
-    ctor: function(){
+    ctor: function(isNotEnoughCoin){
         this._super(cc.color(0, 0, 0 , 200));
         this._addDialogBg();
-        this._addText();
-        this._addButton();
+        this._addText(isNotEnoughCoin);
+        this._addButton(isNotEnoughCoin);
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -19,16 +19,18 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
     },
-    _addText: function() {
+    _addText: function(isNotEnoughCoin) {
         var text = new cc.LabelBMFont("Spend 10 coins to play!", res.HomeFont_fnt);
         text.scale = 0.7;
+        if(isNotEnoughCoin)
+            text.setString("You are not enough 10 coins to play!");
         text.x = this._dialogBg.width/2 + 20;
         text.y = this._dialogBg.height/2 + 100;
         text.setColor(cc.color(255,255,255));
         this._dialogBg.addChild(text);
         text.setBoundingWidth(550);
     },
-    _addButton: function(){
+    _addButton: function(isNotEnoughCoin){
         var self = this;
         var canttouch = false;
         // var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
@@ -51,6 +53,8 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         // buttonPlay.scale = 0.6;
         this._dialogBg.addChild(buttonPlay);
         lbPlay = new cc.LabelBMFont("Play", "res/font/custom_font.fnt");
+        if(isNotEnoughCoin) 
+            lbPlay.setString("OK");
         // lbPlay.scale = 0.6;
         lbPlay.x = buttonPlay.width/2;
         lbPlay.y = buttonPlay.height/2;
@@ -59,6 +63,11 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
             if(canttouch)
                 return;
             canttouch = true;
+            if(isNotEnoughCoin) {
+                self.parent._blocktouch = false;    
+                self.removeFromParent();
+                return;
+            };
             CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
             var data = DataManager.getInstance().getDataAlpharacing();
             cc.director.runScene(new AlphaRacingScene(data, null, 600));
