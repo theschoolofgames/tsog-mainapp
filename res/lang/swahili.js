@@ -350,4 +350,12 @@ languages["swahili"] = {
     "trapezodiums": "plural/swahili/trapezodiums",
     "triangles": "plural/swahili/triangles",
 
-};
+    "1_plus_4": "swahili/1_plus_4",
+    "1_plus_1": "swahili/1_plus_1",
+    "1_plus_2": "swahili/1_plus_2",
+    "1_plus_3": "swahili/1_plus_3",
+    "3_plus_1": "swahili/3_plus_1",
+    "2_plus_1": "swahili/2_plus_1",
+    "2_plus_3": "swahili/2_plus_3",
+    "2_plus_2": "swahili/2_plus_2",
+};  

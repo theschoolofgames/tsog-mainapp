@@ -33,6 +33,8 @@ var FruidditionGameLayer = TestLayer.extend({
     _oldScale: 1,
 
     _blockTouch: false,
+    _operationSoundReady: false,
+    _operationSoundPath: null,
 
     ctor: function(data, timeForScene) {
         this._super();
@@ -184,17 +186,37 @@ var FruidditionGameLayer = TestLayer.extend({
             this._playDraggingObjectIdleAction(o);
         }
 
+        var completedOperationId = this._currentOperationId;
+        this._operationSoundPath = this._data["first"][completedOperationId] + "_" 
+                        + this._data["firstOperation"][completedOperationId] + "_"
+                        + this._data["second"][completedOperationId];
+
+        this._operationSoundPath = "res/sounds/sentences/" + localize(this._operationSoundPath) + "-0.mp3";
         this._currentOperationId++;
     },
 
-    _playOperationSound: function(completedObjectsCount) {
+    _playOperationSound: function(completedObjectsCount, callback) {
         cc.log("completedObjectsCount: " + completedObjectsCount);
         var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            cc.log("self._type: " + self._type);
             jsb.AudioEngine.stopAll();
-            jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._type) + ".mp3");
+            var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._type) + ".mp3");
+            jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+                if (!self._operationSoundReady)
+                    return;
+                if (!self._operationSoundExist) {
+                    self._blockTouch = false;
+                    self._showNextOperation();
+                }
+                cc.log("self._operationSoundPath: " + self._operationSoundPath);
+                var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
+                jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+                    jsb.AudioEngine.stopAll();
+                    self._blockTouch = false;
+                    self._showNextOperation();
+                })
+            });
         });
     },
 
@@ -315,24 +337,18 @@ var FruidditionGameLayer = TestLayer.extend({
 
         // this._reorderArray(this._draggingObjects);
         
-        this._completedObjectsCount++;
-        this._playOperationSound(this._completedObjectsCount);
-
         if (this._dropSpots.length == 0) {
             if (!this._checkWonGame()) {
-                // play end of operation sound
                 this._completeOperationAction();
-                this.runAction(cc.sequence(
-                    cc.delayTime(2),
-                    cc.callFunc(function() {
-                        this._blockTouch = false;
-                        this._showNextOperation();
-                    }.bind(this))
-                ));
+                this._operationSoundReady = true;
+                if (jsb.fileUtils.isFileExist(this._operationSoundPath))
+                    this._operationSoundExist = true;
             }
         } else
             this._blockTouch = false;
 
+        this._completedObjectsCount++;
+        this._playOperationSound(this._completedObjectsCount);
     },
 
     _checkWonGame: function() {
@@ -357,6 +373,8 @@ var FruidditionGameLayer = TestLayer.extend({
 
         this._draggingObjects = [];
         this._dropSpots = [];
+        this._operationSoundPath = null;
+        this._operationSoundReady = false;
     },
 
     _completeOperationAction: function() {

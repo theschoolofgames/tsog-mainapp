@@ -348,5 +348,13 @@ languages["en"] = {
     "straight-lines": "plural/en/straight-lines",
     "trapezodiums": "plural/en/trapezodiums",
     "triangles": "plural/en/triangles",
-
+    
+    "1_plus_4": "en/1_plus_4",
+    "1_plus_1": "en/1_plus_1",
+    "1_plus_2": "en/1_plus_2",
+    "1_plus_3": "en/1_plus_3",
+    "3_plus_1": "en/3_plus_1",
+    "2_plus_1": "en/2_plus_1",
+    "2_plus_3": "en/2_plus_3",
+    "2_plus_2": "en/2_plus_2",
 };

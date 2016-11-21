@@ -704,8 +704,7 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             jsb.AudioEngine.stop(this._effectAudioID);
-
-        // cc.log("soundpath: " + "res/sounds/objects/" + localize(objectName) + soundSuffix + ".mp3");
+        
         this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
 
         if (!isDragging)

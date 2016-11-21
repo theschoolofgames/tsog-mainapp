@@ -61,7 +61,7 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
-        var isAllLevelUnlocked = KVDatabase.getInstance().getInt("UnlockAllLevels");
+        var isAllLevelUnlocked = 1;//KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
         var mapLabel = 0;

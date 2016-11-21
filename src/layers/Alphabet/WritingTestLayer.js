@@ -527,9 +527,7 @@ var WritingTestLayer = TestLayer.extend({
         var soundPath = "sounds/words/" + localizedName + ".mp3";
 
         if (!jsb.fileUtils.isFileExist("res/" + soundPath)) {
-            soundPath = "sounds/animals/" + localizedName + ".mp3";
-            if (!jsb.fileUtils.isFileExist("res/" + soundPath))
-                soundPath = "sounds/alphabets/" + localizedName + ".mp3";
+            soundPath = "sounds/alphabets/" + localizedName + ".mp3";
             if (!isNaN(name))
                 soundPath = "sounds/numbers/" + localizedName + ".mp3";
         }

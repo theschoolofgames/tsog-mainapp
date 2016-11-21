@@ -210,7 +210,6 @@ var BuildingBlocksLayer = TestLayer.extend({
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
             self._blockTouch = false;
-            // jsb.AudioEngine.play2d("res/sounds/objects/" + self._type + ".mp3");
         });
     },
 

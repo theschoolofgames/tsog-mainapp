@@ -423,11 +423,6 @@ var GoFigureTestLayer = TestLayer.extend({
         name = localize(name);
         cc.log("name: " + name);
         soundPath += name + ".mp3";
-        // if (this._oldSceneName == "RoomScene") {
-        //     soundPath = "sounds/objects/" + name.toLowerCase() + ".mp3";
-        // } else {
-        //     soundPath = "sounds/animals/" + name.toLowerCase() + ".mp3";
-        // }
 
         if (jsb.fileUtils.isFileExist(soundPath)) {
             var audioId = jsb.AudioEngine.play2d(soundPath, false);
