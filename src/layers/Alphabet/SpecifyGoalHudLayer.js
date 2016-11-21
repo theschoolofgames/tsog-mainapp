@@ -13,21 +13,21 @@ var SpecifyGoalHudLayer = HudLayer.extend({
 
         this._super(layer, !this._showClock, timeForScene);
         this.addBackGround();
-        
-        this._clockBg.visible = false;
+        // this._bg.visible = false;
     },
 
     addBackGround: function() {
         var bg = new cc.Sprite("#whitespace.png");
-        bg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
+        bg.x = this._clockBg.x + this._clockBg.width + HUD_BAR_DISTANCE;
         bg.y = this._progressBarBg.y;
         this.addChild(bg);
         this._whiteBg = bg;
     },
 
     addGoalImage: function(imageName) {
+        // this._bg.visible = false;
         var holder = new cc.Sprite("#holder.png");
-        holder.x = 0;
+        holder.x = 15;
         holder.y = this._whiteBg.height/2 - 5;
         this._holder = holder;
         this._whiteBg.addChild(holder);
@@ -37,7 +37,6 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         specifyGoalSprite.x = holder.width/2;
         specifyGoalSprite.y = holder.height/2 - 10;
         holder.addChild(specifyGoalSprite); 
-
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
         if (this._specifyGoalLabel)
             this.updateSpecifyGoalLabel();
@@ -47,7 +46,19 @@ var SpecifyGoalHudLayer = HudLayer.extend({
             this._specifyGoalLabel.x = this._whiteBg.width/2 + 10;
             this._specifyGoalLabel.y = this._whiteBg.height/2;
             this._whiteBg.addChild(this._specifyGoalLabel);
-        }
+        };
+        this.updatePositonHud();
+        
+    },
+
+    updatePositonHud: function(){
+        var width = this._bg.width + this._clockBg.width + this._settingBtn.width + this._whiteBg.width + HUD_BAR_DISTANCE * 3;
+        if(this._progressBarBg.visible == true) 
+            width = width + this._progressBarBg.width + HUD_BAR_DISTANCE;
+        if(width >= cc.winSize.width) {
+            this._whiteBg.x = this._whiteBg.x - 30;
+            this._bg.y = this._bg.y - 75;
+        };
     },
 
     addGoalLabel: function() {

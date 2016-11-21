@@ -164,9 +164,9 @@ var HudLayer = cc.Layer.extend({
             this._currencyType = "gold";
         var coin = new cc.Sprite("#" + this._currencyType + ".png");
         coin.scale = CURRENCY_SCALE;
-        coin.x = cc.winSize.width - coin.width/2;
-        coin.y = bg.y;
-        this.addChild(coin, 999);
+        coin.x = bg.width - coin.width/2 + 10;
+        coin.y = bg.height/2;
+        this._bg.addChild(coin, 999);
         this._coin = coin;
 
         var coinAmount = CurrencyManager.getInstance().getCoin();
@@ -287,8 +287,12 @@ var HudLayer = cc.Layer.extend({
             var flyTime = 0.8 + Math.random()*0.2;
 
             var weight = 100 + Math.random()*150;
-            var goldBalanceNodeBox = this._lbCoin.parent.getBoundingBox()
-            var to = cc.p(cc.rectGetMidX(goldBalanceNodeBox), cc.rectGetMidY(goldBalanceNodeBox));
+            var goldBalncePos = this._lbCoin.parent.getPosition();
+            goldBalncePos = this._bg.convertToWorldSpace(goldBalncePos);
+            cc.log("pos: " + JSON.stringify(goldBalncePos));
+            var goldBalanceNodeBox = this._coin.getBoundingBox();
+            // var to = cc.p(cc.rectGetMidX(goldBalanceNodeBox), cc.rectGetMidY(goldBalanceNodeBox));
+            var to = cc.p(goldBalncePos.x, goldBalncePos.y);
             
             var cp2x = (gold.x > to.x ? -1 : 1) * (Math.random()*600 - 300);
             var cp1 = cc.p(gold.x, gold.y - weight);

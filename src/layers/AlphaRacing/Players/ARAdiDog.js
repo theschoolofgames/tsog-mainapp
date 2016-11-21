@@ -1,6 +1,5 @@
 var ARAdiDog = ARPlayer.extend({
     _characterName : "adi",
-
     animationFrameCount: 4,
 
     ctor: function() {
@@ -18,6 +17,18 @@ var ARAdiDog = ARPlayer.extend({
     },
 
     configAnimation: function() {
+        //use Spine 
+        // var self = this;
+        // this.sprite = new AdiDogNode();
+        // this.sprite.attr({x:10, y:65, anchorX: 1, anchorY: 1});
+        // this.addChild(this.sprite);
+        // this.runningAction = new cc.RepeatForever(
+        //                                           cc.delayTime(0.05),
+        //                                           cc.callFunc(function(){
+        //                                                 self._character.
+        //                                           })
+        // );
+        //-------------------------------------------
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
         this.sprite = new cc.Sprite("#" + this._characterName + "_run1.png");
         this.sprite.attr({x:10, y:65, anchorX: 1, anchorY: 1});
@@ -35,9 +46,9 @@ var ARAdiDog = ARPlayer.extend({
         var animation = new cc.Animation(this.runAnimationFrames, 0.1);
         cc.log("after create animation: ");
         this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
-        // this.sprite = new cc.Sprite("#adi_run1.png");
+
         this.sprite.runAction(this.runningAction);
-        // this.spriteSheet.addChild(this.sprite);
+
     },
 
     jumpAnimation: function() {
