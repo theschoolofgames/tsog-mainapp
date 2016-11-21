@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.2</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/nick/projects/tsog-main-app/_sourceart/alpha-racing-obstacle/alpha-racing-obstacle.tps</string>
+        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/alpha-racing-obstacle/alpha-racing-obstacle.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

@@ -3,7 +3,10 @@ var ARDouble = ARBooster.extend({
     effectiveTime: 6, // second
 
     ctor: function(worker, player) {
-        this._super(worker, player, "ar-boosters/double.png")
+        this._super(worker, player, "ar-boosters/double-1.png");
+        cc.log(this instanceof cc.Sprite);
+        // this.setSpriteFrame("ar-boosters/double-3.png")
+        Utils.runAnimation(this, "ar-boosters/double", 0.03, 9, true, 0.03);
     },
 
     willStart: function() {
