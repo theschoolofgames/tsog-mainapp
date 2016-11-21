@@ -3,7 +3,8 @@ var ARInvisible = ARBooster.extend({
     effectiveTime: 6, // second
 
     ctor: function(worker, player) {
-        this._super(worker, player, "ar-boosters/invisible.png")
+        this._super(worker, player, "ar-boosters/invisible-1.png");
+        Utils.runAnimation(this, "ar-boosters/invisible", 0.05, 13, true, 0.05);
     },
 
     willStart: function() {

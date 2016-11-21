@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.2</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/nick/projects/tsog-main-app/_sourceart/alpha-racing-booster/alpha-racing-booster.tps</string>
+        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/alpha-racing-booster/alpha-racing-booster.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -100,7 +100,7 @@
             <int>-1</int>
         </QSize>
         <key>reduceBorderArtifacts</key>
-        <false/>
+        <true/>
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
@@ -184,7 +184,7 @@
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Polygon</enum>
             <key>tracerTolerance</key>
-            <int>14</int>
+            <int>10</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>

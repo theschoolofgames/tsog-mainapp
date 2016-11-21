@@ -13,6 +13,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
         this._super(layer, null, "diamond");
         this._hearts = [];
+        this.updatePositonHud();
         this._addDistanceLabel();
         this._addHPLabel();
         this.addGameProgressBar();
@@ -70,4 +71,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
             this._hearts[i].setSpriteFrame("heart-2.png");
         }
     },
+    updatePositonHud: function() {
+        this._whiteBg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
+    }
 });

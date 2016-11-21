@@ -2,7 +2,8 @@ var ARMagnet = ARBooster.extend({
     effectiveTime: 6, // second
 
     ctor: function(worker, player) {
-        this._super(worker, player, "ar-boosters/magnet.png")
+        this._super(worker, player, "ar-boosters/magnet-1.png");
+        Utils.runAnimation(this, "ar-boosters/magnet", 0.05, 10, true, 0.05);
     },
 
     willStart: function() {
