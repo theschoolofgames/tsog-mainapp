@@ -24,6 +24,10 @@ var BuildingBlocksLayer = TestLayer.extend({
 
     _blockTouch: false,
 
+    _operationSoundExist: false,
+    _operationSoundReady: false,
+    _operationSoundPath: null,
+
     ctor: function(data) {
         this._super();
 
@@ -145,6 +149,13 @@ var BuildingBlocksLayer = TestLayer.extend({
         lb.y = totalHeight/2 + 10;
         this._objects[2].addChild(lb, 9);
 
+        var completedOperationId = this._currentOperationId;
+        this._operationSoundPath = this._data["first"][completedOperationId][0] + "_" 
+                        + this._data["firstOperation"][completedOperationId] + "_"
+                        + this._data["second"][completedOperationId][0];
+
+        this._operationSoundPath = "res/sounds/sentences/" + localize(this._operationSoundPath) + "-0.mp3";
+
         this._currentOperationId++;
     },
 
@@ -168,12 +179,12 @@ var BuildingBlocksLayer = TestLayer.extend({
             this._dropSpotScale = o.scale;
             nodeBlocks.width = o.width * this._gameScale;
             nodeBlocks.height = o.height*count * o.scale;
-
-            totalHeight = (o.height - 10) * (count) * o.scale;
+    
+            totalHeight = o.height * o.scale * count;
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
         lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y = 25*count * Utils.screenRatioTo43();
+        lb.y = totalHeight/2 + 25 * this._gameScale;
         nodeBlocks.addChild(lb, 9);
     },
 
@@ -197,11 +208,12 @@ var BuildingBlocksLayer = TestLayer.extend({
             draggingNode.addChild(o);
             draggingNode.width = o.width * this._gameScale;
             draggingNode.height = o.height*(k+1) * this._gameScale;
-            totalHeight = (o.height - 10) * (count) * o.scale;
+     
+            totalHeight = o.height * o.scale * count;
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-        lb.scale = (count == 1) ? 0.4 : 1;
-        lb.y = 25*count * Utils.screenRatioTo43();
+        lb.scale = (count == 1) ? 0.3 : 1;
+        lb.y = totalHeight/2 + 25 * this._gameScale;
         draggingNode.addChild(lb, 9);
     },
 
@@ -209,7 +221,20 @@ var BuildingBlocksLayer = TestLayer.extend({
         var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            self._blockTouch = false;
+            jsb.AudioEngine.stopAll();
+            if (!self._operationSoundReady)
+                return;
+            if (!self._operationSoundExist) {
+                self._blockTouch = false;
+                self._showNextOperation();
+            }
+            cc.log("self._operationSoundPath: " + self._operationSoundPath);
+            var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
+            jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+                jsb.AudioEngine.stopAll();
+                self._blockTouch = false;
+                self._showNextOperation();
+            })
         });
     },
 
@@ -320,7 +345,6 @@ var BuildingBlocksLayer = TestLayer.extend({
         this._currentObjectMoving.tag = BUILDINGBLOCKS_COMPLETED_TAG;
         this._currentObjectMoving.setPosition(position);
         cc.log("this._currentObjectMoving.scale: " + this._currentObjectMoving.scale);
-        this._playOperationSound(blocksCount);
         this._currentObjectMoving = null;
 
         if (this._dropSpots.length == 0) {
@@ -329,14 +353,13 @@ var BuildingBlocksLayer = TestLayer.extend({
             if (!this._checkWonGame()) {
                 // play end of operation sound
                 this._completeOperationAction();
-                this.runAction(cc.sequence(
-                    cc.delayTime(2),
-                    cc.callFunc(function() {
-                        this._showNextOperation();
-                    }.bind(this))
-                ));
+                this._operationSoundReady = true;
+                if (jsb.fileUtils.isFileExist(this._operationSoundPath))
+                    this._operationSoundExist = true;
             }
-        }
+        } else
+            this._blockTouch = false;
+        this._playOperationSound(blocksCount);
     },
 
     _checkWonGame: function() {
@@ -363,6 +386,9 @@ var BuildingBlocksLayer = TestLayer.extend({
 
         this._draggingObjects = [];
         this._dropSpots = [];
+
+        this._operationSoundReady = false;
+        this._operationSoundPath = "";
     },
 
     _completeOperationAction: function() {
