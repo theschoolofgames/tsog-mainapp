@@ -11,9 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.concurrent.Executors;
 
 import com.hub102.tsog.BuildConfig;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -186,11 +188,18 @@ public class Wrapper
 //    }
 
     public static void startFetchingAudio() {
-        Recorder.getInstance().startFetchingAudio();
+        Wrapper.ensureRunBlockWithRecorderSuccessfullySetup(new Runnable() {
+            @Override
+            public void run() {
+                Recorder.getInstance().startFetchingAudio();
+            }
+        });
     }
 
     public static void stopFetchingAudio() {
-        Recorder.getInstance().stopFetchingAudio();
+        try {
+            Recorder.getInstance().stopFetchingAudio();
+        } catch (Exception e) {}
     }
 
     public static void changeSpeechLanguageArray(String serializedString) throws IOException {
@@ -217,57 +226,62 @@ public class Wrapper
         SpeechRecognizer.getInstance().stop();
     }
 
-    public static void startDetectingNoiseLevel(float detectingTime) {
-        final int noiseDetectionLoopCount = (int)(detectingTime / 0.1f);
-
-        Recorder.getInstance().startFetchingAudio();
-        Recorder.getInstance().audioRecorder.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
-            int count = noiseDetectionLoopCount;
-            final List<Double> noiseDetectionArray = new ArrayList<>();
-
+    public static void startDetectingNoiseLevel(final float detectingTime) {
+        Wrapper.ensureRunBlockWithRecorderSuccessfullySetup(new Runnable() {
             @Override
-            public void onMarkerReached(AudioRecord recorder) {
+            public void run() {
+                final int noiseDetectionLoopCount = (int)(detectingTime / 0.1f);
 
-            }
+                Recorder.getInstance().startFetchingAudio();
+                Recorder.getInstance().audioRecorder.setRecordPositionUpdateListener(new AudioRecord.OnRecordPositionUpdateListener() {
+                    int count = noiseDetectionLoopCount;
+                    final List<Double> noiseDetectionArray = new ArrayList<>();
 
-            @Override
-            public void onPeriodicNotification(AudioRecord recorder) {
-                count--;
+                    @Override
+                    public void onMarkerReached(AudioRecord recorder) {
 
-                if (count < 0) {
-                    Wrapper.stopFetchingAudio();
-
-                    Double sum = 0d;
-                    for (Double vals : noiseDetectionArray) {
-                        sum += vals;
                     }
-                    Double avgAmpl = sum / noiseDetectionArray.size();
-                    Log.w("WRAPPER", avgAmpl + "");
 
-                    String value = avgAmpl > 33 ? "true" : "false";
+                    @Override
+                    public void onPeriodicNotification(AudioRecord recorder) {
+                        count--;
 
-                    final String command = String.format("SpeakingTestLayer.shouldSkipTest=%s", value);
-                    Wrapper.activity.runOnGLThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Cocos2dxJavascriptJavaBridge.evalString(command);
+                        if (count < 0) {
+                            Wrapper.stopFetchingAudio();
+
+                            Double sum = 0d;
+                            for (Double vals : noiseDetectionArray) {
+                                sum += vals;
+                            }
+                            Double avgAmpl = sum / noiseDetectionArray.size();
+                            Log.w("WRAPPER", avgAmpl + "");
+
+                            String value = avgAmpl > 33 ? "true" : "false";
+
+                            final String command = String.format("SpeakingTestLayer.shouldSkipTest=%s", value);
+                            Wrapper.activity.runOnGLThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Cocos2dxJavascriptJavaBridge.evalString(command);
+                                }
+                            });
+
+                        } else {
+                            int readAudio = recorder.read(Recorder.getInstance().buffer, 0, Recorder.getInstance().buffer.length); // Fill buffer
+                            if (readAudio == AudioRecord.ERROR_BAD_VALUE || readAudio == AudioRecord.ERROR_INVALID_OPERATION)
+                                return;
+
+                            double fN = (double) readAudio;
+                            double accum = 0;
+                            for (int i = 0; i < readAudio; i++)
+                                accum += Math.abs((double) Recorder.getInstance().buffer[i]);
+
+                            double soundLevel = accum / fN;
+
+                            noiseDetectionArray.add(soundLevel);
                         }
-                    });
-
-                } else {
-                    int readAudio = recorder.read(Recorder.getInstance().buffer, 0, Recorder.getInstance().buffer.length); // Fill buffer
-                    if (readAudio == AudioRecord.ERROR_BAD_VALUE || readAudio == AudioRecord.ERROR_INVALID_OPERATION)
-                        return;
-
-                    double fN = (double) readAudio;
-                    double accum = 0;
-                    for (int i = 0; i < readAudio; i++)
-                        accum += Math.abs((double) Recorder.getInstance().buffer[i]);
-
-                    double soundLevel = accum / fN;
-
-                    noiseDetectionArray.add(soundLevel);
-                }
+                    }
+                });
             }
         });
     }
@@ -285,9 +299,10 @@ public class Wrapper
         try {
             String fullPermissionString = Wrapper.getFullPermissionString(permission);
 
-            return ContextCompat.checkSelfPermission(activity, fullPermissionString) != PackageManager.PERMISSION_GRANTED;
+            return ContextCompat.checkSelfPermission(activity, fullPermissionString) == PackageManager.PERMISSION_GRANTED;
 
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -301,7 +316,7 @@ public class Wrapper
                     MY_PERMISSIONS_REQUEST_CODE);
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -312,7 +327,7 @@ public class Wrapper
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    activity.runOnUiThread(new Runnable() {
+                    activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('RequestPermission', 'onRequestPermission', [true])");
@@ -320,7 +335,7 @@ public class Wrapper
                     });
 
                 } else {
-                    activity.runOnUiThread(new Runnable() {
+                    activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
                             Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('RequestPermission', 'onRequestPermission', [false])");
@@ -338,9 +353,14 @@ public class Wrapper
         }
     }
 
-    private static String getFullPermissionString(String permission) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
-        Class myClass = Class.forName("android.Manifest.permission");
+    private static String getFullPermissionString(String permission) throws NoSuchFieldException, IllegalAccessException {
+        return (String) Manifest.permission.class.getDeclaredField(permission).get(null);
+    }
 
-        return (String) myClass.getDeclaredField(permission).get(null);
+    private static void ensureRunBlockWithRecorderSuccessfullySetup(Runnable runnable) {
+        if (SpeechRecognizer.getInstance().recognizer == null)
+            SpeechRecognizer.getInstance().setupCallback = runnable;
+        else
+            Executors.newSingleThreadExecutor().execute(runnable);
     }
 }

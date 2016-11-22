@@ -10,6 +10,7 @@ import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 import edu.cmu.pocketsphinx.Assets;
 import edu.cmu.pocketsphinx.Hypothesis;
@@ -34,9 +35,11 @@ public class SpeechRecognizer implements RecognitionListener {
 
     private ArrayList<String> cachedArrayList = null;
 
+    public Runnable setupCallback = null;
+
     private static final String TSOG_SEARCH = "tsog";
 
-    public static SpeechRecognizer setupInstance(AppActivity app) {
+    public synchronized static SpeechRecognizer setupInstance(AppActivity app) {
         if (mSharedInstance == null || mSharedInstance.recognizer == null) {
             SpeechRecognizer.app = app;
             return getInstance();
@@ -75,6 +78,11 @@ public class SpeechRecognizer implements RecognitionListener {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
+                if (setupCallback != null) {
+                    Executors.newSingleThreadExecutor().execute(setupCallback);
+                    setupCallback = null;
+                }
 
 //                String commandForm = "SpeechRecognitionListener.getInstance().onSetupComplete(%b, '%s')";
 //                if (result == null) {
