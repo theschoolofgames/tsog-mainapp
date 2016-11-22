@@ -25,11 +25,16 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
+import android.Manifest;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
@@ -53,13 +58,6 @@ public class AppActivity extends Cocos2dxActivity {
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
-        // Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
-        //     @Override
-        //     public void onReady(Object instance) {
-        //         Analytics.with(app).flush();
-        //     }
-        // });
-
         Wrapper.activity = this;
         SpeechRecognizer.setupInstance(this);
 
@@ -69,7 +67,14 @@ public class AppActivity extends Cocos2dxActivity {
                 .build();
         Fabric.with(fabric);
 
+        Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
+
         return glSurfaceView;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Wrapper.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
@@ -95,4 +100,6 @@ public class AppActivity extends Cocos2dxActivity {
             e.printStackTrace();
         }
     }
+
+
 }

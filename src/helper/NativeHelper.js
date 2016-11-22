@@ -268,8 +268,35 @@ var NativeHelperConfig = {
             "openUrlWith",
             "(Ljava/lang/String;)V"  
         ]
+    },
+
+    // Permission
+    hasGrantPermission: {
+        iOS: [
+            "H102Wrapper",
+            "hasGrantPermission:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "hasGrantPermission",
+            "(Ljava/lang/String;)Z"
+        ]
+    },
+
+    requestPermission: {
+        iOS: [
+            "H102Wrapper",
+            "requestPermission:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "requestPermission",
+            "(Ljava/lang/String;)V"
+        ]
     }
 }
+
+var NativeHelperListener = {};
 
 // Args must be an array
 NativeHelper.callNative = function(method, args) {
@@ -281,4 +308,22 @@ NativeHelper.callNative = function(method, args) {
     args = args || [];
     args = NativeHelperConfig[method][cc.sys.os].concat(args);
     return jsb.reflection.callStaticMethod.apply(this, args);
+}
+
+NativeHelper.setListener = function(name, listener) {
+    NativeHelperListener[name] = listener;
+}
+
+NativeHelper.removeListener = function(name) {
+    delete NativeHelperListener[name];
+}
+
+NativeHelper.onReceive = function(name, fnName, args) {
+    if (NativeHelperListener[name]) {
+        args = args || [];
+
+        NativeHelperListener[name][fnName].apply(NativeHelperListener[name], args);
+    }
+    else
+        cc.error("WARNING: listener " + name + " not found");
 }
