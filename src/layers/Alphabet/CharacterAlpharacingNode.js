@@ -41,10 +41,7 @@ var CharacterNodeAlpharacing = cc.Node.extend({
         this._character.setMix('jump', 'run', 1);
         this._character.y  = config.posY;
         this._character.x = - 100;
-        cc.log("this._character: " + JSON.stringify(this._character.getPosition()));
-        // this._character.setDebugSlotsEnabled(true);
 
-        // this._character.setAnimation(0, 'run', true);
         this.addChild(this._character, 4);
     },
 

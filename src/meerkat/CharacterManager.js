@@ -14,7 +14,6 @@ var CharacterManager = cc.Class.extend({
             self._characterCfg = data;
 
             let unlockedCharNamesString = KVDatabase.getInstance().getString(self.KEY_UNLOCKED_CHARACTER_NAMES);
-            cc.log("CharacterManager: " + unlockedCharNamesString);
             self._unlockedCharacterNames = unlockedCharNamesString ? JSON.parse(unlockedCharNamesString) : self._characterCfg.filter(cfg => cfg.unlocked).map(cfg => cfg.name);
         });
     },

@@ -210,7 +210,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     initPlayer: function() {
         this._player = new ARAdiDog();
-        cc.log("initPlayer: " + JSON.stringify(this._player.getPosition()));
+        // cc.log("initPlayer: " + JSON.stringify(this._player.getPosition()));
         this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
@@ -508,11 +508,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         else {
             var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
-            cc.log("nextSceneName: " + JSON.stringify(this._inputData)); 
             if (nextSceneName) {
                 var numberScene = KVDatabase.getInstance().getInt("scene_number");
                 var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-                cc.log("nextSceneName: " + durationArray[numberScene]);
                 SceneFlowController.getInstance().moveToNextScene(nextSceneName, this._inputData, durationArray[numberScene]);
             }
             else {
@@ -903,10 +901,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         p.setOnRightCollision(false);
         for (var i = 0; i < tiles.length; i++) {
             var dic = tiles[i];
-            // let _tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
-            
-            // cc.log("Gid Json => %s", JSON.stringify(dic));
-            // cc.log("Player Rect => (%d, %d, %d, %d)", pRect.x, pRect.y, pRect.width, pRect.height);
+
             var gid = dic.gid;
             if (gid) {
                 let tileRect = cc.rect(dic.x, dic.y + this._tileSize.height/2, this._tileSize.width, this._tileSize.height/2); 
