@@ -41,6 +41,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
+
     addShopButton: function() {
         var self = this;
         var shopBtn = new ccui.Button("shopping-basket.png", "", "");
@@ -81,19 +82,25 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
             // self._addCountDownClock();
             // self._addNextButton();
-            NativeHelper.callNative("startFetchingAudio");
-
-            // cc.eventManager.addListener({
-            //     event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            //     swallowTouches: true,
-            //     onTouchBegan: function(touch, event) { 
-            //         var touchedPos = touch.getLocation();
-            //         if (touchedPos.x > self._clock.x - 50)
-            //             self._moveToNextScene();
-            //         return true; 
-            //     }
-            // }, self);
+            if (NativeHelper.callNative("hasGrantPermission", ["RECORD_AUDIO"]))
+                self.startFetchingAudio();
+            else {
+                NativeHelper.setListener("RequestPermission", self);
+                NativeHelper.callNative("requestPermission", ["RECORD_AUDIO"]);
+            }
         });
+    },
+
+    onRequestPermission: function(succeed) {
+        if (succeed)
+            self.startFetchingAudio();
+        else {
+            NativeHelper.callNative("showMessage", ["Error", "Please enable Microphone permission in Device Setting for TSOG"]);
+        }
+    },
+
+    startFetchingAudio: function() {
+        NativeHelper.callNative("startFetchingAudio");
     },
 
     _createTalkingAdi: function() {
@@ -185,9 +192,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     onExit: function() {
         this._super();
         this._stopBackgroundSoundDetecting();
+        NativeHelper.removeListener("RequestPermission");
         cc.log("onExit");
-        
-
     },
 
     _stopBackgroundSoundDetecting: function() {

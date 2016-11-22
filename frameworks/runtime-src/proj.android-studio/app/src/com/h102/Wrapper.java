@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.media.AudioRecord;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import org.cocos2dx.javascript.AppActivity;
@@ -36,6 +40,7 @@ public class Wrapper
 {
     public static AppActivity activity;
 
+    private static final int MY_PERMISSIONS_REQUEST_CODE = 111;
     private static IInAppBillingService mService;
 
     private static ServiceConnection mServiceConn = new ServiceConnection() {
@@ -274,5 +279,68 @@ public class Wrapper
     public static void openUrlWith(final String url) {
         Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         activity.startActivity(intent);
+    }
+
+    public static boolean hasGrantPermission(String permission) {
+        try {
+            String fullPermissionString = Wrapper.getFullPermissionString(permission);
+
+            return ContextCompat.checkSelfPermission(activity, fullPermissionString) != PackageManager.PERMISSION_GRANTED;
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void requestPermission(String permission) {
+        try {
+            String fullPermissionString = Wrapper.getFullPermissionString(permission);
+
+            ActivityCompat.requestPermissions(activity,
+                    new String[]{fullPermissionString},
+                    MY_PERMISSIONS_REQUEST_CODE);
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Wrapper.MY_PERMISSIONS_REQUEST_CODE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('RequestPermission', 'onRequestPermission', [true])");
+                        }
+                    });
+
+                } else {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('RequestPermission', 'onRequestPermission', [false])");
+                        }
+                    });
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    private static String getFullPermissionString(String permission) throws ClassNotFoundException, NoSuchFieldException, IllegalAccessException {
+        Class myClass = Class.forName("android.Manifest.permission");
+
+        return (String) myClass.getDeclaredField(permission).get(null);
     }
 }

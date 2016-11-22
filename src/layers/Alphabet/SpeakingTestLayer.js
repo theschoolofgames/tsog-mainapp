@@ -44,9 +44,25 @@ var SpeakingTestLayer = TestLayer.extend({
         // if (SpeakingTestLayer.shouldSkipTest != null)
         //     this.playBeginSound();
         // else
+
+        if (NativeHelper.callNative("hasGrantPermission", ["RECORD_AUDIO"]))
             this.testBackgroundNoise();
+        else {
+            NativeHelper.setListener("RequestPermission", this);
+            NativeHelper.callNative("requestPermission", ["RECORD_AUDIO"]);
+        }
+    },
+
+    onRequestPermission: function(succeed) {
+        if (succeed)
+            this.testBackgroundNoise();
+        else {
+            NativeHelper.callNative("showMessage", ["Error", "Please enable Microphone permission in Device Setting for TSOG"]);
+            this._moveToNextScene();
+        }
     },
    
+
 
     onEnterTransitionDidFinish: function() {
         this._super();
@@ -463,6 +479,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._super();
         cc.eventManager.removeListener(this._event_time_up);
         this.removeStoryTimeForSpeakingData();
+        NativeHelper.removeListener("RequestPermission");
     },
 });
 

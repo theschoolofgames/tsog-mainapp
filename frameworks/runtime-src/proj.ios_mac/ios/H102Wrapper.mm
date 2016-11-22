@@ -297,5 +297,27 @@ static NSMutableArray* noiseDetectionArray = nil;
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 }
 
++ (BOOL)hasGrantPermission:(NSString*)permission {
+  if ([permission isEqualToString:@"RECORD_AUDIO"]) {
+    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+    AVAudioSessionRecordPermission systemState = [audioSession recordPermission];
+    
+    return systemState == AVAudioSessionRecordPermissionGranted;
+  }
+  
+  return false;
+}
+
++ (void)requestPermission:(NSString*)permission {
+  if ([permission isEqualToString:@"RECORD_AUDIO"]) {
+    AVAudioSession * audioSession = [AVAudioSession sharedInstance];
+    [audioSession requestRecordPermission:^(BOOL granted) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        NSString* jsCmd = [NSString stringWithFormat:@"NativeHelper.onReceive('RequestPermission', 'onRequestPermission', [%@])", granted ? @"true" : @"false"];
+        ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+      });
+    }];
+  }
+}
 
 @end

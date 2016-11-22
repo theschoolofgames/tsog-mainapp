@@ -37,7 +37,7 @@ public class SpeechRecognizer implements RecognitionListener {
     private static final String TSOG_SEARCH = "tsog";
 
     public static SpeechRecognizer setupInstance(AppActivity app) {
-        if (mSharedInstance == null) {
+        if (mSharedInstance == null || mSharedInstance.recognizer == null) {
             SpeechRecognizer.app = app;
             return getInstance();
         }
@@ -46,7 +46,7 @@ public class SpeechRecognizer implements RecognitionListener {
     }
 
     public static SpeechRecognizer getInstance() {
-        if (mSharedInstance == null) {
+        if (mSharedInstance == null || mSharedInstance.recognizer == null) {
             mSharedInstance = new SpeechRecognizer();
         }
 
