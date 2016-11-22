@@ -251,7 +251,7 @@ var FreeColorLayer = TestLayer.extend({
 
     _changeBrushColorPressed: function(button) {
         var color = BRUSH_COLOR_HEX[button.tag]
-
+        jsb.AudioEngine.play2d("res/sounds/colors/" + localize(color.toLowerCase()) + ".mp3");
         for (var i = 0; i < this._brushColorButtons.length; i++) {
             var b = this._brushColorButtons[i];
             if (b.tag == button.tag)
