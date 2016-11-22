@@ -67,6 +67,8 @@ public class AppActivity extends Cocos2dxActivity {
                 .build();
         Fabric.with(fabric);
 
+        Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
+
         return glSurfaceView;
     }
 

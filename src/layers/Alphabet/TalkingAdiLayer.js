@@ -95,7 +95,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         if (succeed)
             self.startFetchingAudio();
         else {
-            NativeHelper.callNative("showMessage", ["Error", "Please enable Microphone permission in Device Setting for TSOG"]);
+            NativeHelper.callNative("showMessage", ["Permission Required", "Please enable Microphone permission in Device Setting for TSOG"]);
         }
     },
 

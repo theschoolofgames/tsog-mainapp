@@ -57,7 +57,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if (succeed)
             this.testBackgroundNoise();
         else {
-            NativeHelper.callNative("showMessage", ["Error", "Please enable Microphone permission in Device Setting for TSOG"]);
+            NativeHelper.callNative("showMessage", ["Permission Required", "Please enable Microphone permission in Device Setting for TSOG"]);
             this._moveToNextScene();
         }
     },
