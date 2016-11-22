@@ -491,7 +491,8 @@ var ForestLayer = cc.Layer.extend({
     createWarnLabel: function(text, object, x, y) {
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
-
+        text = localizeForWriting(text.toLowerCase());
+        cc.log("text: " + text);
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
         var scaleTo = 1.5;
@@ -511,7 +512,8 @@ var ForestLayer = cc.Layer.extend({
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
         if (isNaN(animalName)) {
-            var objLabel = new cc.LabelBMFont(animalName.toUpperCase(), font);
+            var text = localizeForWriting(animalName.toLowerCase());
+            var objLabel = new cc.LabelBMFont(text.toUpperCase(), font);
             objLabel.scale = 1.5;
             objLabel.x = cc.winSize.width/2;
             objLabel.y = cc.winSize.height/2 - 100;
@@ -522,6 +524,7 @@ var ForestLayer = cc.Layer.extend({
             this._completedObj.y = objLabel.y + this._completedObj.height/2 + 50;
         } else {
             // cc.log("before create label");
+
             this._completedObj = new cc.LabelBMFont(animalName, res.CustomFont_fnt);
             this._completedObj.scale = 2;
             // this._completedObj = this._createCustomFont(animalName);

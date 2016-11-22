@@ -137,13 +137,11 @@ var HudLayer = cc.Layer.extend({
         if(timeForScene) {
             clockInitTime = timeForScene;
         };
-        cc.log("clockInitTime: " + clockInitTime);
+        // cc.log("clockInitTime: " + clockInitTime);
         var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
-        cc.log("currentSceneName: " + currentSceneName ); 
+        // cc.log("currentSceneName: " + currentSceneName ); 
         var clock = new Clock(clockInitTime, function(){
-            if(currentSceneName == "speaking")
-                self._layer._timesUp = true;
-            if(withClock == true)
+            if(withClock)
                 self._layer.completedScene();
         });
         clock.x = this._clockBg.width / 2 + 10;

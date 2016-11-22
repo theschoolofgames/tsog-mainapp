@@ -363,6 +363,7 @@ var RoomLayer = cc.Layer.extend({
 
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
+        lbName = localizeForWriting(lbName.toLowerCase());
         lbName = lbName.toUpperCase();
         var objLabel = new cc.LabelBMFont(lbName, font);
         objLabel.scale = 1.5;

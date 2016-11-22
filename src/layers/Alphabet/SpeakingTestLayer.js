@@ -56,7 +56,7 @@ var SpeakingTestLayer = TestLayer.extend({
             eventName: "event_logout",
             callback: function(event){
                 self._timesUp = true;
-                cc.log("_timesUp evnet: " + self._timesUp);
+                // cc.log("_timesUp evnet: " + self._timesUp);
             }
         });
         cc.eventManager.addListener(self._event_time_up, 1);
@@ -244,7 +244,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _showNextObject: function() {
-        cc.log("_showNextObject");
+        cc.log("speakingtest _showNextObject");
         if (!this._checkCompleted()) {
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
@@ -284,9 +284,11 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _checkCompleted: function() {
+        // cc.log("currentObjectShowUpId: " + this.currentObjectShowUpId);
+        // cc.log("this._names.length: " + this._names.length);
         if (this.currentObjectShowUpId >= this._names.length){
             NativeHelper.callNative("stopSpeechRecognition");
-            cc.log("SpeakingTestLayer _checkCompleted");
+            // cc.log("SpeakingTestLayer _checkCompleted");
             this._moveToNextScene();
 
             return true;
@@ -358,7 +360,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var isNumber = false;
         var isWord = false;
         var spritePath = "";
-        var objectName = "objects/" + this._names[this.currentObjectShowUpId].toLowerCase();
+        var objectName = this._names[this.currentObjectShowUpId].toLowerCase();
 
         var d = this.getStoryTimeForSpeakingData();
         if (d) {
@@ -366,21 +368,19 @@ var SpeakingTestLayer = TestLayer.extend({
             objectName = d.data[this.storytimeCurrentDataIndex];
         }
         this._soundName = "";
-        var objectNameToCheck = "res/SD/" + objectName + ".png";
-        cc.log(objectNameToCheck);
-        if (jsb.fileUtils.isFileExist(objectNameToCheck)) {
+        var soundNamePrefix = "res/SD/";
+        if (jsb.fileUtils.isFileExist(soundNamePrefix + "objects/" + objectName + ".png")) {
             // object case
-            this._soundName = "res/sounds/" + objectName + ".mp3";
-            this._objectName = objectName;
+            this._soundName = "res/sounds/words/" + localize(objectName) + ".mp3";
+            this._objectName = "objects/" + objectName;
         } else {
             // animal case
-            objectName = "animals/" + this._names[this.currentObjectShowUpId].toLowerCase();
-            if (jsb.fileUtils.isFileExist("res/SD/" + objectName + ".png")) {
-                this._soundName = "res/sounds/" + objectName + ".mp3";
-                this._objectName = objectName;
+            if (jsb.fileUtils.isFileExist(soundNamePrefix + "animals/" + objectName + ".png")) {
+                this._soundName = "res/sounds/words/" + localize(objectName) + ".mp3";
+                this._objectName = "animals/" + objectName;
             } else {
                 // word case
-                this._soundName = "res/sounds/alphabets/" + this._names[this.currentObjectShowUpId].toUpperCase() + ".mp3";
+                this._soundName = "res/sounds/alphabets/" + localize(objectName) + ".mp3";
 
                 // number case
                 var number = parseInt(this._names[this.currentObjectShowUpId]);
@@ -393,16 +393,17 @@ var SpeakingTestLayer = TestLayer.extend({
                     isWord = true;
                     spritePath = this._names[this.currentObjectShowUpId];
                 };
-                cc.log("spritePath: " + spritePath);
+                // cc.log("spritePath: " + spritePath);
                 
                 if (!jsb.fileUtils.isFileExist(this._soundName))
-                    this._soundName = "res/sounds/numbers/" + number + ".mp3";
+                    this._soundName = "res/sounds/numbers/" + localize(number) + ".mp3";
 
                 // color case
                 var name = this._names[this.currentObjectShowUpId].toLowerCase();
                 if (name.indexOf("color") > -1) {
-                    objectName = "#btn_" + name.substr(name.indexOf("_") + 1, name.length-1);
-                    this._soundName = "res/sounds/colors/" + name.substr(name.indexOf("_") + 1, name.length-1) + ".mp3";
+                    var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
+                    objectName = "#btn_" + namePrefix;
+                    this._soundName = "res/sounds/colors/" + localize(namePrefix) + ".mp3";
                 }
             }
         };
@@ -417,14 +418,16 @@ var SpeakingTestLayer = TestLayer.extend({
         if (isNumber || isWord) 
             this._currentObjectShowUp = new cc.LabelBMFont(spritePath, res.CustomFont_fnt);
         else    
-            this._currentObjectShowUp = new cc.Sprite(objectName + ".png");
+            this._currentObjectShowUp = new cc.Sprite(this._objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
         this._currentObjectShowUp.y = cc.winSize.height/2;
         this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;
         this.addChild(this._currentObjectShowUp);
         this._playObjectSound(function(audioId) {
+            cc.log("self._timesUp:" + self._timesUp);
             if(self._timesUp) 
                 return;
+            cc.log("speakingtest startSpeechRecognition");
             self._addLabel("GO");
             NativeHelper.callNative("startSpeechRecognition", [5000]);
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
