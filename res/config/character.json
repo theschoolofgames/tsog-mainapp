@@ -5,7 +5,8 @@
         "path": "adidog",
         "heathy": 7,
         "unlocked": true,
-        "animationFrameCount": 4
+        "animationFrameCount": 4,
+        "posY" : -250
     },
     {
         "name": "monkey",
@@ -13,6 +14,7 @@
         "path": "monkey",
         "heathy": 5,
         "unlocked": false,
-        "animationFrameCount": 5
+        "animationFrameCount": 5,
+        "posY" : -300
     }
 ]

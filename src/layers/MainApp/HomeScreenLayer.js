@@ -36,6 +36,11 @@ var HomeScreenLayer = cc.Layer.extend({
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer());
+
+        // var testNode = new CharacterNodeAlpharacing("monkey");
+        // testNode.x = cc.winSize.width/2;
+        // testNode.y = cc.winSize.height/2;
+        // this.addChild(testNode, 1000);
     },
 
     _showDialogIfNotEnoughCoin: function(){

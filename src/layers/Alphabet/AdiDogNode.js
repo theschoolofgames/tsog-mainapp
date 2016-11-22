@@ -1,4 +1,3 @@
-
 var ADI_HEAD = "bone4";
 var ADI_NOSE = "mui2";
 var ADI_HAND_LEFT = "hand L 2";

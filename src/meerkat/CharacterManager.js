@@ -29,7 +29,8 @@ var CharacterManager = cc.Class.extend({
                 path: cfg.path,
                 heathy: cfg.heathy,
                 unlocked: self.hasUnlocked(cfg.name),
-                animationFrameCount: cfg.animationFrameCount
+                animationFrameCount: cfg.animationFrameCount,
+                posY: cfg.posY
             }
         });
     },

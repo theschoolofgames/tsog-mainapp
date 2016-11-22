@@ -210,6 +210,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     initPlayer: function() {
         this._player = new ARAdiDog();
+        cc.log("initPlayer: " + JSON.stringify(this._player.getPosition()));
         this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 
         this._playerBorder = cc.DrawNode.create();
@@ -873,7 +874,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._playerBorder.removeAllChildren();
 
         var pRect = p.getCollisionBoundingBox();
-
+        // cc.log("RECT: " + JSON.stringify(pRect));
         this.drawRectWithLabel(cc.p(pRect.x, pRect.y),
             cc.p(pRect.x + pRect.width, pRect.y + pRect.height),
             cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
@@ -900,9 +901,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
         p.setOnGround(false);
         p.setOnRightCollision(false);
-
         for (var i = 0; i < tiles.length; i++) {
-
             var dic = tiles[i];
             // let _tileRect = cc.rect(dic.x, dic.y, this._tileSize.width, this._tileSize.height); 
             
@@ -924,7 +923,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
                     let desiredPosition = p.getDesiredPosition();
                     let velocity = p.getVelocity();
-                    
                     if (i == 0) {
                         // cc.log("tile is directly below player. i = %d", i + 1);
                         if (!p.onGround()){

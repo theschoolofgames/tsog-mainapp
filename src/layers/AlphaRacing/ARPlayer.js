@@ -24,7 +24,7 @@ var ARPlayer = cc.Layer.extend({
 		this.setScale(Utils.screenRatioTo43() * 0.15);
         this.setPosition(cc.p(200,450));
         this.setDesiredPosition(cc.p(200,450));
-        this.setContentSize(cc.size(65, 100));
+        this.setContentSize(cc.size(65, 120));
 		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
 
         this._velocityFactor = 1;

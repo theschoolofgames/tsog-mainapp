@@ -61,6 +61,7 @@
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",
+        "src/layers/Alphabet/CharacterAlpharacingNode.js",
         "src/layers/Alphabet/SpeakingTestLayer.js",
         "src/layers/Alphabet/Clock.js",
         "src/layers/Alphabet/ForestLayer.js",
