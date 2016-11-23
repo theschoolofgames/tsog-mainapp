@@ -316,8 +316,8 @@ var HudLayer = cc.Layer.extend({
             this._playAdditionEffect(gold, flyTime);
             gold.runAction(cc.sequence(
                 flyAction,
-                cc.callFunc(function() {
-                    gold.removeFromParent();
+                cc.callFunc(function(node) {
+                    node.removeFromParent();
                 })
             ));
 
