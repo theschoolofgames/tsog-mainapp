@@ -34,15 +34,15 @@ var ShadowGameLayer = TestLayer.extend({
     _gameObjectJson: null,
     _objectIdArray: ["number_5", "cat", "word_a", "shape_triangle","number_4", "number_3", "word_b", "word_c"],
     _objectsArray: [],
-
+    _timeForScene: null,
 
     ctor: function(objectIdArray, timeForScene) {
         // console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
         // console.log("Array Checked Length => " + objectIdArray.length);
         this._super();
-
         // cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
-        
+        this._timeForScene = timeForScene;
+        // this._addHudLayer(timeForScene);
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -52,10 +52,9 @@ var ShadowGameLayer = TestLayer.extend({
 
         this.addObjects(this._objectsArray);
         
-        this.addHud(timeForScene);
         // this.runTutorial(false);
-        this.runHintObjectUp();
-        this.runSoundCountDown();
+        
+        
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -128,7 +127,7 @@ var ShadowGameLayer = TestLayer.extend({
         // console.log("GameObjects => " + self._gameObjectJson.length);
     },
 
-    onEnterTransitionDidFinish: function() {
+    onEnter: function() {
         // cc.log("RoomLayer onEnterTransitionDidFinish");
         this._super();
         // this.playBeginSound();
@@ -144,6 +143,8 @@ var ShadowGameLayer = TestLayer.extend({
             )
         )
         this._hudLayer.setTotalGoals(this._objectsArray.length);
+        this.runHintObjectUp();
+        this.runSoundCountDown();
     },
 
     onExit: function() {
@@ -191,12 +192,9 @@ var ShadowGameLayer = TestLayer.extend({
         this._effectLayers = [];
     },
 
-    addHud: function(timeForScene) {
-        var hudLayer = new HudLayer(this, false ,timeForScene);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
+    _addHudLayer: function(timeForScene) {
+        cc.log("ShadowGameLayer _addHudLayer" ); 
+        this._super(this._timeForScene);
     },
 
     runTutorial: function(shouldShuffle) {
@@ -434,11 +432,14 @@ var ShadowGameLayer = TestLayer.extend({
 
     checkWonGame: function() {
         // win condition
+        cc.log("ShadowGameLayer this._objectDisableds.length: " + this._objectDisableds.length);
+        cc.log("ShadowGameLayer this._objectsArray.length: " + this._objectsArray.length);
         if (this._objectDisableds.length == this._objectsArray.length)
             this.completedScene();
     },
 
     createWarnLabel: function(text, object, x, y) {
+        cc.log("createWarnLabel");
         var randSchoolIdx = Math.floor(Math.random() * 4);
         font = FONT_COLOR[randSchoolIdx];
 
@@ -467,6 +468,10 @@ var ShadowGameLayer = TestLayer.extend({
         // font = FONT_COLOR[randSchoolIdx];
         lbName = localizeForWriting(lbName);
         lbName = lbName.toUpperCase();
+        var index = lbName.indexOf("_");
+        cc.log("Index : " + index);
+        if(index > -1)
+            lbName = lbName.slice(index+ 1, lbName.length);
         var objLabel = new cc.LabelBMFont(lbName, "hud-font.fnt");
         objLabel.scale = 3.0;
         objLabel.x = cc.winSize.width/2;

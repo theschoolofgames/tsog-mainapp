@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{137,105}</string>
                 <key>textureRect</key>
-                <string>{{1602,333},{137,105}}</string>
+                <string>{{1739,154},{137,105}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>button-unlock-pressed.png</key>
             <dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{329,74}</string>
                 <key>textureRect</key>
-                <string>{{1684,2},{329,74}}</string>
+                <string>{{1526,2},{329,74}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>button-unlock.png</key>
             <dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{329,74}</string>
                 <key>textureRect</key>
-                <string>{{1526,147},{329,74}}</string>
+                <string>{{1526,78},{329,74}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>heart-1.png</key>
             <dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{60,56}</string>
                 <key>textureRect</key>
-                <string>{{1602,147},{60,56}}</string>
+                <string>{{1739,293},{60,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{60,56}</string>
                 <key>textureRect</key>
-                <string>{{1602,205},{60,56}}</string>
+                <string>{{1739,351},{60,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{40,55}</string>
                 <key>textureRect</key>
-                <string>{{1602,440},{40,55}}</string>
+                <string>{{1801,293},{40,55}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>navigate-2.png</key>
             <dict>
@@ -165,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{40,55}</string>
                 <key>textureRect</key>
-                <string>{{1659,440},{40,55}}</string>
+                <string>{{1801,350},{40,55}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>navigate.png</key>
             <dict>
@@ -176,13 +176,13 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{143,156}</string>
+                <string>{211,211}</string>
                 <key>spriteSourceSize</key>
-                <string>{143,156}</string>
+                <string>{211,211}</string>
                 <key>textureRect</key>
-                <string>{{1526,2},{143,156}}</string>
+                <string>{{1526,154},{211,211}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>play_door.png</key>
             <dict>
@@ -222,9 +222,9 @@
             <key>realTextureFileName</key>
             <string>homescreen.png</string>
             <key>size</key>
-            <string>{1760,493}</string>
+            <string>{1857,493}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:86411840bbaaa189012add512fe569d6:687ee8e573fbb4e72c6f0fde83ca972c:fae1a3b897d198dfbf3fcdd2d231bbdf$</string>
+            <string>$TexturePacker:SmartUpdate:91dab1538e6fd8c8b117dfd9809b5e5d:c81d069191f61ab3f177f7be2fe52bf2:fae1a3b897d198dfbf3fcdd2d231bbdf$</string>
             <key>textureFileName</key>
             <string>homescreen.png</string>
         </dict>
