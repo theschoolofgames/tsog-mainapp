@@ -415,4 +415,10 @@ languagesForWriting["swahili"] = {
     "line": "Mstari",
     "curved-line": "Mstari Uliopinda",
     "straight-line": "Mstari Mnyofu",
+
+    "you win": "umeshinda",
+    "choose language": "Lugha Kuchagua",
+    "home": "nyumbani",
+    "play": "kucheza",
+    "learn": "kujifunza",
 };

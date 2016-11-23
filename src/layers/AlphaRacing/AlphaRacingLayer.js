@@ -585,7 +585,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 // }
                 // else {
                 //     // Completed game
-                //     this.completedScene("You Win");
+                //     this.completedScene(localizeForWriting("you win"));
                 // }
             }
         }

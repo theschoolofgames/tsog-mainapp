@@ -465,8 +465,9 @@ var ShadowGameLayer = TestLayer.extend({
 
         // var randSchoolIdx = Math.floor(Math.random() * 4);
         // font = FONT_COLOR[randSchoolIdx];
+        lbName = localizeForWriting(lbName);
         lbName = lbName.toUpperCase();
-        var objLabel = new cc.LabelBMFont(touchedObject.value, "hud-font.fnt");
+        var objLabel = new cc.LabelBMFont(lbName, "hud-font.fnt");
         objLabel.scale = 3.0;
         objLabel.x = cc.winSize.width/2;
         objLabel.y = cc.winSize.height/2 - 100;
@@ -487,7 +488,7 @@ var ShadowGameLayer = TestLayer.extend({
         this._hudLayer.pauseClock();
         var starEarned = this._hudLayer.getStarEarned();
 
-        var lbText = "You Win";
+        var lbText = localizeForWriting("you win");
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
@@ -846,6 +847,7 @@ var ShadowGameLayer = TestLayer.extend({
         if (object.userData.hasClone){
             let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
             jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                jsb.AudioEngine.stopAll();
                 jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
             });
         }

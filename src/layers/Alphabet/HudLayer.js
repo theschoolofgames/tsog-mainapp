@@ -41,6 +41,19 @@ var HudLayer = cc.Layer.extend({
         this.schedule(this.updatex, 0.5);
     },
 
+    createCoinAnimations: function() {
+        this._coinAnimationFrames = [];
+        var totalFrames = (this._currencyType == "gold") ? GOLD_ANIMATION_FRAMES_COUNT : DIAMOND_ANIMATION_FRAMES_COUNT;
+
+        for (var i = 0; i < totalFrames; i++) {
+            var frame = this._currencyType + "-0" + i + ".png";
+            var cache = cc.spriteFrameCache.getSpriteFrame(frame);
+            this._coinAnimationFrames.push(cc.spriteFrameCache.getSpriteFrame(frame));
+        }
+
+        // this._coinAnimation = new cc.Animation(this._coinAnimationFrames, 0.05);
+    },
+
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);

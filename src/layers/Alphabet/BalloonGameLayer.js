@@ -217,7 +217,7 @@ var BalloonGameLayer = TestLayer.extend({
         cc.log("_canVoildCompletedScene: "  + this._canVoildCompletedScene);
         var starEarned = this._hudLayer.getStarEarned();
 
-        var lbText = "You Win";
+        var lbText = localizeForWriting("you win");
         var warningLabel = this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
@@ -266,6 +266,7 @@ var BalloonGameLayer = TestLayer.extend({
 
                     var name = obj.name.substr(6);
                     var localizedName = localize(name);
+                    jsb.AudioEngine.stopAll();
                     jsb.AudioEngine.play2d(res.Succeed_sfx);
                     cc.log("localizedName: " + localizedName);  
                     jsb.AudioEngine.play2d("res/sounds/colors/" + localizedName + ".mp3");

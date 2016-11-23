@@ -382,7 +382,7 @@ var RoomLayer = cc.Layer.extend({
         this._hudLayer.pauseClock();
         var starEarned = this._hudLayer.getStarEarned();
 
-        var lbText = "You Win";
+        var lbText = localizeForWriting("you win");
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(

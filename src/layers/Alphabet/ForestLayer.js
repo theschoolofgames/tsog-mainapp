@@ -544,7 +544,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createYouWin: function() {
-        var lbText = "You Win";
+        var lbText = localizeForWriting("you win");
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({

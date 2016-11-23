@@ -1,11 +1,13 @@
 var HOME_DOOR_OFFSET_Y = 260;
 var HOME_DOOR_Y = 30;
 var HOME_BACKGROUND_OFFSET_Y = -132;
+var BOARD_LABEL_SCALE = 0.5;
 var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
     _blocktouch: false,
     ctor: function () {
+        currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
         // init coin for testing
         var didCoinInit = KVDatabase.getInstance().getInt("didCoinInit", 0);
         if (!didCoinInit) {
@@ -31,8 +33,6 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChooseLanguageButton();
         
         this._blocktouch = false;
-        currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
-
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer());
@@ -41,6 +41,13 @@ var HomeScreenLayer = cc.Layer.extend({
         // testNode.x = cc.winSize.width/2;
         // testNode.y = cc.winSize.height/2;
         // this.addChild(testNode, 1000);
+
+        this.setVolume();
+    },
+
+    setVolume:function() {
+        cc.audioEngine.setMusicVolume(0.1);
+        cc.audioEngine.setEffectsVolume(0.7);
     },
 
     _showDialogIfNotEnoughCoin: function(){
@@ -142,8 +149,9 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var lbPlay = new cc.LabelBMFont("PLAY", res.HomeFont_fnt);
-        lbPlay.scale = 0.5;
+        var text = localizeForWriting("play");
+        var lbPlay = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
+        lbPlay.scale = (lbPlay.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbPlay.width) : BOARD_LABEL_SCALE;
         lbPlay.x = board.width/2;
         lbPlay.y = board.height/2 + 15;
         board.addChild(lbPlay);
@@ -173,8 +181,9 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var lbLearn = new cc.LabelBMFont("LEARN", res.HomeFont_fnt);
-        lbLearn.scale = 0.5;
+        var text = localizeForWriting("learn");
+        var lbLearn = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
+        lbLearn.scale = (lbLearn.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbLearn.width) : BOARD_LABEL_SCALE;
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
@@ -204,8 +213,9 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var lbLearn = new cc.LabelBMFont("HOME", res.HomeFont_fnt);
-        lbLearn.scale = 0.5;
+        var text = localizeForWriting("home");
+        var lbLearn = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
+        lbLearn.scale = (lbLearn.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbLearn.width) : BOARD_LABEL_SCALE;
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
@@ -225,11 +235,14 @@ var HomeScreenLayer = cc.Layer.extend({
 
         var self = this;
         button.addClickEventListener(function() {
-            self.addChild(new ChooseLanguageLayer(function() {cc.director.replaceScene(new HomeScene())}));
+            self.addChild(new ChooseLanguageLayer(function() {
+                cc.log("chooselanguage callback");
+                cc.director.replaceScene(new HomeScene())}));
         });
         
-        var lb = new cc.LabelBMFont("Choose Language", res.HudFont_fnt);
-        lb.scale = 0.5;
+        var text = localizeForWriting("choose language");
+        var lb = new cc.LabelBMFont(text, res.HudFont_fnt);
+        lb.scale = (button.width * 0.75) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2;
         button.getVirtualRenderer().addChild(lb);

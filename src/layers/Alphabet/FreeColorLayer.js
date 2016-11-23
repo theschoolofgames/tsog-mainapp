@@ -242,6 +242,7 @@ var FreeColorLayer = TestLayer.extend({
             b.x = b.width + i*(b.width + 10 * Utils.getScaleFactorTo16And9()) * this._colorButtonScale;
             b.y = (cc.winSize.height - 50) * Utils.getScaleFactorTo16And9();
             b.tag = i;
+            b.setUserData(BRUSH_COLOR[i]);
             b.opacity = (i == 2) ? 255 : 180;
             b.addClickEventListener(this._changeBrushColorPressed.bind(this));
             this.addChild(b, 99);
@@ -250,8 +251,9 @@ var FreeColorLayer = TestLayer.extend({
     },
 
     _changeBrushColorPressed: function(button) {
-        var color = BRUSH_COLOR_HEX[button.tag]
-        jsb.AudioEngine.play2d("res/sounds/colors/" + localize(color.toLowerCase()) + ".mp3");
+        var color = BRUSH_COLOR_HEX[button.tag];
+        var colorName = button.getUserData();
+        jsb.AudioEngine.play2d("res/sounds/colors/" + localize(colorName.toLowerCase()) + ".mp3");
         for (var i = 0; i < this._brushColorButtons.length; i++) {
             var b = this._brushColorButtons[i];
             if (b.tag == button.tag)
