@@ -1,4 +1,6 @@
 var CURRENCY_SCALE = 0.8;
+var GOLD_ANIMATION_FRAMES_COUNT = 10;
+var DIAMOND_ANIMATION_FRAMES_COUNT = 9;
 var HudLayer = cc.Layer.extend({
     _layer: null,
     _clock: null,
@@ -19,6 +21,8 @@ var HudLayer = cc.Layer.extend({
     _trophiesEarned: 0,
     _currentGoals: 0,
     _totalGoals: 0,
+
+    _coinAnimationFrames: [],
 
     ctor: function(layer, withoutClock, timeForScene) {
         this._super();
@@ -47,11 +51,12 @@ var HudLayer = cc.Layer.extend({
 
         for (var i = 0; i < totalFrames; i++) {
             var frame = this._currencyType + "-0" + i + ".png";
-            var cache = cc.spriteFrameCache.getSpriteFrame(frame);
+            cc.log("frame: " + frame);
+            cc.log("spriteFrameCache: " + cc.spriteFrameCache.getSpriteFrame(frame));
             this._coinAnimationFrames.push(cc.spriteFrameCache.getSpriteFrame(frame));
         }
 
-        // this._coinAnimation = new cc.Animation(this._coinAnimationFrames, 0.05);
+        // this._coinAnimationFrames = new cc.Animation(this._coinAnimationFrames, 0.05);
     },
 
     addSettingButton: function() {
@@ -189,6 +194,7 @@ var HudLayer = cc.Layer.extend({
         coin.addChild(lbCoin);
 
         this._lbCoin = lbCoin;
+        this.createCoinAnimations();
     },
 
     getRemainingTime: function() {
@@ -284,9 +290,6 @@ var HudLayer = cc.Layer.extend({
             return;
 
         var amount = goldNode.tag;
-        // increase balance
-        // CurrencyManager.getInstance().incCoin(amount);
-
 
         for (var i = 0; i < amount; i++) {
             var gold = new cc.Sprite("#" + this._currencyType + ".png");
@@ -298,26 +301,23 @@ var HudLayer = cc.Layer.extend({
             var flyTime = 0.8 + Math.random()*0.2;
 
             var weight = 100 + Math.random()*150;
-            var goldBalncePos = this._lbCoin.parent.getPosition();
-            goldBalncePos = this._bg.convertToWorldSpace(goldBalncePos);
-            cc.log("pos: " + JSON.stringify(goldBalncePos));
+            var goldBalancePos = this._lbCoin.parent.getPosition();
+            goldBalancePos = this._bg.convertToWorldSpace(goldBalancePos);
+            // cc.log("pos: " + JSON.stringify(goldBalancePos));
             var goldBalanceNodeBox = this._coin.getBoundingBox();
-            // var to = cc.p(cc.rectGetMidX(goldBalanceNodeBox), cc.rectGetMidY(goldBalanceNodeBox));
-            var to = cc.p(goldBalncePos.x, goldBalncePos.y);
+            var to = cc.p(goldBalancePos.x, goldBalancePos.y);
             
             var cp2x = (gold.x > to.x ? -1 : 1) * (Math.random()*600 - 300);
             var cp1 = cc.p(gold.x, gold.y - weight);
             var cp2 = cc.p(gold.x + cp2x, gold.y - weight);
 
             var flyAction = cc.bezierTo(flyTime, [cp1, cp2, to]);
-            
-            
+                        
             this._playAdditionEffect(gold, flyTime);
-
             gold.runAction(cc.sequence(
                 flyAction,
-                cc.callFunc(function(node) {
-                    node.removeFromParent();
+                cc.callFunc(function() {
+                    gold.removeFromParent();
                 })
             ));
 
@@ -336,14 +336,20 @@ var HudLayer = cc.Layer.extend({
         goldNode.removeFromParent();
     },
 
-    _playAdditionEffect: function(node, effectTime) {
-        var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
-        node.runAction(cc.repeatForever(cc.rotateBy(effectTime, rotateValue)));
+    _playAdditionEffect: function(gold, effectTime) {
+        // var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
+        // gold.runAction(cc.repeatForever(cc.rotateBy(effectTime, rotateValue)));
+        var anim = new cc.Animation(this._coinAnimationFrames, 0.005);
+        var action = cc.repeatForever(cc.animate(anim));
+        gold.runAction(action);
     },
 
     addCoinEffect: function() {
         cc.log("HudLayer addCoinEffect");
         var coinScale = CURRENCY_SCALE;
+        this._coin.stopAllActions();
+        this._bg.stopAllActions();
+
         this._coin.runAction(cc.sequence(
             cc.scaleTo(0.15, 0.9 * coinScale),
             cc.scaleTo(0.15, coinScale)

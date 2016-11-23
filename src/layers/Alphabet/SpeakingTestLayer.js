@@ -292,6 +292,7 @@ var SpeakingTestLayer = TestLayer.extend({
             this._showNextObject();
             return;
         }
+        jsb.AudioEngine.stopAll();
         var audioId = jsb.AudioEngine.play2d(this._soundName);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             callback && callback(audioId);
