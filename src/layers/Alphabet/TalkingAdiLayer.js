@@ -28,7 +28,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.addShopButton();
         NativeHelper.callNative("changeAudioRoute");
         this.runAction(cc.sequence(
-            cc.delayTime(2),
+            cc.delayTime(3),
             cc.callFunc(function(){
                 self._block = false;
             })

@@ -85,7 +85,8 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     _addHudLayer: function(duration){
-        cc.log("_addHudLayer: " + duration);
+
+        cc.log("testlayer _addHudLayer: " + duration);
         var hudLayer = new HudLayer(this, false, duration);
         hudLayer.x = 0;
         hudLayer.y = 0;
