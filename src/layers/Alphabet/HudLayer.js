@@ -339,7 +339,7 @@ var HudLayer = cc.Layer.extend({
     _playAdditionEffect: function(gold, effectTime) {
         // var rotateValue = Math.ceil(Math.random() * 5 + 5) * 350;
         // gold.runAction(cc.repeatForever(cc.rotateBy(effectTime, rotateValue)));
-        var anim = new cc.Animation(this._coinAnimationFrames, 0.005);
+        var anim = new cc.Animation(this._coinAnimationFrames, 0.01);
         var action = cc.repeatForever(cc.animate(anim));
         gold.runAction(action);
     },
