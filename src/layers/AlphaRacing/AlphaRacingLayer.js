@@ -209,7 +209,16 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     initPlayer: function() {
-        this._player = new ARAdiDog();
+        var name = CharacterManager.getInstance().getSelectedCharacter();
+        switch (name) {
+            case "monkey":
+                cc.log("name: " + name);
+                this._player = new ARMonkey();
+                break;
+            case "adi":
+                this._player = new ARAdiDog();
+                break;
+        };
         // cc.log("initPlayer: " + JSON.stringify(this._player.getPosition()));
         this.gameLayer.addChild(this._player, AR_ADI_ZODER);
 

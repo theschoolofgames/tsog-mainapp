@@ -13,15 +13,15 @@ var StoryMainLayer = TestLayer.extend({
     _backgroundSprite: null,
     _canPlay: false,
 
-    _isTestScene: false,
+    _timeForScene: false,
     highlightBox: null,
 
-	ctor:function(data, option, isTestScene){
+	ctor:function(data, option, timeForScene){
         this._super(true);
-        this._isTestScene = isTestScene;
+        this._timeForScene = timeForScene;
         this._addButtons();
         this._fetchObjectData(data);
-        cc.log("ctor option " + option);
+        cc.log("ctor option " + timeForScene);
         switch(option) {
             case "lion_and_mouse":
                 this._currentStory = STORY_RESOURCES[0];
@@ -49,6 +49,9 @@ var StoryMainLayer = TestLayer.extend({
         this.scheduleOnce(this._playStory, 1);
 
         this._addHighLightBox();
+    },
+    _addHudLayer: function() {
+        this._super(this._timeForScene);
     },
 
     _addHighLightBox: function() {
@@ -422,10 +425,10 @@ var StoryMainLayer = TestLayer.extend({
 });
 
 var StoryMainScene = cc.Scene.extend({
-    ctor: function(data, option, isTestScene) {
+    ctor: function(data, option, timeForScene) {
         this._super();
         this.name = "story";
-        var storyMainLayer = new StoryMainLayer(data, option, isTestScene);
+        var storyMainLayer = new StoryMainLayer(data, option, timeForScene);
         this.addChild(storyMainLayer);
     }
 });

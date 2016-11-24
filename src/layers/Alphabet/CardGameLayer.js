@@ -41,16 +41,19 @@ var CardGameLayer = TestLayer.extend({
 
     timePlayed: 0,
     timePlayedOderSound: 0,
+    _timeForScene: 0,
 
-    ctor: function(objArr, isTestScene, timePlayed, timeForScene) {
+    ctor: function(objArr, timeForScene) {
         this._super();
         // this._blockFlag = true;
-        this.timePlayed = timePlayed || 0;
+        cc.log("CardGameLayer timeForScene: " + timeForScene);
+        this.timePlayed = 0;
         this._activateObjects = [];
         this._deactivateObjects = [];
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= objArr.length ? objArr.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(objArr);
-        this._setIsTestScene(isTestScene);
+        // this._setIsTestScene(isTestScene);
+        this._timeForScene = timeForScene;
         this._loadTmx();
         this._addCard();
         cc.eventManager.addListener({
@@ -68,6 +71,9 @@ var CardGameLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
+    },
+    _addHudLayer: function() {
+        this._super(this._timeForScene);
     },
 
     _addCard: function() {
@@ -92,6 +98,7 @@ var CardGameLayer = TestLayer.extend({
         action.tag = kTagSelfCardAnimation;
         this._card.runAction(action);
     },
+
 
     _addSlots: function() {
         // cc.log("_activateSlots: " + this._activateSlots.length);
@@ -506,10 +513,10 @@ var CardGameLayer = TestLayer.extend({
 });
 CardGameLayer._testData = null;
 var CardGameScene = cc.Scene.extend({
-    ctor: function(objArr, isTestScene, timePlayed, timeForScene) {
+    ctor: function(objArr, timeForScene) {
         this._super();
         CardGameLayer._testData = objArr;
-        var l = new CardGameLayer(objArr, isTestScene, timePlayed, timeForScene);
+        var l = new CardGameLayer(objArr, timeForScene);
         this.addChild(l);
     }
 })

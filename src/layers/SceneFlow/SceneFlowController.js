@@ -236,7 +236,7 @@ var SceneFlowController = cc.Class.extend({
                 cc.director.runScene(new BuildingBlocksScene(data));
                 break;
             case "freecolor":
-                cc.director.runScene(new FreeColorScene(data));
+                cc.director.runScene(new FreeColorScene(data, timeForScene));
                 break;
             default:
                 break;

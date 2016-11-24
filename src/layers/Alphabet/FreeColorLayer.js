@@ -36,7 +36,7 @@ var FreeColorLayer = TestLayer.extend({
     _colorButtonScale: 0.5,
     _currentObjectShowing: null,
 
-    ctor: function(objectIdArray, timeForScene, timeForScene) {
+    ctor: function(objectIdArray, timeForScene) {
         this._super(true);
         this._objects = [];
         this._brushColorButtons = [];
@@ -45,10 +45,9 @@ var FreeColorLayer = TestLayer.extend({
         this._collidedRenderers = [];
         this._objRenderers = [];
         this._createRenderTexture();
-
+        this._timeForScene = timeForScene;
         this._filterObjectsByType(objectIdArray);
         this.addObjects(this._objectsArray);
-        // this._addHudLayer(timeForScene);
         this._addColorButton();
 
         cc.eventManager.addListener({
@@ -74,15 +73,6 @@ var FreeColorLayer = TestLayer.extend({
         });
     },
 
-    _addHudLayer: function(timeForScene){
-        cc.log("_addHudLayer");
-        var hudLayer = new HudLayer(this, true, timeForScene);
-        hudLayer.x = 0;
-        hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer, 99);
-        this._hudLayer = hudLayer;
-        // this._hudLayer.setProgressLabelStr(this._touchCounting, this._names.length);
-    },
 
     _createRenderTexture: function() {
         this._baseRenderer = new cc.RenderTexture(cc.winSize.width, cc.winSize.height);
@@ -469,9 +459,9 @@ var FreeColorLayer = TestLayer.extend({
 })
 
 var FreeColorScene = cc.Scene.extend({
-    ctor: function(objectIdArray, timeForScene, timeForScene) {
+    ctor: function(objectIdArray, timeForScene) {
         this._super();
-        var layer = new FreeColorLayer(objectIdArray, timeForScene, timeForScene);
+        var layer = new FreeColorLayer(objectIdArray, timeForScene);
         this.addChild(layer);
     }
 });

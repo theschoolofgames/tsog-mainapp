@@ -186,6 +186,8 @@ var HudLayer = cc.Layer.extend({
         this._coin = coin;
 
         var coinAmount = CurrencyManager.getInstance().getCoin();
+        if(this._currencyType == "diamond")
+            coinAmount = CurrencyManager.getInstance().getDiamond();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
         // lbCoin.scale = 0.4;
         lbCoin.anchorX = 1;
