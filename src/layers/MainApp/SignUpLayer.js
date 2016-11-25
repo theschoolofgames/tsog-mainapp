@@ -29,7 +29,7 @@ var SignUpLayer = cc.Layer.extend({
 
         font =  res.YellowFont_fnt;
 
-        var lb = new cc.LabelBMFont("CREATE ACCOUNT", font);
+        var lb = new cc.LabelBMFont(localizeForWriting("CREATE ACCOUNT"), font);
         lb.setScale(0.7);
         lb.x = cc.winSize.width/2;
         lb.y = cc.winSize.height/2 + 1.25 * lb.height + 50;
