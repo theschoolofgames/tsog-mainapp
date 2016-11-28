@@ -572,7 +572,8 @@ var GAME_IDS = [
     "spelling",
     "shoppingbasket",
     "fruiddition",
-    "buildingblocks"
+    "buildingblocks",
+    "listening"
 ];
 
 var STORY_RESOURCES = [

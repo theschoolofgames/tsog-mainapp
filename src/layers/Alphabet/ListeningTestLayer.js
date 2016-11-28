@@ -170,7 +170,7 @@ var ListeningTestLayer = TestLayer.extend({
         remainingObj.splice(this._nameIdx, 1);
         remainingObj = shuffle(remainingObj);
         
-        // cc.log("remainingObj: " + remainingObj);
+        cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;
         if (this._keyObject.length > 0) {
             for (var i = 1; i < remainingObj.length; i++) {
@@ -213,7 +213,7 @@ var ListeningTestLayer = TestLayer.extend({
             } else
                 shownObjNames[2] = this._addedObject[0];
         }
-
+        cc.log("shownObjNames: " + JSON.stringify(shownObjNames));
         shownObjNames = shuffle(shownObjNames);
         var d = this.getStoryTimeForListeningData();
         if (d)
@@ -222,7 +222,10 @@ var ListeningTestLayer = TestLayer.extend({
         // cc.log("shownObjNames: " + shownObjNames);
         // cc.log("d: " + d);
         var secondNumberImageName;
-        for (var i = 0; i < 3; i++) {
+        var numberObjectShow = 3;
+        // if(shownObjNames.length < 3)
+        //     numberObjectShow = shownObjNames.length;
+        for (var i = 0; i < numberObjectShow; i++) {
             cc.log("i -> " + i);
             var isNumber = false;
             var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
