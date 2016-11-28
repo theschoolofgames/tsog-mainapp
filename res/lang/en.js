@@ -357,4 +357,14 @@ languages["en"] = {
     "2_plus_1": "en/2_plus_1",
     "2_plus_3": "en/2_plus_3",
     "2_plus_2": "en/2_plus_2",
+
+    //text:
+    "Not enough diamonds. Play to collect more!": "Not enough diamonds. Play to collect more!",
+    "Spend 10 coins to play!" : "Spend 10 coins to play!",
+    "You are not enough 10 coins to play!": "You are not enough 10 coins to play!",
+    "Not enough golds to play!": "Not enough golds to play!",
+    "Play": "Play",
+    "OK": "OK",
+    "CREATE ACCOUNT": "CREATE ACCOUNT",
+    "Cancel" : "Cancel",
 };

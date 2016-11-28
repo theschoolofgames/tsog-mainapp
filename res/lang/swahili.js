@@ -358,4 +358,14 @@ languages["swahili"] = {
     "2_plus_1": "swahili/2_plus_1",
     "2_plus_3": "swahili/2_plus_3",
     "2_plus_2": "swahili/2_plus_2",
+
+    //text:
+    "Not enough diamonds. Play to collect more!": "Diamods haitoshi. Kucheza kukusanya zaidi!",
+    "Spend 10 coins to play!" : "Kutumia 10 sarafu kucheza!",
+    "You are not enough 10 coins to play!": "Wewe ni haitoshi 10 sarafu kucheza!",
+    "Not enough golds to play!": "Si medali kutosha kucheza!",
+    "Play": "Kucheza",
+    "OK": "SAWA",
+    "CREATE ACCOUNT": "TENGENEZA AKAUNTI",
+    "Cancel" : "Kufuta",
 };  
