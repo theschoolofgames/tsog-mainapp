@@ -111,6 +111,7 @@ cc.game.onStart = function(){
         GameListener.setupInstance();
         IAPManager.setupInstance();
         CharacterManager.setupInstance();
+        AudioManager.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);

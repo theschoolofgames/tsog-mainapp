@@ -2,6 +2,7 @@ var ForestLayer = cc.Layer.extend({
     _effectLayers: [],
     _objects: [],
     _objectDisableds: [],
+    _objectSoundPath: [],
     _animalNames: [],
     _kvInstance: null,
     _blockLayer: null,
@@ -68,6 +69,8 @@ var ForestLayer = cc.Layer.extend({
         // this.scheduleUpdate();
 
         Utils.showVersionLabel(this);
+
+        this._preloadSounds();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -159,22 +162,16 @@ var ForestLayer = cc.Layer.extend({
         var animals = [];
         var allAnimals = this._dsInstance.getObjects(FOREST_ID);
         var rdmAnimalType = this._getRandomAnimalType(this._data.length);
-        cc.log("forestLayer: " + JSON.stringify(this._data));
         if (this._data.length) {
             for (var i = 0; i < this._data.length; i++) {
                 var obj = this._data[i];
                 for (var j = 0; j < allAnimals.length; j++) {
                     var a = allAnimals[j];
                     if (obj.value === a.imageName) {
-                        // cc.log("obj value -> " + obj.value);
-                        // cc.log("a.imageName -> " + a.imageName);
-                        // cc.log("a -> " + JSON.stringify(a));
                         animals.push(a);
                         break;
                     }
                     else if (obj.id.indexOf("number") > -1) {
-                        // cc.log("obj -> " + JSON.stringify(obj));
-                        // cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
                         animals.push({
                             "imageName": obj.value,
                             "type": rdmAnimalType[0]
@@ -183,8 +180,6 @@ var ForestLayer = cc.Layer.extend({
                         break;
                     }
                     else if (obj.id.indexOf("word") > -1) {
-                        // cc.log("obj -> " + JSON.stringify(obj));
-                        // cc.log("rdmAnimalType -> " + JSON.stringify(rdmAnimalType));
                         animals.push({
                             "imageName": obj.value,
                             "type": rdmAnimalType[0]
@@ -194,31 +189,15 @@ var ForestLayer = cc.Layer.extend({
                     }
                 }
             }
-            // cc.log("animals : " + JSON.stringify(animals));
         }
         else
             animals = this._dsInstance.getRandomObjects(FOREST_ID, Global.NumberItems);
 
-        // cc.log("Global.NumberItems: " + Global.NumberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-
-        // for (var i = 0; i < shuffledArrays.groundPositionArray.length; i++){
-        //     let pos = shuffledArrays.groundPositionArray[i];
-        //     console.log("Position " + JSON.stringify(pos));
-        //     var point = cc.Sprite("circle.png");
-        //     point.size = cc.size(10, 10);
-        //     point.setPosition(cc.p(pos.x, pos.y));
-
-        //     this.addChild(point, 1000);
-        // }
-
         var numbItemsShow = this._data.length;
-        // cc.log("numbItemsShow: " + numbItemsShow);
         for ( var i = 0; i < numbItemsShow; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
-            // cc.log("animals[i] : " + JSON.stringify(animals[i]));
-            // cc.log("animalPositionArray[i] : " + JSON.stringify(animalPositionArray[i]));
         }
         this.runSparklesEffect();
     },
@@ -825,21 +804,18 @@ var ForestLayer = cc.Layer.extend({
                 }
             }
         }, mask);
-        // cc.log("animalName:" + animalName);
-        // animalName = localize(animalName);
-        var soundPath = "res/sounds/words/" + localize(animalName) + ".mp3";
-        if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/numbers/" + localize(animalName) + ".mp3";
-        }
-        if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/alphabets/" + localize(animalName.toLowerCase()) + ".mp3";
-            cc.log("soundPath: " + soundPath);
-        }
-        if (!jsb.fileUtils.isFileExist(soundPath)) {
-            soundPath = "res/sounds/colors/" + localize(animalName) + ".mp3";
-        }
-        cc.log("Sound Path: " + soundPath);
-        jsb.AudioEngine.play2d(soundPath);
+
+        var sName = localize(animalName.toLowerCase()) + ".mp3";
+        cc.each(this._objectSoundPath, function(path) {
+            if (path.indexOf(sName) > -1) {
+                cc.log("path: " + path);
+                AudioManager.getInstance().play(path);
+                return;
+            }
+        })
+        cc.log("Sound Path: ");
+        // var soundPath = AudioManager.getInstance().getFullPathForFileName(sName);
+        
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -913,28 +889,17 @@ var ForestLayer = cc.Layer.extend({
     // },
 
     increaseAmountGamePlayeds: function() {
-        // var numberGamePlayed = this.getAmountGamePlayeds();
-        // numberGamePlayed += 1;
-        // this.setAmountGamePlayeds(numberGamePlayed);
         Global.NumberGamePlayed += 1;
         Global.NumberForestPlayed++;
     },
 
     increaseObjectAmountBaseOnPlay: function() {
-        // var numberGamePlayed = this.getAmountGamePlayeds();
         var baseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.base;
         var increaseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.increase;
         var maxObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.max || UPDATED_CONFIG.amountOfObjectBaseOnPlay.max;
 
-        // cc.log("(numberGamePlayed % baseObjectAmounts) " + (numberGamePlayed % baseObjectAmounts));
         if ((Global.NumberGamePlayed % baseObjectAmounts) == 0 && (Global.NumberItems < maxObjectAmounts))
             Global.NumberItems += increaseObjectAmounts;
-
-        // cc.log("numberItems: %d", Global.NumberItems);
-        // cc.log("numberGamePlayed: %d", Global.NumberGamePlayed);
-        // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
-        // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
-        // this.setNumberOfObjects(this._numberItems);
     },
 
     showTryAnOtherGameDialog: function() {
@@ -957,28 +922,18 @@ var ForestLayer = cc.Layer.extend({
         cc.log("_addSpeakingTest");
         var self = this;
         cc.audioEngine.stopMusic();
-        // var speakingTestScene = new SpeakingTestScene(this._animalNames, "RoomScene", "ForestScene");
         this._moveToNextScene();
     },
 
     _moveToNextScene: function() {
-        // if (this._isTestScene) {
-        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-        //     return;
-        // }
         var numberScene = KVDatabase.getInstance().getInt("scene_number");
         var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-        cc.log("numberScene: " + numberScene);
-        cc.log("durationArray: " + JSON.stringify(durationArray));
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        cc.log("nextSceneName: " + nextSceneName);
         SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data), durationArray[numberScene]);
     },
 
     _fetchObjectData: function(data) {
-        // cc.log("_fetchObjectData");
         if (data) {
-            // data = JSON.parse(data);
             this._data = data.map(function(id) {
                 cc.log("id -> " + id);
                 var o = GameObject.getInstance().findById(id);
@@ -989,7 +944,7 @@ var ForestLayer = cc.Layer.extend({
             });
         } else
             this._data = [];
-        cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
+        // cc.log("_fetchObjectData - this._data: " + JSON.stringify(this._data));
     },
 
     _getRandomAnimalType: function(length) {
@@ -1004,7 +959,6 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _createCustomFont: function(lbText) {
-        // cc.log("lbText -> " + lbText);
         var fontSize = 30;
         var object = cc.Label.createWithTTF(Utils.getTTFConfig(res.HELVETICARDBLK_ttf.srcs[0], fontSize), 
                 lbText);
@@ -1018,6 +972,32 @@ var ForestLayer = cc.Layer.extend({
 
     popGold: function(from) {
         this._hudLayer.popGold(1, from.x, from.y);
+    },
+
+    _preloadSounds: function() {
+        AudioManager.getInstance().preload(this._beginSoundPath);
+        var extension = ".mp3";
+        this._objectSoundPath = [];
+        for (var i = 0; i < this._animalNames.length; i++) {
+            var o = this._animalNames[i];
+            var oName = o["name"];
+            var fullPath = AudioManager.getInstance().getFullPathForFileName(localize(oName) + extension);
+
+            this._objectSoundPath.push(fullPath);
+            AudioManager.getInstance().preload(fullPath);
+        }
+
+    },
+
+    _unLoadSounds: function() {
+        cc.each(this._objectSoundPath, function(path) {
+            AudioManager.getInstance().unload(path);
+        })
+    },
+
+    onExit: function() {
+        this._super();
+        this._unLoadSounds();
     },
 });
 var ForestScene = cc.Scene.extend({

@@ -4,35 +4,38 @@ var Z_OBJECT_SELECTED = 10;
 var Z_SHADE_SELECTED = 9;
 
 var RoomLayer = cc.Layer.extend({
-    _kvInstance: null,
-    _hudLayer: null,
-    _maskLayer: null,
-    _objectTouching: null,
-    _currentObjectShadeZOrder: null,
     _objects: [],
     _objectNames: [],
     _shadeObjects: [],
     _correctedObject: [],
     _objectDisableds: [],
     _effectLayers: [],
+    _bedroomObjects: [],
+    _objectSoundPath: [],
+
+    _kvInstance: null,
+    _hudLayer: null,
+    _maskLayer: null,
+    _objectTouching: null,
+    _currentObjectShadeZOrder: null,
     _warningLabel: null,
     _countDownClock: null,
-    _lastClickTime: 0,
     _effectLayerShade: null,
     _effectSmoke:null,
-    _allScale: 1,
-
     _effectAudioID: null,
-
-    _isLevelCompleted: false,
     _tutorial: null,
     _completedObj: null,
-    _userId:null,
-
     _selectedShadeShader: null,
+    _userId:null,
+    _data: null,
+    _beginSoundPath: null,
+
+    _lastClickTime: 0,
+    _allScale: 1,
     _totalAngle: 0,
 
-    _data: null,
+    _isLevelCompleted: false,
+
 
     ctor: function(data, timeForScene) {
         this._super();
@@ -68,10 +71,9 @@ var RoomLayer = cc.Layer.extend({
 
         Utils.showVersionLabel(this);
 
-        // this.addChild(new WritingTestLayer([{"name":"123","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
-        // this.addChild(new PayWallDialog(), 100);
-        // this._moveToNextScene();
-        // this.completedScene();
+        this._beginSoundPath = "res/sounds/sentences/" + localize("begin-room") + ".mp3";
+
+        this._preloadSounds();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -98,6 +100,7 @@ var RoomLayer = cc.Layer.extend({
         this._super();
 
         this._objectTouching = null;
+        this._unLoadSounds();
     },
 
     update: function(pDt) {
@@ -116,18 +119,10 @@ var RoomLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_RoomScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
-            // cc.log("nation: %s", nation);
-
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-room") + ".mp3", false);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                // mask.removeFromParent();
-                cc.audioEngine.playMusic(res.background_mp3, true);
-            });
-            // KVDatabase.getInstance().set("beginSound_RoomScene", 1);
-        }else 
-            cc.audioEngine.playMusic(res.background_mp3, true);
+        if (didInstructionSoundPlay == 0)
+            AudioManager.getInstance().play(this._beginSoundPath, false, AudioManager.getInstance().playBackGroundMusic);
+        else 
+            AudioManager.getInstance().playBackGroundMusic();
     },
 
     resetAllArrays: function() {
@@ -226,28 +221,23 @@ var RoomLayer = cc.Layer.extend({
 
     addObjects: function() {
         var dsInstance = ConfigStore.getInstance();
-        // this._numberItems = this.getNumberOfObjects();
 
-        // var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._data.length);
-        // cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
-        // while (bedroomObjects.filter(function(obj) {return obj.type == "HEAVY_WEIGHT_ITEM"}).length > BEDROOM_HEAVYWEIGHT_ITEMS_POSITION.length)
-        //     var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._data.length);
-        var bedroomObjects = [];
-        this._processObjectData(bedroomObjects);
-        cc.log("bedroomObjects: " + JSON.stringify(bedroomObjects));
+        this._bedroomObjects = [];
+        this._processObjectData(this._bedroomObjects);
+        // cc.log("bedroomObjects: " + JSON.stringify(this._bedroomObjects));
 
         var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         var shuffledPositionIndex = 0, heavyObjPosIndex = 0;
 
         for ( var i = 0; i < this._data.length; i++) {
-            cc.log("iiiiii: " + JSON.stringify(bedroomObjects[i]));
-            if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
-                this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
+            cc.log("iiiiii: " + JSON.stringify(this._bedroomObjects[i]));
+            if (this._bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
+                this.addObjectButton(shuffledPositionArray[shuffledPositionIndex++], this._bedroomObjects[i].imageName, i, this._bedroomObjects[i].z);
             else
-                this.addObjectButton(heavyObjectPositions[heavyObjPosIndex++], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
+                this.addObjectButton(heavyObjectPositions[heavyObjPosIndex++], this._bedroomObjects[i].imageName, i, this._bedroomObjects[i].z);
 
-            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName, bedroomObjects[i].z);
+            this.addObjectShade(this._bedroomObjects[i], this._bedroomObjects[i].imageName, this._bedroomObjects[i].z);
         }
         this.runSparklesEffect();
     },
@@ -320,7 +310,7 @@ var RoomLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
-                    jsb.AudioEngine.play2d("sounds/smoke.mp3"),
+                    AudioManager.getInstance().play("sounds/smoke.mp3"),
                     AnimatedEffect.create(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
@@ -466,7 +456,7 @@ var RoomLayer = cc.Layer.extend({
                 object_name: targetNode.getObjectName(targetNode._objectTouching)
             });
         
-        jsb.AudioEngine.play2d("sounds/pickup.mp3");
+        AudioManager.getInstance().play("sounds/pickup.mp3");
         targetNode.processGameLogic();
         if (Global.NumberGamePlayed < 2) {
             if(targetNode._tutorial != null) {
@@ -552,7 +542,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
 
-        jsb.AudioEngine.play2d("sounds/drop.mp3");
+        AudioManager.getInstance().play("sounds/drop.mp3");
     },
 
     processGameLogic: function() {
@@ -705,8 +695,8 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             jsb.AudioEngine.stop(this._effectAudioID);
-        
-        this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
+
+        this._effectAudioID = AudioManager.getInstance().play("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
 
         if (!isDragging)
         {
@@ -751,7 +741,7 @@ var RoomLayer = cc.Layer.extend({
 
     addSoundCountDown: function() {
         if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
-            jsb.AudioEngine.play2d("res/sounds/Countdown.mp3")
+            AudioManager.getInstance().play("res/sounds/Countdown.mp3")
         }
     },
 
@@ -875,9 +865,9 @@ var RoomLayer = cc.Layer.extend({
 
     _processObjectData: function(bedroomObjects) {
         var self = this;
-        cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
+        // cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
         this._data.forEach(function(obj) {
-            cc.log("processGameLogic: obj: " + obj.value);
+            // cc.log("processGameLogic: obj: " + obj.value);
             for(var i = 0; i < BEDROOM_ITEMS.length; i++) {
                 var item = BEDROOM_ITEMS[i];
                 if (obj.value === item.imageName) {
@@ -889,6 +879,30 @@ var RoomLayer = cc.Layer.extend({
 
     popGold: function(from) {
         this._hudLayer.popGold(1, from.x, from.y);
+    },
+
+    _preloadSounds: function() {
+        AudioManager.getInstance().preload(this._beginSoundPath);
+        AudioManager.getInstance().preload("sounds/drop.mp3");
+        AudioManager.getInstance().preload("sounds/pickup.mp3");
+        AudioManager.getInstance().preload("sounds/smoke.mp3");
+        var extension = ".mp3";
+        this._objectSoundPath = [];
+        for (var i = 0; i < this._bedroomObjects.length; i++) {
+            var o = this._bedroomObjects[i];
+            var oName = o["imageName"];
+            var fullPath = AudioManager.getInstance().getFullPathForFileName(localize(oName) + extension);
+
+            this._objectSoundPath.push(fullPath);
+            AudioManager.getInstance().preload(fullPath);
+        }
+
+    },
+
+    _unLoadSounds: function() {
+        cc.each(this._objectSoundPath, function(path) {
+            AudioManager.getInstance().unload(path);
+        })
     },
 });
 
