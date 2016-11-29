@@ -368,4 +368,5 @@ languages["swahili"] = {
     "OK": "SAWA",
     "CREATE ACCOUNT": "TENGENEZA AKAUNTI",
     "Cancel" : "Kufuta",
+    "Send feedback and comments to anshul@theschoolofgames.org": "Kutuma maoni na maoni kwa anshul@theschoolofgames.org",
 };  

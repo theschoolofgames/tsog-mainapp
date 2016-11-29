@@ -20,6 +20,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     _currentAvailableSlot: null,
     _currentObjectOriginPos: null,
     _goal: 0,
+    _indexOfLastObject: 0,
 
     ctor: function(data, timePlayed, timeForScene) {
         this._super();
@@ -30,7 +31,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._fetchObjectData(data);
 
         this._addBasket();
-        this._showAllObjects();
+        this._showObjects();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -78,13 +79,19 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentAvailableSlot = this._activateSlots[0];
     },
 
-    _showAllObjects: function() {
+    _showObjects: function() {
         var currentX = 0;
         var tempX = 0;
         var tempY = 1;
         var lastObjX = 0;
         var inSecondRow = false;
-        for (var i = 0; i < this._data.length; i++) {
+        var firstIndex = this._indexOfLastObject;
+        if(this._indexOfLastObject + 20 < this._data.length)
+            this._indexOfLastObject = this._indexOfLastObject + 20;
+        else
+            this._indexOfLastObject = this._data.length;
+
+        for (var i = firstIndex ; i < this._indexOfLastObject; i++) {
             var objImageName = this._data[i].value;
             var objType = this._data[i].type;
             var imgPath = objType + "s/" + objImageName + ".png";
@@ -220,7 +227,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
 
     _checkCompletedScene: function() {
-        if (this._activateObjects.length == 0) {
+        if (this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
             this._blockFlag = true;
             if (this.timePlayed < 3)
                 this.runAction(cc.sequence(
@@ -258,6 +265,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentObjectMoving.setPosition(this._currentAvailableSlot);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
+        cc.log("_deactivateObjects: " + this._deactivateObjects.length);
         this._currentObjectMoving.ZOder = 1;
         //set for playSoundObjectOder
         // this._currentObjectOder += 1;
@@ -272,15 +280,17 @@ var ShoppingBasketLayer = TestLayer.extend({
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
         // cc.log("_activateSlots: %d", this._activateSlots.length);
-        this._checkCompletedScene();
         this.updateProgressBar();
+        if(this._activateObjects.length == 0 && this._indexOfLastObject < this._data.length)
+            this._showObjects();
+        this._checkCompletedScene();
     },
 
     updateProgressBar: function() {
         var percent = this._deactivateObjects.length / this._goal;
         
         this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._touchCounting);
+        this.setHUDCurrentGoals(this._deactivateObjects.length);
 
         this._super();
     },

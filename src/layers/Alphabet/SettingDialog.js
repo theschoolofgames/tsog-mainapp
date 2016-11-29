@@ -187,7 +187,7 @@ var SettingDialog = cc.Layer.extend({
     },
 
     _addContactDetail: function() {
-        var text = "Send feedback and comments to anshul@theschoolofgames.org";
+        var text = localize("Send feedback and comments to anshul@theschoolofgames.org");
         font = FONT_COLOR[1];
 
         // text = text.toUpperCase();

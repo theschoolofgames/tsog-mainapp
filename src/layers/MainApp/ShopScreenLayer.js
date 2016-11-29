@@ -262,7 +262,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                 else {
                     self._character.adiShakeHead();
                     var diamondsNeed = characterCfg.price - CurrencyManager.getInstance().getDiamond();
-                    var text = localizeForWriting("Not enough diamonds. Play to collect more!");
+                    var text = localize("Not enough diamonds. Play to collect more!");
                     if(self._showDialog) {
                         self._showDialog = false;
                         self.runAction(cc.sequence(

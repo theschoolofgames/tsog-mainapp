@@ -20,10 +20,10 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         this._dialogBg = dialogBg;
     },
     _addText: function(isNotEnoughCoin) {
-        var text = new cc.LabelBMFont(localizeForWriting("Spend 10 coins to play!"), res.HomeFont_fnt);
+        var text = new cc.LabelBMFont(localize("Spend 10 coins to play!"), res.HomeFont_fnt);
         text.scale = 0.7;
         if(isNotEnoughCoin)
-            text.setString(localizeForWriting("You are not enough 10 coins to play!"));
+            text.setString(localize("You are not enough 10 coins to play!"));
         text.x = this._dialogBg.width/2 + 20;
         text.y = this._dialogBg.height/2 + 100;
         text.setColor(cc.color(255,255,255));
@@ -52,9 +52,9 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         buttonPlay.y = 100;
         // buttonPlay.scale = 0.6;
         this._dialogBg.addChild(buttonPlay);
-        lbPlay = new cc.LabelBMFont(localizeForWriting("Play"), "res/font/custom_font.fnt");
+        lbPlay = new cc.LabelBMFont(localize("Play"), "res/font/custom_font.fnt");
         if(isNotEnoughCoin) 
-            lbPlay.setString(localizeForWriting("OK"));
+            lbPlay.setString(localize("OK"));
         // lbPlay.scale = 0.6;
         lbPlay.x = buttonPlay.width/2;
         lbPlay.y = buttonPlay.height/2;

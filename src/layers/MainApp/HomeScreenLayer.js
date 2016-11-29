@@ -241,10 +241,10 @@ var HomeScreenLayer = cc.Layer.extend({
         });
         
         var text = localizeForWriting("choose language");
-        var lb = new cc.LabelBMFont(text, res.HudFont_fnt);
-        lb.scale = (button.width * 0.75) / lb.width;
+        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        lb.scale = (button.width * 0.9) / lb.width;
         lb.x = button.width/2;
-        lb.y = button.height/2;
+        lb.y = button.height/2 + 3;
         button.getVirtualRenderer().addChild(lb);
     },
 });
