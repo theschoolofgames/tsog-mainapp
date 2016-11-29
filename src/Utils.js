@@ -214,19 +214,19 @@ Utils.startCountDownTimePlayed = function(method) {
         Utils.outOfFreeDay = KVDatabase.getInstance().getInt("outOfFreeDay", 0);
         Utils.subscribed = KVDatabase.getInstance().getInt("subscribed", 0);
         Utils.fullAccess = KVDatabase.getInstance().getInt(STRING_USER_FULL_ACCESS, 0);
-        console.log("STRING_USER_FULL_ACCESS -> " + (Utils.fullAccess == 0 ? "NO" : "YES"));
+        // console.log("STRING_USER_FULL_ACCESS -> " + (Utils.fullAccess == 0 ? "NO" : "YES"));
         if (TSOG_DEBUG)
             return;
         if (Utils.outOfFreeDay === 0 || Utils.subscribed === 1 || Utils.fullAccess === 1) {
-            console.log("outOfFreeDay -> " + (Utils.outOfFreeDay==0 ? "NO" : "YES"));
-            console.log("subscribed -> " + (Utils.subscribed==0 ? "NO" : "YES"));
-            console.log("Still Free To Play --> RETURN!");
+            // console.log("outOfFreeDay -> " + (Utils.outOfFreeDay==0 ? "NO" : "YES"));
+            // console.log("subscribed -> " + (Utils.subscribed==0 ? "NO" : "YES"));
+            // console.log("Still Free To Play --> RETURN!");
             return;
         }
 
         // Parse time played 
         var timePlayedInDay = KVDatabase.getInstance().getString("timePlayedInDay", ""); // Format: TimePlayedOnSecond_UTCDay like 0000_0000000
-        console.log("TimePlayedInDay: " + timePlayedInDay);
+        // console.log("TimePlayedInDay: " + timePlayedInDay);
         
         if (timePlayedInDay){
             var timeSecondPlayedTotal = parseInt(timePlayedInDay.split("_")[0]);
