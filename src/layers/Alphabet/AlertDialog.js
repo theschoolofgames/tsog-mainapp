@@ -79,7 +79,7 @@ var AlertDialog = cc.LayerColor.extend({
         buttonPlay.addClickEventListener(function(){
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING) {
                 // self._showDialog();
-                var mess = localizeForWriting("Not enough golds to play!");
+                var mess = localize("Not enough golds to play!");
                 NativeHelper.callNative("showMessage", ["Message", mess]);
             }
             else {

@@ -367,4 +367,5 @@ languages["en"] = {
     "OK": "OK",
     "CREATE ACCOUNT": "CREATE ACCOUNT",
     "Cancel" : "Cancel",
+    "Send feedback and comments to anshul@theschoolofgames.org": "Send feedback and comments to anshul@theschoolofgames.org",
 };

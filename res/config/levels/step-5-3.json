@@ -172,11 +172,10 @@
     "1": {
       "name": "gofigure",
       "data": [
-        "flower",
-        "bus",
-        "apple",
-        "banana",
-        "cap"
+        "shape_square",
+        "shape_rectangle",
+        "shape_triangle",
+        "shape_circle"
       ],
       "duration": 180
     }

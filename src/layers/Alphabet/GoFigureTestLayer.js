@@ -392,7 +392,7 @@ var GoFigureTestLayer = TestLayer.extend({
         } else {
             spritePath = "animals/" + name.toLowerCase() + ".png";
         }
-        
+        cc.log("spritePath: " + spritePath);
         var s = new cc.Sprite(spritePath);
         s.x = cc.winSize.width * 0.65;
         s.y = cc.winSize.height * 0.5;

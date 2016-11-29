@@ -77,6 +77,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-talkingAdi") + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            if(!mask)
+                return;
             mask.removeFromParent();
             self._talkingAdi.adiIdling();
 
