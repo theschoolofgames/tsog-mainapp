@@ -12,7 +12,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         this._super();
 
         this.addBackButton();
-        this.addCurrency();
+        // this.addCurrency();
     },
 
     addBackGround: function() {},

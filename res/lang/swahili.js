@@ -360,13 +360,19 @@ languages["swahili"] = {
     "2_plus_2": "swahili/2_plus_2",
 
     //text:
-    "Not enough diamonds. Play to collect more!": "Diamods haitoshi. Kucheza kukusanya zaidi!",
+    "Not enough diamond. Play to collect more!": "Diamods haitoshi. Kucheza kukusanya zaidi!",
     "Spend 10 coins to play!" : "Kutumia 10 sarafu kucheza!",
+    "Need 10 coins to play!": "Haja 10 sarafu kucheza!",
     "You are not enough 10 coins to play!": "Wewe ni haitoshi 10 sarafu kucheza!",
-    "Not enough golds to play!": "Si medali kutosha kucheza!",
+    "Not enough gold to play!": "Si dhahabu ya kutosha ya kucheza!",
     "Play": "Kucheza",
     "OK": "SAWA",
     "CREATE ACCOUNT": "TENGENEZA AKAUNTI",
     "Cancel" : "Kufuta",
+    "SHOP": "DUKA",
     "Send feedback and comments to anshul@theschoolofgames.org": "Kutuma maoni na maoni kwa anshul@theschoolofgames.org",
-};  
+    "Checking noise...": "Kuangalia kelele ...",
+    "Too noisy, skip speaking": "Kelele sana, ruka akizungumza",
+    "Let's play speaking":"Hebu kucheza akizungumza",
+    "BACK": "NYUMA",
+};

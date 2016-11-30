@@ -18,9 +18,12 @@ var StoryMainLayer = TestLayer.extend({
 
 	ctor:function(data, option, timeForScene){
         this._super(true);
+        this.currentSubtitle = null;
+        this.subtitles = [];
         this._timeForScene = timeForScene;
         this._addButtons();
         this._fetchObjectData(data);
+        this._canPlay = true;
         cc.log("ctor option " + timeForScene);
         switch(option) {
             case "lion_and_mouse":
@@ -106,16 +109,13 @@ var StoryMainLayer = TestLayer.extend({
     update: function(dt) {
         if (!this._canPlay)
             return;
-
         this.currentCountTime += dt;
 
         if (this.currentSubtitle){
-
             // Shift words one-by-one, highlight by their position
             while (this.currentSubtitle.words.length > 0 && 
                 this.currentCountTime * 1000 - this.currentSubtitle.start >= this.currentSubtitle.words[0].time){
                 let currentWord = this.currentSubtitle.words.shift();
-
                 this.currentSubtitle.highLightLayer.setContentSize(currentWord.width, this.TEXT_HEIGHT);
                 this.currentSubtitle.highLightLayer.setPosition(cc.p(currentWord.wordPos.x, 
                     this.currentSubLabelHeight + currentWord.wordPos.y));
@@ -138,7 +138,6 @@ var StoryMainLayer = TestLayer.extend({
                 this._stopStory();
                 // Complete story callback here
                 this.completedScene();
-
                 return;
             }
             else {
@@ -236,6 +235,7 @@ var StoryMainLayer = TestLayer.extend({
 	},
 
     _loadSubtitle: function(subtitleFile) {
+        cc.log("LOAD SUBTITLE: " + subtitleFile);
     	var self = this;
     	cc.loader.loadTxt(subtitleFile, function(err, data){
 		    if(err) return console.log("Load failed: " + subtitleFile);
@@ -367,7 +367,7 @@ var StoryMainLayer = TestLayer.extend({
             self.backToHome();
         });
 
-        var lbBack = new cc.LabelBMFont("BACK", "yellow-font-export.fnt");
+        var lbBack = new cc.LabelBMFont(localize("BACK"), "yellow-font-export.fnt");
         lbBack.scale = 0.6;
         lbBack.x = btnBack.width/2;
         lbBack.y = btnBack.height/2;

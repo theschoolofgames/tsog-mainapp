@@ -19,8 +19,7 @@ var LevelDialog = Dialog.extend({
         if (level) {
             this._level = level;
             this._fetchDataAtLevel(level);
-        }
-
+        };
     },
 
     _addDialog: function() {

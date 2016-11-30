@@ -55,7 +55,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             cc.director.runScene(new ShopScene());
         });
 
-        var lbButton = new cc.LabelBMFont("SHOP", "yellow-font-export.fnt");
+        var lbButton = new cc.LabelBMFont(localize("SHOP"), "yellow-font-export.fnt");
         // lbButton.scale = 0.5;
         lbButton.x = shopBtn.width/2;
         lbButton.y = shopBtn.height/2;
@@ -77,9 +77,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-talkingAdi") + ".mp3", false);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            if(!mask)
-                return;
-            mask.removeFromParent();
+            if(mask)
+                mask.removeFromParent();
             self._talkingAdi.adiIdling();
 
             // self._addCountDownClock();

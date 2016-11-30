@@ -95,7 +95,7 @@ var SpeakingTestLayer = TestLayer.extend({
     testBackgroundNoise: function() {
         var self = this;
         var adiBBox = this._adiDog.getBoundingBox();
-        var checkingText = new cc.LabelBMFont("Checking noise...", this.font);
+        var checkingText = new cc.LabelBMFont(localize("Checking noise..."), this.font);
         checkingText.scale = Utils.screenRatioTo43();
         checkingText.x = cc.winSize.width* 0.7;
         checkingText.y = cc.winSize.height/2;
@@ -122,9 +122,9 @@ var SpeakingTestLayer = TestLayer.extend({
             cc.callFunc(function() {
                 self._adiDog.adiIdling();
                 if (SpeakingTestLayer.shouldSkipTest)
-                    checkingText.setString("Too noisy, skip speaking");
+                    checkingText.setString(localize("Too noisy, skip speaking"));
                 else
-                    checkingText.setString("Let's play speaking");
+                    checkingText.setString(localize("Let's play speaking"));
             }),
             cc.delayTime(AFTER_CHECKING_NOISE_TIME),
             cc.callFunc(function() {
