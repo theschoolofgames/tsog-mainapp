@@ -28,7 +28,7 @@ var AlertDialog = cc.LayerColor.extend({
 
     _showDialog: function(){
         var dialog = new MessageDialog("#level_dialog_frame.png");
-        var lb = new cc.LabelBMFont(localizeForWriting("Need 10 coins to play!"), res.HomeFont_fnt);
+        var lb = new cc.LabelBMFont(localize("Need 10 coins to play!"), res.HomeFont_fnt);
         lb.scale = 0.7;
         lb.x = dialog.background.width/2 + 20;
         lb.y = dialog.background.height/2 + 100;
@@ -43,7 +43,7 @@ var AlertDialog = cc.LayerColor.extend({
         button.addClickEventListener(function(){
             dialog.removeFromParent();
         });
-        var lbOK = new cc.LabelBMFont(localizeForWriting("OK"), res.CustomFont_fnt); 
+        var lbOK = new cc.LabelBMFont(localize("OK"), res.CustomFont_fnt); 
         lbOK.scale = 0.5;
         lbOK.x = button.width/2;
         lbOK.y = button.height/2;
@@ -57,7 +57,7 @@ var AlertDialog = cc.LayerColor.extend({
         buttonCancel.x = this._dialogBg.width/2 - buttonCancel.width/2;
         buttonCancel.y = 100;
         this._dialogBg.addChild(buttonCancel);
-        lbCancel = new cc.LabelBMFont("Cancel", "res/font/custom_font.fnt");
+        lbCancel = new cc.LabelBMFont(localize("Cancel"), "res/font/custom_font.fnt");
         lbCancel.scale = 0.4;
         lbCancel.x = buttonCancel.width/2;;
         lbCancel.y = buttonCancel.height/2;
@@ -71,7 +71,7 @@ var AlertDialog = cc.LayerColor.extend({
         buttonPlay.x = this._dialogBg.width/2 + buttonPlay.width/2;
         buttonPlay.y = 100;
         this._dialogBg.addChild(buttonPlay);
-        lbPlay = new cc.LabelBMFont(localizeForWriting("Play"), "res/font/custom_font.fnt");
+        lbPlay = new cc.LabelBMFont(localize("Play"), "res/font/custom_font.fnt");
         lbPlay.scale = 0.4;
         lbPlay.x = buttonPlay.width/2;
         lbPlay.y = buttonPlay.height/2;
@@ -79,7 +79,7 @@ var AlertDialog = cc.LayerColor.extend({
         buttonPlay.addClickEventListener(function(){
             if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING) {
                 // self._showDialog();
-                var mess = localize("Not enough golds to play!");
+                var mess = localize("Not enough gold to play!");
                 NativeHelper.callNative("showMessage", ["Message", mess]);
             }
             else {

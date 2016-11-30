@@ -38,6 +38,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchMoved: this.onTouchMoved.bind(this),
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
+        // CurrencyManager.getInstance().incDiamond(2000);
         cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         
@@ -262,7 +263,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                 else {
                     self._character.adiShakeHead();
                     var diamondsNeed = characterCfg.price - CurrencyManager.getInstance().getDiamond();
-                    var text = localize("Not enough diamonds. Play to collect more!");
+                    var text = localize("Not enough diamond. Play to collect more!");
                     if(self._showDialog) {
                         self._showDialog = false;
                         self.runAction(cc.sequence(
@@ -284,7 +285,8 @@ ShopScreenLayer = cc.LayerColor.extend({
                         cc.director.runScene(new TalkingAdiScene());
                     })
                 ));
-            }
+            };
+            self._hudLayer.updateBalance();
         });
         var lb = new cc.LabelBMFont(lbButton, res.HomeFont_fnt);
         lb.scale = 0.7;
@@ -328,7 +330,7 @@ ShopScreenLayer = cc.LayerColor.extend({
 
     _pressArrow: function(){
         var self  = this;
-        var mask = new  cc.LayerColor(cc.color(0,0,0,0));
+        var mask = new cc.LayerColor(cc.color(0,0,0,0));
         mask.width = cc.winSize.width;
         mask.height = cc.winSize.height;
         this._mask = mask;

@@ -1,7 +1,6 @@
 cmudict-en-us.dict
+cmudict-sw.dict
 tsog.gram
-digits.gram
-en-phone.dmp
 en-us-ptm/README
 en-us-ptm/feat.params
 en-us-ptm/mdef
@@ -10,5 +9,11 @@ en-us-ptm/noisedict
 en-us-ptm/sendump
 en-us-ptm/transition_matrices
 en-us-ptm/variances
-menu.gram
-weather.dmp
+sw-ptm/feat.params
+sw-ptm/mdef
+sw-ptm/means
+sw-ptm/mixture_weights
+sw-ptm/noisedict
+sw-ptm/sendump
+sw-ptm/transition_matrices
+sw-ptm/variances

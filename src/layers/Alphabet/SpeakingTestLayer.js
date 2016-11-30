@@ -17,6 +17,9 @@ var SpeakingTestLayer = TestLayer.extend({
     _event_time_up: null,
 
     ctor: function(data, duration) {
+        console.log(JSON.stringify(data));
+        console.log(duration);
+
         this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
@@ -92,7 +95,7 @@ var SpeakingTestLayer = TestLayer.extend({
     testBackgroundNoise: function() {
         var self = this;
         var adiBBox = this._adiDog.getBoundingBox();
-        var checkingText = new cc.LabelBMFont("Checking noise...", this.font);
+        var checkingText = new cc.LabelBMFont(localize("Checking noise..."), this.font);
         checkingText.scale = Utils.screenRatioTo43();
         checkingText.x = cc.winSize.width* 0.7;
         checkingText.y = cc.winSize.height/2;
@@ -119,9 +122,9 @@ var SpeakingTestLayer = TestLayer.extend({
             cc.callFunc(function() {
                 self._adiDog.adiIdling();
                 if (SpeakingTestLayer.shouldSkipTest)
-                    checkingText.setString("Too noisy, skip speaking");
+                    checkingText.setString(localize("Too noisy, skip speaking"));
                 else
-                    checkingText.setString("Let's play speaking");
+                    checkingText.setString(localize("Let's play speaking"));
             }),
             cc.delayTime(AFTER_CHECKING_NOISE_TIME),
             cc.callFunc(function() {
@@ -150,7 +153,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_SpeakingTestScene", 0);
         if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
+            // var nation = Utils.getLanguage();
             cc.log("if");
             this._adiDog.adiTalk();
             
@@ -292,7 +295,7 @@ var SpeakingTestLayer = TestLayer.extend({
             this._showNextObject();
             return;
         }
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
         var audioId = jsb.AudioEngine.play2d(this._soundName);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             callback && callback(audioId);
