@@ -33,8 +33,9 @@ var FruidditionGameLayer = TestLayer.extend({
     _oldScale: 1,
 
     _blockTouch: false,
-    _operationSoundReady: false,
+    _operationSoundReadyToPlay: false,
     _operationSoundPath: null,
+    _currentObject: null,
 
     ctor: function(data, timeForScene) {
         this._super();
@@ -112,9 +113,14 @@ var FruidditionGameLayer = TestLayer.extend({
         // clear previous session
         this._cleanPreviousSession();
 
+        this._currentObject = this._type;
+        if (cc.isArray(this._type)) {
+            this._currentObject = this._type[Math.floor(Math.random() * this._type.length)];
+            cc.log(this._type);
+        }
+
         // 1st row
         var idx = 0;
-        
         for (var key in this._data) {
             if (key.indexOf("operation") > -1)
                 continue;
@@ -127,10 +133,8 @@ var FruidditionGameLayer = TestLayer.extend({
             for (var i = 0; i < objCount; i++) {
                 if (i%3 == 0)
                     heightIdx++;
-                var objectName = this._type;
-                if (Array.isArray(this._type))
-                    objectName = this._type[Math.floor(Math.random() * this._type.length)];
-                var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
+                
+                var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
                 o.scale = 0.5;
                 o.x = o.width/2 + o.width * (i%3) * o.scale;
                 o.y = -(o.height + 10) * heightIdx * o.scale;
@@ -168,10 +172,7 @@ var FruidditionGameLayer = TestLayer.extend({
         if (!isNaN(goal))
             goal = parseInt(goal);
         for (var i = 0; i < goal; i++) {
-            var objectName = this._type;
-            if (Array.isArray(this._type))
-                objectName = this._type[Math.floor(Math.random() * this._type.length)];
-            var o = new cc.Sprite("res/SD/objects/"+ objectName + ".png");
+            var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
             if ((cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) >= (o.width*goal))
                 o.scale = 1;
             else
@@ -201,15 +202,14 @@ var FruidditionGameLayer = TestLayer.extend({
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
             jsb.AudioEngine.stopAll();
-            var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._type) + ".mp3");
+            var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
             jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
-                if (!self._operationSoundReady)
+                if (!self._operationSoundReadyToPlay)
                     return;
                 if (!self._operationSoundExist) {
                     self._blockTouch = false;
                     self._showNextOperation();
                 }
-                cc.log("self._operationSoundPath: " + self._operationSoundPath);
                 var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
                 jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
                     jsb.AudioEngine.stopAll();
@@ -221,14 +221,6 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        // if (!data)
-        //     return;
-        // cc.log("fruiddition _fetchObjectData");
-        // this._type = FRUIDDITION_DATA["type"];
-        // this._data = JSON.parse(JSON.stringify(FRUIDDITION_DATA["data"][0]));
-        // if (data)
-        //     data = JSON.parse(data);
-        // cc.log("data:" + JSON.stringify(data));
         this._type = data["type"];
         this._data = data["data"][0];
 
@@ -340,7 +332,7 @@ var FruidditionGameLayer = TestLayer.extend({
         if (this._dropSpots.length == 0) {
             if (!this._checkWonGame()) {
                 this._completeOperationAction();
-                this._operationSoundReady = true;
+                this._operationSoundReadyToPlay = true;
                 if (jsb.fileUtils.isFileExist(this._operationSoundPath))
                     this._operationSoundExist = true;
             }
@@ -374,7 +366,8 @@ var FruidditionGameLayer = TestLayer.extend({
         this._draggingObjects = [];
         this._dropSpots = [];
         this._operationSoundPath = null;
-        this._operationSoundReady = false;
+        this._operationSoundReadyToPlay = false;
+        this._currentObject = null;
     },
 
     _completeOperationAction: function() {

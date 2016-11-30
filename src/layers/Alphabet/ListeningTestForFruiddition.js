@@ -63,8 +63,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
                     heightIdx++;
                 var randomType = this._randomType();
                 cc.log("randomType: " + randomType);
-                cc.log("this._type[randomType]: " + this._type[randomType]);
-                var o = new cc.Sprite("res/SD/objects/"+ this._type[randomType] + ".png");
+                var o = new cc.Sprite("res/SD/objects/"+ randomType + ".png");
                 o.scale = 0.5;
                 o.x = o.width/2 + o.width * (k%3) * o.scale;
                 o.y = -(o.height + 10) * heightIdx * o.scale;
@@ -105,6 +104,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
 
         var self = this;
         var shownObjNames = [];
+        this._currentObject = null;
 
         var remainingObj = this._names.slice(0);
         cc.log("remainingObj: " + remainingObj);
@@ -125,6 +125,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
             var node = new cc.Layer();
             // node.setAnchorPoint(0, 0.5);
+            node.setContentSize(150, 300);
             node.setCascadeOpacityEnabled(true);
             var heightIdx = 0;
 
@@ -132,15 +133,15 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
                 if (k >= 3 && k%3 == 0)
                     heightIdx++;
                 var randomType = this._randomType();
-                var o = new cc.Sprite("res/SD/objects/"+ this._type[randomType] + ".png");
-                // o.scale = 0.5;
-                node.setContentSize(o.width * 3 *o.scale, o.height*shownObjNames[i] * o.scale);
+                var o = new cc.Sprite("res/SD/objects/"+ randomType + ".png");
+                o.scale = Math.min(node.width / (o.width*shownObjNames[i]), node.height / (o.height*shownObjNames[i]));
+                // node.setContentSize(o.width * 3 *o.scale, o.height*shownObjNames[i] * o.scale);
                 o.x = node.width/2 - o.width/2* o.scale + o.width * (k%3) * o.scale;
                 o.y = node.height/2 - (o.height + 10) * heightIdx * o.scale;
                 node.addChild(o, STAND_OBJECT_ZORDER);
             }
             node.name = shownObjNames[i];
-            node.scale = Math.min(150 / node.width, 300 / node.height) * Utils.screenRatioTo43();
+            // node.scale = Math.min(150 / node.width, 300 / node.height) * Utils.screenRatioTo43();
             node.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43() - node.width/2;
             node.y = this._objCenter.y - node.height/2;
 
@@ -183,7 +184,14 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
     },
 
     _randomType: function() {
-        return Math.floor(Math.random() * this._type.length);
+        if (!this._currentObject) {
+            this._currentObject = this._type;
+            if (cc.isArray(this._type))
+                this._currentObject = this._type[Math.floor(Math.random() * this._type.length)];
+
+            return this._currentObject;
+        } else
+            return this._currentObject;
     },
 
     _fetchObjectData: function(data) {
