@@ -6,6 +6,12 @@ var SpeechRecognitionListener = cc.Class.extend({
         // cc.log("number config: " + JSON.stringify(NUMBER_CONFIG_ITEMS));
         // cc.log("color config: " + JSON.stringify(COLOR_CONFIG_ITEMS));
 
+        var excludeWords;
+
+        cc.loader.loadJson("config/exclude_words.json", function(error, data) {
+            excludeWords = data[currentLanguage];
+        })
+
         var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).map(function(obj) {
             if (obj.imageName.indexOf("btn") > -1) {
                 cc.log("obj.value: " + obj.value);
@@ -16,11 +22,20 @@ var SpeechRecognitionListener = cc.Class.extend({
         });
 
         itemArray = itemArray.map(function(obj) {
+            // cc.log(obj + " " + languagesForWriting[currentLanguage][obj]);
+            return languagesForWriting[currentLanguage][obj];
+        }).filter(function(obj) {
+            var words = obj.split(" ");
+            for (var w in words)
+                if (excludeWords.indexOf(w) >= 0)
+                    return false;
+            return true;
+        }).map(function(obj) {
             if (obj == "toytrain")
                 return "toy train";
 
             return obj;
-        });
+        })
 
         cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
 

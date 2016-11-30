@@ -17,6 +17,9 @@ var SpeakingTestLayer = TestLayer.extend({
     _event_time_up: null,
 
     ctor: function(data, duration) {
+        console.log(JSON.stringify(data));
+        console.log(duration);
+
         this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
@@ -150,7 +153,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_SpeakingTestScene", 0);
         if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
+            // var nation = Utils.getLanguage();
             cc.log("if");
             this._adiDog.adiTalk();
             
@@ -292,7 +295,7 @@ var SpeakingTestLayer = TestLayer.extend({
             this._showNextObject();
             return;
         }
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
         var audioId = jsb.AudioEngine.play2d(this._soundName);
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             callback && callback(audioId);
