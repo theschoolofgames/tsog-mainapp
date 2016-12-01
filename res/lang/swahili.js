@@ -375,4 +375,6 @@ languages["swahili"] = {
     "Too noisy, skip speaking": "Kelele sana, ruka akizungumza",
     "Let's play speaking":"Hebu kucheza akizungumza",
     "BACK": "NYUMA",
+    "Choose": "Chagua",
+    "Game Over": "Shindano limekwisha",
 };

@@ -119,7 +119,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
-                this.completedScene("Game Over");
+                this.completedScene(localize("Game Over"));
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
