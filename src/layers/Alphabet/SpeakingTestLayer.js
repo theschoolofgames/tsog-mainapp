@@ -17,9 +17,6 @@ var SpeakingTestLayer = TestLayer.extend({
     _event_time_up: null,
 
     ctor: function(data, duration) {
-        console.log(JSON.stringify(data));
-        console.log(duration);
-
         this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
@@ -32,7 +29,8 @@ var SpeakingTestLayer = TestLayer.extend({
         }, this);
         this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
-        cc.log("SpeakingTestLayer");
+        // cc.log("SpeakingTestLayer");
+        NativeHelper.callNative("changeAudioRoute");
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
     _addHudLayer: function(){
