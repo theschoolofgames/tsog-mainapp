@@ -374,4 +374,6 @@ languages["en"] = {
     "Too noisy, skip speaking": "Too noisy, skip speaking",
     "Let's play speaking":"Let's play speaking",
     "BACK": "BACK",
+    "Choose": "Choose",
+    "Game Over":"Game Over",
 };

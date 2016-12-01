@@ -205,7 +205,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         cc.log("name: " + characterCfg.name);
         var lbButton = "";
         if(unlocked)
-            lbButton = "Choose";
+            lbButton = localize("Choose");
 
         cc.log("characterCfg.name: " + (CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name));
         if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
@@ -255,7 +255,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     cc.log("button.x");
                     button.x = cc.winSize.width/2;
                     lbPrice.removeFromParent();
-                    lb.setString("Choose");
+                    lb.setString(localize("Choose"));
                     self._character.adiJump();
                     self._hudLayer.updateBalance();
                     button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);

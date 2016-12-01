@@ -142,6 +142,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
         
         // cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
@@ -166,10 +167,10 @@ cc.game.onStart = function(){
         // cc.director.runScene(new BalloonGameScene([{"type": "word","value": "A","amount": "3"},{"type": "color","value": "color_blue","amount": "3"},{"type": "word","value": "a","amount": "3"},]));
         // cc.director.runScene(new MainScene());
         // cc.director.runScene(new ShopScene());
-        cc.director.runScene(new HomeScene());
+        // cc.director.runScene(new HomeScene());
         // cc.director.runScene(new ShadowGameScene(["egg","hat","hat","jar","jar","book","book","apple","key"]));
         // cc.director.runScene(new SpellingGameScene(["cat", "banana"]));
-        // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
+        cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
         // cc.director.runScene(new StoryMainScene());
         // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
         // cc.director.runScene(new ListeningTestForFruidditionScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}]));

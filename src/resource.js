@@ -29,6 +29,8 @@ var res = {
     Character_png : "character.png",
     Homescreen_plist : "homescreen.plist",
     Homescreen_png : "homescreen.png",
+    AlpharacingBG_plist: "alpha-racing-background.plist",
+
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

@@ -47,7 +47,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _dust02: null,
     _cloudGroup01: null,
     _cloudGroup02: null,
-
+    _parallaxs: [],
     _elapsedTime: 0,
 
     _deltaTime: 1 / 60,
@@ -59,6 +59,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
 	ctor: function(inputData, option) {
         this._super(cc.color("#ebfcff"));
+
+        cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
 
         this.resetData();
         this._inputData = inputData;
@@ -86,13 +88,14 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _init: function() {
 
         this.gameLayer = new cc.Layer();
-        this.addChild(this.gameLayer, 1);
+        this.addChild(this.gameLayer, 10);
         
         this.initPlayer();
         this.addHud();
         
         this.initWorkers();
         this.initPlatforms();
+        this.initBackground();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -119,7 +122,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
-                this.completedScene("Game Over");
+                this.completedScene(localize("Game Over"));
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
@@ -148,6 +151,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     resetData: function() {
+        this._parallaxs = [];
         this.gameLayer = null;
         this.maps = [];
         this.mapIndexArray = [];
@@ -185,21 +189,28 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
+
         // Force to 60 FPS
         var updateTimes = Math.round(dt / this._deltaTime);
 
         for (var i = 0; i < updateTimes; i++) {
             let startTime = (new Date()).getTime();
             this._player.updatea(this._deltaTime / TEST_SPEED);
-            this._checkAndReloadMaps(this._player);
-            this.checkForAndResolveCollisions(this._player);
-            this.checkForAlphabetCollisions(dt);
+            // this._checkAndScrollBackgrounds(this._player.getPosition());
 
-            this.setViewpointCenter(this._player.getPosition());
-            this._checkAndScrollBackgrounds(this._player.getPosition());
+            this.checkForAndResolveCollisions(this._player);
         }
 
         this._workers.forEach(w => w.update(dt));
+
+        this._checkAndReloadMaps(this._player);
+        this.checkForAlphabetCollisions(dt);
+
+        var delta = this.setViewpointCenter(this._player.getPosition());
+        for (var i = 0; i < this._parallaxs.length; i ++) {
+            this._parallaxs[i].updateWithVelocity(cc.p(delta.x / 32, 0), dt);
+        };
+        // this._parallaxs.updateWithVelocity(cc.p(delta.x / 32, 0), dt);
     },
 
     _playBackgroundMusic: function() {
@@ -231,7 +242,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         // Check current goal and update UI
         this._initChallenges();
 
-        this._addBackground();
+        // this._addBackground();
 
         
         for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
@@ -276,6 +287,55 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         this.arEffectLayer = new AREffectLayer();
         this.addChild(this.arEffectLayer, 10);
+    },
+
+    initBackground: function() {
+        var treessofar1 = new cc.Sprite("#treessofar.png");
+        var treessofar2 = new cc.Sprite("#treessofar.png");
+        var parallaxtreessofar = cc.CCParallaxScrollNode.create();
+        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreessofar,1);
+        this._parallaxs.push(parallaxtreessofar);
+
+
+        var grass1 = new cc.Sprite("#grassalpharacing.png");
+        var grass2 = new cc.Sprite("#grassalpharacing.png");
+        var parallaxgrass = cc.CCParallaxScrollNode.create();
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxgrass,1);
+        this._parallaxs.push(parallaxgrass);
+
+        var trees1 = new cc.Sprite("#trees.png");
+        var trees2 = new cc.Sprite("#trees.png");
+        var parallaxtrees = cc.CCParallaxScrollNode.create();
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtrees,1);
+        this._parallaxs.push(parallaxtrees);
+
+        var light1 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
+        var parallaxlight = cc.CCParallaxScrollNode.create();
+        parallaxlight.addInfiniteScrollWithObjects([light1, light2], 3, cc.p(- 10, 0), cc.p(0, cc.winSize.height - light1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxlight,1);
+        this._parallaxs.push(parallaxlight);
+
+        var treesbottom1 = new cc.Sprite("#treesbottom.png");
+        var treesbottom2 = new cc.Sprite("#treesbottom.png");
+        var parallaxtreesbottom = cc.CCParallaxScrollNode.create();
+        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2], 4, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreesbottom,1);
+        this._parallaxs.push(parallaxtreesbottom);
+
+        var treestop1 = new cc.Sprite("#treestop.png");
+        var treestop2 = new cc.Sprite("#treestop.png");
+        var parallaxtreestop = cc.CCParallaxScrollNode.create();
+        parallaxtreestop.addInfiniteScrollWithObjects([treestop1, treestop2], 4, cc.p(-5, 0), cc.p(0, cc.winSize.height - treestop1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreestop,1);
+        this._parallaxs.push(parallaxtreestop);
+
+        var gradientMask = new cc.LayerGradient(cc.color("#a9f22a"), cc.color("#aee0ff"), cc.p(0, 1));
+        this.addChild(gradientMask);
+
     },
 
     initWorkers: function() {
@@ -1008,12 +1068,17 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
 
-        let contentScaleFactor = cc.contentScaleFactor();
-        this.gameLayer.setPosition(cc.p(
-            Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
-            Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
+        // let contentScaleFactor = cc.contentScaleFactor();
+        // this.gameLayer.setPosition(cc.p(
+        //     Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
+        //     Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
+
+        var delta = cc.pSub(this.gameLayer.getPosition(), viewPoint);
+        this.gameLayer.setPosition(viewPoint);
 
         this.arEffectLayer.y = this.gameLayer.y;
+
+        return delta;
     },
 
     updateProgressBar: function() {
