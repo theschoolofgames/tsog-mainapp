@@ -142,6 +142,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
         
         // cc.director.runScene(new MapScene());
         // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));

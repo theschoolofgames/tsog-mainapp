@@ -47,7 +47,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _dust02: null,
     _cloudGroup01: null,
     _cloudGroup02: null,
-
+    _parallaxs: [],
     _elapsedTime: 0,
 
     _deltaTime: 1 / 60,
@@ -88,7 +88,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _init: function() {
 
         this.gameLayer = new cc.Layer();
-        this.addChild(this.gameLayer, 1);
+        this.addChild(this.gameLayer, 10);
         
         this.initPlayer();
         this.addHud();
@@ -151,6 +151,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     resetData: function() {
+        this._parallaxs = [];
         this.gameLayer = null;
         this.maps = [];
         this.mapIndexArray = [];
@@ -206,8 +207,10 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.checkForAlphabetCollisions(dt);
 
         var delta = this.setViewpointCenter(this._player.getPosition());
-
-        this._parallax.updateWithVelocity(cc.p(delta.x / 32, 0), dt);
+        for (var i = 0; i < this._parallaxs.length; i ++) {
+            this._parallaxs[i].updateWithVelocity(cc.p(delta.x / 32, 0), dt);
+        };
+        // this._parallaxs.updateWithVelocity(cc.p(delta.x / 32, 0), dt);
     },
 
     _playBackgroundMusic: function() {
@@ -287,14 +290,52 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     initBackground: function() {
-        var m1 = new cc.Sprite("#mountain.png");
-        var m2 = new cc.Sprite("#mountain.png");
+        var treessofar1 = new cc.Sprite("#treessofar.png");
+        var treessofar2 = new cc.Sprite("#treessofar.png");
+        var parallaxtreessofar = cc.CCParallaxScrollNode.create();
+        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreessofar,1);
+        this._parallaxs.push(parallaxtreessofar);
 
-        var parallax = cc.CCParallaxScrollNode.create();
-        parallax.addInfiniteScrollWithObjects([m1, m2], 0, cc.p(-5, 0), cc.p(), cc.p(1, 0));
-        this._parallax = parallax;
 
-        this.addChild(parallax);
+        var grass1 = new cc.Sprite("#grassalpharacing.png");
+        var grass2 = new cc.Sprite("#grassalpharacing.png");
+        var parallaxgrass = cc.CCParallaxScrollNode.create();
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxgrass,1);
+        this._parallaxs.push(parallaxgrass);
+
+        var trees1 = new cc.Sprite("#trees.png");
+        var trees2 = new cc.Sprite("#trees.png");
+        var parallaxtrees = cc.CCParallaxScrollNode.create();
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtrees,1);
+        this._parallaxs.push(parallaxtrees);
+
+        var light1 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
+        var parallaxlight = cc.CCParallaxScrollNode.create();
+        parallaxlight.addInfiniteScrollWithObjects([light1, light2], 3, cc.p(- 10, 0), cc.p(0, cc.winSize.height - light1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxlight,1);
+        this._parallaxs.push(parallaxlight);
+
+        var treesbottom1 = new cc.Sprite("#treesbottom.png");
+        var treesbottom2 = new cc.Sprite("#treesbottom.png");
+        var parallaxtreesbottom = cc.CCParallaxScrollNode.create();
+        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2], 4, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreesbottom,1);
+        this._parallaxs.push(parallaxtreesbottom);
+
+        var treestop1 = new cc.Sprite("#treestop.png");
+        var treestop2 = new cc.Sprite("#treestop.png");
+        var parallaxtreestop = cc.CCParallaxScrollNode.create();
+        parallaxtreestop.addInfiniteScrollWithObjects([treestop1, treestop2], 4, cc.p(-5, 0), cc.p(0, cc.winSize.height - treestop1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this.addChild(parallaxtreestop,1);
+        this._parallaxs.push(parallaxtreestop);
+
+        var gradientMask = new cc.LayerGradient(cc.color("#a9f22a"), cc.color("#aee0ff"), cc.p(0, 1));
+        this.addChild(gradientMask);
+
     },
 
     initWorkers: function() {
