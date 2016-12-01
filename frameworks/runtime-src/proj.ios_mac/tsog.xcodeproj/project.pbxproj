@@ -10,6 +10,10 @@
 		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
 		01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */; };
 		01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */; };
+		0136A55B1DF010F90014D70F /* CCParallaxScrollNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0136A5521DF010F90014D70F /* CCParallaxScrollNode.cpp */; };
+		0136A55C1DF010F90014D70F /* CCParallaxScrollOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0136A5541DF010F90014D70F /* CCParallaxScrollOffset.cpp */; };
+		0136A55D1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js in Resources */ = {isa = PBXBuildFile; fileRef = 0136A5581DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js */; };
+		0136A55E1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0136A5591DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.cpp */; };
 		014308FD1C1C298E00F7691E /* SpeechRecognitionListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */; };
 		016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */ = {isa = PBXBuildFile; fileRef = 016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */; };
 		016A01B31C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m in Sources */ = {isa = PBXBuildFile; fileRef = 016A01B21C15E0BE00A22838 /* SimpleAudioRecordEngine_objc.m */; };
@@ -410,6 +414,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0136A54C1DF00E390014D70F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B427D1C31DCC60067B53E;
+			remoteInfo = "libjscocos2d tvOS";
+		};
+		0136A54F1DF00E390014D70F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B40FD1C31BDD30067B53E;
+			remoteInfo = "libcocos2d tvOS";
+		};
 		1A67681F180E9BF70076BC67 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */;
@@ -473,6 +491,13 @@
 		01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
 		01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionListener.h; sourceTree = "<group>"; };
 		01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
+		0136A5521DF010F90014D70F /* CCParallaxScrollNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCParallaxScrollNode.cpp; sourceTree = "<group>"; };
+		0136A5531DF010F90014D70F /* CCParallaxScrollNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCParallaxScrollNode.h; sourceTree = "<group>"; };
+		0136A5541DF010F90014D70F /* CCParallaxScrollOffset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCParallaxScrollOffset.cpp; sourceTree = "<group>"; };
+		0136A5551DF010F90014D70F /* CCParallaxScrollOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCParallaxScrollOffset.h; sourceTree = "<group>"; };
+		0136A5581DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_CCParallaxScrollNode_auto_api.js; sourceTree = "<group>"; };
+		0136A5591DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_CCParallaxScrollNode_auto.cpp; sourceTree = "<group>"; };
+		0136A55A1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_CCParallaxScrollNode_auto.hpp; sourceTree = "<group>"; };
 		014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpeechRecognitionListener.mm; sourceTree = "<group>"; };
 		016A01AC1C15E02800A22838 /* SimpleAudioRecordEngine.h */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.h; path = SimpleAudioRecordEngine.h; sourceTree = "<group>"; tabWidth = 4; };
 		016A01AF1C15E07100A22838 /* SimpleAudioRecordEngine.mm */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimpleAudioRecordEngine.mm; sourceTree = "<group>"; tabWidth = 4; };
@@ -1192,6 +1217,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0136A5511DF010F90014D70F /* CCParallaxScrollNode */ = {
+			isa = PBXGroup;
+			children = (
+				0136A5521DF010F90014D70F /* CCParallaxScrollNode.cpp */,
+				0136A5531DF010F90014D70F /* CCParallaxScrollNode.h */,
+				0136A5541DF010F90014D70F /* CCParallaxScrollOffset.cpp */,
+				0136A5551DF010F90014D70F /* CCParallaxScrollOffset.h */,
+				0136A5561DF010F90014D70F /* js-bindings */,
+			);
+			path = CCParallaxScrollNode;
+			sourceTree = "<group>";
+		};
+		0136A5561DF010F90014D70F /* js-bindings */ = {
+			isa = PBXGroup;
+			children = (
+				0136A5571DF010F90014D70F /* api */,
+				0136A5591DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.cpp */,
+				0136A55A1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.hpp */,
+			);
+			path = "js-bindings";
+			sourceTree = "<group>";
+		};
+		0136A5571DF010F90014D70F /* api */ = {
+			isa = PBXGroup;
+			children = (
+				0136A5581DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
 		016A01AB1C15E01800A22838 /* SimpleAudioRecordEngine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2097,6 +2152,7 @@
 			children = (
 				1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */,
 				1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */,
+				0136A5501DF00E390014D70F /* libcocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2213,6 +2269,7 @@
 			children = (
 				C037820718BF76AF00FE4F13 /* libjscocos2d Mac.a */,
 				C037820918BF76AF00FE4F13 /* libjscocos2d iOS.a */,
+				0136A54D1DF00E390014D70F /* libjscocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2244,6 +2301,7 @@
 		D4545214156E28EF00887EB5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0136A5511DF010F90014D70F /* CCParallaxScrollNode */,
 				016CBB7E1C927DFC00EBDF8D /* h102 */,
 				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
@@ -2482,6 +2540,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		0136A54D1DF00E390014D70F /* libjscocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libjscocos2d tvOS.a";
+			remoteRef = 0136A54C1DF00E390014D70F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		0136A5501DF00E390014D70F /* libcocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcocos2d tvOS.a";
+			remoteRef = 0136A54F1DF00E390014D70F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -2539,6 +2611,7 @@
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				01F093C91C75965D00B4892E /* fe_design.txt in Resources */,
+				0136A55D1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
@@ -2743,6 +2816,7 @@
 				01F093081C75965D00B4892E /* arpa_bo_ng_prob.c in Sources */,
 				01F093E81C75965D00B4892E /* bio.c in Sources */,
 				01F0939C1C75965D00B4892E /* cst_diphone.c in Sources */,
+				0136A55E1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto.cpp in Sources */,
 				01F093BA1C75965D00B4892E /* ptm_mgau.c in Sources */,
 				01F0930D1C75965D00B4892E /* compute_discount.c in Sources */,
 				01F094031C75965D00B4892E /* slamch.c in Sources */,
@@ -2856,6 +2930,7 @@
 				01F093E61C75965D00B4892E /* ngram_model_set.c in Sources */,
 				01F092F51C75965D00B4892E /* OEAcousticModel.m in Sources */,
 				01F093851C75965D00B4892E /* cst_ffeatures.c in Sources */,
+				0136A55B1DF010F90014D70F /* CCParallaxScrollNode.cpp in Sources */,
 				01F093D01C75965D00B4892E /* fe_warp_inverse_linear.c in Sources */,
 				01F093331C75965D00B4892E /* rr_calloc.c in Sources */,
 				01F092FD1C75965D00B4892E /* OEFliteController.m in Sources */,
@@ -2885,6 +2960,7 @@
 				EB7B09081BB50D2200B36D24 /* lwf_movieprop.cpp in Sources */,
 				EB7B08F91BB50D2200B36D24 /* lwf_compat.cpp in Sources */,
 				01F0930C1C75965D00B4892E /* compute_back_off.c in Sources */,
+				0136A55C1DF010F90014D70F /* CCParallaxScrollOffset.cpp in Sources */,
 				01F093361C75965D00B4892E /* rr_filesize.c in Sources */,
 				01F093CE1C75965D00B4892E /* fe_warp.c in Sources */,
 				01F0936E1C75965D00B4892E /* cst_mlsa.c in Sources */,

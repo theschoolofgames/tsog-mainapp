@@ -49,6 +49,7 @@
 #endif
 #include "cocos2dx/js-bindings/jsb_cocos2dx_lwf.hpp"
 #include "h102/js-bindings/jsb_h102_auto.hpp"
+#include "CCParallaxScrollNode/js-bindings/jsb_CCParallaxScrollNode_auto.hpp"
 
 #include "SimpleAudioEngine.h"
 #include "AudioEngine.h"
@@ -122,9 +123,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     // LWF
     sc->addRegisterCallback(register_all_cocos2dx_lwf);
-  
     // H02
     sc->addRegisterCallback(register_all_h102);
+    // CCParallaxScrollNode
+    sc->addRegisterCallback(register_all_CCParallaxScrollNode);
+  
     // studio can be commented out to reduce the package,
 //    sc->addRegisterCallback(register_all_cocos2dx_studio);
 //    sc->addRegisterCallback(register_all_cocos2dx_studio_manual);

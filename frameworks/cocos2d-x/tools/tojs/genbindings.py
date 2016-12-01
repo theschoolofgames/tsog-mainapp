@@ -182,7 +182,8 @@ def main():
         custom_cmd_args = {
             # key: (prefix, filename, output dir)
             'cocos2dx_lwf.ini': ('cocos2dx_lwf', 'jsb_cocos2dx_lwf', '%s/../lwf/cocos2dx/js-bindings' % project_root),
-            'h102.ini': ('h102', 'jsb_h102_auto', '%s/Classes/h102/js-bindings' % project_root)
+            'h102.ini': ('h102', 'jsb_h102_auto', '%s/Classes/h102/js-bindings' % project_root),
+            'CCParallaxScrollNode.ini': ('CCParallaxScrollNode', 'jsb_CCParallaxScrollNode_auto', '%s/Classes/CCParallaxScrollNode/js-bindings' % project_root),
         }
         if len(custom_cmd_args) > 0:
             for key in custom_cmd_args.keys():

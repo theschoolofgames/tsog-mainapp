@@ -60,6 +60,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 	ctor: function(inputData, option) {
         this._super(cc.color("#ebfcff"));
 
+        cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
+
         this.resetData();
         this._inputData = inputData;
         this._tempInputData = inputData.slice();
@@ -93,6 +95,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         
         this.initWorkers();
         this.initPlatforms();
+        this.initBackground();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -185,21 +188,26 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     update: function(dt) {
+
         // Force to 60 FPS
         var updateTimes = Math.round(dt / this._deltaTime);
 
         for (var i = 0; i < updateTimes; i++) {
             let startTime = (new Date()).getTime();
             this._player.updatea(this._deltaTime / TEST_SPEED);
-            this._checkAndReloadMaps(this._player);
-            this.checkForAndResolveCollisions(this._player);
-            this.checkForAlphabetCollisions(dt);
+            // this._checkAndScrollBackgrounds(this._player.getPosition());
 
-            this.setViewpointCenter(this._player.getPosition());
-            this._checkAndScrollBackgrounds(this._player.getPosition());
+            this.checkForAndResolveCollisions(this._player);
         }
 
         this._workers.forEach(w => w.update(dt));
+
+        this._checkAndReloadMaps(this._player);
+        this.checkForAlphabetCollisions(dt);
+
+        var delta = this.setViewpointCenter(this._player.getPosition());
+
+        this._parallax.updateWithVelocity(cc.p(delta.x / 32, 0), dt);
     },
 
     _playBackgroundMusic: function() {
@@ -231,7 +239,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         // Check current goal and update UI
         this._initChallenges();
 
-        this._addBackground();
+        // this._addBackground();
 
         
         for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
@@ -276,6 +284,17 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
         this.arEffectLayer = new AREffectLayer();
         this.addChild(this.arEffectLayer, 10);
+    },
+
+    initBackground: function() {
+        var m1 = new cc.Sprite("#mountain.png");
+        var m2 = new cc.Sprite("#mountain.png");
+
+        var parallax = cc.CCParallaxScrollNode.create();
+        parallax.addInfiniteScrollWithObjects([m1, m2], 0, cc.p(-5, 0), cc.p(), cc.p(1, 0));
+        this._parallax = parallax;
+
+        this.addChild(parallax);
     },
 
     initWorkers: function() {
@@ -1008,12 +1027,17 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let centerOfView = cc.p(winSize.width/3, winSize.height/3);
         let viewPoint = cc.pSub(centerOfView, actualPosition);
 
-        let contentScaleFactor = cc.contentScaleFactor();
-        this.gameLayer.setPosition(cc.p(
-            Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
-            Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
+        // let contentScaleFactor = cc.contentScaleFactor();
+        // this.gameLayer.setPosition(cc.p(
+        //     Math.round(viewPoint.x * contentScaleFactor) / contentScaleFactor, 
+        //     Math.round(viewPoint.y * contentScaleFactor) / contentScaleFactor)); 
+
+        var delta = cc.pSub(this.gameLayer.getPosition(), viewPoint);
+        this.gameLayer.setPosition(viewPoint);
 
         this.arEffectLayer.y = this.gameLayer.y;
+
+        return delta;
     },
 
     updateProgressBar: function() {
