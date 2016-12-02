@@ -140,17 +140,19 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         for (var i = 0; i < 3; i++) {
             var mostTopY = this._nameNode.y - this._nameNode.height/2 - 20;
             var node = new cc.Layer();
+            node.setContentSize(150, 300);
             node.setCascadeOpacityEnabled(true);
             var labelAdded = false;
             for (var k = 0; k < shownObjNames[i]; k++) {
                 if (k > 5)
                     break;
                 var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                o.scale = Math.min(node.width / o.width, node.height / (o.height*shownObjNames[i]));
                 o.x = o.width/2;
                 o.y = (o.height - 10) *  (shownObjNames[i]-k) * o.scale;
                 node.addChild(o, STAND_OBJECT_ZORDER);      
-                node.width = o.width;
-                node.height = o.height*shownObjNames[i];
+                // node.width = o.width;
+                // node.height = o.height*shownObjNames[i];
 
                 if (k == Math.floor(shownObjNames[i]/2) || (shownObjNames[i] > 5 && k == Math.floor(5/2) )) {
                     if (!labelAdded) {
@@ -166,7 +168,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
                 }
             }
             node.name = shownObjNames[i];
-            node.scale = Math.min(100 / node.width, 250 / node.height) * Utils.screenRatioTo43();
+            // node.scale = Math.min(100 / node.width, 250 / node.height) * Utils.screenRatioTo43();
             node.x = this._objCenter.x + (i-1) * 200 * Utils.screenRatioTo43() - node.width/2;
             node.y = this._objCenter.y - node.height/2;
 

@@ -555,7 +555,7 @@ var GoFigureTestLayer = TestLayer.extend({
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         cc.log("correct: " + correctedCharacter);
 
-        jsb.AudioEngine.play2d("res/sounds/alphabets/" + correctedCharacter + ".mp3");
+        jsb.AudioEngine.play2d("res/sounds/shapes/singular/" + localize(correctedCharacter) + ".mp3");
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._adiDog.adiJump();
