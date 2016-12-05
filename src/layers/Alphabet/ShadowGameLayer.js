@@ -466,6 +466,8 @@ var ShadowGameLayer = TestLayer.extend({
 
         // var randSchoolIdx = Math.floor(Math.random() * 4);
         // font = FONT_COLOR[randSchoolIdx];
+        this.popGold(this._objectTouching.getPosition());
+        this.updateProgressBar();
         lbName = localizeForWriting(lbName);
         lbName = lbName.toUpperCase();
         var index = lbName.indexOf("_");

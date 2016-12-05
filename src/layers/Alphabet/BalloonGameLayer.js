@@ -151,6 +151,7 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     _updateCurrentIdHud: function(currentObj) {
+        cc.log("currentObj: " + JSON.stringify(currentObj));
         let text = "";
 
         if (currentObj.type === "number" || currentObj.type === "word")
@@ -178,7 +179,7 @@ var BalloonGameLayer = TestLayer.extend({
             spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png");
         }
         // this.hudBalloonBg.setSpriteFrame(spriteFrame);
-        this._hudLayer.addSpecifyGoal(spriteFrame);
+        this._hudLayer.addSpecifyGoal(spriteFrame, currentObj.value);
         this._hudLayer.setTotalSpecifyGoal(currentObj.amount);
 
         // if (!this.hudTypeLabel){
