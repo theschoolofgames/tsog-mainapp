@@ -26,9 +26,12 @@ var SpeechRecognitionListener = cc.Class.extend({
             return languagesForWriting[currentLanguage][obj];
         }).filter(function(obj) {
             var words = obj.split(" ");
-            for (var w in words)
+            for (var i = 0; i < words.length; i++) {
+                var w = words[i].toLowerCase();
+                cc.log(w);
                 if (excludeWords.indexOf(w) >= 0)
                     return false;
+            }
             return true;
         }).map(function(obj) {
             if (obj == "toytrain")
