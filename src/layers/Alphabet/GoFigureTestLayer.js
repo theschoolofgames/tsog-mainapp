@@ -606,12 +606,18 @@ var GoFigureTestLayer = TestLayer.extend({
         // cc.log("Utils.getScaleFactorTo16And9() " + Utils.getScaleFactorTo16And9());
         this.addChild(this._board);
 
+        var specifyColorForShapeName = null;
+        if (Array.isArray(this._option))
+            specifyColorForShapeName = this._option[this._nameIdx];
         var numberBtn = 4;
         if (GOFIGURE_BRUSH_COLOR_INDEX.length < 4)
             numberBtn = GOFIGURE_BRUSH_COLOR_INDEX.length;
+
+        var rdmButtonPosition = Math.floor(Math.random() * numberBtn);
         for (var i = 0; i < numberBtn; i++) {
-            var btnImgNameNormal = "btn_" + GOFIGURE_BRUSH_COLOR_INDEX[i] +".png";
-            var btnImgNamePressed = "btn_" + GOFIGURE_BRUSH_COLOR_INDEX[i] +"-pressed.png";
+            var colorName = (specifyColorForShapeName) ? specifyColorForShapeName : GOFIGURE_BRUSH_COLOR_INDEX[i];
+            var btnImgNameNormal = "btn_" + colorName +".png";
+            var btnImgNamePressed = "btn_" + colorName +"-pressed.png";
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
             b.y = 104 * Utils.getScaleFactorTo16And9();

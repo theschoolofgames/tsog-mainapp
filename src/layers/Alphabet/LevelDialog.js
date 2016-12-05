@@ -176,11 +176,12 @@ var LevelDialog = Dialog.extend({
         KVDatabase.getInstance().set("durationsString", JSON.stringify(durationsArray));
         var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
         var timeForScene = this._data[stepData]["1"].duration;
+        var option = this._data[stepData]["1"].option;
         // cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
         cc.log("stepData  : " + JSON.stringify(durationsArray));
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
-        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene); 
+        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option); 
     },
 
 });

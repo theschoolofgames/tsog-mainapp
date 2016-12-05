@@ -148,7 +148,7 @@ var SceneFlowController = cc.Class.extend({
         this._lastedStepPressed = null;
     },
 
-    moveToNextScene: function(sceneName, data, timeForScene) {
+    moveToNextScene: function(sceneName, data, timeForScene, sceneOption) {
         var option = null;
         var sceneNumber = KVDatabase.getInstance().getInt("scene_number");
 
@@ -200,6 +200,8 @@ var SceneFlowController = cc.Class.extend({
                     data = data;
                 }
 
+                if (Array.isArray(sceneOption))
+                    option = sceneOption;
 
                 cc.director.runScene(new GoFigureTestScene(data, option, timeForScene));
                 break;
