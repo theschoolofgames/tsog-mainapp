@@ -716,3 +716,13 @@ var ALPHARACING_DATA =[
     }
 ];
 GOLD_NEED_TO_PLAY_ALPHARACING = 10;
+
+var LANGUAGE = [
+    "English", 
+    "Swahili"
+];
+
+var LANGUAGE_CODE = {
+    "English": "en",
+    "Swahili": "sw"
+}

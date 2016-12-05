@@ -218,8 +218,8 @@ public class SpeechRecognizer implements RecognitionListener {
 //        recognizer.addKeyphraseSearch(KWS_SEARCH, KEYPHRASE);
 //
 //        // Create grammar-based search for selection between demos
-        File tsogGrammar = new File(assetsDir, "tsog.gram");
-        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
+//        File tsogGrammar = new File(assetsDir, "tsog.gram");
+//        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
 //
 //        // Create grammar-based search for digit recognition
 //        File digitsGrammar = new File(assetsDir, "digits.gram");

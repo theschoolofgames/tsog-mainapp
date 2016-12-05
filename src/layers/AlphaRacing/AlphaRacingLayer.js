@@ -47,9 +47,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     _dust02: null,
     _cloudGroup01: null,
     _cloudGroup02: null,
-    _parallaxs: [],
     _elapsedTime: 0,
 
+    _parallaxs: [],
     _deltaTime: 1 / 60,
     _timeForSence: 0,
 

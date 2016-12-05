@@ -24,8 +24,9 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         this._whiteBg = bg;
     },
 
-    addGoalImage: function(imageName) {
+    addGoalImage: function(imageName, word) {
         // this._bg.visible = false;
+        cc.log("imageName: " + imageName);
         var holder = new cc.Sprite("#holder.png");
         holder.x = 15;
         holder.y = this._whiteBg.height/2 - 5;
@@ -37,6 +38,13 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         specifyGoalSprite.x = holder.width/2;
         specifyGoalSprite.y = holder.height/2 - 10;
         holder.addChild(specifyGoalSprite); 
+        if(word.length == 1) {
+            var word = new cc.LabelBMFont(word, res.CustomFont_fnt); 
+            word.x = specifyGoalSprite.width/2 + 5;
+            word.y = specifyGoalSprite.height - word.height - 20;
+            word.scale = 0.9;
+            specifyGoalSprite.addChild(word);
+        };
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
         if (this._specifyGoalLabel)
             this.updateSpecifyGoalLabel();
@@ -77,9 +85,9 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         this._specifyGoalLabel = label;
     },
 
-    addSpecifyGoal: function(imageName) {
+    addSpecifyGoal: function(imageName, word) {
         if (imageName)
-            this.addGoalImage(imageName);
+            this.addGoalImage(imageName, word);
         else
             this.addGoalLabel();
     },

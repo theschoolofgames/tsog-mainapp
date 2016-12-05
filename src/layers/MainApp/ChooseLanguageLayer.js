@@ -1,6 +1,3 @@
-var LANGUAGE = [
- ["English", "Swahili"]
-];
 var ChooseLanguageLayer = cc.LayerColor.extend({
     _popupDialog: null,
     _callback: null,
@@ -64,14 +61,14 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
         var scrollViewSize = scrollView.getContentSize();
 
         var itemPerRow = 2;
-        var rowCount = LANGUAGE.length;
+        var rowCount = Math.ceil(LANGUAGE.length / itemPerRow);
         var self = this;
         for (var i = 0; i < rowCount; i++) {
             var box = new ccui.HBox();
             box.setContentSize(cc.size(this._popupDialog.width - 60, 80));
 
             for (var j = 0; j < itemPerRow; j++) {
-                var langName = LANGUAGE[i][j];
+                var langName = LANGUAGE[rowCount * i + j];
                 if (!langName)
                     break;
 
@@ -106,13 +103,13 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
     },
 
     changeLanguageFunc: function(button) {
-        var language = button.getUserData().toLowerCase();
-        if (language.indexOf("english") > -1)
-            language = "en";
+        var language = button.getUserData();
+        var code = LANGUAGE_CODE[language];
+        cc.log("code: " + code);
 
-        var mess = "Set Current Language to " + button.getUserData();
+        var mess = "Set Current Language to " + language;
 
-        KVDatabase.getInstance().set("currentLanguage", language);
+        KVDatabase.getInstance().set("currentLanguage", code);
         
         NativeHelper.callNative("showMessage", ["Message", mess]);
         
