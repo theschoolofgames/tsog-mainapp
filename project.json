@@ -24,8 +24,8 @@
 
         "src/lang/Localization.js",
         "res/lang/en.js",
-        "res/lang/swahili.js",
-        "res/lang/swahili_writing.js",
+        "res/lang/sw.js",
+        "res/lang/sw_writing.js",
         "res/lang/en_writing.js",
         
         "src/model/GameObject.js",
