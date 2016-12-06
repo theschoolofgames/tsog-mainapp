@@ -340,10 +340,10 @@ var CardGameLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._deactivateObjects.length / this._numberOfObjectWillShow;
+        var percent = this._objectUnavailable.length / this._numberOfObjectWillShow;
         
         this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._deactivateObjects.length);
+        this.setHUDCurrentGoals(this._objectUnavailable.length);
 
         this._super();
     },
@@ -452,6 +452,7 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _playObjectOderSound: function(){
+        cc.log("Oder Sound: " + this._currentObjectOder );
         if(this.timePlayedOderSound < 1)
             jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3", false);
         this.timePlayedOderSound += 1;
@@ -459,6 +460,7 @@ var CardGameLayer = TestLayer.extend({
 
     _handleObjectSucceedDrop: function() {
         var self = this;
+        cc.log("Oder Sound: " + this._currentObjectOder );
         var succeedAudioId = jsb.AudioEngine.play2d(res.Succeed_sfx);
         var path = "res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3";
         this.runAction(cc.sequence(
@@ -472,6 +474,7 @@ var CardGameLayer = TestLayer.extend({
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
+        this._objectUnavailable.push(this._currentObjectMoving);
 
         //set for playSoundObjectOder
         this._currentObjectOder += 1;

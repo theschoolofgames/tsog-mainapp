@@ -50,6 +50,7 @@ var STRING_ACCOUNT_DATA  = "account_data";
 var STRING_STUDENT_DATA  = "student_data";
 var STRING_GAME_DATA  = "game_data";
 var STRING_GAME_ALPHARACING = "game_alpharacing";
+var TIME_PLAY_BEGIN_SOUND = "time_play_begin_sound";
 var SEGMENT = {
     SELECT_SCHOOL: "select_school",
     ENTER_GAME: "enter_game",

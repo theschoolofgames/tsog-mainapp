@@ -50,77 +50,6 @@ var HomeScreenLayer = cc.Layer.extend({
         cc.audioEngine.setEffectsVolume(0.7);
     },
 
-    _showDialogIfNotEnoughCoin: function(){
-        var dialog = new MessageDialog("#level_dialog_frame.png");
-        var lb = new cc.LabelBMFont("Need 10 coins to play!", res.HomeFont_fnt);
-        lb.scale = 0.7;
-        lb.x = dialog.background.width/2 + 20;
-        lb.y = dialog.background.height/2 + 100;
-        lb.setColor(cc.color(255,255,255));
-        lb.setBoundingWidth(550);
-        dialog.addComponent(lb);
-
-        this.addChild(dialog,100);
-
-        var button = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.x = dialog.background.width/2;
-        button.y = 100;
-        dialog.addComponent(button);
-        button.addClickEventListener(function(){
-            dialog.removeFromParent();
-        });
-        var lbOK = new cc.LabelBMFont("OK", res.CustomFont_fnt); 
-        lbOK.scale = 0.5;
-        lbOK.x = button.width/2;
-        lbOK.y = button.height/2;
-        button.addChild(lbOK);
-
-    },
-
-    _showDialogIfEnoughCoin: function(){
-        var self = this;
-        var dialog = new MessageDialog();
-        var lb = new cc.LabelTTF("You have to spend 10 coins to play!", "Arial", 30, cc.size(300, 80));
-        lb.color = cc.color(0,0,0);
-        lb.x = dialog.background.width/2;
-        lb.y = dialog.background.height/2;
-        dialog.addComponent(lb);
-        this.addChild(dialog,100);
-
-        var buttonOk = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonOk.x = dialog.background.width/2 + 100;
-        buttonOk.y = 100;
-        buttonOk.scale = 0.6;
-        dialog.addComponent(buttonOk);
-        buttonOk.addClickEventListener(function(){
-            dialog.removeFromParent();
-            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
-            var data = DataManager.getInstance().getDataAlpharacing();
-            cc.director.runScene(new AlphaRacingScene(data, null, 600));
-        });
-        var lbOK = new cc.LabelBMFont("OK", res.CustomFont_fnt); 
-        lbOK.scale = 0.6;
-        lbOK.x = buttonOk.width/2;
-        lbOK.y = buttonOk.height/2;
-        buttonOk.addChild(lbOK);
-
-        var buttonCancel = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonCancel.x = dialog.background.width/2 - 100;
-        buttonCancel.y = 100;
-        buttonCancel.scale = 0.6;
-        dialog.addComponent(buttonCancel);
-        buttonCancel.addClickEventListener(function(){
-            dialog.removeFromParent();
-            self._blocktouch = false;
-        });
-        var lbCancel = new cc.LabelBMFont("CANCEL", res.CustomFont_fnt); 
-        lbCancel.scale = 0.6;
-        lbCancel.x = buttonCancel.width/2;
-        lbCancel.y = buttonCancel.height/2;
-
-        buttonCancel.addChild(lbCancel);
-    },
-
     addPlayDoor: function(){
         var self = this;
         var door  = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
@@ -156,11 +85,16 @@ var HomeScreenLayer = cc.Layer.extend({
         lbPlay.y = board.height/2 + 15;
         board.addChild(lbPlay);
 
-        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString() + " m", res.CustomFont_fnt);
-        lbHighScore.scale = 0.5;
-        lbHighScore.x = lbPlay.x;
-        lbHighScore.y = lbPlay.y - 37;
-        board.addChild(lbHighScore);
+        // var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString() + " m", res.CustomFont_fnt);
+        // lbHighScore.scale = 0.5;
+        // lbHighScore.x = lbPlay.x;
+        // lbHighScore.y = lbPlay.y - 37;
+        // board.addChild(lbHighScore);
+        var dimaond = new cc.Sprite("#diamond-00.png");
+        dimaond.scale = 0.5;
+        dimaond.x = lbPlay.x;
+        dimaond.y = lbPlay.y - 40;
+        board.addChild(dimaond);
 
     },
 
@@ -190,11 +124,17 @@ var HomeScreenLayer = cc.Layer.extend({
         cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
         var lastLevel = UserStorage.getInstance().getLastLevelPlay();
         lastLevel = "L. " + lastLevel;
-        var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
-        lbHighScore.scale = 0.5;
-        lbHighScore.x = lbLearn.x;
-        lbHighScore.y = lbLearn.y - 37;
-        board.addChild(lbHighScore);
+        // var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
+        // lbHighScore.scale = 0.5;
+        // lbHighScore.x = lbLearn.x;
+        // lbHighScore.y = lbLearn.y - 37;
+        // board.addChild(lbHighScore);
+
+        var coin = new cc.Sprite("#gold-00.png");
+        coin.scale = 0.5;
+        coin.x = lbLearn.x;
+        coin.y = lbLearn.y - 40;
+        board.addChild(coin);
     },
 
     addHomeDoor: function(){
