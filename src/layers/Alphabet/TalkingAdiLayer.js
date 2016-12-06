@@ -74,9 +74,30 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
+        var timePlayBeginSound = KVDatabase.getInstance().getInt(TIME_PLAY_BEGIN_SOUND, 0);
+        var audioId = "";
+        if(timePlayBeginSound == 0) {
+            KVDatabase.getInstance().set(TIME_PLAY_BEGIN_SOUND, 1);
+            audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-talkingAdi") + ".mp3", false);
+        };
+        if(timePlayBeginSound == 0) {
+            cc.log("audioId: " + audioId);
+            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                if(mask)
+                    mask.removeFromParent();
+                self._talkingAdi.adiIdling();
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-talkingAdi") + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+                // self._addCountDownClock();
+                // self._addNextButton();
+                if (NativeHelper.callNative("hasGrantPermission", ["RECORD_AUDIO"]))
+                    self.startFetchingAudio();
+                else {
+                    NativeHelper.setListener("RequestPermission", self);
+                    NativeHelper.callNative("requestPermission", ["RECORD_AUDIO"]);
+                };
+            });
+        }
+        else {
             if(mask)
                 mask.removeFromParent();
             self._talkingAdi.adiIdling();
@@ -88,8 +109,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             else {
                 NativeHelper.setListener("RequestPermission", self);
                 NativeHelper.callNative("requestPermission", ["RECORD_AUDIO"]);
-            }
-        });
+            };
+        };
     },
 
     onRequestPermission: function(succeed) {

@@ -15,7 +15,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _blockFlag: false,
     _didObjectAllowedToMove: false,
-
+    _currentObjectOder: 0,
     _currentObjectMoving: null,
     _currentAvailableSlot: null,
     _currentObjectOriginPos: null,
@@ -25,7 +25,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     ctor: function(data, timePlayed, timeForScene) {
         this._super();
         this.timePlayed = timePlayed || 0;
-
+        this._currentObjectOder = 0;
         this._deactivateObjects = [];
         this._activateObjects = [];
         this._fetchObjectData(data);
@@ -268,14 +268,21 @@ var ShoppingBasketLayer = TestLayer.extend({
         cc.log("_deactivateObjects: " + this._deactivateObjects.length);
         this._currentObjectMoving.ZOder = 1;
         //set for playSoundObjectOder
-        // this._currentObjectOder += 1;
+        this._currentObjectOder += 1;
         
         // remove current slot
         this._currentAvailableSlot = null;
         this._activateSlots.splice(0, 1);
         //paly soundCorrect
         jsb.AudioEngine.play2d(res.Succeed_sfx);
-
+        var path = "res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3";
+        this.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                if (jsb.fileUtils.isFileExist(path))
+                    jsb.AudioEngine.play2d(path, false);
+            }.bind(this))
+        ));
         this._currentAvailableSlot = this._activateSlots[0];
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
