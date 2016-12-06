@@ -14,7 +14,7 @@
 
 + (SpeechRecognitionListener *)sharedEngine;
 
-- (BOOL)setLanguageData:(NSArray *)array;
+- (BOOL)setLanguageData:(NSString*)languageCode array:(NSArray *)array;
 - (void)start;
 - (void)stop;
 - (void)suspend;

@@ -34,6 +34,7 @@ public class SpeechRecognizer implements RecognitionListener {
     private File externalDir = null;
 
     private ArrayList<String> cachedArrayList = null;
+    private String languageCode = "en";
 
     public Runnable setupCallback = null;
 
@@ -57,48 +58,8 @@ public class SpeechRecognizer implements RecognitionListener {
     }
 
     public SpeechRecognizer() {
-        new AsyncTask<Void, Void, Exception>() {
-            @Override
-            protected Exception doInBackground(Void... params) {
-                try {
-                    Assets assets = new Assets(app);
-                    File assetDir = assets.syncAssets();
-                    setupRecognizer(assetDir);
-                } catch (IOException e) {
-                    return e;
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Exception result) {
-                if (cachedArrayList != null)
-                    try {
-                        updateNewLanguageArray(cachedArrayList);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                if (setupCallback != null) {
-                    Executors.newSingleThreadExecutor().execute(setupCallback);
-                    setupCallback = null;
-                }
-
-//                String commandForm = "SpeechRecognitionListener.getInstance().onSetupComplete(%b, '%s')";
-//                if (result == null) {
-//                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, true, ""));
-//                } else {
-//                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, false, result.getLocalizedMessage()));
-//                }
-
-//                if (result != null) {
-//                    ((TextView) findViewById(R.id.caption_text))
-//                            .setText("Failed to init recognizer " + result);
-//                } else {
-//                    switchSearch(KWS_SEARCH);
-//                }
-            }
-        }.execute();
+        SpeechRecognizerSettingUp task = new SpeechRecognizerSettingUp(languageCode);
+        task.execute();
     }
 
     public void start() {
@@ -188,33 +149,109 @@ public class SpeechRecognizer implements RecognitionListener {
 
     }
 
-    private void setupRecognizer(File assetsDir) throws IOException {
-        // The recognizer can be configured to perform multiple searches
-        // of different kind and switch between them
+    public void updateNewLanguageArray(String languageCode, ArrayList<String> arrayList) throws IOException {
+        if (grammarBuilder == null) {
+            this.languageCode = languageCode;
+            cachedArrayList = arrayList;
+            return;
+        }
 
-        externalDir = assetsDir;
+        if (languageCode != this.languageCode) {
+            this.languageCode = languageCode;
+            cachedArrayList = arrayList;
 
-        recognizer = defaultSetup()
-                .setAcousticModel(new File(assetsDir, "en-us-ptm"))
-                .setDictionary(new File(assetsDir, "cmudict-en-us.dict"))
+            SpeechRecognizerSettingUp task = new SpeechRecognizerSettingUp(languageCode);
+            task.execute();
 
-                        // To disable logging of raw audio comment out this call (takes a lot of space on the device)
-                .setRawLogDir(assetsDir)
+            return;
+        }
 
-                        // Threshold to tune for keyphrase to balance between false alarms and misses
-                .setKeywordThreshold(1e-45f)
+        grammarBuilder.reset();
 
-                        // Use context-independent phonetic search, context-dependent is too slow for mobile
-                .setBoolean("-allphone_ci", true)
+        for(String s : arrayList) {
+            grammarBuilder.add(s);
+        }
+        grammarBuilder.saveGrammar();
+        File tsogGrammar = new File(externalDir, "tsog.gram");
+        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
+    }
 
-                .getRecognizer();
-        recognizer.addListener(this);
+    private class SpeechRecognizerSettingUp extends AsyncTask<Void, Void, Exception> {
 
-        /** In your application you might not need to add all those searches.
-         * They are added here for demonstration. You can leave just one.
-         */
+        private final String language;
 
-        // Create keyword-activation search.
+        private SpeechRecognizerSettingUp(String language) {
+            this.language = language;
+        }
+
+        @Override
+        protected Exception doInBackground(Void... params) {
+            try {
+                Assets assets = new Assets(app);
+                File assetDir = assets.syncAssets();
+                setupRecognizer(language, assetDir);
+            } catch (IOException e) {
+                return e;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exception result) {
+            if (cachedArrayList != null)
+                try {
+                    updateNewLanguageArray(languageCode, cachedArrayList);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            if (setupCallback != null) {
+                Executors.newSingleThreadExecutor().execute(setupCallback);
+                setupCallback = null;
+            }
+
+//                String commandForm = "SpeechRecognitionListener.getInstance().onSetupComplete(%b, '%s')";
+//                if (result == null) {
+//                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, true, ""));
+//                } else {
+//                    Cocos2dxJavascriptJavaBridge.evalString(String.format(commandForm, false, result.getLocalizedMessage()));
+//                }
+
+//                if (result != null) {
+//                    ((TextView) findViewById(R.id.caption_text))
+//                            .setText("Failed to init recognizer " + result);
+//                } else {
+//                    switchSearch(KWS_SEARCH);
+//                }
+        }
+
+        private void setupRecognizer(String language, File assetsDir) throws IOException {
+            // The recognizer can be configured to perform multiple searches
+            // of different kind and switch between them
+
+            externalDir = assetsDir;
+
+            recognizer = defaultSetup()
+                    .setAcousticModel(new File(assetsDir, language))
+                    .setDictionary(new File(assetsDir, language + ".dict"))
+
+                    // To disable logging of raw audio comment out this call (takes a lot of space on the device)
+                    .setRawLogDir(assetsDir)
+
+                    // Threshold to tune for keyphrase to balance between false alarms and misses
+                    .setKeywordThreshold(1e-45f)
+
+                    // Use context-independent phonetic search, context-dependent is too slow for mobile
+                    .setBoolean("-allphone_ci", true)
+
+                    .getRecognizer();
+            recognizer.addListener(SpeechRecognizer.this);
+
+            /** In your application you might not need to add all those searches.
+             * They are added here for demonstration. You can leave just one.
+             */
+
+            // Create keyword-activation search.
 //        recognizer.addKeyphraseSearch(KWS_SEARCH, KEYPHRASE);
 //
 //        // Create grammar-based search for selection between demos
@@ -233,22 +270,7 @@ public class SpeechRecognizer implements RecognitionListener {
 //        File phoneticModel = new File(assetsDir, "en-phone.dmp");
 //        recognizer.addAllphoneSearch(PHONE_SEARCH, phoneticModel);
 
-        grammarBuilder = new JSGFGrammarBuilder(assetsDir);
-    }
-
-    public void updateNewLanguageArray(ArrayList<String> arrayList) throws IOException {
-        if (grammarBuilder == null) {
-            cachedArrayList = arrayList;
-            return;
+            grammarBuilder = new JSGFGrammarBuilder(assetsDir);
         }
-
-        grammarBuilder.reset();
-
-        for(String s : arrayList) {
-            grammarBuilder.add(s);
-        }
-        grammarBuilder.saveGrammar();
-        File tsogGrammar = new File(externalDir, "tsog.gram");
-        recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
     }
 }

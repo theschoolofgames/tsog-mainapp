@@ -202,9 +202,9 @@ public class Wrapper
         } catch (Exception e) {}
     }
 
-    public static void changeSpeechLanguageArray(String serializedString) throws IOException {
+    public static void changeSpeechLanguageArray(String languageCode, String serializedString) throws IOException {
         ArrayList<String> arrayList = new Gson().fromJson(serializedString, new TypeToken<ArrayList<String>>() {}.getType());
-        SpeechRecognizer.getInstance().updateNewLanguageArray(arrayList);
+        SpeechRecognizer.getInstance().updateNewLanguageArray(languageCode, arrayList);
     }
 
     public static void startSpeechRecognition(final int timeout) {

@@ -109,7 +109,8 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
 
         var mess = "Set Current Language to " + language;
 
-        KVDatabase.getInstance().set("currentLanguage", code);
+        setLanguage(code);
+        SpeechRecognitionListener.setupInstance();
         
         NativeHelper.callNative("showMessage", ["Message", mess]);
         

@@ -192,7 +192,7 @@ static NSMutableArray* noiseDetectionArray = nil;
   [H102Wrapper stopRecord];
 }
 
-+ (void)changeSpeechLanguageArray:(NSString *)serializedString {
++ (void)changeSpeechLanguageArray:(NSString*)languageCode data:(NSString *)serializedString {
   NSData* data = [serializedString dataUsingEncoding:NSUTF8StringEncoding];
   NSArray* array = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
   
@@ -201,7 +201,7 @@ static NSMutableArray* noiseDetectionArray = nil;
     [uppercaseArray addObject:[s uppercaseString]];
   }
   
-  [[SpeechRecognitionListener sharedEngine] setLanguageData:uppercaseArray];
+  [[SpeechRecognitionListener sharedEngine] setLanguageData:languageCode array:uppercaseArray];
 }
 
 + (void)startSpeechRecognition:(NSNumber*) timeout {
