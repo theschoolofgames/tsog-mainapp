@@ -219,7 +219,6 @@
   "3": {
     "1": {
       "name": "gofigure",
-      "option": ["red", "blue", "pink", "yellow", "brown", "green", "orange"],
       "data": [
         "shape_triangle",
         "shape_square",

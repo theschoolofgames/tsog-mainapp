@@ -72,9 +72,6 @@ var TreeGameLayer = TestLayer.extend({
         if (this._data[0])
             this._numberOfTrees = Math.ceil(this._data.length/5);
 
-        if (this._isTestScene)
-            this._numberOfTrees = parseInt(this._data[0].value);
-
         var parentNode = new cc.Node();
         for (var i = 0; i < this._numberOfTrees; i++) {
             var treeIdx = (i % 2 == 0) ? 0 : 1;
@@ -94,7 +91,7 @@ var TreeGameLayer = TestLayer.extend({
 
             for (var j = 0; j < randomNumberArray.length; j++) {
                 var index = j + 1 + i*5;
-                var pos = this._numberCoors[randomNumberArray[j] + treeIdx*5]; // Random pos for numbers each tree
+                var pos = this._numberCoors[j + treeIdx*5]; // pos for numbers each tree
                 var lb = new cc.LabelBMFont(index, res.CustomFont_fnt);
                 lb.x = pos.x*tree.scale + tree.x;
                 lb.y = pos.y*tree.scale + tree.y;
