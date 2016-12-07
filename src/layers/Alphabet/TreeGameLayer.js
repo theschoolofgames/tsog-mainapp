@@ -19,12 +19,11 @@ var TreeGameLayer = TestLayer.extend({
     _scrollView: null,
     _scrollToX: 0,
     _cantouch: true,
+    _soundsPath: [],
 
     ctor: function(data, isTestScene, timeForScene) {
         this._super();
         this._scrollToX = 0;
-        this._isTestScene = isTestScene;
-        // this._setIsTestScene(isTestScene);
         this._fetchObjectData(data);
         this._loadTmx();
         this._addBackground();
@@ -40,15 +39,21 @@ var TreeGameLayer = TestLayer.extend({
         }, -1);
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
+        jsb.AudioEngine.setFinishCallback(audioId, function() {
+            jsb.AudioEngine.stopAll();
+            var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + "count_by_1s.mp3");
+            AudioManager.getInstance().play(path, false, null);
+        });
     },
 
     onEnterTransitionDidFinish: function() {
         this._super();
-
+        this.preloadSounds();
         this._hudLayer.setTotalGoals((this._numberOfTrees*5));
     },
     onExit: function(){
         this._super();
+        this.unloadSounds();
         this._cantouch = false;
     },
     
@@ -278,7 +283,11 @@ var TreeGameLayer = TestLayer.extend({
 
     _correctAction: function() {
         var self = this;
-        jsb.AudioEngine.play2d(res.Succeed_sfx);
+
+        AudioManager.getInstance().play(res.Succeed_sfx, false, function() {
+            var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + self._totalJump + ".mp3");
+            AudioManager.getInstance().play(path, false, null);
+        });
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._adiDog.adiJump();
@@ -299,12 +308,6 @@ var TreeGameLayer = TestLayer.extend({
         var self = this;
         jsb.AudioEngine.play2d(res.Failed_sfx);
         this._adiDog.adiShakeHead();
-        // cc.log("listeningTest_ _celebrateCorrectObj incorrectedObj.name: " + obj.name);
-        // SegmentHelper.track(SEGMENT.TOUCH_TEST,
-        //     {
-        //         obj_name: obj.name,
-        //         correct: "false"
-        //     });
 
         this.runAction(
             cc.sequence(
@@ -318,11 +321,21 @@ var TreeGameLayer = TestLayer.extend({
                 })        
             )
         );
+    },
 
-        // ConfigStore.getInstance().setBringBackObj(
-        //     this._oldSceneName == "RoomScene" ? BEDROOM_ID : FOREST_ID, 
-        //     this._names[this._nameIdx], 
-        //     (this._oldSceneName == "RoomScene" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
+    preloadSounds: function() {
+        this._soundsPath = [];
+        for (var i = 0; i < this._data.length; i++) {
+            var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + (i+1) + ".mp3");
+            AudioManager.getInstance().preload(path, function() {cc.log("load " + path + "succeed")});
+            this._soundsPath.push(path);
+        }
+    },
+
+    unloadSounds: function() {
+        for (var i = 0; i < this._data.length; i++) {
+            AudioManager.getInstance().unload(this._soundsPath[i]);
+        }
     },
 });
 

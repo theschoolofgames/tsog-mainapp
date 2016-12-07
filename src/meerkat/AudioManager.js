@@ -42,6 +42,7 @@ var AudioManager = cc.Class.extend({
         if (callback && cc.isFunction(callback)) {
             if (audio > 0)
                 jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+                    jsb.AudioEngine.stopAll();
                     callback();
                 });
             else // no file name match the input path
