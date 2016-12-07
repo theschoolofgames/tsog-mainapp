@@ -23,12 +23,13 @@ var LevelDialog = Dialog.extend({
     },
 
     _addDialog: function() {
+        cc.log("currentLanguage: " + currentLanguage);
         this._dialogBg = new cc.Sprite("#level_dialog_frame.png");
         this._dialogBg.x = cc.winSize.width/2;
         this._dialogBg.y = cc.winSize.height/2;
         this.addChild(this._dialogBg);
 
-        var banner = new cc.Sprite("#level_dialog_banner.png");
+        var banner = new cc.Sprite("#level_dialog_banner_" + currentLanguage + ".png");
         banner.x = this._dialogBg.width/2;
         banner.y = this._dialogBg.height;
         this._dialogBg.addChild(banner);

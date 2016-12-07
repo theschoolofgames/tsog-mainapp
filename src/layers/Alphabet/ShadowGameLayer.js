@@ -266,18 +266,20 @@ var ShadowGameLayer = TestLayer.extend({
         let sortCoordinateShadeArray = coordinateShadeArray.slice(0);
         sortCoordinateShadeArray.sortOn("y");
         // console.log("CoordinateArray: " + JSON.stringify(coordinateShadeArray));
+        var objectArrayShuffle = shuffle(objectArray);
         for ( var i = 0; i < objectArray.length; i++) {
             this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
         }
-
         let objectArrayClone = objectArray.slice(0);
         let index = 0;
         let lastCloneObjectPos = cc.p(-100, -100);
+        let count = 0;
         while (objectArrayClone.length > 0){
+            cc.log("index: " + index);
             let object = objectArrayClone.shift();
             if (!object.hasClone || object.index == 0){
                 let pos = coordinateShadeArray.shift();
-                this.addObjectShade(pos, object);
+                this.addObjectShade(pos, object, count);
                 if (object.index == 0)
                     lastCloneObjectPos = pos;
                 else 
@@ -287,11 +289,12 @@ var ShadowGameLayer = TestLayer.extend({
                 for (var i = 0; i < coordinateShadeArray.length; i++){
                     if (coordinateShadeArray[i].y == lastCloneObjectPos.y){
                         let posArray = coordinateShadeArray.splice(i, 1);
-                        this.addObjectShade(posArray[0], object);
+                        this.addObjectShade(posArray[0], object, index);
                         break;
                     }
                 }
-            }
+            };
+            count++;
         }
 
         this.runSparklesEffect();
@@ -322,8 +325,11 @@ var ShadowGameLayer = TestLayer.extend({
             object.setScale(3.0);
             object.color = cc.color("#ffd902");
             object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
-            object.x = objPosition.x;
-            object.y = objPosition.y;
+            var divisor = 2;
+            if(this._objectsArray.length > 10) 
+                divisor = 3;
+            object.x = (index % divisor) * 100 + 100;
+            object.y = cc.winSize.height - Math.floor(index/divisor) * 100 - 180;
         }
         else {
             var object = new cc.Sprite(objImageName);
@@ -350,7 +356,7 @@ var ShadowGameLayer = TestLayer.extend({
         )
     },
 
-    addObjectShade: function(objectPosition, gameObject) {
+    addObjectShade: function(objectPosition, gameObject, index) {
         console.log("ObjectShade position: " + JSON.stringify(objectPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
 
@@ -381,8 +387,13 @@ var ShadowGameLayer = TestLayer.extend({
             shadeObject.setScale(3.0);
             shadeObject.color = cc.color("#ffd902");
             shadeObject.setAnchorPoint(objectPosition.anchorX, objectPosition.anchorY);
-            shadeObject.x = objectPosition.x + cc.winSize.width / 2;
-            shadeObject.y = objectPosition.y;
+            var divisor = 2;
+            if(this._objectsArray.length > 10) 
+                divisor = 3;
+            shadeObject.x = cc.winSize.width + (index % divisor) * 100 - 400;
+            shadeObject.y = cc.winSize.height - Math.floor(index/divisor) * 100 - 180;
+            // shadeObject.x = objectPosition.x + cc.winSize.width / 2;
+            // shadeObject.y = objectPosition.y;
 
             shadeObject.children[0].shaderProgram = shader;
             shadeObject.color = cc.color(140, 130, 200);
@@ -590,7 +601,7 @@ var ShadowGameLayer = TestLayer.extend({
         targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
         if (!targetNode._objectTouching)
             return false;
-
+        targetNode.playObjectSound(true);
         // SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
         //     { 
         //         room: "room", 
@@ -800,7 +811,7 @@ var ShadowGameLayer = TestLayer.extend({
         if (soundConfig)
             soundLength = soundConfig.length;
         // cc.log("soundConfig: " + soundConfig.length);
-        var soundSuffix = isDragging ? "-1" : "";
+        // var soundSuffix = isDragging ? "-1" : "";
         // Show cutscene
         var oldZOrder = object.getLocalZOrder();
         if (!isDragging) {

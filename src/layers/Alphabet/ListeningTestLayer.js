@@ -63,7 +63,7 @@ var ListeningTestLayer = TestLayer.extend({
                 self._blockTouch = false;
                 if (self._adiDog) {
                     self._adiDog.adiIdling();
-                    self._addCountDownClock();
+                    // self._addCountDownClock();
                     self._displayCurrentName();
                     self._showObjects();
                 }
@@ -73,7 +73,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._blockTouch = false;
             if (this._adiDog) {
                 this._adiDog.adiIdling();
-                this._addCountDownClock();
+                // this._addCountDownClock();
                 this._displayCurrentName();
                 this._showObjects();
             }

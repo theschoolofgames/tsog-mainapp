@@ -185,138 +185,89 @@
   },
   "3": {
     "1": {
-      "name": "fruiddition",
-      "data": {
-        "type": ["apple"],
-        "data": [
-          {
-            "first": [
-              "number_1",
-              "number_2",
-              "number_3",
-              "number_4"
-            ],
-            "second": [
-              "number_1",
-              "number_1",
-              "number_1",
-              "number_1"
-            ],
-            "third": [
-              "number_2",
-              "number_3",
-              "number_4",
-              "number_5"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal"
-            ]
-          }
-        ]
-      },
-      "duration": 120
+      "name": "tree",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
+      ]
     },
     "2": {
-      "name": "listening-fruiddition",
-      "data": [],
-      "duration": 120
+      "name": "listening",
+      "data": []
     },
     "3": {
-      "name": "writing-fruiddition",
-      "data": [],
-      "duration": 360
+      "name": "writing",
+      "data": []
     },
     "4": {
-      "name": "speaking-fruiddition",
-      "data": [],
-      "duration": 120
+      "name": "writing",
+      "data": []
+    },
+    "5": {
+      "name": "writing",
+      "data": []
     }
   },
   "4": {
     "1": {
-      "name": "buildingblocks",
-      "data": {
-        "type": "block",
-        "data": [
-          {
-            "first": [
-              [
-                "number_1"
-              ],
-              [
-                "number_2"
-              ],
-              [
-                "number_3",
-                "number_2"
-              ],
-              [
-                "number_4",
-                "number_2"
-              ]
-            ],
-            "second": [
-              [
-                "number_1"
-              ],
-              [
-                "number_1"
-              ],
-              [
-                "number_1",
-                "number_2"
-              ],
-              [
-                "number_1",
-                "number_3"
-              ]
-            ],
-            "third": [
-              "number_2",
-              "number_3",
-              "number_4",
-              "number_5"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal"
-            ]
-          }
-        ]
-      },
+      "name": "shoppingbasket",
+      "data": [
+        "towel",
+        "watch",
+        "abacus",
+        "banana",
+        "duster",
+        "eraser",
+        "insect",
+        "orange",
+        "pencil",
+        "potato",
+        "tomato",
+        "umbrella",
+        "uniform",
+        "vegetable",
+        "crayon",
+        "feather",
+        "vehicle",
+        "medicine",
+        "watermelon",
+        "strawberry",
+        "xylophone"
+      ],
       "duration": 120
     },
     "2": {
-      "name": "listening-buildingblocks",
+      "name": "listening",
       "data": [],
       "duration": 120
     },
     "3": {
-      "name": "writing-buildingblocks",
+      "name": "speaking",
       "data": [],
-      "duration": 360
+      "duration": 240
     },
     "4": {
-      "name": "speaking-buildingblocks",
+      "name": "writing",
       "data": [],
-      "duration": 120
+      "duration": 480
     }
   },
   "5": {
@@ -325,22 +276,22 @@
       "data": [
         {
           "type": "word",
-          "value": "A",
+          "value": "e",
           "amount": "10"
         },
         {
           "type": "word",
-          "value": "b",
+          "value": "f",
           "amount": "10"
         },
         {
           "type": "word",
-          "value": "C",
+          "value": "g",
           "amount": "10"
         },
         {
           "type": "word",
-          "value": "d",
+          "value": "h",
           "amount": "10"
         },
         {
@@ -350,7 +301,7 @@
         },
         {
           "type": "word",
-          "value": "f",
+          "value": "F",
           "amount": "10"
         },
         {
