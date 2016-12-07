@@ -64,6 +64,9 @@ var AudioManager = cc.Class.extend({
             cc.audioEngine.playMusic(res.background_mp3, true);
     },
 
+    stopAll: function() {
+        jsb.AudioEngine.stopAll();
+    },
 });
 
 AudioManager._instance = null;

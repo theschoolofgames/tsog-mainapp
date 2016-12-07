@@ -88,6 +88,7 @@ var FormTheTrainLayer = TestLayer.extend({
             s.x = lastBoxXPos + s.width/2;
             s.y = s.height;
             s.tag = i;
+            s.setUserData(""+i);
             this.addChild(s);
             this._activateObjects.push(s);
 
@@ -224,7 +225,7 @@ var FormTheTrainLayer = TestLayer.extend({
     },
 
     _handleObjectSucceedDrop: function() {
-
+        this.playTrainBlockSuccessSound(parseInt(this._currentObjectMoving.getUserData()) + 1);
         this.popGold(this._currentAvailableSlot.getPosition());
 
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
@@ -326,6 +327,12 @@ var FormTheTrainLayer = TestLayer.extend({
 
         this.setData(JSON.stringify(this._data));
         // cc.log("data after map: " + this._data);
+    },
+
+    playTrainBlockSuccessSound: function(trainBlockTag) {
+        AudioManager.getInstance().stopAll();
+        var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + (trainBlockTag) + ".mp3");
+        AudioManager.getInstance().play(path, false, null);
     },
 });
 

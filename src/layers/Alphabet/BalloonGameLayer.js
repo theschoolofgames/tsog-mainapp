@@ -43,6 +43,7 @@ var BalloonGameLayer = TestLayer.extend({
 
         this._removeHud = true;
 
+        jsb.AudioEngine.play2d("res/sounds/sentences/" + currentLanguage + "/pop_the_right_balloon.mp3");
     },
 
     init: function(objectIdArray, timeForScene) {
