@@ -11,7 +11,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this._showClock = false;
         this._player = player;
 
-        this._super(layer, null, "diamond");
+        this._super(layer, null, "diamond", true);
         this._hearts = [];
         this.updatePositonHud();
         this._addDistanceLabel();
@@ -40,11 +40,12 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         whitespace.addChild(cup);
 
 
-        var text = this._distance.toString() + "m";
+        var text = this._distance.toString();
 
-        this._lbDistance = new cc.LabelBMFont(text, res.HudFont_fnt);
+        this._lbDistance = new cc.LabelBMFont(text, res.MapFont_fnt);
+        // this._lbDistance.setColor(cc.color())
         this._lbDistance.x = whitespace.width/2 + 10;
-        this._lbDistance.y = whitespace.height/2;
+        this._lbDistance.y = whitespace.height/2 + 25;
         whitespace.addChild(this._lbDistance);
     },
 
@@ -66,8 +67,8 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     updateDistance: function(d) {
-        this._distance = Math.round(d);
-        this._lbDistance.setString(this._distance.toString() + "m");
+        this._distance = Math.round(d) * 10;
+        this._lbDistance.setString(this._distance.toString());
     },
 
     updateHP: function() {

@@ -360,15 +360,15 @@ languages["en"] = {
 
     //text:
     "Not enough diamond. Play to collect more!": "Not enough diamonds. Play to collect more!",
-    "Spend 10 coins to play!" : "Spend 10 coins to play!",
-    "You are not enough 10 coins to play!": "You are not enough 10 coins to play!",
+    "Spend 2 coins to play!" : "Spend 2 coins to play!",
+    "You are not enough 2 coins to play!": "You are not enough 2 coins to play!",
     "Not enough gold to play!": "Not enough golds to play!",
     "Play": "Play",
     "OK": "OK",
     "CREATE ACCOUNT": "CREATE ACCOUNT",
     "Cancel" : "Cancel",
     "SHOP": "SHOP",
-    "Need 10 coins to play!": "Need 10 coins to play!",
+    "Need 2 coins to play!": "Need 2 coins to play!",
     "Send feedback and comments to anshul@theschoolofgames.org": "Send feedback and comments to anshul@theschoolofgames.org",
     "Checking noise...": "Checking noise...",
     "Too noisy, skip speaking": "Too noisy, skip speaking",

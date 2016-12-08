@@ -361,9 +361,9 @@ languages["sw"] = {
 
     //text:
     "Not enough diamond. Play to collect more!": "Diamods haitoshi. Kucheza kukusanya zaidi!",
-    "Spend 10 coins to play!" : "Kutumia 10 sarafu kucheza!",
-    "Need 10 coins to play!": "Haja 10 sarafu kucheza!",
-    "You are not enough 10 coins to play!": "Wewe ni haitoshi 10 sarafu kucheza!",
+    "Spend 2 coins to play!" : "Kutumia 2 sarafu kucheza!",
+    "Need 2 coins to play!": "Haja 2 sarafu kucheza!",
+    "You are not enough 2 coins to play!": "Wewe ni haitoshi 2 sarafu kucheza!",
     "Not enough gold to play!": "Si dhahabu ya kutosha ya kucheza!",
     "Play": "Kucheza",
     "OK": "SAWA",

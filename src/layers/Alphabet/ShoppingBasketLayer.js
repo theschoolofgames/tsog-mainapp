@@ -1,5 +1,5 @@
-var SHOPPING_OBJECT_DEFAULT_WIDTH = 60;
-var SHOPPING_OBJECT_DEFAULT_HEIGHT = 60;
+var SHOPPING_OBJECT_DEFAULT_WIDTH = 80;
+var SHOPPING_OBJECT_DEFAULT_HEIGHT = 80;
 var ShoppingBasketLayer = TestLayer.extend({
     _data: null,
     _basket: null,
@@ -71,9 +71,9 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _calcPossibleSlots: function() {
         for (var i = 0; i < this._goal; i++) {
-            var x = this._basket.x  + (Math.random() * 0.6) * this._basket.width ;
-            var y = this._basket.y  + (Math.random() * 0.7) * this._basket.height/2;
-            this._activateSlots.push(cc.p(x*this._basketScale, y*this._basketScale));
+            var x = this._basket.x - this._basket.width/2 * this._basketScale + 60 + Math.random() * 0.7 * this._basket.width * this._basketScale;
+            var y = this._basket.y - this._basket.height/2 * this._basketScale+ 60 + Math.random() * 0.6 * this._basket.height * this._basketScale; 
+            this._activateSlots.push(cc.p(x, y));
             // cc.log("x : %f - y: %f", x, y);
         }
         this._currentAvailableSlot = this._activateSlots[0];
@@ -109,9 +109,9 @@ var ShoppingBasketLayer = TestLayer.extend({
             obj.tag = i;
             obj.ZOder = 3;
             // cc.log("add objects tag: " + obj.tag);
-            obj.scale = (obj.width > SHOPPING_OBJECT_DEFAULT_WIDTH) ? SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width : SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height;
-            obj.x = obj.width * obj.scale * 2 + (obj.width*obj.scale + 20) * tempX;
-            obj.y = (inSecondRow) ? (cc.rectGetMinY(this._basketBBox) - obj.height * obj.scale) : (cc.rectGetMaxY(this._basketBBox) + obj.height * obj.scale) - 10;
+            obj.scale = Math.min(SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width, SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height);
+            obj.x = SHOPPING_OBJECT_DEFAULT_WIDTH * 2 + (SHOPPING_OBJECT_DEFAULT_WIDTH + 20) * tempX;
+            obj.y = (inSecondRow) ? (cc.rectGetMinY(this._basketBBox) - 60) : (cc.rectGetMaxY(this._basketBBox) + 50);
             obj.setUserData(objImageName);
 
             if (obj.x > (cc.winSize.width - 200)) {

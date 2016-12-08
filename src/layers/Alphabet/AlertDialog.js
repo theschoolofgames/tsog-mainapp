@@ -28,7 +28,7 @@ var AlertDialog = cc.LayerColor.extend({
 
     _showDialog: function(){
         var dialog = new MessageDialog("#level_dialog_frame.png");
-        var lb = new cc.LabelBMFont(localize("Need 10 coins to play!"), res.HomeFont_fnt);
+        var lb = new cc.LabelBMFont(localize("Need 2 coins to play!"), res.HomeFont_fnt);
         lb.scale = 0.7;
         lb.x = dialog.background.width/2 + 20;
         lb.y = dialog.background.height/2 + 100;

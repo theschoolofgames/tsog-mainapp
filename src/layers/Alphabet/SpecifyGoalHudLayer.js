@@ -6,11 +6,12 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     _holder: null,
     _showClock: true,
     _whiteBg: null,
+    _isAlpharacing: false,
 
-    ctor: function(layer, timeForScene, currencyType) {
+    ctor: function(layer, timeForScene, currencyType, isAlpharacing) {
         if (currencyType)
             this.setCurrencyType(currencyType);
-
+        this._isAlpharacing = isAlpharacing;
         this._super(layer, !this._showClock, timeForScene);
         this.addBackGround();
         // this._bg.visible = false;
@@ -25,6 +26,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     },
 
     addGoalImage: function(imageName, word) {
+        cc.log("this._isAlpharacing: " + this._isAlpharacing);
         // this._bg.visible = false;
         cc.log("imageName: " + imageName);
         var holder = new cc.Sprite("#holder.png");
@@ -70,10 +72,18 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     },
 
     addGoalLabel: function() {
+        cc.log("addGoalLabeld");
         var cupImage = new cc.Sprite("#holder.png");
         cupImage.x = -10;
         cupImage.y = this._whiteBg.height/2;
-        this._whiteBg.addChild(cupImage);
+        if(this._isAlpharacing) {
+            this.addChild(cupImage);
+            cupImage.x = this._clockBg.x + this._clockBg.width + HUD_BAR_DISTANCE * 2;
+            cupImage.y = this._progressBarBg.y - 5;
+            this._whiteBg.visible = false;
+        }
+        else
+            this._whiteBg.addChild(cupImage);
         this._holder = cupImage;
 
         var label = new cc.LabelBMFont(0 + "", res.HudFont_fnt);

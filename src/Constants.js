@@ -716,7 +716,7 @@ var ALPHARACING_DATA =[
       "amount": "50"
     }
 ];
-GOLD_NEED_TO_PLAY_ALPHARACING = 10;
+GOLD_NEED_TO_PLAY_ALPHARACING = 2;
 
 var LANGUAGE = [
     "English", 

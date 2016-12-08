@@ -35,7 +35,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this._blocktouch = false;
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
-        this.addChild(new HomeHUDLayer());
+        this.addChild(new HomeHUDLayer(),2);
 
         // var testNode = new CharacterNodeAlpharacing("monkey");
         // testNode.x = cc.winSize.width/2;
