@@ -235,7 +235,6 @@ cc.game.onStart = function(){
         //     ]
         // }));
 
->>>>>>> refine and fix bugs
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
