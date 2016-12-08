@@ -32,6 +32,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         button.y = cc.winSize.height - button.height/2 - 10;
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.back_sound_mp3, false, null);
             cc.director.runScene(new HomeScene());
         });
     },

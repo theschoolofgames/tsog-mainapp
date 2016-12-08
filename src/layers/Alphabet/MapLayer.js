@@ -26,6 +26,7 @@ var MapLayer = cc.Layer.extend({
         this._super();
 
         this._prepareMap();
+        cc.audioEngine.playMusic(res.map_mp3, true);
     },
 
     addSettingButton: function() {
@@ -343,6 +344,7 @@ var MapLayer = cc.Layer.extend({
     onExit: function() {
         this._super();
 
+        cc.audioEngine.stopMusic();
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 0);
     },
 });

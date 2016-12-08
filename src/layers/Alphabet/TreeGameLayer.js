@@ -48,6 +48,7 @@ var TreeGameLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        this.playBackGroundMusic();
         this.preloadSounds();
         this._hudLayer.setTotalGoals((this._numberOfTrees*5));
     },
@@ -232,7 +233,7 @@ var TreeGameLayer = TestLayer.extend({
                                 //     return;
                                 // }
 
-                                self._moveToNextScene();
+                                self.doCompletedScene();
                             })
                         ));
                     }

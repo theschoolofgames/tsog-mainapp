@@ -118,11 +118,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_RoomScene", 0);
-        if (didInstructionSoundPlay == 0)
-            AudioManager.getInstance().play(this._beginSoundPath, false, AudioManager.getInstance().playBackGroundMusic);
-        else 
-            AudioManager.getInstance().playBackGroundMusic();
+        AudioManager.getInstance().play(this._beginSoundPath, false, function() {cc.audioEngine.playMusic(res.level_mp3, true)});
     },
 
     resetAllArrays: function() {
@@ -368,8 +364,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
+        AudioManager.getInstance().play(res.you_win_mp3);
         if (this._mask)
-        this._hudLayer.pauseClock();
+            this._hudLayer.pauseClock();
         var starEarned = this._hudLayer.getStarEarned();
 
         var lbText = localizeForWriting("you win");

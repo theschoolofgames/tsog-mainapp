@@ -27,12 +27,6 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         Utils.showVersionLabel(this);
         this.addShopButton();
         NativeHelper.callNative("changeAudioRoute");
-        this.runAction(cc.sequence(
-            cc.delayTime(3),
-            cc.callFunc(function(){
-                self._block = false;
-            })
-        ))
         this.addChild(new ShopHUDLayer());
     },
 
@@ -50,8 +44,6 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         shopBtn.y = shopBtn.height/2 * shopBtn.scale + 10;
         this.addChild(shopBtn, 9999);
         shopBtn.addClickEventListener(function(){
-            if(self._block)
-                return;
             cc.director.runScene(new ShopScene());
         });
 

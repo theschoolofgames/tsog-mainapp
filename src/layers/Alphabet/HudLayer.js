@@ -287,10 +287,16 @@ var HudLayer = cc.Layer.extend({
         this.addChild(node);
     },
 
+    playPopGoldSound: function() {
+        AudioManager.getInstance().stopAll();
+        AudioManager.getInstance().play(res.collect_coin_mp3);
+    },
+
     _tappedGoldNode: function(goldNode) {
         if (goldNode.getNumberOfRunningActions() > 2)
             return;
 
+        var self = this;
         var amount = goldNode.tag;
 
         for (var i = 0; i < amount; i++) {
@@ -319,11 +325,11 @@ var HudLayer = cc.Layer.extend({
             gold.runAction(cc.sequence(
                 flyAction,
                 cc.callFunc(function(node) {
+                    self.playPopGoldSound();
                     node.removeFromParent();
                 })
             ));
 
-            var self = this;
             gold.runAction(cc.sequence(
                 cc.delayTime(flyTime-0.1),
                 cc.callFunc(function() {

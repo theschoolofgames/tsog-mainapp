@@ -60,6 +60,11 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         }
     },
 
+    playPopGoldSound: function() {
+        // AudioManager.getInstance().stopAll();
+        // AudioManager.getInstance().play(res.collect_diamond_mp3);
+    },
+
     updateDistance: function(d) {
         this._distance = Math.round(d);
         this._lbDistance.setString(this._distance.toString() + "m");

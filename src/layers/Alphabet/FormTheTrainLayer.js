@@ -42,7 +42,7 @@ var FormTheTrainLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-
+        this.playBackGroundMusic();
         this._hudLayer.setTotalGoals(FormTheTrainLayer.NUMBER_OF_BOX);
     },
 
@@ -196,7 +196,7 @@ var FormTheTrainLayer = TestLayer.extend({
         self._blockFlag = false; // unlock 
         if (self._activateSlots.length == 0) {
             self._blockFlag = true;
-            self._moveToNextScene();
+            self.doCompletedScene();
             // self._addDebugButton();
         }
     },

@@ -143,82 +143,24 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
-        
-        // cc.director.runScene(new MapScene());
-        // cc.director.runScene(new TreeGameScene({"numberOfTrees": 5}, true));
-        // cc.director.runScene(new DesignTestScene(1, true));
-        // cc.director.runScene(new FormTheTrainScene());
-        // cc.director.runScene(new CardGameScene(["cat","hat", "ant", "banana", "cow", "key", "number_1", "number_2", "number_3", "number_4"], true));
-        // cc.director.runScene(new GoFigureTestScene([
-        //         "shape_triangle",
-        //         "shape_square",
-        //         "shape_rectangle",
-        //         "shape_circle",
-        //         "shape_double_curved_line",
-        //         "shape_semi_circle",
-        //         "shape_six_straight_line"
-        //     ], ["red", "blue", "pink", "yellow", "brown", "green", "orange"]
-        // ));
-        // cc.director.runScene(new WritingTestScene(["123", "456", "789"]));
-        // cc.director.runScene(new LoginScene());
-        // cc.director.runScene(new SignUpScene());
-        // cc.director.runScene(new NewSchoolScene());
-        // cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new BalloonGameScene([{"type": "word","value": "A","amount": "3"},{"type": "color","value": "color_blue","amount": "3"},{"type": "word","value": "a","amount": "3"},]));
-        // cc.director.runScene(new MainScene());
-        // cc.director.runScene(new ShopScene());
-        cc.director.runScene(new HomeScene());
-        // cc.director.runScene(new ShadowGameScene(["egg","hat","hat","jar","jar","book","book","apple","key"]));
-        // cc.director.runScene(new SpellingGameScene(["cat", "banana"]));
-        // cc.director.runScene(new AlphaRacingScene([{"id": "word_a","value": "A","amount": "20"},{"id": "word_a","value": "a","amount": "20"}]));
-        // cc.director.runScene(new StoryMainScene());
-        // cc.director.runScene(new WritingTestScene(["shape_square", "shape_rectangle", "shape_triangle"], "RoomScene"));
-        // cc.director.runScene(new ListeningTestForFruidditionScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}]));
-        // cc.director.runScene(new SchoolSelectorScene());
-        // cc.director.runScene(new AccountSelectorScene());
-        // cc.director.runScene(new TalkingAdiScene());
-        // cc.director.runScene(new RoomScene());
-        // cc.director.runScene(new ForestScene(["19", "2", "3", "4", "5", "123","cat", "bee"], true));
-        // cc.director.runScene(new SpeakingTestScene([{"name":"hat","tag":0},{"name":"jar","tag":1},{"name":"key","tag":2}], "RoomScene"));
-        // cc.director.runScene(new BuildingBlocksScene({
-        // cc.director.runScene(new BuildingBlocksScene({
-        //     "type": "block",
-        //     "data": [
-        //       {
-        //         "first": [
-        //           ["number_1"],
-        //           ["number_2"],
-        //           ["number_3", "number_2"],
-        //           ["number_4", "number_2"]
-        //         ],
-        //         "second": [
-        //           ["number_1"],
-        //           ["number_1"],
-        //           ["number_1", "number_2"],
-        //           ["number_1", "number_3"]
-        //         ],
-        //         "third": [
-        //           "number_2",
-        //           "number_3",
-        //           "number_4",
-        //           "number_5"
-        //         ],
-        //         "firstOperation": [
-        //           "plus",
-        //           "plus",
-        //           "plus",
-        //           "plus"
-        //         ],
-        //         "secondOperation": [
-        //           "equal",
-        //           "equal",
-        //           "equal",
-        //           "equal"
-        //         ]
-        //       }
-        //     ]
-        // }));
 
+        AudioManager.getInstance().preload(res.alpha_racing_mp3);
+        AudioManager.getInstance().preload(res.back_sound_mp3);
+        AudioManager.getInstance().preload(res.balloon_pop_mp3);
+        AudioManager.getInstance().preload(res.collect_coin_mp3);
+        AudioManager.getInstance().preload(res.collect_diamond_mp3);
+        AudioManager.getInstance().preload(res.home_click_mp3);
+        AudioManager.getInstance().preload(res.incorrect_word_mp3);
+        AudioManager.getInstance().preload(res.level_mp3);
+        AudioManager.getInstance().preload(res.map_mp3);
+        AudioManager.getInstance().preload(res.mega_win_level_finish_mp3);
+        AudioManager.getInstance().preload(res.ui_close_mp3);
+        AudioManager.getInstance().preload(res.you_win_mp3);
+        
+        cc.audioEngine.setMusicVolume(0.2);
+        
+        cc.director.runScene(new HomeScene());
+        
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);

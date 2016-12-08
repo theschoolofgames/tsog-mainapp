@@ -81,19 +81,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_ForestScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
-            // cc.log("nation: %s", nation);
-
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-forest") + ".mp3", false);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                // mask.removeFromParent();
-                cc.audioEngine.playMusic(res.background_mp3, true);
-            });
-            // KVDatabase.getInstance().set("beginSound_ForestScene", 1);
-        }else 
-            cc.audioEngine.playMusic(res.background_mp3, true);
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-forest") + ".mp3";
+        AudioManager.getInstance().play(beginSoundPath, false, function() {cc.audioEngine.playMusic(res.level_mp3, true);});
     },
 
     setVolume:function() {
@@ -560,6 +549,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
+        AudioManager.getInstance().play(res.you_win_mp3);
         this._hudLayer.pauseClock();
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);

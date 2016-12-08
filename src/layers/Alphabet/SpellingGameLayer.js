@@ -57,7 +57,7 @@ var SpellingGameLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-
+        this.playBackGroundMusic();
         this._hudLayer.setTotalGoals(this._totalLetters);
     },
 
@@ -286,7 +286,7 @@ var SpellingGameLayer = TestLayer.extend({
         self._blockFlag = false; // unlock 
         if (self._activateSlots.length == 0) {
             self._blockFlag = true;
-            self._moveToNextScene();
+            self.doCompletedScene();
             // self._addDebugButton();
         }
     },

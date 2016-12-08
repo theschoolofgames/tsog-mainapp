@@ -271,6 +271,18 @@ var res = {
     
     // BG sound 
     BACKGROUND_mp3: "sounds/background.mp3",
+    alpha_racing_mp3 : "res/sounds/backsounds/alpha_racing.mp3",
+    back_sound_mp3 : "res/sounds/backsounds/back_sound.mp3",
+    balloon_pop_mp3 : "res/sounds/backsounds/balloon_pop.mp3",
+    collect_coin_mp3 : "res/sounds/backsounds/collect_coin.mp3",
+    collect_diamond_mp3 : "res/sounds/backsounds/collect_diamond.mp3",
+    home_click_mp3 : "res/sounds/backsounds/home_click.mp3",
+    incorrect_word_mp3 : "res/sounds/backsounds/incorrect_word.mp3",
+    level_mp3 : "res/sounds/backsounds/level.mp3",
+    map_mp3 : "res/sounds/backsounds/map.mp3",
+    mega_win_level_finish_mp3 : "res/sounds/backsounds/mega_win_level_finish.mp3",
+    ui_close_mp3 : "res/sounds/backsounds/ui_close.mp3",
+    you_win_mp3 : "res/sounds/backsounds/you_win.mp3",
  
     // Adidog_json: "Adidog/ConCho.json",
     // Adidog_atlas: "AdiDog/ConCho.atlas",

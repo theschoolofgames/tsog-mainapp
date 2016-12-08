@@ -77,6 +77,7 @@ var SettingDialog = cc.Layer.extend({
             var event  = new cc.EventCustom("event_logout");
             cc.eventManager.dispatchEvent(event);
             cc.director.resume();
+            AudioManager.getInstance().play(res.back_sound_mp3, false, null);
             if (Utils.getUserName()){
                 Utils.logoutStudent();
                 cc.director.replaceScene(new AccountSelectorScene());

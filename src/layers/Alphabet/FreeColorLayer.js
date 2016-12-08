@@ -65,14 +65,15 @@ var FreeColorLayer = TestLayer.extend({
             })
         ));
         this._addNextButton();
-
-        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-colors") + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            // mask.removeFromParent();
-            cc.audioEngine.playMusic(res.background_mp3, true);
-        });
+        this.playBeginSound();
     },
 
+    playBeginSound: function() {
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-colors") + ".mp3";
+        this._super(beginSoundPath, function() {
+            cc.audioEngine.playMusic(res.level_mp3, true);
+        });
+    },
 
     _createRenderTexture: function() {
         this._baseRenderer = new cc.RenderTexture(cc.winSize.width, cc.winSize.height);

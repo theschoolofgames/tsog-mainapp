@@ -39,11 +39,8 @@ var BalloonGameLayer = TestLayer.extend({
     ctor: function(objectIdArray, timeForScene) {
         this._super(cc.color.WHITE);
         this.init(objectIdArray, timeForScene);
-        // this.init(this._objectIdArray); // For testing
 
         this._removeHud = true;
-
-        jsb.AudioEngine.play2d("res/sounds/sentences/" + currentLanguage + "/pop_the_right_balloon.mp3");
     },
 
     init: function(objectIdArray, timeForScene) {
@@ -59,15 +56,13 @@ var BalloonGameLayer = TestLayer.extend({
 
         this._addAdi();
 
-        // this._filterObjectsByType(objectIdArray);
         this._fetchObjectData(objectIdArray);
         this._tempArray = shuffle(this._objectsArray).slice(0);
         this._goalTotal = this._checkGoalTotal();
-        // console.log("Goal Total " + this._goalTotal);
 
         this._currentObject = this._tempArray.pop();
         this._spawnBalloonPool();
-        // this._addGoalList(this._currentObject.id, this._currentObject.amount);
+
         this._addHudLayer(timeForScene);
         this._updateCurrentIdHud(this._currentObject);
         this._updateGoalLabel(0);
@@ -79,6 +74,12 @@ var BalloonGameLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        this.playBeginSound();
+    },
+
+    playBeginSound: function() {
+        var beginSoundPath = "res/sounds/sentences/" + currentLanguage + "/pop_the_right_balloon.mp3";
+        this._super(beginSoundPath, function() {cc.audioEngine.playMusic(res.level_mp3, true)});
     },
 
     _addHudLayer: function(timeForScene) {
@@ -102,10 +103,6 @@ var BalloonGameLayer = TestLayer.extend({
         return total;
     },
 
-    // _updateGoalLabel: function(correct) {
-    //     this._hudLayer.updateSpecifyGoalLabel("".concat(correct).concat("-").concat(this._currentObject.amount));
-    // },
-
     updateProgressBar: function() {
         cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._allCorrectChoose / this._goalTotal;
@@ -123,8 +120,6 @@ var BalloonGameLayer = TestLayer.extend({
         if (!this._gameObjectJson || this._gameObjectJson.length == 0)
             return;
 
-        // objectIdArray = JSON.parse(objectIdArray);
-        cc.log("objectIdArray: " + (objectIdArray));
         for (var i = 0; i < objectIdArray.length; i++){            
             let itemObject = this._gameObjectJson.find((gameObject) => {
                 return gameObject.id === objectIdArray[i];
@@ -152,19 +147,10 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     _updateCurrentIdHud: function(currentObj) {
-        cc.log("currentObj: " + JSON.stringify(currentObj));
         let text = "";
 
         if (currentObj.type === "number" || currentObj.type === "word")
             text = currentObj.value;
-
-        // if (!this.hudBalloonBg){
-        //     this.hudBalloonBg = new cc.Sprite("#balloon_gray_1.png");
-        //     this.hudBalloonBg.attr({x: 60, y: cc.winSize.height - 200});
-        //     this.hudBalloonBg.setScale(0.6);
-        //     // circle.setColor(cc.color.RED);   
-        //     this.addChild(this.hudBalloonBg);
-        // }
 
         var spriteFrame = "";
         if (currentObj.value.indexOf("red") !== -1){
@@ -179,20 +165,10 @@ var BalloonGameLayer = TestLayer.extend({
         else {
             spriteFrame = cc.spriteFrameCache.getSpriteFrame("balloon_gray_1.png");
         }
-        // this.hudBalloonBg.setSpriteFrame(spriteFrame);
+
         this._hudLayer.addSpecifyGoal(spriteFrame, currentObj.value);
         this._hudLayer.setTotalSpecifyGoal(currentObj.amount);
 
-        // if (!this.hudTypeLabel){
-        //     this.hudTypeLabel = new cc.LabelBMFont(text + "", "hud-font.fnt");
-        //     this.hudTypeLabel.setScale(2.0);
-        //     this.hudTypeLabel.color = cc.color("#ffd902");
-        //     this.hudTypeLabel.x = this.hudBalloonBg.width / 2 + 10;
-        //     this.hudTypeLabel.y = this.hudBalloonBg.height/2 + 40;
-        //     this.hudBalloonBg.addChild(this.hudTypeLabel);
-        // }
-
-        // this.hudTypeLabel.setString(text + "");
     },
 
     createWarnLabel: function(text, object, x, y) {
@@ -226,7 +202,6 @@ var BalloonGameLayer = TestLayer.extend({
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
             cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
-            // cc.delayTime(1)
         ));
 
         var self = this;
@@ -237,14 +212,9 @@ var BalloonGameLayer = TestLayer.extend({
                     if (warningLabel)
                         warningLabel.removeFromParent();
                     self._moveToNextScene();
-                    // self._backToHome();
                 })
             )
         )
-    },
-
-    _backToHome: function() {
-        cc.director.replaceScene(new cc.TransitionFade(1, new MainScene(), cc.color(255, 255, 255, 255)));
     },
 
     onTouchBegan: function(touch, event) {
@@ -268,10 +238,9 @@ var BalloonGameLayer = TestLayer.extend({
 
                     var name = obj.name.substr(6);
                     var localizedName = localize(name);
-                    jsb.AudioEngine.stopAll();
-                    jsb.AudioEngine.play2d(res.Succeed_sfx);
-                    cc.log("localizedName: " + localizedName);  
-                    jsb.AudioEngine.play2d("res/sounds/colors/" + localizedName + ".mp3");
+                    AudioManager.getInstance().stopAll();
+                    AudioManager.getInstance().play(res.balloon_pop_mp3);
+                    AudioManager.getInstance().play("res/sounds/colors/" + localizedName + ".mp3");
                     
 
                     self._adiDog.adiHifi();
@@ -288,7 +257,7 @@ var BalloonGameLayer = TestLayer.extend({
                     }
                 }
                 else {
-                    jsb.AudioEngine.play2d(res.Failed_sfx);
+                    AudioManager.getInstance().play(res.incorrect_word_mp3);
                     self._adiDog.adiShakeHead();
                 }
 
@@ -337,7 +306,7 @@ var BalloonGameLayer = TestLayer.extend({
 
     _checkCompleteScene: function() {
         if (this._tempArray.length <= 0)
-            this.completedScene();
+            this.doCompletedScene();
         else {
             this._currentObject = this._tempArray.pop();
             this._updateCurrentIdHud(this._currentObject);

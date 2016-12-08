@@ -41,43 +41,27 @@ var ListeningTestLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-        this._playBeginSound();
+        this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
 
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
-    _playBeginSound: function() {
+    playBeginSound: function() {
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-listening") + ".mp3";
         var self = this;
-
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_ListeningTestScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
-
-            this._blockTouch = true;
-            this._adiDog.adiTalk();
-
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-listening") + ".mp3", false);
+        this._blockTouch = true;
+        this._adiDog.adiTalk();
         
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                self._blockTouch = false;
-                if (self._adiDog) {
-                    self._adiDog.adiIdling();
-                    // self._addCountDownClock();
-                    self._displayCurrentName();
-                    self._showObjects();
-                }
-            });
-            // KVDatabase.getInstance().set("beginSound_ListeningTestScene", 1);
-        } else {
-            this._blockTouch = false;
-            if (this._adiDog) {
-                this._adiDog.adiIdling();
-                // this._addCountDownClock();
-                this._displayCurrentName();
-                this._showObjects();
+        this._super(beginSoundPath, function() {
+            self._blockTouch = false;
+            self.playBackGroundMusic();
+            if (self._adiDog) {
+                self._adiDog.adiIdling();
+                self._displayCurrentName();
+                self._showObjects();
             }
-        }
+        });
     },
 
     onTouchBegan: function(touch, event) {
@@ -137,7 +121,7 @@ var ListeningTestLayer = TestLayer.extend({
         var self = this;
         var clockInitTime = GAME_CONFIG.listeningTestTime || UPDATED_CONFIG.listeningTestTime;
         var clock = new Clock(clockInitTime, function(){
-            self._moveToNextScene();
+            self.doCompletedScene();
         });
         clock.setIsClockInTalkingAdi(true);
         clock.visible = true;
@@ -294,7 +278,7 @@ var ListeningTestLayer = TestLayer.extend({
 
                         self._nameIdx++;
                         if (self._nameIdx >= self._names.length) {
-                            self._moveToNextScene();
+                            self.doCompletedScene();
                         } else {
                             self._displayCurrentName();
                             self._showObjects();
@@ -457,9 +441,9 @@ var ListeningTestLayer = TestLayer.extend({
                     cc.callFunc(function() {
                         self._blockTouch = false;
                         if (self._nameIdx >= self._names.length) {
-                            self._moveToNextScene();
+                            self.doCompletedScene();
                         } else if (self._keyObject.length > 0 && self._currentKeyIndex >= self._keyObject.length) {
-                            self._moveToNextScene();
+                            self.doCompletedScene();
                         } else {
                             self._displayCurrentName();
                             self._showObjects();

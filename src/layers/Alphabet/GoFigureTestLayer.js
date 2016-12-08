@@ -96,37 +96,26 @@ var GoFigureTestLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-        this._playBeginSound();
+        this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
 
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
-    _playBeginSound: function() {
-        var self = this;
-        var nation = Utils.getLanguage();
-
+    playBeginSound: function() {
         this._blockTouch = true;
         this._adiDog.adiTalk();
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-shapes") + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-shapes") + ".mp3";
+        this._super(beginSoundPath, function() {
             self._blockTouch = false;
+            self.playBackGroundMusic();
             if (!self._adiDog)
                 return;
 
             self._adiDog.adiIdling();
             self._moveToNextShape();
         });
-        // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
-        // }else {
-        //     this._blockTouch = false;
-        //     if (!this._adiDog)
-        //         return;
-
-        //     this._adiDog.adiIdling();
-        //     this._moveToNextShape();
-        // }
     },
 
     onTouchBegan: function(touch, event) {
@@ -366,7 +355,7 @@ var GoFigureTestLayer = TestLayer.extend({
                         cc.delayTime(1.2),
                         cc.callFunc(function() {
                             if (self._nameIdx >= self._writingWords.length) {
-                                self._moveToNextScene();
+                                self.doCompletedScene();
                                 return;
                             }
                             self._baseRender.getSprite().opacity = 128;

@@ -148,6 +148,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this.maps = [];
 
         cc.eventManager.removeListener(this._eventGameOver);
+
+        cc.audioEngine.stopMusic();
     },
 
     resetData: function() {
@@ -214,9 +216,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     },
 
     _playBackgroundMusic: function() {
-        cc.audioEngine.setEffectsVolume(0.2);
-        cc.audioEngine.setMusicVolume(0.2);
-        cc.audioEngine.playMusic(res.background_mp3, true);
+        cc.audioEngine.playMusic(res.alpha_racing_mp3, true);
     },
 
     initPlayer: function() {
@@ -639,7 +639,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         let returnVal = this._currentChallange.value == word;        
 
         if (this._currentChallange.value == word){
-            jsb.AudioEngine.play2d(res.Succeed_sfx);
+            AudioManager.getInstance().play(res.collect_diamond_mp3);
 
             this._currentEarnedNumber++;
             this._totalEarned++;
@@ -659,7 +659,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             }
         }
         else {
-            jsb.AudioEngine.play2d(res.Failed_sfx);
+            AudioManager.getInstance().play(res.incorrect_word_mp3);
         }
 
         let leftObjects = parseInt(this._currentChallange.amount) - this._currentEarnedNumber;

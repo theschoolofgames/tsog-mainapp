@@ -82,55 +82,26 @@ var WritingTestLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-        this._playBeginSound();
+        this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
-    _playBeginSound: function() {
+    playBeginSound: function() {
         var self = this;
+        this._blockTouch = true;
+        this._adiDog.adiTalk();
 
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_WritingTestScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
-            // cc.log("nation: %s", nation);
-
-            this._blockTouch = true;
-            this._adiDog.adiTalk();
-
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-writing") + ".mp3", false);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                self._blockTouch = false;
-                if (!self._adiDog)
-                    return;
-
-                self._adiDog.adiIdling();
-                self._moveToNextCharacter();
-            });
-            // KVDatabase.getInstance().set("beginSound_WritingTestScene", 1);
-        }else {
-            this._blockTouch = false;
-            if (!this._adiDog)
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-writing") + ".mp3";
+        this._super(beginSoundPath, function() {
+            self._blockTouch = false;
+            self.playBackGroundMusic();
+            if (!self._adiDog)
                 return;
 
-            this._adiDog.adiIdling();
-            this._moveToNextCharacter();
-        }
-
-        // var nation = Utils.getLanguage();
-
-        // this._blockTouch = true;
-        // this._adiDog.adiTalk();
-
-        // var audioId = jsb.AudioEngine.play2d("res/sounds/writingTest_" + nation + ".mp3", false);
-        // jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-        //     self._blockTouch = false;
-        //     if (!self._adiDog)
-        //         return;
-
-        //     self._adiDog.adiIdling();
-        //     self._moveToNextCharacter();
-        // });
+            self._adiDog.adiIdling();
+            self._moveToNextCharacter();
+        });
     },
 
     onTouchBegan: function(touch, event) {
@@ -440,7 +411,7 @@ var WritingTestLayer = TestLayer.extend({
                                 cc.fadeOut(0.3),
                                 cc.callFunc(function() {
                                     if (self._nameIdx >= self._writingWords.length) {
-                                        self._moveToNextScene();
+                                        self.doCompletedScene();
                                         return;
                                     }
 

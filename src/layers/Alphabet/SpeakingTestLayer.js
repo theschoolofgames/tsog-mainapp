@@ -307,7 +307,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if (this.currentObjectShowUpId >= this._names.length){
             NativeHelper.callNative("stopSpeechRecognition");
             // cc.log("SpeakingTestLayer _checkCompleted");
-            this._moveToNextScene();
+            this.doCompletedScene();
 
             return true;
         }

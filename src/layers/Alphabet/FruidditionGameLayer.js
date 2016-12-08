@@ -57,7 +57,7 @@ var FruidditionGameLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
-
+        this.playBackGroundMusic();
         this._createOperation();
         this._showNextOperation();
 
@@ -349,7 +349,7 @@ var FruidditionGameLayer = TestLayer.extend({
             this.runAction(cc.sequence(
                 cc.delayTime(1),
                 cc.callFunc(function() {
-                    self._moveToNextScene();
+                    self.doCompletedScene();
                 })
             ));
             return true;

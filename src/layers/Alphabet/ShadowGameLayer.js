@@ -37,12 +37,8 @@ var ShadowGameLayer = TestLayer.extend({
     _timeForScene: null,
 
     ctor: function(objectIdArray, timeForScene) {
-        // console.log("Array Checked => \n" + JSON.stringify(objectIdArray));
-        // console.log("Array Checked Length => " + objectIdArray.length);
         this._super();
-        // cc.spriteFrameCache.addSpriteFrames(res.Figure_Game_Plist);
         this._timeForScene = timeForScene;
-        // this._addHudLayer(timeForScene);
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -52,8 +48,6 @@ var ShadowGameLayer = TestLayer.extend({
 
         this.addObjects(this._objectsArray);
         
-        // this.runTutorial(false);
-        
         
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -62,14 +56,6 @@ var ShadowGameLayer = TestLayer.extend({
                 onTouchMoved: this.onTouchMoved,
                 onTouchEnded: this.onTouchEnded
         }, this);
-
-        // SegmentHelper.track(SEGMENT.LEVEL_START, 
-        //     { 
-        //         room: "room", 
-        //         object_num: this._objectsArray.length
-        //     });
-        // cc.audioEngine.playMusic(res.background_mp3, true);
-        // this.scheduleUpdate();
 
         Utils.showVersionLabel(this);
     },
@@ -131,6 +117,7 @@ var ShadowGameLayer = TestLayer.extend({
         // cc.log("RoomLayer onEnterTransitionDidFinish");
         this._super();
         // this.playBeginSound();
+        this.playBackGroundMusic();
         this.runAction(
             cc.sequence(    
                 cc.delayTime(0.1),
@@ -168,19 +155,8 @@ var ShadowGameLayer = TestLayer.extend({
     },
 
     playBeginSound: function(){
-        var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_RoomScene", 0);
-        if (didInstructionSoundPlay == 0) {
-            var nation = Utils.getLanguage();
-            // cc.log("nation: %s", nation);
-
-            var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-room") + ".mp3", false);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                // mask.removeFromParent();
-                cc.audioEngine.playMusic(res.background_mp3, true);
-            });
-            // KVDatabase.getInstance().set("beginSound_RoomScene", 1);
-        }else 
-            cc.audioEngine.playMusic(res.background_mp3, true);
+        var beginSoundPath = "res/sounds/sentences/" + localize("begin-room") + ".mp3";
+        this._super(beginSoundPath, this.playBackGroundMusic);
     },
 
     resetAllArrays: function() {
@@ -446,7 +422,7 @@ var ShadowGameLayer = TestLayer.extend({
         cc.log("ShadowGameLayer this._objectDisableds.length: " + this._objectDisableds.length);
         cc.log("ShadowGameLayer this._objectsArray.length: " + this._objectsArray.length);
         if (this._objectDisableds.length == this._objectsArray.length)
-            this.completedScene();
+            this.doCompletedScene();
     },
 
     createWarnLabel: function(text, object, x, y) {

@@ -45,7 +45,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-
+        this.playBackGroundMusic();
         this._hudLayer.setTotalGoals(this._data.length);
     },
 
@@ -229,6 +229,8 @@ var ShoppingBasketLayer = TestLayer.extend({
     _checkCompletedScene: function() {
         if (this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
             this._blockFlag = true;
+            this.playWinSound();
+            this.createWinLabel();
             if (this.timePlayed < 3)
                 this.runAction(cc.sequence(
                     cc.delayTime(2),

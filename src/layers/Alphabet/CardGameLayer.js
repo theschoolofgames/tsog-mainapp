@@ -45,14 +45,12 @@ var CardGameLayer = TestLayer.extend({
 
     ctor: function(objArr, timeForScene) {
         this._super();
-        // this._blockFlag = true;
-        cc.log("CardGameLayer timeForScene: " + timeForScene);
         this.timePlayed = 0;
         this._activateObjects = [];
         this._deactivateObjects = [];
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= objArr.length ? objArr.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(objArr);
-        // this._setIsTestScene(isTestScene);
+
         this._timeForScene = timeForScene;
         this._loadTmx();
         this._addCard();
@@ -63,9 +61,10 @@ var CardGameLayer = TestLayer.extend({
             onTouchMoved: this.onTouchMoved,
             onTouchEnded: this.onTouchEnded
         }, this);
+    },
 
-        // if (TSOG_DEBUG)
-        //     this._addDebugButton();
+    playBeginSound: function() {
+        this.playBackGroundMusic();
     },
 
     onEnterTransitionDidFinish: function() {
@@ -442,7 +441,7 @@ var CardGameLayer = TestLayer.extend({
                     cc.delayTime(2),
                     cc.callFunc(function() {
                         // cc.director.runScene(new CardGameScene(CardGameLayer._testData, true, 1)); 
-                        self._moveToNextScene();
+                        self.doCompletedScene();
                     })
                 ));
         }

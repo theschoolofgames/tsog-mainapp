@@ -42,6 +42,24 @@ var TestLayer = cc.LayerColor.extend({
         }
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+    },
+
+    playBeginSound: function(path, callback) {
+        AudioManager.getInstance().play(path, false, callback);
+    },
+
+    playBackGroundMusic: function() {
+        if (cc.audioEngine.isMusicPlaying())
+            cc.audioEngine.stopMusic();    
+        cc.audioEngine.playMusic(res.level_mp3);
+    },
+
+    playWinSound: function(callback) {
+        AudioManager.getInstance().play(res.you_win_mp3, false, callback);
+    },
+
     addQuickTestButton: function() {
         if (!TSOG_DEBUG)
             return;
@@ -82,6 +100,9 @@ var TestLayer = cc.LayerColor.extend({
     onExit: function() {
         this._super();
         this._adiDog = null;
+        
+        if (cc.audioEngine.isMusicPlaying())
+            cc.audioEngine.stopMusic();
     },
 
     _addHudLayer: function(duration){
@@ -128,43 +149,68 @@ var TestLayer = cc.LayerColor.extend({
     _setIsTestScene: function(isTestScene) {
         this._isTestScene = isTestScene;
     },
+
+    createWinLabel: function() {
+        var lbText = localizeForWriting("you win");
+
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        var font = FONT_COLOR[randSchoolIdx];
+
+        lbText = lbText.toUpperCase();
+        var winLabel = new cc.LabelBMFont(lbText, font);
+        var scaleTo = 1.5;
+        winLabel.setScale(scaleTo);
+
+        winLabel.x = cc.winSize.width / 2;
+        winLabel.y = cc.winSize.height / 2;
+        this.addChild(winLabel, 10000);
+
+        winLabel.runAction(cc.sequence(
+            cc.callFunc(function() { 
+                AnimatedEffect.create(winLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+            }), 
+            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
+        ));
+
+        return winLabel;
+    },
     
-    completedScene: function(){
+    doCompletedScene: function(){
         // if(!this._canVoildCompletedScene)
         //     return;
         // cc.log("_canVoildCompletedScene: "  + this._canVoildCompletedScene);
-        this._canVoildCompletedScene = !this._canVoildCompletedScene
-        this._moveToNextScene();
+        // this._canVoildCompletedScene = !this._canVoildCompletedScene
+        this.playWinSound();
+        var winLabel = this.createWinLabel();
+
+        var self = this;
+        this.runAction(
+            cc.sequence(
+                cc.delayTime(3),
+                cc.callFunc(function() {
+                    if (winLabel)
+                        winLabel.removeFromParent();
+                    self._moveToNextScene();
+                })
+            )
+        )
     },
 
     _moveToNextScene: function() {
-        cc.log("TestLayer moveToNextScene");
-        // if (this._isTestScene)
-        //     cc.director.replaceScene(new cc.TransitionFade(1, new GameTestScene(), cc.color(255, 255, 255, 255)));
-        // else {
-            var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+        // cc.log("TestLayer moveToNextScene");
+    
+        var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
-            
-            if (nextSceneName) {
-                var numberScene = KVDatabase.getInstance().getInt("scene_number");
-                var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-                cc.log("durationArray: " + JSON.stringify(durationArray));
-                SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data, durationArray[numberScene]);
-            }
-            else {
-                Utils.updateStepData();
-                SceneFlowController.getInstance().clearData();
-                cc.director.runScene(new MapScene());
-            }
-        // }
-
-
-        // var scene;
-        // if (nextSceneName != "RoomScene" && nextSceneName != "ForestScene" && nextSceneName != "TalkingAdiScene")
-        //     scene = new window[nextSceneName](this._objectsArray, this._oldSceneName);
-        // else
-        //     scene = new window[nextSceneName]();
-        // cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
+        if (nextSceneName) {
+            var numberScene = KVDatabase.getInstance().getInt("scene_number");
+            var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
+            cc.log("durationArray: " + JSON.stringify(durationArray));
+            SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data, durationArray[numberScene]);
+        } else {
+            Utils.updateStepData();
+            SceneFlowController.getInstance().clearData();
+            cc.director.runScene(new MapScene());
+        }
     },
 
     popGold: function(from) {

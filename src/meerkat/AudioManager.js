@@ -40,15 +40,22 @@ var AudioManager = cc.Class.extend({
     play: function(path, loop, callback) {
         var audio = jsb.AudioEngine.play2d(path, loop);
         if (callback && cc.isFunction(callback)) {
-            if (audio > 0)
+            if (audio > -1)
                 jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
                     jsb.AudioEngine.stopAll();
                     callback();
                 });
-            else // no file name match the input path
+            else // no file name match the input path 
+            {
+                cc.log("callback called immediately");
                 callback();
+            }
         }
         return audio;
+    },
+
+    getSoundDurationById: function(audioId) {
+        return jsb.AudioEngine.getDuration(audioId);
     },
 
     unload: function(path, wantUnloadAll) {
@@ -61,7 +68,7 @@ var AudioManager = cc.Class.extend({
 
     playBackGroundMusic: function() {
         if (!cc.audioEngine.isMusicPlaying())
-            cc.audioEngine.playMusic(res.background_mp3, true);
+            cc.audioEngine.playMusic(res.level_mp3, true);
     },
 
     stopAll: function() {

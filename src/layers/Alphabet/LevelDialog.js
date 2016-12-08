@@ -136,6 +136,7 @@ var LevelDialog = Dialog.extend({
     },
 
     _closePressed: function() {
+        AudioManager.getInstance().play(res.ui_close_mp3, false, null);
         this.removeFromParent();
     },
 
