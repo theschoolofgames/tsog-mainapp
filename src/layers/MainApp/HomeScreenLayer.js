@@ -14,7 +14,7 @@ var HomeScreenLayer = cc.Layer.extend({
             KVDatabase.getInstance().set("didCoinInit", 1);
             CurrencyManager.getInstance().incCoin(1800);
             CurrencyManager.getInstance().incDiamond(1800);
-        }
+        };
 
         this._super();
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
@@ -29,7 +29,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addPlayDoor();
         this.addLearnDoor();
         this.addHomeDoor();
-
+        
         this.addChooseLanguageButton();
         
         this._blocktouch = false;

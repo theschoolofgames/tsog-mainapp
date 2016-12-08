@@ -24,11 +24,13 @@ var TestLayer = cc.LayerColor.extend({
         this.data = null;
 
         this._removeHud = removeHud;
-
+        
         // Utils.showVersionLabel(this);
         // this.addQuickTestButton();
     },
+    _fetchObjectData: function() {
 
+    },
     // TODO: recheck type of this.data
     setData: function(data) {
         this.data = data;

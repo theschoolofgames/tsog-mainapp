@@ -16,6 +16,25 @@ Utils.showVersionLabel = function(parent) {
     }
 }
 
+Utils.addLoadingScene = function() {
+    var currentScene = cc.director.getRunningScene();
+    if (currentScene.getChildByTag(TAG_LOADING_INDICATOR_LAYER) != null)
+        return;
+
+    cc.log("addLoadingScene: " + JSON.stringify(currentScene));
+    var loadingLayer = new WelcomeScene(true);
+    // currentScene.addChild(loadingLayer, 1000);
+    return loadingLayer;
+}
+
+Utils.removeLoadingScene = function() {
+    var currentScene = cc.director.getRunningScene();
+
+    var layer = currentScene.getChildByTag(TAG_LOADING_INDICATOR_LAYER);
+    if (layer)
+        layer.removeFromParent();    
+}
+
 Utils.addLoadingIndicatorLayer = function(block) {
     var currentScene = cc.director.getRunningScene();
 

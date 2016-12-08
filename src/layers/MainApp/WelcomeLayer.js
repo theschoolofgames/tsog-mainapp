@@ -32,7 +32,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 
 	moveToMainScene: function() {
 		cc.audioEngine.stopMusic();
-        cc.director.replaceScene(new MainScene());
+        cc.director.replaceScene(new HomeScene());
 	}
 });
 
