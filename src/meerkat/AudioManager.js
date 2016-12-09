@@ -39,10 +39,9 @@ var AudioManager = cc.Class.extend({
 
     play: function(path, loop, callback) {
         var audio = jsb.AudioEngine.play2d(path, loop);
-        if (callback && cc.isFunction(callback)) {
-            if (audio > -1)
-                jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
-                    jsb.AudioEngine.stopAll();
+        if (cc.isFunction(callback)){
+            if (audio > -1)  
+                jsb.AudioEngine.setFinishCallback(audio, function(audio, audioPath) {
                     callback();
                 });
             else // no file name match the input path 
@@ -67,8 +66,11 @@ var AudioManager = cc.Class.extend({
     },
 
     playBackGroundMusic: function() {
-        if (!cc.audioEngine.isMusicPlaying())
+        jsb.AudioEngine.stopAll();
+        if (!cc.audioEngine.isMusicPlaying()) {
+            cc.audioEngine.stopMusic();
             cc.audioEngine.playMusic(res.level_mp3, true);
+        }
     },
 
     stopAll: function() {

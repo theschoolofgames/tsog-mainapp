@@ -42,7 +42,7 @@ var ShadowGameLayer = TestLayer.extend({
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
-        this.setVolume();
+        // this.setVolume();
 
         this._filterObjectsByType(objectIdArray);
 

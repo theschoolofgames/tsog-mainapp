@@ -78,8 +78,9 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     playBeginSound: function() {
+        this.playBackGroundMusic();
         var beginSoundPath = "res/sounds/sentences/" + currentLanguage + "/pop_the_right_balloon.mp3";
-        this._super(beginSoundPath, function() {cc.audioEngine.playMusic(res.level_mp3, true)});
+        this._super(beginSoundPath, null);
     },
 
     _addHudLayer: function(timeForScene) {

@@ -106,10 +106,10 @@ var GoFigureTestLayer = TestLayer.extend({
         this._blockTouch = true;
         this._adiDog.adiTalk();
 
+        this.playBackGroundMusic();
         var beginSoundPath = "res/sounds/sentences/" + localize("begin-shapes") + ".mp3";
         this._super(beginSoundPath, function() {
             self._blockTouch = false;
-            self.playBackGroundMusic();
             if (!self._adiDog)
                 return;
 

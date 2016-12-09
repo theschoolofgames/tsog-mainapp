@@ -39,7 +39,7 @@ var TreeGameLayer = TestLayer.extend({
         }, -1);
 
         var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function() {
+        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             jsb.AudioEngine.stopAll();
             var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + "count_by_1s.mp3");
             AudioManager.getInstance().play(path, false, null);

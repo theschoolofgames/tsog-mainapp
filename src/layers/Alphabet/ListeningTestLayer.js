@@ -53,9 +53,10 @@ var ListeningTestLayer = TestLayer.extend({
         this._blockTouch = true;
         this._adiDog.adiTalk();
         
+        this.playBackGroundMusic();
         this._super(beginSoundPath, function() {
+            cc.log("callback after play beginSoundPath");
             self._blockTouch = false;
-            self.playBackGroundMusic();
             if (self._adiDog) {
                 self._adiDog.adiIdling();
                 self._displayCurrentName();

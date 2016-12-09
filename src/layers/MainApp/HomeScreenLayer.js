@@ -42,7 +42,7 @@ var HomeScreenLayer = cc.Layer.extend({
         // testNode.y = cc.winSize.height/2;
         // this.addChild(testNode, 1000);
 
-        this.setVolume();
+        // this.setVolume();
     },
 
     setVolume:function() {
@@ -146,8 +146,9 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
-            AudioManager.getInstance().play(res.home_click_mp3, false, null);
-            cc.director.runScene(new cc.TransitionFade(4, new TalkingAdiScene(), cc.color.WHITE));
+            // AudioManager.getInstance().play(res.home_click_mp3, false, null);
+            // cc.director.replaceScene(new cc.TransitionFade(4, new TalkingAdiScene(), cc.color.WHITE));
+            cc.director.replaceScene(new TalkingAdiScene());
         });
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;

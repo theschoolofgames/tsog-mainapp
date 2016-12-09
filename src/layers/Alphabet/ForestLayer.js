@@ -42,7 +42,7 @@ var ForestLayer = cc.Layer.extend({
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
-        this.setVolume();
+        // this.setVolume();
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
@@ -82,7 +82,8 @@ var ForestLayer = cc.Layer.extend({
 
     playBeginSound: function(){
         var beginSoundPath = "res/sounds/sentences/" + localize("begin-forest") + ".mp3";
-        AudioManager.getInstance().play(beginSoundPath, false, function() {cc.audioEngine.playMusic(res.level_mp3, true);});
+        cc.audioEngine.playMusic(res.level_mp3, true);
+        AudioManager.getInstance().play(beginSoundPath, false, null);
     },
 
     setVolume:function() {
@@ -987,6 +988,8 @@ var ForestLayer = cc.Layer.extend({
 
     onExit: function() {
         this._super();
+
+        cc.audioEngine.end();
         this._unLoadSounds();
     },
 });

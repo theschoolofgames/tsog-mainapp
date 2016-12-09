@@ -61,14 +61,13 @@ var CardGameLayer = TestLayer.extend({
             onTouchMoved: this.onTouchMoved,
             onTouchEnded: this.onTouchEnded
         }, this);
-    },
 
-    playBeginSound: function() {
         this.playBackGroundMusic();
     },
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        this.playBackGroundMusic();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
     },
     _addHudLayer: function() {

@@ -69,10 +69,9 @@ var FreeColorLayer = TestLayer.extend({
     },
 
     playBeginSound: function() {
+        this.playBackGroundMusic();
         var beginSoundPath = "res/sounds/sentences/" + localize("begin-colors") + ".mp3";
-        this._super(beginSoundPath, function() {
-            cc.audioEngine.playMusic(res.level_mp3, true);
-        });
+        this._super(beginSoundPath, null);
     },
 
     _createRenderTexture: function() {

@@ -44,7 +44,7 @@ var RoomLayer = cc.Layer.extend({
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
-        this.setVolume();
+        // this.setVolume();
         this.createBackground();
         this.addObjects();
         // this.addRefreshButton();
@@ -99,6 +99,7 @@ var RoomLayer = cc.Layer.extend({
     onExit: function() {
         this._super();
 
+        cc.audioEngine.end();
         this._objectTouching = null;
         this._unLoadSounds();
     },
@@ -118,7 +119,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     playBeginSound: function(){
-        AudioManager.getInstance().play(this._beginSoundPath, false, function() {cc.audioEngine.playMusic(res.level_mp3, true)});
+        cc.audioEngine.playMusic(res.level_mp3, true);
+        AudioManager.getInstance().play(this._beginSoundPath, false, null);
     },
 
     resetAllArrays: function() {
