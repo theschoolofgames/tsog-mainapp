@@ -2,10 +2,6 @@ var SpeechRecognitionListener = cc.Class.extend({
     _speakingLayer: null,
 
     ctor: function() {
-        // cc.log(JSON.stringify(FOREST_ITEMS.concat(BEDROOM_ITEMS)));
-        // cc.log("number config: " + JSON.stringify(NUMBER_CONFIG_ITEMS));
-        // cc.log("color config: " + JSON.stringify(COLOR_CONFIG_ITEMS));
-
         var excludeWords;
 
         cc.loader.loadJson("config/exclude_words.json", function(error, data) {
@@ -14,7 +10,7 @@ var SpeechRecognitionListener = cc.Class.extend({
 
         var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).map(function(obj) {
             if (obj.imageName.indexOf("btn") > -1) {
-                cc.log("obj.value: " + obj.value);
+                // cc.log("obj.value: " + obj.value);
                 return obj.value;
             }
 
@@ -22,13 +18,12 @@ var SpeechRecognitionListener = cc.Class.extend({
         });
 
         itemArray = itemArray.map(function(obj) {
-            // cc.log(obj + " " + languagesForWriting[currentLanguage][obj]);
+            cc.log(obj + " " + languagesForWriting[currentLanguage][obj]);
             return languagesForWriting[currentLanguage][obj];
         }).filter(function(obj) {
             var words = obj.split(" ");
             for (var i = 0; i < words.length; i++) {
                 var w = words[i].toLowerCase();
-                cc.log(w);
                 if (excludeWords.indexOf(w) >= 0)
                     return false;
             }
@@ -42,7 +37,7 @@ var SpeechRecognitionListener = cc.Class.extend({
 
         cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
 
-        NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(itemArray)]);
+        NativeHelper.callNative("changeSpeechLanguageArray", [currentLanguage, JSON.stringify(itemArray)]);
     },
 
     setSpeakingLayer: function(layer) {
@@ -68,7 +63,7 @@ var SpeechRecognitionListener = cc.Class.extend({
         cc.log("after filter: " + text);
 
         this._speakingLayer.resultText = text.toUpperCase();
-        if (this._speakingLayer.currentObjectName.toUpperCase() == text) {
+        if (languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName].toUpperCase() == text) {
             cc.log("success");
             this._speakingLayer.correctAction();
         } else {

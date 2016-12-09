@@ -31,6 +31,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
 
 @property (nonatomic, copy) NSString *pathToDynamicallyGeneratedLanguageModel;
 @property (nonatomic, copy) NSString *pathToDynamicallyGeneratedDictionary;
+@property (nonatomic, copy) NSString *acousticModelPath;
 
 @end
 
@@ -59,10 +60,17 @@ static SpeechRecognitionListener *sharedEngine = nil;
   return self;
 }
 
-- (BOOL)setLanguageData:(NSArray *)array {
+- (BOOL)setLanguageData:(NSString*)languageCode array:(NSArray *)array {
+  NSDictionary* languagueCodes = @{
+                                   @"en": @"AcousticModelEnglish",
+                                   @"sw": @"AcousticModelSwahili"
+                                   };
+  
   OELanguageModelGenerator *languageModelGenerator = [[OELanguageModelGenerator alloc] init];
   
-  NSError *error = [languageModelGenerator generateLanguageModelFromArray:array withFilesNamed:@"DynamicLanguageModel" forAcousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"]];
+  self.acousticModelPath = [OEAcousticModel pathToModel:[languagueCodes objectForKey:languageCode]];
+  
+  NSError *error = [languageModelGenerator generateLanguageModelFromArray:array withFilesNamed:@"DynamicLanguageModel" forAcousticModelAtPath:self.acousticModelPath];
   
   if(error) {
     NSLog(@"Dynamic language generator reported error %@", [error description]);
@@ -82,7 +90,10 @@ static SpeechRecognitionListener *sharedEngine = nil;
 //  [OEPocketsphinxController sharedInstance].returnNullHypotheses = true;
 //  [OEPocketsphinxController sharedInstance].returnNbest = TRUE;
   if(![OEPocketsphinxController sharedInstance].isListening) {
-    [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't already listening.
+    [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel
+                                                                    dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary
+                                                                 acousticModelAtPath:self.acousticModelPath
+                                                                 languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't already listening.
   } else
     [[OEPocketsphinxController sharedInstance] resumeRecognition];
 }
