@@ -68,7 +68,7 @@ var SEGMENT = {
     WRITE_TEST: "write_test"
 }
 
-
+var SHOP = false;
 var GAME_ID = "566e78761d0e150800e22930";
 
 var MOVE_DELAY_TIME = 1;
@@ -716,7 +716,7 @@ var ALPHARACING_DATA =[
       "amount": "50"
     }
 ];
-GOLD_NEED_TO_PLAY_ALPHARACING = 2;
+COIN_NEED_TO_PLAY_ALPHARACING = 2;
 
 var LANGUAGE = [
     "English", 

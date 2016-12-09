@@ -787,7 +787,7 @@ var ShadowGameLayer = TestLayer.extend({
         if (soundConfig)
             soundLength = soundConfig.length;
         // cc.log("soundConfig: " + soundConfig.length);
-        // var soundSuffix = isDragging ? "-1" : "";
+        var soundSuffix = "";
         // Show cutscene
         var oldZOrder = object.getLocalZOrder();
         if (!isDragging) {
@@ -836,18 +836,21 @@ var ShadowGameLayer = TestLayer.extend({
             soundDir = "res/sounds/numbers/";
             soundSuffix = "";
             objectName = objectName.substring(7);
-        }
+        };
+        cc.log("touchedObjectType: " + touchedObjectType);
         // cc.log("objectName; " + objectName);
-        if (object.userData.hasClone){
-            let audioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-                jsb.AudioEngine.stopAll();
-                jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
-            });
-        }
-        else {
+        cc.log("soundDir: " + (soundDir + localize(objectName) + soundSuffix + ".mp3"));
+        // if (object.userData.hasClone){
+        //     cc.log("OBJECT");
+        //     this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
+        //     jsb.AudioEngine.setFinishCallback(this._effectAudioID, function(audioId, audioPath) {
+        //         jsb.AudioEngine.stopAll();
+        //         jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
+        //     });
+        // }
+        // else {
             this._effectAudioID = jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
-        }
+        // }
 
         if (!isDragging)
         {

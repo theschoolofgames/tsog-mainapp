@@ -28,10 +28,20 @@ var AlertDialog = cc.LayerColor.extend({
 
     _showDialog: function(){
         var dialog = new MessageDialog("#level_dialog_frame.png");
-        var lb = new cc.LabelBMFont(localize("Need 2 coins to play!"), res.HomeFont_fnt);
+        var lb = new cc.LabelBMFont(localize("Need") + " " + COIN_NEED_TO_PLAY_ALPHARACING.toString(), res.HomeFont_fnt);
         lb.scale = 0.7;
         lb.x = dialog.background.width/2 + 20;
         lb.y = dialog.background.height/2 + 100;
+
+        var coin = new cc.Sprite("#gold.png");
+        coin.x = text.width + 50;
+        coin.y = text.height/2 - 10;
+        text.addChild(coin);  
+        var lb2 = new cc.LabelBMFont(localize("to play!"), res.HomeFont_fnt);
+        lb2.scale = 0.7;
+        lb2.x = lb.x;
+        lb2.y = lb.y - lb.height;
+        this._dialogBg.addChild(lb2);
         lb.setColor(cc.color(255,255,255));
         lb.setBoundingWidth(550);
         dialog.addComponent(lb);
@@ -77,13 +87,13 @@ var AlertDialog = cc.LayerColor.extend({
         lbPlay.y = buttonPlay.height/2;
         buttonPlay.addChild(lbPlay);
         buttonPlay.addClickEventListener(function(){
-            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING) {
+            if(CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING) {
                 // self._showDialog();
                 var mess = localize("Not enough gold to play!");
                 NativeHelper.callNative("showMessage", ["Message", mess]);
             }
             else {
-                CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
+                CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
                 var data = DataManager.getInstance().getDataAlpharacing();
                 cc.director.runScene(new AlphaRacingScene(data, null));
             }

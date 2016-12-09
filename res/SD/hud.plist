@@ -584,7 +584,7 @@
             <key>size</key>
             <string>{1024,416}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8b7cfca195a9403cc87e049fdc392fa6:5965c06befbcb9b524b1290f2ecd763b:f2a61c07da5915a36e0a2ce159a09224$</string>
+            <string>$TexturePacker:SmartUpdate:91feafd9edea94ccf6bce16ade964630:d3a94c2e9d44469e8b392014c89d06de:f2a61c07da5915a36e0a2ce159a09224$</string>
             <key>textureFileName</key>
             <string>hud.png</string>
         </dict>

@@ -15,9 +15,10 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this._hearts = [];
         this.updatePositonHud();
         this._addDistanceLabel();
-        this._addHPLabel();
+        // this._addHPLabel();
         this.addGameProgressBar();
         this.schedule(this.updateHP, 0.5);
+        this._whiteBg.visible = false;
     },
 
     _playAdditionEffect: function(node, effectTime) {},
@@ -39,11 +40,8 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         cup.scale = 0.9;
         whitespace.addChild(cup);
 
-
         var text = this._distance.toString();
-
         this._lbDistance = new cc.LabelBMFont(text, res.MapFont_fnt);
-        // this._lbDistance.setColor(cc.color())
         this._lbDistance.x = whitespace.width/2 + 10;
         this._lbDistance.y = whitespace.height/2 + 25;
         whitespace.addChild(this._lbDistance);

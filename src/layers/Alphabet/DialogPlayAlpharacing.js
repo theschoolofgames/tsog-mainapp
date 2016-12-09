@@ -20,15 +20,36 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         this._dialogBg = dialogBg;
     },
     _addText: function(isNotEnoughCoin) {
-        var text = new cc.LabelBMFont(localize("Spend 2 coins to play!"), res.HomeFont_fnt);
+        var text = new cc.LabelBMFont(localize("Spend") + " " + COIN_NEED_TO_PLAY_ALPHARACING.toString(), res.HomeFont_fnt);
         text.scale = 0.7;
-        if(isNotEnoughCoin)
-            text.setString(localize("You are not enough 2 coins to play!"));
-        text.x = this._dialogBg.width/2 + 20;
+        text.x = this._dialogBg.width/2 - 20;
         text.y = this._dialogBg.height/2 + 100;
+        if(isNotEnoughCoin) {
+            text.setString(localize("You are not enough"));
+            var coin = new cc.Sprite("#gold.png");
+            coin.x = text.width + coin.width/2;
+            coin.y = text.height/2 - 10;
+            text.addChild(coin);  
+            var text2 = new cc.LabelBMFont(" " + localize("to play!"), res.HomeFont_fnt);
+            text2.scale = 0.7;
+            text2.x = text.x - 10;
+            text2.y = text.y - text.height;
+            this._dialogBg.addChild(text2);
+        }
+        else {
+            var coin = new cc.Sprite("#gold.png");
+            coin.x = text.width + 50;
+            coin.y = text.height/2 - 10;
+            text.addChild(coin);  
+            var text2 = new cc.LabelBMFont(localize("to play!"), res.HomeFont_fnt);
+            text2.scale = 0.7;
+            text2.x = text.x;
+            text2.y = text.y - text.height;
+            this._dialogBg.addChild(text2);
+        };
         text.setColor(cc.color(255,255,255));
         this._dialogBg.addChild(text);
-        text.setBoundingWidth(550);
+        text.setBoundingWidth(800);
     },
     _addButton: function(isNotEnoughCoin){
         var self = this;
@@ -47,31 +68,63 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         //     self.removeFromParent();
         // });
 
-        var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonPlay.x = this._dialogBg.width/2;
-        buttonPlay.y = 100;
-        // buttonPlay.scale = 0.6;
-        this._dialogBg.addChild(buttonPlay);
-        lbPlay = new cc.LabelBMFont(localize("Play"), "res/font/custom_font.fnt");
-        if(isNotEnoughCoin) 
-            lbPlay.setString(localize("OK"));
-        // lbPlay.scale = 0.6;
-        lbPlay.x = buttonPlay.width/2;
-        lbPlay.y = buttonPlay.height/2;
-        buttonPlay.addChild(lbPlay);
-        buttonPlay.addClickEventListener(function(){
-            if(canttouch)
-                return;
-            canttouch = true;
-            if(isNotEnoughCoin) {
-                self.parent._blocktouch = false;    
+        if(isNotEnoughCoin) {
+            var buttonLearn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            buttonLearn.x = this._dialogBg.width/2 - 130;
+            buttonLearn.y = 100;
+            buttonLearn.scale = 0.6;
+            this._dialogBg.addChild(buttonLearn);
+            lbLearn = new cc.LabelBMFont(localize("Learn"), "res/font/custom_font.fnt");
+            lbLearn.x = buttonLearn.width/2;
+            lbLearn.y = buttonLearn.height/2;
+            buttonLearn.addChild(lbLearn);
+            buttonLearn.addClickEventListener(function(){
+                cc.log("Learn");
+                if(canttouch)
+                    return;
+                canttouch = true;
+                cc.director.runScene(new MapScene());
+            });
+
+            var buttonShop = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            buttonShop.x = this._dialogBg.width/2 + 130;
+            buttonShop.y = 100;
+            buttonShop.scale = 0.6;
+            this._dialogBg.addChild(buttonShop);
+            lbShop = new cc.LabelBMFont(localize("Shop"), "res/font/custom_font.fnt");
+            lbShop.x = buttonShop.width/2;
+            lbShop.y = buttonShop.height/2;
+            buttonShop.addChild(lbShop);
+            buttonShop.addClickEventListener(function(){
+                cc.log("Shop");
+                if(canttouch)
+                    return;
+                canttouch = true;
+                // cc.director.runScene(new MapScene());
+                self.parent._blocktouch = false;
                 self.removeFromParent();
-                return;
-            };
-            CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
-            var data = DataManager.getInstance().getDataAlpharacing();
-            cc.director.runScene(new AlphaRacingScene(data, null, 600));
-        });
+            });
+        } else {
+            var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            buttonPlay.x = this._dialogBg.width/2;
+            buttonPlay.y = 100;
+            // buttonPlay.scale = 0.6;
+            this._dialogBg.addChild(buttonPlay);
+            lbPlay = new cc.LabelBMFont(localize("Play"), "res/font/custom_font.fnt");
+            lbPlay.x = buttonPlay.width/2;
+            lbPlay.y = buttonPlay.height/2;
+            buttonPlay.addChild(lbPlay);
+            buttonPlay.addClickEventListener(function(){
+                if(canttouch)
+                    return;
+                canttouch = true;
+                CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
+                var data = DataManager.getInstance().getDataAlpharacing();
+                cc.director.runScene(new AlphaRacingScene(data, null, 600));
+            });
+        }
+
+        // lbPlay.scale = 0.6;
 
         var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
         closeButton.x = this._dialogBg.width - 25;

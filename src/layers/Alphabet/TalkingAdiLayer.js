@@ -25,6 +25,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         // cc.audioEngine.playEffect("/sdcard/record_sound.wav");
         var self = this;
         Utils.showVersionLabel(this);
+        // if(SHOP)
         this.addShopButton();
         NativeHelper.callNative("changeAudioRoute");
         this.addChild(new ShopHUDLayer());

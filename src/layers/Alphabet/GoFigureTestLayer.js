@@ -107,6 +107,7 @@ var GoFigureTestLayer = TestLayer.extend({
         this._adiDog.adiTalk();
 
         this.playBackGroundMusic();
+        var self = this;
         var beginSoundPath = "res/sounds/sentences/" + localize("begin-shapes") + ".mp3";
         this._super(beginSoundPath, function() {
             self._blockTouch = false;
@@ -605,8 +606,8 @@ var GoFigureTestLayer = TestLayer.extend({
         var rdmButtonPosition = Math.floor(Math.random() * numberBtn);
         for (var i = 0; i < numberBtn; i++) {
             var colorName = (specifyColorForShapeName) ? specifyColorForShapeName : GOFIGURE_BRUSH_COLOR_INDEX[i];
-            var btnImgNameNormal = "btn_" + colorName +"-okeee.png";
-            var btnImgNamePressed = "btn_" + colorName +"-chicken.png";
+            var btnImgNameNormal = "btn_" + colorName +".png";
+            var btnImgNamePressed = "btn_" + colorName +"-pressed.png";
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.x = b.width + i*(b.width*1.5 + 10 * Utils.getScaleFactorTo16And9());
             b.y = 104 * Utils.getScaleFactorTo16And9();

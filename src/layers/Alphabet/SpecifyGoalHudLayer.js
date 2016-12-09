@@ -76,14 +76,14 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         var cupImage = new cc.Sprite("#holder.png");
         cupImage.x = -10;
         cupImage.y = this._whiteBg.height/2;
-        if(this._isAlpharacing) {
-            this.addChild(cupImage);
-            cupImage.x = this._clockBg.x + this._clockBg.width + HUD_BAR_DISTANCE * 2;
-            cupImage.y = this._progressBarBg.y - 5;
-            this._whiteBg.visible = false;
-        }
-        else
-            this._whiteBg.addChild(cupImage);
+        // if(this._isAlpharacing) {
+        //     this.addChild(cupImage);
+        //     cupImage.x = this._clockBg.x + this._clockBg.width + HUD_BAR_DISTANCE * 2;
+        //     cupImage.y = this._progressBarBg.y - 5;
+        //     this._whiteBg.visible = false;
+        // }
+        // else
+        this._whiteBg.addChild(cupImage);
         this._holder = cupImage;
 
         var label = new cc.LabelBMFont(0 + "", res.HudFont_fnt);

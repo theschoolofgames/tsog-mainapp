@@ -63,9 +63,9 @@ var HomeScreenLayer = cc.Layer.extend({
             // if(self._blocktouch)
             //     return;
             // self._blocktouch = true;
-            if(CurrencyManager.getInstance().getCoin() < GOLD_NEED_TO_PLAY_ALPHARACING)
+            if(CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING)
                 self.addChild(new DialogPlayAlpharacing(true));
-            // CurrencyManager.getInstance().decrCoin(GOLD_NEED_TO_PLAY_ALPHARACING);
+            // CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
             // var data = DataManager.getInstance().getDataAlpharacing();
             // cc.director.runScene(new AlphaRacingScene(data, null, 600));
             // self._showDialogIfEnoughCoin();
@@ -130,7 +130,7 @@ var HomeScreenLayer = cc.Layer.extend({
         // lbHighScore.y = lbLearn.y - 37;
         // board.addChild(lbHighScore);
 
-        var coin = new cc.Sprite("#gold-00.png");
+        var coin = new cc.Sprite("#gold.png");
         coin.scale = 0.5;
         coin.x = lbLearn.x;
         coin.y = lbLearn.y - 40;
