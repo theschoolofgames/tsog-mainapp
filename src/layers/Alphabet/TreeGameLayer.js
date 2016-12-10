@@ -42,7 +42,7 @@ var TreeGameLayer = TestLayer.extend({
         jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
             jsb.AudioEngine.stopAll();
             var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + "count_by_1s.mp3");
-            AudioManager.getInstance().play(path, false, null);
+            jsb.AudioEngine.play2d(path);
         });
     },
 
