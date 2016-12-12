@@ -915,24 +915,31 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._playerBorder.addChild(lbl);
     },
 
-    drawRectPlatforms: function() {
+    drawRectPlatforms: function(tiles) {
         if (!ENABLE_DEBUG_DRAW)
             return;
 
         this._tileBorder.clear();
 
-        var ls = this._landLayer.getLayerSize();
-        var offsetPos = this._tmxMap.getPosition();
-        for (var y = 0; y < ls.height; y++) {
-            for (var x = 0; x < ls.width; x++) {
-                let tile = this._landLayer.getTileAt(cc.p(x, y));
-                if (tile){
-                    let tileRect = cc.rect(tile.x + offsetPos.x, tile.y + offsetPos.y, this._tileSize.width, this._tileSize.height);
-                    this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width 
-                        ,tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
-                }
-            }
+        for (var i = 0; i < tiles.length; i++) {
+            var tile = tiles[i];
+            let tileRect = cc.rect(tile.x, tile.y, this._tileSize.width, this._tileSize.width);
+
+            this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width, tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
         }
+
+        // var ls = this._landLayer.getLayerSize();
+        // var offsetPos = this._tmxMap.getPosition();
+        // for (var y = 0; y < ls.height; y++) {
+        //     for (var x = 0; x < ls.width; x++) {
+        //         let tile = this._landLayer.getTileAt(cc.p(x, y));
+        //         if (tile){
+        //             let tileRect = cc.rect(tile.x + offsetPos.x, tile.y + offsetPos.y, this._tileSize.width, this._tileSize.height);
+        //             this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width 
+        //                 ,tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
+        //         }
+        //     }
+        // }
     },
 
     checkForAndResolveCollisions: function(p) {
@@ -947,7 +954,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
             "[]");
 
-        this.drawRectPlatforms();
+        // this.drawRectPlatforms();
         
         // Player pass through 2nd map => create a new map, push new map,layer => remove old map, layer
         // => current map, layer index will be 1
@@ -966,6 +973,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         // console.log("Layer Index => " + layerIndex);
 
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
+
+        // this.drawRectPlatforms(tiles);
+
         p.setOnGround(false);
         p.setOnRightCollision(false);
         for (var i = 0; i < tiles.length; i++) {
