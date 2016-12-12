@@ -49,11 +49,6 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     playBeginSound: function(path, callback) {
-        // var audio = jsb.AudioEngine.play2d(path, false);
-        // if (cc.isFunction(callback))
-        //     jsb.AudioEngine.setFinishCallback(audio, function(audio, audioPath) {
-        //         callback();
-        //     });
         AudioManager.getInstance().play(path, false, callback);
     },
 
