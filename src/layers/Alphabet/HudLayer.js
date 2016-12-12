@@ -160,7 +160,7 @@ var HudLayer = cc.Layer.extend({
         // cc.log("currentSceneName: " + currentSceneName ); 
         var clock = new Clock(clockInitTime, function(){
             if(withClock)
-                self._layer.completedScene();
+                self._layer.doCompletedScene();
         });
         clock.x = this._clockBg.width / 2 + 10;
         clock.y = this._clockBg.height / 2;

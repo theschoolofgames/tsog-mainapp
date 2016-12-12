@@ -326,7 +326,7 @@ var RoomLayer = cc.Layer.extend({
     checkWonGame: function() {
         // win condition
         if (this._objectDisableds.length == this._data.length)
-            this.completedScene();
+            this.doCompletedScene();
     },
 
     createWarnLabel: function(text, object, x, y) {
@@ -365,7 +365,7 @@ var RoomLayer = cc.Layer.extend({
         this._maskLayer.addChild(this._completedObj);
     },
 
-    completedScene: function() {
+    doCompletedScene: function() {
         AudioManager.getInstance().play(res.you_win_mp3);
         if (this._mask)
             this._hudLayer.pauseClock();

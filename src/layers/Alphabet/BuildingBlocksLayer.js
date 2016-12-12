@@ -221,7 +221,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            jsb.AudioEngine.stopAll();
+            // jsb.AudioEngine.stopAll();
             if (!self._operationSoundReady)
                 return;
             if (!self._operationSoundExist) {
@@ -231,7 +231,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             cc.log("self._operationSoundPath: " + self._operationSoundPath);
             var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
             jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
-                jsb.AudioEngine.stopAll();
+                // jsb.AudioEngine.stopAll();
                 self._blockTouch = false;
                 self._showNextOperation();
             })

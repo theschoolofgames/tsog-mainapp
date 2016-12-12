@@ -77,7 +77,7 @@ var ForestLayer = cc.Layer.extend({
         this._super();
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        // this.completedScene();
+        // this.doCompletedScene();
     },
 
     playBeginSound: function(){
@@ -509,7 +509,7 @@ var ForestLayer = cc.Layer.extend({
         // cc.log("checkWonGame");
         var totalItems = this._data.length ? this._data.length : Global.NumberItems;
         if (this._touchCounting == totalItems)
-            this.completedScene();
+            this.doCompletedScene();
     },
 
     createYouWin: function() {
@@ -549,7 +549,7 @@ var ForestLayer = cc.Layer.extend({
         this.increaseObjectAmountBaseOnPlay();
     },
 
-    completedScene: function() {
+    doCompletedScene: function() {
         AudioManager.getInstance().play(res.you_win_mp3);
         this._hudLayer.pauseClock();
         var elapseTime = this._hudLayer._clock.getElapseTime();
@@ -561,7 +561,7 @@ var ForestLayer = cc.Layer.extend({
                             time_taken: elapseTime 
                         });
         };
-        // cc.log("completedScene");
+        // cc.log("doCompletedScene");
         var starEarned = this._hudLayer.getStarEarned();
         // var str = (starEarned > 1) ? " stars" : " star";
         var self  = this;

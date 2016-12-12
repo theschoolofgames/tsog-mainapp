@@ -63,7 +63,7 @@ var SpeechRecognitionListener = cc.Class.extend({
         cc.log("after filter: " + text);
 
         this._speakingLayer.resultText = text.toUpperCase();
-        if (languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName].toUpperCase() == text) {
+        if (languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName.toLowerCase()].toUpperCase() == text) {
             cc.log("success");
             this._speakingLayer.correctAction();
         } else {

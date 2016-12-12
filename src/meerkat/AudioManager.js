@@ -38,7 +38,9 @@ var AudioManager = cc.Class.extend({
     },
 
     play: function(path, loop, callback) {
+        this.stopAll();
         var audio = jsb.AudioEngine.play2d(path, loop);
+        cc.log("audio -> %f", audio);
         if (cc.isFunction(callback)){
             if (audio > -1)  
                 jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
@@ -66,7 +68,7 @@ var AudioManager = cc.Class.extend({
     },
 
     playBackGroundMusic: function() {
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
         if (!cc.audioEngine.isMusicPlaying()) {
             cc.audioEngine.stopMusic();
             cc.audioEngine.playMusic(res.level_mp3, true);
@@ -74,7 +76,7 @@ var AudioManager = cc.Class.extend({
     },
 
     stopAll: function() {
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
     },
 });
 
