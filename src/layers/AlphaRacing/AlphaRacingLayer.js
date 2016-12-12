@@ -292,27 +292,31 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     initBackground: function() {
         var treessofar1 = new cc.Sprite("#treessofar.png");
         var treessofar2 = new cc.Sprite("#treessofar.png");
+        var treessofar3 = new cc.Sprite("#treessofar.png");
         var parallaxtreessofar = cc.CCParallaxScrollNode.create();
-        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2, treessofar3], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxtreessofar,1);
         this._parallaxs.push(parallaxtreessofar);
 
 
         var grass1 = new cc.Sprite("#grassalpharacing.png");
         var grass2 = new cc.Sprite("#grassalpharacing.png");
+        var grass3 = new cc.Sprite("#grassalpharacing.png");
         var parallaxgrass = cc.CCParallaxScrollNode.create();
-        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxgrass,1);
         this._parallaxs.push(parallaxgrass);
 
         var trees1 = new cc.Sprite("#trees.png");
         var trees2 = new cc.Sprite("#trees.png");
+        var trees3 = new cc.Sprite("#trees.png");
         var parallaxtrees = cc.CCParallaxScrollNode.create();
-        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2, trees3], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxtrees,1);
         this._parallaxs.push(parallaxtrees);
 
         var light1 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
         var light2 = new cc.Sprite("#light.png");
         var parallaxlight = cc.CCParallaxScrollNode.create();
         parallaxlight.addInfiniteScrollWithObjects([light1, light2], 3, cc.p(- 10, 0), cc.p(0, cc.winSize.height - light1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
@@ -547,11 +551,15 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         var lbText = text;
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
+        var scaleTo = 2;
+        cc.log("this._warningLabel: " + this._warningLabel.width);
+        if(this._warningLabel.width > cc.winSize.width/2)
+            scaleTo = 1.5;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
+            cc.scaleTo(3, scaleTo).easing(cc.easeElasticOut(0.5))
         ));
 
         var self = this;
@@ -601,6 +609,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
         var scaleTo = 1.5;
+        if(text.length > 10)
+            scaleTo = 1.2;
         warnLabel.setScale(scaleTo);
 
         warnLabel.x = x || cc.winSize.width / 2;
@@ -915,24 +925,31 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._playerBorder.addChild(lbl);
     },
 
-    drawRectPlatforms: function() {
+    drawRectPlatforms: function(tiles) {
         if (!ENABLE_DEBUG_DRAW)
             return;
 
         this._tileBorder.clear();
 
-        var ls = this._landLayer.getLayerSize();
-        var offsetPos = this._tmxMap.getPosition();
-        for (var y = 0; y < ls.height; y++) {
-            for (var x = 0; x < ls.width; x++) {
-                let tile = this._landLayer.getTileAt(cc.p(x, y));
-                if (tile){
-                    let tileRect = cc.rect(tile.x + offsetPos.x, tile.y + offsetPos.y, this._tileSize.width, this._tileSize.height);
-                    this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width 
-                        ,tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
-                }
-            }
+        for (var i = 0; i < tiles.length; i++) {
+            var tile = tiles[i];
+            let tileRect = cc.rect(tile.x, tile.y, this._tileSize.width, this._tileSize.width);
+
+            this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width, tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
         }
+
+        // var ls = this._landLayer.getLayerSize();
+        // var offsetPos = this._tmxMap.getPosition();
+        // for (var y = 0; y < ls.height; y++) {
+        //     for (var x = 0; x < ls.width; x++) {
+        //         let tile = this._landLayer.getTileAt(cc.p(x, y));
+        //         if (tile){
+        //             let tileRect = cc.rect(tile.x + offsetPos.x, tile.y + offsetPos.y, this._tileSize.width, this._tileSize.height);
+        //             this._tileBorder.drawRect(tileRect, cc.p(tileRect.x + tileRect.width 
+        //                 ,tileRect.y + tileRect.height), cc.color(255,0,100,0), 3, cc.color(33, 33, 33, 100));
+        //         }
+        //     }
+        // }
     },
 
     checkForAndResolveCollisions: function(p) {
@@ -947,7 +964,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             cc.color(255,0,100,0), 3, cc.color(0, 100, 100,255),
             "[]");
 
-        this.drawRectPlatforms();
+        // this.drawRectPlatforms();
         
         // Player pass through 2nd map => create a new map, push new map,layer => remove old map, layer
         // => current map, layer index will be 1
@@ -966,6 +983,9 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         // console.log("Layer Index => " + layerIndex);
 
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
+
+        // this.drawRectPlatforms(tiles);
+
         p.setOnGround(false);
         p.setOnRightCollision(false);
         for (var i = 0; i < tiles.length; i++) {
