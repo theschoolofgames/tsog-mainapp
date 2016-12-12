@@ -292,27 +292,31 @@ var AlphaRacingLayer = cc.LayerColor.extend({
     initBackground: function() {
         var treessofar1 = new cc.Sprite("#treessofar.png");
         var treessofar2 = new cc.Sprite("#treessofar.png");
+        var treessofar3 = new cc.Sprite("#treessofar.png");
         var parallaxtreessofar = cc.CCParallaxScrollNode.create();
-        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2, treessofar3], 0, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxtreessofar,1);
         this._parallaxs.push(parallaxtreessofar);
 
 
         var grass1 = new cc.Sprite("#grassalpharacing.png");
         var grass2 = new cc.Sprite("#grassalpharacing.png");
+        var grass3 = new cc.Sprite("#grassalpharacing.png");
         var parallaxgrass = cc.CCParallaxScrollNode.create();
-        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-2, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxgrass,1);
         this._parallaxs.push(parallaxgrass);
 
         var trees1 = new cc.Sprite("#trees.png");
         var trees2 = new cc.Sprite("#trees.png");
+        var trees3 = new cc.Sprite("#trees.png");
         var parallaxtrees = cc.CCParallaxScrollNode.create();
-        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2, trees3], 2, cc.p(-5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this.addChild(parallaxtrees,1);
         this._parallaxs.push(parallaxtrees);
 
         var light1 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
         var light2 = new cc.Sprite("#light.png");
         var parallaxlight = cc.CCParallaxScrollNode.create();
         parallaxlight.addInfiniteScrollWithObjects([light1, light2], 3, cc.p(- 10, 0), cc.p(0, cc.winSize.height - light1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
