@@ -551,11 +551,15 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         var lbText = text;
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
+        var scaleTo = 2;
+        cc.log("this._warningLabel: " + this._warningLabel.width);
+        if(this._warningLabel.width > cc.winSize.width/2)
+            scaleTo = 1.5;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
+            cc.scaleTo(3, scaleTo).easing(cc.easeElasticOut(0.5))
         ));
 
         var self = this;
@@ -605,6 +609,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
         var scaleTo = 1.5;
+        if(text.length > 10)
+            scaleTo = 1.2;
         warnLabel.setScale(scaleTo);
 
         warnLabel.x = x || cc.winSize.width / 2;

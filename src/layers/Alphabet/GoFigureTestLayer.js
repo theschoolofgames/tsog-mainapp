@@ -41,7 +41,8 @@ var GoFigureTestLayer = TestLayer.extend({
     _data: null,
 
     _currentChar: "",
-
+    _event_time_up: null,
+    _timesUp: false,
     _board: null,
     _currentBrushColor: cc.color.GREEN,
     _brushColorButtons: [],
@@ -96,10 +97,23 @@ var GoFigureTestLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        var self = this;
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-
+        this._event_time_up = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self._timesUp = true;
+                cc.log("_timesUp evnet: " + self._timesUp);
+            }
+        });
+        cc.eventManager.addListener(self._event_time_up, 1);
         this._hudLayer.setTotalGoals(this._names.length);
+    },
+    onExit: function(){
+        this._super();
+        cc.eventManager.removeListener(this._event_time_up);
     },
 
     playBeginSound: function() {
@@ -339,7 +353,7 @@ var GoFigureTestLayer = TestLayer.extend({
         var self = this;
         var sprite, objName;
         self._blockTouch = true;
-
+        
         this.runAction(cc.sequence(
             cc.delayTime(1),
             cc.callFunc(function() {
@@ -352,6 +366,9 @@ var GoFigureTestLayer = TestLayer.extend({
             cc.delayTime(0.75),
             cc.callFunc(function() {
                 self._playObjSound(self._names[self._nameIdx-1], function() {
+                    cc.log("_timesUp: " + self._timesUp);
+                    if(self._timesUp)
+                        return;
                     self.runAction(cc.sequence(
                         cc.delayTime(1.2),
                         cc.callFunc(function() {
