@@ -56,7 +56,20 @@ var ARPlayer = cc.Layer.extend({
     die: function() {
     	var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
     	cc.eventManager.dispatchEvent(event);
-    	this.rotation = -90;
+    	// this.rotation = -90;
+        var characterName = CharacterManager.getInstance().getSelectedCharacter();
+        var dieFrame = new cc.Sprite("#" + characterName + "_die.png");
+        dieFrame.scale = 0.2;
+        dieFrame.x = this.getPosition().x - 30;
+        dieFrame.y = this.getPosition().y;
+        this.sprite.removeFromParent();
+        this.parent.addChild(dieFrame,1000);
+        dieFrame.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.moveTo(0.5,cc.p(dieFrame.getPosition().x, dieFrame.getPosition().y + 300)),
+            cc.moveTo(0.5, cc.p(dieFrame.getPosition().x, dieFrame.getPosition().y - 600))
+        ));
+
     },
 	
  	updatea: function(dt) { 	

@@ -13,7 +13,7 @@ var HomeScreenLayer = cc.Layer.extend({
         if (!didCoinInit) {
             KVDatabase.getInstance().set("didCoinInit", 1);
             CurrencyManager.getInstance().incCoin(200);
-            CurrencyManager.getInstance().incDiamond(0);
+            CurrencyManager.getInstance().incDiamond(10000);
         };
 
         this._super();

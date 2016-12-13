@@ -21,7 +21,7 @@ var ARMonkey = ARPlayer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
         this.sprite = new CharacterNodeAlpharacing("monkey");
         // this.sprite.attr({x:60, y:40, anchorX: 1, anchorY: 1});
-        this.sprite.scale = 2;
+        this.sprite.scale = 1.8;
         this.addChild(this.sprite);
 
     },

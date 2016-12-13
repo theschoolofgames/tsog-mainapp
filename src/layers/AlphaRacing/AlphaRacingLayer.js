@@ -2,9 +2,9 @@ var AR_TAG_TILE_MAP = 1;
 var AR_SCALE_NUMBER = 1;
 var TEST_SPEED = 1;
 var ENABLE_DEBUG_DRAW = false;
-var AR_ADI_ZODER = 1002;
-var AR_LANDS_ZODER = 1000;
-var AR_WORD_ZODER = 1001;
+var AR_ADI_ZODER = 102;
+var AR_LANDS_ZODER = 100;
+var AR_WORD_ZODER = 101;
 var AR_MAP_HORIZONTAL_TILES = 30;
 var AR_MAP_VERTICLE_TILES = 20;
 
@@ -547,7 +547,8 @@ var AlphaRacingLayer = cc.LayerColor.extend({
 
     completedScene: function(text) {
         this._hudLayer.pauseClock();
-
+        this.gameLayer.zOder  = 10;
+        this._player.zOder = 2000;
         var lbText = text;
         this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
         var warningLabel = this._warningLabel;
@@ -565,7 +566,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         var self = this;
         this.runAction(
             cc.sequence(
-                cc.delayTime(3),
+                cc.delayTime(4),
                 cc.callFunc(function() {
                     // if (warningLabel)
                     //     warningLabel.removeFromParent();
