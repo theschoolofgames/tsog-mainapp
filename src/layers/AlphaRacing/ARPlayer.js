@@ -19,6 +19,8 @@ var ARPlayer = cc.Layer.extend({
     _velocityFactor: 1,
     _boostState: ARBooster.State.NONE,
 
+    _gravityMult: 0,
+
 	ctor: function () {
 		this._super();
 		this.setScale(0.2);
@@ -48,7 +50,7 @@ var ARPlayer = cc.Layer.extend({
         this._hp -= 1;
 
         if (this._hp <= 0) {
-            cc.log("Die");
+            // cc.log("Die");
             this.die();
         }
     },
@@ -84,13 +86,20 @@ var ARPlayer = cc.Layer.extend({
 	    
         this._velocity = cc.pAdd(this._velocity, forwardStep);
 	    
-	    let minMovement = cc.p(0.0, -450.0);
-	    let maxMovement = cc.p(220.0, 550.0);
+        // let minMovement = cc.p(0.0, -450.0);
+        // let maxMovement = cc.p(220.0, 550.0);
+	    let minMovement = cc.p(20.0, -450.0);
+	    let maxMovement = cc.p(220.0, 850.0);
 
 	    let gravityStep = cc.p(0,0);
-	    if (!this._onGround)
-	    	gravityStep = cc.pMult(this._gravity, dt);
-
+        this._gravityMult += 0.2*dt;
+        // cc.log("gravityStep: " + JSON.stringify(this._gravity));
+        if (!this._onGround)
+            gravityStep = cc.pMult(this._gravity, this._gravityMult);
+        else
+            this._gravityMult = 0;
+        // cc.log("gravityStep: " + JSON.stringify(gravityStep));
+        cc.log("this._gravityMult: " + JSON.stringify(this._gravityMult));
 	    this._velocity = cc.pClamp(this._velocity, minMovement, maxMovement);
     
 	    this._velocity = cc.pAdd(this._velocity, gravityStep);

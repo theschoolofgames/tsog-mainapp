@@ -115,7 +115,8 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
             lbPlay.y = buttonPlay.height/2;
             buttonPlay.addChild(lbPlay);
             buttonPlay.addClickEventListener(function(){
-                if(canttouch)
+                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+                if(canttouch) // ^_^ @david
                     return;
                 canttouch = true;
                 CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
@@ -130,6 +131,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         closeButton.x = this._dialogBg.width - 25;
         closeButton.y = this._dialogBg.height - 25;
         closeButton.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_close_mp3, false, null);
             self.parent._blocktouch = false;
             self.removeFromParent();
         });

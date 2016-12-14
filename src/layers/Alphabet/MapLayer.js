@@ -38,6 +38,7 @@ var MapLayer = cc.Layer.extend({
 
         var self = this;
         settingBtn.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             self.addChild(new SettingDialog(), 999);
         })
         this._settingBtn = settingBtn;
@@ -286,6 +287,7 @@ var MapLayer = cc.Layer.extend({
     },
 
     _stepPressed: function(b) {
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         if (this._touchBlocked)
             return;
         // cc.log("Level: " + b.tag);

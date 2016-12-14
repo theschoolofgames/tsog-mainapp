@@ -8,13 +8,13 @@ var HomeScreenLayer = cc.Layer.extend({
     _blocktouch: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
-        // init coin for testing
-        var didCoinInit = KVDatabase.getInstance().getInt("didCoinInit", 0);
-        if (!didCoinInit) {
-            KVDatabase.getInstance().set("didCoinInit", 1);
-            CurrencyManager.getInstance().incCoin(200);
-            CurrencyManager.getInstance().incDiamond(0);
-        };
+        // // init coin for testing
+        // var didCoinInit = KVDatabase.getInstance().getInt("didCoinInit", 0);
+        // if (!didCoinInit) {
+        //     KVDatabase.getInstance().set("didCoinInit", 1);
+        //     CurrencyManager.getInstance().incCoin(200);
+        //     CurrencyManager.getInstance().incDiamond(0);
+        // };
 
         this._super();
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
@@ -22,7 +22,7 @@ var HomeScreenLayer = cc.Layer.extend({
         bg.x = cc.winSize.width/2;
         bg.y = HOME_BACKGROUND_OFFSET_Y * Utils.getScaleFactorTo16And9();
         bg.scale = cc.winSize.width / bg.width;
-        cc.log("Scale: " + bg.scale);
+        // cc.log("Scale: " + bg.scale);
         this._scale = bg.scale;
         this.addChild(bg);
         this._bg = bg;
@@ -60,18 +60,12 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
-            // if(self._blocktouch)
-            //     return;
-            // self._blocktouch = true;
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
             if(CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING)
                 self.addChild(new DialogPlayAlpharacing(true));
-            // CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
-            // var data = DataManager.getInstance().getDataAlpharacing();
-            // cc.director.runScene(new AlphaRacingScene(data, null, 600));
-            // self._showDialogIfEnoughCoin();
             else
                 self.addChild(new DialogPlayAlpharacing(false));
-            // cc.log("ALPHARACING: " + JSON.stringify(data));
+
         });
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
@@ -107,6 +101,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
             cc.director.runScene(new MapScene());
         });
 
@@ -146,6 +141,7 @@ var HomeScreenLayer = cc.Layer.extend({
         door.scale = this._scale;
         this.addChild(door);
         door.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
             // AudioManager.getInstance().play(res.home_click_mp3, false, null);
             // cc.director.replaceScene(new cc.TransitionFade(4, new TalkingAdiScene(), cc.color.WHITE));
             cc.director.replaceScene(new TalkingAdiScene());
@@ -178,7 +174,7 @@ var HomeScreenLayer = cc.Layer.extend({
         var self = this;
         button.addClickEventListener(function() {
             self.addChild(new ChooseLanguageLayer(function() {
-                cc.log("chooselanguage callback");
+                // cc.log("chooselanguage callback");
                 cc.director.replaceScene(new HomeScene())}));
         });
         
