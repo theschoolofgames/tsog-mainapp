@@ -95,7 +95,7 @@ var FruidditionGameLayer = TestLayer.extend({
 
         var thirdObj = new cc.Node();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
-        thirdObj.x = secondOperation.x + secondOperation.width/2;
+        thirdObj.x = secondOperation.x + secondOperation.width/2 - 20;
         thirdObj.y = cc.winSize.height/2;
         this.addChild(thirdObj);
         this._objects.push(thirdObj);
@@ -136,9 +136,10 @@ var FruidditionGameLayer = TestLayer.extend({
                 
                 var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
                 o.scale = 0.5;
-                o.x = o.width/2 + o.width * (i%3) * o.scale;
-                o.y = -(o.height + 10) * heightIdx * o.scale;
-                this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
+                o.x = this._objects[idx].x + o.width/2 + o.width * (i%3) * o.scale;
+                o.y = this._objects[idx].y - (o.height + 10) * heightIdx * o.scale;
+                this.addChild(o, STAND_OBJECT_ZORDER);
+                // this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
 
                 if (key.indexOf("third") > -1) {
                     var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
@@ -292,9 +293,9 @@ var FruidditionGameLayer = TestLayer.extend({
             var spotWorldPos = dropSpot.convertToWorldSpace(dropSpot.getPosition());
             var objectPos = self._currentObjectMoving.getPosition();
 
-            if (cc.pDistance(spotWorldPos, objectPos) < 100) {
+            if (cc.pDistance(dropSpot.getPosition(), objectPos) < 100) {
                 var parent = dropSpot.parent;
-                spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
+                // spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
                 self._handleSuccessfulAction(i, parent);
                 return;
             }
@@ -362,6 +363,7 @@ var FruidditionGameLayer = TestLayer.extend({
         this._objects.forEach(obj => obj.removeAllChildren());
         this._operations.forEach(obj => obj.removeAllChildren());
         this._dropSpots.forEach(obj => obj.removeAllChildren());
+        this._draggingObjects.forEach(obj => obj.removeFromParent());
 
         this._draggingObjects = [];
         this._dropSpots = [];

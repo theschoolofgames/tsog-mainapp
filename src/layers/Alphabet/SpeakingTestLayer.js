@@ -434,7 +434,7 @@ var SpeakingTestLayer = TestLayer.extend({
         }
         var self = this;
         if (isNumber || isWord) 
-            this._currentObjectShowUp = new cc.LabelBMFont(spritePath, res.CustomFont_fnt);
+            this._currentObjectShowUp = new cc.LabelBMFont(this.currentObjectName, res.CustomFont_fnt);
         else    
             this._currentObjectShowUp = new cc.Sprite(this._objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
