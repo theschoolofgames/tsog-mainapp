@@ -2,64 +2,110 @@ var HOME_DOOR_OFFSET_Y = 260;
 var HOME_DOOR_Y = 30;
 var HOME_BACKGROUND_OFFSET_Y = -132;
 var BOARD_LABEL_SCALE = 0.5;
+var HOME_DOOR_Z_ORDER = 3;
 var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
-    _blocktouch: false,
+
+    _didCutScenePlayed: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
 
         this._super();
-        var bg = new cc.Sprite("res/SD/BG_home.jpg");
-        bg.anchorY = 0;
-        bg.x = cc.winSize.width/2;
-        bg.y = HOME_BACKGROUND_OFFSET_Y * Utils.getScaleFactorTo16And9();
-        bg.scale = cc.winSize.width / bg.width;
-        // cc.log("Scale: " + bg.scale);
-        this._scale = bg.scale;
-        this.addChild(bg);
-        this._bg = bg;
+
+        // block touch for cutscene
+
+        this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
         this.addHomeDoor();
         
         this.addChooseLanguageButton();
         
-        this._blocktouch = false;
+        
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer(),2);
 
-        // var testNode = new CharacterNodeAlpharacing("monkey");
-        // testNode.x = cc.winSize.width/2;
-        // testNode.y = cc.winSize.height/2;
-        // this.addChild(testNode, 1000);
-
-        // this.setVolume();
+        this._didCutScenePlayed = KVDatabase.getInstance().getInt("didPlayCutScene", 0);
+        if (!this._didCutScenePlayed)
+            this.playBeginHomeCutScene();
     },
 
-    setVolume:function() {
-        cc.audioEngine.setMusicVolume(0.1);
-        cc.audioEngine.setEffectsVolume(0.7);
+    addBackGround: function() {
+        var bg = new cc.Sprite("res/SD/BG_home.jpg");
+        bg.anchorY = 0;
+        bg.x = cc.winSize.width/2;
+        bg.y = HOME_BACKGROUND_OFFSET_Y * Utils.getScaleFactorTo16And9();
+        bg.scale = cc.winSize.width / bg.width;
+        this.addChild(bg);
+        this._bg = bg;
+        this._scale = bg.scale;
+    },  
+
+    playBeginHomeCutScene: function() {
+        KVDatabase.getInstance().set("didPlayCutScene", 1);
+        // shadow layer 
+        var l = new cc.LayerColor(cc.color(0, 0, 0, 220));
+        l.setLocalZOrder(HOME_DOOR_Z_ORDER + 2);
+        this.addChild(l);
+
+        var door = this.getChildByName("home");
+        this.runDoorCutSceneAction(door, 0);
+
+        door = this.getChildByName("play");
+        this.runDoorCutSceneAction(door, 0.5);
+
+        door = this.getChildByName("learn");
+        this.runDoorCutSceneAction(door, 1);
+    
+
+        this.runAction(cc.sequence(
+            cc.delayTime(2.2),
+            cc.callFunc(function() {
+                l.removeFromParent();
+            }.bind(this))
+        ));
+    },
+
+    runDoorCutSceneAction: function(door, baseTimeDelay) {
+        var scale = this._scale;
+        door.runAction(cc.sequence(
+            cc.delayTime(baseTimeDelay + 0.5),
+            cc.spawn(
+                cc.sequence(
+                    cc.scaleTo(0.25, scale-0.05).easing(cc.easeBackIn(1)),
+                    cc.scaleTo(0.25, scale)
+                ),
+                cc.sequence(
+                    cc.callFunc(function() {
+                        AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+                        door.setLocalZOrder(HOME_DOOR_Z_ORDER + 3);
+                        door.setBrightStyle(ccui.Widget.BRIGHT_STYLE_HIGH_LIGHT);
+                    }),
+                    cc.delayTime(0.5),
+                    cc.callFunc(function() {
+                        door.setBrightStyle(ccui.Widget.BRIGHT_STYLE_NORMAL);
+                        door.setLocalZOrder(HOME_DOOR_Z_ORDER);
+                        door.setTouchEnabled(true);
+                    })
+                )
+            )
+        ))
     },
 
     addPlayDoor: function(){
         var self = this;
-        var door  = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        var door = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        door.name = "play";
+        door.setTouchEnabled(!this._didCutScenePlayed);
         // door.anchorX = 1;
         door.anchorY = 0;
         door.x = cc.winSize.width/2;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
-        door.addClickEventListener(function(){
-            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-            if(CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING)
-                self.addChild(new DialogPlayAlpharacing(true));
-            else
-                self.addChild(new DialogPlayAlpharacing(false));
-
-        });
+        door.addClickEventListener(this._onDoorPressed.bind(this));
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
         board.y = door.height - 130;
@@ -87,16 +133,15 @@ var HomeScreenLayer = cc.Layer.extend({
 
     addLearnDoor: function(){
         var door  = new ccui.Button("learn_door.png","learn_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        door.name = "learn";
+        door.setTouchEnabled(!this._didCutScenePlayed);
         door.anchorX = 0;
         door.anchorY = 0;
         door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
-        door.addClickEventListener(function(){
-            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-            cc.director.runScene(new MapScene());
-        });
+        door.addClickEventListener(this._onDoorPressed.bind(this));
 
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
@@ -109,7 +154,7 @@ var HomeScreenLayer = cc.Layer.extend({
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
-        cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
+        // cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
         var lastLevel = UserStorage.getInstance().getLastLevelPlay();
         lastLevel = "L. " + lastLevel;
         // var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
@@ -127,18 +172,15 @@ var HomeScreenLayer = cc.Layer.extend({
 
     addHomeDoor: function(){
         var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        door.name = "home";
+        door.setTouchEnabled(!this._didCutScenePlayed);
         door.anchorX = 1;
         door.anchorY = 0;
         door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
-        door.addClickEventListener(function(){
-            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-            // AudioManager.getInstance().play(res.home_click_mp3, false, null);
-            // cc.director.replaceScene(new cc.TransitionFade(4, new TalkingAdiScene(), cc.color.WHITE));
-            cc.director.replaceScene(new TalkingAdiScene());
-        });
+        door.addClickEventListener(this._onDoorPressed.bind(this));
         var board = new cc.Sprite("#board.png");
         board.x = door.width/2;
         board.y = door.height - 130;
@@ -153,16 +195,16 @@ var HomeScreenLayer = cc.Layer.extend({
 
         var character = new AdiDogNode(true);
         character.scale  = 0.5;
-        character.x = 0;
-        character.y = 0;
-        door.addChild(character);
+        character.x = door.x - door.width * this._scale;
+        character.y = door.y;
+        this.addChild(character, HOME_DOOR_Z_ORDER+2);
     },
 
     addChooseLanguageButton: function() {
         var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
         button.x = cc.winSize.width - button.width/2 - 10;
         button.y = button.height/2 + 10;
-        this.addChild(button);
+        this.addChild(button, HOME_DOOR_Z_ORDER+1);
 
         var self = this;
         button.addClickEventListener(function() {
@@ -177,6 +219,26 @@ var HomeScreenLayer = cc.Layer.extend({
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
         button.getVirtualRenderer().addChild(lb);
+    },
+
+    _onDoorPressed: function(door) {
+        AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+
+        var doorName = door.name;
+        switch(doorName) {
+            case "play":
+                var didEnoughCoinToPlay = (CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING) ? true : false;
+                this.addChild(new DialogPlayAlpharacing(didEnoughCoinToPlay));
+                break;
+            case "learn":
+                cc.director.runScene(new MapScene());
+                break;
+            case "home":
+                cc.director.replaceScene(new TalkingAdiScene());
+                break;
+            default:
+                break;
+        }
     },
 });
 
