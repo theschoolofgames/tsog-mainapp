@@ -67,9 +67,10 @@ var ARPlayer = cc.Layer.extend({
         this.sprite.removeFromParent();
         this.parent.addChild(dieFrame,1000);
         dieFrame.runAction(cc.sequence(
-            cc.delayTime(1),
-            cc.moveTo(0.5,cc.p(dieFrame.getPosition().x, dieFrame.getPosition().y + 300)),
-            cc.moveTo(0.5, cc.p(dieFrame.getPosition().x, dieFrame.getPosition().y - 600))
+            cc.delayTime(0.5),
+            cc.moveBy(0.1, cc.p(0,-15)),
+            cc.moveBy(0.4,cc.p(0, 200)).easing(cc.easeCircleActionOut()),
+            cc.moveBy(0.5, cc.p(0, -600))
         ));
 
     },

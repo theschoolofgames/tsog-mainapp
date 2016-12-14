@@ -134,7 +134,6 @@ var HudLayer = cc.Layer.extend({
         //     star.x = (this._progressBarBg.width - 30)/3 * (i+1);
         //     star.y = this._progressBarBg.height/2 + 5;
         //     this._progressBarBg.addChild(star);
-        //     // cc.log("david add Star");
         // }
     },
 

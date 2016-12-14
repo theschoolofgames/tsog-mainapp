@@ -549,24 +549,29 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         this._hudLayer.pauseClock();
         this.gameLayer.zOder  = 10;
         this._player.zOder = 2000;
+        var self = this;
         var lbText = text;
-        this.createWarnLabel(lbText, null, null, cc.winSize.height/2);
-        var warningLabel = this._warningLabel;
-        var scaleTo = 2;
-        cc.log("this._warningLabel: " + this._warningLabel.width);
-        if(this._warningLabel.width > cc.winSize.width/2)
-            scaleTo = 1.5;
-        warningLabel.runAction(cc.sequence(
-            cc.callFunc(function() { 
-                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
-            }), 
-            cc.scaleTo(3, scaleTo).easing(cc.easeElasticOut(0.5))
+        this.runAction(cc.sequence(
+            cc.delayTime(2),
+            cc.callFunc(function(){
+                self.createWarnLabel(lbText, null, null, cc.winSize.height/2);
+                var warningLabel = self._warningLabel;
+                var scaleTo = 2;
+                if(self._warningLabel.width > cc.winSize.width/2)
+                    scaleTo = 1.5;
+                warningLabel.runAction(cc.sequence(
+                    cc.callFunc(function() { 
+                        AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+                    }), 
+                    cc.scaleTo(3, scaleTo).easing(cc.easeElasticOut(0.5))
+                ));
+            })
         ));
 
         var self = this;
         this.runAction(
             cc.sequence(
-                cc.delayTime(4),
+                cc.delayTime(5),
                 cc.callFunc(function() {
                     // if (warningLabel)
                     //     warningLabel.removeFromParent();

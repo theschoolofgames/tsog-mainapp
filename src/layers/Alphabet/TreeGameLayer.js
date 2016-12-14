@@ -24,6 +24,8 @@ var TreeGameLayer = TestLayer.extend({
     ctor: function(data, isTestScene, timeForScene) {
         this._super();
         this._scrollToX = 0;
+        this._treeGroup = [];
+        this._numberGroup = [];
         this._fetchObjectData(data);
         this._loadTmx();
         this._addBackground();
@@ -65,7 +67,7 @@ var TreeGameLayer = TestLayer.extend({
         scrollview.x = 0;
         scrollview.y = this._ground.height - 12 * Utils.getScaleFactorTo16And9();
         scrollview.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
-        scrollview.setTouchEnabled(true);
+        scrollview.setTouchEnabled(false);
         scrollview.setClippingToBounds(false);
         scrollview.setViewSize(cc.size(cc.winSize.width, cc.winSize.height));
         scrollview.setBounceable(true);

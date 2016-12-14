@@ -222,8 +222,10 @@ var ListeningTestLayer = TestLayer.extend({
                     var number = parseInt(shownObjNames[i]);
                     // cc.log("number: " + number);
                     if (isNaN(number)) {
-                        if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase())
+                        if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase()) {
+                            cc.log("shownObjNames[i]: " + shownObjNames[i]);
                             spritePath = "#" + shownObjNames[i].toUpperCase() + "_lowercase" + ".png";
+                        }
                         else
                             spritePath = "#" + shownObjNames[i].toUpperCase() + ".png";
                     } else
@@ -303,6 +305,7 @@ var ListeningTestLayer = TestLayer.extend({
             text = text.substr(text.indexOf("_") + 1, text.length-1);
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
+        cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
