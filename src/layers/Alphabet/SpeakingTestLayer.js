@@ -425,16 +425,16 @@ var SpeakingTestLayer = TestLayer.extend({
                 }
             }
         };
-        this.currentObjectName = this._names[this.currentObjectShowUpId];
+        var objectTempName = this._names[this.currentObjectShowUpId];
         
-        cc.log("objectName: " + objectName);
+        // cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
-        if (this.currentObjectName.indexOf("color") > -1) {
-            this.currentObjectName = this.currentObjectName.substr(this.currentObjectName.indexOf("_") + 1, this.currentObjectName.length-1);
+        if (objectTempName.indexOf("color") > -1) {
+            objectTempName = objectTempName.substr(objectTempName.indexOf("_") + 1, objectTempName.length-1);
         }
         var self = this;
-        if (isNumber || isWord) 
-            this._currentObjectShowUp = new cc.LabelBMFont(this.currentObjectName, res.CustomFont_fnt);
+        if (isNumber || isWord)
+            this._currentObjectShowUp = new cc.LabelBMFont(objectTempName, res.CustomFont_fnt);
         else    
             this._currentObjectShowUp = new cc.Sprite(this._objectName + ".png");
         this._currentObjectShowUp.x = cc.winSize.width/3*2 + 100;
@@ -442,18 +442,18 @@ var SpeakingTestLayer = TestLayer.extend({
         this._currentObjectShowUp.scale = 250 / this._currentObjectShowUp.width;
         this.addChild(this._currentObjectShowUp);
         this._playObjectSound(function(audioId) {
-            cc.log("self._timesUp:" + self._timesUp);
+            // cc.log("self._timesUp:" + self._timesUp);
             if(self._timesUp) 
                 return;
-            cc.log("speakingtest startSpeechRecognition");
+            // cc.log("speakingtest startSpeechRecognition");
             self._addLabel("GO");
             NativeHelper.callNative("startSpeechRecognition", [5000]);
             KVDatabase.getInstance().set("timeUp", Date.now()/1000);
             self._adiDog.onStartedListening();
         });
         
-        cc.log("currentObjectName: " + objectName);
-        cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
+        // cc.log("currentObjectName: " + objectName);
+        // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
 
