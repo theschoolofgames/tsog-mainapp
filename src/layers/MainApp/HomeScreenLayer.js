@@ -8,13 +8,6 @@ var HomeScreenLayer = cc.Layer.extend({
     _blocktouch: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
-        // // init coin for testing
-        // var didCoinInit = KVDatabase.getInstance().getInt("didCoinInit", 0);
-        // if (!didCoinInit) {
-        //     KVDatabase.getInstance().set("didCoinInit", 1);
-        //     CurrencyManager.getInstance().incCoin(200);
-        //     CurrencyManager.getInstance().incDiamond(0);
-        // };
 
         this._super();
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
