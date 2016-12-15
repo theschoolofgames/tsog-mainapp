@@ -8,11 +8,12 @@ var MapLayer = cc.Layer.extend({
     _scrollView: null,
 
     _lastedStepUnlocked: null,
-
+    _whirlwinds: [],
     _csf: 1,
 
     ctor: function() {
         this._super();
+        this._whirlwinds  = [];
         this._stepsStar = {};
         this._loadTmx();
         this._loadMapData();
@@ -122,9 +123,22 @@ var MapLayer = cc.Layer.extend({
                 
                 scrollView.addChild(mapPart);
 
-                lastPartXPos += mapPart.width;
                 this._poolParts.push(mapPart);
-
+                if(mapIndex == 3) {
+                    var whirlwind = new cc.Sprite("#animation/whirlwind-1.png");
+                    whirlwind.x = mapPart.width * Math.random();
+                    whirlwind.y = Math.random() * mapPart.height;
+                    mapPart.addChild(whirlwind);
+                    this._whirlwinds.push(whirlwind);
+                    // Utils.runAnimation(whirlwind, "animation/whirlwind", 0.1, 12, true, 3, cc.callFunc(function(){
+                    //     cc.log("whirlwind action");
+                    //     whirlwind.setVisible(false);
+                    //     whirlwind.x = mapPart.width * Math.random();
+                    //     whirlwind.y = Math.random() * mapPart.height;
+                    //     cc.log("Isvisible: " + whirlwind.isVisible());
+                    // }));
+                };
+                lastPartXPos += mapPart.width;
                 mapIndex = (mapIndex >= 4) ? 1 : (mapIndex+1);
             }
         }
@@ -137,9 +151,24 @@ var MapLayer = cc.Layer.extend({
             mapPardPlus.y = cc.winSize.height/2;
             scrollView.addChild(mapPardPlus);
 
-            lastPartXPos+= mapPardPlus.width;
-        }
+            var whirlwind = new cc.Sprite("#animation/whirlwind-1.png");
+            whirlwind.x = mapPardPlus.width * Math.random();
+            whirlwind.y = Math.random() * mapPardPlus.height;
+            mapPardPlus.addChild(whirlwind);
+            this._whirlwinds.push(whirlwind);
 
+            lastPartXPos+= mapPardPlus.width;
+        };
+        var self = this;
+        cc.log("Length ---> " + this._whirlwinds.length);
+        this._whirlwinds.forEach(function(object) {
+            // var object = this._whirlwinds[i];
+            Utils.runAnimation(object, "animation/whirlwind", 0.1, 12, true, 3, cc.callFunc(function(){
+                object.setVisible(false);
+                object.x = mapPart.width * Math.random();
+                object.y = Math.random() * mapPart.height;
+            }));
+        });
         scrollView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         scrollView.setContentSize(cc.size(lastPartXPos, mapPart.height));
         scrollView.setViewSize(cc.director.getWinSize());
@@ -175,6 +204,7 @@ var MapLayer = cc.Layer.extend({
         // var group = tiledMap.getObjectGroup("buttonPart1");
         var self = this;
         tiledMap.getObjectGroups().forEach(function(group) {
+            cc.log("group ->>>>");
             if (group.getGroupName().startsWith("buttonPart")) {
                 group.getObjects().forEach(function(obj) {
                     self._btnStepCoordinates.push({

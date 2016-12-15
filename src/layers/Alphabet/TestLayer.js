@@ -17,6 +17,7 @@ var TestLayer = cc.LayerColor.extend({
     storytimeCurrentDataIndex: -1,
 
     _callingQuickTest: false,
+    _soundEffect: null,
 
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
@@ -49,7 +50,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     playBeginSound: function(path, callback) {
-        AudioManager.getInstance().play(path, false, callback);
+        this._soundEffect = AudioManager.getInstance().play(path, false, callback);
     },
 
     playBackGroundMusic: function() {

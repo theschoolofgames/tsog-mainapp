@@ -71,7 +71,7 @@ var FruidditionGameLayer = TestLayer.extend({
         var firstObj = new cc.Node();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
         firstObj.x = 0;
-        firstObj.y = cc.winSize.height/2;
+        firstObj.y = cc.winSize.height/2 + 40;
         this.addChild(firstObj);
         this._objects.push(firstObj);
 
@@ -84,7 +84,7 @@ var FruidditionGameLayer = TestLayer.extend({
         var secondObj = new cc.Node();
         secondObj.width = 250;
         secondObj.x = cc.winSize.width/2 - secondObj.width/2;
-        secondObj.y = cc.winSize.height/2;
+        secondObj.y = cc.winSize.height/2 + 40;
         this.addChild(secondObj);
         this._objects.push(secondObj);
 
@@ -96,7 +96,7 @@ var FruidditionGameLayer = TestLayer.extend({
         var thirdObj = new cc.Node();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
         thirdObj.x = secondOperation.x + secondOperation.width/2 - 20;
-        thirdObj.y = cc.winSize.height/2;
+        thirdObj.y = cc.winSize.height/2 + 40;
         this.addChild(thirdObj);
         this._objects.push(thirdObj);
 

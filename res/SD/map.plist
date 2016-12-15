@@ -4,6 +4,186 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>animation/whirlwind-1.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{25,-67}</string>
+                <key>spriteSize</key>
+                <string>{151,167}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1106,1},{151,167}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-10.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{5,56}</string>
+                <key>spriteSize</key>
+                <string>{155,175}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{500,1},{155,175}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-11.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{2,59}</string>
+                <key>spriteSize</key>
+                <string>{155,179}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{184,1},{155,179}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-12.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-8,60}</string>
+                <key>spriteSize</key>
+                <string>{163,181}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{163,181}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>animation/whirlwind-2.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{11,-61}</string>
+                <key>spriteSize</key>
+                <string>{147,177}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{810,1},{147,177}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-3.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,-57}</string>
+                <key>spriteSize</key>
+                <string>{151,167}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1259,1},{151,167}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-4.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-7,-48}</string>
+                <key>spriteSize</key>
+                <string>{141,177}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1557,1},{141,177}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-5.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-21,-37}</string>
+                <key>spriteSize</key>
+                <string>{151,173}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{657,1},{151,173}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-6.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-28,-11}</string>
+                <key>spriteSize</key>
+                <string>{145,177}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{959,1},{145,177}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-7.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-22,-2}</string>
+                <key>spriteSize</key>
+                <string>{157,173}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{341,1},{157,173}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-8.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-17,12}</string>
+                <key>spriteSize</key>
+                <string>{143,175}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1412,1},{143,175}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>animation/whirlwind-9.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{5,53}</string>
+                <key>spriteSize</key>
+                <string>{143,173}</string>
+                <key>spriteSourceSize</key>
+                <string>{201,301}</string>
+                <key>textureRect</key>
+                <string>{{1700,1},{143,173}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>btn_level-disabled.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,69},{71,63}}</string>
+                <string>{{1845,1},{71,63}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -30,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,283},{71,59}}</string>
+                <string>{{1910,68},{71,59}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -45,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{71,63}</string>
                 <key>textureRect</key>
-                <string>{{1,142},{71,63}}</string>
+                <string>{{1845,74},{71,63}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -60,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{66,65}</string>
                 <key>textureRect</key>
-                <string>{{1,215},{66,63}}</string>
+                <string>{{1971,68},{66,63}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -75,9 +255,9 @@
                 <key>spriteSourceSize</key>
                 <string>{66,65}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{66,65}}</string>
+                <string>{{1910,1},{66,65}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -87,9 +267,9 @@
             <key>realTextureFileName</key>
             <string>map.png</string>
             <key>size</key>
-            <string>{67,355}</string>
+            <string>{2035,181}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7fe2623808800bfb9e162e8339930ce3:11638e58d10f60668a0a34059cb79121:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
+            <string>$TexturePacker:SmartUpdate:e29637c22b1e58b51673cc3464f9fce6:ee7fb9b7d239fed62f109c8aefa40bc0:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
             <key>textureFileName</key>
             <string>map.png</string>
         </dict>
