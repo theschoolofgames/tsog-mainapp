@@ -7,6 +7,8 @@ var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
 
+    _changeLanguageButton: null,
+
     _didCutScenePlayed: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
@@ -64,6 +66,7 @@ var HomeScreenLayer = cc.Layer.extend({
             cc.delayTime(2.2),
             cc.callFunc(function() {
                 l.removeFromParent();
+                this._changeLanguageButton.setTouchEnabled(true);
             }.bind(this))
         ));
     },
@@ -202,6 +205,7 @@ var HomeScreenLayer = cc.Layer.extend({
 
     addChooseLanguageButton: function() {
         var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.setTouchEnabled(!this._didCutScenePlayed);
         button.x = cc.winSize.width - button.width/2 - 10;
         button.y = button.height/2 + 10;
         this.addChild(button, HOME_DOOR_Z_ORDER+1);
@@ -219,6 +223,8 @@ var HomeScreenLayer = cc.Layer.extend({
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
         button.getVirtualRenderer().addChild(lb);
+
+        this._changeLanguageButton = button;
     },
 
     _onDoorPressed: function(door) {

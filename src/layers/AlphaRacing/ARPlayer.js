@@ -113,7 +113,7 @@ var ARPlayer = cc.Layer.extend({
         else
             this._gravityMult = 0;
         // cc.log("gravityStep: " + JSON.stringify(gravityStep));
-        cc.log("this._gravityMult: " + JSON.stringify(this._gravityMult));
+        // cc.log("this._gravityMult: " + JSON.stringify(this._gravityMult));
 	    this._velocity = cc.pClamp(this._velocity, minMovement, maxMovement);
     
 	    this._velocity = cc.pAdd(this._velocity, gravityStep);
