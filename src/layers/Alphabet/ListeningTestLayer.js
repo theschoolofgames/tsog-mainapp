@@ -42,8 +42,16 @@ var ListeningTestLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
+        var self = this;
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-
+        this._event_time_up = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                jsb.AudioEngine.stop(self._soundEffect);
+            }
+        });
+        cc.eventManager.addListener(this._event_time_up, 1);
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
@@ -361,8 +369,8 @@ var ListeningTestLayer = TestLayer.extend({
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         if (self._objSoundPath) {
-            var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            this._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
+            jsb.AudioEngine.setFinishCallback(this._soundEffect, function(audioId, audioPath) {
                 if (!self._adiDog)
                     return;
 
@@ -539,8 +547,8 @@ var ListeningTestLayer = TestLayer.extend({
 
     onExit: function () {
         this._super();
-
         this.removeStoryTimeForListeningData();
+        cc.eventManager.removeListener(this._event_time_up);
     },
     
 });

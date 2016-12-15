@@ -395,7 +395,7 @@ Utils.addBuildVersionText = function(parent) {
     lb.scale = 0.5;
     parent.addChild(lb);
 }
-Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop, timeForNextLoop) {
+Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop, timeForNextLoop, action) {
     var animFrames = [];
     for (var i = 1; i < effectFrames + 1; i++) {
         var str = effectName + "-" + i + ".png";
@@ -403,8 +403,11 @@ Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop,
         animFrames.push(frame);
     };
     var effectAnimation = new cc.Animation(animFrames, effectDelay);
-    var actions = [cc.animate(effectAnimation)];
+    var actions = [cc.callFunc(function(){node.visible = true}),cc.animate(effectAnimation)];
     var effectAction = null;
+    if(action) {
+        actions.push(action)
+    };
     if (!loop) {
         effectAction = cc.sequence(actions);
     } else
