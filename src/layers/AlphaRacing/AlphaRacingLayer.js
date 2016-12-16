@@ -5,7 +5,7 @@ var AR_LANDS_ZODER = 1000;
 var AR_PLAYER_ZODER = 1002;
 var AR_SCALE_NUMBER = 1;
 
-var WALLS_ELASTICITY = 0.1;
+var WALLS_ELASTICITY = 1;
 var WALLS_FRICTION = 1;
 
 var CAMERA_FOLLOW_FACTOR = 0.9;
@@ -125,6 +125,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.gravity = cp.v(0, -500);
         space.iterations = 30;
         space.sleepTimeThreshold = Infinity;
+        space.collisionBias = 0;
         this._space = space;
 
         var phDebugNode = cc.PhysicsDebugNode.create(space);
@@ -146,12 +147,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._currentMapX += tmxMap.mapWidth * tmxMap.tileWidth;
 
-        var tmxLayer = tmxMap.getLayer("Lands");
-        
-        cc.log("layerWidth: " + tmxLayer.layerWidth);
-        cc.log("layerHeight: " + tmxLayer.layerHeight);
-
-        var shapes = this.buildPhysicBodyFromTilemap(tmxLayer, tmxMap.getPosition());
+        var shapes = this.buildPhysicBodyFromTilemap(tmxMap);
         tmxMap.setUserData(shapes);
 
         // cc.log(shapes.length);
@@ -159,7 +155,13 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._maps.push(tmxMap);
     },
 
-    buildPhysicBodyFromTilemap: function(tmxLayer, offset) {
+    buildPhysicBodyFromTilemap: function(tmxMap) {
+        var tmxLayer = tmxMap.getLayer("Lands");
+        var offset = tmxMap.getPosition();
+        
+        cc.log("layerWidth: " + tmxLayer.layerWidth);
+        cc.log("layerHeight: " + tmxLayer.layerHeight);
+
         var inspectedTiles = [];
         var borderTiles = [];
 
@@ -242,7 +244,12 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     collisionStaticDynamic: function(arbiter, space) {
-        this._player.run();
+        for (i = 0; i < arbiter.getBodies().length; i++) {
+            var body = arbiter.getBodies()[i];
+            if (body != this._player.getBody() && body.getPos().y < this._player.getBody().getPos().y) {
+                    this._player.run();
+            }
+        }
 
         return true;
     },
