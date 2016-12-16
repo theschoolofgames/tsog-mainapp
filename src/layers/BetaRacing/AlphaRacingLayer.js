@@ -974,7 +974,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
             }
         }
 
-        // console.log("Layer Index => " + layerIndex);
+        console.log("Layer Index => " + layerIndex);
 
         var tiles = this.getSurroundingTilesAtPosition(p.getPosition(), this.layers[layerIndex], this._mapIndex);
 

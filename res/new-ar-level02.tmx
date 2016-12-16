@@ -5,7 +5,7 @@
  </tileset>
  <layer name="Lands" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjALqA0YgZkbCTAPrnAEFyGFBSThQy5yBBGxAzIKGWelgLwcQs6NhTqgcunvohdHdM4qHFwYAXHsEJw==
+   eJxjYBgFo2AUjALqA0YgZkbCTAPrnAEFyGFBSThQy5yBBGxAzIKGWelgLwcQs6NhTqgcunuoidHthGF8cqN4eGAAf38EOQ==
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
