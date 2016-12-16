@@ -163,7 +163,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         cc.log("layerHeight: " + tmxLayer.layerHeight);
 
         var inspectedTiles = [];
-        var borderTiles = [];
+        var polygons = [];
 
         for (var i = 0; i < tmxLayer.layerWidth; i++) {
             for (var j = 0; j < tmxLayer.layerHeight; j++) {
@@ -172,22 +172,25 @@ var AlphaRacingLayer = cc.Layer.extend({
                 if (gid) {
                     var arrays = this.getPolygonIncludeTile(tmxLayer, inspectedTiles, i, j);
 
-                    borderTiles = borderTiles.concat(arrays[0]);
+                    if (arrays[0].length > 0)
+                        polygons = polygons.concat(arrays[0]);
                     inspectedTiles = inspectedTiles.concat(arrays[1]); // inspected Polygon
                 }
             }
         }
 
+        // cc.log(JSON.stringify(polygons));
+
         var shapes = [];
 
-        for (var i = 0; i < borderTiles.length; i++) {
-            var tile = borderTiles[i];
-            tile.y = tmxLayer.layerHeight - tile.y - 1;
+        for (var i = 0; i < polygons.length; i++) {
+            var p = polygons[i].map(p => [p[0] * tmxLayer.tileWidth, (tmxLayer.layerHeight - p[1]) * tmxLayer.tileHeight]);
+            var flatten = [].concat.apply([], p);
 
             var body = cp.StaticBody();
-            body.setPos(cc.pAdd(offset, cc.p((tile.x + 0.5) * tmxLayer.tileWidth, (tile.y + 0.5) * tmxLayer.tileHeight)));
+            body.setPos(offset);
 
-            var shape = new cp.BoxShape(body, tmxLayer.tileWidth, tmxLayer.tileHeight);
+            var shape = new cp.PolyShape(body, flatten, cc.p());
             shape.setElasticity(WALLS_ELASTICITY);
             shape.setFriction(WALLS_FRICTION);
             shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_STATIC);
@@ -196,13 +199,29 @@ var AlphaRacingLayer = cc.Layer.extend({
             shapes.push(shape);
         }
 
+        // for (var i = 0; i < borderTiles.length; i++) {
+        //     var tile = borderTiles[i];
+        //     tile.y = tmxLayer.layerHeight - tile.y - 1;
+
+        //     var body = cp.StaticBody();
+        //     body.setPos(cc.pAdd(offset, cc.p((tile.x + 0.5) * tmxLayer.tileWidth, (tile.y + 0.5) * tmxLayer.tileHeight)));
+
+        //     var shape = new cp.BoxShape(body, tmxLayer.tileWidth, tmxLayer.tileHeight);
+        //     shape.setElasticity(WALLS_ELASTICITY);
+        //     shape.setFriction(WALLS_FRICTION);
+        //     shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_STATIC);
+        //     this._space.addStaticShape(shape);
+
+        //     shapes.push(shape);
+        // }
+
         return shapes;
     },
 
     getPolygonIncludeTile: function(layer, inspectedTiles, x, y) {
         var borderTiles = [];
 
-        var tile = {x: x, y: y}
+        var tile = {x: x, y: y, index: 0}
         var polygonTiles = [ ];
 
         var queue = [];
@@ -211,22 +230,22 @@ var AlphaRacingLayer = cc.Layer.extend({
         while (queue.length > 0) {
             tile = queue.shift();
 
-            if (polygonTiles.indexOfObj(tile) >= 0 || inspectedTiles.indexOfObj(tile) >= 0)
+            if (polygonTiles.indexOfPoint(tile) >= 0 || inspectedTiles.indexOfPoint(tile) >= 0)
                 continue;
 
             polygonTiles.push(tile);
 
             var neighbourTiles = [
-                {x: tile.x+1,   y: tile.y},
-                {x: tile.x-1,   y: tile.y},
-                {x: tile.x,     y: tile.y+1},
-                {x: tile.x,     y: tile.y-1}
+                {x: tile.x+1,   y: tile.y,      index: tile.index+1},
+                {x: tile.x-1,   y: tile.y,      index: tile.index+1},
+                {x: tile.x,     y: tile.y+1,    index: tile.index+1},
+                {x: tile.x,     y: tile.y-1,    index: tile.index+1}
             ];
 
             for (var i = 0; i < neighbourTiles.length; i++) {
                 var otherTile = neighbourTiles[i];
                 if (otherTile.x >= layer.layerWidth || otherTile.y >= layer.layerHeight || otherTile.x < 0 || otherTile.x < 0) {
-                    if (borderTiles.indexOfObj(tile) < 0)
+                    if (borderTiles.indexOfPoint(tile) < 0)
                         borderTiles.push(tile);
                     continue;
                 }
@@ -234,13 +253,22 @@ var AlphaRacingLayer = cc.Layer.extend({
                 if (layer.getTileGIDAt(otherTile)) {
                     queue.push(otherTile);
                 } else {
-                    if (borderTiles.indexOfObj(tile) < 0)
+                    if (borderTiles.indexOfPoint(tile) < 0)
                         borderTiles.push(tile);
                 }
             }
         }
 
-        return [borderTiles, polygonTiles];
+        var convexHulls = [];
+
+        if (polygonTiles.length > 0) {
+            var allPoints = polygonTiles.map(t => [[t.x, t.y], [t.x+1, t.y], [t.x, t.y+1], [t.x+1, t.y+1]]);
+            var flattenPoints = [].concat.apply([], allPoints);
+            var concaveHull = hull(flattenPoints, 1);
+            convexHulls = decomp.quickDecomp(concaveHull);
+        }
+
+        return [convexHulls, polygonTiles];
     },
 
     collisionStaticDynamic: function(arbiter, space) {

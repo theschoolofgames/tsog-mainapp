@@ -12,6 +12,8 @@
 
     "jsList" : [
         "src/libs/state-machine.min.js",
+        "src/libs/hull.js",
+        "src/libs/decomp.min.js",
 
         "src/extensions/ArrayExtension.js",
 
