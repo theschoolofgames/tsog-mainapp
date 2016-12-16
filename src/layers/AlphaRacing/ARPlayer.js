@@ -34,7 +34,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
             initial: 'running',
             events: [
                 { name: 'run',      from: ['running', 'jumping'],           to: 'running' },
-                { name: 'jump',     from: ['running', 'idling'],            to: 'jumping' },
+                { name: 'jump',     from: ['jumping', 'running'],           to: 'jumping' },
                 { name: 'die',      from: ['running', 'jumping'],           to: 'died' },
             ]
         });
@@ -67,7 +67,9 @@ var ARPlayer = cc.PhysicsSprite.extend({
     },
 
     onjump: function(event, from, to, msg) {
-        this.getBody().applyImpulse(cc.p(0, 5000), cc.p());
+        if (from != "jumping")
+            this.getBody().applyImpulse(cc.p(0, 5000), cc.p());
+
         cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },
 

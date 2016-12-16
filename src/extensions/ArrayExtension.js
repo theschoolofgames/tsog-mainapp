@@ -1,6 +1,6 @@
-Array.prototype.indexOfObj = function(member) {
+Array.prototype.indexOfPoint = function(member) {
     for (var i = 0; i < this.length; i++) {
-        if (JSON.stringify(this[i]) == JSON.stringify(member))
+        if (cc.pSameAs(this[i], member))
             return i;
     }
     return -1;

@@ -23,6 +23,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _bgGradient: null,
 
     _currentMapX: 0,
+
+    _polygonConfigs: null,
     
     ctor: function(inputData,option) {
         this._super();
@@ -45,6 +47,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._workers = [];
         this._layers = [];
+        this._polygonConfigs = [];
         this.gameLayer = new cc.Layer();
         this.addChild(this.gameLayer, 10);
 
@@ -101,26 +104,6 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     initPhysicWorld: function() {
-
-        // for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
-        //     var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
-        //     // tmxMap.setScale(AR_SCALE_NUMBER);
-        //     tmxMap.setPosition(cc.p(-3000, -3000));
-        //     tmxMap.setVisible(false)
-            
-        //     this._maps.push(tmxMap);
-        //     this.gameLayer.addChild(tmxMap, AR_LANDS_ZODER, 2);
-
-        //     var tmxLayer = tmxMap.getLayer("Lands");
-        //     this._layers.push(tmxLayer);
-
-        //     // this.mapIndexArray.push({index: i});
-
-        //     this._mapWidth = tmxMap.getContentSize().width;
-        //     this._mapHeight = tmxMap.getContentSize().height;
-        //     this._tileSize = cc.size(tmxMap.getTileSize().width * AR_SCALE_NUMBER, tmxMap.getTileSize().height * AR_SCALE_NUMBER);
-        // }
-
         var space = new cp.Space();
         space.gravity = cp.v(0, -500);
         space.iterations = 30;
@@ -141,13 +124,14 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     createNewMapSegment: function() {
-        var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[Math.floor(Math.random() * 3)]);
+        var index = Math.floor(Math.random() * AR_TMX_LEVELS.length);
+        var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[index]);
         tmxMap.x = this._currentMapX;
         this.addChild(tmxMap, AR_LANDS_ZODER, 2);
 
         this._currentMapX += tmxMap.mapWidth * tmxMap.tileWidth;
 
-        var shapes = this.buildPhysicBodyFromTilemap(tmxMap);
+        var shapes = this.buildPhysicBodyFromTilemap(tmxMap, index);
         tmxMap.setUserData(shapes);
 
         // cc.log(shapes.length);
@@ -155,7 +139,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._maps.push(tmxMap);
     },
 
-    buildPhysicBodyFromTilemap: function(tmxMap) {
+    buildPhysicBodyFromTilemap: function(tmxMap, index) {
         var tmxLayer = tmxMap.getLayer("Lands");
         var offset = tmxMap.getPosition();
         
@@ -163,31 +147,39 @@ var AlphaRacingLayer = cc.Layer.extend({
         cc.log("layerHeight: " + tmxLayer.layerHeight);
 
         var inspectedTiles = [];
-        var borderTiles = [];
+        var polygons = this._polygonConfigs[index];
 
-        for (var i = 0; i < tmxLayer.layerWidth; i++) {
-            for (var j = 0; j < tmxLayer.layerHeight; j++) {
-                var gid = tmxLayer.getTileGIDAt(i, j);
+        if (!polygons) {
+            polygons = [];
+            for (var i = 0; i < tmxLayer.layerWidth; i++) {
+                for (var j = 0; j < tmxLayer.layerHeight; j++) {
+                    var gid = tmxLayer.getTileGIDAt(i, j);
 
-                if (gid) {
-                    var arrays = this.getPolygonIncludeTile(tmxLayer, inspectedTiles, i, j);
+                    if (gid) {
+                        var arrays = this.getPolygonIncludeTile(tmxLayer, inspectedTiles, i, j);
 
-                    borderTiles = borderTiles.concat(arrays[0]);
-                    inspectedTiles = inspectedTiles.concat(arrays[1]); // inspected Polygon
+                        if (arrays[0].length > 0)
+                            polygons = polygons.concat(arrays[0]);
+                        inspectedTiles = inspectedTiles.concat(arrays[1]); // inspected Polygon
+                    }
                 }
             }
+
+            this._polygonConfigs[index] = polygons;
         }
+
+        // cc.log(JSON.stringify(polygons));
 
         var shapes = [];
 
-        for (var i = 0; i < borderTiles.length; i++) {
-            var tile = borderTiles[i];
-            tile.y = tmxLayer.layerHeight - tile.y - 1;
+        for (var i = 0; i < polygons.length; i++) {
+            var p = polygons[i].map(p => [p[0] * tmxLayer.tileWidth, (tmxLayer.layerHeight - p[1]) * tmxLayer.tileHeight]);
+            var flatten = [].concat.apply([], p);
 
             var body = cp.StaticBody();
-            body.setPos(cc.pAdd(offset, cc.p((tile.x + 0.5) * tmxLayer.tileWidth, (tile.y + 0.5) * tmxLayer.tileHeight)));
+            body.setPos(offset);
 
-            var shape = new cp.BoxShape(body, tmxLayer.tileWidth, tmxLayer.tileHeight);
+            var shape = new cp.PolyShape(body, flatten, cc.p());
             shape.setElasticity(WALLS_ELASTICITY);
             shape.setFriction(WALLS_FRICTION);
             shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_STATIC);
@@ -202,7 +194,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     getPolygonIncludeTile: function(layer, inspectedTiles, x, y) {
         var borderTiles = [];
 
-        var tile = {x: x, y: y}
+        var tile = {x: x, y: y, index: 0}
         var polygonTiles = [ ];
 
         var queue = [];
@@ -211,22 +203,22 @@ var AlphaRacingLayer = cc.Layer.extend({
         while (queue.length > 0) {
             tile = queue.shift();
 
-            if (polygonTiles.indexOfObj(tile) >= 0 || inspectedTiles.indexOfObj(tile) >= 0)
+            if (polygonTiles.indexOfPoint(tile) >= 0 || inspectedTiles.indexOfPoint(tile) >= 0)
                 continue;
 
             polygonTiles.push(tile);
 
             var neighbourTiles = [
-                {x: tile.x+1,   y: tile.y},
-                {x: tile.x-1,   y: tile.y},
-                {x: tile.x,     y: tile.y+1},
-                {x: tile.x,     y: tile.y-1}
+                {x: tile.x+1,   y: tile.y,      index: tile.index+1},
+                {x: tile.x-1,   y: tile.y,      index: tile.index+1},
+                {x: tile.x,     y: tile.y+1,    index: tile.index+1},
+                {x: tile.x,     y: tile.y-1,    index: tile.index+1}
             ];
 
             for (var i = 0; i < neighbourTiles.length; i++) {
                 var otherTile = neighbourTiles[i];
                 if (otherTile.x >= layer.layerWidth || otherTile.y >= layer.layerHeight || otherTile.x < 0 || otherTile.x < 0) {
-                    if (borderTiles.indexOfObj(tile) < 0)
+                    if (borderTiles.indexOfPoint(tile) < 0)
                         borderTiles.push(tile);
                     continue;
                 }
@@ -234,24 +226,33 @@ var AlphaRacingLayer = cc.Layer.extend({
                 if (layer.getTileGIDAt(otherTile)) {
                     queue.push(otherTile);
                 } else {
-                    if (borderTiles.indexOfObj(tile) < 0)
+                    if (borderTiles.indexOfPoint(tile) < 0)
                         borderTiles.push(tile);
                 }
             }
         }
 
-        return [borderTiles, polygonTiles];
+        var convexHulls = [];
+
+        if (polygonTiles.length > 0) {
+            var allPoints = polygonTiles.map(t => [[t.x, t.y], [t.x+1, t.y], [t.x, t.y+1], [t.x+1, t.y+1]]);
+            var flattenPoints = [].concat.apply([], allPoints);
+            var concaveHull = hull(flattenPoints, 1);
+            convexHulls = decomp.quickDecomp(concaveHull);
+        }
+
+        return [convexHulls, polygonTiles];
     },
 
     collisionStaticDynamic: function(arbiter, space) {
         for (i = 0; i < arbiter.getBodies().length; i++) {
             var body = arbiter.getBodies()[i];
             if (body != this._player.getBody() && body.getPos().y < this._player.getBody().getPos().y) {
-                    this._player.run();
+                this._player.run();
+                return true;
             }
         }
-
-        return true;
+        return false;
     },
 
     cameraFollower: function() {
