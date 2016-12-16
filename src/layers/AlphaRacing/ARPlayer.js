@@ -21,8 +21,8 @@ var ARPlayer = cc.PhysicsSprite.extend({
         this._body = body;
 
         var shape = space.addShape(new cp.BoxShape(body, this.width * this.scaleX, this.height * this.scaleY));
-        shape.setFriction(0.5);
-        shape.setElasticity(0.1);
+        shape.setFriction(0);
+        shape.setElasticity(0);
         shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_DYNAMIC);
 
         // this.setIgnoreBodyRotation(false);
@@ -33,8 +33,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
             target: this,
             initial: 'running',
             events: [
-                { name: 'run',      from: ['running', 'jumping', 'idling'], to: 'running' },
-                { name: 'idle',     from: ['running', 'jumping'],           to: 'idling' },
+                { name: 'run',      from: ['running', 'jumping'],           to: 'running' },
                 { name: 'jump',     from: ['running', 'idling'],            to: 'jumping' },
                 { name: 'die',      from: ['running', 'jumping'],           to: 'died' },
             ]
@@ -43,14 +42,14 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     update: function(dt) {
 
+        var vel = this.getBody().getVel();
+        var velChange = this._desiredVel - vel.x;
+        var impulse = velChange * this.getBody().m;
+
         if (this.current == "running") {
-            var vel = this.getBody().getVel();
-
-            // cc.log(JSON.stringify(vel));
-
-            var velChange = this._desiredVel - vel.x;
-            var impulse = velChange * this.getBody().m;
             this.getBody().applyImpulse(cc.p(impulse, 0), cc.p());
+        } else if (this.current == "jumping") {
+            this.getBody().applyForce(cc.p(impulse, 0), cc.p());
         }
     },
 
