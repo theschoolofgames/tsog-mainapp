@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="57">
+ <tileset firstgid="1" name="alpha-racing-tmx" tilewidth="64" tileheight="64">
+  <image source="SD/alpha-racing-tmx.png" width="1024" height="64"/>
+ </tileset>
+ <layer name="Lands" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKBA4xAzAzETAPtEAoAzA+DwR/IbsHnHjYgZiXDXEr9xw7F9Ab47GWhIYbZi09uFA9PDAAc0wQP
+  </data>
+ </layer>
+ <objectgroup name="alphaPosition1">
+  <object id="40" x="640" y="640"/>
+  <object id="43" x="896" y="704"/>
+  <object id="45" x="1024" y="640"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition2">
+  <object id="35" x="1536" y="704"/>
+  <object id="36" x="1728" y="896"/>
+  <object id="37" x="1856" y="896"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition3">
+  <object id="55" x="1280" y="512"/>
+  <object id="56" x="1344" y="512"/>
+ </objectgroup>
+ <layer name="LowLayer1" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjAII4B1oBwxDwA3EPAPtiCEG+AbaAaNgFFABAADQ1AAz
+  </data>
+ </layer>
+ <layer name="LowLayer2" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGD+AdaAeMglFABQAALYgADg==
+  </data>
+ </layer>
+ <objectgroup color="#ff0000" name="Obstacles"/>
+ <objectgroup color="#80ff00" name="Boosters"/>
+</map>
