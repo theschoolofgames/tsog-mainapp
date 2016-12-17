@@ -31,6 +31,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     ctor: function(inputData,option) {
         this._super();
 
+        var self = this;
+
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
 
@@ -53,7 +55,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxs = [];
 
         this.initBackground();
-        this.initPhysicWorld();
+        
 
         this.scheduleUpdate();
 
@@ -64,6 +66,26 @@ var AlphaRacingLayer = cc.Layer.extend({
             onTouchMoved: this.onTouchMoved.bind(this),
             onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
+
+        if (jsb.fileUtils.isFileExist("config/ar_map_polygons.json")) {
+            cc.loader.loadJson("config/ar_map_polygons.json", function(error, data) {
+                self._polygonConfigs = data;
+
+                self.initPhysicWorld();
+            });
+        } else {
+            // Get & save polygon config
+            for (var i = 0; i < AR_TMX_LEVELS.length; i++) {
+                var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[i]);
+                var tmxLayer = tmxMap.getLayer("Lands");
+
+                this._polygonConfigs[i] = this.getPolygonConfig(tmxLayer);
+            }
+
+            this.initPhysicWorld();
+
+            jsb.fileUtils.writeStringToFile(JSON.stringify(this._polygonConfigs), cc.path.join(jsb.fileUtils.getWritablePath(), "ar_map_polygons.json"));
+        }
     },
 
     onEnter: function() {
@@ -86,7 +108,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
 
         for (var i = 0; i < this._parallaxs.length; i++)
-            this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, 0), dt);
+            this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32), dt);
 
         if (this.isFirstTMXOutOfScreen()) {
             this.removeOutOfScreenMap();
@@ -146,7 +168,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var grass2 = new cc.Sprite("#grassalpharacing.png");
         var grass3 = new cc.Sprite("#grassalpharacing.png");
         var parallaxgrass = cc.CCParallaxScrollNode.create();
-        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-0.5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-0.5, 0), cc.p(0, -20), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxgrass, 1);
         this._parallaxs.push(parallaxgrass);
 
@@ -154,7 +176,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var trees2 = new cc.Sprite("#trees.png");
         var trees3 = new cc.Sprite("#trees.png");
         var parallaxtrees = cc.CCParallaxScrollNode.create();
-        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2, trees3], 2, cc.p(-0.75, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2, trees3], 2, cc.p(-0.75, -0.025), cc.p(0, -20), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxtrees, 1);
         this._parallaxs.push(parallaxtrees);
 
@@ -170,7 +192,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var treesbottom2 = new cc.Sprite("#treesbottom.png");
         var treesbottom3 = new cc.Sprite("#treesbottom.png");
         var parallaxtreesbottom = cc.CCParallaxScrollNode.create();
-        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2, treesbottom3], 4, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2, treesbottom3], 4, cc.p(-1, -0.05), cc.p(0, -10), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxtreesbottom, 1);
         this._parallaxs.push(parallaxtreesbottom);
 
@@ -206,28 +228,12 @@ var AlphaRacingLayer = cc.Layer.extend({
         var tmxLayer = tmxMap.getLayer("Lands");
         var offset = tmxMap.getPosition();
         
-        cc.log("layerWidth: " + tmxLayer.layerWidth);
-        cc.log("layerHeight: " + tmxLayer.layerHeight);
-
-        var inspectedTiles = [];
+        // cc.log("layerWidth: " + tmxLayer.layerWidth);
+        // cc.log("layerHeight: " + tmxLayer.layerHeight);
         var polygons = this._polygonConfigs[index];
 
         if (!polygons) {
-            polygons = [];
-            for (var i = 0; i < tmxLayer.layerWidth; i++) {
-                for (var j = 0; j < tmxLayer.layerHeight; j++) {
-                    var gid = tmxLayer.getTileGIDAt(i, j);
-
-                    if (gid) {
-                        var arrays = this.getPolygonIncludeTile(tmxLayer, inspectedTiles, i, j);
-
-                        if (arrays[0].length > 0)
-                            polygons = polygons.concat(arrays[0]);
-                        inspectedTiles = inspectedTiles.concat(arrays[1]); // inspected Polygon
-                    }
-                }
-            }
-
+            polygons = this.getPolygonConfig(tmxLayer);
             this._polygonConfigs[index] = polygons;
         }
 
@@ -254,7 +260,27 @@ var AlphaRacingLayer = cc.Layer.extend({
         return shapes;
     },
 
-    getPolygonIncludeTile: function(layer, inspectedTiles, x, y) {
+    getPolygonConfig: function(tmxLayer) {
+        var inspectedTiles = [];
+        var polygons = [];
+        for (var i = 0; i < tmxLayer.layerWidth; i++) {
+            for (var j = 0; j < tmxLayer.layerHeight; j++) {
+                var gid = tmxLayer.getTileGIDAt(i, j);
+
+                if (gid) {
+                    var arrays = this.getConvexPolygonsContainTile(tmxLayer, inspectedTiles, i, j);
+
+                    if (arrays[0].length > 0)
+                        polygons = polygons.concat(arrays[0]);
+                    inspectedTiles = inspectedTiles.concat(arrays[1]); // inspected Polygon
+                }
+            }
+        }
+
+        return polygons;
+    },
+
+    getConvexPolygonsContainTile: function(layer, inspectedTiles, x, y) {
         var borderTiles = [];
 
         var tile = {x: x, y: y, index: 0}
