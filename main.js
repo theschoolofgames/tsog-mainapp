@@ -163,8 +163,8 @@ cc.game.onStart = function(){
         cc.audioEngine.setMusicVolume(1);
         
         // cc.director.runScene(new WelcomeScene());
-        cc.director.runScene(new HomeScene());
-        // cc.director.runScene(new AlphaRacingScene([]));
+        // cc.director.runScene(new HomeScene());
+        cc.director.runScene(new AlphaRacingScene([]));
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
