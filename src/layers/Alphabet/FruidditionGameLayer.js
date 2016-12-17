@@ -110,9 +110,9 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _showNextOperation: function() {
+        jsb.AudioEngine.stopAll();
         // clear previous session
         this._cleanPreviousSession();
-        jsb.AudioEngine.stopAll();
         this._currentObject = this._type;
         if (cc.isArray(this._type)) {
             this._currentObject = this._type[Math.floor(Math.random() * this._type.length)];
@@ -257,9 +257,9 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _onTouchBegan: function(touch, event){
+        jsb.AudioEngine.stopAll();
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
-        jsb.AudioEngine.stopAll();
         // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
         // cc.log("self._currentObjectMoving: " + self._currentObjectMoving);
         // cc.log("self._blockTouch: " + self._blockTouch);
