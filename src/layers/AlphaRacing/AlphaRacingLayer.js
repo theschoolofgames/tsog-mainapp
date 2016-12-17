@@ -21,6 +21,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _player: null,
 
     _bgGradient: null,
+    _parallaxLayer: null,
+    _parallaxs: [],
 
     _currentMapX: 0,
 
@@ -48,9 +50,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._workers = [];
         this._layers = [];
         this._polygonConfigs = [];
-        this.gameLayer = new cc.Layer();
-        this.addChild(this.gameLayer, 10);
+        this._parallaxs = [];
 
+        this.initBackground();
         this.initPhysicWorld();
 
         this.scheduleUpdate();
@@ -81,6 +83,10 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.cameraFollower();
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
+        this._parallaxLayer.setPosition(this._bgGradient.getPosition());
+
+        for (var i = 0; i < this._parallaxs.length; i++)
+            this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, 0), dt);
 
         if (this.isFirstTMXOutOfScreen()) {
             this.removeOutOfScreenMap();
@@ -111,8 +117,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.collisionBias = 0;
         this._space = space;
 
-        var phDebugNode = cc.PhysicsDebugNode.create(space);
-        this.addChild(phDebugNode, 99999);
+        // var phDebugNode = cc.PhysicsDebugNode.create(space);
+        // this.addChild(phDebugNode, 99999);
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 
@@ -121,6 +127,63 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._player = new ARPlayer(this._space);
         this.addChild(this._player, AR_PLAYER_ZODER);
+    },
+
+    initBackground: function() {
+        this._parallaxLayer = new cc.Layer();
+        this.addChild(this._parallaxLayer);
+
+        var treessofar1 = new cc.Sprite("#treessofar.png");
+        var treessofar2 = new cc.Sprite("#treessofar.png");
+        var treessofar3 = new cc.Sprite("#treessofar.png");
+        var parallaxtreessofar = cc.CCParallaxScrollNode.create();
+        parallaxtreessofar.addInfiniteScrollWithObjects([treessofar1, treessofar2, treessofar3], 0, cc.p(-0.25, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxtreessofar, 1);
+        this._parallaxs.push(parallaxtreessofar);
+
+
+        var grass1 = new cc.Sprite("#grassalpharacing.png");
+        var grass2 = new cc.Sprite("#grassalpharacing.png");
+        var grass3 = new cc.Sprite("#grassalpharacing.png");
+        var parallaxgrass = cc.CCParallaxScrollNode.create();
+        parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-0.5, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxgrass, 1);
+        this._parallaxs.push(parallaxgrass);
+
+        var trees1 = new cc.Sprite("#trees.png");
+        var trees2 = new cc.Sprite("#trees.png");
+        var trees3 = new cc.Sprite("#trees.png");
+        var parallaxtrees = cc.CCParallaxScrollNode.create();
+        parallaxtrees.addInfiniteScrollWithObjects([trees1, trees2, trees3], 2, cc.p(-0.75, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxtrees, 1);
+        this._parallaxs.push(parallaxtrees);
+
+        var light1 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
+        var light2 = new cc.Sprite("#light.png");
+        var parallaxlight = cc.CCParallaxScrollNode.create();
+        parallaxlight.addInfiniteScrollWithObjects([light1, light2], 3, cc.p(-1, 0), cc.p(0, cc.winSize.height - light1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxlight, 1);
+        this._parallaxs.push(parallaxlight);
+
+        var treesbottom1 = new cc.Sprite("#treesbottom.png");
+        var treesbottom2 = new cc.Sprite("#treesbottom.png");
+        var treesbottom3 = new cc.Sprite("#treesbottom.png");
+        var parallaxtreesbottom = cc.CCParallaxScrollNode.create();
+        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2, treesbottom3], 4, cc.p(-1, 0), cc.p(), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxtreesbottom, 1);
+        this._parallaxs.push(parallaxtreesbottom);
+
+        var treestop1 = new cc.Sprite("#treestop.png");
+        var treestop2 = new cc.Sprite("#treestop.png");
+        var treestop3 = new cc.Sprite("#treestop.png");
+        var parallaxtreestop = cc.CCParallaxScrollNode.create();
+        parallaxtreestop.addInfiniteScrollWithObjects([treestop1, treestop2, treestop3], 4, cc.p(-1, 0), cc.p(0, cc.winSize.height - treestop1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        this._parallaxLayer.addChild(parallaxtreestop, 1);
+        this._parallaxs.push(parallaxtreestop);
+
+        var gradientMask = new cc.LayerGradient(cc.color("#a9f22a"), cc.color("#aee0ff"), cc.p(0, 1));
+        this._parallaxLayer.addChild(gradientMask);
     },
 
     createNewMapSegment: function() {
@@ -259,6 +322,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var camera = cc.Camera.getDefaultCamera();
         var playerPos = cc.pAdd(this._player.getPosition(), cc.p((1/2 - CAMERA_PLAYER_POSITION_ON_SCREEN.x) * cc.winSize.width, (1/2 - CAMERA_PLAYER_POSITION_ON_SCREEN.y) * cc.winSize.height ));
         var desiredPos = cc.pLerp(camera.getPosition(), playerPos, CAMERA_FOLLOW_FACTOR);
+        desiredPos.y = Math.max(desiredPos.y, cc.winSize.height/2);
         camera.setPosition(desiredPos);
     },
 
