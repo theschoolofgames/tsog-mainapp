@@ -97,7 +97,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     onjump: function(event, from, to, msg) {
         if (from != "jumping")
-            this.getBody().applyImpulse(cc.p(100, 8000), cc.p());
+            this.getBody().applyImpulse(cc.p(0, 8000), cc.p());
 
         cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },

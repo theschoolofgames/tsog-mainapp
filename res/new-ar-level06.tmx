@@ -5,47 +5,47 @@
  </tileset>
  <layer name="Lands" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DwAEYgZkbDTAPqoqEJRsORNmAohCupbmQDYhYgZqW901AABxCzAzHnILCXhQRMLEDXx46EsYkRwsQCUswctZe29gIAtlwDBQ==
+   eJxjYBgFo2AUjAL6AEYgZkbDTAPqoqEJRsORNmAohCupbmQDYhYgZqW901AABxCzAzHnILCXhQRMLEDXx46EYWIAEu8A1Q==
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
-  <object id="46" x="192" y="640"/>
-  <object id="73" x="256" y="640"/>
+  <object id="46" x="192" y="896"/>
+  <object id="73" x="256" y="896"/>
  </objectgroup>
  <objectgroup name="alphaPosition2">
-  <object id="74" x="512" y="448"/>
-  <object id="75" x="576" y="448"/>
-  <object id="76" x="640" y="448"/>
-  <object id="77" x="576" y="320"/>
-  <object id="78" x="1024" y="192"/>
-  <object id="79" x="1152" y="192"/>
+  <object id="74" x="512" y="704"/>
+  <object id="75" x="576" y="704"/>
+  <object id="76" x="640" y="704"/>
+  <object id="77" x="576" y="576"/>
+  <object id="78" x="1024" y="448"/>
+  <object id="79" x="1152" y="448"/>
  </objectgroup>
  <objectgroup name="alphaPosition3">
-  <object id="80" x="1408" y="192"/>
-  <object id="85" x="1536" y="320"/>
-  <object id="86" x="1664" y="576"/>
-  <object id="89" x="1216" y="576"/>
-  <object id="92" x="1280" y="512"/>
-  <object id="93" x="1344" y="512"/>
-  <object id="94" x="1408" y="576"/>
+  <object id="80" x="1408" y="512"/>
+  <object id="85" x="1536" y="640"/>
+  <object id="86" x="1664" y="896"/>
+  <object id="89" x="1216" y="896"/>
+  <object id="92" x="1280" y="832"/>
+  <object id="93" x="1344" y="832"/>
+  <object id="94" x="1408" y="896"/>
  </objectgroup>
  <layer name="LowLayer1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAoGL+AGYp6BdsQAA34i8ai9g8deAHWmAnA=
+   eJxjYBgFo2AUjIJRMApGwSgYOMANxDwD7Qgg4CcSEwMAPjgArg==
   </data>
  </layer>
  <layer name="LowLayer2" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFowA/4B1oB4yCUYAFjKbL4QdG43QUDCcAAMhQACg=
+   eJxjYBgFo2AUjGTAO9AOGAWjAAsYTZfDD4y0OAUAfzAAKA==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="87" x="1024" y="768">
+  <object id="87" x="1024" y="1024">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="88" x="448" y="768">
+  <object id="88" x="448" y="1024">
    <properties>
     <property name="type" value="hanging"/>
    </properties>

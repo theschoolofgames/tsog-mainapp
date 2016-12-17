@@ -5,37 +5,37 @@
  </tileset>
  <layer name="Lands" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjFTACMRMA+0IBog7mKGY2u4ZLH4crIANiFmJUIccR9SIK3YopjfAZi8LHTDMXmxio3h4YgAUywQM
+   eJxjYBgFo2AUjIJRMBwBIxAzDbQjGCDuYIZiartnsPhxsAI2IGYlQh1yHFEjrtihmN4Am70sdMAwe5HFAIzQAMQ=
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
-  <object id="46" x="448" y="704"/>
-  <object id="47" x="576" y="704"/>
+  <object id="46" x="448" y="1024"/>
+  <object id="47" x="576" y="1024"/>
  </objectgroup>
  <objectgroup name="alphaPosition2">
-  <object id="19" x="1664" y="704"/>
-  <object id="36" x="1664" y="704"/>
-  <object id="60" x="1472" y="448"/>
-  <object id="61" x="1536" y="384"/>
-  <object id="65" x="1600" y="320"/>
-  <object id="66" x="1664" y="384"/>
-  <object id="67" x="1728" y="448"/>
+  <object id="19" x="1664" y="960"/>
+  <object id="36" x="1664" y="960"/>
+  <object id="60" x="1472" y="704"/>
+  <object id="61" x="1536" y="640"/>
+  <object id="65" x="1600" y="576"/>
+  <object id="66" x="1664" y="640"/>
+  <object id="67" x="1728" y="704"/>
  </objectgroup>
  <objectgroup name="alphaPosition3">
-  <object id="48" x="896" y="576"/>
-  <object id="49" x="896" y="512"/>
-  <object id="52" x="1216" y="320"/>
-  <object id="53" x="1216" y="384"/>
-  <object id="54" x="1216" y="448"/>
+  <object id="48" x="896" y="832"/>
+  <object id="49" x="896" y="768"/>
+  <object id="52" x="1216" y="576"/>
+  <object id="53" x="1216" y="640"/>
+  <object id="54" x="1216" y="704"/>
  </objectgroup>
  <layer name="LowLayer1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMBQB70A7YBSMglGAEwAAOIAADg==
+   eJxjYBgFo2AUjIJRMApGwWADvAPtgFFAEQAAICAADg==
   </data>
  </layer>
  <layer name="LowLayer2" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjAIE4AZinoF2xCgYBaNgFAxxAACDBAAY
+   eJxjYBgFo2AUjIJRMFIANxDzDLQjRsEoGAEAAFfkABg=
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles"/>
