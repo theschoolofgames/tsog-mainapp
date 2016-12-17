@@ -192,6 +192,8 @@ languages["en"] = {
     "xylophone-1": "en/xylophone-1",
     "xylophone": "en/xylophone",
     "zebra": "en/zebra",
+    "adi": "adi",
+    "monkey": "monkey",
 
     "1": "en/1",
     "2": "en/2",

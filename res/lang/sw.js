@@ -193,6 +193,8 @@ languages["sw"] = {
     "xylophone-1": "sw/xylophone-1",
     "xylophone": "sw/xylophone",
     "zebra": "sw/zebra",
+    "adi": "adi",
+    "monkey": "nyani",
 
     "1": "sw/1",
     "2": "sw/2",

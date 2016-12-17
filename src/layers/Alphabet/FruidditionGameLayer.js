@@ -12,7 +12,7 @@ var FRUIDDITION_UNCOMPLETED_TAG = 0;
 var FRUIDDITION_COMPLETED_TAG = 1;
 var MOVING_OBJECT_ZORDER = 10;
 var STAND_OBJECT_ZORDER = 2;
-var FRUIDDITION_HOLDER_WIDTH = 300;
+var FRUIDDITION_HOLDER_WIDTH = 250;
 var FRUIDDITION_HOLDER_HEIGHT = 150;
 var FruidditionGameLayer = TestLayer.extend({
     _type: null,
@@ -89,13 +89,13 @@ var FruidditionGameLayer = TestLayer.extend({
         this._objects.push(secondObj);
 
         var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
-        secondOperation.x = cc.winSize.width/4 *3 - secondOperation.width/2;
+        secondOperation.x = cc.winSize.width/4 *3 - secondOperation.width/2 - 20;
         secondOperation.y = cc.winSize.height/2;
         this.addChild(secondOperation);
 
         var thirdObj = new cc.Node();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
-        thirdObj.x = secondOperation.x + secondOperation.width/2 - 20;
+        thirdObj.x = secondOperation.x + secondOperation.width/2 + 10;
         thirdObj.y = cc.winSize.height/2 + 40;
         this.addChild(thirdObj);
         this._objects.push(thirdObj);
@@ -139,8 +139,8 @@ var FruidditionGameLayer = TestLayer.extend({
                     heightIdx++;
                 
                 var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
-                o.scale = 0.5;
-                o.x = this._objects[idx].x + o.width/2 + o.width * (i%3) * o.scale;
+                o.scale = 0.4;
+                o.x = this._objects[idx].x + o.width/2 * o.scale + o.width * (i%3) * o.scale;
                 o.y = this._objects[idx].y - (o.height + 10) * heightIdx * o.scale;
                 this.addChild(o, STAND_OBJECT_ZORDER);
                 // this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
@@ -258,6 +258,7 @@ var FruidditionGameLayer = TestLayer.extend({
     _onTouchBegan: function(touch, event){
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
+        jsb.AudioEngine.stopAll();
         // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
         // cc.log("self._currentObjectMoving: " + self._currentObjectMoving);
         // cc.log("self._blockTouch: " + self._blockTouch);
