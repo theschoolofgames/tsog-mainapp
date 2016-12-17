@@ -8,6 +8,8 @@ var ARPlayer = cc.PhysicsSprite.extend({
     _desiredVel: 200,
 
     ctor: function(space) {
+        cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
+
         this._super("#adi_run1.png");
         this.scale = 0.2;
 
@@ -25,19 +27,38 @@ var ARPlayer = cc.PhysicsSprite.extend({
         shape.setElasticity(0);
         shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_DYNAMIC);
 
-        // this.setIgnoreBodyRotation(false);
-
         this.setBody(body);
 
         StateMachine.create({
             target: this,
-            initial: 'running',
             events: [
-                { name: 'run',      from: ['running', 'jumping'],           to: 'running' },
+                { name: 'run',      from: ['none', 'running', 'jumping'],           to: 'running' },
                 { name: 'jump',     from: ['jumping', 'running'],           to: 'jumping' },
                 { name: 'die',      from: ['running', 'jumping'],           to: 'died' },
             ]
         });
+
+        var name = CharacterManager.getInstance().getSelectedCharacter();
+        if(name) {
+            this._characterName = name
+        };
+
+        var cfg = CharacterManager.getInstance().getCharacterConfig(name);
+        if (cfg) {
+            this.animationFrameCount = cfg.animationFrameCount;
+            this._hp = cfg.heathy;
+        }
+
+        this.runAnimationFrames = [];
+        for (var i = 1; i <= this.animationFrameCount; i++) {
+            var str = this._characterName + "_run" + i + ".png";
+            // cc.log("frame name: " + str);
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            // cc.log("get sprite frame name: " + frame);
+            this.runAnimationFrames.push(frame);
+        }
+
+        this.run();
     },
 
     update: function(dt) {
@@ -78,10 +99,17 @@ var ARPlayer = cc.PhysicsSprite.extend({
     },
 
     onrunning: function(event, from, to) {
+        this.stopAllActions();
+        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        this.runAction(this.runningAction);
         cc.log("onrunning " + event + " " + from + " " + to);
     },
 
     onjumping: function(event, from, to) {
+        this.stopAllActions();
+        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+
         cc.log("onjumping " + event + " " + from + " " + to);
     },
 
