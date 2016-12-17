@@ -71,14 +71,20 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     update: function(dt) {
 
-        var vel = this.getBody().getVel();
-        var velChange = this._desiredVel - vel.x;
-        var impulse = velChange * this.getBody().m;
+        if (this.current != "died") {
+            var vel = this.getBody().getVel();
+            var velChange = this._desiredVel - vel.x;
+            var impulse = velChange * this.getBody().m;
 
-        if (this.current == "running") {
-            this.getBody().applyImpulse(cc.p(impulse, 0), cc.p());
-        } else if (this.current == "jumping") {
-            this.getBody().applyForce(cc.p(impulse, 0), cc.p());
+            if (this.current == "running") {
+                this.getBody().applyImpulse(cc.p(impulse, 0), cc.p());
+            } else if (this.current == "jumping") {
+                this.getBody().applyForce(cc.p(impulse, 0), cc.p());
+            }
+
+            if (this.y < 10) {
+                this.die();
+            }
         }
     },
 
@@ -92,36 +98,49 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     // StateMachine Callbacks
     onrun: function(event, from, to, msg) {
+        this.stopAllActions();
+        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        this.runAction(this.runningAction);
         cc.log("onrun " + event + " " + from + " " + to + " " + msg);
     },
 
     onjump: function(event, from, to, msg) {
-        if (from != "jumping")
-            this.getBody().applyImpulse(cc.p(0, 8000), cc.p());
 
+        this.stopAllActions();
+        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        
         cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },
 
     ondie: function(event, from, to, msg) {
         cc.log("ondie " + event + " " + from + " " + to + " " + msg);
+
+        this.stopAllActions();
+        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_die.png"));
+        this.runAction(cc.sequence(
+            cc.delayTime(0.5),
+            cc.moveBy(0.1, cc.p(0,-15)),
+            cc.moveBy(0.4,cc.p(0, 200)).easing(cc.easeCircleActionOut()),
+            cc.moveBy(0.5, cc.p(0, -600))
+        ));
     },
 
     onrunning: function(event, from, to) {
-        this.stopAllActions();
-        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
-        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
-        this.runAction(this.runningAction);
         cc.log("onrunning " + event + " " + from + " " + to);
     },
 
     onjumping: function(event, from, to) {
-        this.stopAllActions();
-        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        if (from != "jumping")
+            this.getBody().applyImpulse(cc.p(0, 8000), cc.p());
 
         cc.log("onjumping " + event + " " + from + " " + to);
     },
 
     ondied: function(event, from, to) {
         cc.log("ondied " + event + " " + from + " " + to);
+
+        var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
+        cc.eventManager.dispatchEvent(event);
     }
 });
