@@ -159,7 +159,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     initPhysicWorld: function() {
         var space = new cp.Space();
-        space.gravity = cp.v(0, -500);
+        space.gravity = cp.v(0, -1500);
         space.iterations = 30;
         space.sleepTimeThreshold = Infinity;
         space.collisionBias = 0;

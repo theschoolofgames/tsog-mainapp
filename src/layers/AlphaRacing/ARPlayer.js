@@ -59,6 +59,14 @@ var ARPlayer = cc.PhysicsSprite.extend({
         }
 
         this.run();
+
+        this.schedule(this.increasePlayerSpeed.bind(this), 30, cc.REPEAT_FOREVER);
+    },
+
+    increasePlayerSpeed: function() {
+        cc.log("increasePlayerSpeed");
+        if (this._desiredVel < 400)
+            this._desiredVel += 20; 
     },
 
     update: function(dt) {
@@ -100,7 +108,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
     onjump: function(event, from, to, msg) {
         this.stopAllActions();
         this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
-
+        
         cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },
 
@@ -123,7 +131,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     onjumping: function(event, from, to) {
         if (from != "jumping")
-            this.getBody().applyImpulse(cc.p(0, 5000), cc.p());
+            this.getBody().applyImpulse(cc.p(100, 8000), cc.p());
 
         cc.log("onjumping " + event + " " + from + " " + to);
     },
