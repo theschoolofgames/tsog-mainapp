@@ -27,6 +27,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _currentMapX: 0,
 
     _polygonConfigs: null,
+
+    _eventGameOver: null,
     
     ctor: function(inputData,option) {
         this._super();
@@ -51,6 +53,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._workers = [];
         this._layers = [];
+        this._maps = [];
         this._polygonConfigs = [];
         this._parallaxs = [];
 
@@ -93,6 +96,29 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         var camera = cc.Camera.getDefaultCamera();
         camera.y += cc.winSize.height/3;
+
+        this._eventGameOver = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: EVENT_AR_GAMEOVER,
+            callback: function(event) {
+                this.unscheduleUpdate();
+
+                this.runAction(cc.sequence(
+                    cc.delayTime(3),
+                    cc.callFunc(function() {
+                        cc.director.replaceScene(new AlphaRacingScene([]));
+                    })
+                ))
+                // this.completedScene(localize("Game Over"));
+            }.bind(this)
+        });
+        cc.eventManager.addListener(this._eventGameOver, 1);
+    },
+
+    onExit: function() {
+        this._super();
+
+        cc.eventManager.removeListener(this._eventGameOver);
     },
 
     update: function(dt) {
@@ -192,7 +218,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var treesbottom2 = new cc.Sprite("#treesbottom.png");
         var treesbottom3 = new cc.Sprite("#treesbottom.png");
         var parallaxtreesbottom = cc.CCParallaxScrollNode.create();
-        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2, treesbottom3], 4, cc.p(-1, -0.05), cc.p(0, -10), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
+        parallaxtreesbottom.addInfiniteScrollWithObjects([treesbottom1, treesbottom2, treesbottom3], 4, cc.p(-1, -0.05), cc.p(0, -20), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxtreesbottom, 1);
         this._parallaxs.push(parallaxtreesbottom);
 
