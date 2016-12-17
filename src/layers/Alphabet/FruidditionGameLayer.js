@@ -213,6 +213,7 @@ var FruidditionGameLayer = TestLayer.extend({
             jsb.AudioEngine.stopAll();
             var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
             jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+                self._blockTouch = false;
                 if (!self._operationSoundReadyToPlay)
                     return;
                 if (!self._operationSoundExist) {
@@ -350,8 +351,8 @@ var FruidditionGameLayer = TestLayer.extend({
                 if (jsb.fileUtils.isFileExist(this._operationSoundPath))
                     this._operationSoundExist = true;
             }
-        } else
-            this._blockTouch = false;
+        }; //else
+            //this._blockTouch = false;
 
         this._completedObjectsCount++;
         this._playOperationSound(this._completedObjectsCount);
