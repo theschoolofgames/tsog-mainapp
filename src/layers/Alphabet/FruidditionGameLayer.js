@@ -31,7 +31,7 @@ var FruidditionGameLayer = TestLayer.extend({
     _currentObjectMoving: null,
     _oldPosition: null,
     _oldScale: 1,
-
+    audioEffect: null,
     _blockTouch: false,
     _operationSoundReadyToPlay: false,
     _operationSoundPath: null,
@@ -110,7 +110,8 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _showNextOperation: function() {
-        jsb.AudioEngine.stopAll();
+        if(this.audioEffect)
+            jsb.AudioEngine.stop(this.audioEffect);
         // clear previous session
         this._cleanPreviousSession();
         this._currentObject = this._type;
@@ -205,14 +206,14 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount, callback) {
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
         cc.log("completedObjectsCount: " + completedObjectsCount);
-        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
+        this.audioEffect = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
-        jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            jsb.AudioEngine.stopAll();
-            var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
-            jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+        jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
+            // jsb.AudioEngine.stopAll();
+            this.audioEffect = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
+            jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
                 self._blockTouch = false;
                 if (!self._operationSoundReadyToPlay)
                     return;
@@ -222,9 +223,9 @@ var FruidditionGameLayer = TestLayer.extend({
                     cc.log("_operationSoundExist");
                 }
                 else {
-                    var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
-                    jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
-                        jsb.AudioEngine.stopAll();
+                    this.audioEffect = jsb.AudioEngine.play2d(self._operationSoundPath);
+                    jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
+                        // jsb.AudioEngine.stopAll();
                         self._blockTouch = false;
                         cc.log("callback->>");
                         self._showNextOperation();
@@ -258,9 +259,10 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _onTouchBegan: function(touch, event){
-        // jsb.AudioEngine.stopAll();
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
+        if(self.audioEffect)
+            jsb.AudioEngine.stop(self.audioEffect);
         // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
         // cc.log("self._currentObjectMoving: " + self._currentObjectMoving);
         // cc.log("self._blockTouch: " + self._blockTouch);
@@ -351,8 +353,8 @@ var FruidditionGameLayer = TestLayer.extend({
                 if (jsb.fileUtils.isFileExist(this._operationSoundPath))
                     this._operationSoundExist = true;
             }
-        }; //else
-            //this._blockTouch = false;
+        } else
+            this._blockTouch = false;
 
         this._completedObjectsCount++;
         this._playOperationSound(this._completedObjectsCount);
