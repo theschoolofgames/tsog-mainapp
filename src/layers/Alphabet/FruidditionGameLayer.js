@@ -110,8 +110,8 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _showNextOperation: function() {
-        if(this.audioEffect)
-            jsb.AudioEngine.stop(this.audioEffect);
+        // if(this.audioEffect)
+        //     jsb.AudioEngine.stop(this.audioEffect);
         // clear previous session
         this._cleanPreviousSession();
         this._currentObject = this._type;
