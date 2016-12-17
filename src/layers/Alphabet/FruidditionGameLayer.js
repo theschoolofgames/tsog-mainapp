@@ -112,7 +112,7 @@ var FruidditionGameLayer = TestLayer.extend({
     _showNextOperation: function() {
         // clear previous session
         this._cleanPreviousSession();
-
+        jsb.AudioEngine.stopAll();
         this._currentObject = this._type;
         if (cc.isArray(this._type)) {
             this._currentObject = this._type[Math.floor(Math.random() * this._type.length)];
