@@ -205,6 +205,7 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount, callback) {
+        jsb.AudioEngine.stopAll();
         cc.log("completedObjectsCount: " + completedObjectsCount);
         var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
