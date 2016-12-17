@@ -223,6 +223,8 @@ var FruidditionGameLayer = TestLayer.extend({
                     cc.log("_operationSoundExist");
                 }
                 else {
+                    if(self.audioEffect)
+                        jsb.AudioEngine.stop(self.audioEffect);
                     this.audioEffect = jsb.AudioEngine.play2d(self._operationSoundPath);
                     jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
                         // jsb.AudioEngine.stopAll();
