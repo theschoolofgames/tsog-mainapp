@@ -258,7 +258,7 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _onTouchBegan: function(touch, event){
-        jsb.AudioEngine.stopAll();
+        // jsb.AudioEngine.stopAll();
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
         // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
