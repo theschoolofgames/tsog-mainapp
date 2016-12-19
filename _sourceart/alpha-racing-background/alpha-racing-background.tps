@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/alpha-racing-background/alpha-racing-background.tps</string>
+        <string>/Users/nick/projects/tsog-main-app/_sourceart/alpha-racing-background/alpha-racing-background.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -184,7 +184,7 @@
             <key>trimMode</key>
             <enum type="SpriteSettings::TrimMode">Polygon</enum>
             <key>tracerTolerance</key>
-            <int>1000</int>
+            <int>10</int>
             <key>heuristicMask</key>
             <false/>
             <key>pivotPoint</key>

@@ -360,14 +360,23 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     collisionStaticDynamic: function(arbiter, space) {
-        for (i = 0; i < arbiter.getBodies().length; i++) {
-            var body = arbiter.getBodies()[i];
-            if (body != this._player.getBody() && body.getPos().y < this._player.getBody().getPos().y) {
-                this._player.run();
-                return true;
-            }
+        var shapes = arbiter.getShapes();
+        shapes.sort(function(a, b) {
+            return a.getBody() == this._player.getBody();
+        }.bind(this));
+
+        var playerShape = shapes[0];
+        var otherShape = shapes[1];
+
+        if (this._player.isJumping() && 
+            this._player.getVelocity().y > 0 && 
+            this._player.getVelocity().y > this._player.getVelocity().x) {
+            return false;
         }
-        return false;
+
+        this._player.run();
+
+        return true;
     },
 
     cameraFollower: function() {

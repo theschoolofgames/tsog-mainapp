@@ -33,8 +33,8 @@ var ARPlayer = cc.PhysicsSprite.extend({
             target: this,
             events: [
                 { name: 'run',      from: ['none', 'running', 'jumping'],           to: 'running' },
-                { name: 'jump',     from: ['jumping', 'running'],           to: 'jumping' },
-                { name: 'die',      from: ['running', 'jumping'],           to: 'died' },
+                { name: 'jump',     from: ['jumping', 'running'],                   to: 'jumping' },
+                { name: 'die',      from: ['running', 'jumping'],                   to: 'died' },
             ]
         });
 
@@ -94,6 +94,10 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     getVelocity: function() {
         return this.getBody().getVel();
+    },
+
+    isJumping: function() {
+        return this.current == "jumping";
     },
 
     // StateMachine Callbacks
