@@ -201,7 +201,6 @@ var FruidditionGameLayer = TestLayer.extend({
                         + this._data["second"][completedOperationId];
 
         this._operationSoundPath = "res/sounds/sentences/" + localize(this._operationSoundPath) + "-0.mp3";
-        cc.log("this._operationSoundPath: " + this._operationSoundPath);
         this._currentOperationId++;
     },
 
@@ -220,7 +219,6 @@ var FruidditionGameLayer = TestLayer.extend({
                 if (!self._operationSoundExist) {
                     self._blockTouch = false;
                     self._showNextOperation();
-                    cc.log("_operationSoundExist");
                 }
                 else {
                     if(self.audioEffect)
@@ -229,7 +227,6 @@ var FruidditionGameLayer = TestLayer.extend({
                     jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
                         // jsb.AudioEngine.stopAll();
                         self._blockTouch = false;
-                        cc.log("callback->>");
                         self._showNextOperation();
                     });
                 };
@@ -326,7 +323,6 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _handleSuccessfulAction: function(index, parent) {
-        cc.log("_handleSuccessfulAction");
         this._blockTouch = true;
         var scale = this._dropSpots[index].scale;
         var position = this._dropSpots[index].getPosition();
@@ -390,7 +386,6 @@ var FruidditionGameLayer = TestLayer.extend({
         this._operationSoundPath = null;
         this._operationSoundReadyToPlay = false;
         this._currentObject = null;
-        cc.log("_cleanPreviousSession");
     },
 
     _completeOperationAction: function() {
@@ -419,14 +414,12 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _reorderArray: function(array) {
-        cc.log("_reorderArray" + array);
         for (var i = 0; i < array.length;i++) {
             array[i].tag = i;
         }
     },
 
     updateProgressBar: function() {
-        cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._currentOperationId / this._data["first"].length;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._currentOperationId);

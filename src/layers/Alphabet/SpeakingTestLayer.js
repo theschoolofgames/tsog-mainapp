@@ -426,12 +426,12 @@ var SpeakingTestLayer = TestLayer.extend({
             }
         };
         var objectTempName = this._names[this.currentObjectShowUpId];
-        
         // cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
         if (objectTempName.indexOf("color") > -1) {
             objectTempName = objectTempName.substr(objectTempName.indexOf("_") + 1, objectTempName.length-1);
-        }
+        };
+        this.currentObjectName = objectTempName;
         var self = this;
         if (isNumber || isWord)
             this._currentObjectShowUp = new cc.LabelBMFont(objectTempName, res.CustomFont_fnt);
@@ -452,7 +452,7 @@ var SpeakingTestLayer = TestLayer.extend({
             self._adiDog.onStartedListening();
         });
         
-        // cc.log("currentObjectName: " + objectName);
+        cc.log("currentObjectName: " + objectName);
         // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
