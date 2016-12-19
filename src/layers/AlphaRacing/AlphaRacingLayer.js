@@ -24,6 +24,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     _parallaxLayer: null,
     _parallaxs: [],
 
+    _arEffectLayer: null,
+    _workers: [],
+
     _currentMapX: 0,
 
     _polygonConfigs: null,
@@ -56,9 +59,12 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._maps = [];
         this._polygonConfigs = [];
         this._parallaxs = [];
+        this._workers = [];
 
         this.initBackground();
         this.addHud();
+        this._arEffectLayer = new AREffectLayer();
+        this.addChild(this._arEffectLayer, 10);
 
         this.scheduleUpdate();
 
@@ -249,6 +255,14 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxLayer.addChild(gradientMask);
     },
 
+    initWorkers: function() {
+        this._obstacleWorker = new ARObstacleWorker(this._player);
+        this._workers.push(this._obstacleWorker);
+
+        this._boosterWorker = new ARBoosterWorker(this._player);
+        this._workers.push(this._boosterWorker);
+    },
+
     createNewMapSegment: function() {
         var index = Math.floor(Math.random() * AR_TMX_LEVELS.length);
         var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[index]);
@@ -392,6 +406,30 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._player.run();
 
         return true;
+    },
+
+    addObstacles: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Obstacles" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {                
+                var obstacle = self._obstacleWorker.addObstacle(params);
+                self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
+    }, 
+
+    addBoosters: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Boosters" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {                
+                var obstacle = self._boosterWorker.addBooster(params);
+                self.gameLayer.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
     },
 
     cameraFollower: function() {
