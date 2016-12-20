@@ -143,8 +143,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-
-        this._player.jump();
+        if (this._player.current != "died")
+            this._player.jump();
 
         return true;
     },
@@ -190,9 +190,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxs.push(parallaxtreessofar);
 
 
-        var grass1 = new cc.Sprite("#grassalpharacing.png");
-        var grass2 = new cc.Sprite("#grassalpharacing.png");
-        var grass3 = new cc.Sprite("#grassalpharacing.png");
+        var grass1 = new cc.Sprite("#grass.png");
+        var grass2 = new cc.Sprite("#grass.png");
+        var grass3 = new cc.Sprite("#grass.png");
         var parallaxgrass = cc.CCParallaxScrollNode.create();
         parallaxgrass.addInfiniteScrollWithObjects([grass1, grass2, grass3], 1, cc.p(-0.5, 0), cc.p(0, -20), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxgrass, 1);
@@ -360,14 +360,23 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     collisionStaticDynamic: function(arbiter, space) {
-        for (i = 0; i < arbiter.getBodies().length; i++) {
-            var body = arbiter.getBodies()[i];
-            if (body != this._player.getBody() && body.getPos().y < this._player.getBody().getPos().y) {
-                this._player.run();
-                return true;
-            }
+        var shapes = arbiter.getShapes();
+        shapes.sort(function(a, b) {
+            return a.getBody() == this._player.getBody();
+        }.bind(this));
+
+        var playerShape = shapes[0];
+        var otherShape = shapes[1];
+
+        if (this._player.isJumping() && 
+            this._player.getVelocity().y > 0 && 
+            this._player.getVelocity().y > this._player.getVelocity().x) {
+            return false;
         }
-        return false;
+
+        this._player.run();
+
+        return true;
     },
 
     cameraFollower: function() {
