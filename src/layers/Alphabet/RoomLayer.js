@@ -864,7 +864,7 @@ var RoomLayer = cc.Layer.extend({
 
     _processObjectData: function(bedroomObjects) {
         var self = this;
-        // cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
+        cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
         this._data.forEach(function(obj) {
             // cc.log("processGameLogic: obj: " + obj.value);
             for(var i = 0; i < BEDROOM_ITEMS.length; i++) {

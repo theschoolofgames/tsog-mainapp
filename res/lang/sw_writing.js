@@ -282,7 +282,7 @@ languagesForWriting["sw"] = {
     "mouth" : "Mdomo",
     "multiplied " : "Kuzidishwa",
     "musician" : "Mwanamuziki",
-    "nail" : "Kucha",
+    "nail" : "Msumari",
     "narrow" : "Nyembamba",
     "nature" : "Mali asili",
     "naughty" : "Mkorofi",

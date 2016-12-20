@@ -160,8 +160,8 @@ var ListeningTestLayer = TestLayer.extend({
 
         shownObjNames.push(currentKeyNames);
             
-        remainingObj.splice(this._nameIdx, 1);
-        remainingObj = shuffle(remainingObj);
+        remainingObj.splice(this._nameIdx, 3);
+        // remainingObj = shuffle(remainingObj);
         
         cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;

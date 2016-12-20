@@ -175,11 +175,6 @@
     "value": "flag"
   },
   {
-    "id": "gift",
-    "type": "object",
-    "value": "gift"
-  },
-  {
     "id": "egg",
     "type": "object",
     "value": "egg"
