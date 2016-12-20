@@ -230,7 +230,7 @@ var FreeColorLayer = TestLayer.extend({
             var b = new ccui.Button(btnImgNameNormal, btnImgNamePressed, "", ccui.Widget.PLIST_TEXTURE);
             b.scale = this._colorButtonScale;
             b.x = b.width + i*(b.width + 10 * Utils.getScaleFactorTo16And9()) * this._colorButtonScale;
-            b.y = (cc.winSize.height - 50) * Utils.getScaleFactorTo16And9();
+            b.y = cc.winSize.height - 50 * Utils.getScaleFactorTo16And9();
             b.tag = i;
             b.setUserData(BRUSH_COLOR[i]);
             b.opacity = (i == 2) ? 255 : 180;

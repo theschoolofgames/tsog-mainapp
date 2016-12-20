@@ -27,6 +27,7 @@ languages["en"] = {
     "x" : "en/X",
     "y" : "en/Y",
     "z" : "en/Z",
+    "ball":"en/ball",
     "beige": "en/beige",
     "black": "en/black",
     "blue": "en/blue",

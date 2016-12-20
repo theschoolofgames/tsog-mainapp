@@ -60,6 +60,16 @@ languagesForWriting["sw"] = {
     "eight": "nane",
     "nine": "tisa",
 
+    "1": "moja",
+    "2": "mbili",
+    "3": "tatu",
+    "4": "nne",
+    "5": "tano",
+    "6": "sita",
+    "7": "saba",
+    "8": "nane",
+    "9": "tisa",
+
     "red": "Rangi Nyekundu",
     "gray": "Rangi ya Vijivu",
     "green": "Rangi ya Kijani",

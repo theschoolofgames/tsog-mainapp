@@ -27,6 +27,7 @@ languages["sw"] = {
     "x" : "en/X",
     "y" : "sw/Y",
     "z" : "sw/Z",
+    "ball":"sw/ball",
     "beige": "sw/beige",
     "black": "sw/black",
     "blue": "sw/blue",
@@ -195,6 +196,8 @@ languages["sw"] = {
     "zebra": "sw/zebra",
     "adi": "adi",
     "monkey": "nyani",
+    "pen-1": "sw/pen-1",
+    "pen": "sw/pen",
 
     "1": "sw/1",
     "2": "sw/2",
