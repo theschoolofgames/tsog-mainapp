@@ -58,7 +58,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxs = [];
 
         this.initBackground();
-        
+        this.addHud();
 
         this.scheduleUpdate();
 
@@ -133,6 +133,12 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
 
+        var hudPos = cc.pSub(this._player.getPosition(), this._hudLayer.getPosition());
+
+        this._hudLayer.setPosition(this._bgGradient.getPosition());
+        // this._hudLayer.setPosition(cc.pAdd(this._hudLayer.getPosition(), hudPos));
+        cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
+        cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
         for (var i = 0; i < this._parallaxs.length; i++)
             this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32), dt);
 
@@ -155,6 +161,15 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     onTouchEnded: function(touch, event) {
 
+    },
+
+    addHud: function() {
+        var hudLayer = new ARHudLayer(this);
+
+        this.addChild(hudLayer, 99);
+        this._hudLayer = hudLayer;
+
+        this._hudLayer.addSpecifyGoal();
     },
 
     initPhysicWorld: function() {
