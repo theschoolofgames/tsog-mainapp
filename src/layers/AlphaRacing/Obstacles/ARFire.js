@@ -21,7 +21,7 @@ var ARFire = ARObstacle.extend({
     },
 
     willEnd: function() {
-        this._player.reduceHP();
+        this._player.die();
     },
 
     didEnded: function() {
