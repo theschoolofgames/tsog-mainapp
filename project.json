@@ -108,7 +108,6 @@
         "src/layers/Alphabet/SpeakingTestForBuildingBlocks.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
-        "src/layers/AlphaRacing/ARPlayer.js",
         "src/layers/AlphaRacing/ARHudLayer.js",
         "src/layers/AlphaRacing/AREffectLayer.js",
         "src/layers/AlphaRacing/Workers/ARBoosterWorker.js",
@@ -122,6 +121,7 @@
         "src/layers/AlphaRacing/Boosters/ARDouble.js",
         "src/layers/AlphaRacing/Boosters/ARInvisible.js",
         "src/layers/AlphaRacing/Boosters/ARMagnet.js",
+        "src/layers/AlphaRacing/ARPlayer.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

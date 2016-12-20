@@ -66,7 +66,7 @@ var ARObstacle = cc.Sprite.extend({
     },
 
     update: function(dt) {
-        if (!this._player.hasBoostFlag(ARInvisible.getBoostFlag()) && cc.rectIntersectsRect(this._player.getCollisionBoundingBox(), this.getBoundingBox())) {
+        if (!this._player.hasBoostFlag(ARInvisible.getBoostFlag()) && cc.rectIntersectsRect(this._player.getBoundingBox(), this.getBoundingBox())) {
             this.onCollide();
         }
     },
