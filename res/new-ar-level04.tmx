@@ -14,13 +14,13 @@
   <object id="45" x="1088" y="768"/>
  </objectgroup>
  <objectgroup name="alphaPosition2">
+  <object id="55" x="1344" y="640"/>
+  <object id="56" x="1408" y="640"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition3">
   <object id="35" x="1536" y="960"/>
   <object id="36" x="1728" y="1152"/>
   <object id="37" x="1856" y="1152"/>
- </objectgroup>
- <objectgroup name="alphaPosition3">
-  <object id="55" x="1344" y="640"/>
-  <object id="56" x="1408" y="640"/>
  </objectgroup>
  <layer name="LowLayer1" width="30" height="20">
   <data encoding="base64" compression="zlib">
