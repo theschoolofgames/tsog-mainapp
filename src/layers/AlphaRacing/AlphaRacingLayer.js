@@ -3,6 +3,7 @@ var CHIPMUNK_COLLISION_TYPE_DYNAMIC = 2;
 
 var AR_LANDS_ZODER = 1000;
 var AR_PLAYER_ZODER = 1002;
+var AR_HUD_ORDER = 1003;
 var AR_SCALE_NUMBER = 1;
 
 var WALLS_ELASTICITY = 1;
@@ -137,8 +138,8 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._hudLayer.setPosition(this._bgGradient.getPosition());
         // this._hudLayer.setPosition(cc.pAdd(this._hudLayer.getPosition(), hudPos));
-        cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
-        cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
+        // cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
+        // cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
         for (var i = 0; i < this._parallaxs.length; i++)
             this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32), dt);
 
@@ -166,7 +167,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     addHud: function() {
         var hudLayer = new ARHudLayer(this);
 
-        this.addChild(hudLayer, 99);
+        this.addChild(hudLayer, AR_HUD_ORDER);
         this._hudLayer = hudLayer;
 
         this._hudLayer.addSpecifyGoal();

@@ -316,6 +316,7 @@ var res = {
     AR_New_Level_04_TMX: "res/new-ar-level04.tmx",
     AR_New_Level_05_TMX: "res/new-ar-level05.tmx",
     AR_New_Level_06_TMX: "res/new-ar-level06.tmx",
+    AR_New_Level_01_Custom_TMX: "res/new-ar-level01_custom.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };
