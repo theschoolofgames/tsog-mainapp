@@ -5,6 +5,7 @@ var AR_LANDS_ZODER = 1000;
 var AR_PLAYER_ZODER = 1002;
 var AR_HUD_ORDER = 1003;
 var AR_SCALE_NUMBER = 1;
+var AR_WORD_ZODER = 1001;
 
 var WALLS_ELASTICITY = 1;
 var WALLS_FRICTION = 1;
@@ -24,6 +25,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     _bgGradient: null,
     _parallaxLayer: null,
     _parallaxs: [],
+
+    _arEffectLayer: null,
+    _workers: [],
 
     _currentMapX: 0,
 
@@ -57,11 +61,13 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._maps = [];
         this._polygonConfigs = [];
         this._parallaxs = [];
+        this._workers = [];
 
         this.initBackground();
         this.addHud();
-
-        this.scheduleUpdate();
+        
+        this._arEffectLayer = new AREffectLayer();
+        this.addChild(this._arEffectLayer, 10);
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -130,6 +136,8 @@ var AlphaRacingLayer = cc.Layer.extend({
             this._space.step(delta);
         }
 
+        this._workers.forEach(w => w.update(dt));
+
         this.cameraFollower();
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
@@ -186,11 +194,15 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 
+        this._player = new ARPlayer(this._space);
+        this.addChild(this._player, AR_PLAYER_ZODER);
+
+        this.initWorkers();
+
         this.createNewMapSegment();
         this.createNewMapSegment();
 
-        this._player = new ARPlayer(this._space);
-        this.addChild(this._player, AR_PLAYER_ZODER);
+        this.scheduleUpdate();
     },
 
     initBackground: function() {
@@ -250,11 +262,22 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._parallaxLayer.addChild(gradientMask);
     },
 
+    initWorkers: function() {
+        this._obstacleWorker = new ARObstacleWorker(this._player);
+        this._workers.push(this._obstacleWorker);
+
+        this._boosterWorker = new ARBoosterWorker(this._player);
+        this._workers.push(this._boosterWorker);
+    },
+
     createNewMapSegment: function() {
         var index = Math.floor(Math.random() * AR_TMX_LEVELS.length);
         var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[index]);
         tmxMap.x = this._currentMapX;
         this.addChild(tmxMap, AR_LANDS_ZODER, 2);
+
+        this.addObstacles(tmxMap);
+        this.addBoosters(tmxMap);
 
         this._currentMapX += tmxMap.mapWidth * tmxMap.tileWidth;
 
@@ -393,6 +416,58 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._player.run();
 
         return true;
+    },
+
+    getGroupPositions: function(tmxMap){
+        var posArray = [];
+        let _csf = cc.director.getContentScaleFactor();
+
+        var self = this;
+        tmxMap.getObjectGroups().forEach(function(group) {
+            var groupPos = {
+                name: group.getGroupName(),
+                posArray: []
+            };
+
+            group.getObjects().forEach(function(obj) {
+                var keys = Object.keys(obj);
+                var copy = {};
+
+                keys.forEach(k => copy[k] = obj[k]);
+
+                copy.x = (copy.x + tmxMap.x) * _csf;
+                copy.y = copy.y * _csf;
+
+                groupPos.posArray.push(copy); 
+            });
+
+            posArray.push(groupPos);
+        });
+        return posArray;
+    },
+
+    addObstacles: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Obstacles" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {
+            var obstacle = self._obstacleWorker.addObstacle(params);
+                self.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
+    }, 
+
+    addBoosters: function(tmxMap) {
+        let self = this;
+        let group = this.getGroupPositions(tmxMap).filter(group => group.name == "Boosters" )[0];
+
+        if (group && group.posArray.length > 0) {
+            group.posArray.forEach((params) => {                
+                var obstacle = self._boosterWorker.addBooster(params);
+                self.addChild(obstacle, AR_WORD_ZODER);
+            });
+        }
     },
 
     cameraFollower: function() {

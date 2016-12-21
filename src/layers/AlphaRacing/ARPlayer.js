@@ -7,6 +7,8 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     _desiredVel: 200,
 
+    _boostState: ARBooster.State.NONE,
+
     ctor: function(space) {
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
 
@@ -146,5 +148,24 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
         var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
         cc.eventManager.dispatchEvent(event);
+    },
+
+
+    // BOOSTER STATE
+    // Follow up this one: http://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/
+    setBoostFlag: function(flag) {
+        this._boostState |= flag;
+    },
+
+    unsetBoostFlag: function(flag) {
+        this._boostState &= ~flag;
+    },
+
+    hasBoostFlag: function(flag) {
+        return (this._boostState & flag) == flag;
+    },
+
+    toggleBoostFlag: function(flag) {
+        this._boostState ^= flag;
     }
 });
