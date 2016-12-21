@@ -140,6 +140,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.cameraFollower();
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
+        this._arEffectLayer.setPosition(this._bgGradient.getPosition());
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
 
         var hudPos = cc.pSub(this._player.getPosition(), this._hudLayer.getPosition());
