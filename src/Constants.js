@@ -686,8 +686,8 @@ var STORY_RESOURCES = [
 ];
 
 // var AR_TMX_LEVELS = [res.AR_Level_01_TMX, res.AR_Level_02_TMX, res.AR_Level_03_TMX];
-var AR_TMX_LEVELS = [res.AR_New_Level_01_TMX, res.AR_New_Level_02_TMX, res.AR_New_Level_03_TMX, res.AR_New_Level_04_TMX, res.AR_New_Level_05_TMX, res.AR_New_Level_06_TMX];
-// var AR_TMX_LEVELS = [res.AR_New_Level_01_Custom_TMX];
+// var AR_TMX_LEVELS = [res.AR_New_Level_01_TMX, res.AR_New_Level_02_TMX, res.AR_New_Level_03_TMX, res.AR_New_Level_04_TMX, res.AR_New_Level_05_TMX, res.AR_New_Level_06_TMX];
+var AR_TMX_LEVELS = [res.AR_New_Level_01_Custom_TMX, res.AR_New_Level_02_Custom_TMX, res.AR_New_Level_03_Custom_TMX];
 
 var TIME_TO_PAUSE_GAME = 5;
 var AFTER_CHECKING_NOISE_TIME = 3;

@@ -145,7 +145,6 @@ var AlphaRacingLayer = cc.Layer.extend({
         var hudPos = cc.pSub(this._player.getPosition(), this._hudLayer.getPosition());
 
         this._hudLayer.setPosition(this._bgGradient.getPosition());
-        // this._hudLayer.setPosition(cc.pAdd(this._hudLayer.getPosition(), hudPos));
         // cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
         // cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
         for (var i = 0; i < this._parallaxs.length; i++)

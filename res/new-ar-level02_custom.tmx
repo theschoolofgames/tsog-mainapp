@@ -1,26 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="58">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="260" height="20" tilewidth="64" tileheight="64" nextobjectid="133">
  <tileset firstgid="1" name="alpha-racing-tmx" tilewidth="64" tileheight="64">
   <image source="SD/alpha-racing-tmx.png" width="1024" height="64"/>
  </tileset>
- <layer name="Lands" width="30" height="20">
+ <tileset firstgid="17" name="alpha_racing2" tilewidth="64" tileheight="64">
+  <image source="SD/alpha-racing-lands.png" width="896" height="384"/>
+ </tileset>
+ <layer name="Lands" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwVAGbEDMgoRZB9Y5gwqghw0yRga41ODTg89sAEVkAHw=
+   eJzt1jsSgCAMBUAK739mK0sVCIkOszuTDsPHFK81AAAAAAAAAAAAAAAAAC7HTUW/H+kBo57mLjp7ZhoA+IveXLIyv8z0eMtm0R67mPmXPT0ie2f06pU5MxkFAFCtOrfskI9mzx9Zs3JdtuoMHXmrkTf5+k4VdQL4SgSV
   </data>
  </layer>
- <objectgroup name="alphaPosition1"/>
- <objectgroup name="alphaPosition2"/>
- <objectgroup name="alphaPosition3"/>
- <layer name="LowLayer1" width="30" height="20">
+ <objectgroup name="alphaPosition1">
+  <object id="59" x="320" y="1088"/>
+  <object id="60" x="384" y="1088"/>
+  <object id="61" x="960" y="896"/>
+  <object id="62" x="1024" y="896"/>
+  <object id="63" x="1088" y="896"/>
+  <object id="64" x="2752" y="768"/>
+  <object id="65" x="2816" y="768"/>
+  <object id="66" x="2880" y="768"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition2">
+  <object id="72" x="5312" y="1024"/>
+  <object id="73" x="5440" y="1024"/>
+  <object id="74" x="5952" y="1024"/>
+  <object id="75" x="6080" y="1024"/>
+  <object id="76" x="6592" y="1024"/>
+  <object id="77" x="6720" y="1024"/>
+  <object id="78" x="7168" y="1024"/>
+  <object id="79" x="7296" y="1024"/>
+  <object id="81" x="8256" y="896"/>
+  <object id="82" x="8320" y="896"/>
+  <object id="83" x="8384" y="896"/>
+  <object id="84" x="8832" y="896"/>
+  <object id="85" x="8896" y="896"/>
+  <object id="86" x="8960" y="896"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition3">
+  <object id="87" x="13952" y="768"/>
+  <object id="88" x="14016" y="768"/>
+  <object id="89" x="14080" y="768"/>
+  <object id="90" x="14144" y="768"/>
+  <object id="91" x="14592" y="960"/>
+  <object id="92" x="14656" y="960"/>
+  <object id="93" x="14720" y="960"/>
+  <object id="103" x="15360" y="768"/>
+  <object id="104" x="15424" y="768"/>
+  <object id="105" x="15488" y="768"/>
+  <object id="106" x="16192" y="1024"/>
+  <object id="107" x="16320" y="1024"/>
+ </objectgroup>
+ <layer name="LowLayer1" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSigD+AdaAfQCQAAFSgADg==
+   eJztwTEBAAAAwqD1T20ND6AAAAAAAAAAAAAAAAAAAAAAAAAAAL4NUUAAAQ==
   </data>
  </layer>
- <layer name="LowLayer2" width="30" height="20">
+ <layer name="LowLayer2" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSigD+AbaAfQCQAAFhAADw==
+   eJztzjEBAAAMAiATrH/cxdADEpAAAAAAAAAAAAAAAAAAAAAAAABsunYAAJjxwpAADw==
   </data>
  </layer>
- <objectgroup color="#ff0000" name="Obstacles"/>
- <objectgroup color="#80ff00" name="Boosters"/>
+ <objectgroup color="#ff0000" name="Obstacles">
+  <object id="108" x="768" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="109" x="2496" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="110" x="2560" y="1024">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="112" x="3648" y="1024">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="113" x="7936" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="114" x="11328" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="119" x="12352" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="120" x="14144" y="1024">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="121" x="15488" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="122" x="15488" y="1152">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="123" x="16256" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="126" x="16320" y="1216">
+   <properties>
+    <property name="type" value="standing"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup color="#80ff00" name="Boosters">
+  <object id="58" x="2112" y="1152"/>
+  <object id="68" x="3840" y="768"/>
+  <object id="69" x="64" y="1152"/>
+  <object id="71" x="4992" y="1024"/>
+ </objectgroup>
 </map>
