@@ -57,69 +57,84 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="60" x="3136" y="1200.85">
+  <object id="60" name="standing" x="3136" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="73" x="5184" y="1200.85">
+  <object id="73" name="standing" x="5184" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="74" x="6144" y="1200.85">
+  <object id="74" name="standing" x="6144" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="88" x="8512" y="1008.85">
+  <object id="77" name="standing" x="8512" y="1008.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="108" x="10880" y="1008.85">
+  <object id="108" name="standing" x="10880" y="1008.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="109" x="11008" y="1008.85">
+  <object id="88" name="standing" x="11008" y="1008.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="110" x="10944" y="1008.85">
+  <object id="89" name="standing" x="10944" y="1008.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="111" x="11968" y="1200.85">
+  <object id="108" name="standing" x="11968" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="112" x="12032" y="1200.85">
+  <object id="109" name="standing" x="12032" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="121" x="13056" y="1200.85">
+  <object id="110" name="standing" x="13056" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="122" x="14144" y="1200.85">
+  <object id="111" name="standing" x="14144" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="123" x="14208" y="1200.85">
+  <object id="112" name="standing" x="14208" y="1200.85">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="132" x="4352" y="1008.85">
+  <object id="121" name="standing" x="4352" y="1008.85">
    <properties>
     <property name="type" value="standing"/>
+   </properties>
+  </object>
+  <object id="134" name="flying" x="766.667" y="581.818" width="21.2121" height="630.303">
+   <properties>
+    <property name="type" value="flying"/>
+   </properties>
+  </object>
+  <object id="135" name="flying" x="3904.55" y="572.727" width="21.2121" height="630.303">
+   <properties>
+    <property name="type" value="flying"/>
+   </properties>
+  </object>
+  <object id="136" name="flying" x="6965.15" y="572.727" width="21.2121" height="630.303">
+   <properties>
+    <property name="type" value="flying"/>
    </properties>
   </object>
  </objectgroup>

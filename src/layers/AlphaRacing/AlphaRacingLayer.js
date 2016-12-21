@@ -65,7 +65,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.initBackground();
         this.addHud();
-        
+
         this._arEffectLayer = new AREffectLayer();
         this.addChild(this._arEffectLayer, 10);
 
@@ -140,6 +140,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.cameraFollower();
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
+        this._arEffectLayer.setPosition(this._bgGradient.getPosition());
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
 
         var hudPos = cc.pSub(this._player.getPosition(), this._hudLayer.getPosition());
@@ -188,8 +189,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.collisionBias = 0;
         this._space = space;
 
-        // var phDebugNode = cc.PhysicsDebugNode.create(space);
-        // this.addChild(phDebugNode, 99999);
+        var phDebugNode = cc.PhysicsDebugNode.create(space);
+        this.addChild(phDebugNode, 99999);
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 
@@ -405,10 +406,11 @@ var AlphaRacingLayer = cc.Layer.extend({
             return a.getBody() == this._player.getBody();
         }.bind(this));
 
-        var playerShape = shapes[0];
-        var otherShape = shapes[1];
+        var playerShape = shapes[1];
+        var otherShape = shapes[0];
 
         if (this._player.isJumping() && 
+            playerShape.getBB().b < otherShape.getBB().b && 
             this._player.getVelocity().y > 0 && 
             this._player.getVelocity().y > this._player.getVelocity().x) {
             return false;

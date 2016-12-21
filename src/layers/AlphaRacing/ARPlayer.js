@@ -90,8 +90,6 @@ var ARPlayer = cc.PhysicsSprite.extend({
                 this.die();
             }
         }
-
-        // this._desiredPosition = cc.pAdd(position, velocityStep);
     },
 
     getBody: function() {
