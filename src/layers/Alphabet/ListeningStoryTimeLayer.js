@@ -10,14 +10,14 @@ var ListeningStoryTimeLayer = ListeningTestLayer.extend({
         var self = this;
         var shownObjNames = [];
 
-        var remainingObj = this._names.slice(0);
+        var remainingObj = this._names.slice(0, this._nameIdx * 3);
         remainingObj.splice(this._nameIdx, 1);
         remainingObj = shuffle(remainingObj);
-
+        cc.log("this._nameIdx: " + this._nameIdx);
         shownObjNames.push(this._names[this._nameIdx]);
         shownObjNames.push(remainingObj[0]);
         shownObjNames.push(remainingObj[1]);
-
+        cc.log("shownObjNames STory: " + JSON.stringify(shownObjNames));
         shownObjNames = shuffle(shownObjNames);
 
         for (var i = 0; i < 3; i++) {

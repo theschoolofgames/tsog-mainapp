@@ -490,6 +490,11 @@
     "value": "pet"
   },
   {
+    "id": "mouse",
+    "type": "animal",
+    "value": "pet"
+  },
+  {
     "id": "chimpanzee",
     "type": "animal",
     "value": "chimpanzee"

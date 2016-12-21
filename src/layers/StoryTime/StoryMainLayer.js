@@ -403,7 +403,7 @@ var StoryMainLayer = TestLayer.extend({
                     return id;
             });
         this.setData(JSON.stringify(dataNextScene[0]));
-        /* uncomment after implement all missing art TODO
+         // uncomment after implement all missing art TODO
             var data = dataNextScene[0].data;
             var voices = dataNextScene[0].voice;
             var speaking = dataNextScene[0].speaking;
@@ -418,7 +418,7 @@ var StoryMainLayer = TestLayer.extend({
             }
             this.setStoryTimeForListeningData(d);
             this.setStoryTimeForSpeakingData(speaking);
-        */
+        
         // cc.log("setStoryTimeForListeningData: " + JSON.stringify(d));
         // cc.log("set data: " + JSON.stringify(dataNextScene[0]));
     },

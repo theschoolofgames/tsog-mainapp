@@ -151,7 +151,10 @@ var ListeningTestLayer = TestLayer.extend({
         var shownObjNames = [];
 
         var remainingObj = this._names.slice(0);
-        // cc.log("remainingObj: " + remainingObj);
+        var d = this.getStoryTimeForListeningData();
+        cc.log("D ->>>>" + JSON.stringify(d));
+        cc.log("this._currentKeyIndex: " + this._currentKeyIndex);
+        cc.log("remainingObj: " + remainingObj);
         var currentKeyNames;
         if (this._keyObject.length > 0) {
             currentKeyNames = this._keyObject[this._currentKeyIndex]
@@ -159,14 +162,19 @@ var ListeningTestLayer = TestLayer.extend({
             currentKeyNames = this._names[this._nameIdx];
 
         shownObjNames.push(currentKeyNames);
-            
-        remainingObj.splice(this._nameIdx, 3);
+        if(d) {
+            shownObjNames = d.data[this._currentKeyIndex];
+            cc.log("chay vao D");
+            // remainingObj.slice(0, this._currentKeyIndex * 3);
+        };
+        if(!d)
+            remainingObj.splice(this._nameIdx, 3);
         // remainingObj = shuffle(remainingObj);
         
         cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;
         if (this._keyObject.length > 0) {
-            for (var i = 1; i < remainingObj.length; i++) {
+            for (var i = 0; i < remainingObj.length; i++) {
                 if (shownObjNames.length >= 3) {
                     break;
                 }
@@ -208,9 +216,8 @@ var ListeningTestLayer = TestLayer.extend({
         }
         cc.log("shownObjNames: " + JSON.stringify(shownObjNames));
         shownObjNames = shuffle(shownObjNames);
-        var d = this.getStoryTimeForListeningData();
-        if (d)
-            shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
+        // if (d)
+        //     shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
 
         // cc.log("shownObjNames: " + shownObjNames);
         // cc.log("d: " + d);

@@ -120,6 +120,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     setStoryTimeForListeningData: function(data) {
+        cc.log("setStoryTimeForListeningData");
         KVDatabase.getInstance().set("storytimeForListeningData", JSON.stringify(data));
     },
 

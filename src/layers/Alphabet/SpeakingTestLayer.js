@@ -383,7 +383,8 @@ var SpeakingTestLayer = TestLayer.extend({
         var d = this.getStoryTimeForSpeakingData();
         if (d) {
             this.storytimeCurrentDataIndex++;
-            objectName = d.data[this.storytimeCurrentDataIndex];
+            cc.log("d SpeakingTestLayer :  " + JSON.stringify(d));
+            objectName = d[this.storytimeCurrentDataIndex];
         }
         this._soundName = "";
         var soundNamePrefix = "res/SD/";

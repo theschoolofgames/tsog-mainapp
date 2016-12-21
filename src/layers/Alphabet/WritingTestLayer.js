@@ -91,17 +91,32 @@ var WritingTestLayer = TestLayer.extend({
         var self = this;
         this._blockTouch = true;
         this._adiDog.adiTalk();
-
         this.playBackGroundMusic();
-        var beginSoundPath = "res/sounds/sentences/" + localize("begin-writing") + ".mp3";
-        this._super(beginSoundPath, function() {
+        var count = KVDatabase.getInstance().getInt("timesPlaySound",0);
+        if(count >= 3)
+            count = 0;
+        
+        if(count == 0) {
+            var beginSoundPath = "res/sounds/sentences/" + localize("begin-writing") + ".mp3";
+            this._super(beginSoundPath, function() {
+                self._blockTouch = false;
+                if (!self._adiDog)
+                    return;
+
+                self._adiDog.adiIdling();
+                self._moveToNextCharacter();
+            });
+        }
+        else {
             self._blockTouch = false;
             if (!self._adiDog)
                 return;
 
             self._adiDog.adiIdling();
             self._moveToNextCharacter();
-        });
+        };
+        count = count + 1;
+        KVDatabase.getInstance().set("timesPlaySound",count)
     },
 
     onTouchBegan: function(touch, event) {
