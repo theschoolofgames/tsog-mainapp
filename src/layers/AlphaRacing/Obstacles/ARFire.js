@@ -66,7 +66,7 @@ var ARFire = ARObstacle.extend({
     fixUpdate: function() {
         // cc.log((this._player.getColli sionBoundingBox().x + this.timeForWarning * this._player.getVelocity().x) + " " + this.x)
         if ( this._state == "none" &&
-             (this._player.getDesiredPosition().x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
+             (this._player.x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
             this.setState("preparing");
             this.prepare();
         } else if (this._state == "showUp") {

@@ -6,7 +6,6 @@ var ARPlayer = cc.PhysicsSprite.extend({
     _mass: 10,
 
     _desiredVel: 200,
-    _desiredPosition: cc.p(100, 400),
 
     _boostState: ARBooster.State.NONE,
 
@@ -89,8 +88,6 @@ var ARPlayer = cc.PhysicsSprite.extend({
                 this.die();
             }
         }
-
-        // this._desiredPosition = cc.pAdd(position, velocityStep);
     },
 
     getBody: function() {
@@ -170,9 +167,5 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     toggleBoostFlag: function(flag) {
         this._boostState ^= flag;
-    },
-
-    getDesiredPosition: function(){
-        return this._desiredPosition;
-    },
+    }
 });
