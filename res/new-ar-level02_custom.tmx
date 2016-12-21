@@ -62,62 +62,57 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="108" x="768" y="1216">
+  <object id="108" x="774.061" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="109" x="2496" y="1216">
+  <object id="109" x="2502.06" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="110" x="2560" y="1024">
+  <object id="110" x="2566.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="112" x="3648" y="1024">
+  <object id="112" x="3654.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="113" x="7936" y="1216">
+  <object id="113" x="7942.06" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="114" x="11328" y="1216">
+  <object id="114" x="11334.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="119" x="12352" y="1216">
+  <object id="119" x="12358.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="120" x="14144" y="1024">
+  <object id="120" x="14150.1" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="121" x="15488" y="1216">
+  <object id="121" x="15494.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="122" x="15488" y="1152">
+  <object id="123" x="16262.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="123" x="16256" y="1216">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
-  <object id="126" x="16320" y="1216">
+  <object id="126" x="16326.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>

@@ -262,6 +262,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     initWorkers: function() {
+        this._workers.push(new ARDistanceCountingWorker(this._player, this._hudLayer));
+        
         this._obstacleWorker = new ARObstacleWorker(this._player);
         this._workers.push(this._obstacleWorker);
 

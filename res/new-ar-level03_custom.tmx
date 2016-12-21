@@ -79,57 +79,57 @@
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="192" x="2880" y="1024">
+  <object id="192" x="2886.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="193" x="3904" y="1216">
+  <object id="193" x="3910.06" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="194" x="4224" y="1216">
+  <object id="194" x="4230.06" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="195" x="5248" y="1024">
+  <object id="195" x="5254.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="197" x="7296" y="1024">
+  <object id="197" x="7302.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="198" x="9920" y="1024">
+  <object id="198" x="9926.06" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="200" x="10816" y="1024">
+  <object id="200" x="10822.1" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="201" x="11840" y="1024">
+  <object id="201" x="11846.1" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="202" x="12992" y="832">
+  <object id="202" x="12998.1" y="819.879">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="203" x="13504" y="1024">
+  <object id="203" x="13510.1" y="1011.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="205" x="16320" y="1216">
+  <object id="205" x="16326.1" y="1203.88">
    <properties>
     <property name="type" value="standing"/>
    </properties>

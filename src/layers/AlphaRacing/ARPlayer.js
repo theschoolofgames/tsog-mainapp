@@ -7,6 +7,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     _desiredVel: 200,
     _desiredPosition: cc.p(100, 400),
+    _velocityFactor: 1,
 
     _boostState: ARBooster.State.NONE,
 
@@ -63,18 +64,18 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
         this.run();
 
-        this.schedule(this.increasePlayerSpeed.bind(this), 30, cc.REPEAT_FOREVER);
+        // this.schedule(this.increasePlayerSpeed.bind(this), 30, cc.REPEAT_FOREVER);
     },
 
-    increasePlayerSpeed: function() {
-        cc.log("increasePlayerSpeed");
+    updatePlayerSpeed: function() {
         if (this._desiredVel < 400)
-            this._desiredVel += 20; 
+            this._desiredVel = 200 + 20 * this._velocityFactor; 
     },
 
     update: function(dt) {
 
         if (this.current != "died") {
+            this.updatePlayerSpeed();
             var vel = this.getBody().getVel();
             var velChange = this._desiredVel - vel.x;
             var impulse = velChange * this.getBody().m;
@@ -103,6 +104,10 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     isJumping: function() {
         return this.current == "jumping";
+    },
+
+    setVelocityFactor: function(factor) {
+        this._velocityFactor = factor;
     },
 
     // StateMachine Callbacks
@@ -170,9 +175,5 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     toggleBoostFlag: function(flag) {
         this._boostState ^= flag;
-    },
-
-    getDesiredPosition: function(){
-        return this._desiredPosition;
-    },
+    }
 });
