@@ -16,7 +16,7 @@ var ARInvisible = ARBooster.extend({
     },
 
     didStart: function() {
-        cc.log("ARInvisible: didStart");
+        // cc.log("ARInvisible: didStart");
         this.visible = false;
         this._player.setBoostFlag(ARInvisible.getBoostFlag());
         this._player.opacity = 128;
@@ -48,7 +48,7 @@ var ARInvisible = ARBooster.extend({
     },
 
     didEnded: function() {
-        cc.log("ARInvisible: didEnded");
+        // cc.log("ARInvisible: didEnded");
 
         this._player.opacity = 255;
         this._player.stopActionByTag(this.getBoostFlag());
