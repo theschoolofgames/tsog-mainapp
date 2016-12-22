@@ -142,9 +142,6 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
         this._arEffectLayer.setPosition(this._bgGradient.getPosition());
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
-
-        var hudPos = cc.pSub(this._player.getPosition(), this._hudLayer.getPosition());
-
         this._hudLayer.setPosition(this._bgGradient.getPosition());
         // cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
         // cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
@@ -189,8 +186,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.collisionBias = 0;
         this._space = space;
 
-        var phDebugNode = cc.PhysicsDebugNode.create(space);
-        this.addChild(phDebugNode, 99999);
+        // var phDebugNode = cc.PhysicsDebugNode.create(space);
+        // this.addChild(phDebugNode, 99999);
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 
@@ -198,6 +195,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         this.addChild(this._player, AR_PLAYER_ZODER);
 
         this.initWorkers();
+        this._workers.push(new ARDistanceCountingWorker(this._player, this._hudLayer));
+        
 
         this.createNewMapSegment();
         this.createNewMapSegment();
