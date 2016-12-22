@@ -214,6 +214,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>15.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{960,0},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -222,9 +237,9 @@
             <key>realTextureFileName</key>
             <string>alpha-racing-tmx.png</string>
             <key>size</key>
-            <string>{1024,64}</string>
+            <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6579a5714d53b968e5d9bf72261dff69:9298d0b5e3df41f903600272b98e3fab:8c563efff835a645a31d2d8c48c9c562$</string>
+            <string>$TexturePacker:SmartUpdate:eeb4deeeee163763b769d2c30fa882f0:636d332593fec08d7212833427450f7f:8c563efff835a645a31d2d8c48c9c562$</string>
             <key>textureFileName</key>
             <string>alpha-racing-tmx.png</string>
         </dict>
