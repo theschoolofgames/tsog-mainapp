@@ -138,7 +138,6 @@ var RoomLayer = cc.Layer.extend({
         // hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
-
         this._hudLayer.setTotalGoals(this._data.length);
     },
 

@@ -86,7 +86,7 @@ languagesForWriting["sw"] = {
     "silver": "Rangi ya Fedha",
     "gold": "Rangi ya Dhahabu",
 
-    "abacus" : "Kifaa cha kuhesbia",
+    "abacus" : "....kuhesabia",
     "afraid" : "Kuogopa",
     "afternoon" : "Mchana",
     "angry" : "Kukasirika",
@@ -396,7 +396,7 @@ languagesForWriting["sw"] = {
     "test" : "Jaribio",
     "thigh" : "Paja",
     "thumb" : "Kidole gumba",
-    "tiger" : "Runinga",
+    "tiger" : "Chui",
     "tin" : "Kopo",
     "toad" : "Chura",
     "toe" : "Kidole cha mguu",

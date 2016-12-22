@@ -85,20 +85,31 @@
     "1": {
       "name": "card",
       "data": [
-        "lemon",
-        "onion",
-        "towel",
-        "watch",
-        "abacus",
-        "banana",
-        "duster",
-        "orange",
-        "kitten",
-        "goldfish",
-        "toytrain",
-        "juice",
-        "computer",
-        "sock"
+        {
+          "cardData": [
+            "lemon",
+            "onion",
+            "towel",
+            "watch",
+            "abacus",
+            "banana",
+            "duster",
+            "orange",
+            "kitten",
+            "goldfish",
+            "toytrain",
+            "juice",
+            "computer",
+            "sock"
+          ],
+          "dataForTest": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ]
+        }
       ],
       "duration": 180
     },
