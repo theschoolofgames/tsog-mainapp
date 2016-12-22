@@ -696,7 +696,7 @@ var RoomLayer = cc.Layer.extend({
             jsb.AudioEngine.stop(this._effectAudioID);
 
         this._effectAudioID = AudioManager.getInstance().play("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
-
+        cc.log("Sound Path: " + "res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3");
         if (!isDragging)
         {
             self._blockAllObjects = true;

@@ -73,16 +73,27 @@
     "1": {
       "name": "card",
       "data": [
-        "bird",
-        "duck",
-        "fish",
-        "frog",
-        "goat",
-        "grape",
-        "joker",
-        "lemon",
-        "onion",
-        "queen"
+        {
+          "cardData": [
+            "bird",
+            "duck",
+            "fish",
+            "frog",
+            "goat",
+            "grape",
+            "joker",
+            "lemon",
+            "onion",
+            "queen"
+          ],
+          "dataForTest": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ]
+        }
       ],
       "duration": 120
     },

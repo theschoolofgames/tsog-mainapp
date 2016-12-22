@@ -20,6 +20,8 @@ var SpeakingTestLayer = TestLayer.extend({
         this._super();
         this.font = "hud-font.fnt";
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
+        // if(this.getCardGameData())
+        //     data = this.getCardGameData();
         this._fetchObjectData(data);
         this._duration = duration;
         cc.eventManager.addListener({
@@ -30,6 +32,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
         // cc.log("SpeakingTestLayer");
+        cc.log("CardgameSpeaking: " + JSON.stringify(this.getCardGameData()));
         NativeHelper.callNative("changeAudioRoute");
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },

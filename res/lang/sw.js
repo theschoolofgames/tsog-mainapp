@@ -146,6 +146,7 @@ languages["sw"] = {
     "potato-1": "sw/potato-1",
     "potato": "sw/potato",
     "puppy": "sw/puppy",
+    "queen": "sw/queen",
     "queswahili-1": "sw/queswahili-1",
     "queswahili": "sw/queswahili",
     "rabbit": "sw/rabbit",

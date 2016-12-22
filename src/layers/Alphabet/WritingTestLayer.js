@@ -40,6 +40,8 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log("data: " + JSON.stringify(data));
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("WritingTestLayer ctor");
+        // if(this.getCardGameData())
+        //     data = this.getCardGameData();
         this._fetchObjectData(data);
         this._duration = timeForScene;
         // this._names = data.map(function(obj) {
@@ -54,7 +56,7 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log(JSON.stringify(this._names));
         // this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
-
+        cc.log("CardgameWriting: " + JSON.stringify(this.getCardGameData()));
         
         // this._writingWords = this._names.map(function(obj) {
         //     cc.log(obj);

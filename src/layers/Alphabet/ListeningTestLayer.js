@@ -22,11 +22,14 @@ var ListeningTestLayer = TestLayer.extend({
     ctor: function(data, duration) {
         this._super();
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
+        if(this.getCardGameData())
+            data = this.getCardGameData();
         this._fetchObjectData(data);
         this._duration = duration;
         this._addedObject = [];
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
+        cc.log("Cardgamelistening: " + JSON.stringify(this.getCardGameData()));
 
         this._addAdiDog();
         cc.eventManager.addListener({
@@ -521,6 +524,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        cc.log("data: " + (data));
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -556,6 +560,7 @@ var ListeningTestLayer = TestLayer.extend({
         this._super();
         this.removeStoryTimeForListeningData();
         cc.eventManager.removeListener(this._event_time_up);
+        this.removeCardGameData();
     },
     
 });
