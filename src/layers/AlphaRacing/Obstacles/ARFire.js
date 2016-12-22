@@ -25,7 +25,7 @@ var ARFire = ARObstacle.extend({
     },
 
     didEnded: function() {
-        cc.log("ARFire: didEnded");
+        // cc.log("ARFire: didEnded");
     },
 
     setState: function(state) {

@@ -10,8 +10,9 @@ var AR_WORD_ZODER = 1001;
 var WALLS_ELASTICITY = 1;
 var WALLS_FRICTION = 1;
 
-var CAMERA_FOLLOW_FACTOR = 0.9;
-var CAMERA_PLAYER_POSITION_ON_SCREEN = cc.p(1/3, 1/3);
+var CAMERA_FOLLOW_FACTOR = cc.p(0.9, 1);
+var CAMERA_PLAYER_POSITION_ON_SCREEN_X = [1/3, 1/3];
+var CAMERA_PLAYER_POSITION_ON_SCREEN_Y = [2/3, 3/4];    // min, max
 
 var AlphaRacingLayer = cc.Layer.extend({
 
@@ -474,10 +475,29 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     cameraFollower: function() {
         var camera = cc.Camera.getDefaultCamera();
-        var playerPos = cc.pAdd(this._player.getPosition(), cc.p((1/2 - CAMERA_PLAYER_POSITION_ON_SCREEN.x) * cc.winSize.width, (1/2 - CAMERA_PLAYER_POSITION_ON_SCREEN.y) * cc.winSize.height ));
-        var desiredPos = cc.pLerp(camera.getPosition(), playerPos, CAMERA_FOLLOW_FACTOR);
-        desiredPos.y = Math.max(desiredPos.y, cc.winSize.height/2);
-        camera.setPosition(desiredPos);
+        var currentPlayerPos = this._player.getPosition();
+        var camPos = camera.getPosition();
+
+        var playerPosXMin = camPos.x + (CAMERA_PLAYER_POSITION_ON_SCREEN_X[0] - 0.5) * cc.winSize.width;
+        var playerPosXMax = camPos.x + (CAMERA_PLAYER_POSITION_ON_SCREEN_X[1] - 0.5) * cc.winSize.width;
+
+        var playerPosYMin = camPos.y + (CAMERA_PLAYER_POSITION_ON_SCREEN_Y[0] - 0.5) * cc.winSize.height;
+        var playerPosYMax = camPos.y + (CAMERA_PLAYER_POSITION_ON_SCREEN_Y[1] - 0.5) * cc.winSize.height;
+
+        if (currentPlayerPos.x < playerPosXMin)
+            camPos.x = cc.lerp(camPos.x, camPos.x - (playerPosXMin - currentPlayerPos.x), CAMERA_FOLLOW_FACTOR.x);
+        else if (currentPlayerPos.x > playerPosXMax)
+            camPos.x = cc.lerp(camPos.x, camPos.x + (currentPlayerPos.x - playerPosXMax), CAMERA_FOLLOW_FACTOR.x);
+
+        if (currentPlayerPos.y < playerPosYMin)
+            camPos.y = cc.lerp(camPos.y, camPos.y - (playerPosYMin - currentPlayerPos.y), CAMERA_FOLLOW_FACTOR.y);
+        else if (currentPlayerPos.y > playerPosYMax)
+            camPos.y = cc.lerp(camPos.y, camPos.y + (currentPlayerPos.y - playerPosYMax), CAMERA_FOLLOW_FACTOR.y);
+
+
+
+        camPos.y = Math.max(camPos.y, cc.winSize.height/2);
+        camera.setPosition(camPos);
     },
 
     isFirstTMXOutOfScreen: function() {

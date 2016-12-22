@@ -12,7 +12,7 @@ var ARObstacleWorker = cc.Class.extend({
     },
 
     addObstacle: function(params) {
-        cc.log(JSON.stringify(params));
+        // cc.log(JSON.stringify(params));
         if (params.type == "hanging") {
             var object = new ARBeeHive(this._player);
         } else if (params.type == "standing") {
