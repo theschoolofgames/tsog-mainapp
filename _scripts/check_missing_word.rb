@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 
-dict_path = "../frameworks/runtime-src/proj.android-studio/pocketsphinx/sync/cmudict-sw.dict"
+dict_path = "../frameworks/runtime-src/proj.android-studio/pocketsphinx/sync/sw.dict"
 
 words_path = "swahili.text"
 
