@@ -30,6 +30,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _arEffectLayer: null,
     _workers: [],
 
+    _alphabetObjectArray: [],
+
     _currentMapX: 0,
 
     _polygonConfigs: null,
@@ -63,6 +65,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._polygonConfigs = [];
         this._parallaxs = [];
         this._workers = [];
+
+        this._alphabetObjectArray = [];
 
         this.initBackground();
         this.addHud();
@@ -102,6 +106,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     onEnter: function() {
         this._super();
 
+        var self = this;
+
         var camera = cc.Camera.getDefaultCamera();
         camera.y += cc.winSize.height/3;
 
@@ -114,7 +120,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                 this.runAction(cc.sequence(
                     cc.delayTime(3),
                     cc.callFunc(function() {
-                        cc.director.replaceScene(new AlphaRacingScene([]));
+                        cc.director.replaceScene(new AlphaRacingScene(self._inputData));
                     })
                 ))
                 // this.completedScene(localize("Game Over"));
@@ -270,6 +276,8 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._boosterWorker = new ARBoosterWorker(this._player);
         this._workers.push(this._boosterWorker);
+
+        this._workers.push(new ARAlphabetWorker(this._player, this._alphabetObjectArray, this._hudLayer));
     },
 
     createNewMapSegment: function() {
@@ -280,6 +288,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.addObstacles(tmxMap);
         this.addBoosters(tmxMap);
+        this.addAlphabet(tmxMap);
 
         this._currentMapX += tmxMap.mapWidth * tmxMap.tileWidth;
 
@@ -475,6 +484,43 @@ var AlphaRacingLayer = cc.Layer.extend({
         }
     },
 
+    addAlphabet: function(tmxMap) {
+        let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
+        let inputArray = this._inputData.slice(0);
+        let groupIndex = 0;
+        let self = this;
+
+        cc.log("This.Input Length: %d, That length: %d", this._inputData.length, inputArray.length);
+        cc.log(JSON.stringify(inputArray));
+
+        // this._alphabetObjectArray = [];
+
+        posArray = shuffle(posArray);
+        inputArray = shuffle(inputArray);
+        
+        let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
+
+        for (var i = 0; i < randomGroupNumber; i++) {
+            let group = posArray.pop();
+            let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
+            let alphabet = self._inputData[randomInputIndex];
+            // // Set 0.8 probability for current alphabet
+            // if (Utils.getRandomInt(0, 10) < 6){
+            //     alphabet = self._currentChallange;
+            // }
+
+            group.posArray.forEach((pos) => {
+                var object = new cc.LabelBMFont(alphabet.value, res.CustomFont_fnt);
+                object.setScale(0.8);
+                object.x = pos.x + tmxMap.x;
+                object.y = pos.y;
+                object.setName(alphabet.value);
+                self.addChild(object, AR_WORD_ZODER);
+                self._alphabetObjectArray.push(object);
+            });
+        }
+    },
+
     cameraFollower: function() {
         var camera = cc.Camera.getDefaultCamera();
         var currentPlayerPos = this._player.getPosition();
@@ -495,8 +541,6 @@ var AlphaRacingLayer = cc.Layer.extend({
             camPos.y = cc.lerp(camPos.y, camPos.y - (playerPosYMin - currentPlayerPos.y), CAMERA_FOLLOW_FACTOR.y);
         else if (currentPlayerPos.y > playerPosYMax)
             camPos.y = cc.lerp(camPos.y, camPos.y + (currentPlayerPos.y - playerPosYMax), CAMERA_FOLLOW_FACTOR.y);
-
-
 
         camPos.y = Math.max(camPos.y, cc.winSize.height/2);
         camera.setPosition(camPos);
