@@ -19,7 +19,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     _currentObjectMoving: null,
     _currentAvailableSlot: null,
     _currentObjectOriginPos: null,
-    _goal: 0,
+    NUMBER_OBJECTS_SHOPPING: 0,
     _indexOfLastObject: 0,
 
     ctor: function(data, timePlayed, timeForScene) {
@@ -46,7 +46,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._super();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this.playBackGroundMusic();
-        this._hudLayer.setTotalGoals(this._data.length);
+        this._hudLayer.setTotalGoals(NUMBER_OBJECTS_SHOPPING);
     },
 
     _addBasket: function() {
@@ -70,7 +70,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     },
 
     _calcPossibleSlots: function() {
-        for (var i = 0; i < this._goal; i++) {
+        for (var i = 0; i < this.NUMBER_OBJECTS_SHOPPING; i++) {
             var x = this._basket.x - this._basket.width/2 * this._basketScale + 60 + Math.random() * 0.7 * this._basket.width * this._basketScale;
             var y = this._basket.y - this._basket.height/2 * this._basketScale+ 60 + Math.random() * 0.6 * this._basket.height * this._basketScale; 
             this._activateSlots.push(cc.p(x, y));
@@ -145,7 +145,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this._goal = this._data.length;
+        this.NUMBER_OBJECTS_SHOPPING = this._data.length;
         this.setData(JSON.stringify(this._data));
         // cc.log("data after map: " + JSON.stringify(this._data));
     },
@@ -173,6 +173,24 @@ var ShoppingBasketLayer = TestLayer.extend({
             if (cc.rectContainsPoint(bBox, touchLoc)) {
                 // cc.log("touch _activateObjects with tag: " + obj.tag);
                 self._didObjectAllowedToMove = true;
+                var objName = obj.getUserData();
+                cc.log("objName" + objName);
+                var path =  "res/sounds/words/" + localize(objName) + ".mp3";
+                cc.log("Path: " + path);
+                if (!jsb.fileUtils.isFileExist(path)) {
+                    path = "res/sounds/numbers/" + objName + ".mp3";
+                }
+                if (!jsb.fileUtils.isFileExist(path)) {
+                    path = "res/sounds/alphabets/" + localize(objName) + ".mp3";
+                }
+                if (!jsb.fileUtils.isFileExist(path)) {
+                    path = "res/sounds/colors/" + objName + ".mp3";
+                }
+                if (!jsb.fileUtils.isFileExist(path))
+                    path = "";
+                cc.log("path ->>>" + path);
+                if(jsb.fileUtils.isFileExist(path))
+                    jsb.AudioEngine.play2d(path, false);
                 self._currentObjectMoving = obj;
                 self._currentObjectOriginPos = obj.getPosition();
                 return true;
@@ -227,7 +245,8 @@ var ShoppingBasketLayer = TestLayer.extend({
 
 
     _checkCompletedScene: function() {
-        if (this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
+        // if(this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
+        if (this._deactivateObjects.length == NUMBER_OBJECTS_SHOPPING){// && this._activateObjects.length == 0) {
             this._blockFlag = true;
             this.playWinSound();
             this.createWinLabel();
@@ -296,7 +315,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._deactivateObjects.length / this._goal;
+        var percent = this._deactivateObjects.length / NUMBER_OBJECTS_SHOPPING;
         
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._deactivateObjects.length);

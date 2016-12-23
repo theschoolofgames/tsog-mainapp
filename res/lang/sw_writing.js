@@ -86,7 +86,7 @@ languagesForWriting["sw"] = {
     "silver": "Rangi ya Fedha",
     "gold": "Rangi ya Dhahabu",
 
-    "abacus" : "....kuhesabia",
+    "abacus" : "kuhesabia",
     "afraid" : "Kuogopa",
     "afternoon" : "Mchana",
     "angry" : "Kukasirika",

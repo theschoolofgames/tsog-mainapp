@@ -115,6 +115,7 @@ languages["sw"] = {
     "key": "sw/key",
     "kite-1": "sw/kite-1",
     "kite": "sw/kite",
+    "kitten": "sw/kitten",
     "kittswahili": "sw/kittswahili",
     "lamp-1": "sw/lamp-1",
     "lamp": "sw/lamp",
@@ -196,7 +197,6 @@ languages["sw"] = {
     "xylophone": "sw/xylophone",
     "zebra": "sw/zebra",
     "adi": "adi",
-    "monkey": "nyani",
     "pen-1": "sw/pen-1",
     "pen": "sw/pen",
 

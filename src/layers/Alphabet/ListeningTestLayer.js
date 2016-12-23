@@ -171,7 +171,7 @@ var ListeningTestLayer = TestLayer.extend({
             // remainingObj.slice(0, this._currentKeyIndex * 3);
         };
         if(!d)
-            remainingObj.splice(this._nameIdx, 3);
+            remainingObj.splice(this._nameIdx, 1);
         // remainingObj = shuffle(remainingObj);
         
         cc.log("remainingObj: " + JSON.stringify(remainingObj));
@@ -353,6 +353,8 @@ var ListeningTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
             this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
         }
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
+            this._objSoundPath = "";
 
         // cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
@@ -364,7 +366,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playObjSound: function() {
         var self = this;
-
+        cc.log("this._objSoundPath: " + this._objSoundPath);
         if (self._objSoundIsPlaying)
             return;
 

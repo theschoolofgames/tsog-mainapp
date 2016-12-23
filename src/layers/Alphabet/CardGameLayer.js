@@ -61,7 +61,8 @@ var CardGameLayer = TestLayer.extend({
             else
                 return id;
         });
-        this.setCardGameData(dataForTest);
+        this.setData(JSON.stringify(dataForTest));
+        // this.setCardGameData(dataForTest);
         this._timeForScene = timeForScene;
         this._loadTmx();
         this._addCard();
@@ -282,7 +283,7 @@ var CardGameLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.setData(JSON.stringify(this._data));
+        // this.setData(JSON.stringify(this._data));
         // cc.log("data after map: " + JSON.stringify(this._data));
     },
 
