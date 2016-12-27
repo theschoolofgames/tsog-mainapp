@@ -175,11 +175,6 @@
     "value": "flag"
   },
   {
-    "id": "gift",
-    "type": "object",
-    "value": "gift"
-  },
-  {
     "id": "egg",
     "type": "object",
     "value": "egg"
@@ -491,6 +486,11 @@
   },
   {
     "id": "pet",
+    "type": "animal",
+    "value": "pet"
+  },
+  {
+    "id": "mouse",
     "type": "animal",
     "value": "pet"
   },

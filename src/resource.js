@@ -282,6 +282,9 @@ var res = {
     map_mp3 : "res/sounds/backsounds/map.mp3",
     mega_win_level_finish_mp3 : "res/sounds/backsounds/mega_win_level_finish.mp3",
     ui_close_mp3 : "res/sounds/backsounds/ui_close.mp3",
+    ui_click_mp3_0 : "res/sounds/backsounds/ui_click.mp3",
+    ui_click_mp3_1 : "res/sounds/backsounds/ui_click_2.mp3",
+    ui_click_mp3_2 : "res/sounds/backsounds/ui_click_5.mp3",
     you_win_mp3 : "res/sounds/backsounds/you_win.mp3",
  
     // Adidog_json: "Adidog/ConCho.json",

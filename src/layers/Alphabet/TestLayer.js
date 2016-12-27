@@ -17,6 +17,7 @@ var TestLayer = cc.LayerColor.extend({
     storytimeCurrentDataIndex: -1,
 
     _callingQuickTest: false,
+    _soundEffect: null,
 
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
@@ -46,15 +47,20 @@ var TestLayer = cc.LayerColor.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        var self = this;
+        this._event_time_up = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self.removeCardGameData();
+                // cc.log("_timesUp evnet: " + self._timesUp);
+            }
+        });
+        cc.eventManager.addListener(self._event_time_up, 1);
     },
 
     playBeginSound: function(path, callback) {
-        // var audio = jsb.AudioEngine.play2d(path, false);
-        // if (cc.isFunction(callback))
-        //     jsb.AudioEngine.setFinishCallback(audio, function(audio, audioPath) {
-        //         callback();
-        //     });
-        AudioManager.getInstance().play(path, false, callback);
+        this._soundEffect = AudioManager.getInstance().play(path, false, callback);
     },
 
     playBackGroundMusic: function() {
@@ -107,7 +113,7 @@ var TestLayer = cc.LayerColor.extend({
     onExit: function() {
         this._super();
         this._adiDog = null;
-        
+        cc.eventManager.removeListener(this._event_time_up);
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();
     },
@@ -124,6 +130,7 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     setStoryTimeForListeningData: function(data) {
+        cc.log("setStoryTimeForListeningData");
         KVDatabase.getInstance().set("storytimeForListeningData", JSON.stringify(data));
     },
 
@@ -136,6 +143,23 @@ var TestLayer = cc.LayerColor.extend({
 
     removeStoryTimeForListeningData: function() {
         KVDatabase.getInstance().remove("storytimeForListeningData");
+    },
+
+    setCardGameData: function(data) {
+        cc.log("setCardGameData: " + JSON.stringify(data));
+        KVDatabase.getInstance().set("CardGameData", JSON.stringify(data));
+    },
+
+    getCardGameData: function() {
+        var d = KVDatabase.getInstance().getString("CardGameData", null);
+        if (d)
+            d = JSON.parse(d);
+        return d;
+    },
+
+    removeCardGameData: function() {
+        cc.log("removeCardGameData: ");
+        KVDatabase.getInstance().remove("CardGameData");
     },
 
     setStoryTimeForSpeakingData: function(data) {
@@ -209,11 +233,13 @@ var TestLayer = cc.LayerColor.extend({
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
         if (nextSceneName) {
+            this.setCardGameData(this.getCardGameData());
             var numberScene = KVDatabase.getInstance().getInt("scene_number");
             var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
             cc.log("durationArray: " + JSON.stringify(durationArray));
             SceneFlowController.getInstance().moveToNextScene(nextSceneName, this.data, durationArray[numberScene]);
         } else {
+            this.removeCardGameData();
             Utils.updateStepData();
             SceneFlowController.getInstance().clearData();
             cc.director.runScene(new MapScene());

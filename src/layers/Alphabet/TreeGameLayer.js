@@ -24,6 +24,8 @@ var TreeGameLayer = TestLayer.extend({
     ctor: function(data, isTestScene, timeForScene) {
         this._super();
         this._scrollToX = 0;
+        this._treeGroup = [];
+        this._numberGroup = [];
         this._fetchObjectData(data);
         this._loadTmx();
         this._addBackground();
@@ -37,17 +39,19 @@ var TreeGameLayer = TestLayer.extend({
             onTouchBegan: this.onTouchBegan.bind(this),
             onTouchEnded: this.onTouchEnded.bind(this)
         }, -1);
+    },
 
-        var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-numbers") + ".mp3", false);
-        jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
-            jsb.AudioEngine.stopAll();
-            var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + "count_by_1s.mp3");
-            jsb.AudioEngine.play2d(path);
-        });
+    playBeginSound: function() {
+        var begindSoundPath = "res/sounds/sentences/" + localize("begin-numbers") + ".mp3";
+        var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + "count_by_1s.mp3");
+        this._super(begindSoundPath, function() {
+            AudioManager.getInstance().play(path, false, null);
+        }.bind(this));
     },
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        this.playBeginSound();
         this.playBackGroundMusic();
         this.preloadSounds();
         this._hudLayer.setTotalGoals((this._numberOfTrees*5));
@@ -63,7 +67,7 @@ var TreeGameLayer = TestLayer.extend({
         scrollview.x = 0;
         scrollview.y = this._ground.height - 12 * Utils.getScaleFactorTo16And9();
         scrollview.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
-        scrollview.setTouchEnabled(true);
+        scrollview.setTouchEnabled(false);
         scrollview.setClippingToBounds(false);
         scrollview.setViewSize(cc.size(cc.winSize.width, cc.winSize.height));
         scrollview.setBounceable(true);
@@ -284,11 +288,11 @@ var TreeGameLayer = TestLayer.extend({
 
     _correctAction: function() {
         var self = this;
+        var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + this._totalJump + ".mp3");
 
-        AudioManager.getInstance().play(res.Succeed_sfx, false, function() {
-            var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + self._totalJump + ".mp3");
-            AudioManager.getInstance().play(path, false, null);
-        });
+        AudioManager.getInstance().play(res.Succeed_sfx, false, null);
+        AudioManager.getInstance().play(path, false, null);
+
         this.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._adiDog.adiJump();

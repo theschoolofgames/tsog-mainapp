@@ -145,70 +145,45 @@
   },
   "2": {
     "1": {
-      "name": "listening",
-      "data": [
-        "J",
-        "K",
-        "L",
-        "M",
-        "j",
-        "k",
-        "l",
-        "m"
-      ],
-      "duration": 120
-    },
-    "2": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "3": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "5": {
-      "name": "speaking",
-      "data": [],
-      "duration": 240
-    }
-  },
-  "2": {
-    "1": {
       "name": "card",
       "data": [
-        "egg",
-        "hat",
-        "jar",
-        "key",
-        "map",
-        "pen",
-        "rat",
-        "book",
-        "desk",
-        "flag",
-        "gift",
-        "kite",
-        "lamp",
-        "nail",
-        "nest",
-        "salt",
-        "vest",
-        "xmas",
-        "sock",
-        "apple",
-        "chair",
-        "grape",
-        "joker",
-        "lemon",
-        "onion",
-        "queen"
+        {
+          "cardData": [
+            "egg",
+            "hat",
+            "jar",
+            "key",
+            "map",
+            "pen",
+            "rat",
+            "book",
+            "desk",
+            "flag",
+            "gift",
+            "kite",
+            "lamp",
+            "nail",
+            "nest",
+            "salt",
+            "vest",
+            "xmas",
+            "sock",
+            "apple",
+            "chair",
+            "grape",
+            "joker",
+            "lemon",
+            "onion",
+            "queen"
+          ],
+          "dataForTest": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ]
+        }
       ],
       "duration": 240
     },

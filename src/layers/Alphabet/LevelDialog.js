@@ -164,6 +164,7 @@ var LevelDialog = Dialog.extend({
     },
 
     _gameSelectorPressed: function(b) {
+        AudioManager.getInstance().play(res.ui_click_mp3_1, false, null);
         var durationsArray = [];
         cc.log(JSON.stringify(durationsArray));
         var stepData = b.getUserData();

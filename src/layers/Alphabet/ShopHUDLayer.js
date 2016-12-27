@@ -39,7 +39,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
 
     addCurrency: function(){
         var bgGold = new cc.Sprite("#whitespace.png");
-        bgGold.x = cc.winSize.width/3;
+        bgGold.x = cc.winSize.width/2 - bgGold.width/2 - 100;
         bgGold.y = cc.winSize.height - bgGold.height/2 - 10;
         this.addChild(bgGold);
 
@@ -56,7 +56,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         coin.addChild(this._lbCoin);
 
         var bgDiamond = new cc.Sprite("#whitespace.png");
-        bgDiamond.x = bgGold.x + bgDiamond.width + HUD_SPACE;
+        bgDiamond.x = cc.winSize.width/2 + bgDiamond.width/2 + 100;
         bgDiamond.y = cc.winSize.height - bgDiamond.height/2 - 10;
         this.addChild(bgDiamond);
 

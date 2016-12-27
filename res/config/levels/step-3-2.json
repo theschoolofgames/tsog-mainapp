@@ -50,43 +50,39 @@
     "1": {
       "name": "card",
       "data": [
-        "towel",
-        "watch",
-        "abacus",
-        "banana",
-        "duster",
-        "eraser",
-        "insect",
-        "orange",
-        "pencils",
-        "potato",
-        "tomato",
-        "umbrella",
-        "uniform",
-        "vegetable",
-        "feather",
-        "vehicle",
-        "medicine",
-        "watermelon",
-        "strawberry",
-        "xylophone"
+        {
+          "cardData": [
+            "towel",
+            "watch",
+            "abacus",
+            "banana",
+            "duster",
+            "eraser",
+            "insect",
+            "orange",
+            "pencils",
+            "potato",
+            "tomato",
+            "umbrella",
+            "uniform",
+            "vegetable",
+            "feather",
+            "vehicle",
+            "medicine",
+            "watermelon",
+            "strawberry",
+            "xylophone"
+          ],
+          "dataForTest": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ]
+        }
       ],
       "duration": 120
-    },
-    "2": {
-      "name": "listening",
-      "data": [],
-      "duration": 120
-    },
-    "2": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "2": {
-      "name": "writing",
-      "data": [],
-      "duration": 240
     },
     "2": {
       "name": "writing",

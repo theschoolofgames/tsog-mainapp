@@ -22,11 +22,14 @@ var ListeningTestLayer = TestLayer.extend({
     ctor: function(data, duration) {
         this._super();
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
+        if(this.getCardGameData())
+            data = this.getCardGameData();
         this._fetchObjectData(data);
         this._duration = duration;
         this._addedObject = [];
 
         this._objCenter = cc.p(cc.winSize.width * 0.65, cc.winSize.height/2);
+        cc.log("Cardgamelistening: " + JSON.stringify(this.getCardGameData()));
 
         this._addAdiDog();
         cc.eventManager.addListener({
@@ -42,8 +45,16 @@ var ListeningTestLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
+        var self = this;
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-
+        this._event_time_up = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                jsb.AudioEngine.stop(self._soundEffect);
+            }
+        });
+        cc.eventManager.addListener(this._event_time_up, 1);
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
@@ -143,7 +154,10 @@ var ListeningTestLayer = TestLayer.extend({
         var shownObjNames = [];
 
         var remainingObj = this._names.slice(0);
-        // cc.log("remainingObj: " + remainingObj);
+        var d = this.getStoryTimeForListeningData();
+        cc.log("D ->>>>" + JSON.stringify(d));
+        cc.log("this._currentKeyIndex: " + this._currentKeyIndex);
+        cc.log("remainingObj: " + remainingObj);
         var currentKeyNames;
         if (this._keyObject.length > 0) {
             currentKeyNames = this._keyObject[this._currentKeyIndex]
@@ -151,14 +165,19 @@ var ListeningTestLayer = TestLayer.extend({
             currentKeyNames = this._names[this._nameIdx];
 
         shownObjNames.push(currentKeyNames);
-            
-        remainingObj.splice(this._nameIdx, 1);
-        remainingObj = shuffle(remainingObj);
+        if(d) {
+            shownObjNames = d.data[this._currentKeyIndex];
+            cc.log("chay vao D");
+            // remainingObj.slice(0, this._currentKeyIndex * 3);
+        };
+        if(!d)
+            remainingObj.splice(this._nameIdx, 1);
+        // remainingObj = shuffle(remainingObj);
         
         cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;
         if (this._keyObject.length > 0) {
-            for (var i = 1; i < remainingObj.length; i++) {
+            for (var i = 0; i < remainingObj.length; i++) {
                 if (shownObjNames.length >= 3) {
                     break;
                 }
@@ -200,9 +219,8 @@ var ListeningTestLayer = TestLayer.extend({
         }
         cc.log("shownObjNames: " + JSON.stringify(shownObjNames));
         shownObjNames = shuffle(shownObjNames);
-        var d = this.getStoryTimeForListeningData();
-        if (d)
-            shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
+        // if (d)
+        //     shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
 
         // cc.log("shownObjNames: " + shownObjNames);
         // cc.log("d: " + d);
@@ -222,8 +240,10 @@ var ListeningTestLayer = TestLayer.extend({
                     var number = parseInt(shownObjNames[i]);
                     // cc.log("number: " + number);
                     if (isNaN(number)) {
-                        if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase())
+                        if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase()) {
+                            cc.log("shownObjNames[i]: " + shownObjNames[i]);
                             spritePath = "#" + shownObjNames[i].toUpperCase() + "_lowercase" + ".png";
+                        }
                         else
                             spritePath = "#" + shownObjNames[i].toUpperCase() + ".png";
                     } else
@@ -303,6 +323,7 @@ var ListeningTestLayer = TestLayer.extend({
             text = text.substr(text.indexOf("_") + 1, text.length-1);
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
+        cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
@@ -332,6 +353,8 @@ var ListeningTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
             this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
         }
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
+            this._objSoundPath = "";
 
         // cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
@@ -343,7 +366,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playObjSound: function() {
         var self = this;
-
+        cc.log("this._objSoundPath: " + this._objSoundPath);
         if (self._objSoundIsPlaying)
             return;
 
@@ -358,8 +381,8 @@ var ListeningTestLayer = TestLayer.extend({
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         if (self._objSoundPath) {
-            var audioId = jsb.AudioEngine.play2d(self._objSoundPath);
-            jsb.AudioEngine.setFinishCallback(audioId, function(audioId, audioPath) {
+            this._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
+            jsb.AudioEngine.setFinishCallback(this._soundEffect, function(audioId, audioPath) {
                 if (!self._adiDog)
                     return;
 
@@ -503,6 +526,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
+        cc.log("data: " + (data));
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -536,8 +560,9 @@ var ListeningTestLayer = TestLayer.extend({
 
     onExit: function () {
         this._super();
-
         this.removeStoryTimeForListeningData();
+        cc.eventManager.removeListener(this._event_time_up);
+        this.removeCardGameData();
     },
     
 });

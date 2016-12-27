@@ -40,6 +40,8 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log("data: " + JSON.stringify(data));
         // cc.log("oldSceneName: " + oldSceneName);
         cc.log("WritingTestLayer ctor");
+        // if(this.getCardGameData())
+        //     data = this.getCardGameData();
         this._fetchObjectData(data);
         this._duration = timeForScene;
         // this._names = data.map(function(obj) {
@@ -54,7 +56,7 @@ var WritingTestLayer = TestLayer.extend({
         // cc.log(JSON.stringify(this._names));
         // this._oldSceneName = oldSceneName;
         this._nameIdx = this._charIdx = this._pathIdx = 0;
-
+        cc.log("CardgameWriting: " + JSON.stringify(this.getCardGameData()));
         
         // this._writingWords = this._names.map(function(obj) {
         //     cc.log(obj);
@@ -91,17 +93,32 @@ var WritingTestLayer = TestLayer.extend({
         var self = this;
         this._blockTouch = true;
         this._adiDog.adiTalk();
-
         this.playBackGroundMusic();
-        var beginSoundPath = "res/sounds/sentences/" + localize("begin-writing") + ".mp3";
-        this._super(beginSoundPath, function() {
+        var count = KVDatabase.getInstance().getInt("timesPlaySound",0);
+        if(count >= 3)
+            count = 0;
+        
+        if(count == 0) {
+            var beginSoundPath = "res/sounds/sentences/" + localize("begin-writing") + ".mp3";
+            this._super(beginSoundPath, function() {
+                self._blockTouch = false;
+                if (!self._adiDog)
+                    return;
+
+                self._adiDog.adiIdling();
+                self._moveToNextCharacter();
+            });
+        }
+        else {
             self._blockTouch = false;
             if (!self._adiDog)
                 return;
 
             self._adiDog.adiIdling();
             self._moveToNextCharacter();
-        });
+        };
+        count = count + 1;
+        KVDatabase.getInstance().set("timesPlaySound",count)
     },
 
     onTouchBegan: function(touch, event) {

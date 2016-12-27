@@ -6,7 +6,7 @@
         "heathy": 7,
         "unlocked": true,
         "animationFrameCount": 4,
-        "posY" : -300
+        "posY" : -150
     },
     {
         "name": "monkey",

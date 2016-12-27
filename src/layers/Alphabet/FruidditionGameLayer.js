@@ -12,7 +12,7 @@ var FRUIDDITION_UNCOMPLETED_TAG = 0;
 var FRUIDDITION_COMPLETED_TAG = 1;
 var MOVING_OBJECT_ZORDER = 10;
 var STAND_OBJECT_ZORDER = 2;
-var FRUIDDITION_HOLDER_WIDTH = 300;
+var FRUIDDITION_HOLDER_WIDTH = 250;
 var FRUIDDITION_HOLDER_HEIGHT = 150;
 var FruidditionGameLayer = TestLayer.extend({
     _type: null,
@@ -24,14 +24,14 @@ var FruidditionGameLayer = TestLayer.extend({
     _operations: [],
     _dropSpots: [],
     _completedObjectsCount: 0,
-
+    _standObject:[],
     _dropSpotScale: 1,
 
     _draggingNode: null,
     _currentObjectMoving: null,
     _oldPosition: null,
     _oldScale: 1,
-
+    audioEffect: null,
     _blockTouch: false,
     _operationSoundReadyToPlay: false,
     _operationSoundPath: null,
@@ -71,7 +71,7 @@ var FruidditionGameLayer = TestLayer.extend({
         var firstObj = new cc.Node();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
         firstObj.x = 0;
-        firstObj.y = cc.winSize.height/2;
+        firstObj.y = cc.winSize.height/2 + 40;
         this.addChild(firstObj);
         this._objects.push(firstObj);
 
@@ -84,19 +84,19 @@ var FruidditionGameLayer = TestLayer.extend({
         var secondObj = new cc.Node();
         secondObj.width = 250;
         secondObj.x = cc.winSize.width/2 - secondObj.width/2;
-        secondObj.y = cc.winSize.height/2;
+        secondObj.y = cc.winSize.height/2 + 40;
         this.addChild(secondObj);
         this._objects.push(secondObj);
 
         var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
-        secondOperation.x = cc.winSize.width/4 *3 - secondOperation.width/2;
+        secondOperation.x = cc.winSize.width/4 *3 - secondOperation.width/2 - 20;
         secondOperation.y = cc.winSize.height/2;
         this.addChild(secondOperation);
 
         var thirdObj = new cc.Node();
         thirdObj.width = FRUIDDITION_HOLDER_WIDTH;
-        thirdObj.x = secondOperation.x + secondOperation.width/2;
-        thirdObj.y = cc.winSize.height/2;
+        thirdObj.x = secondOperation.x + secondOperation.width/2 + 10;
+        thirdObj.y = cc.winSize.height/2 + 40;
         this.addChild(thirdObj);
         this._objects.push(thirdObj);
 
@@ -110,9 +110,10 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _showNextOperation: function() {
+        // if(this.audioEffect)
+        //     jsb.AudioEngine.stop(this.audioEffect);
         // clear previous session
         this._cleanPreviousSession();
-
         this._currentObject = this._type;
         if (cc.isArray(this._type)) {
             this._currentObject = this._type[Math.floor(Math.random() * this._type.length)];
@@ -126,20 +127,24 @@ var FruidditionGameLayer = TestLayer.extend({
                 continue;
 
             var d = this._data[key];
+            cc.log("d ->>>>" + JSON.stringify(d));
+            cc.log("this._currentOperationId ->>>> " +this._currentOperationId);
             var objCount = d[this._currentOperationId];
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
+
+            cc.log("objCount: " + objCount);
             var heightIdx = -1;
             for (var i = 0; i < objCount; i++) {
                 if (i%3 == 0)
                     heightIdx++;
                 
                 var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
-                o.scale = 0.5;
-                o.x = o.width/2 + o.width * (i%3) * o.scale;
-                o.y = -(o.height + 10) * heightIdx * o.scale;
-                this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
-
+                o.scale = 0.4;
+                o.x = this._objects[idx].x + o.width/2 * o.scale + o.width * (i%3) * o.scale;
+                o.y = this._objects[idx].y - (o.height + 10) * heightIdx * o.scale;
+                this.addChild(o, STAND_OBJECT_ZORDER);
+                // this._objects[idx].addChild(o, STAND_OBJECT_ZORDER);
                 if (key.indexOf("third") > -1) {
                     var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
                     var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
@@ -149,12 +154,15 @@ var FruidditionGameLayer = TestLayer.extend({
 
                     this._dropSpots.push(o);
                 }
+                else
+                    this._standObject.push(o);
                 this._dropSpotScale = o.scale;
             }
             idx++;
         }
 
         var firstOperation = this._data["firstOperation"][this._currentOperationId];
+        cc.log("firstOperation: " + firstOperation);
         var string = "-";
         if (firstOperation.indexOf("plus") > -1)
             string = "+";
@@ -172,19 +180,19 @@ var FruidditionGameLayer = TestLayer.extend({
         if (!isNaN(goal))
             goal = parseInt(goal);
         for (var i = 0; i < goal; i++) {
-            var o = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
-            if ((cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) >= (o.width*goal))
-                o.scale = 1;
+            var obj = new cc.Sprite("res/SD/objects/"+ this._currentObject + ".png");
+            if ((cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) >= (obj.width*goal))
+                obj.scale = 1;
             else
-                o.scale = (cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) / (o.width*goal);
-            cc.log("goal scale" + o.scale);
-            o.x = o.width/2 + i*(o.width + 5) * o.scale;
-            o.y = o.height/2;
-            o.tag = FRUIDDITION_UNCOMPLETED_TAG;
-            o.setUserData(i);
-            this.addChild(o);
-            this._draggingObjects.push(o);
-            this._playDraggingObjectIdleAction(o);
+                obj.scale = (cc.winSize.width - FRUIDDITION_HOLDER_WIDTH) / (obj.width*goal);
+            cc.log("goal scale" + obj.scale);
+            obj.x = obj.width/2 + i*(obj.width + 5) * obj.scale;
+            obj.y = obj.height/2;
+            obj.tag = FRUIDDITION_UNCOMPLETED_TAG;
+            obj.setUserData(i);
+            this.addChild(obj);
+            this._draggingObjects.push(obj);
+            this._playDraggingObjectIdleAction(obj);
         }
 
         var completedOperationId = this._currentOperationId;
@@ -197,25 +205,31 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _playOperationSound: function(completedObjectsCount, callback) {
+        // jsb.AudioEngine.stopAll();
         cc.log("completedObjectsCount: " + completedObjectsCount);
-        var countAudioId = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
+        this.audioEffect = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(completedObjectsCount) + ".mp3");
         var self = this;
-        jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
-            jsb.AudioEngine.stopAll();
-            var audio = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
-            jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
+        jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
+            // jsb.AudioEngine.stopAll();
+            this.audioEffect = jsb.AudioEngine.play2d("res/sounds/words/" + localize(self._currentObject) + ".mp3");
+            jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
+                self._blockTouch = false;
                 if (!self._operationSoundReadyToPlay)
                     return;
                 if (!self._operationSoundExist) {
                     self._blockTouch = false;
                     self._showNextOperation();
                 }
-                var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
-                jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
-                    jsb.AudioEngine.stopAll();
-                    self._blockTouch = false;
-                    self._showNextOperation();
-                })
+                else {
+                    if(self.audioEffect)
+                        jsb.AudioEngine.stop(self.audioEffect);
+                    this.audioEffect = jsb.AudioEngine.play2d(self._operationSoundPath);
+                    jsb.AudioEngine.setFinishCallback(this.audioEffect, function(audioId, audioPath) {
+                        // jsb.AudioEngine.stopAll();
+                        self._blockTouch = false;
+                        self._showNextOperation();
+                    });
+                };
             });
         });
     },
@@ -246,6 +260,8 @@ var FruidditionGameLayer = TestLayer.extend({
     _onTouchBegan: function(touch, event){
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
+        if(self.audioEffect)
+            jsb.AudioEngine.stop(self.audioEffect);
         // cc.log("self._draggingObjects.length: " + self._draggingObjects.length);
         // cc.log("self._currentObjectMoving: " + self._currentObjectMoving);
         // cc.log("self._blockTouch: " + self._blockTouch);
@@ -292,9 +308,9 @@ var FruidditionGameLayer = TestLayer.extend({
             var spotWorldPos = dropSpot.convertToWorldSpace(dropSpot.getPosition());
             var objectPos = self._currentObjectMoving.getPosition();
 
-            if (cc.pDistance(spotWorldPos, objectPos) < 100) {
+            if (cc.pDistance(dropSpot.getPosition(), objectPos) < 100) {
                 var parent = dropSpot.parent;
-                spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
+                // spotWorldPos = cc.p(spotWorldPos.x - dropSpot.width/2*dropSpot.scale * i, spotWorldPos.y + dropSpot.height/2*dropSpot.scale);
                 self._handleSuccessfulAction(i, parent);
                 return;
             }
@@ -307,7 +323,6 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _handleSuccessfulAction: function(index, parent) {
-        cc.log("_handleSuccessfulAction");
         this._blockTouch = true;
         var scale = this._dropSpots[index].scale;
         var position = this._dropSpots[index].getPosition();
@@ -362,7 +377,10 @@ var FruidditionGameLayer = TestLayer.extend({
         this._objects.forEach(obj => obj.removeAllChildren());
         this._operations.forEach(obj => obj.removeAllChildren());
         this._dropSpots.forEach(obj => obj.removeAllChildren());
-
+        this._draggingObjects.forEach(obj => obj.removeFromParent());
+        this._standObject.forEach(obj => obj.removeFromParent());
+        
+        this._standObject = [];
         this._draggingObjects = [];
         this._dropSpots = [];
         this._operationSoundPath = null;
@@ -396,14 +414,12 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _reorderArray: function(array) {
-        cc.log("_reorderArray" + array);
         for (var i = 0; i < array.length;i++) {
             array[i].tag = i;
         }
     },
 
     updateProgressBar: function() {
-        cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._currentOperationId / this._data["first"].length;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._currentOperationId);

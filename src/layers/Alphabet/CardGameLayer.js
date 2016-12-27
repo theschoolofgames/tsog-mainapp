@@ -48,9 +48,21 @@ var CardGameLayer = TestLayer.extend({
         this.timePlayed = 0;
         this._activateObjects = [];
         this._deactivateObjects = [];
-        this.amountObjectCanShow = MAX_SLOT_ALLOWED >= objArr.length ? objArr.length : MAX_SLOT_ALLOWED;
-        this._fetchObjectData(objArr);
+        cc.log("objArr: " + JSON.stringify(objArr[0].cardData));
+        var data = objArr[0].cardData;
+        this.amountObjectCanShow = MAX_SLOT_ALLOWED >= data.length ? data.length : MAX_SLOT_ALLOWED;
+        this._fetchObjectData(data);
 
+        var dataForTest = objArr[0].dataForTest.map(function(id) {
+            cc.log("id -> " + id);
+            var o = GameObject.getInstance().findById(id);
+            if (o[0])
+                return o[0];
+            else
+                return id;
+        });
+        this.setData(JSON.stringify(dataForTest));
+        // this.setCardGameData(dataForTest);
         this._timeForScene = timeForScene;
         this._loadTmx();
         this._addCard();
@@ -271,7 +283,7 @@ var CardGameLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.setData(JSON.stringify(this._data));
+        // this.setData(JSON.stringify(this._data));
         // cc.log("data after map: " + JSON.stringify(this._data));
     },
 

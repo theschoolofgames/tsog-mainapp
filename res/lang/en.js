@@ -27,6 +27,7 @@ languages["en"] = {
     "x" : "en/X",
     "y" : "en/Y",
     "z" : "en/Z",
+    "ball":"en/ball",
     "beige": "en/beige",
     "black": "en/black",
     "blue": "en/blue",
@@ -192,6 +193,8 @@ languages["en"] = {
     "xylophone-1": "en/xylophone-1",
     "xylophone": "en/xylophone",
     "zebra": "en/zebra",
+    "adi": "adi",
+    "monkey": "monkey",
 
     "1": "en/1",
     "2": "en/2",

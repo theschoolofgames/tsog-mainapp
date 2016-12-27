@@ -1,7 +1,7 @@
 var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     _type: null,
     _objects: [],
-
+    _rdmIndex: null,
     _operations: [],
 
     ctor: function(data, duration) {
@@ -21,7 +21,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         // 1st row
         this._objects = [];
         this._operations = [];
-
+        this._rdmIndex = null;
         var firstObj = new cc.Layer();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
         firstObj.height = 100;
@@ -51,17 +51,23 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         
         for (var i = 0; i < this._objects.length; i++) {
             var objCount;
-            if (i == 0)
+            if (i == 0) {
+                cc.log("_nameIdx if ->>> " + this._nameIdx);
                 objCount = this._data["first"][this._nameIdx];
-            else
+            }
+            else {
+                cc.log("_nameIdx else ->>> " + this._nameIdx);
                 objCount = this._data["second"][this._nameIdx];
+            }
             cc.log("objCount " + objCount);
+            cc.log("this._rdmIndex: " + this._rdmIndex);
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
             else {
-                var rdmIndex = Math.floor(Math.random() * objCount.length)
-                objCount = objCount[rdmIndex];
-            }
+                if(this._rdmIndex == null) 
+                    this._rdmIndex = Math.floor(Math.random() * objCount.length);
+                objCount = objCount[this._rdmIndex];
+            };
             var heightIdx = -1;
             var labelAdded = false;
             for (var k = 0; k < objCount; k++) {

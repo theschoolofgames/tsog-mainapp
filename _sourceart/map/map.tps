@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.2</string>
+        <string>4.0.1</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/map/map.tps</string>
+        <string>/Users/vutran/Documents/works/tsog-main-app/_sourceart/map/map.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

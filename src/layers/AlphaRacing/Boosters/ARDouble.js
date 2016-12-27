@@ -20,7 +20,8 @@ var ARDouble = ARBooster.extend({
     didStart: function() {
         // cc.log("ARDouble: didStart");
         
-        this.visible = false;
+        // this.visible = false;
+        this.y = -100;
         this._player.setBoostFlag(ARDouble.getBoostFlag());
 
         this.runAction(cc.sequence(

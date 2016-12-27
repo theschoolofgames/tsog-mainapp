@@ -1,0 +1,111 @@
+
+character.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 97, 44
+  size: 82, 85
+  orig: 82, 85
+  offset: 0, 0
+  index: -1
+day co 1
+  rotate: true
+  xy: 184, 44
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+day co 2
+  rotate: false
+  xy: 2, 11
+  size: 81, 32
+  orig: 81, 32
+  offset: 0, 0
+  index: -1
+ear_L
+  rotate: true
+  xy: 282, 96
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+ear_R
+  rotate: false
+  xy: 356, 98
+  size: 32, 28
+  orig: 32, 28
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: false
+  xy: 216, 98
+  size: 64, 28
+  orig: 64, 28
+  offset: 0, 0
+  index: -1
+hand_R
+  rotate: false
+  xy: 184, 61
+  size: 30, 65
+  orig: 30, 65
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 2, 45
+  size: 93, 81
+  orig: 93, 81
+  offset: 0, 0
+  index: -1
+leg_L
+  rotate: false
+  xy: 216, 60
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+leg_R
+  rotate: false
+  xy: 319, 91
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+long may
+  rotate: false
+  xy: 390, 117
+  size: 41, 9
+  orig: 41, 9
+  offset: 0, 0
+  index: -1
+ma phai
+  rotate: true
+  xy: 85, 2
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+ma trai
+  rotate: true
+  xy: 257, 65
+  size: 31, 20
+  orig: 31, 20
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 123, 6
+  size: 44, 36
+  orig: 44, 36
+  offset: 0, 0
+  index: -1
+noise
+  rotate: false
+  xy: 169, 28
+  size: 15, 14
+  orig: 15, 14
+  offset: 0, 0
+  index: -1

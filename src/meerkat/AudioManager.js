@@ -38,7 +38,6 @@ var AudioManager = cc.Class.extend({
     },
 
     play: function(path, loop, callback) {
-        this.stopAll();
         var audio = jsb.AudioEngine.play2d(path, loop);
         cc.log("audio -> %f", audio);
         if (cc.isFunction(callback)){

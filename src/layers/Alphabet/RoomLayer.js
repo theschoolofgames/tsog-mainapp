@@ -138,7 +138,6 @@ var RoomLayer = cc.Layer.extend({
         // hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
         this._hudLayer = hudLayer;
-
         this._hudLayer.setTotalGoals(this._data.length);
     },
 
@@ -696,7 +695,7 @@ var RoomLayer = cc.Layer.extend({
             jsb.AudioEngine.stop(this._effectAudioID);
 
         this._effectAudioID = AudioManager.getInstance().play("res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3", isDragging);
-
+        cc.log("Sound Path: " + "res/sounds/words/" + localize(objectName) + soundSuffix + ".mp3");
         if (!isDragging)
         {
             self._blockAllObjects = true;
@@ -864,7 +863,7 @@ var RoomLayer = cc.Layer.extend({
 
     _processObjectData: function(bedroomObjects) {
         var self = this;
-        // cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
+        cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
         this._data.forEach(function(obj) {
             // cc.log("processGameLogic: obj: " + obj.value);
             for(var i = 0; i < BEDROOM_ITEMS.length; i++) {
