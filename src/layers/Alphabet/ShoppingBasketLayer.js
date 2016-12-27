@@ -129,7 +129,9 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         ShoppingBasketLayer._data = data;
-        if (data)
+        this.setData(data);
+        if (data) {
+            data = data[0].dataShopping;
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
                 // cc.log("o" + JSON.stringify(o));
@@ -142,11 +144,11 @@ var ShoppingBasketLayer = TestLayer.extend({
                     return id;
                 }
             });
+        }
         else
             this._data = [];
 
         this.NUMBER_OBJECTS_SHOPPING = this._data.length;
-        this.setData(JSON.stringify(this._data));
         // cc.log("data after map: " + JSON.stringify(this._data));
     },
 

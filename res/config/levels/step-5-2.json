@@ -30,51 +30,91 @@
     "1": {
       "name": "shoppingbasket",
       "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30",
-        "book",
-        "flag",
-        "owl",
-        "gift",
-        "bird",
-        "kite",
-        "apple",
-        "lamp",
-        "nail",
-        "dog",
-        "fish",
-        "salt",
-        "sock",
-        "banana",
-        "grape"
+        {
+          "dataShopping": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10",
+            "number_11",
+            "number_12",
+            "number_13",
+            "number_14",
+            "number_15",
+            "number_16",
+            "number_17",
+            "number_18",
+            "number_19",
+            "number_20",
+            "number_21",
+            "number_22",
+            "number_23",
+            "number_24",
+            "number_25",
+            "number_26",
+            "number_27",
+            "number_28",
+            "number_29",
+            "number_30",
+            "book",
+            "flag",
+            "owl",
+            "gift",
+            "bird",
+            "kite",
+            "apple",
+            "lamp",
+            "nail",
+            "dog",
+            "fish",
+            "salt",
+            "sock",
+            "banana",
+            "grape"
+          ],
+          "dataListening": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "dataSpeaking": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "dataWriting": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ]
+        }
       ],
       "duration": 120
     },
@@ -110,39 +150,59 @@
       "data": {
         "type": "block",
         "data": [
-              {
-                "first": [
-                  ["number_2"],
-                  ["number_3", "number_4"],
-                  ["number_4", "number_5"],
-                  ["number_5"]
-                ],
-                "second": [
-                  ["number_1"],
-                  ["number_1", "number_2"],
-                  ["number_1", "number_2"],
-                  ["number_1"]
-                ],
-                "third": [
-                  "number_1",
-                  "number_2",
-                  "number_3",
-                  "number_4"
-                ],
-                "firstOperation": [
-                  "sub",
-                  "sub",
-                  "sub",
-                  "sub"
-                ],
-                "secondOperation": [
-                  "equal",
-                  "equal",
-                  "equal",
-                  "equal"
-                ]
-              }
+          {
+            "first": [
+              [
+                "number_2"
+              ],
+              [
+                "number_3",
+                "number_4"
+              ],
+              [
+                "number_4",
+                "number_5"
+              ],
+              [
+                "number_5"
+              ]
+            ],
+            "second": [
+              [
+                "number_1"
+              ],
+              [
+                "number_1",
+                "number_2"
+              ],
+              [
+                "number_1",
+                "number_2"
+              ],
+              [
+                "number_1"
+              ]
+            ],
+            "third": [
+              "number_1",
+              "number_2",
+              "number_3",
+              "number_4"
+            ],
+            "firstOperation": [
+              "sub",
+              "sub",
+              "sub",
+              "sub"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
             ]
+          }
+        ]
       },
       "duration": 180
     },
