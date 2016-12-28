@@ -88,6 +88,11 @@ var ListeningTestLayer = TestLayer.extend({
         if (this._blockTouch)
             return false;
 
+        if (this._ended) {
+            cc.log("ended");
+            return false;
+        }
+
         var self = this;
         var touchedPos = touch.getLocation();
 
