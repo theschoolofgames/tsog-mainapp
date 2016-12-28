@@ -7,8 +7,6 @@ var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
 
-    _changeLanguageButton: null,
-
     _didCutScenePlayed: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
@@ -20,10 +18,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
-        this.addHomeDoor();
-        
-        this.addChooseLanguageButton();
-        
+        this.addHomeDoor();        
         
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
@@ -66,7 +61,6 @@ var HomeScreenLayer = cc.Layer.extend({
             cc.delayTime(2.2),
             cc.callFunc(function() {
                 l.removeFromParent();
-                this._changeLanguageButton.setTouchEnabled(true);
             }.bind(this))
         ));
     },
@@ -204,30 +198,6 @@ var HomeScreenLayer = cc.Layer.extend({
         character.x = door.x;
         character.y = door.y;
         this.addChild(character, HOME_DOOR_Z_ORDER+2);
-    },
-
-    addChooseLanguageButton: function() {
-        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.setTouchEnabled(!this._didCutScenePlayed);
-        button.x = cc.winSize.width - button.width/2 - 10;
-        button.y = button.height/2 + 10;
-        this.addChild(button, HOME_DOOR_Z_ORDER+1);
-
-        var self = this;
-        button.addClickEventListener(function() {
-            self.addChild(new ChooseLanguageLayer(function() {
-                // cc.log("chooselanguage callback");
-                cc.director.replaceScene(new HomeScene())}));
-        });
-        
-        var text = localizeForWriting("choose language");
-        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
-        lb.scale = (button.width * 0.9) / lb.width;
-        lb.x = button.width/2;
-        lb.y = button.height/2 + 3;
-        button.getVirtualRenderer().addChild(lb);
-
-        this._changeLanguageButton = button;
     },
 
     _onDoorPressed: function(door) {
