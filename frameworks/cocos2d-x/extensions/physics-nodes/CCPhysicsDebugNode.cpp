@@ -101,7 +101,7 @@ static void DrawShape(cpShape *shape, DrawNode *renderer)
         {
             cpSegmentShape *seg = (cpSegmentShape *)shape;
             renderer->drawSegment(cpVert2Point(seg->ta), cpVert2Point(seg->tb), cpfmax(seg->r, 2.0), color);
-        }
+        } 
             break;
         case CP_POLY_SHAPE:
         {

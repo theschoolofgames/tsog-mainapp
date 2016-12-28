@@ -8,9 +8,15 @@
     "renderMode" : 0,
     "engineDir":"frameworks/cocos2d-html5",
 
-    "modules" : ["cocos2d", "extensions", "external"],
+    "modules" : ["cocos2d", "extensions", "chipmunk"],
 
     "jsList" : [
+        "src/libs/state-machine.min.js",
+        "src/libs/hull.js",
+        "src/libs/decomp.min.js",
+
+        "src/extensions/ArrayExtension.js",
+
         "src/resource.js",
         "src/Constants.js",
         "src/JSExtension.js",
@@ -103,21 +109,20 @@
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARHudLayer.js",
-        "src/layers/AlphaRacing/Boosters/ARBooster.js",
-        "src/layers/AlphaRacing/Boosters/ARInvisible.js",
-        "src/layers/AlphaRacing/Boosters/ARMagnet.js",
-        "src/layers/AlphaRacing/Boosters/ARDouble.js",
-        "src/layers/AlphaRacing/ARPlayer.js",
         "src/layers/AlphaRacing/AREffectLayer.js",
-        "src/layers/AlphaRacing/Players/ARAdiDog.js",
-        "src/layers/AlphaRacing/Players/ARMonkey.js",
+        "src/layers/AlphaRacing/Workers/ARBoosterWorker.js",
+        "src/layers/AlphaRacing/Workers/ARDistanceCountingWorker.js",
+        "src/layers/AlphaRacing/Workers/ARObstacleWorker.js",
+        "src/layers/AlphaRacing/Workers/ARAlphabetWorker.js",
         "src/layers/AlphaRacing/Obstacles/ARObstacle.js",
         "src/layers/AlphaRacing/Obstacles/ARBeeHive.js",
-        "src/layers/AlphaRacing/Obstacles/ARStone.js",
         "src/layers/AlphaRacing/Obstacles/ARFire.js",
-        "src/layers/AlphaRacing/Workers/ARBoosterWorker.js",
-        "src/layers/AlphaRacing/Workers/ARObstacleWorker.js",
-        "src/layers/AlphaRacing/Workers/ARDistanceCountingWorker.js",
+        "src/layers/AlphaRacing/Obstacles/ARStone.js",
+        "src/layers/AlphaRacing/Boosters/ARBooster.js",
+        "src/layers/AlphaRacing/Boosters/ARDouble.js",
+        "src/layers/AlphaRacing/Boosters/ARInvisible.js",
+        "src/layers/AlphaRacing/Boosters/ARMagnet.js",
+        "src/layers/AlphaRacing/ARPlayer.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

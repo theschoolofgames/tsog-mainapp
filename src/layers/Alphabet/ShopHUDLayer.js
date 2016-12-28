@@ -50,10 +50,10 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         this.addChild(coin, 999);
         var coinAmount = CurrencyManager.getInstance().getCoin();
         this._lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
-        this._lbCoin.anchorX = 0;
-        this._lbCoin.x = coin.width/2 + 50;
-        this._lbCoin.y = coin.height/2;
-        coin.addChild(this._lbCoin);
+        // this._lbCoin.anchorX = 0;
+        this._lbCoin.x = bgGold.width/2 + 5;
+        this._lbCoin.y = bgGold.height/2;
+        bgGold.addChild(this._lbCoin);
 
         var bgDiamond = new cc.Sprite("#whitespace.png");
         bgDiamond.x = cc.winSize.width/2 + bgDiamond.width/2 + 100;
@@ -67,10 +67,10 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         this.addChild(diamond, 999);
         var diamondAmount = CurrencyManager.getInstance().getDiamond();
         this._lbDiamond = new cc.LabelBMFont(diamondAmount.toString(), res.HudFont_fnt);
-        this._lbDiamond.anchorX = 0;
-        this._lbDiamond.x = diamond.width/2 + 50;
-        this._lbDiamond.y = diamond.height/2;
-        diamond.addChild(this._lbDiamond);
+        // this._lbDiamond.anchorX = 0;
+        this._lbDiamond.x = bgDiamond.width/2 + 5;
+        this._lbDiamond.y = bgDiamond.height/2;
+        bgDiamond.addChild(this._lbDiamond);
     },
 
     updateBalance: function() {

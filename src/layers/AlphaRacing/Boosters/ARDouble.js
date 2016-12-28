@@ -18,9 +18,10 @@ var ARDouble = ARBooster.extend({
     },
 
     didStart: function() {
-        cc.log("ARDouble: didStart");
+        // cc.log("ARDouble: didStart");
         
-        this.visible = false;
+        // this.visible = false;
+        this.y = -100;
         this._player.setBoostFlag(ARDouble.getBoostFlag());
 
         this.runAction(cc.sequence(
@@ -36,7 +37,7 @@ var ARDouble = ARBooster.extend({
     },
 
     didEnded: function() {
-        cc.log("ARDouble: didEnded");
+        // cc.log("ARDouble: didEnded");
 
         this._player.unsetBoostFlag(ARDouble.getBoostFlag());
     },

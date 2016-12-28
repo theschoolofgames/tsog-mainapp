@@ -737,8 +737,9 @@ var WritingTestLayer = TestLayer.extend({
             });
         else
             this._data = [];
-
-        this.setData(this._data);
+        if(!dataForWriting[0].dataWriting)
+            dataForWriting  = this._data;
+        this.setData(dataForWriting);
         this._writingWords = this._names;
         this._writingWords = this._writingWords.map(function(obj) {
             return localizeForWriting(obj);  

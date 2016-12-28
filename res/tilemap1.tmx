@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="260" height="13" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="alpha_racing" tilewidth="64" tileheight="64" tilecount="72" columns="8">
+  <image source="./SD/alpha-racing-lands01.png" width="512" height="576"/>
+ </tileset>
+ <tileset firstgid="73" name="alpha_racing2" tilewidth="64" tileheight="64" tilecount="84" columns="14">
+  <image source="./SD/alpha-racing-lands.png" width="896" height="384"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="260" height="13">
+  <data encoding="base64" compression="zlib">
+   eJztmUEOwjAMBHvnyuf4SyXyBa68FlXigKKYknobL86OtJdKtrdu4ga6LGJG1mgDQggaNA+E4OBaaXTNjbPmwej7YuNmSIgWxVCGukfzZzqrFENCWGRa/wjUjzlAnB0vb3lA5PBQ33/v+o/wP7Ie+zxYP8TAP+6Hh6F/ozTkje/NcQSrLrL2Xm7rPeDxdSSml7rGLxJzwPJOEIKR2f43PmMe9PbQc1bNOM9Gfr9AfCNA/97w5vnmpRAL4bUFIofXV2ZZRPuyvEV7Qnv0xD6JVbNdu3eqBSKHJ192MfeJ1RfSoyc2es9rHuQTc59YfSE9emKj93zPPIh6/ntErx82MfeJ1RfSoyf2BfBb/Zk=
+  </data>
+ </layer>
+</map>

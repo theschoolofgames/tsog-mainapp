@@ -5,16 +5,16 @@ var ARStone = ARObstacle.extend({
     },
 
     willStart: function() {
-        cc.log("ARStone: willStart");
+        // cc.log("ARStone: willStart");
     },
 
     didStart: function() {
-        cc.log("ARStone: didStart");
+        // cc.log("ARStone: didStart");
     },
 
 
     willEnd: function() {
-        this._player.reduceHP();
+        this._player.die();
     },
 
     didEnded: function() {

@@ -1,209 +1,161 @@
-var ARPlayer = cc.Layer.extend({
+var ARPlayer = cc.PhysicsSprite.extend({
 
-	_velocity: cc.p(0,0),
-	_onGround: false,
-	_onRightCollision: false,
-	_gravity: cc.p(0.0, -650.0),
-	_collisionBoundingBox: null,
-	_desiredPosition: cc.p(100,400),
-	_forwardMarch: false,
-	_mightAsWellJump: false,
-	_adiDog: null,
-	spriteSheet:null,
-	runningAction:null,
-	sprite:null,
-	runAnimationFrames: [],
-	isRunningAnim: false,
+    _space: null,
+    _body: null,
 
-	_hp: 1,
+    _mass: 10,
+
+    _desiredVel: 200,
+    _desiredPosition: cc.p(100, 400),
     _velocityFactor: 1,
+
     _boostState: ARBooster.State.NONE,
 
-    _gravityMult: 0,
+    ctor: function(space) {
+        cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
 
-	ctor: function () {
-		this._super();
-		this.setScale(0.2);
-        this.setPosition(cc.p(200,450));
-        this.setDesiredPosition(cc.p(200,450));
-        this.setContentSize(cc.size(65, 120));
-		this._collisionBoundingBox = cc.rect(0, 0, this.getContentSize().width, this.getContentSize().height);
+        this._super("#adi_run1.png");
+        this.scale = 0.2;
 
-        this._velocityFactor = 1;
-	},
+        this._space = space;
 
-	onEnter: function() {
-        this._super();        
-        this.configAnimation();
+        cc.log("ARPlayer: width: " + this.width * this.scaleX);
+        cc.log("ARPlayer: height: " + this.height * this.scaleY);
+
+        var body = space.addBody(new cp.Body(this._mass, Infinity));
+        body.setPos(cc.p(50, cc.winSize.height * 0.8));
+        this._body = body;
+
+        var shape = space.addShape(new cp.BoxShape(body, this.width * this.scaleX, this.height * this.scaleY));
+        shape.setFriction(0);
+        shape.setElasticity(0);
+        shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_DYNAMIC);
+
+        this.setBody(body);
+
+        StateMachine.create({
+            target: this,
+            events: [
+                { name: 'run',      from: ['none', 'running', 'jumping'],           to: 'running' },
+                { name: 'jump',     from: ['jumping', 'running'],                   to: 'jumping' },
+                { name: 'die',      from: ['running', 'jumping'],                   to: 'died' },
+            ]
+        });
+
+        var name = CharacterManager.getInstance().getSelectedCharacter();
+        if(name) {
+            this._characterName = name
+        };
+
+        var cfg = CharacterManager.getInstance().getCharacterConfig(name);
+        if (cfg) {
+            this.animationFrameCount = cfg.animationFrameCount;
+            this._hp = cfg.heathy;
+        }
+
+        this.runAnimationFrames = [];
+        for (var i = 1; i <= this.animationFrameCount; i++) {
+            var str = this._characterName + "_run" + i + ".png";
+            // cc.log("frame name: " + str);
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            // cc.log("get sprite frame name: " + frame);
+            this.runAnimationFrames.push(frame);
+        }
+
+        this.run();
+
+        // this.schedule(this.increasePlayerSpeed.bind(this), 30, cc.REPEAT_FOREVER);
     },
 
-    onExit: function() {
-    	this._super();
-        this.unscheduleUpdate();
+    updatePlayerSpeed: function() {
+        if (this._desiredVel < 400)
+            this._desiredVel = 200 + 20 * this._velocityFactor; 
     },
 
-    getHP: function() {
-        return this._hp;
-    },
+    update: function(dt) {
 
-    reduceHP: function() {
-        this._hp -= 1;
+        if (this.current != "died") {
+            this.updatePlayerSpeed();
+            var vel = this.getBody().getVel();
+            var velChange = this._desiredVel - vel.x;
+            var impulse = velChange * this.getBody().m;
 
-        if (this._hp <= 0) {
-            // cc.log("Die");
-            this.die();
+            if (this.current == "running") {
+                this.getBody().applyImpulse(cc.p(impulse, 0), cc.p());
+            } else if (this.current == "jumping") {
+                this.getBody().applyForce(cc.p(impulse, 0), cc.p());
+            }
+
+            if (this.y < 10) {
+                this.die();
+            }
         }
     },
 
-    die: function() {
-    	var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
-    	cc.eventManager.dispatchEvent(event);
-    	// this.rotation = -90;
-        var characterName = CharacterManager.getInstance().getSelectedCharacter();
-        var dieFrame = new cc.Sprite("#" + characterName + "_die.png");
-        dieFrame.scale = 0.2;
-        dieFrame.x = this.getPosition().x - 30;
-        dieFrame.y = this.getPosition().y;
-        this.sprite.removeFromParent();
-        this.parent.addChild(dieFrame,1000);
-        dieFrame.runAction(cc.sequence(
+    getBody: function() {
+        return this._body;
+    },
+
+    getVelocity: function() {
+        return this.getBody().getVel();
+    },
+
+    isJumping: function() {
+        return this.current == "jumping";
+    },
+
+    setVelocityFactor: function(factor) {
+        this._velocityFactor = factor;
+    },
+
+    // StateMachine Callbacks
+    onrun: function(event, from, to, msg) {
+        this.stopAllActions();
+        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        this.runAction(this.runningAction);
+        cc.log("onrun " + event + " " + from + " " + to + " " + msg);
+    },
+
+    onjump: function(event, from, to, msg) {
+
+        this.stopAllActions();
+        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        
+        cc.log("onjump " + event + " " + from + " " + to + " " + msg);
+    },
+
+    ondie: function(event, from, to, msg) {
+        cc.log("ondie " + event + " " + from + " " + to + " " + msg);
+
+        this.stopAllActions();
+        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_die.png"));
+        this.runAction(cc.sequence(
             cc.delayTime(0.5),
             cc.moveBy(0.1, cc.p(0,-15)),
             cc.moveBy(0.4,cc.p(0, 200)).easing(cc.easeCircleActionOut()),
             cc.moveBy(0.5, cc.p(0, -600))
         ));
-
     },
-	
- 	updatea: function(dt) { 	
-	 	let jumpForce = cc.p(0.0, 800.0);
-	    let jumpCutoff = 450.0;
-	    
-	    if (this._mightAsWellJump && this._onGround) {
-	        this._velocity = cc.pAdd(this._velocity, jumpForce);
-	        // Sound jump
-	        // console.log("Going to Jump");
-	        this.jumpAnimation();
-	    } 
-	    else if (!this._mightAsWellJump && this._velocity.y > jumpCutoff) {
-	        this._velocity = cc.p(this._velocity.x, jumpCutoff);
-	        // console.log("Going to Jump 1");
-	        // this.jumpAnimation();
-	    }
-	    
-	    let forwardMove = cc.p(1200.0, 0.0);
-	    let forwardStep = cc.p(0,0);
-	    if (!this._onRightCollision)
-	    	forwardStep = cc.pMult(forwardMove, dt);
-	    
-	    this._velocity = cc.p(this._velocity.x * 0.90, this._velocity.y);
-	    
-        this._velocity = cc.pAdd(this._velocity, forwardStep);
-	    
-        // let minMovement = cc.p(0.0, -450.0);
-        // let maxMovement = cc.p(220.0, 550.0);
-	    let minMovement = cc.p(20.0, -450.0);
-	    let maxMovement = cc.p(220.0, 850.0);
 
-	    let gravityStep = cc.p(0,0);
-        this._gravityMult += 0.2*dt;
-        // cc.log("gravityStep: " + JSON.stringify(this._gravity));
-        if (!this._onGround)
-            gravityStep = cc.pMult(this._gravity, this._gravityMult);
-        else
-            this._gravityMult = 0;
-        // cc.log("gravityStep: " + JSON.stringify(gravityStep));
-        // cc.log("this._gravityMult: " + JSON.stringify(this._gravityMult));
-	    this._velocity = cc.pClamp(this._velocity, minMovement, maxMovement);
-    
-	    this._velocity = cc.pAdd(this._velocity, gravityStep);
-	    
-	    let velocityStep = cc.pMult(this._velocity, dt);
-	    // velocityStep = cc.p(velocityStep.x, velocityStep.y)
-
- 		let position = cc.p(this.getPosition().x, this.getPosition().y);
- 		this._desiredPosition = cc.pAdd(position, velocityStep);
- 	},
-
- 	configAnimation: function() {
-
- 	},
-
- 	jumpAnimation: function() {
-
- 	},
-
- 	runAnimation: function() {
-
- 	},
-
- 	setGravity: function(gravity) {
- 		this._gravity = gravity;
- 	},
-
- 	getCollisionBoundingBox: function() {
- 		let boundingBox = this.getContentSize();
- 		
- 		let boundingBoxRect = cc.rect(
- 			this.getPosition().x - boundingBox.width / 2, 
- 			this.getPosition().y - boundingBox.height / 2, 	
- 			boundingBox.width, 
- 			boundingBox.height);
- 		return boundingBoxRect;
- 	},
-
- 	onGround: function() {
- 		return this._onGround;
- 	},
-
- 	setOnGround: function(onGround) {
- 		this._onGround = onGround;
- 	},
-
- 	onRightCollision: function() {
- 		return this._onRightCollision;
- 	},
-
- 	setOnRightCollision: function(onRightCollision) {
- 		this._onRightCollision = onRightCollision;
- 	},
-
- 	getVelocity: function() {
- 		return this._velocity;
- 	},
-
- 	setVelocity: function(velocity) {
- 		this._velocity = velocity;
- 	},
-
- 	getDesiredPosition: function(){
- 		return this._desiredPosition;
- 	},
-
- 	setDesiredPosition: function(desiredPosition) {
- 		// cc.log("setDesiredPosition: %d, %d", desiredPosition.x, desiredPosition.y);
- 		this._desiredPosition = desiredPosition;
- 	},
-
- 	getForwardMarch: function(){
- 		return this._forwardMarch;
- 	},
-
- 	setForwardMarch: function(forwardMarch) {
- 		this._forwardMarch = forwardMarch;
- 	},
-
- 	getMightJump: function(){
- 		return this._mightAsWellJump;
- 	},
-
- 	setMightJump: function(mightAsWellJump) {
- 		this._mightAsWellJump = mightAsWellJump;
- 	},
-
-    setVelocityFactor: function(factor) {
-        this._velocityFactor = factor;
+    onrunning: function(event, from, to) {
+        cc.log("onrunning " + event + " " + from + " " + to);
     },
+
+    onjumping: function(event, from, to) {
+        if (from != "jumping")
+            this.getBody().applyImpulse(cc.p(0, 8000), cc.p());
+
+        cc.log("onjumping " + event + " " + from + " " + to);
+    },
+
+    ondied: function(event, from, to) {
+        cc.log("ondied " + event + " " + from + " " + to);
+
+        var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
+        cc.eventManager.dispatchEvent(event);
+    },
+
 
     // BOOSTER STATE
     // Follow up this one: http://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/

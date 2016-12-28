@@ -21,11 +21,11 @@ var ARFire = ARObstacle.extend({
     },
 
     willEnd: function() {
-        this._player.reduceHP();
+        this._player.die();
     },
 
     didEnded: function() {
-        cc.log("ARFire: didEnded");
+        // cc.log("ARFire: didEnded");
     },
 
     setState: function(state) {
@@ -66,7 +66,7 @@ var ARFire = ARObstacle.extend({
     fixUpdate: function() {
         // cc.log((this._player.getColli sionBoundingBox().x + this.timeForWarning * this._player.getVelocity().x) + " " + this.x)
         if ( this._state == "none" &&
-             (this._player.getDesiredPosition().x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
+             (this._player.x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
             this.setState("preparing");
             this.prepare();
         } else if (this._state == "showUp") {

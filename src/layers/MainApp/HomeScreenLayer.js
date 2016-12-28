@@ -7,8 +7,6 @@ var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
 
-    _changeLanguageButton: null,
-
     _didCutScenePlayed: false,
     ctor: function () {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
@@ -20,10 +18,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
-        this.addHomeDoor();
-        
-        this.addChooseLanguageButton();
-        
+        this.addHomeDoor();        
         
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
@@ -53,20 +48,19 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(l);
 
         var door = this.getChildByName("home");
-        this.runDoorCutSceneAction(door, 0);
+        this.runDoorCutSceneAction(door, 1);
 
         door = this.getChildByName("play");
-        this.runDoorCutSceneAction(door, 0.5);
+        this.runDoorCutSceneAction(door, 0);
 
         door = this.getChildByName("learn");
-        this.runDoorCutSceneAction(door, 1);
+        this.runDoorCutSceneAction(door, 0.5);
     
 
         this.runAction(cc.sequence(
             cc.delayTime(2.2),
             cc.callFunc(function() {
                 l.removeFromParent();
-                this._changeLanguageButton.setTouchEnabled(true);
             }.bind(this))
         ));
     },
@@ -102,9 +96,10 @@ var HomeScreenLayer = cc.Layer.extend({
         var door = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "play";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        // door.anchorX = 1;
+        
+        door.anchorX = 1;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2;
+        door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -138,9 +133,10 @@ var HomeScreenLayer = cc.Layer.extend({
         var door  = new ccui.Button("learn_door.png","learn_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "learn";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        door.anchorX = 0;
+        
+         // door.anchorX = 1;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
+        door.x = cc.winSize.width/2;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -177,9 +173,9 @@ var HomeScreenLayer = cc.Layer.extend({
         var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "home";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        door.anchorX = 1;
+        door.anchorX = 0;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
+        door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -198,33 +194,10 @@ var HomeScreenLayer = cc.Layer.extend({
 
         var character = new AdiDogNode(true);
         character.scale  = 0.5;
-        character.x = door.x - door.width * this._scale;
+        character.anchorX = 0;
+        character.x = door.x;
         character.y = door.y;
         this.addChild(character, HOME_DOOR_Z_ORDER+2);
-    },
-
-    addChooseLanguageButton: function() {
-        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        button.setTouchEnabled(!this._didCutScenePlayed);
-        button.x = cc.winSize.width - button.width/2 - 10;
-        button.y = button.height/2 + 10;
-        this.addChild(button, HOME_DOOR_Z_ORDER+1);
-
-        var self = this;
-        button.addClickEventListener(function() {
-            self.addChild(new ChooseLanguageLayer(function() {
-                // cc.log("chooselanguage callback");
-                cc.director.replaceScene(new HomeScene())}));
-        });
-        
-        var text = localizeForWriting("choose language");
-        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
-        lb.scale = (button.width * 0.9) / lb.width;
-        lb.x = button.width/2;
-        lb.y = button.height/2 + 3;
-        button.getVirtualRenderer().addChild(lb);
-
-        this._changeLanguageButton = button;
     },
 
     _onDoorPressed: function(door) {

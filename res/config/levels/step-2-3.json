@@ -85,21 +85,40 @@
     "1": {
       "name": "shoppingbasket",
       "data": [
-        "book",
-        "flag",
-        "owl",
-        "gift",
-        "bird",
-        "kite",
-        "apple",
-        "lamp",
-        "nail",
-        "dog",
-        "fish",
-        "salt",
-        "sock",
-        "banana",
-        "grape"
+        {
+          "dataShopping": [
+            "book",
+            "flag",
+            "owl",
+            "gift",
+            "bird",
+            "kite",
+            "apple",
+            "lamp",
+            "nail",
+            "dog",
+            "fish",
+            "salt",
+            "sock",
+            "banana",
+            "grape"
+          ],
+          "dataListening": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ],
+          "dataWriting": [
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ]
+        }
       ],
       "duration": 120
     },

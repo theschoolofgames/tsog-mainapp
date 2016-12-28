@@ -16,10 +16,11 @@ var ARInvisible = ARBooster.extend({
     },
 
     didStart: function() {
-        cc.log("ARInvisible: didStart");
-        this.visible = false;
+        // cc.log("ARInvisible: didStart");
+        // this.visible = false;
+        this.y = -100;
         this._player.setBoostFlag(ARInvisible.getBoostFlag());
-        this._player.sprite.opacity = 128;
+        this._player.opacity = 128;
 
         let sequence = [];
         sequence.push(cc.delayTime(this.effectiveTime/3 * 2));
@@ -33,7 +34,7 @@ var ARInvisible = ARBooster.extend({
         let action = cc.sequence(sequence);
         action.tag = this.getBoostFlag();
 
-        this._player.sprite.runAction(action);
+        this._player.runAction(action);
 
         this.runAction(cc.sequence(
             cc.delayTime(this.effectiveTime),
@@ -48,10 +49,10 @@ var ARInvisible = ARBooster.extend({
     },
 
     didEnded: function() {
-        cc.log("ARInvisible: didEnded");
+        // cc.log("ARInvisible: didEnded");
 
-        this._player.sprite.opacity = 255;
-        this._player.sprite.stopActionByTag(this.getBoostFlag());
+        this._player.opacity = 255;
+        this._player.stopActionByTag(this.getBoostFlag());
 
         this._player.unsetBoostFlag(ARInvisible.getBoostFlag());
     },

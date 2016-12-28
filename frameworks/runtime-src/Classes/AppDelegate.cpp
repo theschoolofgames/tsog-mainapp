@@ -109,7 +109,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(register_all_cocos2dx_extension_manual);
 
     // chipmunk can be commented out to reduce the package
-//    sc->addRegisterCallback(jsb_register_chipmunk);
+    sc->addRegisterCallback(jsb_register_chipmunk);
     // opengl can be commented out to reduce the package
     sc->addRegisterCallback(JSB_register_opengl);
     

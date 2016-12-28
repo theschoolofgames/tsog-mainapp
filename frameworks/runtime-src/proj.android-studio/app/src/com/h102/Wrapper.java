@@ -299,7 +299,9 @@ public class Wrapper
         try {
             String fullPermissionString = Wrapper.getFullPermissionString(permission);
 
-            return ContextCompat.checkSelfPermission(activity, fullPermissionString) == PackageManager.PERMISSION_GRANTED;
+            boolean bool = ContextCompat.checkSelfPermission(activity, fullPermissionString) == PackageManager.PERMISSION_GRANTED;
+
+            return bool;
 
         } catch (Exception e) {
             e.printStackTrace();

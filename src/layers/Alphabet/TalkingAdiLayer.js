@@ -30,6 +30,31 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         NativeHelper.callNative("changeAudioRoute");
         this.addChild(new ShopHUDLayer());
         this.addButtonAnimation();
+
+        this.addChooseLanguageButton();
+    },
+
+    addChooseLanguageButton: function() {
+        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = button.width/2 + 20;
+        button.y = button.height/2 + 10;
+        this.addChild(button, 99);
+
+        var self = this;
+        button.addClickEventListener(function() {
+            self.addChild(new ChooseLanguageLayer(function() {
+                // cc.log("chooselanguage callback");
+                cc.director.replaceScene(new HomeScene())}));
+        });
+        
+        var text = localizeForWriting("choose language");
+        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        lb.scale = (button.width * 0.9) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.getVirtualRenderer().addChild(lb);
+
+        // this._changeLanguageButton = button;
     },
 
     onEnterTransitionDidFinish: function() {

@@ -19,6 +19,8 @@ var TestLayer = cc.LayerColor.extend({
     _callingQuickTest: false,
     _soundEffect: null,
 
+    _ended: false,
+
     ctor: function(removeHud) {
         this._super(cc.color(255, 255, 255, 255));
         this._names = [];
@@ -207,6 +209,7 @@ var TestLayer = cc.LayerColor.extend({
     },
     
     doCompletedScene: function(){
+        this._ended = true;
         // if(!this._canVoildCompletedScene)
         //     return;
         // cc.log("_canVoildCompletedScene: "  + this._canVoildCompletedScene);

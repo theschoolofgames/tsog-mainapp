@@ -52,7 +52,7 @@ var ARBooster = cc.Sprite.extend({
     },
 
     update: function(dt) {
-        if (cc.rectIntersectsRect(this._player.getCollisionBoundingBox(), this.getBoundingBox())) {
+        if (cc.rectIntersectsRect(this._player.getBoundingBox(), this.getBoundingBox())) {
             this.onCollide();
         }
     },

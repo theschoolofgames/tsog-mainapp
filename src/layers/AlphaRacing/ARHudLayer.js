@@ -5,11 +5,13 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _lbHp: null,
 
     _player: null,
+    _gamePLayLayer: null,
     _hearts: [],
 
-    ctor: function(layer, player) {
+    ctor: function(layer) {
         this._showClock = false;
-        this._player = player;
+        // this._player = player;
+        this._gamePLayLayer = layer;
 
         this._super(layer, null, "diamond", true);
         this._hearts = [];
@@ -17,7 +19,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this._addDistanceLabel();
         // this._addHPLabel();
         this.addGameProgressBar();
-        this.schedule(this.updateHP, 0.5);
+        // this.schedule(this.updateHP, 0.5);
         this._whiteBg.visible = false;
     },
 
@@ -77,5 +79,5 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
     updatePositonHud: function() {
         this._whiteBg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
-    }
+    },
 });

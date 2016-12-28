@@ -27,6 +27,7 @@ var FormTheTrainLayer = TestLayer.extend({
         this._super();
         cc.log("FormTheTrainLayer");
         this._fetchObjectData(objArr);
+        FormTheTrainLayer.NUMBER_OF_BOX = this._data.length;
         this._setIsTestScene(isTestScene);
         this._addTrainSlots();
         this._addTrainObjects();
@@ -51,13 +52,14 @@ var FormTheTrainLayer = TestLayer.extend({
         this._deactivateSlots = [];
 
         var lastBoxXPos = 10;
+        var lastBoxYPos = cc.winSize.height/2;
         for (var i = 0; i < FormTheTrainLayer.NUMBER_OF_BOX; i++) {
             var name = (i==0) ? "head" : "box";
             var s = new cc.Sprite("#train_slot_" + name + ".png");
             s.setAnchorPoint(0.5, 0);
             s.scale = this._slotScale;
             s.x = lastBoxXPos + s.width/2;
-            s.y = cc.winSize.height/2;
+            s.y = lastBoxYPos;
             s.tag = i;
             this.addChild(s);
             this._activateSlots.push(s);
@@ -70,8 +72,11 @@ var FormTheTrainLayer = TestLayer.extend({
             lb.x = textPosX;
             lb.y = textPosY;
             s.addChild(lb);
-
             lastBoxXPos = s.x + s.width/2 + 10;
+            if(lastBoxXPos + s.width > cc.winSize.width) {
+                lastBoxXPos = 10;
+                lastBoxYPos = cc.winSize.height/2 - s.height - 10;
+            }
         }
     },
 
@@ -80,13 +85,14 @@ var FormTheTrainLayer = TestLayer.extend({
         this._deactivateObjects = [];
         this._objectsPosition = [];
         var lastBoxXPos = 10;
+        var lastBoxYPos = 200;
         for (var i = 0; i < FormTheTrainLayer.NUMBER_OF_BOX; i++) {
             var name = (i==0) ? "head" : "box";
             var s = new cc.Sprite("#train_" + name + ".png");
             // s.setAnchorPoint(0.5, 0);
             s.scale = this._objectScale;
             s.x = lastBoxXPos + s.width/2;
-            s.y = s.height;
+            s.y = lastBoxYPos;
             s.tag = i;
             s.setUserData(""+i);
             this.addChild(s);
@@ -103,13 +109,19 @@ var FormTheTrainLayer = TestLayer.extend({
             
             this._objectsPosition.push(s.getPosition());
             lastBoxXPos = s.x + s.width/2 + 10;
+            if(i == 5){
+                lastBoxXPos = 10;
+                lastBoxYPos = 100;
+            };
         }
 
         this._randomTrainObjectPos();
     },
 
     _randomTrainObjectPos: function() {
-        var arrPos = [0, 1, 2, 3, 4, 5];
+        var arrPos = [];
+        for(var i = 0; i < this._data.length; i ++)
+            arrPos.push(i);
         var self = this;
         this._activateObjects.forEach(function(obj) {
             var rdmPosIndex = Math.floor(Math.random() * arrPos.length);
@@ -336,7 +348,7 @@ var FormTheTrainLayer = TestLayer.extend({
     },
 });
 
-FormTheTrainLayer.NUMBER_OF_BOX = 6;
+FormTheTrainLayer.NUMBER_OF_BOX = 0;
 
 var FormTheTrainScene = cc.Scene.extend({
     ctor:function (isTestScene, timeForScene){

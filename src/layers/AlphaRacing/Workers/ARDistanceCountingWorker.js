@@ -18,7 +18,7 @@ var ARDistanceCountingWorker = cc.Class.extend({
 
         var factor = Math.floor(this._distance / 50)/10 + 1;
         // cc.log("factor: " + factor);
-        this._player.setVelocityFactor(factor);
+        // this._player.setVelocityFactor(factor);
     },
 
     end: function() {

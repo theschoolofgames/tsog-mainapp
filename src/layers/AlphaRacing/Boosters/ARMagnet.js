@@ -15,8 +15,9 @@ var ARMagnet = ARBooster.extend({
     },
 
     didStart: function() {
-        cc.log("ARMagnet: didStart");
-        this.visible = false;
+        // cc.log("ARMagnet: didStart");
+        // this.visible = false;
+        this.y = -100;
         this._player.setBoostFlag(ARMagnet.getBoostFlag());
 
         this.runAction(cc.sequence(
@@ -32,7 +33,7 @@ var ARMagnet = ARBooster.extend({
     },
 
     didEnded: function() {
-        cc.log("ARMagnet: didEnded");
+        // cc.log("ARMagnet: didEnded");
         this._player.unsetBoostFlag(ARMagnet.getBoostFlag());
     },
 

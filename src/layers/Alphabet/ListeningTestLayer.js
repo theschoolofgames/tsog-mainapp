@@ -21,9 +21,13 @@ var ListeningTestLayer = TestLayer.extend({
 
     ctor: function(data, duration) {
         this._super();
+        cc.log("data : " + data);
+        cc.log("dataListeningth: " + JSON.stringify(data[0].dataListening));
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
-        if(this.getCardGameData())
-            data = this.getCardGameData();
+        // if(this.getCardGameData())
+        //     data = this.getCardGameData();
+        cc.log("data.length :  " + data.length);
+        
         this._fetchObjectData(data);
         this._duration = duration;
         this._addedObject = [];
@@ -42,19 +46,23 @@ var ListeningTestLayer = TestLayer.extend({
         this._super(this._duration);
     },
 
-    onEnterTransitionDidFinish: function() {
+    onEnter: function() {
         this._super();
-        this.playBeginSound();
         var self = this;
-        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        this._event_time_up = cc.EventListener.create({
+        this._eventTimeUp = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
             callback: function(event){
                 jsb.AudioEngine.stop(self._soundEffect);
             }
         });
-        cc.eventManager.addListener(this._event_time_up, 1);
+        cc.eventManager.addListener(this._eventTimeUp, 1);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this.playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
@@ -79,6 +87,11 @@ var ListeningTestLayer = TestLayer.extend({
     onTouchBegan: function(touch, event) {
         if (this._blockTouch)
             return false;
+
+        if (this._ended) {
+            cc.log("ended");
+            return false;
+        }
 
         var self = this;
         var touchedPos = touch.getLocation();
@@ -524,7 +537,22 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data: " + (data));
+        var dataForWriting = data;
+        if(data[0].dataListening) {
+            data = data[0].dataListening;
+            data = data.map(function(id) {
+                var o = GameObject.getInstance().findById(id);
+                // cc.log("o" + JSON.stringify(o));
+                if (o[0]) {
+                    // cc.log("o[0]: " + JSON.stringify(o[0]));
+                    // cc.log("return o[0]");
+                    return o[0];
+                } else {
+                    // cc.log("return Id");
+                    return id;
+                }
+            });
+        };
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -548,19 +576,21 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this._data = [];
 
+
         // cc.log("listening names after map: " + JSON.stringify(this._names));
+        if(!dataForWriting[0].dataListening)
+            dataForWriting  = this._data;
         if (this._keyObject.length > 0)
             this.setData(JSON.stringify(this._keyObject));
         else
-            this.setData(this._data);
+            this.setData(dataForWriting);
         this._data = data;
-        cc.log("Data using: " + JSON.stringify(this._names));
     },
 
     onExit: function () {
         this._super();
         this.removeStoryTimeForListeningData();
-        cc.eventManager.removeListener(this._event_time_up);
+        cc.eventManager.removeListener(this._eventTimeUp);
         this.removeCardGameData();
     },
     
