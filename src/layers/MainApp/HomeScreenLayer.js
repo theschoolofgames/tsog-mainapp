@@ -53,13 +53,13 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(l);
 
         var door = this.getChildByName("home");
-        this.runDoorCutSceneAction(door, 0);
+        this.runDoorCutSceneAction(door, 1);
 
         door = this.getChildByName("play");
-        this.runDoorCutSceneAction(door, 0.5);
+        this.runDoorCutSceneAction(door, 0);
 
         door = this.getChildByName("learn");
-        this.runDoorCutSceneAction(door, 1);
+        this.runDoorCutSceneAction(door, 0.5);
     
 
         this.runAction(cc.sequence(
@@ -102,9 +102,10 @@ var HomeScreenLayer = cc.Layer.extend({
         var door = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "play";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        // door.anchorX = 1;
+        
+        door.anchorX = 1;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2;
+        door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -138,9 +139,10 @@ var HomeScreenLayer = cc.Layer.extend({
         var door  = new ccui.Button("learn_door.png","learn_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "learn";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        door.anchorX = 0;
+        
+         // door.anchorX = 1;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
+        door.x = cc.winSize.width/2;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -177,9 +179,9 @@ var HomeScreenLayer = cc.Layer.extend({
         var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "home";
         door.setTouchEnabled(!this._didCutScenePlayed);
-        door.anchorX = 1;
+        door.anchorX = 0;
         door.anchorY = 0;
-        door.x = cc.winSize.width/2 - door.width/2 - 40 * this._scale;
+        door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
         door.y = HOME_DOOR_Y;
         door.scale = this._scale;
         this.addChild(door);
@@ -198,7 +200,8 @@ var HomeScreenLayer = cc.Layer.extend({
 
         var character = new AdiDogNode(true);
         character.scale  = 0.5;
-        character.x = door.x - door.width * this._scale;
+        character.anchorX = 0;
+        character.x = door.x;
         character.y = door.y;
         this.addChild(character, HOME_DOOR_Z_ORDER+2);
     },
