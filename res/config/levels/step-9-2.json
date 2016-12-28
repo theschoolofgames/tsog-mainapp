@@ -87,12 +87,24 @@
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5"
+      ],
       "duration": 240
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5"
+      ],
       "duration": 240
     }
   },

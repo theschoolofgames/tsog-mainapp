@@ -241,6 +241,7 @@ var TestLayer = cc.LayerColor.extend({
             var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
             // cc.log("durationArray: " + JSON.stringify(durationArray));
             var sceneData = SceneFlowController.getInstance().getNextSceneData();
+            cc.log("sceneData: " + JSON.stringify(sceneData));
             SceneFlowController.getInstance().moveToNextScene(nextSceneName, sceneData, durationArray[numberScene]);
         } else {
             this.removeCardGameData();
