@@ -245,7 +245,7 @@ var ListeningTestLayer = TestLayer.extend({
                             spritePath = "#" + shownObjNames[i].toUpperCase() + "_lowercase" + ".png";
                         }
                         else
-                            spritePath = "#" + shownObjNames[i].toUpperCase() + ".png";
+                            spritePath = "#" + shownObjNames[i] + ".png";
                     } else
                         isNumber = true;
                 }
@@ -312,6 +312,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _displayCurrentName: function() {
         var self = this;
+        this._objSoundPath = "";
 
         if (this._nameNode)
             this._nameNode.removeFromParent();
@@ -319,8 +320,9 @@ var ListeningTestLayer = TestLayer.extend({
         var text = this._names[this._nameIdx];
         if (this._keyObject.length > 0)
             text = this._keyObject[this._currentKeyIndex];
-        if (text.indexOf("color") > -1) {
+        if (text.indexOf("color") > -1 || text.indexOf("btn") > -1) {
             text = text.substr(text.indexOf("_") + 1, text.length-1);
+            this._objSoundPath = "res/sounds/colors/" + localize(text) + ".mp3";
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
         cc.log("text ->>>" + text);
@@ -343,16 +345,12 @@ var ListeningTestLayer = TestLayer.extend({
         }
             
         objName = localize(objName);
-        this._objSoundPath = "res/sounds/words/" + objName + ".mp3";
-        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
+            this._objSoundPath = "res/sounds/words/" + objName + ".mp3";
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
-        }
-        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/alphabets/" + localize(objName) + ".mp3";
-        }
-        if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
-            this._objSoundPath = "res/sounds/colors/" + objName + ".mp3";
-        }
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "";
 
@@ -539,13 +537,14 @@ var ListeningTestLayer = TestLayer.extend({
         }
 
         // cc.log("_fetchObjectData data: " + data);
-        if (data) {
+        if (data)
             this._names = data.map(function(id) {
-                // cc.log("value: %s", id.value)
-                if (id)
-                    return id.value || id;
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0].value;
+                else
+                    return id;
             });
-        }
         else
             this._data = [];
 
@@ -555,7 +554,7 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this.setData(this._data);
         this._data = data;
-        cc.log("Data: " + JSON.stringify(this._data));
+        cc.log("Data using: " + JSON.stringify(this._names));
     },
 
     onExit: function () {

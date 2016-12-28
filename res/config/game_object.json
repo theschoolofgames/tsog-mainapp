@@ -1127,27 +1127,42 @@
   {
     "id": "color_white",
     "type": "color",
-    "value": "#FFFFFF"
+    "value": "btn_white"
   },
   {
     "id": "color_black",
     "type": "color",
-    "value": "#000000"
+    "value": "btn_black"
   },
   {
     "id": "color_blue",
     "type": "color",
-    "value": "#000000"
+    "value": "btn_blue"
   },
   {
     "id": "color_green",
     "type": "color",
-    "value": "#000000"
+    "value": "btn_green"
   },
   {
     "id": "color_red",
     "type": "color",
-    "value": "#FF0000"
+    "value": "btn_red"
+  },
+  {
+    "id": "color_orange",
+    "type": "color",
+    "value": "btn_orange"
+  },
+  {
+    "id": "color_brown",
+    "type": "color",
+    "value": "btn_brown"
+  },
+  {
+    "id": "color_yellow",
+    "type": "color",
+    "value": "btn_yellow"
   },
   {
     "id": "shape_straight_line",

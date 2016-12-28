@@ -15,12 +15,28 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "bee",
+        "dog",
+        "fox",
+        "box",
+        "pig",
+        "fly",
+        "map"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "bee",
+        "dog",
+        "fox",
+        "box",
+        "pig",
+        "fly",
+        "map"
+      ],
       "duration": 120
     }
   },

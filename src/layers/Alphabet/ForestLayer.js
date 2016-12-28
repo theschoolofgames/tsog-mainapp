@@ -920,7 +920,8 @@ var ForestLayer = cc.Layer.extend({
         var numberScene = KVDatabase.getInstance().getInt("scene_number");
         var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data), durationArray[numberScene]);
+        var nextSceneData = SceneFlowController.getInstance().getNextSceneData();
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, nextSceneData, durationArray[numberScene]);
     },
 
     _fetchObjectData: function(data) {

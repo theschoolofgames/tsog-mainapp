@@ -160,7 +160,7 @@ var MapLayer = cc.Layer.extend({
             lastPartXPos+= mapPardPlus.width;
         };
         var self = this;
-        cc.log("Length ---> " + this._whirlwinds.length);
+        // cc.log("Length ---> " + this._whirlwinds.length);
         this._whirlwinds.forEach(function(object) {
             // var object = this._whirlwinds[i];
             Utils.runAnimation(object, "animation/whirlwind", 0.1, 12, true, 3, cc.callFunc(function(){
@@ -204,7 +204,7 @@ var MapLayer = cc.Layer.extend({
         // var group = tiledMap.getObjectGroup("buttonPart1");
         var self = this;
         tiledMap.getObjectGroups().forEach(function(group) {
-            cc.log("group ->>>>");
+            // cc.log("group ->>>>");
             if (group.getGroupName().startsWith("buttonPart")) {
                 group.getObjects().forEach(function(obj) {
                     self._btnStepCoordinates.push({
@@ -331,7 +331,7 @@ var MapLayer = cc.Layer.extend({
         if (b)
             level = b.getUserData();
 
-        cc.log("level: " + level);
+        // cc.log("level: " + level);
         if (level)
             this.addChild(new LevelDialog(level));
     },
@@ -363,7 +363,7 @@ var MapLayer = cc.Layer.extend({
     },
 
     _getLevelPosXByStep: function(step) {
-        cc.log("_getLevelPosXByStep");
+        // cc.log("_getLevelPosXByStep");
         
     },
 

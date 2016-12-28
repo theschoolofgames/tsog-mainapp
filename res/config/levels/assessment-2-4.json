@@ -15,12 +15,28 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "boy",
+        "bun",
+        "cap",
+        "cup",
+        "can",
+        "dad",
+        "fan"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "boy",
+        "bun",
+        "cap",
+        "cup",
+        "can",
+        "dad",
+        "fan"
+      ],
       "duration": 120
     }
   },

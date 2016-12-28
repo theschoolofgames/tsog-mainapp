@@ -34,12 +34,12 @@ var AudioManager = cc.Class.extend({
             jsb.AudioEngine.preload(path, callback);
         else
             jsb.AudioEngine.preload(path, null);
-        cc.log("preload sound path: %s", path);
+        // cc.log("preload sound path: %s", path);
     },
 
     play: function(path, loop, callback) {
         var audio = jsb.AudioEngine.play2d(path, loop);
-        cc.log("audio -> %f", audio);
+        // cc.log("audio -> %f", audio);
         if (cc.isFunction(callback)){
             if (audio > -1)  
                 jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
@@ -63,7 +63,7 @@ var AudioManager = cc.Class.extend({
             jsb.AudioEngine.uncacheAll();
         else
             jsb.AudioEngine.uncache(path);
-        cc.log("unload sound path: %s", path);
+        // cc.log("unload sound path: %s", path);
     },
 
     playBackGroundMusic: function() {

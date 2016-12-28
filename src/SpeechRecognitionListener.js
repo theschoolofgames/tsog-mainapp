@@ -35,7 +35,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             return obj;
         })
 
-        cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
+        // cc.log("SpeechRecognitionListener:" + JSON.stringify(itemArray));
 
         NativeHelper.callNative("changeSpeechLanguageArray", [currentLanguage, JSON.stringify(itemArray)]);
     },

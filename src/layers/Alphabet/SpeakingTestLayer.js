@@ -427,6 +427,11 @@ var SpeakingTestLayer = TestLayer.extend({
                     objectName = "#btn_" + namePrefix;
                     this._soundName = "res/sounds/colors/" + localize(namePrefix) + ".mp3";
                 }
+
+                if (name.indexOf("shape") > -1) { // TODO SPEAKING TEST FOR SHAPES
+                    // var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
+                    this._soundName = "res/sounds/shapes/" + localize(objectName) + ".mp3";
+                }
             }
         };
         var objectTempName = this._names[this.currentObjectShowUpId];
@@ -474,8 +479,11 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
-                if (id)
-                    return id.value || id;
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0].value;
+                else
+                    return id;
             });
         else
             this._data = [];    

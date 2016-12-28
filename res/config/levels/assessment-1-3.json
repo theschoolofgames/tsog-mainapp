@@ -23,12 +23,20 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "color_red",
+        "color_green",
+        "color_blue"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "color_red",
+        "color_green",
+        "color_blue"
+      ],
       "duration": 60
     }
   },

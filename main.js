@@ -121,7 +121,7 @@ cc.game.onStart = function(){
 
         Global.restoreCachedState();
 
-        input.SingleTouch.setEnable (true);
+        input.SingleTouch.setEnable(true);
 
         // NativeHelper.callNative("startRestClock", [GAME_CONFIG.timeToPauseGame]);
 

@@ -722,20 +722,18 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data WritingTestLayer: " + typeof(data));
         this._data = data;
-        if(typeof(data) != "object")
-            data = JSON.parse(data);
+        // if(typeof(data) != "object")
+        //     data = JSON.parse(data);
         // cc.log(typeof data);
-        cc.log("_fetchObjectData data: " + data);
+        // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
-                if (id) {
-                    if(id.value)
-                        return id.value;
-                    else
-                        return id;
-                };
+                var o = GameObject.getInstance().findById(id);
+                if (o[0])
+                    return o[0].value;
+                else
+                    return id;
             });
         else
             this._data = [];

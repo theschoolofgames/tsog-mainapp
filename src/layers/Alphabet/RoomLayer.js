@@ -838,15 +838,15 @@ var RoomLayer = cc.Layer.extend({
         cc.audioEngine.stopMusic();
         var numberScene = KVDatabase.getInstance().getInt("scene_number");
         var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-        cc.log("numberScene: " + numberScene);
-        cc.log("durationArray: " + JSON.stringify(durationArray));
+
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
-        SceneFlowController.getInstance().moveToNextScene(nextSceneName, JSON.stringify(this._data), durationArray[numberScene]);
+        var nextSceneData = SceneFlowController.getInstance().getNextSceneData();
+        SceneFlowController.getInstance().moveToNextScene(nextSceneName, nextSceneData, durationArray[numberScene]);
     },
 
     _fetchObjectData: function(data) {
         // data = JSON.parse(data);
-        cc.log("_fetchObjectData data: " + data);
+        // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
@@ -858,12 +858,12 @@ var RoomLayer = cc.Layer.extend({
         else
             this._data = [];
 
-        cc.log("data after map: " +JSON.stringify(this._data));
+        // cc.log("data after map: " +JSON.stringify(this._data));
     },
 
     _processObjectData: function(bedroomObjects) {
         var self = this;
-        cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
+        // cc.log("BEDROOM_ITEMS: " + JSON.stringify(BEDROOM_ITEMS));
         this._data.forEach(function(obj) {
             // cc.log("processGameLogic: obj: " + obj.value);
             for(var i = 0; i < BEDROOM_ITEMS.length; i++) {
