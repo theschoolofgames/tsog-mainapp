@@ -86,6 +86,7 @@
             "onion",
             "queen"
           ],
+          "maxcardnumber": 10,
           "dataForTest": [
             "number_1",
             "number_2",
@@ -99,28 +100,28 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": ["number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"],
       "duration": 120
     },
     "3": {
       "name": "writing",
-      "data": [],
-      "duration": 240
+      "data": [], "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
-      "duration": 240
+      "data": [], "duration": 240
     },
     "5": {
       "name": "writing",
-      "data": [],
-      "duration": 240
+      "data": [], "duration": 240
     },
     "6": {
       "name": "speaking",
-      "data": [],
-      "duration": 120
+      "data": [], "duration": 120
     }
   },
   "4": {

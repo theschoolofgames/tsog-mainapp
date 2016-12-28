@@ -50,6 +50,8 @@ var CardGameLayer = TestLayer.extend({
         this._deactivateObjects = [];
         cc.log("objArr: " + JSON.stringify(objArr[0].cardData));
         var data = objArr[0].cardData;
+        MAX_OBJECT_ALLOWED = objArr[0].maxcardnumber;
+        cc.log("MAX_OBJECT_ALLOWED: " + MAX_OBJECT_ALLOWED);
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= data.length ? data.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(data);
 
