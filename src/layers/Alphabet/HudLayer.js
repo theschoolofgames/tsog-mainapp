@@ -172,7 +172,7 @@ var HudLayer = cc.Layer.extend({
 
     addCurrency: function() {
         var bg = new cc.Sprite("#whitespace.png");
-        bg.x = cc.winSize.width - bg.width/2 - 5;
+        bg.x = cc.winSize.width - bg.width/2 - 10;
         bg.y = this._progressBarBg.y;
         this.addChild(bg);
         this._bg = bg;
@@ -191,8 +191,8 @@ var HudLayer = cc.Layer.extend({
             coinAmount = CurrencyManager.getInstance().getDiamond();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
         // lbCoin.scale = 0.4;
-        lbCoin.anchorX = 1;
-        lbCoin.x = -5;
+        // lbCoin.anchorX = 1;
+        lbCoin.x = -50;
         lbCoin.y = coin.height/2 + 2;
         coin.addChild(lbCoin);
 
