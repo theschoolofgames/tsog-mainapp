@@ -48,6 +48,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     onEnter: function() {
         this._super();
+        var self = this;
         this._eventTimeUp = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
@@ -61,7 +62,6 @@ var ListeningTestLayer = TestLayer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
         this.playBeginSound();
-        var self = this;
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this._hudLayer.setTotalGoals(this._names.length);
     },
