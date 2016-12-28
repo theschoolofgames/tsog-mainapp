@@ -46,19 +46,23 @@ var ListeningTestLayer = TestLayer.extend({
         this._super(this._duration);
     },
 
-    onEnterTransitionDidFinish: function() {
+    onEnter: function() {
         this._super();
-        this.playBeginSound();
-        var self = this;
-        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        this._event_time_up = cc.EventListener.create({
+        this._eventTimeUp = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
             callback: function(event){
                 jsb.AudioEngine.stop(self._soundEffect);
             }
         });
-        cc.eventManager.addListener(this._event_time_up, 1);
+        cc.eventManager.addListener(this._eventTimeUp, 1);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        this.playBeginSound();
+        var self = this;
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this._hudLayer.setTotalGoals(this._names.length);
     },
 
@@ -583,7 +587,7 @@ var ListeningTestLayer = TestLayer.extend({
     onExit: function () {
         this._super();
         this.removeStoryTimeForListeningData();
-        cc.eventManager.removeListener(this._event_time_up);
+        cc.eventManager.removeListener(this._eventTimeUp);
         this.removeCardGameData();
     },
     

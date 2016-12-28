@@ -31,8 +31,6 @@ var SpeakingTestLayer = TestLayer.extend({
         }, this);
         this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
-        // cc.log("SpeakingTestLayer");
-        cc.log("CardgameSpeaking: " + JSON.stringify(this.getCardGameData()));
         NativeHelper.callNative("changeAudioRoute");
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
@@ -372,7 +370,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _showObject: function() {
         if (this._currentObjectShowUp) {
-            cc.log("removeFromParent");
+            // cc.log("removeFromParent");
             this._currentObjectShowUp.removeFromParent();
             this._currentObjectShowUp = null;
         };
@@ -386,7 +384,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var d = this.getStoryTimeForSpeakingData();
         if (d) {
             this.storytimeCurrentDataIndex++;
-            cc.log("d SpeakingTestLayer :  " + JSON.stringify(d));
+            // cc.log("d SpeakingTestLayer :  " + JSON.stringify(d));
             objectName = d[this.storytimeCurrentDataIndex];
         }
         this._soundName = "";
@@ -456,7 +454,7 @@ var SpeakingTestLayer = TestLayer.extend({
             self._adiDog.onStartedListening();
         });
         
-        cc.log("currentObjectName: " + objectName);
+        // cc.log("currentObjectName: " + objectName);
         // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
@@ -487,7 +485,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._data = data;
         if(typeof(data) != "object")
             data = JSON.parse(data);
-        cc.log("_fetchObjectData data: " + data);
+        // cc.log("_fetchObjectData data: " + data);
         if (data)
             this._names = data.map(function(id) {
                 if (id)
@@ -498,7 +496,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if(!dataForWriting[0].dataSpeaking)
         dataForWriting  = this._data;   
         this.setData(dataForWriting);
-        cc.log("data after map: " + JSON.stringify(this._names));
+        // cc.log("data after map: " + JSON.stringify(this._names));
     },
 
 
