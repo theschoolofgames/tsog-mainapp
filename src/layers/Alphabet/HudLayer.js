@@ -68,8 +68,10 @@ var HudLayer = cc.Layer.extend({
 
         var self = this;
         settingBtn.addClickEventListener(function() {
-            self._layer.addChild(new SettingDialog(), 99999);
             cc.director.pause();
+            var dialog = new SettingDialog();
+            dialog.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
+            self._layer.addChild(dialog, 99999);
         })
         this._settingBtn = settingBtn;
     },
