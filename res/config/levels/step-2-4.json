@@ -120,12 +120,12 @@
       "name": "writing",
       "data": [
         "A",
-        "B",
-        "C",
-        "D",
         "a",
+        "B",
         "b",
+        "C",
         "c",
+        "D",
         "d"
       ],
       "duration": 300
@@ -134,18 +134,32 @@
       "name": "writing",
       "data": [
         "A",
-        "B",
-        "C",
-        "D",
         "a",
+        "B",
         "b",
+        "C",
         "c",
+        "D",
         "d"
       ],
       "duration": 300
     },
     "5": {
       "name": "writing",
+      "data": [
+        "A",
+        "a",
+        "B",
+        "b",
+        "C",
+        "c",
+        "D",
+        "d"
+      ],
+      "duration": 300
+    },
+    "6": {
+      "name": "speaking",
       "data": [
         "A",
         "B",
@@ -155,17 +169,6 @@
         "b",
         "c",
         "d"
-      ],
-      "duration": 300
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "ant",
-        "cat",
-        "dog",
-        "bee",
-        "cow"
       ],
       "duration": 120
     },
@@ -329,70 +332,70 @@
     "2": {
       "name": "listening",
       "data": [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d"
+        "word_A",
+        "word_a",
+        "word_B",
+        "word_b",
+        "word_C",
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 120
     },
     "3": {
       "name": "writing",
       "data": [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d"
+        "word_A",
+        "word_a",
+        "word_B",
+        "word_b",
+        "word_C",
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 300
     },
     "4": {
       "name": "writing",
       "data": [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d"
+        "word_A",
+        "word_a",
+        "word_B",
+        "word_b",
+        "word_C",
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 120
     },
     "5": {
       "name": "writing",
       "data": [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d"
+        "word_A",
+        "word_a",
+        "word_B",
+        "word_b",
+        "word_C",
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 120
     },
     "6": {
       "name": "speaking",
       "data": [
-        "A",
-        "a",
-        "B",
-        "b",
-        "C",
-        "c",
-        "D",
-        "d"
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
       ],
       "duration": 120
     }

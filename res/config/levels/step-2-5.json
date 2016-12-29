@@ -6,6 +6,7 @@
         "banana",
         "computer",
         "duster",
+        "crayon",
         "apple"
       ],
       "duration": 120
@@ -13,23 +14,29 @@
     "2": {
       "name": "listening",
       "data": [
-        "banana",
-        "computer",
-        "duster",
-        "crayon",
-        "apple"
-      ],
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
+     ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
       "data": [
-        "banana",
-        "computer",
-        "duster",
-        "crayon",
-        "apple"
-      ],
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
+     ],
       "duration": 120
     }
   },
@@ -61,22 +68,28 @@
     "2": {
       "name": "listening",
       "data": [
-        "duck",
-        "bear",
-        "deer",
-        "camel",
-        "cheetah"
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
       ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
       "data": [
-        "duck",
-        "bear",
-        "deer",
-        "camel",
-        "cheetah"
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
       ],
       "duration": 120
     }
@@ -121,7 +134,12 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
       ],
       "duration": 120
     },
@@ -132,7 +150,12 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
       ],
       "duration": 360
     },
@@ -143,7 +166,12 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
       ],
       "duration": 360
     },
@@ -154,7 +182,12 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
       ],
       "duration": 360
     },
@@ -165,7 +198,12 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
       ],
       "duration": 120
     }

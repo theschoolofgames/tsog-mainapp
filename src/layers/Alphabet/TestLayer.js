@@ -68,7 +68,7 @@ var TestLayer = cc.LayerColor.extend({
     playBackGroundMusic: function() {
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();    
-        cc.audioEngine.playMusic(res.level_mp3);
+        cc.audioEngine.playMusic(res.level_mp3, true);
     },
 
     playWinSound: function(callback) {

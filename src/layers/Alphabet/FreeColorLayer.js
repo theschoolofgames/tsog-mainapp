@@ -195,10 +195,10 @@ var FreeColorLayer = TestLayer.extend({
         self = this;
         cc.log("gameObject: " + JSON.stringify(gameObject));
         // object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
-
-        object.scale = (object.width > FREECOLOR_OBJECT_WIDTH) ? FREECOLOR_OBJECT_HEIGHT/object.width : FREECOLOR_OBJECT_HEIGHT/object.height;
+        object.anchorY = 0;
+        object.scale = (object.width > FREECOLOR_OBJECT_WIDTH) ? FREECOLOR_OBJECT_WIDTH/object.width : FREECOLOR_OBJECT_HEIGHT/object.height;
         object.x = object.width * object.scale + index*(object.width + 10 * Utils.getScaleFactorTo16And9()) * object.scale;
-        object.y = 100;
+        object.y = 50;
         object.tag = index;
         object.userData = { scaleFactor: object.scale, imageName: objImageName}
         this.addChild(object, Z_OBJECT);
@@ -418,8 +418,9 @@ var FreeColorLayer = TestLayer.extend({
 
         var imgName = object.getUserData().imageName;
         var sprite = new cc.Sprite(imgName);
-        // sprite.scale = (sprite.width > FREECOLOR_SHADER_WIDTH) ? FREECOLOR_SHADER_HEIGHT/sprite.width : FREECOLOR_SHADER_HEIGHT/sprite.height;
-        sprite.scale = Math.min(FREECOLOR_SHADER_WIDTH/sprite.width, FREECOLOR_SHADER_HEIGHT/sprite.height);
+        var maxHeightAllowed = cc.winSize.height - 100;
+        maxHeightAllowed = (FREECOLOR_SHADER_HEIGHT > maxHeightAllowed) ? maxHeightAllowed : FREECOLOR_SHADER_HEIGHT;
+        sprite.scale = Math.min(FREECOLOR_SHADER_WIDTH/sprite.width, maxHeightAllowed/sprite.height);
         sprite.x = cc.winSize.width/2;
         sprite.y = cc.winSize.height/2;
         this.addChild(sprite);
@@ -427,7 +428,7 @@ var FreeColorLayer = TestLayer.extend({
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.Outline_fsh);
         var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
         shaderState.setUniformFloat("width", FREECOLOR_SHADER_WIDTH * cc.contentScaleFactor());
-        shaderState.setUniformFloat("height", FREECOLOR_SHADER_HEIGHT * cc.contentScaleFactor());
+        shaderState.setUniformFloat("height", maxHeightAllowed * cc.contentScaleFactor());
         sprite.shaderProgram = shader;
 
         this._currentObjectShowing = sprite;
