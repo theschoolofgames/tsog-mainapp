@@ -47,20 +47,6 @@ var TestLayer = cc.LayerColor.extend({
         }
     },
 
-    onEnterTransitionDidFinish: function() {
-        this._super();
-        var self = this;
-        this._event_time_up = cc.EventListener.create({
-            event: cc.EventListener.CUSTOM,
-            eventName: "event_logout",
-            callback: function(event){
-                self.removeCardGameData();
-                // cc.log("_timesUp evnet: " + self._timesUp);
-            }
-        });
-        cc.eventManager.addListener(self._event_time_up, 1);
-    },
-
     playBeginSound: function(path, callback) {
         this._soundEffect = AudioManager.getInstance().play(path, false, callback);
     },
@@ -110,12 +96,23 @@ var TestLayer = cc.LayerColor.extend({
             return;
 
         this._addHudLayer();
+
+        var self = this;
+        this._eventTimeUp = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self.removeCardGameData();
+                // cc.log("_timesUp evnet: " + self._timesUp);
+            }
+        });
+        cc.eventManager.addListener(self._eventTimeUp, 1);
     }, 
 
     onExit: function() {
         this._super();
         this._adiDog = null;
-        cc.eventManager.removeListener(this._event_time_up);
+        cc.eventManager.removeListener(this._eventTimeUp);
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();
     },
