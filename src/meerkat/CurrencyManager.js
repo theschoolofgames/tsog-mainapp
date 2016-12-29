@@ -8,7 +8,7 @@ var CurrencyManager = cc.Class.extend({
     },
 
     getCoin: function() {
-        return KVDatabase.getInstance().getInt(this.KEY_COIN, 200);
+        return KVDatabase.getInstance().getInt(this.KEY_COIN, COIN_START_GAME);
     },
 
     getDiamond: function() {
