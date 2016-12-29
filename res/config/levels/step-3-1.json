@@ -13,12 +13,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "egg",
+        "eraser",
+        "feather",
+        "flag",
+        "gift"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "egg",
+        "eraser",
+        "feather",
+        "flag",
+        "gift"
+      ],
       "duration": 120
     }
   },
@@ -36,12 +48,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox"
+      ],
       "duration": 120
     }
   },
@@ -170,35 +194,71 @@
     "1": {
       "name": "listening",
       "data": [
-        "e",
-        "f",
-        "g",
-        "h",
-        "E",
-        "F",
-        "G",
-        "H"
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
       ],
       "duration": 120
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     }
   }

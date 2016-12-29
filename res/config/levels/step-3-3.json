@@ -13,12 +13,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "egg",
+        "hat",
+        "flag",
+        "gift",
+        "insect"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "egg",
+        "hat",
+        "flag",
+        "gift",
+        "insect"
+      ],
       "duration": 120
     }
   },
@@ -36,12 +48,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "elephant",
+        "eagle",
+        "giraffe",
+        "frog",
+        "goat"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "elephant",
+        "eagle",
+        "giraffe",
+        "frog",
+        "goat"
+      ],
       "duration": 120
     }
   },
@@ -121,6 +145,19 @@
     "2": {
       "name": "listening",
       "data": [
+<<<<<<< HEAD
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+=======
         "number_1",
         "number_2",
         "number_3",
@@ -132,11 +169,25 @@
         "number_9",
         "number_10"
       ],
+>>>>>>> 185184e058e4cbbbe175d45ae5319ac4856a2fe1
       "duration": 120
     },
     "3": {
       "name": "writing",
       "data": [
+<<<<<<< HEAD
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+=======
         "number_1",
         "number_2",
         "number_3",
@@ -148,11 +199,25 @@
         "number_9",
         "number_10"
       ],
+>>>>>>> 185184e058e4cbbbe175d45ae5319ac4856a2fe1
       "duration": 240
     },
     "4": {
       "name": "writing",
       "data": [
+<<<<<<< HEAD
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+=======
         "number_1",
         "number_2",
         "number_3",
@@ -164,11 +229,25 @@
         "number_9",
         "number_10"
       ],
+>>>>>>> 185184e058e4cbbbe175d45ae5319ac4856a2fe1
       "duration": 240
     },
     "5": {
       "name": "writing",
       "data": [
+<<<<<<< HEAD
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+=======
         "number_1",
         "number_2",
         "number_3",
@@ -180,11 +259,25 @@
         "number_9",
         "number_10"
       ],
+>>>>>>> 185184e058e4cbbbe175d45ae5319ac4856a2fe1
       "duration": 240
     },
     "6": {
       "name": "speaking",
       "data": [
+<<<<<<< HEAD
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+=======
         "number_1",
         "number_2",
         "number_3",
@@ -196,6 +289,7 @@
         "number_9",
         "number_10"
       ],
+>>>>>>> 185184e058e4cbbbe175d45ae5319ac4856a2fe1
       "duration": 120
     }
   },

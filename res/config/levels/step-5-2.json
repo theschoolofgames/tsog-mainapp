@@ -17,12 +17,32 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "nest",
+        "owl",
+        "pen",
+        "pan",
+        "pear",
+        "pet",
+        "pie",
+        "pig",
+        "pot"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "nest",
+        "owl",
+        "pen",
+        "pan",
+        "pear",
+        "pet",
+        "pie",
+        "pig",
+        "pot"
+      ],
       "duration": 120
     }
   },

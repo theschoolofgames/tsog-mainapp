@@ -84,17 +84,38 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2"
+      ],
       "duration": 120
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2",
+        "number_1",
+        "number_2"
+      ],
       "duration": 180
     }
   },
@@ -122,12 +143,20 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "color_red",
+        "color_green",
+        "color_blue"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "color_red",
+        "color_green",
+        "color_blue"
+      ],
       "duration": 60
     }
   },

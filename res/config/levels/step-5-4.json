@@ -3,35 +3,71 @@
     "1": {
       "name": "listening",
       "data": [
-        "N",
-        "P",
-        "Q",
-        "R",
-        "n",
-        "p",
-        "q",
-        "r"
+        "word_N",
+        "word_P",
+        "word_Q",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_r"
       ],
       "duration": 120
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_P",
+        "word_Q",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_r"
+      ],
       "duration": 240
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_P",
+        "word_Q",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_r"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_P",
+        "word_Q",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_r"
+      ],
       "duration": 240
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_P",
+        "word_Q",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_r"
+      ],
       "duration": 240
     }
   },

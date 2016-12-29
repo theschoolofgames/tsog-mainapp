@@ -48,27 +48,72 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m"
+      ],
       "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m"
+      ],
       "duration": 360
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m"
+      ],
       "duration": 360
     },
     "5": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m"
+      ],
       "duration": 360
     },
     "6": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m"
+      ],
       "duration": 120
     }
   },
