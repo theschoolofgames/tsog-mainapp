@@ -41,7 +41,7 @@ var GoFigureTestLayer = TestLayer.extend({
     _data: null,
 
     _currentChar: "",
-    _event_time_up: null,
+    _eventTimeUp: null,
     _timesUp: false,
     _board: null,
     _currentBrushColor: cc.color.GREEN,
@@ -95,12 +95,10 @@ var GoFigureTestLayer = TestLayer.extend({
         }, this);
     },
 
-    onEnterTransitionDidFinish: function() {
+    onEnter: function() {
         this._super();
         var self = this;
-        this.playBeginSound();
-        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        this._event_time_up = cc.EventListener.create({
+        this._eventTimeUp = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
             callback: function(event){
@@ -108,12 +106,19 @@ var GoFigureTestLayer = TestLayer.extend({
                 cc.log("_timesUp evnet: " + self._timesUp);
             }
         });
-        cc.eventManager.addListener(self._event_time_up, 1);
+        cc.eventManager.addListener(self._eventTimeUp, 1);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        
+        this.playBeginSound();
+        this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this._hudLayer.setTotalGoals(this._names.length);
     },
     onExit: function(){
         this._super();
-        cc.eventManager.removeListener(this._event_time_up);
+        cc.eventManager.removeListener(this._eventTimeUp);
     },
 
     playBeginSound: function() {
