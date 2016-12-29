@@ -719,7 +719,8 @@ var ALPHARACING_DATA =[
       "amount": "50"
     }
 ];
-COIN_NEED_TO_PLAY_ALPHARACING = 2;
+var COIN_NEED_TO_PLAY_ALPHARACING = 5;
+var COIN_START_GAME = 50;
 
 var LANGUAGE = [
     "English", 
