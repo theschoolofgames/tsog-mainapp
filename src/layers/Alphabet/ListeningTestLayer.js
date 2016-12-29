@@ -571,10 +571,11 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     onExit: function () {
-        this._super();
         this.removeStoryTimeForListeningData();
         cc.eventManager.removeListener(this._eventTimeUp);
         this.removeCardGameData();
+
+        this._super();
     },
     
 });

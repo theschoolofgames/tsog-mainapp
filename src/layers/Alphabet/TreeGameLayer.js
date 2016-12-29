@@ -332,7 +332,9 @@ var TreeGameLayer = TestLayer.extend({
         this._soundsPath = [];
         for (var i = 0; i < this._data.length; i++) {
             var path = AudioManager.getInstance().getFullPathForFileName(currentLanguage + "/" + (i+1) + ".mp3");
-            AudioManager.getInstance().preload(path, function() {cc.log("load " + path + "succeed")});
+            AudioManager.getInstance().preload(path, function(isSucceed) {
+                cc.log("load " + path + " succeed")
+            });
             this._soundsPath.push(path);
         }
     },

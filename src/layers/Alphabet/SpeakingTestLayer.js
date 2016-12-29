@@ -494,12 +494,13 @@ var SpeakingTestLayer = TestLayer.extend({
 
 
     onExit: function () {
-        this._super();
         cc.eventManager.removeListener(this._eventTimeUp);
         this.removeStoryTimeForSpeakingData();
         NativeHelper.removeListener("RequestPermission");
 
         NativeHelper.callNative("changeAudioRoute");
+
+        this._super();
     },
 });
 

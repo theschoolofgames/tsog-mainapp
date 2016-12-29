@@ -1,5 +1,7 @@
 var ARPlayer = cc.PhysicsSprite.extend({
 
+    ARPLAYER_ANIMATION_TAG: 1122,
+
     _space: null,
     _body: null,
 
@@ -74,6 +76,9 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     update: function(dt) {
 
+        this.setOpacity(this.getOpacity());
+        cc.log(this.getOpacity());
+
         if (this.current != "died") {
             this.updatePlayerSpeed();
             var vel = this.getBody().getVel();
@@ -110,25 +115,26 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     // StateMachine Callbacks
     onrun: function(event, from, to, msg) {
-        this.stopAllActions();
+        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
         var animation = new cc.Animation(this.runAnimationFrames, 0.1);
-        this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
-        this.runAction(this.runningAction);
-        cc.log("onrun " + event + " " + from + " " + to + " " + msg);
+        runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        runningAction.setTag(this.ARPLAYER_ANIMATION_TAG);
+        this.runAction(runningAction);
+        // cc.log("onrun " + event + " " + from + " " + to + " " + msg);
     },
 
     onjump: function(event, from, to, msg) {
 
-        this.stopAllActions();
+        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
         this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
         
-        cc.log("onjump " + event + " " + from + " " + to + " " + msg);
+        // cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },
 
     ondie: function(event, from, to, msg) {
-        cc.log("ondie " + event + " " + from + " " + to + " " + msg);
+        // cc.log("ondie " + event + " " + from + " " + to + " " + msg);
 
-        this.stopAllActions();
+        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
         this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_die.png"));
         this.runAction(cc.sequence(
             cc.delayTime(0.5),
@@ -139,18 +145,18 @@ var ARPlayer = cc.PhysicsSprite.extend({
     },
 
     onrunning: function(event, from, to) {
-        cc.log("onrunning " + event + " " + from + " " + to);
+        // cc.log("onrunning " + event + " " + from + " " + to);
     },
 
     onjumping: function(event, from, to) {
         if (from != "jumping")
             this.getBody().applyImpulse(cc.p(0, 8000), cc.p());
 
-        cc.log("onjumping " + event + " " + from + " " + to);
+        // cc.log("onjumping " + event + " " + from + " " + to);
     },
 
     ondied: function(event, from, to) {
-        cc.log("ondied " + event + " " + from + " " + to);
+        // cc.log("ondied " + event + " " + from + " " + to);
 
         var event = new cc.EventCustom(EVENT_AR_GAMEOVER);
         cc.eventManager.dispatchEvent(event);

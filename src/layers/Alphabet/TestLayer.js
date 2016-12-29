@@ -47,20 +47,6 @@ var TestLayer = cc.LayerColor.extend({
         }
     },
 
-    onEnterTransitionDidFinish: function() {
-        this._super();
-        var self = this;
-        this._event_time_up = cc.EventListener.create({
-            event: cc.EventListener.CUSTOM,
-            eventName: "event_logout",
-            callback: function(event){
-                self.removeCardGameData();
-                // cc.log("_timesUp evnet: " + self._timesUp);
-            }
-        });
-        cc.eventManager.addListener(self._event_time_up, 1);
-    },
-
     playBeginSound: function(path, callback) {
         this._soundEffect = AudioManager.getInstance().play(path, false, callback);
     },
@@ -102,9 +88,23 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     onEnter: function() {
+        cc.log("onEnter: TestLayer");
+
         this._super();
 
         this.storytimeCurrentDataIndex = -1;
+
+        var self = this;
+        cc.log("onEnter TestLayer. Gonna listen to event event_logout");
+        this._eventTimeUp1 = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self.removeCardGameData();
+                // cc.log("_timesUp evnet: " + self._timesUp);
+            }
+        });
+        cc.eventManager.addListener(self._eventTimeUp1, 1);
 
         if (this._removeHud)
             return;
@@ -113,11 +113,15 @@ var TestLayer = cc.LayerColor.extend({
     }, 
 
     onExit: function() {
-        this._super();
         this._adiDog = null;
-        cc.eventManager.removeListener(this._event_time_up);
+        if (this._eventTimeUp1) {
+            cc.log("onExit TestLayer. Gonna remove listener to event event_logout");
+            cc.eventManager.removeListener(this._eventTimeUp1);
+        }
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();
+
+        this._super();
     },
 
     _addHudLayer: function(duration){

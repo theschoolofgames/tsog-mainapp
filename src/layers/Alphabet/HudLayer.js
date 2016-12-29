@@ -51,8 +51,8 @@ var HudLayer = cc.Layer.extend({
 
         for (var i = 0; i < totalFrames; i++) {
             var frame = this._currencyType + "-0" + i + ".png";
-            cc.log("frame: " + frame);
-            cc.log("spriteFrameCache: " + cc.spriteFrameCache.getSpriteFrame(frame));
+            // cc.log("frame: " + frame);
+            // cc.log("spriteFrameCache: " + cc.spriteFrameCache.getSpriteFrame(frame));
             this._coinAnimationFrames.push(cc.spriteFrameCache.getSpriteFrame(frame));
         }
 
