@@ -117,8 +117,9 @@ var GoFigureTestLayer = TestLayer.extend({
         this._hudLayer.setTotalGoals(this._names.length);
     },
     onExit: function(){
-        this._super();
         cc.eventManager.removeListener(this._eventTimeUp);
+
+        this._super();
     },
 
     playBeginSound: function() {

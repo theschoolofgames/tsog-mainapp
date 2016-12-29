@@ -98,7 +98,7 @@ var TestLayer = cc.LayerColor.extend({
         this._addHudLayer();
 
         var self = this;
-        this._eventTimeUp = cc.EventListener.create({
+        this._eventTimeUp1 = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
             callback: function(event){
@@ -106,15 +106,16 @@ var TestLayer = cc.LayerColor.extend({
                 // cc.log("_timesUp evnet: " + self._timesUp);
             }
         });
-        cc.eventManager.addListener(self._eventTimeUp, 1);
+        cc.eventManager.addListener(self._eventTimeUp1, 1);
     }, 
 
     onExit: function() {
-        this._super();
         this._adiDog = null;
-        cc.eventManager.removeListener(this._eventTimeUp);
+        cc.eventManager.removeListener(this._eventTimeUp1);
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();
+
+        this._super();
     },
 
     _addHudLayer: function(duration){
