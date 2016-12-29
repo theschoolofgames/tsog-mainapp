@@ -242,10 +242,8 @@ var ShadowGameLayer = TestLayer.extend({
         let sortCoordinateShadeArray = coordinateShadeArray.slice(0);
         sortCoordinateShadeArray.sortOn("y");
         // console.log("CoordinateArray: " + JSON.stringify(coordinateShadeArray));
-        var objectArrayShuffle = shuffle(objectArray);
-        for ( var i = 0; i < objectArray.length; i++) {
-            this.addObjectButton(coordinateObjectArray[i], objectArray[i], i);
-        }
+        shuffle(objectArray);
+        
         let objectArrayClone = objectArray.slice(0);
         let index = 0;
         let lastCloneObjectPos = cc.p(-100, -100);
@@ -255,6 +253,7 @@ var ShadowGameLayer = TestLayer.extend({
             let object = objectArrayClone.shift();
             if (!object.hasClone || object.index == 0){
                 let pos = coordinateShadeArray.shift();
+                this.addObjectButton(coordinateObjectArray[count], objectArray[count], count);
                 this.addObjectShade(pos, object, count);
                 if (object.index == 0)
                     lastCloneObjectPos = pos;
@@ -265,6 +264,7 @@ var ShadowGameLayer = TestLayer.extend({
                 for (var i = 0; i < coordinateShadeArray.length; i++){
                     if (coordinateShadeArray[i].y == lastCloneObjectPos.y){
                         let posArray = coordinateShadeArray.splice(i, 1);
+                        this.addObjectButton(coordinateObjectArray[count], objectArray[count], count);
                         this.addObjectShade(posArray[0], object, index);
                         break;
                     }
