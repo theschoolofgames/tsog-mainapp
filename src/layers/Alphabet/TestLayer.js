@@ -98,6 +98,7 @@ var TestLayer = cc.LayerColor.extend({
         this._addHudLayer();
 
         var self = this;
+        cc.log("onEnter TestLayer. Gonna listen to event event_logout");
         this._eventTimeUp1 = cc.EventListener.create({
             event: cc.EventListener.CUSTOM,
             eventName: "event_logout",
@@ -111,7 +112,10 @@ var TestLayer = cc.LayerColor.extend({
 
     onExit: function() {
         this._adiDog = null;
-        cc.eventManager.removeListener(this._eventTimeUp1);
+        if (this._eventTimeUp1) {
+            cc.log("onExit TestLayer. Gonna remove listener to event event_logout");
+            cc.eventManager.removeListener(this._eventTimeUp1);
+        }
         if (cc.audioEngine.isMusicPlaying())
             cc.audioEngine.stopMusic();
 
