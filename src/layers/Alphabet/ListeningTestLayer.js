@@ -535,21 +535,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         var dataForWriting = data;
-        if(data[0].dataListening) {
-            data = data[0].dataListening;
-            data = data.map(function(id) {
-                var o = GameObject.getInstance().findById(id);
-                // cc.log("o" + JSON.stringify(o));
-                if (o[0]) {
-                    // cc.log("o[0]: " + JSON.stringify(o[0]));
-                    // cc.log("return o[0]");
-                    return o[0];
-                } else {
-                    // cc.log("return Id");
-                    return id;
-                }
-            });
-        };
+        
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")

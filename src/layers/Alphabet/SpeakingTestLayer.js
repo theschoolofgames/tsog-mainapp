@@ -471,21 +471,7 @@ var SpeakingTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         var dataForWriting = data;
-        if(data[0].dataSpeaking) {
-            data = data[0].dataSpeaking;
-            data = data.map(function(id) {
-                var o = GameObject.getInstance().findById(id);
-                // cc.log("o" + JSON.stringify(o));
-                if (o[0]) {
-                    // cc.log("o[0]: " + JSON.stringify(o[0]));
-                    // cc.log("return o[0]");
-                    return o[0];
-                } else {
-                    // cc.log("return Id");
-                    return id;
-                }
-            });
-        };
+        
         this._data = data;
         if(typeof(data) != "object")
             data = JSON.parse(data);
