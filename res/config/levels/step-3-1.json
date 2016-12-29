@@ -13,12 +13,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "egg",
+        "eraser",
+        "feather",
+        "flag",
+        "gift"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "egg",
+        "eraser",
+        "feather",
+        "flag",
+        "gift"
+      ],
       "duration": 120
     }
   },
@@ -36,12 +48,24 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "eagle",
+        "elephant",
+        "fish",
+        "fly",
+        "fox"
+      ],
       "duration": 120
     }
   },
@@ -51,21 +75,6 @@
       "data": [
         {
           "dataShopping": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10",
-            "number_11",
-            "number_12",
-            "number_13",
-            "number_14",
-            "number_15",
             "towel",
             "watch",
             "abacus",
@@ -118,22 +127,66 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "3": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "4": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     }
   },
@@ -141,35 +194,71 @@
     "1": {
       "name": "listening",
       "data": [
-        "e",
-        "f",
-        "g",
-        "h",
-        "E",
-        "F",
-        "G",
-        "H"
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
       ],
       "duration": 120
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_e",
+        "word_f",
+        "word_g",
+        "word_h",
+        "word_E",
+        "word_F",
+        "word_G",
+        "word_H"
+      ],
       "duration": 240
     }
   }

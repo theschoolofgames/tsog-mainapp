@@ -21,12 +21,12 @@
         "pencils",
         "potato",
         "queen",
-        "n",
-        "p",
-        "q",
-        "N",
-        "P",
-        "Q"
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_N",
+        "word_P",
+        "word_Q"
       ],
       "duration": 120
     },
@@ -39,24 +39,24 @@
         "pencils",
         "potato",
         "queen",
-        "n",
-        "p",
-        "q",
-        "N",
-        "P",
-        "Q"
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_N",
+        "word_P",
+        "word_Q"
       ],
       "duration": 120
     },
     "4": {
       "name": "writing",
       "data": [
-        "n",
-        "p",
-        "q",
-        "N",
-        "P",
-        "Q"
+        "word_n",
+        "word_p",
+        "word_q",
+        "word_N",
+        "word_P",
+        "word_Q"
       ],
       "duration": 240
     }
@@ -81,10 +81,10 @@
         "puppy",
         "rabbit",
         "rat",
-        "P",
-        "R",
-        "p",
-        "r"
+        "word_P",
+        "word_R",
+        "word_p",
+        "word_r"
       ],
       "duration": 120
     },
@@ -96,10 +96,10 @@
         "puppy",
         "rabbit",
         "rat",
-        "P",
-        "R",
-        "p",
-        "r"
+        "word_P",
+        "word_R",
+        "word_p",
+        "word_r"
       ],
       "duration": 240
     },
@@ -111,10 +111,10 @@
         "puppy",
         "rabbit",
         "rat",
-        "P",
-        "R",
-        "p",
-        "r"
+        "word_P",
+        "word_R",
+        "word_p",
+        "word_r"
       ],
       "duration": 240
     },
@@ -126,10 +126,10 @@
         "puppy",
         "rabbit",
         "rat",
-        "P",
-        "R",
-        "p",
-        "r"
+        "word_P",
+        "word_R",
+        "word_p",
+        "word_r"
       ],
       "duration": 240
     },
@@ -141,10 +141,10 @@
         "puppy",
         "rabbit",
         "rat",
-        "P",
-        "R",
-        "p",
-        "r"
+        "word_P",
+        "word_R",
+        "word_p",
+        "word_r"
       ],
       "duration": 120
     }
@@ -294,27 +294,52 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_n",
+        "word_P",
+        "word_p"
+      ],
       "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_n",
+        "word_P",
+        "word_p"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_n",
+        "word_P",
+        "word_p"
+      ],
       "duration": 240
     },
     "5": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_n",
+        "word_P",
+        "word_p"
+      ],
       "duration": 240
     },
     "6": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_N",
+        "word_n",
+        "word_P",
+        "word_p"
+      ],
       "duration": 120
     }
   }

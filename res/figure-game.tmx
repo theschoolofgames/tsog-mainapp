@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="32" tileheight="32" nextobjectid="52">
- <tileset firstgid="1" name="circle" tilewidth="254" tileheight="255">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="10" tilewidth="32" tileheight="32" nextobjectid="55">
+ <tileset firstgid="1" name="circle" tilewidth="254" tileheight="255" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/circle.png" width="254" height="255"/>
  </tileset>
- <tileset firstgid="2" name="curve-line" tilewidth="440" tileheight="62">
+ <tileset firstgid="2" name="curve-line" tilewidth="440" tileheight="62" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/curve-line.png" width="440" height="62"/>
  </tileset>
- <tileset firstgid="3" name="line" tilewidth="401" tileheight="13">
+ <tileset firstgid="3" name="line" tilewidth="401" tileheight="13" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/line.png" width="401" height="13"/>
  </tileset>
- <tileset firstgid="4" name="rectangle" tilewidth="357" tileheight="194">
+ <tileset firstgid="4" name="rectangle" tilewidth="357" tileheight="194" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/rectangle.png" width="357" height="194"/>
  </tileset>
- <tileset firstgid="5" name="semi-circle" tilewidth="259" tileheight="149">
+ <tileset firstgid="5" name="semi-circle" tilewidth="259" tileheight="149" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/semi-circle.png" width="259" height="149"/>
  </tileset>
- <tileset firstgid="6" name="square" tilewidth="221" tileheight="221">
+ <tileset firstgid="6" name="square" tilewidth="221" tileheight="221" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/square.png" width="221" height="221"/>
  </tileset>
- <tileset firstgid="7" name="triangle" tilewidth="255" tileheight="224">
+ <tileset firstgid="7" name="triangle" tilewidth="255" tileheight="224" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/triangle.png" width="255" height="224"/>
  </tileset>
- <tileset firstgid="8" name="double_curved_line" tilewidth="194" tileheight="264">
+ <tileset firstgid="8" name="double_curved_line" tilewidth="194" tileheight="264" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/double_curved_line.png" width="194" height="264"/>
  </tileset>
- <tileset firstgid="9" name="six_straight_line" tilewidth="342" tileheight="255">
+ <tileset firstgid="9" name="six_straight_line" tilewidth="342" tileheight="255" tilecount="1" columns="1">
   <image source="../_sourceart/figure-game/six_straight_line.png" width="342" height="255"/>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="10">
@@ -89,16 +89,16 @@
    <polyline points="0,0 0,-75 -1,-141 0,-184"/>
   </object>
  </objectgroup>
- <objectgroup name="triangle" visible="0">
+ <objectgroup name="triangle">
   <object id="18" name="triangle" gid="7" x="193" y="272" width="255" height="224"/>
-  <object id="38" name="Path1" x="323" y="58">
-   <polyline points="0,0 42,75 66,119 94,167 114,202"/>
+  <object id="52" name="Path1" x="322" y="60">
+   <polyline points="0,0 19,32 34,60 55,95 72,125 91,158 120,206"/>
   </object>
-  <object id="39" name="Path2" x="420" y="264">
-   <polyline points="0,0 -63,0 -118,-1 -171,0 -219,-1"/>
+  <object id="53" name="Path2" x="438" y="265">
+   <polyline points="0,0 -31,0 -87,0 -148,0 -204,0 -240,-1"/>
   </object>
-  <object id="40" name="Path3" x="211" y="248">
-   <polyline points="0,0 28,-54 68,-123 96,-172"/>
+  <object id="54" name="Path3" x="205" y="257">
+   <polyline points="0,0 16,-27 39,-67 66,-117 93,-164 115,-199"/>
   </object>
  </objectgroup>
  <objectgroup name="double_curved_line" visible="0">
@@ -110,7 +110,7 @@
    <polyline points="-9,-5 -24,30 -25,84 -7,137 6,187 1,230 -12,252"/>
   </object>
  </objectgroup>
- <objectgroup name="six_straight_line">
+ <objectgroup name="six_straight_line" visible="0">
   <object id="44" name="six_straight_line" gid="9" x="149" y="287" width="342" height="255"/>
   <object id="46" name="Path1" x="154" y="35">
    <polyline points="0,0 0,73 0,175 0,241"/>

@@ -19,50 +19,50 @@
         "strawberry",
         "tomato",
         "towel",
-        "s",
-        "t",
-        "S",
-        "T"
+        "word_s",
+        "word_t",
+        "word_S",
+        "word_T"
       ],
       "duration": 120
     },
     "3": {
       "name": "writing",
       "data": [
-        "s",
-        "t",
-        "S",
-        "T"
+        "word_s",
+        "word_t",
+        "word_S",
+        "word_T"
       ],
       "duration": 240
     },
     "4": {
       "name": "writing",
       "data": [
-        "s",
-        "t",
-        "S",
-        "T"
+        "word_s",
+        "word_t",
+        "word_S",
+        "word_T"
       ],
       "duration": 240
     },
     "5": {
       "name": "writing",
       "data": [
-        "s",
-        "t",
-        "S",
-        "T"
+        "word_s",
+        "word_t",
+        "word_S",
+        "word_T"
       ],
       "duration": 240
     },
     "6": {
       "name": "speaking",
       "data": [
-        "s",
-        "t",
-        "S",
-        "T"
+        "word_s",
+        "word_t",
+        "word_S",
+        "word_T"
       ],
       "duration": 240
     }
@@ -81,27 +81,57 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "scorpion",
+        "seal",
+        "shark",
+        "sheep",
+        "snail"
+      ],
       "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "scorpion",
+        "seal",
+        "shark",
+        "sheep",
+        "snail"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "scorpion",
+        "seal",
+        "shark",
+        "sheep",
+        "snail"
+      ],
       "duration": 240
     },
     "5": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "scorpion",
+        "seal",
+        "shark",
+        "sheep",
+        "snail"
+      ],
       "duration": 240
     },
     "6": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "scorpion",
+        "seal",
+        "shark",
+        "sheep",
+        "snail"
+      ],
       "duration": 120
     }
   },
@@ -277,27 +307,52 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "word_S",
+        "word_s",
+        "word_T",
+        "word_t"
+      ],
       "duration": 60
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_S",
+        "word_s",
+        "word_T",
+        "word_t"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_S",
+        "word_s",
+        "word_T",
+        "word_t"
+      ],
       "duration": 240
     },
     "5": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_S",
+        "word_s",
+        "word_T",
+        "word_t"
+      ],
       "duration": 240
     },
     "6": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_S",
+        "word_s",
+        "word_T",
+        "word_t"
+      ],
       "duration": 120
     }
   }
