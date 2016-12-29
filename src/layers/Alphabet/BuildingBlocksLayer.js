@@ -136,7 +136,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         for (var i = 0; i < thirdObjectCounts; i++) {
             if (i > 4)
                 break;
-            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            var o = new cc.Sprite("#" + this._type + (Math.floor(Math.random() * 4) + 1) + ".png");
             o.scale = this._gameScale;
             o.x = 0;
             o.y = -(o.height - 10) * i * o.scale;
@@ -144,7 +144,7 @@ var BuildingBlocksLayer = TestLayer.extend({
                 
             totalHeight = o.y;
         }
-        var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
+        var lb = new cc.LabelBMFont(thirdObjectCounts, res.HomeFont_fnt);
         lb.scale = (thirdObjectCounts == 1) ? 0.4 : 1;
         lb.y = totalHeight/2 + 10;
         this._objects[2].addChild(lb, 9);
@@ -201,7 +201,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         for (var k = 0; k < count; k++) {
             if (k > 4)
                 break;
-            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            var o = new cc.Sprite("#" + this._type + (Math.floor(Math.random() * 4) + 1) + ".png");
             o.scale = this._gameScale;
             o.y = (o.height - 10) * (count-k) * o.scale;
             o.setUserData(k);
@@ -211,7 +211,7 @@ var BuildingBlocksLayer = TestLayer.extend({
      
             totalHeight = o.height * o.scale * count;
         }
-        var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
+        var lb = new cc.LabelBMFont(count, res.HomeFont_fnt);
         lb.scale = (count == 1) ? 0.3 : 1;
         lb.y = totalHeight/2 + 25 * this._gameScale;
         draggingNode.addChild(lb, 9);
