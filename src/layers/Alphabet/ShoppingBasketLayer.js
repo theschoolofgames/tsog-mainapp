@@ -54,25 +54,35 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._basket.scale = this._basketScale;
         this._basket.x = cc.winSize.width/2;
         this._basket.y = cc.winSize.height/2 - 50* Utils.getScaleFactorTo16And9();
-        this._basket.ZOder = 0;
-        this.addChild(this._basket);
+        this.addChild(this._basket, 0);
 
 
         this._basketBBox = this._basket.getBoundingBox();
         this._calcPossibleSlots();
         var strap = new cc.Sprite(res.Basket_strap_png);
         strap.scale = this._basketScale;
-        this.addChild(strap);
+        this.addChild(strap, 2);
         strap.setAnchorPoint(1,0.5);
-        strap.ZOder = 2;
         strap.x = this._basket.x;
         strap.y = this._basket.y;
     },
 
     _calcPossibleSlots: function() {
+        this._activateSlots = [];
+
+        let COL_ITEM_COUNT = 5;
+        let ROW_ITEM_COUNT = 3;
+        let DISTANCE_ITEM = 70;
         for (var i = 0; i < this.NUMBER_OBJECTS_SHOPPING; i++) {
-            var x = this._basket.x - this._basket.width/2 * this._basketScale + 60 + Math.random() * 0.7 * this._basket.width * this._basketScale;
-            var y = this._basket.y - this._basket.height/2 * this._basketScale+ 60 + Math.random() * 0.6 * this._basket.height * this._basketScale; 
+            var col = (i % COL_ITEM_COUNT);
+            var row = Math.floor(i / COL_ITEM_COUNT);
+            if (row > ROW_ITEM_COUNT - 1)
+                row = row % ROW_ITEM_COUNT;
+
+            cc.log("slot #" + i + ": " + col + ", " + row);
+
+            var x = this._basket.x - this._basket.width/2 * this._basketScale + 70 + col * DISTANCE_ITEM;
+            var y = this._basket.y + this._basket.height/2 * this._basketScale - 70 - row * DISTANCE_ITEM;
             this._activateSlots.push(cc.p(x, y));
             // cc.log("x : %f - y: %f", x, y);
         }
@@ -107,7 +117,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             else
                 continue;
             obj.tag = i;
-            obj.ZOder = 3;
+            obj.z = 3;
             // cc.log("add objects tag: " + obj.tag);
             obj.scale = Math.min(SHOPPING_OBJECT_DEFAULT_WIDTH/obj.width, SHOPPING_OBJECT_DEFAULT_HEIGHT/obj.height);
             obj.x = SHOPPING_OBJECT_DEFAULT_WIDTH * 2 + (SHOPPING_OBJECT_DEFAULT_WIDTH + 20) * tempX;
@@ -122,7 +132,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             
             // cc.log("obj.x: " + obj.x);
             // cc.log("cc.winSize.width: " + cc.winSize.width);
-            this.addChild(obj, 2);
+            this.addChild(obj, 1);
             this._activateObjects.push(obj);
         };
     },
@@ -289,7 +299,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
         cc.log("_deactivateObjects: " + this._deactivateObjects.length);
-        this._currentObjectMoving.ZOder = 1;
+        this._currentObjectMoving.setLocalZOrder(1);
         //set for playSoundObjectOder
         this._currentObjectOder += 1;
         

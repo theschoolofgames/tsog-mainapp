@@ -51,21 +51,6 @@
       "data": [
         {
           "dataShopping": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10",
-            "number_11",
-            "number_12",
-            "number_13",
-            "number_14",
-            "number_15",
             "towel",
             "watch",
             "abacus",
@@ -118,22 +103,66 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "3": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "4": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10"
+      ],
       "duration": 120
     }
   },
