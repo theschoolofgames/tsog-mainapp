@@ -1,6 +1,7 @@
-var BUILDINGBLOCKS_COMPLETED_TAG = 0;
-var BUILDING_BLOCKS_TAG = 9;
-var BUILDING_BLOCKS_HEIGHT = 50;
+let BUILDINGBLOCKS_COMPLETED_TAG = 0;
+let BUILDING_BLOCKS_TAG = 9;
+let BUILDING_BLOCKS_HEIGHT = 25;
+let MAX_BLOCK = 5;
 var BuildingBlocksLayer = TestLayer.extend({
     _type: null,
     _data: null,
@@ -112,19 +113,19 @@ var BuildingBlocksLayer = TestLayer.extend({
             if (currentOperation.indexOf("sub") > -1)
                 string = "-";
             var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
-            firstOperation.scale = 0.5 * this._gameScale;
+            firstOperation.scale = this._gameScale;
             firstOperation.x = currentSpotX;
             firstOperation.y = currentSpotY - firstOperation.height*firstOperation.scale;
             node.addChild(firstOperation);
 
             var secondOperation = new cc.LabelBMFont("=", res.CustomFont_fnt);
-            secondOperation.scale = 0.5 * this._gameScale;
+            secondOperation.scale = this._gameScale;
             secondOperation.x = cc.winSize.width/3 * (1 + i);
             secondOperation.y = cc.winSize.height/2;
             node.addChild(secondOperation);
 
             var secondNodeBlocksCount = parseInt(secondObjectCounts[i]);
-            currentSpotY = currentSpotY - firstOperation.height*firstOperation.scale - 100 - secondNodeBlocksCount*BUILDING_BLOCKS_HEIGHT/2;
+            currentSpotY = currentSpotY - firstOperation.height*firstOperation.scale - 100 - secondNodeBlocksCount*BUILDING_BLOCKS_HEIGHT;
             this._createSpotNodeBlocks(secondNodeBlocksCount, node, currentSpotX, currentSpotY, true);
             this._createDraggingNodeBlocks(secondNodeBlocksCount, node, i, 250);
         }
@@ -134,9 +135,9 @@ var BuildingBlocksLayer = TestLayer.extend({
         var labelAdded = false;
         var totalHeight = 0;
         for (var i = 0; i < thirdObjectCounts; i++) {
-            if (i > 4)
+            if (i >= MAX_BLOCK)
                 break;
-            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+            var o = new cc.Sprite("#" + this._type + (Math.floor(Math.random() * 4) + 1) + ".png");
             o.scale = this._gameScale;
             o.x = 0;
             o.y = -(o.height - 10) * i * o.scale;
@@ -144,7 +145,7 @@ var BuildingBlocksLayer = TestLayer.extend({
                 
             totalHeight = o.y;
         }
-        var lb = new cc.LabelBMFont(thirdObjectCounts, res.CustomFont_fnt);
+        var lb = new cc.LabelBMFont(thirdObjectCounts, res.HomeFont_fnt);
         lb.scale = (thirdObjectCounts == 1) ? 0.4 : 1;
         lb.y = totalHeight/2 + 10;
         this._objects[2].addChild(lb, 9);
@@ -170,7 +171,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         parent.addChild(nodeBlocks);
         this._dropSpots.push(nodeBlocks);
         for (var k = 0; k < count; k++) {
-            if (k > 4)
+            if (k >= MAX_BLOCK)
                 break;
             var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
             o.scale = this._gameScale;
@@ -183,7 +184,7 @@ var BuildingBlocksLayer = TestLayer.extend({
             totalHeight = o.height * o.scale * count;
         }
         var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-        lb.scale = (count == 1) ? 0.4 : 1;
+        lb.scale = (count == 1) ? 0.38 : 1;
         lb.y = totalHeight/2 + 25 * this._gameScale;
         nodeBlocks.addChild(lb, 9);
     },
@@ -199,10 +200,10 @@ var BuildingBlocksLayer = TestLayer.extend({
         var totalHeight = 0;
         var labelAdded = false;
         for (var k = 0; k < count; k++) {
-            if (k > 4)
+            if (k >= MAX_BLOCK)
                 break;
-            var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
-            o.scale = this._gameScale;
+            var o = new cc.Sprite("#" + this._type + (Math.floor(Math.random() * 4) + 1) + ".png");
+            o.scale = Math.min(1, (BUILDING_BLOCKS_HEIGHT * MAX_BLOCK * this._gameScale) / (BUILDING_BLOCKS_HEIGHT * count));
             o.y = (o.height - 10) * (count-k) * o.scale;
             o.setUserData(k);
             draggingNode.addChild(o);
@@ -211,8 +212,8 @@ var BuildingBlocksLayer = TestLayer.extend({
      
             totalHeight = o.height * o.scale * count;
         }
-        var lb = new cc.LabelBMFont(count, res.CustomFont_fnt);
-        lb.scale = (count == 1) ? 0.3 : 1;
+        var lb = new cc.LabelBMFont(count, res.HomeFont_fnt);
+        lb.scale = (count == 1) ? 0.5 : 1;
         lb.y = totalHeight/2 + 25 * this._gameScale;
         draggingNode.addChild(lb, 9);
     },
