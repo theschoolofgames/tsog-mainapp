@@ -88,14 +88,11 @@ var TestLayer = cc.LayerColor.extend({
     },
 
     onEnter: function() {
+        cc.log("onEnter: TestLayer");
+
         this._super();
 
         this.storytimeCurrentDataIndex = -1;
-
-        if (this._removeHud)
-            return;
-
-        this._addHudLayer();
 
         var self = this;
         cc.log("onEnter TestLayer. Gonna listen to event event_logout");
@@ -108,6 +105,11 @@ var TestLayer = cc.LayerColor.extend({
             }
         });
         cc.eventManager.addListener(self._eventTimeUp1, 1);
+
+        if (this._removeHud)
+            return;
+
+        this._addHudLayer();
     }, 
 
     onExit: function() {
