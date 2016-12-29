@@ -59,12 +59,12 @@
         "number_23",
         "number_24",
         "number_25",
-        "J",
-        "K",
-        "L",
-        "j",
-        "k",
-        "l"
+        "word_J",
+        "word_K",
+        "word_L",
+        "word_j",
+        "word_k",
+        "word_l"
       ],
       "duration": 240
     },
@@ -96,12 +96,12 @@
         "number_23",
         "number_24",
         "number_25",
-        "J",
-        "K",
-        "L",
-        "j",
-        "k",
-        "l"
+        "word_J",
+        "word_K",
+        "word_L",
+        "word_j",
+        "word_k",
+        "word_l"
       ],
       "duration": 900
     },
@@ -133,12 +133,12 @@
         "number_23",
         "number_24",
         "number_25",
-        "J",
-        "K",
-        "L",
-        "j",
-        "k",
-        "l"
+        "word_J",
+        "word_K",
+        "word_L",
+        "word_j",
+        "word_k",
+        "word_l"
       ],
       "duration": 240
     }

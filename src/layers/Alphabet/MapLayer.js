@@ -94,7 +94,7 @@ var MapLayer = cc.Layer.extend({
                     if (_map.hasOwnProperty(step)) {
                         var val = _map[step];
                         level++;
-                        // cc.log("level: %d, step: %s", level, val);
+                        cc.log("level: %d, step: %s", level, val);
                         var pos = this._btnStepCoordinates[stepIndex-1];
                         var enabled = (val == "1-1") ? true : false;
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);

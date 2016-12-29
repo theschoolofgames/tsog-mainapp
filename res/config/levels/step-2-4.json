@@ -30,7 +30,9 @@
         "word_B",
         "word_b",
         "word_C",
-        "word_c"
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 300
     },
@@ -42,7 +44,9 @@
         "word_B",
         "word_b",
         "word_C",
-        "word_c"
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 300
     },
@@ -54,18 +58,23 @@
         "word_B",
         "word_b",
         "word_C",
-        "word_c"
+        "word_c",
+        "word_D",
+        "word_d"
       ],
       "duration": 300
     },
     "6": {
       "name": "speaking",
       "data": [
-        "book",
-        "desk",
-        "apple",
-        "chair",
-        "abacus"
+        "word_A",
+        "word_B",
+        "word_C",
+        "word_D",
+        "word_a",
+        "word_b",
+        "word_c",
+        "word_d"
       ],
       "duration": 120
     }

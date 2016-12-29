@@ -279,12 +279,32 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "seed",
+        "sheep",
+        "son",
+        "star",
+        "step",
+        "stew",
+        "sun",
+        "toe",
+        "tub"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "seed",
+        "sheep",
+        "son",
+        "star",
+        "step",
+        "stew",
+        "sun",
+        "toe",
+        "tub"
+      ],
       "duration": 120
     }
   }
