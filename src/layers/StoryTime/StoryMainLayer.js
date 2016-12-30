@@ -410,6 +410,7 @@ var StoryMainLayer = TestLayer.extend({
             var d = {};
             d["data"] = [];
             d["voice"] = [];
+            d["key"] = dataNextScene[0].key;
             for (var i = 0; i < 3; i++) {
                 d["data"].push([data[0], data[1], data[2]]);
                 d["voice"].push(voices[0]);
@@ -419,7 +420,8 @@ var StoryMainLayer = TestLayer.extend({
             this.setStoryTimeForListeningData(d);
             this.setStoryTimeForSpeakingData(speaking);
         
-        // cc.log("setStoryTimeForListeningData: " + JSON.stringify(d));
+        cc.log("setStoryTimeForListeningData: " + JSON.stringify(d));
+        cc.log("setStoryTimeForSpeakingData: " + JSON.stringify(speaking));
         // cc.log("set data: " + JSON.stringify(dataNextScene[0]));
     },
 });
