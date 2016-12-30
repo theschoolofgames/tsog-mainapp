@@ -19,8 +19,9 @@ var ShoppingBasketLayer = TestLayer.extend({
     _currentObjectMoving: null,
     _currentAvailableSlot: null,
     _currentObjectOriginPos: null,
-    NUMBER_OBJECTS_SHOPPING: 0,
+    _totalObjectCount: 0,
     _indexOfLastObject: 0,
+    _requiredAmount: 10,
 
     ctor: function(data, timePlayed, timeForScene) {
         this._super();
@@ -46,7 +47,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._super();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this.playBackGroundMusic();
-        this._hudLayer.setTotalGoals(NUMBER_OBJECTS_SHOPPING);
+        this._hudLayer.setTotalGoals(this._requiredAmount);
     },
 
     _addBasket: function() {
@@ -73,7 +74,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         let COL_ITEM_COUNT = 5;
         let ROW_ITEM_COUNT = 3;
         let DISTANCE_ITEM = 70;
-        for (var i = 0; i < this.NUMBER_OBJECTS_SHOPPING; i++) {
+        for (var i = 0; i < this._totalObjectCount; i++) {
             var col = (i % COL_ITEM_COUNT);
             var row = Math.floor(i / COL_ITEM_COUNT);
             if (row > ROW_ITEM_COUNT - 1)
@@ -141,6 +142,9 @@ var ShoppingBasketLayer = TestLayer.extend({
         ShoppingBasketLayer._data = data;
         this.setData(data);
         if (data) {
+            if (data[0].requiredShoppingAmount) {
+                this._requiredAmount = data[0].requiredShoppingAmount;
+            }
             data = data[0].dataShopping;
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
@@ -158,8 +162,7 @@ var ShoppingBasketLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.NUMBER_OBJECTS_SHOPPING = this._data.length;
-        // cc.log("data after map: " + JSON.stringify(this._data));
+        this._totalObjectCount = this._data.length;
     },
 
     onTouchBegan: function (touch, event) {
@@ -258,7 +261,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _checkCompletedScene: function() {
         // if(this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
-        if (this._deactivateObjects.length == NUMBER_OBJECTS_SHOPPING){// && this._activateObjects.length == 0) {
+        if (this._deactivateObjects.length == this._requiredAmount){// && this._activateObjects.length == 0) {
             this._blockFlag = true;
             this.playWinSound();
             this.createWinLabel();
@@ -327,7 +330,7 @@ var ShoppingBasketLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._deactivateObjects.length / NUMBER_OBJECTS_SHOPPING;
+        var percent = this._deactivateObjects.length / this._requiredAmount;
         
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._deactivateObjects.length);
