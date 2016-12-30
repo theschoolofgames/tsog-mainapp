@@ -40,7 +40,7 @@ var SpellingGameLayer = TestLayer.extend({
 
         this.setData(JSON.stringify(this._data));
         this._totalLetters = this._checkTotalLetters(this._data);
-        this._currentLetters = this._data.shift().split('');
+        this._currentLetters = localizeForWriting(this._data.shift()).split('');
         this._wordLength = this._currentLetters.length;
         this._setIsTestScene(isTestScene);
         this._addLetterSlots();
@@ -101,7 +101,8 @@ var SpellingGameLayer = TestLayer.extend({
             // Finish one word
             if (this._data.length > 0){
                 this._removeAllObjects();
-                this._currentLetters = this._data.shift().split('');
+                this._currentLetters = localizeForWriting(this._data.shift()).split('');
+                cc.log("this._currentLetters: " +this._currentLetters);
                 this._wordLength = this._currentLetters.length;
 
                 this._addLetterSlots();

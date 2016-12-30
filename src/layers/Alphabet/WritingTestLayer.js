@@ -552,7 +552,7 @@ var WritingTestLayer = TestLayer.extend({
 
         var charArrays = [];
         var totalWidths = [];
-        this._wordScale = 1;
+        this._wordScale = 0.8;
 
         for (var i = 0; i < charsPerLine.length; i++) {
             var tempArr = [];

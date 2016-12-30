@@ -5,7 +5,10 @@
       "data": [
         "hat",
         "cat",
-        "rat"
+        "rat",
+        "fat",
+        "sat",
+        "bat"
       ],
       "duration": 240
     },
@@ -14,7 +17,10 @@
       "data": [
         "hat",
         "cat",
-        "rat"
+        "rat",
+        "fat",
+        "sat",
+        "bat"
       ],
       "duration": 60
     },
@@ -23,7 +29,10 @@
       "data": [
         "hat",
         "cat",
-        "rat"
+        "rat",
+        "fat",
+        "sat",
+        "bat"
       ],
       "duration": 120
     }
@@ -61,7 +70,7 @@
             "onion",
             "queen"
           ],
-          "maxcardnumber": 10,
+          "maxcardnumber": 20,
           "dataForTest": [
             "number_1",
             "number_2",
@@ -80,7 +89,22 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
       ],
       "duration": 120
     },
@@ -91,7 +115,22 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
       ],
       "duration": 600
     },
@@ -102,7 +141,22 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
       ],
       "duration": 600
     },
@@ -113,7 +167,22 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
       ],
       "duration": 600
     },
@@ -124,7 +193,22 @@
         "number_2",
         "number_3",
         "number_4",
-        "number_5"
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20"
       ],
       "duration": 120
     }
@@ -136,7 +220,26 @@
         "hat",
         "bat",
         "cat",
-        "rat"
+        "rat",
+        "fat",
+        "sat",
+        "egg",
+        "flag",
+        "gift",
+        "octopus",
+        "owl",
+        "horse",
+        "hamster",
+        "insect",
+        "onion",
+        "orange",
+        "uniform",
+        "umbrella",
+        "elephant",
+        "eagle",
+        "giraffe",
+        "frog",
+        "goat"
       ],
       "duration": 300
     }

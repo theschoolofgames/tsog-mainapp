@@ -58,7 +58,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
             self._isLanguageDialogShowing = true;
             self.addChild(new ChooseLanguageLayer(function() {
-                cc.director.replaceScene(new TalkingAdiScene())}));
+                cc.director.replaceScene(new TalkingAdiScene())}), 1000);
         });
         
         var text = localizeForWriting("choose language");
@@ -83,7 +83,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         shopBtn.scale = 150/shopBtn.width;
         shopBtn.x = cc.winSize.width - shopBtn.width * shopBtn.scale;
         shopBtn.y = shopBtn.height/2 * shopBtn.scale + 10;
-        this.addChild(shopBtn, 9999);
+        this.addChild(shopBtn, 2);
         shopBtn.addClickEventListener(function(){
             cc.director.runScene(new ShopScene());
         });
@@ -101,7 +101,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var buttonSitDown = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonSitDown.x = 120;
         buttonSitDown.y = cc.winSize.height - 180;
-        this.addChild(buttonSitDown, 9999);
+        this.addChild(buttonSitDown, 2);
         buttonSitDown.addClickEventListener(function(){
             self._talkingAdi.adiSitdown();
         });
@@ -114,7 +114,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var buttonSneeze = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonSneeze.x = buttonSitDown.x;
         buttonSneeze.y = buttonSitDown.y - 100;
-        this.addChild(buttonSneeze, 9999);
+        this.addChild(buttonSneeze, 2);
         buttonSneeze.addClickEventListener(function(){
             self._talkingAdi.adiSneeze();
         });
@@ -127,7 +127,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var buttonHifi = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonHifi.x = buttonSneeze.x;
         buttonHifi.y = buttonSneeze.y - 100;
-        this.addChild(buttonHifi, 9999);
+        this.addChild(buttonHifi, 2);
         buttonHifi.addClickEventListener(function(){
             self._talkingAdi.adiHifi();
         });
@@ -140,7 +140,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         var buttonJump = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
         buttonJump.x = buttonHifi.x;
         buttonJump.y = buttonHifi.y - 100;
-        this.addChild(buttonJump, 9999);
+        this.addChild(buttonJump, 2);
         buttonJump.addClickEventListener(function(){
             self._talkingAdi.adiJump();
         });

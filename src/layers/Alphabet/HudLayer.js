@@ -192,7 +192,7 @@ var HudLayer = cc.Layer.extend({
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
         // lbCoin.scale = 0.4;
         // lbCoin.anchorX = 1;
-        lbCoin.x = -50;
+        lbCoin.x = -60;
         lbCoin.y = coin.height/2 + 2;
         coin.addChild(lbCoin);
 
