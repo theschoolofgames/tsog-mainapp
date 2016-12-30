@@ -925,6 +925,11 @@
     "value": "I"
   },
   {
+    "id": "word_J",
+    "type": "word",
+    "value": "J"
+  },
+  {
     "id": "word_K",
     "type": "word",
     "value": "K"
@@ -1048,6 +1053,11 @@
     "id": "word_i",
     "type": "word",
     "value": "i"
+  },
+  {
+    "id": "word_j",
+    "type": "word",
+    "value": "j"
   },
   {
     "id": "word_k",

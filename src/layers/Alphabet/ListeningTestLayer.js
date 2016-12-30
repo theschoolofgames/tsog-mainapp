@@ -561,7 +561,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
-        // cc.log("listening names after map: " + JSON.stringify(this._names));
+        cc.log("listening names after map: " + JSON.stringify(this._names));
         if(!dataForWriting[0].dataListening)
             dataForWriting  = this._data;
         if (this._keyObject.length > 0)
