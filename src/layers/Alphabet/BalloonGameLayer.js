@@ -219,7 +219,7 @@ var BalloonGameLayer = TestLayer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        if (!this._canTouch)
+        if (!this._canTouch || this._ended)
             return false;
 
         var self = this;

@@ -118,7 +118,7 @@ var FreeColorLayer = TestLayer.extend({
                 tempArray.push({"id": itemObject.id, "type": itemObject.type});
         }
 
-        this._objectsArray = tempArray;
+        this._objectsArray = shuffle(tempArray);
     },
 
     _parseGameObjectJSON: function() {
@@ -169,6 +169,8 @@ var FreeColorLayer = TestLayer.extend({
         
         for ( var i = 0; i < objectArray.length; i++) {
             var obj = this.addObjectButton(objectArray[i], i);
+            if(obj.x > cc.winSize.width - 120)
+                break;
             if (obj)
                 this._createObjectRender(obj);
         }
