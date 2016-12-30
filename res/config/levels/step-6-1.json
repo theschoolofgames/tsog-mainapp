@@ -54,6 +54,7 @@
       "name": "shoppingbasket",
       "data": [
         {
+          "requiredShoppingAmount": 30,
           "dataShopping": [
             "egg",
             "hat",
@@ -96,42 +97,6 @@
             "uniform",
             "vegetable",
             "crayon"
-          ],
-          "dataListening": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10"
-          ],
-          "dataSpeaking": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10"
-          ],
-          "dataWriting": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10"
           ]
         }
       ],
@@ -171,7 +136,7 @@
         "number_29",
         "number_30"
       ],
-      "duration": 120
+      "duration": 360
     },
     "3": {
       "name": "writing",
@@ -258,7 +223,7 @@
         "number_29",
         "number_30"
       ],
-      "duration": 180
+      "duration": 360
     }
   },
   "3": {

@@ -74,6 +74,7 @@
       "name": "shoppingbasket",
       "data": [
         {
+          "requiredShoppingAmount": 15,
           "dataShopping": [
             "towel",
             "watch",
@@ -96,30 +97,6 @@
             "watermelon",
             "strawberry",
             "xylophone"
-          ],
-          "dataListening": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10"
-          ],
-          "dataSpeaking": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5",
-            "number_6",
-            "number_7",
-            "number_8",
-            "number_9",
-            "number_10"
           ]
         }
       ],
@@ -137,43 +114,49 @@
         "number_7",
         "number_8",
         "number_9",
-        "number_10"
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15"
       ],
       "duration": 120
     },
     "3": {
-      "name": "listening",
+      "name": "writing",
       "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15"
       ],
-      "duration": 120
+      "duration": 240
     },
     "4": {
-      "name": "listening",
+      "name": "writing",
       "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15"
       ],
-      "duration": 120
+      "duration": 240
     },
     "5": {
+      "name": "writing",
+      "data": [
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15"
+      ],
+      "duration": 240
+    },
+    "6": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -185,9 +168,14 @@
         "number_7",
         "number_8",
         "number_9",
-        "number_10"
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15"
       ],
-      "duration": 120
+      "duration": 240
     }
   },
   "4": {

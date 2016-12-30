@@ -45,9 +45,18 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     onEnterTransitionDidFinish: function() {
         this._super();
+        this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
         this.playBackGroundMusic();
         this._hudLayer.setTotalGoals(this._requiredAmount);
+    },
+
+    playBeginSound: function(){
+        var beginSoundPath = "res/sounds/sentences/" + localize("put_objects_in_the_basket_") + this._requiredAmount + ".mp3";
+
+        if (jsb.fileUtils.isFileExist(beginSoundPath)) {
+            AudioManager.getInstance().play(beginSoundPath, false, null);
+        }
     },
 
     _addBasket: function() {
