@@ -1,6 +1,8 @@
 var languages = languages || {};
 
 languages["en"] = {
+    "langCode" : "en",
+    
     "a" : "en/A",
     "b" : "en/B",
     "c" : "en/C",
