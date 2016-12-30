@@ -77,7 +77,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
     update: function(dt) {
 
         this.setOpacity(this.getOpacity());
-        cc.log(this.getOpacity());
+        // cc.log(this.getOpacity());
 
         if (this.current != "died") {
             this.updatePlayerSpeed();

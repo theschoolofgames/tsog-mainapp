@@ -129,10 +129,16 @@ var AlphaRacingLayer = cc.Layer.extend({
         cc.eventManager.addListener(this._eventGameOver, 1);
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+        cc.audioEngine.playMusic(res.alpha_racing_mp3, true);
+    },
+
     onExit: function() {
         this._super();
 
         cc.eventManager.removeListener(this._eventGameOver);
+        cc.audioEngine.stopMusic();
     },
 
     update: function(dt) {

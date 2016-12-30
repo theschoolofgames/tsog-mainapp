@@ -26,6 +26,9 @@ var TreeGameLayer = TestLayer.extend({
         this._scrollToX = 0;
         this._treeGroup = [];
         this._numberGroup = [];
+
+        var startTime = new Date().getTime();
+
         this._fetchObjectData(data);
         this._loadTmx();
         this._addBackground();
@@ -256,7 +259,7 @@ var TreeGameLayer = TestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        // cc.log("data - > " + JSON.stringify(data)); 
+        cc.log("data - > " + JSON.stringify(data)); 
         if (data) {
             this._data = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
@@ -264,7 +267,7 @@ var TreeGameLayer = TestLayer.extend({
                 if (o[0])
                     return o[0];
             });
-            this.setData(JSON.stringify(this._data));
+            this.setData(this._data);
 
         } else
             this._data = [{
@@ -272,7 +275,7 @@ var TreeGameLayer = TestLayer.extend({
                 "type": "number",
                 "value": "1"
             }];
-        // cc.log("data - > " + JSON.stringify(this._data))
+        cc.log("data - > " + JSON.stringify(this._data))
     },
 
     updateProgressBar: function() {
