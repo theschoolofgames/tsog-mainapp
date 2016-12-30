@@ -18,6 +18,7 @@ var ARAlphabetWorker = cc.Class.extend({
             }
 
             if (cc.rectIntersectsRect(this._player.getBoundingBox(), this._array[i].getBoundingBox())) {
+                AudioManager.getInstance().play(res.collect_diamond_mp3);
                 var addedCoin = this._player.hasBoostFlag(ARDouble.getBoostFlag()) ? 2 : 1;
 
                 var cameraPos = cc.Camera.getDefaultCamera().getPosition();
