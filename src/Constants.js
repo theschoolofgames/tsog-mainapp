@@ -721,19 +721,25 @@ var STORY_RESOURCES = {
         },
         {
             "subtitles": [
+                "res/subtitles/sw/story02-title.ass",
                 "res/subtitles/sw/story02-01.ass",
                 "res/subtitles/sw/story02-02.ass",
-                "res/subtitles/sw/story02-03.ass"
+                "res/subtitles/sw/story02-03.ass",
+                "res/subtitles/sw/story02-moral.ass"
             ],
             "arts": [
                 "stories/Storytime2-1.jpg",
+                "stories/Storytime2-1.jpg",
                 "stories/Storytime2-2.jpg",
+                "stories/Storytime2-3.jpg",
                 "stories/Storytime2-3.jpg"
             ],
             "sounds": [
+                "res/sounds/stories/sw/story02-title.mp3",
                 "res/sounds/stories/sw/story02-01.mp3",
                 "res/sounds/stories/sw/story02-02.mp3",
-                "res/sounds/stories/sw/story02-03.mp3"
+                "res/sounds/stories/sw/story02-03.mp3",
+                "res/sounds/stories/sw/story02-moral.mp3"
             ]
         },
         {
