@@ -731,3 +731,5 @@ var LANGUAGE_CODE = {
     "English": "en",
     "Swahili": "sw"
 }
+
+var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";

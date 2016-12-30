@@ -7,13 +7,11 @@ var HomeScreenLayer = cc.Layer.extend({
     _bg: null,
     _scale: null,
 
-    _didCutScenePlayed: false,
-    ctor: function () {
+    _playBeginHomeCutScene: false,
+    ctor: function (playBeginHomeCutScene) {
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
 
         this._super();
-
-        // block touch for cutscene
 
         this.addBackGround();
         this.addPlayDoor();
@@ -24,8 +22,8 @@ var HomeScreenLayer = cc.Layer.extend({
 
         this.addChild(new HomeHUDLayer(),2);
 
-        this._didCutScenePlayed = KVDatabase.getInstance().getInt("didPlayCutScene", 0);
-        if (!this._didCutScenePlayed)
+        this._playBeginHomeCutScene = playBeginHomeCutScene || false;
+        if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
     },
 
@@ -41,9 +39,9 @@ var HomeScreenLayer = cc.Layer.extend({
     },  
 
     playBeginHomeCutScene: function() {
-        KVDatabase.getInstance().set("didPlayCutScene", 1);
+        // KVDatabase.getInstance().set("didPlayCutScene", 1);
         // shadow layer 
-        var l = new cc.LayerColor(cc.color(0, 0, 0, 220));
+        var l = new cc.LayerColor(cc.color(0, 0, 0, 180));
         l.setLocalZOrder(HOME_DOOR_Z_ORDER + 2);
         this.addChild(l);
 
@@ -95,7 +93,7 @@ var HomeScreenLayer = cc.Layer.extend({
         var self = this;
         var door = new ccui.Button("play_door.png","play_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "play";
-        door.setTouchEnabled(!this._didCutScenePlayed);
+        door.setTouchEnabled(!this._playBeginHomeCutScene);
         
         door.anchorX = 1;
         door.anchorY = 0;
@@ -121,18 +119,18 @@ var HomeScreenLayer = cc.Layer.extend({
         // lbHighScore.x = lbPlay.x;
         // lbHighScore.y = lbPlay.y - 37;
         // board.addChild(lbHighScore);
-        var dimaond = new cc.Sprite("#diamond-00.png");
-        dimaond.scale = 0.5;
-        dimaond.x = lbPlay.x;
-        dimaond.y = lbPlay.y - 40;
-        board.addChild(dimaond);
+        var diamond = new cc.Sprite("#diamond-00.png");
+        diamond.scale = 0.5;
+        diamond.x = lbPlay.x;
+        diamond.y = lbPlay.y - 40;
+        board.addChild(diamond);
 
     },
 
     addLearnDoor: function(){
         var door  = new ccui.Button("learn_door.png","learn_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "learn";
-        door.setTouchEnabled(!this._didCutScenePlayed);
+        door.setTouchEnabled(!this._playBeginHomeCutScene);
         
          // door.anchorX = 1;
         door.anchorY = 0;
@@ -172,7 +170,7 @@ var HomeScreenLayer = cc.Layer.extend({
     addHomeDoor: function(){
         var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         door.name = "home";
-        door.setTouchEnabled(!this._didCutScenePlayed);
+        door.setTouchEnabled(!this._playBeginHomeCutScene);
         door.anchorX = 0;
         door.anchorY = 0;
         door.x = cc.winSize.width/2 + door.width/2 + 40 * this._scale;
@@ -195,9 +193,9 @@ var HomeScreenLayer = cc.Layer.extend({
         var character = new AdiDogNode(true);
         character.scale  = 0.5;
         character.anchorX = 0;
-        character.x = door.x;
-        character.y = door.y;
-        this.addChild(character, HOME_DOOR_Z_ORDER+2);
+        // character.x = door.x;
+        // character.y = door.y;
+        door.addChild(character, HOME_DOOR_Z_ORDER+2);
     },
 
     _onDoorPressed: function(door) {
@@ -207,7 +205,7 @@ var HomeScreenLayer = cc.Layer.extend({
         switch(doorName) {
             case "play":
                 var didEnoughCoinToPlay = (CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING) ? true : false;
-                this.addChild(new DialogPlayAlpharacing(didEnoughCoinToPlay));
+                this.addChild(new DialogPlayAlpharacing(didEnoughCoinToPlay), HOME_DOOR_Z_ORDER+3);
                 break;
             case "learn":
                 cc.director.runScene(new MapScene());
@@ -222,9 +220,9 @@ var HomeScreenLayer = cc.Layer.extend({
 });
 
 var HomeScene = cc.Scene.extend({
-    ctor: function(){
+    ctor: function(playBeginHomeCutScene) {
         this._super();
-        var layer = new HomeScreenLayer();
+        var layer = new HomeScreenLayer(playBeginHomeCutScene);
         this.addChild(layer);
     }
 });

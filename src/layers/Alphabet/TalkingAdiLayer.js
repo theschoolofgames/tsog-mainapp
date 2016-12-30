@@ -6,6 +6,8 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     _talkingAdi: null,
     _block: true,
 
+    _isLanguageDialogShowing: false,
+
     ctor:function() {
         this._super(cc.color(255,255,255));
         var self= this;
@@ -32,6 +34,15 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.addButtonAnimation();
 
         this.addChooseLanguageButton();
+
+        // var eventDialogCLose = cc.EventListener.create({
+        //     event: cc.EventListener.CUSTOM,
+        //     eventName: EVENT_LANGUAGE_DIALOG_CLOSE,
+        //     callback: function(event){
+        //         this._isLanguageDialogShowing = false;
+        //     }.bind(this)
+        // });
+        // cc.eventManager.addListener(eventDialogCLose, this);
     },
 
     addChooseLanguageButton: function() {
@@ -42,9 +53,12 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         var self = this;
         button.addClickEventListener(function() {
+            if (self._isLanguageDialogShowing)
+                return;
+
+            self._isLanguageDialogShowing = true;
             self.addChild(new ChooseLanguageLayer(function() {
-                // cc.log("chooselanguage callback");
-                cc.director.replaceScene(new HomeScene())}));
+                cc.director.replaceScene(new TalkingAdiScene())}));
         });
         
         var text = localizeForWriting("choose language");

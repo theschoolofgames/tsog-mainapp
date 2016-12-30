@@ -29,8 +29,6 @@ var ChooseLanguageLayer = cc.LayerColor.extend({
         this._popupDialog.runAction(
             cc.sequence(
                 cc.moveBy(0.5, cc.p(0, this._popupDialog.height)).easing(cc.easeElasticInOut(0.6))
-                // cc.scaleTo(0.2, 1.1),
-                // cc.scaleTo(0.2, 1).easing(cc.easeElasticInOut(0.6))
             )
         );
         this.addChild(this._popupDialog);
