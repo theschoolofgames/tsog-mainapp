@@ -158,9 +158,9 @@
       "data": [
         {
           "key": [
-            "bird",
-            "duck",
-            "bear"
+            "hare",
+            "tortoise",
+            "forest"
           ],
           "option": "the_hare_and_the_tortoise",
           "data": [
@@ -180,9 +180,14 @@
             "live"
           ],
           "speaking": [
-            "bird",
-            "duck",
-            "bear"
+            "tortoise",
+            "hare",
+            "forest",
+            "asleep",
+            "walk",
+            "cheer",
+            "yawn",
+            "stop"
           ]
         }
       ],

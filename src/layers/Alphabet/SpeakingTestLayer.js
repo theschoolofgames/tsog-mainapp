@@ -152,7 +152,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var didInstructionSoundPlay = KVDatabase.getInstance().getInt("beginSound_SpeakingTestScene", 0);
         if (didInstructionSoundPlay == 0) {
             // var nation = Utils.getLanguage();
-            cc.log("if");
+            // cc.log("if");
             this._adiDog.adiTalk();
             
             var audioId = jsb.AudioEngine.play2d("res/sounds/sentences/" + localize("begin-speaking") + ".mp3", false);
@@ -168,7 +168,7 @@ var SpeakingTestLayer = TestLayer.extend({
         } else {
             if (mask)
                 mask.removeFromParent();
-            cc.log("else");
+            // cc.log("else");
             // self._addLabel();
             this._showNextObject();
         }
@@ -265,12 +265,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if (!this._checkCompleted()) {
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
-            this._showObject();
-            // this._remainingTime = 2;
-            // this._label.setString(this._remainingTime);
-            // this._label.visible = true;
-            // this.schedule(this._setLabelString, 1, 1);
-            // this._startSpeechRecognizing();    
+            this._showObject();   
         }
     },
 
@@ -356,7 +351,7 @@ var SpeakingTestLayer = TestLayer.extend({
         
         this._label.x = cc.winSize.width / 2;
         this._label.y = cc.winSize.height - 100;
-        this.addChild(this._label, 10000);    
+        this.addChild(this._label, 10000);
 
         var self = this;
         this._label.runAction(cc.sequence(
