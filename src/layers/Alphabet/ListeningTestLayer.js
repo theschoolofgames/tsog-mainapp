@@ -19,6 +19,8 @@ var ListeningTestLayer = TestLayer.extend({
     _keyObject: [],
     _currentKeyIndex: 0,
 
+    _totalGoals: 0,
+
     ctor: function(data, duration) {
         this._super();
         cc.log("data : " + data);
@@ -60,7 +62,7 @@ var ListeningTestLayer = TestLayer.extend({
         this._super();
         this.playBeginSound();
         this.runAction(cc.sequence(cc.delayTime(0.1),cc.callFunc(function() {Utils.startCountDownTimePlayed();})))
-        this._hudLayer.setTotalGoals(this._names.length);
+        this._hudLayer.setTotalGoals(this._totalGoals);
     },
 
     playBeginSound: function() {
@@ -125,7 +127,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     updateProgressBar: function() {
         // cc.log("ListeningTestLayer - updateProgressBar");
-        var percent = this._touchCounting / this._names.length;
+        var percent = this._touchCounting / this._totalGoals;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._touchCounting);
 
@@ -175,14 +177,8 @@ var ListeningTestLayer = TestLayer.extend({
             currentKeyNames = this._names[this._nameIdx];
 
         shownObjNames.push(currentKeyNames);
-        if(d) {
-            shownObjNames = d.data[this._currentKeyIndex];
-            cc.log("chay vao D");
-            // remainingObj.slice(0, this._currentKeyIndex * 3);
-        };
-        if(!d)
-            remainingObj.splice(this._nameIdx, 1);
-        // remainingObj = shuffle(remainingObj);
+        
+        remainingObj.splice(this._nameIdx, 1);
         
         cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;
@@ -206,9 +202,11 @@ var ListeningTestLayer = TestLayer.extend({
             shownObjNames.push(remainingObj[0]);
             shownObjNames.push(remainingObj[1]);
         }
-        // shownObjNames.push(remainingObj[1]);
 
-        // cc.log("shownObjNames: " + shownObjNames);
+        if(d)
+            shownObjNames = d.data[this._currentKeyIndex];
+
+        cc.log("shownObjNames: " + shownObjNames);
 
         if (shownObjNames[2] == null || shownObjNames[2] == undefined) {
             if (!this._addedObject.length) {
@@ -546,6 +544,9 @@ var ListeningTestLayer = TestLayer.extend({
             data = data.data;
             this._data = data;
         }
+        var storyTimeData = this.getStoryTimeForListeningData();
+        if (storyTimeData)
+            this._keyObject = storyTimeData.key;
 
         // cc.log("_fetchObjectData data: " + data);
         if (data)
@@ -559,7 +560,7 @@ var ListeningTestLayer = TestLayer.extend({
         else
             this._data = [];
 
-
+        this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
         // cc.log("listening names after map: " + JSON.stringify(this._names));
         if(!dataForWriting[0].dataListening)
             dataForWriting  = this._data;
