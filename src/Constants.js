@@ -791,9 +791,9 @@ var STORY_RESOURCES = {
         },
         {
             "subtitles": [
-                "res/subtitles/sw/story04-01.ass",
-                "res/subtitles/sw/story04-02.ass",
-                "res/subtitles/sw/story04-03.ass"
+                "res/subtitles/en/story04-01.ass",
+                "res/subtitles/en/story04-02.ass",
+                "res/subtitles/en/story04-03.ass"
             ],
             "arts": [
                 "stories/Storytime4-1.jpg",
@@ -801,16 +801,16 @@ var STORY_RESOURCES = {
                 "stories/Storytime4-3.jpg"
             ],
             "sounds": [
-                "res/sounds/stories/sw/story04-01.mp3",
-                "res/sounds/stories/sw/story04-02.mp3",
-                "res/sounds/stories/sw/story04-03.mp3"
+                "res/sounds/stories/en/story04-01.mp3",
+                "res/sounds/stories/en/story04-02.mp3",
+                "res/sounds/stories/en/story04-03.mp3"
             ]
         },
         {
             "subtitles": [
-                "res/subtitles/sw/story05-01.ass",
-                "res/subtitles/sw/story05-02.ass",
-                "res/subtitles/sw/story05-03.ass"
+                "res/subtitles/en/story05-01.ass",
+                "res/subtitles/en/story05-02.ass",
+                "res/subtitles/en/story05-03.ass"
             ],
             "arts": [
                 "stories/Storytime5-1.jpg",
@@ -818,23 +818,32 @@ var STORY_RESOURCES = {
                 "stories/Storytime5-3.jpg"
             ],
             "sounds": [
-                "res/sounds/stories/sw/story05-01.mp3",
-                "res/sounds/stories/sw/story05-02.mp3",
-                "res/sounds/stories/sw/story05-03.mp3"
+                "res/sounds/stories/en/story05-01.mp3",
+                "res/sounds/stories/en/story05-02.mp3",
+                "res/sounds/stories/en/story05-03.mp3"
             ]
         },
         {
             "subtitles": [
+                "res/subtitles/sw/story06-title.ass",
                 "res/subtitles/sw/story06-01.ass",
-                "res/subtitles/sw/story06-02.ass"
+                "res/subtitles/sw/story06-02.ass",
+                "res/subtitles/sw/story06-03.ass",
+                "res/subtitles/sw/story06-moral.ass",
             ],
             "arts": [
                 "stories/Storytime6-1.jpg",
-                "stories/Storytime6-2.jpg"
+                "stories/Storytime6-1.jpg",
+                "stories/Storytime6-2.jpg",
+                "stories/Storytime6-2.jpg",
+                "stories/Storytime6-2.jpg",
             ],
             "sounds": [
+                "res/sounds/stories/sw/story06-title.mp3",
                 "res/sounds/stories/sw/story06-01.mp3",
-                "res/sounds/stories/sw/story06-02.mp3"
+                "res/sounds/stories/sw/story06-02.mp3",
+                "res/sounds/stories/sw/story06-03.mp3",
+                "res/sounds/stories/sw/story06-moral.mp3"
             ]
         }
     ]
