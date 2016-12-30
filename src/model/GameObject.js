@@ -4,6 +4,7 @@ var GameObject = cc.Class.extend({
     value: null,
 
     _data: null,
+    _dataCached: null,
 
     init: function() {
         // load json file
@@ -11,20 +12,27 @@ var GameObject = cc.Class.extend({
         cc.loader.loadJson(res.Game_Object_JSON, function(err, data) {
             if (!err) {
                 self._data = data;
+                self._dataCached = {};
+                self._data.forEach((d, idx) => {
+                    self._dataCached[d.id] = idx;
+                    // cc.log(JSON.stringify(self._dataCached));
+                })
             } else {
                 cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Game_Object_JSON);
                 cc.loader.loadJson(res.Game_Object_JSON, function(err, data) {
                     self._data = data;
+                    self._dataCached = {};
+                    self._data.forEach((d, idx) => {
+                        self._dataCached[d.id] = idx;
+                        // cc.log(JSON.stringify(self._dataCached));
+                    })
                 });
             };
         });
     },
 
     findById: function(id) {
-        return this._data.filter(function(object) {
-            if (object.id == id)
-                return object;
-        });
+        return [this._data[this._dataCached[id]]];
     },
 
     getRandomAnObjectDiffWithId: function(id) {
