@@ -744,22 +744,49 @@ var STORY_RESOURCES = {
         },
         {
             "subtitles": [
+                "res/subtitles/sw/story03-title.ass",
                 "res/subtitles/sw/story03-01.ass",
                 "res/subtitles/sw/story03-02.ass",
                 "res/subtitles/sw/story03-03.ass",
-                "res/subtitles/sw/story03-04.ass"
+                "res/subtitles/sw/story03-04.ass",
+                "res/subtitles/sw/story03-05.ass",
+                "res/subtitles/sw/story03-06.ass",
+                "res/subtitles/sw/story03-07.ass",
+                "res/subtitles/sw/story03-08.ass",
+                "res/subtitles/sw/story03-09.ass",
+                "res/subtitles/sw/story03-10.ass",
+                "res/subtitles/sw/story03-11.ass",
+                "res/subtitles/sw/story03-moral.ass",
             ],
             "arts": [
                 "stories/Storytime3-1.jpg",
+                "stories/Storytime3-1.jpg",
+                "stories/Storytime3-1.jpg",
+                "stories/Storytime3-2.jpg",
+                "stories/Storytime3-2.jpg",
+                "stories/Storytime3-2.jpg",
+                "stories/Storytime3-2.jpg",
                 "stories/Storytime3-2.jpg",
                 "stories/Storytime3-3.jpg",
-                "stories/Storytime3-4.jpg"
+                "stories/Storytime3-4.jpg",
+                "stories/Storytime3-4.jpg",
+                "stories/Storytime3-4.jpg",
+                "stories/Storytime3-4.jpg",
             ],
             "sounds": [
+                "res/sounds/stories/sw/story03-title.mp3",
                 "res/sounds/stories/sw/story03-01.mp3",
                 "res/sounds/stories/sw/story03-02.mp3",
                 "res/sounds/stories/sw/story03-03.mp3",
-                "res/sounds/stories/sw/story03-04.mp3"
+                "res/sounds/stories/sw/story03-04.mp3",
+                "res/sounds/stories/sw/story03-05.mp3",
+                "res/sounds/stories/sw/story03-06.mp3",
+                "res/sounds/stories/sw/story03-07.mp3",
+                "res/sounds/stories/sw/story03-08.mp3",
+                "res/sounds/stories/sw/story03-09.mp3",
+                "res/sounds/stories/sw/story03-10.mp3",
+                "res/sounds/stories/sw/story03-11.mp3",
+                "res/sounds/stories/sw/story03-moral.mp3"
             ]
         },
         {
