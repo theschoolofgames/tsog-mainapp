@@ -490,6 +490,11 @@
     "value": "pet"
   },
   {
+    "id": "stork",
+    "type": "animal",
+    "value": "stork"
+  },
+  {
     "id": "mouse",
     "type": "animal",
     "value": "pet"
