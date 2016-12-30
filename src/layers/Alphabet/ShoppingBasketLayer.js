@@ -263,21 +263,22 @@ var ShoppingBasketLayer = TestLayer.extend({
         // if(this._indexOfLastObject == this._data.length && this._activateObjects.length == 0) {
         if (this._deactivateObjects.length == this._requiredAmount){// && this._activateObjects.length == 0) {
             this._blockFlag = true;
-            this.playWinSound();
-            this.createWinLabel();
-            if (this.timePlayed < 3)
-                this.runAction(cc.sequence(
-                    cc.delayTime(2),
-                    cc.callFunc(function() {
-                        this.timePlayed++;
-                        cc.director.runScene(new ShoppingBasketScene(ShoppingBasketLayer._data, this.timePlayed)); 
-                    })
-                ));
-            else {
-                Utils.updateStepData();
-                SceneFlowController.getInstance().clearData();
-                cc.director.runScene(new MapScene());
-            }
+            this.doCompletedScene();
+            // this.playWinSound();
+            // this.createWinLabel();
+            // if (this.timePlayed < 3)
+            //     this.runAction(cc.sequence(
+            //         cc.delayTime(2),
+            //         cc.callFunc(function() {
+            //             this.timePlayed++;
+            //             cc.director.runScene(new ShoppingBasketScene(ShoppingBasketLayer._data, this.timePlayed)); 
+            //         })
+            //     ));
+            // else {
+            //     Utils.updateStepData();
+            //     SceneFlowController.getInstance().clearData();
+            //     cc.director.runScene(new MapScene());
+            // }
         }
     },
 
