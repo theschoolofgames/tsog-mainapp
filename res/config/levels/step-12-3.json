@@ -3,33 +3,61 @@
     "1": {
       "name": "listening",
       "data": [
-        "U",
-        "V",
-        "W",
-        "u",
-        "v",
-        "w"
+        "word_U",
+        "word_V",
+        "word_W",
+        "word_u",
+        "word_v",
+        "word_w"
       ],
       "duration": 120
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_U",
+        "word_V",
+        "word_W",
+        "word_u",
+        "word_v",
+        "word_w"
+      ],
       "duration": 240
     },
     "3": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_U",
+        "word_V",
+        "word_W",
+        "word_u",
+        "word_v",
+        "word_w"
+      ],
       "duration": 240
     },
     "4": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "word_U",
+        "word_V",
+        "word_W",
+        "word_u",
+        "word_v",
+        "word_w"
+      ],
       "duration": 240
     },
     "5": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "word_U",
+        "word_V",
+        "word_W",
+        "word_u",
+        "word_v",
+        "word_w"
+      ],
       "duration": 240
     }
   },

@@ -11,12 +11,20 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "hat",
+        "cat",
+        "rat"
+      ],
       "duration": 60
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "hat",
+        "cat",
+        "rat"
+      ],
       "duration": 120
     }
   },

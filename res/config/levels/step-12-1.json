@@ -120,6 +120,18 @@
             "number_8",
             "number_9",
             "number_10"
+          ],
+          "dataWriting": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
           ]
         }
       ],
@@ -267,12 +279,32 @@
     },
     "2": {
       "name": "listening",
-      "data": [],
+      "data": [
+        "seed",
+        "sheep",
+        "son",
+        "star",
+        "step",
+        "stew",
+        "sun",
+        "toe",
+        "tub"
+      ],
       "duration": 120
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "seed",
+        "sheep",
+        "son",
+        "star",
+        "step",
+        "stew",
+        "sun",
+        "toe",
+        "tub"
+      ],
       "duration": 120
     }
   }
