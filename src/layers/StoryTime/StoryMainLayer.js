@@ -25,29 +25,32 @@ var StoryMainLayer = TestLayer.extend({
         this._fetchObjectData(data);
         this._canPlay = true;
         cc.log("ctor option " + timeForScene);
+
+        let LOCALIZED_STORY_RESOURCES = STORY_RESOURCES[localize("langCode")];
         switch(option) {
             case "lion_and_mouse":
-                this._currentStory = STORY_RESOURCES[0];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[0];
                 break;
             case "goose_with_golden_egg":
-                this._currentStory = STORY_RESOURCES[1];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[1];
                 break;
             case "cunning_fox_clever_stork":
-                this._currentStory = STORY_RESOURCES[2];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[2];
                 break;
             case "the_hare_and_the_tortoise":
-                this._currentStory = STORY_RESOURCES[3];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[3];
                 break;
             case "a_merchant_and_his_donkey":
-                this._currentStory = STORY_RESOURCES[4];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[4];
                 break;
             case "the_fox_and_the_grapes":
-                this._currentStory = STORY_RESOURCES[5];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[5];
                 break;
             default:
-                this._currentStory = STORY_RESOURCES[0];
+                this._currentStory = LOCALIZED_STORY_RESOURCES[0];
                 break;
         }
+        cc.log("this._currentStory: " + JSON.stringify(this._currentStory));
 
         this.scheduleOnce(this._playStory, 1);
 
