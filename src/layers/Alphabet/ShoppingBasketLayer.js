@@ -197,24 +197,26 @@ var ShoppingBasketLayer = TestLayer.extend({
             if (cc.rectContainsPoint(bBox, touchLoc)) {
                 // cc.log("touch _activateObjects with tag: " + obj.tag);
                 self._didObjectAllowedToMove = true;
-                var objName = obj.getUserData();
-                cc.log("objName" + objName);
-                var path =  "res/sounds/words/" + localize(objName) + ".mp3";
-                cc.log("Path: " + path);
-                if (!jsb.fileUtils.isFileExist(path)) {
-                    path = "res/sounds/numbers/" + objName + ".mp3";
-                }
-                if (!jsb.fileUtils.isFileExist(path)) {
-                    path = "res/sounds/alphabets/" + localize(objName) + ".mp3";
-                }
-                if (!jsb.fileUtils.isFileExist(path)) {
-                    path = "res/sounds/colors/" + objName + ".mp3";
-                }
-                if (!jsb.fileUtils.isFileExist(path))
-                    path = "";
-                cc.log("path ->>>" + path);
-                if(jsb.fileUtils.isFileExist(path))
-                    jsb.AudioEngine.play2d(path, false);
+                
+                // var objName = obj.getUserData();
+                // cc.log("objName" + objName);
+                // var path =  "res/sounds/words/" + localize(objName) + ".mp3";
+                // cc.log("Path: " + path);
+                // if (!jsb.fileUtils.isFileExist(path)) {
+                //     path = "res/sounds/numbers/" + objName + ".mp3";
+                // }
+                // if (!jsb.fileUtils.isFileExist(path)) {
+                //     path = "res/sounds/alphabets/" + localize(objName) + ".mp3";
+                // }
+                // if (!jsb.fileUtils.isFileExist(path)) {
+                //     path = "res/sounds/colors/" + objName + ".mp3";
+                // }
+                // if (!jsb.fileUtils.isFileExist(path))
+                //     path = "";
+                // cc.log("path ->>>" + path);
+                // if(jsb.fileUtils.isFileExist(path))
+                //     jsb.AudioEngine.play2d(path, false);
+
                 self._currentObjectMoving = obj;
                 self._currentObjectOriginPos = obj.getPosition();
                 return true;
@@ -320,15 +322,15 @@ var ShoppingBasketLayer = TestLayer.extend({
         this._currentAvailableSlot = null;
         this._activateSlots.splice(0, 1);
         //paly soundCorrect
-        jsb.AudioEngine.play2d(res.Succeed_sfx);
+        // jsb.AudioEngine.play2d(res.Succeed_sfx);
         var path = "res/sounds/numbers/" + localize(this._currentObjectOder) + ".mp3";
-        this.runAction(cc.sequence(
-            cc.delayTime(1),
-            cc.callFunc(function() {
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(1),
+        //     cc.callFunc(function() {
                 if (jsb.fileUtils.isFileExist(path))
                     jsb.AudioEngine.play2d(path, false);
-            }.bind(this))
-        ));
+        //     }.bind(this))
+        // ));
         this._currentAvailableSlot = this._activateSlots[0];
         // if (this._currentAvailableSlot)
         //     this._runSlotAction(this._currentAvailableSlot);
