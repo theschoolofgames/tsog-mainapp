@@ -1,18 +1,19 @@
+let REPEAT_ON_FAILURE = 2;
+
 var SpeakingTestLayer = TestLayer.extend({
     _currentObjectShowUp: null,
     _itemArray: [],
     _soundName: null,
     _remainingTime: 2,
     _touchCounting:0,
-    currentObjectShowUpId: 0,
+    currentObjectId: 0,
     currentObjectName: null,
     resultText: null,
     _userId:null,
-    checkCorrectAction:0,
     _objectName: "",
     _nextSceneName: null,
     _oldSceneName: null,
-    _wrongAnswerTime: 0,
+    _wrongAnswerCount: 0,
     _timesUp: false,
     _eventTimeUp: null,
 
@@ -32,6 +33,8 @@ var SpeakingTestLayer = TestLayer.extend({
         this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
         NativeHelper.callNative("changeAudioRoute");
+
+        this.currentObjectId = 0;
         // NativeHelper.callNative("changeSpeechLanguageArray", [JSON.stringify(this._itemArray)]);
     },
     _addHudLayer: function(){
@@ -182,28 +185,35 @@ var SpeakingTestLayer = TestLayer.extend({
     },  
 
     incorrectAction: function() {
+        cc.log("incorrectAction");
         var self = this;
 
         if (!this._adiDog)
             return;
 
         jsb.AudioEngine.play2d(res.Failed_sfx);
-        cc.log("_wrongAnswerTime -> " + this._wrongAnswerTime);
 
         ConfigStore.getInstance().setBringBackObj(
             this._oldSceneName == "room" ? BEDROOM_ID : FOREST_ID, 
             this.currentObjectName, 
             (this._oldSceneName == "room" ? Global.NumberRoomPlayed : Global.NumberForestPlayed)-1);
 
-        this._timeUp();
+        this._adiDog.onStoppedListening();
+        this._adiDog.adiShakeHead();
+
         this.runAction(
             cc.sequence(
                 cc.delayTime(2),
                 cc.callFunc(function() {
-                    if (self._wrongAnswerTime < 3)
-                        self._wrongAnswerTime++;
-                    else
-                        self.checkCorrectAction = 0;
+                    if (self._wrongAnswerCount < REPEAT_ON_FAILURE) {
+                        self._playObjectSound();
+                        self._wrongAnswerCount++;
+                        cc.log("_wrongAnswerCount -> " + self._wrongAnswerCount);
+                    } else {
+                        self._adiDog.adiIdling();
+                        self.currentObjectId++;
+                        self._wrongAnswerCount = 0;
+                    }
 
                     self._showNextObject();
                 })        
@@ -224,6 +234,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     correctAction: function() {
+        cc.log("correctAction");
         this.popGold(this._currentObjectShowUp.getPosition());
 
         this._touchCounting++;
@@ -241,9 +252,8 @@ var SpeakingTestLayer = TestLayer.extend({
             }),
             cc.delayTime(2),
             cc.callFunc(function() {
-                self.checkCorrectAction = 1;
-                self.currentObjectShowUpId++;
-                self._wrongAnswerTime = 0;
+                self.currentObjectId++;
+                self._wrongAnswerCount = 0;
                 self._showNextObject();
             })
         ));
@@ -281,8 +291,8 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.log("this._soundName: " + this._soundName);
         if (!jsb.fileUtils.isFileExist(this._soundName)) {
             // callback();
-            cc.log("no matching file -> currentObjectShowUpId ++");
-            this.currentObjectShowUpId++;
+            cc.log("no matching file -> currentObjectId ++");
+            this.currentObjectId++;
             cc.log("_playObjectSound: " + this._currentObjectShowUp);
             
             this._showNextObject();
@@ -297,11 +307,11 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _checkCompleted: function() {
-        // cc.log("currentObjectShowUpId: " + this.currentObjectShowUpId);
-        // cc.log("this._names.length: " + this._names.length);
-        if (this.currentObjectShowUpId >= this._names.length){
+        if (this.currentObjectId >= this._names.length){
             NativeHelper.callNative("stopSpeechRecognition");
-            // cc.log("SpeakingTestLayer _checkCompleted");
+            cc.log("SpeakingTestLayer _checkCompleted: true ");
+            cc.log("currentObjectId: " + this.currentObjectId);
+            cc.log("this._names.length: " + this._names.length);
             this.doCompletedScene();
 
             return true;
@@ -314,22 +324,6 @@ var SpeakingTestLayer = TestLayer.extend({
         var now = Date.now()/1000;
         return (now - startTime) >= 2;
     },
-
-    _timeUp: function() {
-        var self = this;
-        this._adiDog.onStoppedListening();
-        this._adiDog.adiShakeHead();
-        this.runAction(cc.sequence(
-            cc.delayTime(2),
-            cc.callFunc(function() { 
-                if (self._wrongAnswerTime >= 3)
-                    self._playObjectSound();
-                else
-                    self._adiDog.adiIdling();
-            })
-        ))
-    },
-
     // _startSpeechRecognizing: function() {
     //     var self = this;
     //     this.runAction(
@@ -373,7 +367,7 @@ var SpeakingTestLayer = TestLayer.extend({
         var isNumber = false;
         var isWord = false;
         var spritePath = "";
-        var objectName = this._names[this.currentObjectShowUpId].toLowerCase();
+        var objectName = this._names[this.currentObjectId].toLowerCase();
 
         var d = this.getStoryTimeForSpeakingData();
         if (d) {
@@ -397,15 +391,15 @@ var SpeakingTestLayer = TestLayer.extend({
                 this._soundName = "res/sounds/alphabets/" + localize(objectName) + ".mp3";
 
                 // number case
-                var number = parseInt(this._names[this.currentObjectShowUpId]);
+                var number = parseInt(this._names[this.currentObjectId]);
                 this._objectName = number;
                 if (!isNaN(number)) {
-                    spritePath = this._names[this.currentObjectShowUpId];
+                    spritePath = this._names[this.currentObjectId];
                     isNumber = true;
                 }
                 else {
                     isWord = true;
-                    spritePath = this._names[this.currentObjectShowUpId];
+                    spritePath = this._names[this.currentObjectId];
                 };
                 // cc.log("spritePath: " + spritePath);
                 
@@ -413,7 +407,7 @@ var SpeakingTestLayer = TestLayer.extend({
                     this._soundName = "res/sounds/numbers/" + localize(number) + ".mp3";
 
                 // color case
-                var name = this._names[this.currentObjectShowUpId].toLowerCase();
+                var name = this._names[this.currentObjectId].toLowerCase();
                 if (name.indexOf("color") > -1) {
                     var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
                     objectName = "#btn_" + namePrefix;
@@ -426,7 +420,7 @@ var SpeakingTestLayer = TestLayer.extend({
                 }
             }
         };
-        var objectTempName = this._names[this.currentObjectShowUpId];
+        var objectTempName = this._names[this.currentObjectId];
         // cc.log("objectName: " + objectName);
         // cc.log("_soundName: " + this._soundName);
         if (objectTempName.indexOf("color") > -1) {
@@ -457,11 +451,6 @@ var SpeakingTestLayer = TestLayer.extend({
         // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
-
-        if (this._wrongAnswerTime > 2) {
-            this.currentObjectShowUpId +=1;
-            this._wrongAnswerTime = 0;
-        }
     },
 
     _fetchObjectData: function(data) {
