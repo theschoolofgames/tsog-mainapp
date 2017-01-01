@@ -223,12 +223,16 @@ var BuildingBlocksLayer = TestLayer.extend({
         var self = this;
         jsb.AudioEngine.setFinishCallback(countAudioId, function(audioId, audioPath) {
             // jsb.AudioEngine.stopAll();
-            if (!self._operationSoundReady)
+            if (! self._operationSoundReady)
                 return;
-            if (!self._operationSoundExist) {
+
+            if (! self._operationSoundExist) {
                 self._blockTouch = false;
                 self._showNextOperation();
+
+                return;
             }
+
             cc.log("self._operationSoundPath: " + self._operationSoundPath);
             var audio = jsb.AudioEngine.play2d(self._operationSoundPath);
             jsb.AudioEngine.setFinishCallback(audio, function(audioId, audioPath) {
@@ -355,13 +359,16 @@ var BuildingBlocksLayer = TestLayer.extend({
                 // play end of operation sound
                 this._completeOperationAction();
                 this._operationSoundReady = true;
-                if (jsb.fileUtils.isFileExist(this._operationSoundPath))
-                    this._operationSoundExist = true;
+                
+                this._operationSoundExist = jsb.fileUtils.isFileExist(this._operationSoundPath);
+
+                cc.log("_operationSoundPath '" + this._operationSoundPath + "' exists: " + this._operationSoundExist);
             }
         } else
             this._blockTouch = false;
-        this._playOperationSound(blocksCount);
+
     },
+        this._playOperationSound(blocksCount);
 
     _checkWonGame: function() {
         var self = this;
