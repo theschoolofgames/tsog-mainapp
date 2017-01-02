@@ -364,11 +364,12 @@ var BuildingBlocksLayer = TestLayer.extend({
 
                 cc.log("_operationSoundPath '" + this._operationSoundPath + "' exists: " + this._operationSoundExist);
             }
-        } else
+        } else {
             this._blockTouch = false;
+        }
 
-    },
         this._playOperationSound(blocksCount);
+    },
 
     _checkWonGame: function() {
         var self = this;
@@ -439,7 +440,7 @@ var BuildingBlocksLayer = TestLayer.extend({
         this.setHUDCurrentGoals(this._currentOperationId);
 
         this._super();
-    },
+    }
 });
 
 var BuildingBlocksScene = cc.Scene.extend({
