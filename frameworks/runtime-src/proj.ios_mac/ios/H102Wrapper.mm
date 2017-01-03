@@ -277,9 +277,9 @@ static NSMutableArray* noiseDetectionArray = nil;
     float avgAmpl = [[noiseDetectionArray valueForKeyPath:@"@avg.floatValue"] floatValue];
     NSLog(@"avgAmpl: %f", avgAmpl);
     if (avgAmpl > -25)
-      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=true");
+      ScriptingCore::getInstance()->evalString("NativeHelper.onReceive('noiseDetectingLoop', 'onNoiseDetected', [true])");
     else
-      ScriptingCore::getInstance()->evalString("SpeakingTestLayer.shouldSkipTest=false");
+      ScriptingCore::getInstance()->evalString("NativeHelper.onReceive('noiseDetectingLoop', 'onNoiseDetected', [false])");
   } else {
     float maxAmplitude = [[SimpleAudioRecordEngine sharedEngine] peakPowerForChannel:0];
 //    NSLog(@"%f", maxAmplitude);
