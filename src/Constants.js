@@ -896,3 +896,4 @@ var LANGUAGE_CODE = {
 }
 
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
+var MAX_BLOCK_NUMBER_SCALE = 0.8;

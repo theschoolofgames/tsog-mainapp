@@ -153,7 +153,9 @@
     "1": {
       "name": "fruiddition",
       "data": {
-        "type": ["banana"],
+        "type": [
+          "banana"
+        ],
         "data": [
           {
             "first": [
@@ -213,45 +215,154 @@
       "data": {
         "type": "block",
         "data": [
-              {
-                "first": [
-                  ["number_1", "number_3"],
-                  ["number_2", "number_3"],
-                  ["number_3", "number_4"],
-                  ["number_4", "number_3"]
-                ],
-                "second": [
-                  ["number_4", "number_3"],
-                  ["number_5", "number_4"],
-                  ["number_5", "number_4"],
-                  ["number_5", "number_6"]
-                ],
-                "third": [
-                  "number_6",
-                  "number_7",
-                  "number_8",
-                  "number_9"
-                ],
-                "firstOperation": [
-                  "plus",
-                  "plus",
-                  "plus",
-                  "plus"
-                ],
-                "secondOperation": [
-                  "equal",
-                  "equal",
-                  "equal",
-                  "equal"
-                ]
-              }
+          {
+            "first": [
+              [
+                "number_1",
+                "number_3"
+              ],
+              [
+                "number_2",
+                "number_3"
+              ],
+              [
+                "number_3",
+                "number_4"
+              ],
+              [
+                "number_4",
+                "number_3"
+              ]
+            ],
+            "second": [
+              [
+                "number_4",
+                "number_3"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_4"
+              ],
+              [
+                "number_5",
+                "number_6"
+              ]
+            ],
+            "third": [
+              "number_6",
+              "number_7",
+              "number_8",
+              "number_9"
+            ],
+            "firstOperation": [
+              "plus",
+              "plus",
+              "plus",
+              "plus"
+            ],
+            "secondOperation": [
+              "equal",
+              "equal",
+              "equal",
+              "equal"
             ]
+          }
+        ]
       },
       "duration": 120
     },
     "2": {
       "name": "listening-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "first": [
+            [
+              "number_1"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_3"
+            ]
+          ],
+          "second": [
+            [
+              "number_4"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_6"
+            ]
+          ],
+          "third": [
+            "number_6",
+            "number_6",
+            "number_7",
+            "number_7",
+            "number_8",
+            "number_8",
+            "number_9",
+            "number_9"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 60
     },
     "3": {

@@ -17,50 +17,41 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     },
 
     _createOperation: function() {
-        cc.log("_createOperation");
+        // cc.log("_createOperation");
         // 1st row
         this._objects = [];
         this._operations = [];
         this._rdmIndex = null;
         var firstObj = new cc.Layer();
-        firstObj.width = FRUIDDITION_HOLDER_WIDTH;
-        firstObj.height = 100;
         this._nameNode.addChild(firstObj);
         this._objects.push(firstObj);
+
+        var secondObj = new cc.Layer();
+        this._nameNode.addChild(secondObj);
+        this._objects.push(secondObj);
+
         var string = "";
         if (this._data["firstOperation"][this._nameIdx] == "plus")
             string = "+";
         else
             string = "-";
-        var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
-        firstOperation.scale = 0.5;
-        firstOperation.x = firstObj.width + firstOperation.width/2;
-        firstOperation.y = firstOperation.height/2;
+        var firstOperation = new cc.LabelBMFont(string, res.HomeFont_fnt);
+        firstOperation.scale = 0.8;
         this._nameNode.addChild(firstOperation);
         this._operations.push(firstOperation);
 
-        var secondObj = new cc.Layer();
-        secondObj.width = 250;
-        secondObj.x = firstOperation.x + secondObj.width/2;
-        this._nameNode.addChild(secondObj);
-        this._objects.push(secondObj);
 
         var objCount = this._names[this._nameIdx];
-        cc.log("objCount: " + objCount);
-        cc.log("this._names: " + this._names);
-        
+        var blockNumberY;
+
         for (var i = 0; i < this._objects.length; i++) {
-            var objCount;
-            if (i == 0) {
-                cc.log("_nameIdx if ->>> " + this._nameIdx);
-                objCount = this._data["first"][this._nameIdx];
-            }
-            else {
-                cc.log("_nameIdx else ->>> " + this._nameIdx);
-                objCount = this._data["second"][this._nameIdx];
-            }
-            cc.log("objCount " + objCount);
-            cc.log("this._rdmIndex: " + this._rdmIndex);
+            var operationPartIndex = (i == 0) ? "first" : "second";
+
+            var objCount = this._data[operationPartIndex][this._nameIdx];
+
+            objCount = Utils.getValueOfObjectById(objCount);
+            // cc.log("objCount " + objCount);
+
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
             else {
@@ -68,31 +59,41 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
                     this._rdmIndex = Math.floor(Math.random() * objCount.length);
                 objCount = objCount[this._rdmIndex];
             };
-            var heightIdx = -1;
+
             var labelAdded = false;
             for (var k = 0; k < objCount; k++) {
-                if (k%3 == 0)
-                    heightIdx++;
-                var o = new cc.Sprite("#"+ this._type + "-empty.png");
+                if (k > 4)
+                    break;
+                var rdmColorIndex = Math.ceil(Math.random() * 4);
+                var o = new cc.Sprite("#block" + rdmColorIndex + ".png");
                 o.scale = (firstObj.height < o.height*objCount) ? (firstObj.height / (o.height*objCount)) : 0.7;
                 o.y = (o.height - 10) *  (objCount-k) * o.scale;
                 this._objects[i].addChild(o, STAND_OBJECT_ZORDER);
                 this._objects[i].width = o.width*o.scale;
-                if (k == Math.floor(objCount/2) || (objCount > 5 && k == Math.floor(5/2) )) {
-                    if (!labelAdded) {
-                        var lb = new cc.LabelBMFont(objCount, res.CustomFont_fnt);
-                        lb.scale = (1/o.scale);
-                        lb.x = o.width/2;
-                        lb.y = o.height/2;
-                        o.addChild(lb);
 
-                        labelAdded = true;
+                if (!labelAdded) {
+                    var lb = new cc.LabelBMFont(objCount, res.HomeFont_fnt);
+                    lb.scale = (objCount/3 < MAX_BLOCK_NUMBER_SCALE) ? (objCount/3) : MAX_BLOCK_NUMBER_SCALE;
+                    blockNumberY = ((o.height - 10) * objCount/2 * o.scale)/2 + lb.height/2;
+
+                    if (objCount == 1) {
+                        blockNumberY = o.y + 4;
                     }
+
+                    lb.y = blockNumberY;
+
+                    this._objects[i].addChild(lb, STAND_OBJECT_ZORDER + 1);
+
+                    labelAdded = true;
+
+                    firstOperation.y = (blockNumberY > firstOperation.y) ? blockNumberY : firstOperation.y;
                 }
             }
         }
-        firstOperation.x = this._objects[0].width + firstOperation.width/2;
-        secondObj.x = firstOperation.x + this._objects[1].width/2;
+
+        
+        firstOperation.x = this._objects[0].width;
+        secondObj.x = firstOperation.x + this._objects[0].width;
     },
 
     _displayCurrentName: function() {
@@ -129,7 +130,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         var shownObjNames = [];
 
         var remainingObj = this._names.slice(0);
-        cc.log("remainingObj: " + remainingObj);
+        // cc.log("remainingObj: " + remainingObj);
         var currentKeyNames = this._names[this._nameIdx];
 
         shownObjNames.push(currentKeyNames);
@@ -140,7 +141,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         shownObjNames.push(remainingObj[0]);
         shownObjNames.push(remainingObj[1]);
 
-        cc.log("shownObjNames: " + shownObjNames);
+        // cc.log("shownObjNames: " + shownObjNames);
 
         shownObjNames = shuffle(shownObjNames);
         for (var i = 0; i < 3; i++) {
@@ -150,27 +151,28 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
             node.setCascadeOpacityEnabled(true);
             var labelAdded = false;
             for (var k = 0; k < shownObjNames[i]; k++) {
-                if (k > 5)
+                if (k > 4)
                     break;
-                var o = new cc.Sprite("#" + this._type + "-empty" + ".png");
+                var rdmColorIndex = Math.ceil(Math.random() * 4);
+                var o = new cc.Sprite("#block" + rdmColorIndex + ".png");
                 o.scale = Math.min(node.width / o.width, node.height / (o.height*shownObjNames[i]));
                 o.x = o.width/2;
                 o.y = (o.height - 10) *  (shownObjNames[i]-k) * o.scale;
                 node.addChild(o, STAND_OBJECT_ZORDER);      
-                // node.width = o.width;
-                // node.height = o.height*shownObjNames[i];
 
-                if (k == Math.floor(shownObjNames[i]/2) || (shownObjNames[i] > 5 && k == Math.floor(5/2) )) {
-                    if (!labelAdded) {
-                        o.setCascadeOpacityEnabled(true);
-                        var lb = new cc.LabelBMFont(shownObjNames[i], res.CustomFont_fnt);
-                        lb.scale = 0.5;
-                        lb.x = o.width/2;
-                        lb.y = o.height/2;
-                        o.addChild(lb);
+                var blockNumberY;
+                if (!labelAdded) {
+                    var lb = new cc.LabelBMFont(shownObjNames[i], res.HomeFont_fnt);
+                    lb.scale = (shownObjNames[i]/3 < MAX_BLOCK_NUMBER_SCALE) ? (shownObjNames[i]/3) : MAX_BLOCK_NUMBER_SCALE;
 
-                        labelAdded = true;
-                    }
+                    blockNumberY = ((o.height - 10) * shownObjNames[i] * o.scale)/2 + lb.height/2;
+
+                    lb.x = o.x;
+                    lb.y = blockNumberY;
+
+                    node.addChild(lb, STAND_OBJECT_ZORDER + 1);
+
+                    labelAdded = true;
                 }
             }
             node.name = shownObjNames[i];
@@ -192,7 +194,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
                 node.runAction(cc.sequence(
                     cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || UPDATED_CONFIG.listeningTestWaitToShowHand),
                     cc.callFunc(function(sender) {
-                        cc.log("set finger tutorial");
+                        // cc.log("set finger tutorial");
                         self._tutorial = new TutorialLayer([sender]);
                         self.addChild(self._tutorial, 999);
                     }),
@@ -217,18 +219,19 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data: " + data);
-        this._type = data["type"];
-        this._names = data["third"];
-        this._data = data;
-        cc.log("_fetchObjectData: " + this._objectName);
-        cc.log("_fetchObjectData: " + this._keyObject);
+        // cc.log("ListeningTestForBuildingBLocks \t _fetchObjectData -> DATA: " + JSON.stringify(data));
+        this._super(data[0]["third"]);
 
-        this.setData(this._data);
+        this._type = data[0]["type"];
+        this._data = data[0];
+        // cc.log("ListeningTestForBuildingBLocks \t this._type: " + JSON.stringify(this._type));
+        // cc.log("ListeningTestForBuildingBLocks \t this._third: " + JSON.stringify(this._names));
+
+        // this.setData(this._data);
     },
 
     updateProgressBar: function() {
-        cc.log("ListeningTestLayer - updateProgressBar");
+        // cc.log("ListeningTestLayer - updateProgressBar");
         var percent = this._nameIdx / this._names.length;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._nameIdx);
@@ -240,7 +243,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
 var ListeningTestForBuildingBLocksScene = cc.Scene.extend({
     ctor: function(data, duration) {
         this._super();
-        cc.log("listening: " + duration);
+        // cc.log("listening: " + duration);
         var layer = new ListeningTestForBuildingBLocks(data, duration);
         this.addChild(layer);
     }
