@@ -5,14 +5,18 @@ var WritingTestForBuildingBlocks = WritingTestForFruidition.extend({
         this._super(data, oldSceneName, isTestScene, timeForScene);
     },
 
-    _fetchObjectData: function(data) {
-        
-        this._names = data["third"];
-        this._data = data;
+    // _fetchObjectData: function(data) {
+    //     cc.log("WritingTestForBuildingBlocks \t _fetchObjectData \t " + JSON.stringify(data));
+    //     this._names = data[0]["third"];
+    //     this._data = data[0];
 
-        this.setData(this._data);
-        this._writingWords = this._names;
-    },
+    //     cc.each(this._names, function(o) {
+    //         o = Utils.getValueOfObjectById(o);
+    //     });
+
+    //     this.setData(this._data);
+    //     this._writingWords = this._names;
+    // },
 
 });
 

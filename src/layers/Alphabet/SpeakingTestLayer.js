@@ -454,6 +454,9 @@ var SpeakingTestLayer = TestLayer.extend({
             objectTempName = objectTempName.substr(objectTempName.indexOf("_") + 1, objectTempName.length-1);
         };
         this.currentObjectName = objectTempName;
+        if (cc.isNumber(parseInt(this.currentObjectName)))
+            this.currentObjectName = localizeNumber(this.currentObjectName);
+
         var self = this;
         if (isNumber || isWord)
             this._currentObjectShowUp = new cc.LabelBMFont(objectTempName, res.CustomFont_fnt);
@@ -474,7 +477,7 @@ var SpeakingTestLayer = TestLayer.extend({
             self._adiDog.onStartedListening();
         });
         
-        // cc.log("currentObjectName: " + objectName);
+        cc.log("SPEAKING TEST \t currentObjectName: " + this.currentObjectName);
         // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);

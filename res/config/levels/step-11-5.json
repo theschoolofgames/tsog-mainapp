@@ -354,12 +354,112 @@
     },
     "3": {
       "name": "writing-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "first": [
+            [
+              "number_1"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_10"
+            ],
+            [
+              "number_9"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_10"
+            ],
+            [
+              "number_6"
+            ]
+          ],
+          "second": [
+            [
+              "number_5"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_1"
+            ]
+          ],
+          "third": [
+            "number_6",
+            "number_6",
+            "number_7",
+            "number_7",
+            "number_8",
+            "number_8",
+            "number_5",
+            "number_5"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "sub",
+            "sub",
+            "plus",
+            "plus",
+            "sub",
+            "sub"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 180
     },
     "4": {
       "name": "speaking-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "third": [
+            "number_6",
+            "number_6",
+            "number_7",
+            "number_7",
+            "number_8",
+            "number_8",
+            "number_5",
+            "number_5"
+          ],
+          "sentences": [
+          ]
+        }
+      ],
       "duration": 120
     }
   },

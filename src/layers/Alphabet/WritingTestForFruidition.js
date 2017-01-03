@@ -55,12 +55,25 @@ var WritingTestForFruidition = WritingTestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        
-        this._names = data["third"];
-        this._data = data;
+        // cc.log("WritingTestForFruidition \t _fetchObjectData \t " + JSON.stringify(data));
+        this._names = data[0]["third"];
+        this._data = data[0];
 
+        this._names = this._names.map(function(o) {
+            return Utils.getValueOfObjectById(o);
+        });
+
+        this._data["first"] = this._data["first"].map(function(o) {
+            return Utils.getValueOfObjectById(o);
+        });
+
+        this._data["second"] = this._data["second"].map(function(o) {
+            return Utils.getValueOfObjectById(o);
+        });
         this.setData(this._data);
         this._writingWords = this._names;
+        // cc.log("WritingTestForFruidition this._writingWords: " + this._writingWords);
+        // cc.log("WritingTestForFruidition this._names: " + this._names);
     },
 
 });
