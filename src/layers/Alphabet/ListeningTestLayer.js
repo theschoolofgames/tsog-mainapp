@@ -23,10 +23,10 @@ var ListeningTestLayer = TestLayer.extend({
 
     ctor: function(data, duration) {
         this._super();
-        cc.log("data : " + data);
+        // cc.log("data : " + data);
 
         this._oldSceneName = SceneFlowController.getInstance().getPreviousSceneName();
-        cc.log("data.length :  " + data.length);
+        // cc.log("data.length :  " + data.length);
         
         this._fetchObjectData(data);
         this._duration = duration;
@@ -73,7 +73,7 @@ var ListeningTestLayer = TestLayer.extend({
         
         this.playBackGroundMusic();
         this._super(beginSoundPath, function() {
-            cc.log("callback after play beginSoundPath");
+            // cc.log("callback after play beginSoundPath");
             self._blockTouch = false;
             if (self._adiDog) {
                 self._adiDog.adiIdling();
@@ -88,7 +88,7 @@ var ListeningTestLayer = TestLayer.extend({
             return false;
 
         if (this._ended) {
-            cc.log("ended");
+            // cc.log("ended");
             return false;
         }
 
@@ -167,9 +167,9 @@ var ListeningTestLayer = TestLayer.extend({
 
         var remainingObj = this._names.slice(0);
         var d = this.getStoryTimeForListeningData();
-        cc.log("D ->>>>" + JSON.stringify(d));
-        cc.log("this._currentKeyIndex: " + this._currentKeyIndex);
-        cc.log("remainingObj: " + remainingObj);
+        // cc.log("D ->>>>" + JSON.stringify(d));
+        // cc.log("this._currentKeyIndex: " + this._currentKeyIndex);
+        // cc.log("remainingObj: " + remainingObj);
         var currentKeyNames;
         if (this._keyObject.length > 0) {
             currentKeyNames = this._keyObject[this._currentKeyIndex]
@@ -180,7 +180,7 @@ var ListeningTestLayer = TestLayer.extend({
         
         remainingObj.splice(this._nameIdx, 1);
         
-        cc.log("remainingObj: " + JSON.stringify(remainingObj));
+        // cc.log("remainingObj: " + JSON.stringify(remainingObj));
         var self = this;
         if (this._keyObject.length > 0) {
             for (var i = 0; i < remainingObj.length; i++) {
@@ -192,7 +192,7 @@ var ListeningTestLayer = TestLayer.extend({
                 for (var j = 0; j < this._keyObject.length; j++) {
                     var key = this._keyObject[j];
                     if (name !== currentKeyNames && name !== key) {
-                        cc.log("break;");
+                        // cc.log("break;");
                         shownObjNames.push(name);
                         break;
                     }
@@ -206,7 +206,7 @@ var ListeningTestLayer = TestLayer.extend({
         if(d)
             shownObjNames = d.data[this._currentKeyIndex];
 
-        cc.log("shownObjNames: " + shownObjNames);
+        // cc.log("shownObjNames: " + shownObjNames);
 
         if (shownObjNames[2] == null || shownObjNames[2] == undefined) {
             if (!this._addedObject.length) {
@@ -225,7 +225,7 @@ var ListeningTestLayer = TestLayer.extend({
             } else
                 shownObjNames[2] = this._addedObject[0];
         }
-        cc.log("shownObjNames: " + JSON.stringify(shownObjNames));
+        // cc.log("shownObjNames: " + JSON.stringify(shownObjNames));
         shownObjNames = shuffle(shownObjNames);
         // if (d)
         //     shownObjNames = shuffle(d.data[this.storytimeCurrentDataIndex]);
@@ -237,7 +237,7 @@ var ListeningTestLayer = TestLayer.extend({
         // if(shownObjNames.length < 3)
         //     numberObjectShow = shownObjNames.length;
         for (var i = 0; i < numberObjectShow; i++) {
-            cc.log("i -> " + i);
+            // cc.log("i -> " + i);
             var isNumber = false;
             var spritePath = "objects/" + shownObjNames[i].toLowerCase() + ".png";
             if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) {
@@ -249,7 +249,7 @@ var ListeningTestLayer = TestLayer.extend({
                     // cc.log("number: " + number);
                     if (isNaN(number)) {
                         if (shownObjNames[i].charAt(0) == shownObjNames[i].toLowerCase()) {
-                            cc.log("shownObjNames[i]: " + shownObjNames[i]);
+                            // cc.log("shownObjNames[i]: " + shownObjNames[i]);
                             spritePath = "#" + shownObjNames[i].toUpperCase() + "_lowercase" + ".png";
                         }
                         else
@@ -292,7 +292,7 @@ var ListeningTestLayer = TestLayer.extend({
                 sprite.runAction(cc.sequence(
                     cc.delayTime(GAME_CONFIG.listeningTestWaitToShowHand || UPDATED_CONFIG.listeningTestWaitToShowHand),
                     cc.callFunc(function(sender) {
-                        cc.log("set finger tutorial");
+                        // cc.log("set finger tutorial");
                         if(self._tutorial)
                             self._tutorial.removeFromParent();
                         self._tutorial = new TutorialLayer([sender]);
@@ -333,7 +333,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._objSoundPath = "res/sounds/colors/" + localize(text) + ".mp3";
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
-        cc.log("text ->>>" + text);
+        // cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
         this._nameNode.y = cc.winSize.height - 150;
@@ -372,7 +372,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playObjSound: function() {
         var self = this;
-        cc.log("this._objSoundPath: " + this._objSoundPath);
+        // cc.log("this._objSoundPath: " + this._objSoundPath);
         if (self._objSoundIsPlaying)
             return;
 
@@ -400,7 +400,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _animateObjectIn: function(object, delay) {
-        cc.log("_animateObjectIn: ");
+        // cc.log("_animateObjectIn: ");
         var oldScale = object.scale;
         object.scale = 0;
         var self = this;
@@ -417,7 +417,7 @@ var ListeningTestLayer = TestLayer.extend({
     },
 
     _animateObject: function(obj, delay) {
-        cc.log("_animateObject");
+        // cc.log("_animateObject");
         var oldScale = obj.scale;
         obj.runAction(cc.sequence(
             cc.delayTime(3 + delay * ANIMATE_DELAY_TIME * 1.5),
@@ -561,11 +561,11 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
-        cc.log("listening names after map: " + JSON.stringify(this._names));
+        // cc.log("listening names after map: " + JSON.stringify(this._names));
         if(!dataForWriting[0].dataListening)
             dataForWriting  = this._data;
         if (this._keyObject.length > 0)
-            this.setData(JSON.stringify(this._keyObject));
+            this.setData(this._keyObject);
         else
             this.setData(dataForWriting);
         this._data = data;
@@ -584,7 +584,7 @@ var ListeningTestLayer = TestLayer.extend({
 var ListeningTestScene = cc.Scene.extend({
     ctor: function(data, duration) {
         this._super();
-        cc.log("listening: " + duration);
+        // cc.log("listening: " + duration);
         var layer = new ListeningTestLayer(data, duration);
         this.addChild(layer);
     }

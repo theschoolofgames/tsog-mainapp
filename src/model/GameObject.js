@@ -32,7 +32,7 @@ var GameObject = cc.Class.extend({
     },
 
     findById: function(id) {
-        return [this._data[this._dataCached[id]]];
+        return [this._data[this._dataCached[id]]];  // O(nlogn) 
     },
 
     getRandomAnObjectDiffWithId: function(id) {

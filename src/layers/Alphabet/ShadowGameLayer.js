@@ -42,9 +42,11 @@ var ShadowGameLayer = TestLayer.extend({
         this.tag = 1;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
+        
         // this.setVolume();
-
+        var startTime = new Date().getTime();
         this._filterObjectsByType(objectIdArray);
+        cc.log(new Date().getTime() - startTime)
 
         this.addObjects(this._objectsArray);
         
@@ -94,7 +96,7 @@ var ShadowGameLayer = TestLayer.extend({
         }
 
         this._objectsArray = tempArray;
-        this.setData(JSON.stringify(this._objectsArray));
+        this.setData(this._objectsArray);
     },
 
     _parseGameObjectJSON: function() {
