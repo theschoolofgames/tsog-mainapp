@@ -516,6 +516,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             // }
 
             group.posArray.forEach((pos) => {
+                cc.log("ALPHABET : " + alphabet.value);
                 var object = new cc.LabelBMFont(alphabet.value, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x + tmxMap.x;

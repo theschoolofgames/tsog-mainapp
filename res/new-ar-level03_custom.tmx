@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="260" height="20" tilewidth="64" tileheight="64" nextobjectid="206">
- <tileset firstgid="1" name="alpha-racing-tmx" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="260" height="20" tilewidth="64" tileheight="64" nextobjectid="236">
+ <tileset firstgid="1" name="alpha-racing-tmx" tilewidth="64" tileheight="64" tilecount="256" columns="16">
   <image source="SD/alpha-racing-tmx.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="257" name="alpha_racing2" tilewidth="64" tileheight="64">
+ <tileset firstgid="257" name="alpha_racing2" tilewidth="64" tileheight="64" tilecount="84" columns="14">
   <image source="SD/alpha-racing-lands.png" width="896" height="384"/>
  </tileset>
  <layer name="Lands" width="260" height="20">
@@ -23,6 +23,9 @@
   <object id="142" x="5635.03" y="641.091"/>
   <object id="143" x="5955.03" y="641.091"/>
   <object id="144" x="6531.03" y="641.091"/>
+  <object id="230" x="6472" y="644"/>
+  <object id="233" x="6600" y="644"/>
+  <object id="234" x="6408" y="640"/>
  </objectgroup>
  <objectgroup name="alphaPosition2">
   <object id="146" x="8006.06" y="958.061"/>
@@ -53,6 +56,14 @@
   <object id="174" x="12870.1" y="958.061"/>
   <object id="176" x="10950.1" y="510.061"/>
   <object id="177" x="11078.1" y="510.061"/>
+  <object id="214" x="3232" y="772"/>
+  <object id="215" x="3344" y="776"/>
+  <object id="216" x="3452" y="776"/>
+  <object id="217" x="3700" y="860"/>
+  <object id="218" x="3796" y="968"/>
+  <object id="221" x="820" y="572"/>
+  <object id="222" x="916" y="571"/>
+  <object id="223" x="1024" y="574"/>
  </objectgroup>
  <objectgroup name="alphaPosition3">
   <object id="180" x="14019" y="577.091"/>
@@ -67,6 +78,14 @@
   <object id="189" x="16259" y="833.091"/>
   <object id="190" x="16323" y="833.091"/>
   <object id="191" x="16387" y="833.091"/>
+  <object id="206" x="1412" y="768"/>
+  <object id="207" x="1516" y="772"/>
+  <object id="208" x="1616" y="774"/>
+  <object id="209" x="1732" y="776"/>
+  <object id="210" x="2700" y="584"/>
+  <object id="211" x="2780" y="584"/>
+  <object id="212" x="2876" y="583"/>
+  <object id="213" x="2956" y="586"/>
  </objectgroup>
  <layer name="LowLayer1" width="260" height="20">
   <data encoding="base64" compression="zlib">
