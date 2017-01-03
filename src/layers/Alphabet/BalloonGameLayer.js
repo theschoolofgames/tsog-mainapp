@@ -448,7 +448,7 @@ var BalloonGameLayer = TestLayer.extend({
 
         // cc.log("balloon game data after map: " + JSON.stringify(this._objectsArray));
         cc.log("balloon origin data: " + JSON.stringify(this._data));
-        this.setData(JSON.stringify(this._data));
+        this.setData(this._data);
     },
 
     _addGoalList: function(objectName, goalNumber) {
