@@ -37,6 +37,9 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
         StateMachine.create({
             target: this,
+            error: function(eventName, from, to, args, errorCode, errorMessage, originalException) {
+                // return 'event ' + eventName + ' was naughty :- ' + errorMessage;
+            },
             events: [
                 { name: 'run',      from: ['none', 'running', 'jumping'],           to: 'running' },
                 { name: 'jump',     from: ['jumping', 'running'],                   to: 'jumping' },
