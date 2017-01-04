@@ -911,7 +911,13 @@ var LANGUAGE = [
 var LANGUAGE_CODE = {
     "English": "en",
     "Swahili": "sw"
-}
+};
+
+var FONT_NUMBER = [
+    res.HudFont_fnt,
+    res.HomeFont_fnt
+];
+
 
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
 var MAX_BLOCK_NUMBER_SCALE = 0.8;

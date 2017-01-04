@@ -504,9 +504,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         posArray = shuffle(posArray);
         inputArray = shuffle(inputArray);
         
-        let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
+        // let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
 
-        for (var i = 0; i < randomGroupNumber; i++) {
+        for (var i = 0; i < posArray.length; i++) {
             let group = posArray.pop();
             let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
             let alphabet = self._inputData[randomInputIndex];
