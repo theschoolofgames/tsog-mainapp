@@ -912,7 +912,7 @@ languages["en"] = {
     "Not enough diamond. Play to collect more!": "Not enough diamonds. Play to collect more!",
     "Spend" : "Spend",
     "to play!": "to play!",
-    "You are not enough": "You are not enough",
+    "Not enough": "Not enough",
     "Not enough gold to play!": "Not enough golds to play!",
     "Play": "Play",
     "OK": "OK",

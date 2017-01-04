@@ -120,7 +120,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                 this.runAction(cc.sequence(
                     cc.delayTime(3),
                     cc.callFunc(function() {
-                        cc.director.replaceScene(new AlphaRacingScene(self._inputData));
+                        self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
                     })
                 ))
                 // this.completedScene(localize("Game Over"));

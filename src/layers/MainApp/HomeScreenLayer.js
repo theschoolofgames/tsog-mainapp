@@ -204,8 +204,7 @@ var HomeScreenLayer = cc.Layer.extend({
         var doorName = door.name;
         switch(doorName) {
             case "play":
-                var didEnoughCoinToPlay = (CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING) ? true : false;
-                this.addChild(new DialogPlayAlpharacing(didEnoughCoinToPlay), HOME_DOOR_Z_ORDER+3);
+                this.addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
                 break;
             case "learn":
                 cc.director.runScene(new MapScene());

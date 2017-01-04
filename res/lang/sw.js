@@ -930,7 +930,7 @@ languages["sw"] = {
     "Spend" : "Kutumia",
     "to play!": "sarafu kucheza!",
     "Need": "Haja",
-    "You are not enough": "Wewe ni haitoshi",
+    "Not enough": "Wewe ni haitoshi",
     "Not enough gold to play!": "Si dhahabu ya kutosha ya kucheza!",
     "Play": "Kucheza",
     "OK": "SAWA",

@@ -1,7 +1,12 @@
 var DialogPlayAlpharacing = cc.LayerColor.extend({
     _dialogBg: null,
+    _isRetry: false,
 
-    ctor: function(isNotEnoughCoin){
+    ctor: function(retry){
+        this._isRetry = retry;
+
+        let isNotEnoughCoin = CurrencyManager.getInstance().getCoin() < COIN_NEED_TO_PLAY_ALPHARACING;
+
         this._super(cc.color(0, 0, 0 , 200));
         this._addDialogBg();
         this._addText(isNotEnoughCoin);
@@ -25,7 +30,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         text.x = this._dialogBg.width/2 - 20;
         text.y = this._dialogBg.height/2 + 100;
         if(isNotEnoughCoin) {
-            text.setString(localize("You are not enough"));
+            text.setString(localize("Not enough"));
             var coin = new cc.Sprite("#gold.png");
             coin.x = text.width + coin.width/2;
             coin.y = text.height/2 - 10;
@@ -132,8 +137,13 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         closeButton.y = this._dialogBg.height - 25;
         closeButton.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_close_mp3, false, null);
-            self.parent._blocktouch = false;
-            self.removeFromParent();
+            
+            if (self._isRetry) {
+                cc.director.runScene(new HomeScene());
+            } else {
+                self.parent._blocktouch = false;
+                self.removeFromParent();
+            }
         });
         this._dialogBg.addChild(closeButton);
     }
