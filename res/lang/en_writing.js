@@ -190,7 +190,7 @@ languagesForWriting["en"] = {
     "fat" : "fat",
     "father" : "father",
     "feather" : "feather",
-    "feature" : "feature",
+    "feather" : "feather",
     "fight" : "fight",
     "finger" : "finger",
     "fire fighter" : "fire fighter",

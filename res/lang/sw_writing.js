@@ -185,7 +185,7 @@ languagesForWriting["sw"] = {
     "fat" : "Mnene",
     "father" : "Baba",
     "feather" : "Unyoya",
-    "feature" : "Mwonekano",
+    "feather" : "Mwonekano",
     "fight" : "Pigana",
     "finger" : "Kidole",
     "fire fighter" : "Mzima moto",

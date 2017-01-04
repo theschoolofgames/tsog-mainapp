@@ -372,30 +372,23 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playObjSound: function() {
         var self = this;
-        // cc.log("this._objSoundPath: " + this._objSoundPath);
+        cc.log("this._objSoundPath: " + self._objSoundPath);
         if (self._objSoundIsPlaying)
             return;
 
-        // if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
-        //     // callback();
-        //     cc.log("no matching file -> currentObjectShowUpId ++");
-        //     this.currentObjectShowUpId++;
-        //     this._showNextObject();
-        //     return;
-        // }
-        // cc.log("self._objSoundPath: " + self._objSoundPath);
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         if (self._objSoundPath) {
-            this._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
-            jsb.AudioEngine.setFinishCallback(this._soundEffect, function(audioId, audioPath) {
+            self._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
+            jsb.AudioEngine.setFinishCallback(self._soundEffect, function(audioId, audioPath) {
                 if (!self._adiDog)
                     return;
 
                 self._adiDog.adiIdling();
                 self._objSoundIsPlaying = false;
             });
-        }
+        } else 
+            self._objSoundIsPlaying = false;
         
     },
 
@@ -533,7 +526,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         var dataForWriting = data;
-        
+        cc.log("LISTENING data before map \t \t " + JSON.stringify(data));        
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -561,13 +554,10 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
-        // cc.log("listening names after map: " + JSON.stringify(this._names));
-        if(!dataForWriting[0].dataListening)
-            dataForWriting  = this._data;
+        cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject.length > 0)
             this.setData(this._keyObject);
-        else
-            this.setData(dataForWriting);
+
         this._data = data;
     },
 
