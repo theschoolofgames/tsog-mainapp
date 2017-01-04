@@ -282,8 +282,8 @@
             "apple",
             "grape",
             "banana",
-            "sing",
             "walk",
+            "sing",
             "jump"
           ],
           "voice": [
@@ -313,7 +313,10 @@
         "duck",
         "apple",
         "grape",
-        "banana"
+        "banana",
+        "walk",
+        "sing",
+        "jump"
       ],
       "duration": 120
     },

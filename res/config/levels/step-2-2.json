@@ -135,9 +135,9 @@
     "3": {
       "name": "speaking",
       "data": [
-        "goose",
         "egg",
-        "nest"
+        "rich",
+        "duck"
       ],
       "duration": 60
     }
