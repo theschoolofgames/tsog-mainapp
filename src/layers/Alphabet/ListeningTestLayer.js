@@ -350,7 +350,8 @@ var ListeningTestLayer = TestLayer.extend({
         if (d) {
             this.storytimeCurrentDataIndex++;
             objName = d.voice[this.storytimeCurrentDataIndex];
-            this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
+            this._nameNode.setString((STORYTIME_VOICE_FOR_LISTENING[currentLanguage])[objName]);
+            this._nameNode.scale = cc.winSize.width/2 / this._nameNode.width;
             objName = this._keyObject[this.storytimeCurrentDataIndex];
         }
             
