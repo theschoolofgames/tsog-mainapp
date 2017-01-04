@@ -322,7 +322,9 @@ var ForestLayer = cc.Layer.extend({
         } else {
             cc.log("Create: " + animalObject.imageName);
             // Number case
-            animal = new cc.LabelBMFont(animalObject.imageName, res.CustomFont_fnt);
+            var randomIndex = Math.floor(Math.random() * FONT_NUMBER.length);
+            var font = FONT_NUMBER[randomIndex];
+            animal = new cc.LabelBMFont(animalObject.imageName, font);
             // animal.scale = 2;
             // animal = new cc.LabelTTF(animalObject.imageName, "Arial", 50);
             // animal = this._createCustomFont(animalObject.imageName);

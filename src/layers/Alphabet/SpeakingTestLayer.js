@@ -103,17 +103,17 @@ var SpeakingTestLayer = TestLayer.extend({
         this.addChild(checkingText, 999);
         this._checkingText = checkingText;
 
-        // var forcePlayBtn = new ccui.Button("timer.png", "", "");
-        // forcePlayBtn.x = cc.winSize.width - 60;
-        // forcePlayBtn.y = 120 + forcePlayBtn.height/2;
-        // forcePlayBtn.addClickEventListener(function() {
-        //     checkingText.removeFromParent();
-        //     NativeHelper.callNative("cancelNoiseDetecting");
-        //     self.stopAllActions();
-        //     self.playBeginSound();
-        //     forcePlayBtn.removeFromParent();
-        // });
-        // this.addChild(forcePlayBtn);
+        var forcePlayBtn = new ccui.Button("timer.png", "", "");
+        forcePlayBtn.x = cc.winSize.width - 60;
+        forcePlayBtn.y = 120 + forcePlayBtn.height/2;
+        forcePlayBtn.addClickEventListener(function() {
+            checkingText.removeFromParent();
+            NativeHelper.callNative("cancelNoiseDetecting");
+            self.stopAllActions();
+            self.playBeginSound();
+            forcePlayBtn.removeFromParent();
+        });
+        this.addChild(forcePlayBtn);
 
         var noiseDetectingTime = GAME_CONFIG.speakingTestNoiseDetectingTime || UPDATED_CONFIG.speakingTestNoiseDetectingTime;  
 
