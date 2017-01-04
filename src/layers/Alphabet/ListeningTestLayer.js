@@ -336,6 +336,8 @@ var ListeningTestLayer = TestLayer.extend({
         // cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
+        if(this._nameNode.width > cc.winSize.width/2)
+            this._nameNode.x = cc.winSize.width/2;
         this._nameNode.y = cc.winSize.height - 150;
         this._nameNode.scale = 1.5;
         this.addChild(this._nameNode);
@@ -348,8 +350,8 @@ var ListeningTestLayer = TestLayer.extend({
         if (d) {
             this.storytimeCurrentDataIndex++;
             objName = d.voice[this.storytimeCurrentDataIndex];
-
             this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
+            objName = this._keyObject[this.storytimeCurrentDataIndex];
         }
             
         objName = localize(objName);
@@ -358,11 +360,11 @@ var ListeningTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
-            this._objSoundPath = "res/sounds/alphabets/" + localize(objName) + ".mp3";
+            this._objSoundPath = "res/sounds/alphabets/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "";
 
-        // cc.log(this._objSoundPath);
+        cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
             cc.callFunc(function() {

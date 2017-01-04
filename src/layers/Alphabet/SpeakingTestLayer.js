@@ -16,6 +16,8 @@ var SpeakingTestLayer = TestLayer.extend({
     _wrongAnswerCount: 0,
     _timesUp: false,
     _eventTimeUp: null,
+    storytimeCurrentDataIndex: 0,
+
 
     ctor: function(data, duration) {
         this._super();
@@ -298,7 +300,7 @@ var SpeakingTestLayer = TestLayer.extend({
     },
 
     _showNextObject: function() {
-        cc.log("speakingtest _showNextObject");
+        cc.log("speakingtest _showNextObject: currentObjectId: " + this.currentObjectId);
         if (!this._checkCompleted()) {
             if (this._resultTextLb)
                 this._resultTextLb.setString("");
@@ -397,10 +399,10 @@ var SpeakingTestLayer = TestLayer.extend({
         var objectName = this._names[this.currentObjectId].toLowerCase();
 
         var d = this.getStoryTimeForSpeakingData();
+        cc.log("Data Speaking: " + JSON.stringify(d));
         if (d) {
-            this.storytimeCurrentDataIndex++;
             // cc.log("d SpeakingTestLayer :  " + JSON.stringify(d));
-            objectName = d[this.storytimeCurrentDataIndex];
+            objectName = d[this.currentObjectId];
         }
         this._soundName = "";
         var soundNamePrefix = "res/SD/";
@@ -503,7 +505,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if(!dataForWriting[0].dataSpeaking)
         dataForWriting  = this._data;   
         this.setData(dataForWriting);
-        // cc.log("data after map: " + JSON.stringify(this._names));
+        cc.log("data after map: " + JSON.stringify(this._names));
     },
 
 
