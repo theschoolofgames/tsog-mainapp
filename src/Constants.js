@@ -881,11 +881,19 @@ var SUBSCRIPTION_IAP_NAME = "subscription_monthly";
 var SUBSCRIPTION_IAP_ID_IOS = "com.theschoolofgames.tsog.subscription.monthly";
 var SUBSCRIPTION_IAP_ID_ANDROID = "com.theschoolofgames.tsog.subscription.month";
 
-var STORYTIME_VOICE_FOR_LISTENING = {
+var STORYTIME_VOICE_FOR_LISTENING = STORYTIME_VOICE_FOR_LISTENING || {};
+STORYTIME_VOICE_FOR_LISTENING["en"] = {
     "animal": "Pick the animal in the story",
     "object": "Pick the objects in the story",
     "bird": "Pick the bird in the story",
     "live": "Where did the animals live"
+};
+
+STORYTIME_VOICE_FOR_LISTENING["sw"] = {
+    "animal": "Chagua wanyama katika hadithi",
+    "object": "Chagua vitu katika hadithi",
+    "bird": "Chagua ndege katika hadithi",
+    "live": "Wapi wanyama kuishi"
 };
 
 var EVENT_AR_FIREBALL_ACTIVE = "event_ar_fireball_active";
@@ -911,7 +919,13 @@ var LANGUAGE = [
 var LANGUAGE_CODE = {
     "English": "en",
     "Swahili": "sw"
-}
+};
+
+var FONT_NUMBER = [
+    res.HudFont_fnt,
+    res.HomeFont_fnt
+];
+
 
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
 var MAX_BLOCK_NUMBER_SCALE = 0.8;

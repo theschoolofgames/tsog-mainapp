@@ -140,6 +140,7 @@ var AdiDogNode = cc.Node.extend({
     },
 
     adiTalk: function() {
+        cc.log("aditalk");
         this._talkingAdi.addAnimation(0, 'talking', true, 0.3);
     },
 

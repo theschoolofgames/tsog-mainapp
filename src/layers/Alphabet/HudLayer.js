@@ -29,7 +29,7 @@ var HudLayer = cc.Layer.extend({
 
         this._layer = layer;
         this._trophiesEarned = KVDatabase.getInstance().getInt("trophiesEarned", 0);
-        cc.log("createHUD: " +  timeForScene);
+        // cc.log("createHUD: " +  timeForScene);
         this.addSettingButton();
         this.addGameProgressBar();
 
@@ -127,7 +127,7 @@ var HudLayer = cc.Layer.extend({
         clockBg.addChild(clockImg);
         clockBg.setVisible(visible);
         this.addCountDownClock(visible, timeForScene);
-        cc.log("visible %s, timeForScene %d", visible, timeForScene)
+        // cc.log("visible %s, timeForScene %d", visible, timeForScene)
     },
 
     addStar: function(type, number) {
@@ -218,7 +218,7 @@ var HudLayer = cc.Layer.extend({
             numberItems = Global.NumberItems
         else numberItems = numItems;
         this._progressLabel.setString(text + "/" + numberItems);
-        cc.log("setProgressLabelStr");
+        // cc.log("setProgressLabelStr");
         this._trophiesEarned++;
         this._progressLabel.setString(this._trophiesEarned);
         KVDatabase.getInstance().set("trophiesEarned", this._trophiesEarned);
@@ -281,7 +281,7 @@ var HudLayer = cc.Layer.extend({
         node.runAction(cc.sequence(
             cc.delayTime(0),
             cc.callFunc(function(){
-                cc.log("runAction auto tap");
+                // cc.log("runAction auto tap");
                 self._tappedGoldNode(node);
             })
         ));
@@ -334,7 +334,7 @@ var HudLayer = cc.Layer.extend({
             gold.runAction(cc.sequence(
                 cc.delayTime(flyTime-0.1),
                 cc.callFunc(function() {
-                    cc.log("prepare calling addCoinEffect");
+                    // cc.log("prepare calling addCoinEffect");
                     self.addCoinEffect();
                     if (self._currencyType == "gold")
                         CurrencyManager.getInstance().incCoin(amount);
@@ -354,7 +354,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     addCoinEffect: function() {
-        cc.log("HudLayer addCoinEffect");
+        // cc.log("HudLayer addCoinEffect");
         var coinScale = CURRENCY_SCALE;
         this._coin.stopAllActions();
         this._bg.stopAllActions();

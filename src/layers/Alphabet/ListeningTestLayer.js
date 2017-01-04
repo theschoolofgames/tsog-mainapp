@@ -336,6 +336,8 @@ var ListeningTestLayer = TestLayer.extend({
         // cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
+        if(this._nameNode.width > cc.winSize.width/2)
+            this._nameNode.x = cc.winSize.width/2;
         this._nameNode.y = cc.winSize.height - 150;
         this._nameNode.scale = 1.5;
         this.addChild(this._nameNode);
@@ -348,8 +350,9 @@ var ListeningTestLayer = TestLayer.extend({
         if (d) {
             this.storytimeCurrentDataIndex++;
             objName = d.voice[this.storytimeCurrentDataIndex];
-
-            this._nameNode.setString(STORYTIME_VOICE_FOR_LISTENING[objName]);
+            this._nameNode.setString((STORYTIME_VOICE_FOR_LISTENING[currentLanguage])[objName]);
+            this._nameNode.scale = cc.winSize.width/2 / this._nameNode.width;
+            objName = this._keyObject[this.storytimeCurrentDataIndex];
         }
             
         objName = localize(objName);
@@ -358,11 +361,11 @@ var ListeningTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/numbers/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
-            this._objSoundPath = "res/sounds/alphabets/" + localize(objName) + ".mp3";
+            this._objSoundPath = "res/sounds/alphabets/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "";
 
-        // cc.log(this._objSoundPath);
+        cc.log(this._objSoundPath);
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
             cc.callFunc(function() {
@@ -372,30 +375,23 @@ var ListeningTestLayer = TestLayer.extend({
 
     _playObjSound: function() {
         var self = this;
-        // cc.log("this._objSoundPath: " + this._objSoundPath);
+        cc.log("this._objSoundPath: " + self._objSoundPath);
         if (self._objSoundIsPlaying)
             return;
 
-        // if (!jsb.fileUtils.isFileExist(this._objSoundPath)) {
-        //     // callback();
-        //     cc.log("no matching file -> currentObjectShowUpId ++");
-        //     this.currentObjectShowUpId++;
-        //     this._showNextObject();
-        //     return;
-        // }
-        // cc.log("self._objSoundPath: " + self._objSoundPath);
         self._objSoundIsPlaying = true;
         self._adiDog.adiTalk();
         if (self._objSoundPath) {
-            this._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
-            jsb.AudioEngine.setFinishCallback(this._soundEffect, function(audioId, audioPath) {
+            self._soundEffect = jsb.AudioEngine.play2d(self._objSoundPath);
+            jsb.AudioEngine.setFinishCallback(self._soundEffect, function(audioId, audioPath) {
                 if (!self._adiDog)
                     return;
 
                 self._adiDog.adiIdling();
                 self._objSoundIsPlaying = false;
             });
-        }
+        } else 
+            self._objSoundIsPlaying = false;
         
     },
 
@@ -533,7 +529,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         var dataForWriting = data;
-        
+        cc.log("LISTENING data before map \t \t " + JSON.stringify(data));        
         this._data = data;
         this._keyObject = [];
         if(typeof(data) != "object")
@@ -561,13 +557,10 @@ var ListeningTestLayer = TestLayer.extend({
             this._data = [];
 
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
-        // cc.log("listening names after map: " + JSON.stringify(this._names));
-        if(!dataForWriting[0].dataListening)
-            dataForWriting  = this._data;
+        cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject.length > 0)
             this.setData(this._keyObject);
-        else
-            this.setData(dataForWriting);
+
         this._data = data;
     },
 
