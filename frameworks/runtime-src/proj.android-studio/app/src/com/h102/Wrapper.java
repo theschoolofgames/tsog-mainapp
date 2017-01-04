@@ -256,15 +256,22 @@ public class Wrapper
                             Double avgAmpl = sum / noiseDetectionArray.size();
                             Log.w("WRAPPER", avgAmpl + "");
 
-                            String value = avgAmpl > 33 ? "true" : "false";
+                            final String value = avgAmpl > 33 ? "true" : "false";
 
-                            final String command = String.format("SpeakingTestLayer.shouldSkipTest=%s", value);
-                            Wrapper.activity.runOnGLThread(new Runnable() {
+                            activity.runOnGLThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Cocos2dxJavascriptJavaBridge.evalString(command);
+                                    Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('noiseDetectingLoop', 'onNoiseDetected', [" + value + "])");
                                 }
                             });
+
+//                            final String command = String.format("SpeakingTestLayer.shouldSkipTest=%s", value);
+//                            Wrapper.activity.runOnGLThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    Cocos2dxJavascriptJavaBridge.evalString(command);
+//                                }
+//                            });
 
                         } else {
                             int readAudio = recorder.read(Recorder.getInstance().buffer, 0, Recorder.getInstance().buffer.length); // Fill buffer

@@ -504,9 +504,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         posArray = shuffle(posArray);
         inputArray = shuffle(inputArray);
         
-        let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
+        // let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
 
-        for (var i = 0; i < randomGroupNumber; i++) {
+        for (var i = 0; i < posArray.length; i++) {
             let group = posArray.pop();
             let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
             let alphabet = self._inputData[randomInputIndex];
@@ -516,6 +516,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             // }
 
             group.posArray.forEach((pos) => {
+                cc.log("ALPHABET : " + alphabet.value);
                 var object = new cc.LabelBMFont(alphabet.value, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x + tmxMap.x;

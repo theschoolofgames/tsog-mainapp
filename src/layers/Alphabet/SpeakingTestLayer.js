@@ -101,44 +101,71 @@ var SpeakingTestLayer = TestLayer.extend({
         checkingText.x = cc.winSize.width* 0.7;
         checkingText.y = cc.winSize.height/2;
         this.addChild(checkingText, 999);
+        this._checkingText = checkingText;
 
-        var forcePlayBtn = new ccui.Button("timer.png", "", "");
-        forcePlayBtn.x = cc.winSize.width - 60;
-        forcePlayBtn.y = 120 + forcePlayBtn.height/2;
-        forcePlayBtn.addClickEventListener(function() {
-            checkingText.removeFromParent();
-            NativeHelper.callNative("cancelNoiseDetecting");
-            self.stopAllActions();
-            self.playBeginSound();
-            forcePlayBtn.removeFromParent();
-        });
-        this.addChild(forcePlayBtn);
+        // var forcePlayBtn = new ccui.Button("timer.png", "", "");
+        // forcePlayBtn.x = cc.winSize.width - 60;
+        // forcePlayBtn.y = 120 + forcePlayBtn.height/2;
+        // forcePlayBtn.addClickEventListener(function() {
+        //     checkingText.removeFromParent();
+        //     NativeHelper.callNative("cancelNoiseDetecting");
+        //     self.stopAllActions();
+        //     self.playBeginSound();
+        //     forcePlayBtn.removeFromParent();
+        // });
+        // this.addChild(forcePlayBtn);
 
         var noiseDetectingTime = GAME_CONFIG.speakingTestNoiseDetectingTime || UPDATED_CONFIG.speakingTestNoiseDetectingTime;  
 
         NativeHelper.callNative("noiseDetectingLoop", [noiseDetectingTime]);
+        NativeHelper.setListener("noiseDetectingLoop", this);
 
+        // this.runAction(cc.sequence(
+        //     cc.delayTime(noiseDetectingTime + 0.5),
+        //     cc.callFunc(function() {
+        //         self._adiDog.adiIdling();
+        //         if (SpeakingTestLayer.shouldSkipTest)
+        //             checkingText.setString(localize("Too noisy, skip speaking"));
+        //         else
+        //             checkingText.setString(localize("Let's play speaking"));
+        //     }),
+        //     cc.delayTime(AFTER_CHECKING_NOISE_TIME),
+        //     cc.callFunc(function() {
+        //         if (SpeakingTestLayer.shouldSkipTest)
+        //             self._moveToNextScene();
+        //         else {
+        //             self.playBeginSound();
+        //             forcePlayBtn.removeFromParent();
+        //         };
+        //         SpeakingTestLayer.shouldSkipTest = null;
+        //         checkingText.removeFromParent();
+        //     })
+        // ))
+    },
+
+    onNoiseDetected: function(shouldSkip) {
+        var self = this;
         this.runAction(cc.sequence(
-            cc.delayTime(noiseDetectingTime + 0.5),
             cc.callFunc(function() {
                 self._adiDog.adiIdling();
-                if (SpeakingTestLayer.shouldSkipTest)
-                    checkingText.setString(localize("Too noisy, skip speaking"));
+                if (shouldSkip)
+                    self._checkingText.setString(localize("Too noisy, skip speaking"));
                 else
-                    checkingText.setString(localize("Let's play speaking"));
+                    self._checkingText.setString(localize("Let's play speaking"));
             }),
             cc.delayTime(AFTER_CHECKING_NOISE_TIME),
             cc.callFunc(function() {
-                if (SpeakingTestLayer.shouldSkipTest)
+                if (shouldSkip)
                     self._moveToNextScene();
                 else {
                     self.playBeginSound();
-                    forcePlayBtn.removeFromParent();
+                    // forcePlayBtn.removeFromParent();
                 };
-                SpeakingTestLayer.shouldSkipTest = null;
-                checkingText.removeFromParent();
+                self._checkingText.removeFromParent();
             })
-        ))
+        ));
+
+        NativeHelper.removeListener("noiseDetectingLoop");
     },
 
     playBeginSound: function(){
@@ -427,6 +454,9 @@ var SpeakingTestLayer = TestLayer.extend({
             objectTempName = objectTempName.substr(objectTempName.indexOf("_") + 1, objectTempName.length-1);
         };
         this.currentObjectName = objectTempName;
+        if (cc.isNumber(parseInt(this.currentObjectName)))
+            this.currentObjectName = localizeNumber(this.currentObjectName);
+
         var self = this;
         if (isNumber || isWord)
             this._currentObjectShowUp = new cc.LabelBMFont(objectTempName, res.CustomFont_fnt);
@@ -447,7 +477,7 @@ var SpeakingTestLayer = TestLayer.extend({
             self._adiDog.onStartedListening();
         });
         
-        // cc.log("currentObjectName: " + objectName);
+        cc.log("SPEAKING TEST \t currentObjectName: " + this.currentObjectName);
         // cc.log("_currentObjectShowUp: " + this._currentObjectShowUp);
 
         AnimatedEffect.create(this._currentObjectShowUp, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
@@ -481,6 +511,7 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.eventManager.removeListener(this._eventTimeUp);
         this.removeStoryTimeForSpeakingData();
         NativeHelper.removeListener("RequestPermission");
+        NativeHelper.removeListener("noiseDetectingLoop");
 
         NativeHelper.callNative("changeAudioRoute");
 

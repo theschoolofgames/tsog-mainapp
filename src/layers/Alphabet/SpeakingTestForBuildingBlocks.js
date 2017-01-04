@@ -3,15 +3,20 @@ var SpeakingTestForBuildingBlocks = SpeakingTestLayer.extend({
         this._super(data, duration);
     },
 
-    _playObjectSound: function() {
-        
-    },
+    // _playObjectSound: function() {
+                
+    // },
 
     _fetchObjectData: function(data) {
-        this._data = data;
-        this._names = data["third"];   
+        this._data = data[0];
+
+        this._data["third"] = this._data["third"].map(function(o){
+            return Utils.getValueOfObjectById(o);
+        });
+
+        this._names = this._data["third"];   
         this.setData(this._data);
-        cc.log("data after map: " + JSON.stringify(this._names));
+        // cc.log("data after map: " + JSON.stringify(this._names));
     },
 
 });

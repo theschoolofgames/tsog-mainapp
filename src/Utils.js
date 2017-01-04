@@ -424,3 +424,11 @@ Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop,
     cc.log("runAction");
     node.runAction(effectAction);
 }
+
+Utils.getValueOfObjectById = function(id) {
+    var o = GameObject.getInstance().findById(id);
+    if (o[0])
+        return o[0].value;
+    else
+        return id;
+}

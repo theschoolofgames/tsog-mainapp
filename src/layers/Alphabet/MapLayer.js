@@ -228,7 +228,7 @@ var MapLayer = cc.Layer.extend({
         var dataPath = "res/config/levels/" + "step-" + step + ".json";
         if(step.indexOf("assessment") > -1)
             dataPath = "res/config/levels/" + step +".json";
-        cc.log("_addStepStars dataPath: " + dataPath);
+        // cc.log("_addStepStars dataPath: " + dataPath);
         if (!jsb.fileUtils.isFileExist(dataPath))
             return;
         cc.loader.loadJson(dataPath, function(err, data){

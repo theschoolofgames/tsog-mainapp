@@ -20,7 +20,7 @@ import java.util.Map;
 public class Recorder {
     private static final String TAG = Recorder.class.getSimpleName();
 
-    private final static int PEAK_THRESHOLD_BEGAN = 36;
+    private final static float PEAK_THRESHOLD_BEGAN = 37f;
     private final static float MAX_RECORD_TIME = 15.0f;
 
     private static Recorder mSharedInstance = null;

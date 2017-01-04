@@ -791,36 +791,54 @@ var STORY_RESOURCES = {
         },
         {
             "subtitles": [
-                "res/subtitles/en/story04-01.ass",
-                "res/subtitles/en/story04-02.ass",
-                "res/subtitles/en/story04-03.ass"
+                "res/subtitles/sw/story04-title.ass",
+                "res/subtitles/sw/story04-01.ass",
+                "res/subtitles/sw/story04-02.ass",
+                "res/subtitles/sw/story04-03.ass",
+                "res/subtitles/sw/story04-moral.ass",
             ],
             "arts": [
                 "stories/Storytime4-1.jpg",
+                "stories/Storytime4-1.jpg",
                 "stories/Storytime4-2.jpg",
+                "stories/Storytime4-3.jpg",
                 "stories/Storytime4-3.jpg"
             ],
             "sounds": [
-                "res/sounds/stories/en/story04-01.mp3",
-                "res/sounds/stories/en/story04-02.mp3",
-                "res/sounds/stories/en/story04-03.mp3"
+                "res/sounds/stories/sw/story04-title.mp3",
+                "res/sounds/stories/sw/story04-01.mp3",
+                "res/sounds/stories/sw/story04-02.mp3",
+                "res/sounds/stories/sw/story04-03.mp3",
+                "res/sounds/stories/sw/story04-moral.mp3"
             ]
         },
         {
             "subtitles": [
-                "res/subtitles/en/story05-01.ass",
-                "res/subtitles/en/story05-02.ass",
-                "res/subtitles/en/story05-03.ass"
+                "res/subtitles/sw/story05-title.ass",
+                "res/subtitles/sw/story05-01.ass",
+                "res/subtitles/sw/story05-02.ass",
+                "res/subtitles/sw/story05-03.ass",
+                "res/subtitles/sw/story05-04.ass",
+                "res/subtitles/sw/story05-05.ass",
+                "res/subtitles/sw/story05-06.ass"
             ],
             "arts": [
                 "stories/Storytime5-1.jpg",
+                "stories/Storytime5-1.jpg",
                 "stories/Storytime5-2.jpg",
-                "stories/Storytime5-3.jpg"
+                "stories/Storytime5-2.jpg",
+                "stories/Storytime5-3.jpg",
+                "stories/Storytime5-3.jpg",
+                "stories/Storytime5-3.jpg",
             ],
             "sounds": [
-                "res/sounds/stories/en/story05-01.mp3",
-                "res/sounds/stories/en/story05-02.mp3",
-                "res/sounds/stories/en/story05-03.mp3"
+                "res/sounds/stories/sw/story05-title.mp3",
+                "res/sounds/stories/sw/story05-01.mp3",
+                "res/sounds/stories/sw/story05-02.mp3",
+                "res/sounds/stories/sw/story05-03.mp3",
+                "res/sounds/stories/sw/story05-04.mp3",
+                "res/sounds/stories/sw/story05-05.mp3",
+                "res/sounds/stories/sw/story05-06.mp3"
             ]
         },
         {
@@ -896,3 +914,4 @@ var LANGUAGE_CODE = {
 }
 
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
+var MAX_BLOCK_NUMBER_SCALE = 0.8;

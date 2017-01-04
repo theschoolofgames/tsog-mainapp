@@ -338,7 +338,7 @@ var FormTheTrainLayer = TestLayer.extend({
         else
             this._data = [];
 
-        this.setData(JSON.stringify(this._data));
+        this.setData(this._data);
         // cc.log("data after map: " + this._data);
     },
 

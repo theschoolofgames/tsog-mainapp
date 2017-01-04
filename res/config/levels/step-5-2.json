@@ -184,7 +184,7 @@
     "6": {
       "name": "speaking",
       "data": [
-       "number_1",
+        "number_1",
         "number_2",
         "number_3",
         "number_4",
@@ -282,17 +282,164 @@
     },
     "2": {
       "name": "listening-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "first": [
+            [
+              "number_2"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_5"
+            ]
+          ],
+          "second": [
+            [
+              "number_1"
+            ],
+            [
+              "number_1"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_1"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_1"
+            ]
+          ],
+          "third": [
+            "number_1",
+            "number_2",
+            "number_2",
+            "number_3",
+            "number_3",
+            "number_4"
+          ],
+          "firstOperation": [
+            "sub",
+            "sub",
+            "sub",
+            "sub",
+            "sub",
+            "sub"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 120
     },
     "3": {
       "name": "writing-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "first": [
+            [
+              "number_2"
+            ],
+            [
+              "number_3"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_4"
+            ],
+            [
+              "number_5"
+            ],
+            [
+              "number_5"
+            ]
+          ],
+          "second": [
+            [
+              "number_1"
+            ],
+            [
+              "number_1"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_1"
+            ],
+            [
+              "number_2"
+            ],
+            [
+              "number_1"
+            ]
+          ],
+          "third": [
+            "number_1",
+            "number_2",
+            "number_2",
+            "number_3",
+            "number_3",
+            "number_4"
+          ],
+          "firstOperation": [
+            "sub",
+            "sub",
+            "sub",
+            "sub",
+            "sub",
+            "sub"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 180
     },
     "4": {
       "name": "speaking-buildingblocks",
-      "data": [],
+      "data": [
+        {
+          "third": [
+            "number_1",
+            "number_2",
+            "number_2",
+            "number_3",
+            "number_3",
+            "number_4"
+          ],
+          "sentences": [
+          ]
+        }
+      ],
       "duration": 120
     }
   },

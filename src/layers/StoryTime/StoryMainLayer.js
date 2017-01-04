@@ -405,7 +405,7 @@ var StoryMainLayer = TestLayer.extend({
                 else
                     return id;
             });
-        this.setData(JSON.stringify(dataNextScene[0]));
+        this.setData(dataNextScene[0]);
          // uncomment after implement all missing art TODO
             var data = dataNextScene[0].data;
             var voices = dataNextScene[0].voice;

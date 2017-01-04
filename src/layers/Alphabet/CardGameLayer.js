@@ -5,7 +5,7 @@ var MAX_OBJECT_ALLOWED = 50;
 var MAX_SLOT_ALLOWED = 5;
 var SLOT_WIDTH = 195;
 var SLOT_OFFSET_X = 100;
-
+var RANDOM_CARD_NUMBER = [1,2,3,4,5];
 var OBJECT_DEFAULT_WIDTH = 100;
 var OBJECT_DEFAULT_HEIGHT = 70;
 
@@ -36,21 +36,29 @@ var CardGameLayer = TestLayer.extend({
 
     _didCardFlipped: false,
     _didObjectAllowedToMove: false,
-
+    _randomOrderNumber: null,
     amountObjectCanShow: 0,
 
     timePlayed: 0,
     timePlayedOderSound: 0,
     _timeForScene: 0,
+    _totalObjects: 0,
+    _totalCompletedObject:0,
 
     ctor: function(objArr, timeForScene) {
         this._super();
         this.timePlayed = 0;
         this._activateObjects = [];
         this._deactivateObjects = [];
-        cc.log("objArr: " + JSON.stringify(objArr[0].cardData));
+        // cc.log("objArr: " + JSON.stringify(objArr[0].cardData));
         var data = objArr[0].cardData;
-        MAX_OBJECT_ALLOWED = objArr[0].maxcardnumber;
+        for(var i =0; i < RANDOM_CARD_NUMBER.length; i++) {
+            this._totalObjects = this._totalObjects + RANDOM_CARD_NUMBER[i];
+        };
+        cc.log("_totalObjects: " + this._totalObjects);
+        this._randomOrderNumber = shuffle(RANDOM_CARD_NUMBER);
+        MAX_OBJECT_ALLOWED = this._randomOrderNumber[0];
+        this._randomOrderNumber.splice(0,1);
         cc.log("MAX_OBJECT_ALLOWED: " + MAX_OBJECT_ALLOWED);
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= data.length ? data.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(data);
@@ -63,7 +71,7 @@ var CardGameLayer = TestLayer.extend({
             else
                 return id;
         });
-        this.setData(JSON.stringify(dataForTest));
+        this.setData(dataForTest);
         // this.setCardGameData(dataForTest);
         this._timeForScene = timeForScene;
         this._loadTmx();
@@ -128,8 +136,9 @@ var CardGameLayer = TestLayer.extend({
             s.y = slotCoordinates[i].y;
             this.addChild(s);
             this._activateSlots.push(s);
-        }
-        // cc.log("SlOT: "+ this._activateSlots.length);
+        };
+        cc.log("SlOT: "+ this._activateSlots.length);
+        cc.log("AmountObjectShow: " + this._amountObjectShow);
         this._currentAvailableSlot = this._activateSlots[0];
         this._runSlotAction(this._currentAvailableSlot);
     },
@@ -197,7 +206,7 @@ var CardGameLayer = TestLayer.extend({
         this._card.stopActionByTag(kTagSelfCardAnimation);
         var self = this;
         if(!this._flipCardResult) {
-            // cc.log("_doFlipCard");
+            cc.log("_doFlipCard");
             this._fetchCardResult();
             
             var cardPos = this._card.getPosition();
@@ -225,7 +234,8 @@ var CardGameLayer = TestLayer.extend({
                         self._addObjects();
                     })
                 )
-            )
+            );
+            this.updateProgressBar();
         } else {
             jsb.AudioEngine.play2d("sounds/smoke.mp3"),
             self._addSlots();       
@@ -236,34 +246,66 @@ var CardGameLayer = TestLayer.extend({
     },
 
     _showNextObjects: function(){
+        this._flipCardResult = null;
+        MAX_OBJECT_ALLOWED = this._randomOrderNumber[0];
+        cc.log("RandomORDERNUMBER: " + JSON.stringify(this._randomOrderNumber));
+        cc.log("MAX_OBJECT_ALLOWED: " + MAX_OBJECT_ALLOWED);
+        this._randomOrderNumber.splice(0,1);
         // run action
         // cc.log("_showNextObjects");
+        this._didCardFlipped = false;
+        this._currentObjectOder = 1;
+        this._objectUnavailable = [];
+        if(this._activateSlots){
+            this._activateSlots.forEach(function(obj){
+                obj.removeFromParent()
+            });
+        };
+        this._activateSlots = [];
+        if(this._activateObjects){
+            this._activateObjects.forEach(function(obj){
+                obj.removeFromParent()
+            });
+            this._activateObjects = [];
+        };
+        if(this._deactivateObjects){
+            this._deactivateObjects.forEach(function(obj){
+                obj.removeFromParent()
+            });
+            this._deactivateObjects = [];
+        };
+        this._currentAvailableSlot = null;
+        this._card.removeFromParent();
         this.calcShowObjectAmount();
-        this._addSlots();
-        this._addObjects();
+        this._addCard();
+        // this.updateProgressBar();
+        // this._addSlots();
+        // this._addObjects();
         this._loadTmx();
         this._blockFlag = false;
     },
 
     _fetchCardResult: function() {
-        this._flipCardResult = Math.ceil(Math.random() * MAX_OBJECT_ALLOWED);
+        cc.log("_fetchCardResult MAX_OBJECT_ALLOWED: " + MAX_OBJECT_ALLOWED);
+        // this._flipCardResult = Math.ceil(Math.random() * MAX_OBJECT_ALLOWED);
+        this._flipCardResult = MAX_OBJECT_ALLOWED;
         this._numberOfObjectWillShow = this._flipCardResult;
         this.calcShowObjectAmount();
 
-        this._hudLayer.setTotalGoals(this._numberOfObjectWillShow);
+        this._hudLayer.setTotalGoals(this._totalObjects);
     },
 
     calcShowObjectAmount: function(){
-        if(this._flipCardResult >= this.amountObjectCanShow) {
-            this._amountObjectShow = this.amountObjectCanShow;
-            this._flipCardResult -= this.amountObjectCanShow;
-        }
-        else 
-        {
-            this._amountObjectShow = this._flipCardResult;
-            this._flipCardResult -=  this._amountObjectShow;
-        };
-
+        // if(this._flipCardResult >= this.amountObjectCanShow) {
+        //     this._amountObjectShow = this.amountObjectCanShow;
+        //     this._flipCardResult -= this.amountObjectCanShow;
+        // }
+        // else 
+        // {
+        //     this._amountObjectShow = this._flipCardResult;
+        //     this._flipCardResult -=  this._amountObjectShow;
+        // };
+        this._amountObjectShow = this._flipCardResult;
     },
 
     _fetchObjectData: function(data) {
@@ -352,10 +394,10 @@ var CardGameLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._objectUnavailable.length / this._numberOfObjectWillShow;
-        
+        var percent = this._totalCompletedObject/ this._totalObjects;
+        cc.log("percent: " + percent + "#_totalCompletedObject: " + this._totalCompletedObject+ " #_totalObjects: " + this._totalObjects);
         this.setHUDProgressBarPercentage(percent);
-        this.setHUDCurrentGoals(this._objectUnavailable.length);
+        this.setHUDCurrentGoals(this._totalCompletedObject);
 
         this._super();
     },
@@ -436,8 +478,8 @@ var CardGameLayer = TestLayer.extend({
 
         if (distance < 100) { // move succeed
             self._handleObjectSucceedDrop();
-            if(self._activateSlots.length == 0 && self._flipCardResult > 0)
-                self._showNextObjects();
+            // if(self._activateSlots.length == 0 && self._flipCardResult > 0)
+            //     self._showNextObjects();
 
             self.popGold(currSlotPos);
         } else // return object to origin pos
@@ -449,7 +491,7 @@ var CardGameLayer = TestLayer.extend({
         // cc.log("OBJECT ACTIVATE: " + self._activateSlots.length);
         if (self._activateSlots.length == 0) {
             self._blockFlag = true;
-            if (self.timePlayed < 1)
+            if (self._randomOrderNumber.length == 0) {
                 self.runAction(cc.sequence(
                     cc.delayTime(2),
                     cc.callFunc(function() {
@@ -457,6 +499,10 @@ var CardGameLayer = TestLayer.extend({
                         self.doCompletedScene();
                     })
                 ));
+            }
+            else {
+                self._showNextObjects();
+            }
         }
 
         // cc.log("_activateObjects: " + self._activateObjects);
@@ -482,7 +528,7 @@ var CardGameLayer = TestLayer.extend({
                     jsb.AudioEngine.play2d(path, false);
             }.bind(this))
         ));
-
+        this._totalCompletedObject = this._totalCompletedObject + 1;
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
