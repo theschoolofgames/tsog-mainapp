@@ -120,6 +120,12 @@ var DataManager = cc.Class.extend({
     getDataAlpharacing: function(){
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
 
+        currentData = currentData.map(d => {
+            if (d instanceof Object)
+                return d.value;
+            return d;
+        })
+
         if (currentData.length == 0)
             currentData = ["A"];
 

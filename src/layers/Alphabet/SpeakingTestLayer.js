@@ -511,6 +511,7 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.eventManager.removeListener(this._eventTimeUp);
         this.removeStoryTimeForSpeakingData();
         NativeHelper.removeListener("RequestPermission");
+        NativeHelper.removeListener("noiseDetectingLoop");
 
         NativeHelper.callNative("changeAudioRoute");
 
