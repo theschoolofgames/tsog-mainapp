@@ -184,35 +184,23 @@
         "word_U",
         "word_i",
         "word_o",
+        "word_u",
+        "word_I",
+        "word_O",
+        "word_U",
+        "word_i",
+        "word_o",
+        "word_u",
+        "word_I",
+        "word_O",
+        "word_U",
+        "word_i",
+        "word_o",
         "word_u"
       ],
-      "duration": 240
+      "duration": 480
     },
     "3": {
-      "name": "writing",
-      "data": [
-        "word_I",
-        "word_O",
-        "word_U",
-        "word_i",
-        "word_o",
-        "word_u"
-      ],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "word_I",
-        "word_O",
-        "word_U",
-        "word_i",
-        "word_o",
-        "word_u"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "speaking",
       "data": [
         "word_I",
