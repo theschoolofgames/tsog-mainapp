@@ -363,6 +363,8 @@ var ListeningTestLayer = TestLayer.extend({
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "res/sounds/alphabets/" + objName + ".mp3";
         if (!jsb.fileUtils.isFileExist(this._objSoundPath))
+            this._objSoundPath = "res/sounds/shapes/" + objName + ".mp3";;
+        if (!jsb.fileUtils.isFileExist(this._objSoundPath))
             this._objSoundPath = "";
 
         cc.log(this._objSoundPath);

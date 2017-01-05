@@ -423,8 +423,8 @@ var SpeakingTestLayer = TestLayer.extend({
                     this._soundName = "res/sounds/colors/" + localize(namePrefix) + ".mp3";
                 }
 
-                if (name.indexOf("shape") > -1) { // TODO SPEAKING TEST FOR SHAPES
-                    // var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
+                if (jsb.fileUtils.isFileExist("res/sounds/shapes/" + localize(objectName) + ".mp3")) { // TODO SPEAKING TEST FOR SHAPES
+                    this._objectName = "#" + objectName;
                     this._soundName = "res/sounds/shapes/" + localize(objectName) + ".mp3";
                 }
 
@@ -482,7 +482,7 @@ var SpeakingTestLayer = TestLayer.extend({
         this._data = data;
         if(typeof(data) != "object")
             data = JSON.parse(data);
-        // cc.log("_fetchObjectData data: " + data);
+
         if (data)
             this._names = data.map(function(id) {
                 var o = GameObject.getInstance().findById(id);
