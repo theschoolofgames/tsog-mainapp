@@ -11,7 +11,7 @@
  </tileset>
  <layer name="Lands" width="230" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt1t0KwyAMBtDC/t//hXc1GLJRZoKm7hzIZeJnreC2AQAAAAAAAAAAHMvpS81Y90jzq5l1jgBAPdXfBb3ZKr1bM9f+ZW4kx+i3914BAP/nnFjvrgkzenpavTlWq2rfpFqeV106s7V90d5bUj2aufdBM9qeVk+O1SrjbFbOk5Ht038Y6Z29n+gM93LM2aycJyObe7m/p2iO1araPaiWJyNb9r18Aud3FLs=
+   eJzt1ksOwyAMBcBI/d3/xt1bKVXBApPOSF7avJgsOA4AAAAAAAAAAIC93D7UinN3ml/NqnsEAOqp/i7ozVbp3Zp59i9zR3LMfnt/KwDg/9yT6hHmPifNiD1RT46rVcbdXDlPRraz/3Ck95VYGXN7ZrRkft/OVW0n1fJkZItm9c7Ydc+MltV3XKWq7aRanoxs0azeGbvumdGy+o6rVLWdVMuTkS0a6X0D2fwUfQ==
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
