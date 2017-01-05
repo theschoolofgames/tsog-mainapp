@@ -36,6 +36,8 @@ var ShadowGameLayer = TestLayer.extend({
     _objectsArray: [],
     _timeForScene: null,
 
+    _duplicateGroup: {},
+
     ctor: function(objectIdArray, timeForScene) {
         this._super();
         this._timeForScene = timeForScene;
@@ -66,6 +68,7 @@ var ShadowGameLayer = TestLayer.extend({
     _filterObjectsByType: function(objectIdArray) {
         this._parseGameObjectJSON();
         var tempArray = [];
+        this._duplicateGroup = {};
         if (!this._gameObjectJson || this._gameObjectJson.length == 0)
             return;
 
@@ -81,20 +84,26 @@ var ShadowGameLayer = TestLayer.extend({
 
         // Sort and check if objects has clones
         tempArray.sortOn("id");
+        // cc.log("tempArray: \t -> " + JSON.stringify(tempArray));
         for (var i = 0; i < tempArray.length; i++){
             if (tempArray.length == 1)
                 break;
 
             if ((i - 1) >= 0 && (tempArray[i - 1].id == tempArray[i].id)){
                 tempArray[i].hasClone = true;
+                tempArray[i-1].hasClone = true;
+
                 tempArray[i].index = tempArray[i - 1].index + 1;
+                // use only for duplicate objects case
+                this._duplicateGroup[(tempArray[i].id)] = {"order" : 1};
             }
 
-            if ((i + 1) < tempArray.length && (tempArray[i].id == tempArray[i + 1].id)){
-                tempArray[i].hasClone = true;
-            }
+            // if ((i + 1) < tempArray.length && (tempArray[i].id == tempArray[i + 1].id)){
+            //     tempArray[i].hasClone = true;
+            // }
         }
-
+        // cc.log("tempArray after : \t -> " + JSON.stringify(tempArray));
+        // cc.log("this._duplicateGroup : \t -> " + JSON.stringify(this._duplicateGroup));
         this._objectsArray = tempArray;
         this.setData(this._objectsArray);
     },
@@ -573,18 +582,12 @@ var ShadowGameLayer = TestLayer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        var beginTime = Date.now();
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
         targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
         if (!targetNode._objectTouching)
             return false;
         targetNode.playObjectSound(true);
-        // SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
-        //     { 
-        //         room: "room", 
-        //         object_name: targetNode.getObjectName(targetNode._objectTouching)
-        //     });
         
         jsb.AudioEngine.play2d("sounds/pickup.mp3");
         targetNode.processGameLogic();
@@ -666,14 +669,8 @@ var ShadowGameLayer = TestLayer.extend({
 
         this._objectTouching.setLocalZOrder(Z_OBJECT_SELECTED);
         this._objectTouching.stopAllActions();
-        // this.removeObjectAction();
+
         this._lastClickTime = this._hudLayer.getRemainingTime();
-        // this.playObjectSound(true);
-        // this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
-        // var shader = this._objectTouching.shaderProgram;
-        // var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-        // shaderState.setUniformInt("enabled", 1);
-        // this._selectedShadeShader = shaderState;
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);
@@ -727,9 +724,9 @@ var ShadowGameLayer = TestLayer.extend({
             this._objectTouching.setLocalZOrder(Z_OBJECT);
             // this._objectTouching.userData.scaleFactor = 0.5;
             this._objectDisableds.push(this._objectTouching);
-            console.log("Object Disabled " + JSON.stringify(this._objectDisableds));
-            console.log("Object Tag " + this._objectTouching.tag);
-            console.log("Object Id " + this.getObjectName(this._objectTouching));
+            // console.log("Object Disabled " + JSON.stringify(this._objectDisableds));
+            // console.log("Object Tag " + this._objectTouching.tag);
+            // console.log("Object Id " + this.getObjectName(this._objectTouching));
             // this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
@@ -829,7 +826,7 @@ var ShadowGameLayer = TestLayer.extend({
         // Check type of current object
         var soundDir = "res/sounds/words/";
         var touchedObjectType = this._getTypeObjectByName(objectName);
-        // cc.log("touchedObjectType: " + touchedObjectType );
+
         if (touchedObjectType == "word"){
             soundDir = "res/sounds/alphabets/";
             objectName = objectName.toUpperCase();
@@ -839,20 +836,21 @@ var ShadowGameLayer = TestLayer.extend({
             soundSuffix = "";
             objectName = objectName.substring(7);
         };
-        cc.log("touchedObjectType: " + touchedObjectType);
-        // cc.log("objectName; " + objectName);
-        cc.log("soundDir: " + (soundDir + localize(objectName) + soundSuffix + ".mp3"));
-        // if (object.userData.hasClone){
-        //     cc.log("OBJECT");
-        //     this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(object.userData.index + 1) + ".mp3", isDragging);
-        //     jsb.AudioEngine.setFinishCallback(this._effectAudioID, function(audioId, audioPath) {
-        //         jsb.AudioEngine.stopAll();
-        //         jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
-        //     });
-        // }
-        // else {
+        
+        if (object.userData.hasClone){
+            var order = this._duplicateGroup[objectName]["order"];
+            cc.log("order: " + order);
+            this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(order) + ".mp3", isDragging);
+            jsb.AudioEngine.setFinishCallback(this._effectAudioID, function(audioId, audioPath) {
+                jsb.AudioEngine.stopAll();
+                jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
+                this._duplicateGroup[objectName]["order"] = order + 1;
+            }.bind(this));
+
+            
+        }
+        else
             this._effectAudioID = jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
-        // }
 
         if (!isDragging)
         {
