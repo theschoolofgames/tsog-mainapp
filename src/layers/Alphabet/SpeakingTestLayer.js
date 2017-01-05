@@ -395,7 +395,6 @@ var SpeakingTestLayer = TestLayer.extend({
 
         var isNumber = false;
         var isWord = false;
-        var spritePath = "";
         var objectName = this._names[this.currentObjectId].toLowerCase();
 
         var d = this.getStoryTimeForSpeakingData();
@@ -416,30 +415,11 @@ var SpeakingTestLayer = TestLayer.extend({
                 this._soundName = "res/sounds/words/" + localize(objectName) + ".mp3";
                 this._objectName = "animals/" + objectName;
             } else {
-                // word case
-                this._soundName = "res/sounds/alphabets/" + localize(objectName) + ".mp3";
-
-                // number case
-                var number = parseInt(this._names[this.currentObjectId]);
-                this._objectName = number;
-                if (!isNaN(number)) {
-                    spritePath = this._names[this.currentObjectId];
-                    isNumber = true;
-                }
-                else {
-                    isWord = true;
-                    spritePath = this._names[this.currentObjectId];
-                };
-                // cc.log("spritePath: " + spritePath);
-                
-                if (!jsb.fileUtils.isFileExist(this._soundName))
-                    this._soundName = "res/sounds/numbers/" + localize(number) + ".mp3";
-
                 // color case
                 var name = this._names[this.currentObjectId].toLowerCase();
-                if (name.indexOf("color") > -1) {
+                if (name.indexOf("color") > -1 || name.indexOf("btn_") > -1) {
                     var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
-                    objectName = "#btn_" + namePrefix;
+                    this._objectName = "#btn_" + namePrefix;
                     this._soundName = "res/sounds/colors/" + localize(namePrefix) + ".mp3";
                 }
 
@@ -447,12 +427,23 @@ var SpeakingTestLayer = TestLayer.extend({
                     // var namePrefix = name.substr(name.indexOf("_") + 1, name.length-1)
                     this._soundName = "res/sounds/shapes/" + localize(objectName) + ".mp3";
                 }
+
+                // number case
+                var number = parseInt(this._names[this.currentObjectId]);
+                if (!isNaN(number)) {
+                    isNumber = true;
+                    this._soundName = "res/sounds/numbers/" + localize(number) + ".mp3";
+                }
+                else if (jsb.fileUtils.isFileExist("res/sounds/alphabets/" + localize(objectName) + ".mp3")){
+                    // word case
+                    isWord = true;
+                    this._soundName = "res/sounds/alphabets/" + localize(objectName) + ".mp3";
+                };
             }
         };
         var objectTempName = this._names[this.currentObjectId];
-        // cc.log("objectName: " + objectName);
-        // cc.log("_soundName: " + this._soundName);
-        if (objectTempName.indexOf("color") > -1) {
+
+        if (objectTempName.indexOf("color") > -1 || objectTempName.indexOf("btn_") > -1) {
             objectTempName = objectTempName.substr(objectTempName.indexOf("_") + 1, objectTempName.length-1);
         };
         this.currentObjectName = objectTempName;
