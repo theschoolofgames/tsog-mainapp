@@ -29,19 +29,20 @@ public class SpeechRecognizer implements RecognitionListener {
     private static SpeechRecognizer mSharedInstance = null;
     private static AppActivity app;
 
-    public edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
+    edu.cmu.pocketsphinx.SpeechRecognizer recognizer;
     private JSGFGrammarBuilder grammarBuilder;
     private File externalDir = null;
+    private boolean bInitilized = false;
 
     private static ArrayList<String> cachedArrayList = null;
     private static String languageCode = "en";
 
-    public Runnable setupCallback = null;
+    Runnable setupCallback = null;
 
     private static final String TSOG_SEARCH = "tsog";
 
     public synchronized static SpeechRecognizer setupInstance(AppActivity app) {
-        if (mSharedInstance == null || mSharedInstance.recognizer == null) {
+        if (mSharedInstance == null) {
             SpeechRecognizer.app = app;
             return getInstance();
         }
@@ -50,14 +51,16 @@ public class SpeechRecognizer implements RecognitionListener {
     }
 
     public static SpeechRecognizer getInstance() {
-        if (mSharedInstance == null || mSharedInstance.recognizer == null) {
-            mSharedInstance = new SpeechRecognizer();
-        }
+        synchronized (SpeechRecognizer.class) {
+            if (mSharedInstance == null || (mSharedInstance.recognizer == null && mSharedInstance.bInitilized)) {
+                mSharedInstance = new SpeechRecognizer();
+            }
 
-        return mSharedInstance;
+            return mSharedInstance;
+        }
     }
 
-    public SpeechRecognizer() {
+    private SpeechRecognizer() {
         SpeechRecognizerSettingUp task = new SpeechRecognizerSettingUp(languageCode);
         task.execute();
     }
@@ -149,15 +152,15 @@ public class SpeechRecognizer implements RecognitionListener {
 
     }
 
-    public void updateNewLanguageArray(String languageCode, ArrayList<String> arrayList) throws IOException {
+    void updateNewLanguageArray(String languageCode, ArrayList<String> arrayList) throws IOException {
         if (grammarBuilder == null) {
-            this.languageCode = languageCode;
+            SpeechRecognizer.languageCode = languageCode;
             cachedArrayList = new ArrayList<>(arrayList);
             return;
         }
 
-        if (languageCode.compareTo(this.languageCode) != 0) {
-            this.languageCode = languageCode;
+        if (languageCode.compareTo(SpeechRecognizer.languageCode) != 0) {
+            SpeechRecognizer.languageCode = languageCode;
             cachedArrayList = new ArrayList<>(arrayList);
 
             SpeechRecognizerSettingUp task = new SpeechRecognizerSettingUp(languageCode);
@@ -228,6 +231,7 @@ public class SpeechRecognizer implements RecognitionListener {
 //                } else {
 //                    switchSearch(KWS_SEARCH);
 //                }
+            bInitilized = true;
         }
 
         private void setupRecognizer(String language, File assetsDir) throws IOException {
