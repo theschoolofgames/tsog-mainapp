@@ -8,7 +8,7 @@
  </tileset>
  <layer name="Lands" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt11EOwiAMAFASTdT7X9h9L8OxQaXO95L+EQotLKwUAAAAAAAAAAAAgHlulbhq3l+yV59aDVvGts4TYW/do3JH5Rg1nzsAAGTS88Y5+u5qfQ+eiTN61zx63JHxmfT0qLe/0f8YEXNH/E8AAIxwr8TV1Pb5D3tfy1SLTD2YVYtv5Gzt93OJxypeA9eRxdY+t+KKe1/LVItM5+9TXSLXVMs7MmdrzzP1I1KmOzBbplpkOn++B7n6ESnTHZgtUy0ynT/fg1LegT0IOg==
+   eJzt19sKwyAMAFBht///472OMldbTc3acyBvYmJCxZYCAAAAAAAAAAAAMM+tEmfN+0/W+lPrYcva1n0irNU9KndUjlH7+QYAgEx63jhb312t78E9sUdvzaPXbVmfSc+Meucb/Y8RsXfE/wQAwAj3SpzNs9TP+hmPWQUeKFMvvtUyawa/+hJZUy3vyJytM39V4mxq57zC2Zcy9SLTDGb14oicW2aeZR6Rrnz2pUy9yDQD90GueUS68tmXMvUi0wzcB6W8ARU9CBI=
   </data>
  </layer>
  <objectgroup name="alphaPosition1">

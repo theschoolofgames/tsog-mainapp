@@ -12,7 +12,7 @@ var WALLS_FRICTION = 1;
 
 var CAMERA_FOLLOW_FACTOR = cc.p(0.9, 1);
 var CAMERA_PLAYER_POSITION_ON_SCREEN_X = [1/3, 1/3];
-var CAMERA_PLAYER_POSITION_ON_SCREEN_Y = [2/3, 3/4];    // min, max
+var CAMERA_PLAYER_POSITION_ON_SCREEN_Y = [0.66, 0.8];    // min, max
 
 var AlphaRacingLayer = cc.Layer.extend({
 
