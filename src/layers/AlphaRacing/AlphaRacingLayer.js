@@ -12,7 +12,7 @@ var WALLS_FRICTION = 1;
 
 var CAMERA_FOLLOW_FACTOR = cc.p(0.9, 1);
 var CAMERA_PLAYER_POSITION_ON_SCREEN_X = [1/3, 1/3];
-var CAMERA_PLAYER_POSITION_ON_SCREEN_Y = [0.66, 0.8];    // min, max
+var CAMERA_PLAYER_POSITION_ON_SCREEN_Y = [0.66, 0.85];    // min, max
 
 var AlphaRacingLayer = cc.Layer.extend({
 
@@ -472,7 +472,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         if (group && group.posArray.length > 0) {
             group.posArray.forEach((params) => {
-            var obstacle = self._obstacleWorker.addObstacle(params);
+                var obstacle = self._obstacleWorker.addObstacle(params);
                 self.addChild(obstacle, AR_WORD_ZODER);
             });
         }
@@ -484,8 +484,8 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         if (group && group.posArray.length > 0) {
             group.posArray.forEach((params) => {                
-                var obstacle = self._boosterWorker.addBooster(params);
-                self.addChild(obstacle, AR_WORD_ZODER);
+                var booster = self._boosterWorker.addBooster(params);
+                self.addChild(booster, AR_WORD_ZODER);
             });
         }
     },

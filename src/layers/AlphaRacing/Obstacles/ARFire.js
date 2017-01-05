@@ -64,6 +64,11 @@ var ARFire = ARObstacle.extend({
     },
 
     fixUpdate: function() {
+        if (this._state == "none" && this.x < cc.Camera.getDefaultCamera().x + cc.winSize.width - this.width/2) {
+            this.setIsDead(true);
+            return;
+        }
+
         // cc.log((this._player.getColli sionBoundingBox().x + this.timeForWarning * this._player.getVelocity().x) + " " + this.x)
         if ( this._state == "none" &&
              (this._player.x + this.timeForWarning * this._player.getVelocity().x + cc.winSize.width / 3) >= this.x) {
