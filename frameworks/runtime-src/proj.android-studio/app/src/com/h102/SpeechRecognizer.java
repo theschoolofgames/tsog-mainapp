@@ -33,8 +33,8 @@ public class SpeechRecognizer implements RecognitionListener {
     private JSGFGrammarBuilder grammarBuilder;
     private File externalDir = null;
 
-    private ArrayList<String> cachedArrayList = null;
-    private String languageCode = "en";
+    private static ArrayList<String> cachedArrayList = null;
+    private static String languageCode = "en";
 
     public Runnable setupCallback = null;
 
@@ -152,13 +152,13 @@ public class SpeechRecognizer implements RecognitionListener {
     public void updateNewLanguageArray(String languageCode, ArrayList<String> arrayList) throws IOException {
         if (grammarBuilder == null) {
             this.languageCode = languageCode;
-            cachedArrayList = arrayList;
+            cachedArrayList = new ArrayList<>(arrayList);
             return;
         }
 
-        if (languageCode != this.languageCode) {
+        if (languageCode.compareTo(this.languageCode) != 0) {
             this.languageCode = languageCode;
-            cachedArrayList = arrayList;
+            cachedArrayList = new ArrayList<>(arrayList);
 
             SpeechRecognizerSettingUp task = new SpeechRecognizerSettingUp(languageCode);
             task.execute();
@@ -174,6 +174,8 @@ public class SpeechRecognizer implements RecognitionListener {
         grammarBuilder.saveGrammar();
         File tsogGrammar = new File(externalDir, "tsog.gram");
         recognizer.addGrammarSearch(TSOG_SEARCH, tsogGrammar);
+
+        cachedArrayList = null;
     }
 
     private class SpeechRecognizerSettingUp extends AsyncTask<Void, Void, Exception> {
@@ -198,6 +200,9 @@ public class SpeechRecognizer implements RecognitionListener {
 
         @Override
         protected void onPostExecute(Exception result) {
+            if (result != null)
+                result.printStackTrace();
+
             if (cachedArrayList != null)
                 try {
                     updateNewLanguageArray(languageCode, cachedArrayList);
