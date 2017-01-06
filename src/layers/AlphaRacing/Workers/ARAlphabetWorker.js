@@ -24,8 +24,7 @@ var ARAlphabetWorker = cc.Class.extend({
                 var cameraPos = cc.Camera.getDefaultCamera().getPosition();
                 var ratioX = (this._player.x - cameraPos.x + cc.winSize.width/2);
                 var ratioY = (this._player.y - cameraPos.y + cc.winSize.height/2);
-
-                this._hudLayer.popGold(addedCoin, ratioX, ratioY);
+                this._hudLayer.popGold(addedCoin, ratioX, ratioY, cameraPos);
                 CurrencyManager.getInstance().incDiamond(addedCoin);
 
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);

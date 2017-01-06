@@ -266,7 +266,11 @@ var HudLayer = cc.Layer.extend({
         // this.popGold(1, cc.winSize.width/3, cc.winSize.height/3);
     },
 
-    popGold: function(amount, x, y, delay) {
+    popGold: function(amount, x, y, pos) {
+        // cc.log("x: " + x + "#y: " + y);
+        // var pos = cc.p(x,y);
+        // this._bg.convertToNodeSpace(pos);
+        // cc.log("POS convert: " + JSON.stringify(pos));
         if(amount == 0)
             return;
         var self = this;
@@ -282,7 +286,7 @@ var HudLayer = cc.Layer.extend({
             cc.delayTime(0),
             cc.callFunc(function(){
                 // cc.log("runAction auto tap");
-                self._tappedGoldNode(node);
+                self._tappedGoldNode(node, pos);
             })
         ));
         this.addChild(node);
@@ -293,10 +297,10 @@ var HudLayer = cc.Layer.extend({
         AudioManager.getInstance().play(res.collect_coin_mp3);
     },
 
-    _tappedGoldNode: function(goldNode) {
+    _tappedGoldNode: function(goldNode, pos) {
         if (goldNode.getNumberOfRunningActions() > 2)
             return;
-
+        cc.log("POS: " + JSON.stringify(pos));
         var self = this;
         var amount = goldNode.tag;
 
@@ -312,10 +316,14 @@ var HudLayer = cc.Layer.extend({
             var weight = 100 + Math.random()*150;
             var goldBalancePos = this._lbCoin.parent.getPosition();
             goldBalancePos = this._bg.convertToWorldSpace(goldBalancePos);
+            if(pos)
+                goldBalancePos  = cc.p(goldBalancePos.x - pos.x + cc.winSize.width/2, goldBalancePos.y);
             // cc.log("pos: " + JSON.stringify(goldBalancePos));
             var goldBalanceNodeBox = this._coin.getBoundingBox();
+            // var convert = this.convertToWorldSpace(goldBalancePos);
+            // cc.log("convert: " + JSON.stringify(convert));
             var to = cc.p(goldBalancePos.x, goldBalancePos.y);
-            
+            cc.log("goldBalancePos: " + JSON.stringify(to));
             var cp2x = (gold.x > to.x ? -1 : 1) * (Math.random()*600 - 300);
             var cp1 = cc.p(gold.x, gold.y - weight);
             var cp2 = cc.p(gold.x + cp2x, gold.y - weight);
