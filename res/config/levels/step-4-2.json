@@ -35,14 +35,14 @@
     "3": {
       "name": "writing",
       "data": [
-        "jar",
-        "joker",
-        "key",
-        "kite",
-        "lamp",
-        "lemon",
-        "map",
-        "medicine",
+        "word_j",
+        "word_k",
+        "word_J",
+        "word_K",
+        "word_j",
+        "word_k",
+        "word_J",
+        "word_K",
         "word_j",
         "word_k",
         "word_J",
@@ -51,42 +51,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "jar",
-        "joker",
-        "key",
-        "kite",
-        "lamp",
-        "lemon",
-        "map",
-        "medicine",
-        "word_j",
-        "word_k",
-        "word_J",
-        "word_K"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "jar",
-        "joker",
-        "key",
-        "kite",
-        "lamp",
-        "lemon",
-        "map",
-        "medicine",
-        "word_j",
-        "word_k",
-        "word_J",
-        "word_K"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "jar",
@@ -135,11 +99,14 @@
     "3": {
       "name": "writing",
       "data": [
-        "kangaroo",
-        "kitten",
-        "lion",
-        "lobster",
-        "monkey",
+        "word_L",
+        "word_M",
+        "word_l",
+        "word_m",
+        "word_L",
+        "word_M",
+        "word_l",
+        "word_m",
         "word_L",
         "word_M",
         "word_l",
@@ -148,36 +115,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "kangaroo",
-        "kitten",
-        "lion",
-        "lobster",
-        "monkey",
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "kangaroo",
-        "kitten",
-        "lion",
-        "lobster",
-        "monkey",
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "kangaroo",
@@ -258,25 +195,18 @@
     "3": {
       "name": "writing",
       "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
         "number_20",
         "number_21",
         "number_22",
@@ -287,68 +217,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -405,39 +273,27 @@
         "word_L",
         "word_l",
         "word_M",
+        "word_m",
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
+        "word_m",
+        "word_J",
+        "word_j",
+        "word_K",
+        "word_k",
+        "word_L",
+        "word_l",
+        "word_M",
         "word_m"
       ],
       "duration": 240
     },
     "3": {
-      "name": "writing",
-      "data": [
-        "word_J",
-        "word_j",
-        "word_K",
-        "word_k",
-        "word_L",
-        "word_l",
-        "word_M",
-        "word_m"
-      ],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "word_J",
-        "word_j",
-        "word_K",
-        "word_k",
-        "word_L",
-        "word_l",
-        "word_M",
-        "word_m"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "speaking",
       "data": [
         "word_J",

@@ -26,6 +26,7 @@ var SpellingGameLayer = TestLayer.extend({
     _currentLetters: [],
     _successLettersAmount: 0,
     _totalLetters: 0,
+    _objectName: null,
 
     ctor: function(objArr, isTestScene, timeForScene) {
         this._super();
@@ -40,7 +41,8 @@ var SpellingGameLayer = TestLayer.extend({
 
         this.setData(this._data);
         this._totalLetters = this._checkTotalLetters(this._data);
-        this._currentLetters = localizeForWriting(this._data.shift()).split('');
+        this._objectName = this._data.shift();
+        this._currentLetters = localizeForWriting(this._objectName).split('');
         this._wordLength = this._currentLetters.length;
         this._setIsTestScene(isTestScene);
         this._addLetterSlots();
@@ -99,9 +101,12 @@ var SpellingGameLayer = TestLayer.extend({
     _checkAndLoadNextWords: function(){
         if (this._deactivateObjects.length == this._wordLength){
             // Finish one word
+
+            // jsb.AudioEngine.play2d();
             if (this._data.length > 0){
                 this._removeAllObjects();
-                this._currentLetters = localizeForWriting(this._data.shift()).split('');
+                this._objectName = this._data.shift();
+                this._currentLetters = localizeForWriting(this._objectName).split('');
                 cc.log("this._currentLetters: " +this._currentLetters);
                 this._wordLength = this._currentLetters.length;
 

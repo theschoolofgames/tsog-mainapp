@@ -576,7 +576,7 @@ var WritingTestLayer = TestLayer.extend({
             totalWidth -= CHAR_SPACE;
             totalWidths.push(totalWidth);
             if (totalWidth > cc.winSize.width * 0.7)
-                this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7/totalWidth);
+                this._wordScale = Math.min(this._wordScale, cc.winSize.width * 0.7 /totalWidth);
 
             charArrays.push(tempArr);
         }
