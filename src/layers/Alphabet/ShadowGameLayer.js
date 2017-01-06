@@ -102,7 +102,7 @@ var ShadowGameLayer = TestLayer.extend({
             //     tempArray[i].hasClone = true;
             // }
         }
-        // cc.log("tempArray after : \t -> " + JSON.stringify(tempArray));
+        cc.log("tempArray after : \t -> " + JSON.stringify(tempArray));
         // cc.log("this._duplicateGroup : \t -> " + JSON.stringify(this._duplicateGroup));
         this._objectsArray = tempArray;
         this.setData(this._objectsArray);
@@ -140,7 +140,7 @@ var ShadowGameLayer = TestLayer.extend({
                 )
             )
         )
-        this._hudLayer.setTotalGoals(this._objectsArray.length);
+        this._hudLayer.setTotalGoals(this._objects.length);
         this.runHintObjectUp();
         this.runSoundCountDown();
     },
@@ -250,18 +250,22 @@ var ShadowGameLayer = TestLayer.extend({
     addObjects: function(objectArray) {
         var coordinateObjectArray = shuffle(this.generateCoordinateArray());
         var coordinateShadeArray = shuffle(this.generateCoordinateArray());
+        cc.log("coordinateObjectArray: " + JSON.stringify(coordinateObjectArray));
+        cc.log("coordinateShadeArray: " + JSON.stringify(coordinateShadeArray));
         let sortCoordinateShadeArray = coordinateShadeArray.slice(0);
         sortCoordinateShadeArray.sortOn("y");
         // console.log("CoordinateArray: " + JSON.stringify(coordinateShadeArray));
         shuffle(objectArray);
+        cc.log("objectArray: " + JSON.stringify(objectArray));
         
         let objectArrayClone = objectArray.slice(0);
         let index = 0;
-        let lastCloneObjectPos = cc.p(-100, -100);
+        let lastCloneObjectPos = coordinateShadeArray[0];
         let count = 0;
         while (objectArrayClone.length > 0){
-            cc.log("index: " + index);
+            cc.log("1# index: " + index);
             let object = objectArrayClone.shift();
+            cc.log("2# object: " + JSON.stringify(object));
             if (!object.hasClone || object.index == 0){
                 let pos = coordinateShadeArray.shift();
                 this.addObjectButton(coordinateObjectArray[count], objectArray[count], count);
@@ -269,7 +273,7 @@ var ShadowGameLayer = TestLayer.extend({
                 if (object.index == 0)
                     lastCloneObjectPos = pos;
                 else 
-                    lastCloneObjectPos = cc.p(-100, -100);
+                    lastCloneObjectPos = coordinateShadeArray[0];
             }
             else {
                 for (var i = 0; i < coordinateShadeArray.length; i++){
@@ -277,6 +281,7 @@ var ShadowGameLayer = TestLayer.extend({
                         let posArray = coordinateShadeArray.splice(i, 1);
                         this.addObjectButton(coordinateObjectArray[count], objectArray[count], count);
                         this.addObjectShade(posArray[0], object, index);
+                        lastCloneObjectPos = coordinateShadeArray[0];
                         break;
                     }
                 }
@@ -344,7 +349,7 @@ var ShadowGameLayer = TestLayer.extend({
     },
 
     addObjectShade: function(objectPosition, gameObject, index) {
-        console.log("ObjectShade position: " + JSON.stringify(objectPosition));
+        cc.log("3# ObjectShade position: " + JSON.stringify(objectPosition));
         NativeHelper.callNative("customLogging", ["Sprite", "objects/" + gameObject.id + ".png"]);
 
         let shadeImageName = "";
@@ -362,7 +367,7 @@ var ShadowGameLayer = TestLayer.extend({
         }
 
         shadeImageName = imageDir + imageName + ".png";
-        console.log("ShadeImageName => " + shadeImageName);
+        cc.log("ShadeImageName => " + shadeImageName);
         var shadeObject = null;
 
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
@@ -432,7 +437,7 @@ var ShadowGameLayer = TestLayer.extend({
         // win condition
         cc.log("ShadowGameLayer this._objectDisableds.length: " + this._objectDisableds.length);
         cc.log("ShadowGameLayer this._objectsArray.length: " + this._objectsArray.length);
-        if (this._objectDisableds.length == this._objectsArray.length)
+        if (this._objectDisableds.length == this._objects.length)
             this.doCompletedScene();
     },
 
@@ -900,7 +905,7 @@ var ShadowGameLayer = TestLayer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._objectDisableds.length / this._objectsArray.length;
+        var percent = this._objectDisableds.length / this._objects.length;
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._objectDisableds.length);
 

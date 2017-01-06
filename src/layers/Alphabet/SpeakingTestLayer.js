@@ -32,7 +32,7 @@ var SpeakingTestLayer = TestLayer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) {return true;}
         }, this);
-        this._addHudLayer(duration);
+        // this._addHudLayer(duration);
         SpeechRecognitionListener.getInstance().setSpeakingLayer(this);
         NativeHelper.callNative("changeAudioRoute");
 
