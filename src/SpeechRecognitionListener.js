@@ -8,7 +8,7 @@ var SpeechRecognitionListener = cc.Class.extend({
             excludeWords = data[currentLanguage];
         })
 
-        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).map(function(obj) {
+        var itemArray = FOREST_ITEMS.concat(BEDROOM_ITEMS).concat(NUMBER_CONFIG_ITEMS).concat(COLOR_CONFIG_ITEMS).concat(ALPHABET_CONFIG_ITEMS).map(function(obj) {
             if (obj.imageName.indexOf("btn") > -1) {
                 // cc.log("obj.value: " + obj.value);
                 return obj.value;
@@ -21,6 +21,9 @@ var SpeechRecognitionListener = cc.Class.extend({
             cc.log(obj + " " + languagesForWriting[currentLanguage][obj]);
             return languagesForWriting[currentLanguage][obj];
         }).filter(function(obj) {
+            if (!obj)
+                return false;
+
             var words = obj.split(" ");
             for (var i = 0; i < words.length; i++) {
                 var w = words[i].toLowerCase();
