@@ -101,8 +101,26 @@ var SpellingGameLayer = TestLayer.extend({
     _checkAndLoadNextWords: function(){
         if (this._deactivateObjects.length == this._wordLength){
             // Finish one word
-
-            // jsb.AudioEngine.play2d();
+            cc.log("this._objectName: " + this._objectName);
+            var objectName = localize(this._objectName);
+            var soundNamePrefix = "res/sounds/" + "words/" + objectName + ".mp3";
+            if (!jsb.fileUtils.isFileExist(soundNamePrefix)) {
+                soundNamePrefix = "res/sounds/" + "colors/" + objectName + ".mp3";
+            };
+            if (!jsb.fileUtils.isFileExist(soundNamePrefix)) {
+                soundNamePrefix = "res/sounds/" + "shapes/" + objectName + ".mp3";
+            };
+            if (!jsb.fileUtils.isFileExist(soundNamePrefix)) {
+                soundNamePrefix = "res/sounds/" + "numbers/" + objectName + ".mp3";
+            };
+            if (!jsb.fileUtils.isFileExist(soundNamePrefix)) {
+                soundNamePrefix = "res/sounds/" + "alphabets/" + objectName + ".mp3";
+            };
+            if (!jsb.fileUtils.isFileExist(soundNamePrefix)) {
+                soundNamePrefix = "";
+            };
+            cc.log("soundNamePrefix: " + soundNamePrefix);
+            jsb.AudioEngine.play2d(soundNamePrefix);
             if (this._data.length > 0){
                 this._removeAllObjects();
                 this._objectName = this._data.shift();
