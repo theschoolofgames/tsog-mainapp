@@ -86,7 +86,43 @@
     },
     "2": {
       "name": "listening-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "apple"
+          ],
+          "first": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4"
+          ],
+          "second": [
+            "number_1",
+            "number_1",
+            "number_1",
+            "number_1"
+          ],
+          "third": [
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 120
     }
   },
@@ -300,7 +336,7 @@
       "name": "speaking-buildingblocks",
       "data": [
         {
-          "third":  [
+          "third": [
             "number_2",
             "number_3",
             "number_4",
@@ -308,8 +344,7 @@
             "number_5",
             "number_5"
           ],
-          "sentences": [
-          ]
+          "sentences": []
         }
       ],
       "duration": 120

@@ -55,9 +55,9 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             else
                 objCount = this._data["second"][this._nameIdx];
 
-            if (!isNaN(objCount))
-                objCount = parseInt(objCount);
+            objCount = Utils.getValueOfObjectById(objCount);
             var heightIdx = -1;
+            cc.log("total apples:  \t " + objCount);
             for (var k = 0; k < objCount; k++) {
                 if (k%3 == 0)
                     heightIdx++;
@@ -195,14 +195,16 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
     },
 
     _fetchObjectData: function(data) {
-        cc.log("data: " + data);
-        this._type = data["type"];
-        this._names = data["third"];
-        this._data = data;
-        cc.log("_fetchObjectData: " + this._objectName);
-        cc.log("_fetchObjectData: " + this._keyObject);
+        // cc.log("data: " + data);
+        this._super(data[0]["third"]);
 
-        this.setData(this._data);
+        this._type = data[0]["type"];
+        this._data = data[0];
+
+        // cc.log("_fetchObjectData: " + this._objectName);
+        // cc.log("_fetchObjectData: " + this._keyObject);
+
+        // this.setData(this._data);
     },
 
     updateProgressBar: function() {

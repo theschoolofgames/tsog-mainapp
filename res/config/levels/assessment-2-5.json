@@ -50,17 +50,115 @@
     },
     "2": {
       "name": "listening-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "apple"
+          ],
+          "first": [
+            "number_5",
+            "number_3",
+            "number_2",
+            "number_2",
+            "number_6"
+          ],
+          "second": [
+            "number_1",
+            "number_4",
+            "number_6",
+            "number_7",
+            "number_4"
+          ],
+          "third": [
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 120
     },
     "3": {
       "name": "writing-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "apple"
+          ],
+          "first": [
+            "number_5",
+            "number_3",
+            "number_2",
+            "number_2",
+            "number_6"
+          ],
+          "second": [
+            "number_1",
+            "number_4",
+            "number_6",
+            "number_7",
+            "number_4"
+          ],
+          "third": [
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 180
     },
     "4": {
       "name": "speaking-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "third": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "sentences": []
+        }
+      ],
       "duration": 120
     }
   },
@@ -477,8 +575,7 @@
             "number_9",
             "number_9"
           ],
-          "sentences": [
-          ]
+          "sentences": []
         }
       ],
       "duration": 120

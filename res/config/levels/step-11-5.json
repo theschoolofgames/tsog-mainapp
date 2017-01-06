@@ -182,17 +182,107 @@
     },
     "2": {
       "name": "listening-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "banana",
+            "apple"
+          ],
+          "first": [
+            "number_10",
+            "number_2",
+            "number_8",
+            "number_1"
+          ],
+          "second": [
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6"
+          ],
+          "third": [
+            "number_7",
+            "number_6",
+            "number_3",
+            "number_7"
+          ],
+          "firstOperation": [
+            "sub",
+            "plus",
+            "sub",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 120
     },
     "3": {
       "name": "writing-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "banana",
+            "apple"
+          ],
+          "first": [
+            "number_10",
+            "number_2",
+            "number_8",
+            "number_1"
+          ],
+          "second": [
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6"
+          ],
+          "third": [
+            "number_7",
+            "number_6",
+            "number_3",
+            "number_7"
+          ],
+          "firstOperation": [
+            "sub",
+            "plus",
+            "sub",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 180
     },
     "4": {
       "name": "speaking-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "third": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10"
+          ],
+          "sentences": []
+        }
+      ],
       "duration": 120
     }
   },
@@ -456,8 +546,7 @@
             "number_5",
             "number_5"
           ],
-          "sentences": [
-          ]
+          "sentences": []
         }
       ],
       "duration": 120

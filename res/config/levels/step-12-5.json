@@ -116,17 +116,139 @@
     },
     "2": {
       "name": "listening-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "apple"
+          ],
+          "first": [
+            "number_6",
+            "number_3",
+            "number_2",
+            "number_3",
+            "number_9",
+            "number_9",
+            "number_7"
+          ],
+          "second": [
+            "number_1",
+            "number_5",
+            "number_8",
+            "number_9",
+            "number_6",
+            "number_4",
+            "number_4"
+          ],
+          "third": [
+            "number_7",
+            "number_8",
+            "number_10",
+            "number_12",
+            "number_15",
+            "number_13",
+            "number_11"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 120
     },
     "3": {
       "name": "writing-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "type": [
+            "apple"
+          ],
+          "first": [
+            "number_6",
+            "number_3",
+            "number_2",
+            "number_3",
+            "number_9",
+            "number_9",
+            "number_7"
+          ],
+          "second": [
+            "number_1",
+            "number_5",
+            "number_8",
+            "number_9",
+            "number_6",
+            "number_4",
+            "number_4"
+          ],
+          "third": [
+            "number_7",
+            "number_8",
+            "number_10",
+            "number_12",
+            "number_15",
+            "number_13",
+            "number_11"
+          ],
+          "firstOperation": [
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus",
+            "plus"
+          ],
+          "secondOperation": [
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal",
+            "equal"
+          ]
+        }
+      ],
       "duration": 180
     },
     "4": {
       "name": "speaking-fruiddition",
-      "data": [],
+      "data": [
+        {
+          "third": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_10",
+            "number_11",
+            "number_12",
+            "number_13",
+            "number_14",
+            "number_15"
+          ],
+          "sentences": []
+        }
+      ],
       "duration": 120
     }
   },
@@ -390,8 +512,7 @@
             "number_9",
             "number_9"
           ],
-          "sentences": [
-          ]
+          "sentences": []
         }
       ],
       "duration": 120

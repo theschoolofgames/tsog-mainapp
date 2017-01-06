@@ -131,8 +131,8 @@ var FruidditionGameLayer = TestLayer.extend({
                 continue;
 
             var d = this._data[key];
-            cc.log("d ->>>>" + JSON.stringify(d));
-            cc.log("this._currentOperationId ->>>> " +this._currentOperationId);
+            // cc.log("d ->>>>" + JSON.stringify(d));
+            // cc.log("this._currentOperationId ->>>> " +this._currentOperationId);
             var objCount = d[this._currentOperationId];
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);

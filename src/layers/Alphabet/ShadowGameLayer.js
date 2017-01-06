@@ -842,7 +842,6 @@ var ShadowGameLayer = TestLayer.extend({
             cc.log("order: " + order);
             this._effectAudioID = jsb.AudioEngine.play2d("res/sounds/numbers/" + localize(order) + ".mp3", isDragging);
             jsb.AudioEngine.setFinishCallback(this._effectAudioID, function(audioId, audioPath) {
-                jsb.AudioEngine.stopAll();
                 jsb.AudioEngine.play2d(soundDir + localize(objectName) + soundSuffix + ".mp3", isDragging);
                 this._duplicateGroup[objectName]["order"] = order + 1;
             }.bind(this));

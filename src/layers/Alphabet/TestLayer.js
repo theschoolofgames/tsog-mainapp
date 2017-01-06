@@ -28,8 +28,10 @@ var TestLayer = cc.LayerColor.extend({
 
         this._removeHud = removeHud;
         
-        // Utils.showVersionLabel(this);
-        // this.addQuickTestButton();
+        if (TSOG_DEBUG) {
+            Utils.showVersionLabel(this);
+            this.addQuickTestButton();
+        }
     },
     _fetchObjectData: function() {
 
