@@ -35,7 +35,7 @@ var ShadowGameLayer = TestLayer.extend({
     _objectIdArray: ["number_5", "cat", "word_a", "shape_triangle","number_4", "number_3", "word_b", "word_c"],
     _objectsArray: [],
     _timeForScene: null,
-
+    _soundName: null,
     _duplicateGroup: {},
 
     ctor: function(objectIdArray, timeForScene) {
