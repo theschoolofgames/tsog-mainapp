@@ -34,7 +34,8 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
             string = "-";
         cc.log("ListeningTestForFruiddition _createOperation");
         var firstOperation = new cc.LabelBMFont(string, res.CustomFont_fnt);
-        firstOperation.x = firstObj.width + firstOperation.width/2;
+        firstOperation.scale = 1.3;
+        firstOperation.x = firstObj.width + firstOperation.width/2 + firstOperation.width;
         this._nameNode.addChild(firstOperation);
         this._operations.push(firstOperation);
 
