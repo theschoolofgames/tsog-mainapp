@@ -37,6 +37,8 @@ var FruidditionGameLayer = TestLayer.extend({
     _operationSoundPath: null,
     _currentObject: null,
 
+    _forceQuitFlag: false,
+
     ctor: function(data, timeForScene) {
         this._super();
         this._draggingObjects = [];
@@ -110,6 +112,8 @@ var FruidditionGameLayer = TestLayer.extend({
     },
 
     _showNextOperation: function() {
+        if (this._forceQuitFlag)
+            return;
         // if(this.audioEffect)
         //     jsb.AudioEngine.stop(this.audioEffect);
         // clear previous session
@@ -424,6 +428,25 @@ var FruidditionGameLayer = TestLayer.extend({
         this.setHUDProgressBarPercentage(percent);
         this.setHUDCurrentGoals(this._currentOperationId);
 
+        this._super();
+    },
+
+    onEnter: function() {
+        this._super();
+        var self = this;
+        this._eventTimeUp = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "event_logout",
+            callback: function(event){
+                self._forceQuitFlag = true;
+                // jsb.AudioEngine.stop(self._soundEffect);
+            }
+        });
+        cc.eventManager.addListener(this._eventTimeUp, 1);
+    },
+
+    onExit: function () {
+        cc.eventManager.removeListener(this._eventTimeUp);
         this._super();
     },
 });
