@@ -138,7 +138,7 @@ kerning first=68  second=87  amount=-4
 kerning first=68  second=89  amount=-5
 kerning first=69  second=67  amount=-3
 kerning first=69  second=79  amount=-3
-kerning first=70  second=65  amount=-5
+kerning first=70  second=65  amount=-1
 kerning first=70  second=67  amount=-3
 kerning first=70  second=71  amount=-3
 kerning first=70  second=79  amount=-3
@@ -212,7 +212,7 @@ kerning first=83  second=73  amount=-1
 kerning first=83  second=77  amount=-1
 kerning first=83  second=84  amount=-4
 kerning first=83  second=85  amount=-1
-kerning first=84  second=65  amount=-7
+kerning first=84  second=65  amount= -2
 kerning first=84  second=67  amount=-3
 kerning first=84  second=79  amount=-3
 kerning first=85  second=65  amount=-2

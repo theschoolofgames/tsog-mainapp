@@ -122,7 +122,7 @@
             "book",
             "boy"
           ],
-          "maxcardnumber": 10,
+          "maxcardnumber": 50,
           "dataForTest": [
             "number_1",
             "number_2",

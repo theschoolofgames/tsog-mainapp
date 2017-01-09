@@ -229,7 +229,7 @@
             "vegetable",
             "crayon"
           ],
-          "maxcardnumber": 10,
+          "maxcardnumber": 40,
           "dataForTest": [
             "number_1",
             "number_2",
