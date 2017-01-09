@@ -4,13 +4,13 @@
       "name": "room",
       "data": [
         "egg",
+        "eraser",
         "feather",
         "flag",
         "gift",
         "grape",
         "hat",
-        "insect",
-        "eraser"
+        "insect"
       ],
       "duration": 120
     },
@@ -18,13 +18,13 @@
       "name": "listening",
       "data": [
         "egg",
+        "eraser",
         "feather",
         "flag",
         "gift",
         "grape",
         "hat",
         "insect",
-        "eraser",
         "e",
         "f",
         "g",
@@ -119,17 +119,6 @@
     "3": {
       "name": "writing",
       "data": [
-        "eagle",
-        "elephant",
-        "fish",
-        "fly",
-        "fox",
-        "frog",
-        "giraffe",
-        "goat",
-        "goldfish",
-        "hamster",
-        "horse",
         "e",
         "f",
         "g",
@@ -185,12 +174,7 @@
         "number_12",
         "number_13",
         "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
+        "number_15"
       ]
     },
     "2": {
@@ -210,12 +194,7 @@
         "number_12",
         "number_13",
         "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
+        "number_15"
       ]
     },
     "3": {
@@ -235,16 +214,11 @@
         "number_12",
         "number_13",
         "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
+        "number_15"
       ]
     },
     "4": {
-      "name": "writing",
+      "name": "speaking",
       "data": [
         "number_1",
         "number_2",
@@ -260,37 +234,7 @@
         "number_12",
         "number_13",
         "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ]
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
+        "number_15"
       ]
     }
   },

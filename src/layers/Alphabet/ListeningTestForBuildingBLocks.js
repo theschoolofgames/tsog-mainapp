@@ -4,6 +4,8 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
     _rdmIndex: null,
     _operations: [],
 
+    _currentOperation: [],
+
     ctor: function(data, duration) {
         this._super(data, duration);
 
@@ -21,6 +23,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
         // 1st row
         this._objects = [];
         this._operations = [];
+        this._currentOperation = [];
         this._rdmIndex = null;
         var firstObj = new cc.Layer();
         this._nameNode.addChild(firstObj);
@@ -51,7 +54,7 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
 
             objCount = Utils.getValueOfObjectById(objCount);
             // cc.log("objCount " + objCount);
-
+            this._currentOperation.push(objCount);
             if (!isNaN(objCount))
                 objCount = parseInt(objCount);
             else {
@@ -113,7 +116,11 @@ var ListeningTestForBuildingBLocks = ListeningTestLayer.extend({
 
         // var objName = text.toLowerCase();
         // play operation sound
-        this._objSoundPath = null;
+        this._objSoundPath = "res/sounds/sentences/" + currentLanguage + "/" 
+                            + this._currentOperation[0] 
+                            + "_" + this._data["firstOperation"][this._nameIdx] +"_" 
+                            + this._currentOperation[1]
+                            + "-listening" + ".mp3";
 
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
