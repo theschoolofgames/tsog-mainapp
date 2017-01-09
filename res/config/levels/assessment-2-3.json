@@ -197,7 +197,7 @@
             "onion",
             "queen"
           ],
-          "maxcardnumber": 10,
+          "maxcardnumber": 20,
           "dataForTest": [
             "number_1",
             "number_2",

@@ -686,6 +686,7 @@ languages["sw"] = {
     "toes": "sw/toes",
     "tomato-1": "sw/tomato-1",
     "tomato": "sw/tomato",
+    "fat": "sw/fat",
     "tomatoes": "sw/tomatoes",
     "tongue": "sw/tongue",
     "tongues": "sw/tongues",

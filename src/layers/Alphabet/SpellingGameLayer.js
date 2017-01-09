@@ -66,7 +66,7 @@ var SpellingGameLayer = TestLayer.extend({
     _checkTotalLetters: function(data){
         let totalLetter = 0;
         for (var i = 0; i < data.length; i++){
-            totalLetter += data[i].length;
+            totalLetter += localizeForWriting(data[i]).length;
         }
 
         return totalLetter;

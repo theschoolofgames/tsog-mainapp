@@ -333,6 +333,7 @@ var ListeningTestLayer = TestLayer.extend({
             this._objSoundPath = "res/sounds/colors/" + localize(text) + ".mp3";
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
+        cc.log("_displayCurrentName: " + text);
         // cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
