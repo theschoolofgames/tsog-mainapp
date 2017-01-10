@@ -235,17 +235,34 @@ var MapLayer = cc.Layer.extend({
             // cc.log("err: " + err);
             if (!err && data) {
                 stepData = data;
-                // cc.log("self._data " + JSON.stringify(data));
                 var totalGameInStep = Object.keys(stepData).length;
-                for (var i = 0; i < totalGameInStep; i++) {
+                // cc.log("self._data " + JSON.stringify(data));
+                var st = Math.PI/5;
+                var h = btn.width/2; 
+                var k = btn.height/2 + 5;
+                var r = 50;
+                for(var i = totalGameInStep; i > 0; i--) { 
+                    var angle = st * ((5 - totalGameInStep)/2 + i - 1/2);
+                    var x = h + r*Math.cos(angle);
+                    var y = k + r*Math.sin(angle);
+                    // cc.log("angle -> " + (angle/st));
                     var star = new cc.Sprite("#star-empty.png");
                     star.scale = 0.35;
-                    star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5) *star.scale;
-                    star.y = btn.height;
+                    star.x = x;
+                    star.y = y;
                     star.tag = i;
                     btn.addChild(star);
                     self._stepsStar[step].push(star);
                 }
+                // for (var i = 0; i < totalGameInStep; i++) {
+                //     var star = new cc.Sprite("#star-empty.png");
+                //     star.scale = 0.35;
+                //     star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5) *star.scale;
+                //     star.y = btn.height;
+                //     star.tag = i;
+                //     btn.addChild(star);
+                //     self._stepsStar[step].push(star);
+                // }
             } else {
                 cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Map_Data_JSON);
                 cc.loader.loadJson(res.Map_Data_JSON, function(err, data) {
