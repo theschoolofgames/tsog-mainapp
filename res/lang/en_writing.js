@@ -405,6 +405,7 @@ languagesForWriting["en"] = {
     "tin" : "tin",
     "toad" : "toad",
     "toe" : "toe",
+    "toes" : "toes",
     "tomato" : "tomato",
     "tongue" : "tongue",
     "tooth" : "tooth",

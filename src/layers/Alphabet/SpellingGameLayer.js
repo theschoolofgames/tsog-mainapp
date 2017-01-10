@@ -47,6 +47,7 @@ var SpellingGameLayer = TestLayer.extend({
         this._setIsTestScene(isTestScene);
         this._addLetterSlots();
         this._addLetterObjects();
+        this._redefineActiveObjectTag();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -139,6 +140,8 @@ var SpellingGameLayer = TestLayer.extend({
 
     _generateSlotPosArray: function(letterAmount) {
         let blockAmount = (letterAmount % 2 == 0) ? 10 : 9;
+        if(letterAmount > 10) 
+            blockAmount = letterAmount;
         let widthScreen = cc.winSize.width;
         let blockWidth = Math.floor(widthScreen / blockAmount);
         let startBlockIndex = (blockAmount - letterAmount) / 2;
@@ -153,6 +156,8 @@ var SpellingGameLayer = TestLayer.extend({
 
     _generateObjectPosArray: function(letterAmount) {
         let blockAmount = (letterAmount % 2 == 0) ? 10 : 9;
+        if(letterAmount > 10) 
+            blockAmount = letterAmount;
         let widthScreen = cc.winSize.width;
         let blockWidth = Math.floor(widthScreen / blockAmount);
         let posBlockArray = [];
@@ -177,23 +182,30 @@ var SpellingGameLayer = TestLayer.extend({
         this._activateSlots = [];
         this._deactivateSlots = [];
         let posArray = this._generateSlotPosArray(this._wordLength);
+        this._scale = this._slotScale;
+        if(this._wordLength > 10)
+            this._scale = 0.7 * this._slotScale;
         for (var i = 0; i < this._wordLength; i++) {
             var name = this._currentLetters[i].toUpperCase();
-            var s = new cc.Sprite("#" + name + ".png");
-            s.setAnchorPoint(0.5, 0);
-            s.scale = this._slotScale;
-            s.x = posArray[i].x;
-            s.y = cc.winSize.height/2;
-            s.tag = i;
+            cc.log("i: " + i);
+            if(name != " "){
+                cc.log("name letter: " + name);
+                var s = new cc.Sprite("#" + name + ".png");
+                s.setAnchorPoint(0.5, 0);
+                s.scale = this._scale;
+                s.x = posArray[i].x;
+                s.y = cc.winSize.height/2;
+                s.tag = i;
 
-            var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
-            s.shaderProgram = shader;
-            var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
-            shaderState.setUniformInt("enabled", 0);
-            s.color = cc.color(140, 130, 200);
+                var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
+                s.shaderProgram = shader;
+                var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+                shaderState.setUniformInt("enabled", 0);
+                s.color = cc.color(140, 130, 200);
 
-            this.addChild(s);
-            this._activateSlots.push(s);
+                this.addChild(s);
+                this._activateSlots.push(s);
+            }
         }
     },
 
@@ -204,15 +216,18 @@ var SpellingGameLayer = TestLayer.extend({
         let posArray = this._generateObjectPosArray(this._wordLength);
         for (var i = 0; i < this._wordLength; i++) {
             var name = this._currentLetters[i].toUpperCase();
-            var s = new cc.Sprite("#" + name + ".png");
-            s.scale = this._objectScale;
-            s.x = posArray[i].x;
-            s.y = s.height;
-            s.tag = i;
-            this.addChild(s);
-            this._activateObjects.push(s);
-            
-            this._objectsPosition.push(s.getPosition());
+            if(name != " "){
+                var s = new cc.Sprite("#" + name + ".png");
+                s.scale = this._objectScale;
+                s.x = posArray[i].x;
+                s.y = s.height;
+                s.tag = i;
+                this.addChild(s);
+                this._activateObjects.push(s);
+                
+                this._objectsPosition.push(s.getPosition());
+                
+            }
         }
 
         this._randomLetterObjectPos();
@@ -259,7 +274,7 @@ var SpellingGameLayer = TestLayer.extend({
                 self._currentObjectOldZOrder = self._currentObjectMoving.getLocalZOrder();
                 self._currentObjectMoving.rotation = 0;
                 self._currentObjectMoving.setLocalZOrder(kTagMaxZOrder);
-
+                cc.log("Obj.tag: " + obj.tag);
                 self._currentAvailableSlot = self._activateSlots[obj.tag];
                 self._runSlotAction(self._currentAvailableSlot);
                 self._runObjectPickUpAction(self._currentObjectMoving);
@@ -344,6 +359,7 @@ var SpellingGameLayer = TestLayer.extend({
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
+        this._currentObjectMoving.scale = this._scale;
         this._runObjectDropAction(this._currentObjectMoving, this._slotScale);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1);
         this._deactivateObjects.push(this._currentObjectMoving);

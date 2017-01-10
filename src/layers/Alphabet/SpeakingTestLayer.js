@@ -493,6 +493,14 @@ var SpeakingTestLayer = TestLayer.extend({
             });
         else
             this._data = []; 
+        var names = [];
+        if(currentLanguage == "sw"){
+            for (var i = 0; i < this._names.length; i ++){
+                if(this._names[i] != "Q" && this._names[i] != "q" && this._names[i] != "X" && this._names[i] != "x" )
+                    names.push(this._names[i]);
+            } ;
+        };
+        this._names = names;
         if(!dataForWriting[0].dataSpeaking)
         dataForWriting  = this._data;   
         this.setData(dataForWriting);

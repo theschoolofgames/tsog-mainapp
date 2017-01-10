@@ -558,7 +558,14 @@ var ListeningTestLayer = TestLayer.extend({
             });
         else
             this._data = [];
-
+        var names = [];
+        if(currentLanguage == "sw"){
+            for (var i = 0; i < this._names.length; i ++){
+                if(this._names[i] != "Q" && this._names[i] != "q" && this._names[i] != "X" && this._names[i] != "x" )
+                    names.push(this._names[i]);
+            } ;
+        };
+        this._names = names;
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
         cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject.length > 0)

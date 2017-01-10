@@ -10,6 +10,11 @@
     "value": "crayon"
   },
   {
+    "id": "vest",
+    "type": "object",
+    "value": "vest"
+  },
+  {
     "id": "fan",
     "type": "object",
     "value": "fan"

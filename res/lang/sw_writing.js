@@ -400,6 +400,7 @@ languagesForWriting["sw"] = {
     "tin" : "Kopo",
     "toad" : "Chura",
     "toe" : "Kidole cha mguu",
+    "toes" : "Mguu",
     "tomato" : "Nyanya",
     "tongue" : "Ulimi",
     "tooth" : "Jino",
