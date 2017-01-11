@@ -899,6 +899,7 @@ STORYTIME_VOICE_FOR_LISTENING["sw"] = {
 
 var EVENT_AR_FIREBALL_ACTIVE = "event_ar_fireball_active";
 var EVENT_AR_GAMEOVER = "event_ar_gameover";
+var EVENT_AR_REVIVAL = "event_ar_revival";
 var ALPHARACING_DATA =[
     {
       "value": "A",
