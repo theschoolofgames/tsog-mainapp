@@ -63,8 +63,9 @@
 
         "src/layers/TestGameLayer.js",
 
-        "src/layers/Alphabet/DialogPlayAlpharacing.js",
+        "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/AlertDialog.js",
+        "src/layers/Alphabet/DialogPlayAlpharacing.js",
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",
@@ -94,7 +95,6 @@
         "src/layers/Alphabet/TreeGameLayer.js",
         "src/layers/Alphabet/BalloonGameLayer.js",
         "src/layers/Alphabet/MapLayer.js",
-        "src/layers/Alphabet/Dialog.js",
         "src/layers/Alphabet/LevelDialog.js",
         "src/layers/Alphabet/SpellingGameLayer.js",
         "src/layers/Alphabet/ShoppingBasketLayer.js",

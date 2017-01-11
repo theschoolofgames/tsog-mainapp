@@ -1,4 +1,4 @@
-var DialogPlayAlpharacing = cc.LayerColor.extend({
+var DialogPlayAlpharacing = Dialog.extend({
     _dialogBg: null,
     _isRetry: false,
 
@@ -23,6 +23,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
+        this.background = dialogBg;
     },
     _addText: function(isNotEnoughCoin) {
         var text = new cc.LabelBMFont(localize("Spend") + " " + COIN_NEED_TO_PLAY_ALPHARACING.toString(), res.HomeFont_fnt);

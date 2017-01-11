@@ -254,15 +254,6 @@ var MapLayer = cc.Layer.extend({
                     btn.addChild(star);
                     self._stepsStar[step].push(star);
                 }
-                // for (var i = 0; i < totalGameInStep; i++) {
-                //     var star = new cc.Sprite("#star-empty.png");
-                //     star.scale = 0.35;
-                //     star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5) *star.scale;
-                //     star.y = btn.height;
-                //     star.tag = i;
-                //     btn.addChild(star);
-                //     self._stepsStar[step].push(star);
-                // }
             } else {
                 cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Map_Data_JSON);
                 cc.loader.loadJson(res.Map_Data_JSON, function(err, data) {
@@ -279,26 +270,24 @@ var MapLayer = cc.Layer.extend({
         
         if (stepData == null || stepData == "" || stepData == undefined)
             return;
-        // cc.log("stepData: " + stepData);
+
         stepData = JSON.parse(stepData);
         for (var step in stepData) {
             var eachStepData = stepData[step];
-            // cc.log("eachStepData: " + JSON.stringify(eachStepData));
+
             if (!eachStepData)
                 return;
-            // cc.log("eachStepData.completed: " + eachStepData.completed);
-            if (eachStepData.completed) {
+
+            if (eachStepData.completed)
                 this._updateStepState(step);
-            }
-            for (var info in eachStepData){
-                // cc.log("info: " + info);
+
+            for (var info in eachStepData) {
                 var gameCompleted;
                 var eachStepInfo = eachStepData[info];
                 if (info.indexOf("totalStars") < 0)
                     gameCompleted = eachStepData[info];
-                else {
+                else
                     this._updateStepData(step, eachStepInfo);
-                }
             }
         }
 
