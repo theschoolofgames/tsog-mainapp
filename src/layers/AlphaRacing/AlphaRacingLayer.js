@@ -125,7 +125,13 @@ var AlphaRacingLayer = cc.Layer.extend({
                         self.diePosition = self._player.getPosition();
                         if(self._coinsForRevive <= CurrencyManager.getInstance().getCoin())
                             self._hudLayer.addChild(new DialogReviveAR(self._coinsForRevive), 9999);
-                        else cc.director.runScene(new HomeScene());
+                        else {
+                            if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING)
+                                self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
+                            else
+                                cc.director.runScene(new HomeScene());
+
+                        } 
                     })
                 ))
                 // this.completedScene(localize("Game Over"));

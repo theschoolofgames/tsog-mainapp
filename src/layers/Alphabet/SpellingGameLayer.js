@@ -66,9 +66,16 @@ var SpellingGameLayer = TestLayer.extend({
 
     _checkTotalLetters: function(data){
         let totalLetter = 0;
+        var count = 0;
         for (var i = 0; i < data.length; i++){
-            totalLetter += localizeForWriting(data[i]).length;
-        }
+            var obj = localizeForWriting(data[i]);
+            for(var j = 0; j < obj.length; j ++) {
+                if(obj[j] == " ")
+                    count++;
+            };
+            totalLetter += obj.length;
+        };
+        totalLetter = totalLetter - count;
 
         return totalLetter;
     },
@@ -100,7 +107,7 @@ var SpellingGameLayer = TestLayer.extend({
     },
 
     _checkAndLoadNextWords: function(){
-        if (this._deactivateObjects.length == this._wordLength){
+        if (this._activateSlots.length == 0){
             // Finish one word
             cc.log("this._objectName: " + this._objectName);
             var objectName = localize(this._objectName);
@@ -323,7 +330,7 @@ var SpellingGameLayer = TestLayer.extend({
         self._renewPlayTurn();
 
         self._blockFlag = false; // unlock 
-        if (self._activateSlots.length == 0) {
+        if (self._activateSlots.length == 0 && self._data.length == 0) {
             self._blockFlag = true;
             self.doCompletedScene();
             // self._addDebugButton();
@@ -360,7 +367,7 @@ var SpellingGameLayer = TestLayer.extend({
         this._currentObjectMoving.setAnchorPoint(0.5, 0);
         this._currentObjectMoving.setPosition(this._currentAvailableSlot.getPosition());
         this._currentObjectMoving.scale = this._scale;
-        this._runObjectDropAction(this._currentObjectMoving, this._slotScale);
+        this._runObjectDropAction(this._currentObjectMoving, this._scale);
         this._activateObjects.splice(this._currentObjectMoving.tag, 1);
         this._deactivateObjects.push(this._currentObjectMoving);
         

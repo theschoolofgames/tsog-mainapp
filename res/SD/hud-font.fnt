@@ -468,7 +468,7 @@ kerning first=105  second=101  amount=-1
 kerning first=105  second=103  amount=-1
 kerning first=105  second=111  amount=-1
 kerning first=105  second=112  amount=-1
-kerning first=105  second=116  amount=-3
+kerning first=105  second=116  amount= 2
 kerning first=105  second=117  amount=-1
 kerning first=105  second=118  amount=-3
 kerning first=106  second=97  amount=-1
@@ -605,12 +605,12 @@ kerning first=119  second=104  amount=-1
 kerning first=119  second=111  amount=-1
 kerning first=119  second=46  amount=-4
 kerning first=119  second=44  amount=-4
-kerning first=120  second=97  amount=-3
+kerning first=120  second=97  amount= 2
 kerning first=120  second=101  amount=-2
 kerning first=120  second=111  amount=-2
 kerning first=121  second=46  amount=-4
 kerning first=121  second=44  amount=-4
-kerning first=121  second=97  amount=-3
+kerning first=121  second=97  amount= 2
 kerning first=121  second=99  amount=-1
 kerning first=121  second=100  amount=-1
 kerning first=121  second=101  amount=-1
