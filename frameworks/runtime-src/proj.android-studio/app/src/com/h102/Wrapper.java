@@ -1,20 +1,5 @@
 package com.h102;
 
-import com.android.vending.billing.IInAppBillingService;
-import com.crashlytics.android.Crashlytics;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.concurrent.Executors;
-
-import com.hub102.tsog.BuildConfig;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ComponentName;
@@ -35,8 +20,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import com.android.vending.billing.IInAppBillingService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hub102.tsog.BuildConfig;
+
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Executors;
 
 public class Wrapper
 {
@@ -126,7 +121,7 @@ public class Wrapper
     }
 
     public static void fabricCustomLogging(String key, String value) {
-        Crashlytics.getInstance().core.setString(key, value);
+//        Crashlytics.getInstance().core.setString(key, value);
     }
 
     public static String getId() {

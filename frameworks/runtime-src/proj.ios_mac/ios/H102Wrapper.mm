@@ -8,7 +8,6 @@
 #import "H102Wrapper.h"
 #import <PDKeychainBindings.h>
 
-#import <Crashlytics/Crashlytics.h>
 #import "ScriptingCore.h"
 #import "cocos2d.h"
 
@@ -112,7 +111,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 }
 
 + (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value {
-    [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
+//    [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
 }
 
 + (void)changeAudioRoute {

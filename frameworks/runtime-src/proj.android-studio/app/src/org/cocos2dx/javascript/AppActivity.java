@@ -23,26 +23,17 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos2dx.javascript;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
-
-import android.Manifest;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
-import com.crashlytics.android.Crashlytics;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
 
-import java.util.Locale;
+import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
-import io.fabric.sdk.android.Fabric;
+import java.util.Locale;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -60,12 +51,6 @@ public class AppActivity extends Cocos2dxActivity {
 
         Wrapper.activity = this;
         SpeechRecognizer.setupInstance(this);
-
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)
-                .build();
-        Fabric.with(fabric);
 
         Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
 

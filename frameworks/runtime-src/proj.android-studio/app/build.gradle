@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -60,24 +59,11 @@ android {
     }
 }
 
-crashlytics {
-    enableNdk true
-    androidNdkOut 'obj'
-    androidNdkLibsOut 'libs'
-}
-
-
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
     compile 'com.google.code.gson:gson:2.4'
     compile 'commons-io:commons-io:2.4'
-    compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
-        transitive = true
-    }
-    compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') {
-        transitive = true
-    }
     compile 'com.android.support:support-v4:25.0.1'
 }
 
