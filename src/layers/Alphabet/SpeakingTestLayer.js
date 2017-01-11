@@ -499,8 +499,8 @@ var SpeakingTestLayer = TestLayer.extend({
                 if(this._names[i] != "Q" && this._names[i] != "q" && this._names[i] != "X" && this._names[i] != "x" )
                     names.push(this._names[i]);
             } ;
+            this._names = names;
         };
-        this._names = names;
         if(!dataForWriting[0].dataSpeaking)
         dataForWriting  = this._data;   
         this.setData(dataForWriting);

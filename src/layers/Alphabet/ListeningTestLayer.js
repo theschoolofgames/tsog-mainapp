@@ -326,6 +326,8 @@ var ListeningTestLayer = TestLayer.extend({
             this._nameNode.removeFromParent();
 
         var text = this._names[this._nameIdx];
+        cc.log("text: " + text);
+        cc.log("this._names: " + this._names);
         if (this._keyObject.length > 0)
             text = this._keyObject[this._currentKeyIndex];
         if (text.indexOf("color") > -1 || text.indexOf("btn") > -1) {
@@ -564,8 +566,8 @@ var ListeningTestLayer = TestLayer.extend({
                 if(this._names[i] != "Q" && this._names[i] != "q" && this._names[i] != "X" && this._names[i] != "x" )
                     names.push(this._names[i]);
             } ;
+            this._names = names;
         };
-        this._names = names;
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
         cc.log("listening names after map: " + JSON.stringify(this._names));
         if (this._keyObject.length > 0)
