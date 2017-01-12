@@ -7,6 +7,7 @@ var SpecifyGoalHudLayer = HudLayer.extend({
     _showClock: true,
     _whiteBg: null,
     _isAlpharacing: false,
+    _word: null,
 
     ctor: function(layer, timeForScene, currencyType, isAlpharacing) {
         if (currencyType)
@@ -41,11 +42,14 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         specifyGoalSprite.y = holder.height/2 - 10;
         holder.addChild(specifyGoalSprite); 
         if(word.length == 1) {
+            if(this._word)
+                this._word.removeFromParent();
             var word = new cc.LabelBMFont(word, res.CustomFont_fnt); 
             word.x = specifyGoalSprite.width/2 + 5;
             word.y = specifyGoalSprite.height - word.height - 20;
             word.scale = 0.9;
             specifyGoalSprite.addChild(word);
+            this._word = word;
         };
         var text = this._currentSpecifyGoal + "/" + this._totalSpecifyGoal;
         if (this._specifyGoalLabel)

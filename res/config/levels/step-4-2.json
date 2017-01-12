@@ -35,24 +35,20 @@
     "3": {
       "name": "writing",
       "data": [
-        "word_j",
-        "word_k",
         "word_J",
         "word_K",
         "word_j",
-        "word_k",
-        "word_J",
-        "word_K",
-        "word_j",
-        "word_k",
-        "word_J",
-        "word_K"
+        "word_k"
       ],
       "duration": 240
     },
     "4": {
       "name": "speaking",
       "data": [
+        "word_j",
+        "word_k",
+        "word_J",
+        "word_K",
         "jar",
         "joker",
         "key",
@@ -60,11 +56,7 @@
         "lamp",
         "lemon",
         "map",
-        "medicine",
-        "word_j",
-        "word_k",
-        "word_J",
-        "word_K"
+        "medicine"
       ],
       "duration": 120
     }
@@ -84,29 +76,21 @@
     "2": {
       "name": "listening",
       "data": [
+        "word_L",
+        "word_M",
+        "word_l",
+        "word_m",
         "kangaroo",
         "kitten",
         "lion",
         "lobster",
-        "monkey",
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m"
+        "monkey"
       ],
       "duration": 120
     },
     "3": {
       "name": "writing",
       "data": [
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m",
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m",
         "word_L",
         "word_M",
         "word_l",
@@ -117,15 +101,15 @@
     "4": {
       "name": "speaking",
       "data": [
+        "word_L",
+        "word_M",
+        "word_l",
+        "word_m",
         "kangaroo",
         "kitten",
         "lion",
         "lobster",
-        "monkey",
-        "word_L",
-        "word_M",
-        "word_l",
-        "word_m"
+        "monkey"
       ],
       "duration": 120
     }

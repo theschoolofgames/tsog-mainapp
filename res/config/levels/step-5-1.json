@@ -31,14 +31,8 @@
       "duration": 120
     },
     "3": {
-      "name": "speaking",
+      "name": "writing",
       "data": [
-        "nail",
-        "nest",
-        "pen",
-        "pencils",
-        "potato",
-        "queen",
         "word_n",
         "word_p",
         "word_q",
@@ -49,8 +43,14 @@
       "duration": 120
     },
     "4": {
-      "name": "writing",
+      "name": "speaking",
       "data": [
+        "nail",
+        "nest",
+        "pen",
+        "pencils",
+        "potato",
+        "queen",
         "word_n",
         "word_p",
         "word_q",
@@ -76,28 +76,27 @@
     "2": {
       "name": "listening",
       "data": [
+        "word_N",
+        "word_P",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_r",
         "panda",
         "pig",
         "puppy",
         "rabbit",
-        "rat",
-        "word_P",
-        "word_R",
-        "word_p",
-        "word_r"
+        "rat"
       ],
       "duration": 120
     },
     "3": {
       "name": "writing",
       "data": [
-        "panda",
-        "pig",
-        "puppy",
-        "rabbit",
-        "rat",
+        "word_N",
         "word_P",
         "word_R",
+        "word_n",
         "word_p",
         "word_r"
       ],
@@ -106,13 +105,10 @@
     "4": {
       "name": "writing",
       "data": [
-        "panda",
-        "pig",
-        "puppy",
-        "rabbit",
-        "rat",
+        "word_N",
         "word_P",
         "word_R",
+        "word_n",
         "word_p",
         "word_r"
       ],
@@ -121,13 +117,10 @@
     "5": {
       "name": "writing",
       "data": [
-        "panda",
-        "pig",
-        "puppy",
-        "rabbit",
-        "rat",
+        "word_N",
         "word_P",
         "word_R",
+        "word_n",
         "word_p",
         "word_r"
       ],
@@ -136,20 +129,216 @@
     "6": {
       "name": "speaking",
       "data": [
+        "word_N",
+        "word_P",
+        "word_R",
+        "word_n",
+        "word_p",
+        "word_r",
         "panda",
         "pig",
         "puppy",
         "rabbit",
-        "rat",
-        "word_P",
-        "word_R",
-        "word_p",
-        "word_r"
+        "rat"
       ],
       "duration": 120
     }
   },
   "3": {
+    "1": {
+      "name": "card",
+      "data": [
+        {
+          "cardData": [
+            "egg",
+            "hat",
+            "jar",
+            "key",
+            "map",
+            "pen",
+            "rat",
+            "book",
+            "desk",
+            "flag",
+            "gift",
+            "kite",
+            "lamp",
+            "nail",
+            "nest",
+            "salt",
+            "vest",
+            "xmas",
+            "sock",
+            "apple",
+            "chair",
+            "grape",
+            "joker",
+            "lemon",
+            "onion",
+            "queen"
+          ],
+          "maxcardnumber": 20,
+          "dataForTest": [
+            "number_1",
+            "number_2",
+            "number_3",
+            "number_4",
+            "number_5",
+            "number_6",
+            "number_7",
+            "number_8",
+            "number_9",
+            "number_10",
+            "number_11",
+            "number_12",
+            "number_13",
+            "number_14",
+            "number_15",
+            "number_16",
+            "number_17",
+            "number_18",
+            "number_19",
+            "number_20",
+            "number_21",
+            "number_22",
+            "number_23",
+            "number_24",
+            "number_25",
+            "number_26",
+            "number_27",
+            "number_28",
+            "number_29",
+            "number_30"
+          ]
+        }
+      ],
+      "duration": 300
+    },
+    "2": {
+      "name": "listening",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30"
+      ],
+      "duration": 120
+    },
+    "3": {
+      "name": "writing",
+      "data": [
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30"
+      ],
+      "duration": 300
+    },
+    "4": {
+      "name": "writing",
+      "data": [
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30"
+      ],
+      "duration": 300
+    },
+    "5": {
+      "name": "writing",
+      "data": [
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30"
+      ],
+      "duration": 300
+    },
+    "6": {
+      "name": "speaking",
+      "data": [
+        "number_1",
+        "number_2",
+        "number_3",
+        "number_4",
+        "number_5",
+        "number_6",
+        "number_7",
+        "number_8",
+        "number_9",
+        "number_10",
+        "number_11",
+        "number_12",
+        "number_13",
+        "number_14",
+        "number_15",
+        "number_16",
+        "number_17",
+        "number_18",
+        "number_19",
+        "number_20",
+        "number_21",
+        "number_22",
+        "number_23",
+        "number_24",
+        "number_25",
+        "number_26",
+        "number_27",
+        "number_28",
+        "number_29",
+        "number_30"
+      ],
+      "duration": 120
+    }
+  },
+  "4": {
     "1": {
       "name": "fruiddition",
       "data": {
@@ -284,272 +473,6 @@
             "number_3",
             "number_2",
             "number_1"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
-    }
-  },
-  "4": {
-    "1": {
-      "name": "buildingblocks",
-      "data": {
-        "type": "block",
-        "data": [
-          {
-            "first": [
-              [
-                "number_2",
-                "number_3"
-              ],
-              [
-                "number_2",
-                "number_3"
-              ],
-              [
-                "number_3",
-                "number_4"
-              ],
-              [
-                "number_4",
-                "number_3"
-              ]
-            ],
-            "second": [
-              [
-                "number_4",
-                "number_3"
-              ],
-              [
-                "number_5",
-                "number_4"
-              ],
-              [
-                "number_5",
-                "number_4"
-              ],
-              [
-                "number_5",
-                "number_6"
-              ]
-            ],
-            "third": [
-              "number_6",
-              "number_7",
-              "number_8",
-              "number_9"
-            ],
-            "firstOperation": [
-              "plus",
-              "plus",
-              "plus",
-              "plus"
-            ],
-            "secondOperation": [
-              "equal",
-              "equal",
-              "equal",
-              "equal"
-            ]
-          }
-        ]
-      },
-      "duration": 120
-    },
-    "2": {
-      "name": "listening-buildingblocks",
-      "data": [
-        {
-          "first": [
-            [
-              "number_1"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_2"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_3"
-            ]
-          ],
-          "second": [
-            [
-              "number_4"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_6"
-            ]
-          ],
-          "third": [
-            "number_6",
-            "number_6",
-            "number_7",
-            "number_7",
-            "number_8",
-            "number_8",
-            "number_9",
-            "number_9"
-          ],
-          "firstOperation": [
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus"
-          ],
-          "secondOperation": [
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal"
-          ]
-        }
-      ],
-      "duration": 60
-    },
-    "3": {
-      "name": "writing-buildingblocks",
-      "data": [
-        {
-          "first": [
-            [
-              "number_1"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_2"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_3"
-            ]
-          ],
-          "second": [
-            [
-              "number_4"
-            ],
-            [
-              "number_3"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_4"
-            ],
-            [
-              "number_5"
-            ],
-            [
-              "number_6"
-            ]
-          ],
-          "third": [
-            "number_6",
-            "number_6",
-            "number_7",
-            "number_7",
-            "number_8",
-            "number_8",
-            "number_9",
-            "number_9"
-          ],
-          "firstOperation": [
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus",
-            "plus"
-          ],
-          "secondOperation": [
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal",
-            "equal"
-          ]
-        }
-      ],
-      "duration": 180
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_6",
-            "number_6",
-            "number_7",
-            "number_7",
-            "number_8",
-            "number_8",
-            "number_9",
-            "number_9"
           ],
           "sentences": []
         }

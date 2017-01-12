@@ -10,6 +10,11 @@
     "value": "crayon"
   },
   {
+    "id": "vest",
+    "type": "object",
+    "value": "vest"
+  },
+  {
     "id": "fan",
     "type": "object",
     "value": "fan"
@@ -303,6 +308,11 @@
     "id": "tomato",
     "type": "object",
     "value": "tomato"
+  },
+  {
+    "id": "mat",
+    "type": "object",
+    "value": "mat"
   },
   {
     "id": "umbrella",

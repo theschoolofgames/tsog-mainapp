@@ -122,7 +122,7 @@
             "book",
             "boy"
           ],
-          "maxcardnumber": 10,
+          "maxcardnumber": 50,
           "dataForTest": [
             "number_1",
             "number_2",
@@ -213,13 +213,7 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"
-      ],
-      "duration": 480
-    },
-    "4": {
-      "name": "writing",
-      "data": [
+        "number_50",
         "number_30",
         "number_31",
         "number_32",
@@ -240,13 +234,7 @@
         "number_47",
         "number_48",
         "number_49",
-        "number_50"
-      ],
-      "duration": 600
-    },
-    "5": {
-      "name": "writing",
-      "data": [
+        "number_50",
         "number_30",
         "number_31",
         "number_32",
@@ -271,7 +259,7 @@
       ],
       "duration": 480
     },
-    "6": {
+    "4": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -340,7 +328,8 @@
         "toes",
         "tree",
         "wing",
-        "wolf"
+        "wolf",
+        "vest"
       ],
       "duration": 300
     },
@@ -355,7 +344,8 @@
         "toes",
         "tree",
         "wing",
-        "wolf"
+        "wolf",
+        "vest"
       ],
       "duration": 120
     },
@@ -370,7 +360,8 @@
         "toes",
         "tree",
         "wing",
-        "wolf"
+        "wolf",
+        "vest"
       ],
       "duration": 120
     }

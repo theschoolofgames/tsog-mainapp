@@ -235,13 +235,21 @@ var MapLayer = cc.Layer.extend({
             // cc.log("err: " + err);
             if (!err && data) {
                 stepData = data;
-                // cc.log("self._data " + JSON.stringify(data));
                 var totalGameInStep = Object.keys(stepData).length;
-                for (var i = 0; i < totalGameInStep; i++) {
+                // cc.log("self._data " + JSON.stringify(data));
+                var st = Math.PI/5;
+                var h = btn.width/2; 
+                var k = btn.height/2 + 5;
+                var r = 50;
+                for(var i = totalGameInStep; i > 0; i--) { 
+                    var angle = st * ((5 - totalGameInStep)/2 + i - 1/2);
+                    var x = h + r*Math.cos(angle);
+                    var y = k + r*Math.sin(angle);
+                    // cc.log("angle -> " + (angle/st));
                     var star = new cc.Sprite("#star-empty.png");
                     star.scale = 0.35;
-                    star.x = btn.width/2 - star.width * (totalGameInStep/2 - i - 0.5) *star.scale;
-                    star.y = btn.height;
+                    star.x = x;
+                    star.y = y;
                     star.tag = i;
                     btn.addChild(star);
                     self._stepsStar[step].push(star);
@@ -262,26 +270,24 @@ var MapLayer = cc.Layer.extend({
         
         if (stepData == null || stepData == "" || stepData == undefined)
             return;
-        // cc.log("stepData: " + stepData);
+
         stepData = JSON.parse(stepData);
         for (var step in stepData) {
             var eachStepData = stepData[step];
-            // cc.log("eachStepData: " + JSON.stringify(eachStepData));
+
             if (!eachStepData)
                 return;
-            // cc.log("eachStepData.completed: " + eachStepData.completed);
-            if (eachStepData.completed) {
+
+            if (eachStepData.completed)
                 this._updateStepState(step);
-            }
-            for (var info in eachStepData){
-                // cc.log("info: " + info);
+
+            for (var info in eachStepData) {
                 var gameCompleted;
                 var eachStepInfo = eachStepData[info];
                 if (info.indexOf("totalStars") < 0)
                     gameCompleted = eachStepData[info];
-                else {
+                else
                     this._updateStepData(step, eachStepInfo);
-                }
             }
         }
 

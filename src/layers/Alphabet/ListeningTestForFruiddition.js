@@ -4,6 +4,8 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
 
     _operations: [],
 
+    _currentOperation: [],
+
     ctor: function(data, duration) {
         this._super(data, duration);
 
@@ -21,6 +23,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
         // 1st row
         this._objects = [];
         this._operations = [];
+        this._currentOperation = [];
 
         var firstObj = new cc.Layer();
         firstObj.width = FRUIDDITION_HOLDER_WIDTH;
@@ -46,8 +49,8 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
         this._objects.push(secondObj);
 
         var objCount = this._names[this._nameIdx];
-        cc.log("objCount: " + objCount);
-        cc.log("this._names: " + this._names);
+        // cc.log("objCount: " + objCount);
+        // cc.log("this._names: " + this._names);
         
         for (var i = 0; i < this._objects.length; i++) {
             var objCount;
@@ -57,6 +60,7 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
                 objCount = this._data["second"][this._nameIdx];
 
             objCount = Utils.getValueOfObjectById(objCount);
+            this._currentOperation.push(objCount);
             var heightIdx = -1;
             cc.log("total apples:  \t " + objCount);
             for (var k = 0; k < objCount; k++) {
@@ -90,7 +94,11 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
 
         // var objName = text.toLowerCase();
         // play operation sound
-        this._objSoundPath = null;
+        this._objSoundPath = "res/sounds/sentences/" + currentLanguage + "/" 
+                            + this._currentOperation[0] 
+                            + "_" + this._data["firstOperation"][this._nameIdx] +"_" 
+                            + this._currentOperation[1]
+                            + "-listening" + ".mp3";
 
         this.runAction(cc.sequence(
             cc.delayTime(ANIMATE_DELAY_TIME * 3 + 0.5),
@@ -135,7 +143,9 @@ var ListeningTestForFruiddition = ListeningTestLayer.extend({
                     heightIdx++;
                 var randomType = this._randomType();
                 var o = new cc.Sprite("res/SD/objects/"+ randomType + ".png");
-                o.scale = Math.min(node.width / (o.width*shownObjNames[i]), node.height / (o.height*shownObjNames[i]));
+                var scale = Math.min(node.width / (o.width*shownObjNames[i]), node.height / (o.height*shownObjNames[i]));
+                scale = Math.max(0.3, scale); 
+                o.scale = scale;
                 // node.setContentSize(o.width * 3 *o.scale, o.height*shownObjNames[i] * o.scale);
                 o.x = node.width/2 - o.width/2* o.scale + o.width * (k%3) * o.scale;
                 o.y = node.height/2 - (o.height + 10) * heightIdx * o.scale;

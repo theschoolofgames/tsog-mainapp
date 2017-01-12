@@ -5,9 +5,9 @@
       "data": [
         "nest",
         "owl",
-        "pen",
         "pan",
         "pear",
+        "pen",
         "pet",
         "pie",
         "pig",
@@ -20,9 +20,9 @@
       "data": [
         "nest",
         "owl",
-        "pen",
         "pan",
         "pear",
+        "pen",
         "pet",
         "pie",
         "pig",
@@ -35,9 +35,9 @@
       "data": [
         "nest",
         "owl",
-        "pen",
         "pan",
         "pear",
+        "pen",
         "pet",
         "pie",
         "pig",
@@ -436,8 +436,7 @@
             "number_3",
             "number_4"
           ],
-          "sentences": [
-          ]
+          "sentences": []
         }
       ],
       "duration": 120

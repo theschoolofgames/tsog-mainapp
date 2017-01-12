@@ -44,6 +44,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
                 { name: 'run',      from: ['none', 'running', 'jumping'],           to: 'running' },
                 { name: 'jump',     from: ['jumping', 'running'],                   to: 'jumping' },
                 { name: 'die',      from: ['running', 'jumping'],                   to: 'died' },
+                { name: 'revive',  from: ['died'],                                  to: 'running'},
             ]
         });
 
@@ -118,12 +119,12 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     // StateMachine Callbacks
     onrun: function(event, from, to, msg) {
+        cc.log("running");
         this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
         var animation = new cc.Animation(this.runAnimationFrames, 0.1);
         runningAction = new cc.RepeatForever(new cc.Animate(animation));
         runningAction.setTag(this.ARPLAYER_ANIMATION_TAG);
         this.runAction(runningAction);
-        // cc.log("onrun " + event + " " + from + " " + to + " " + msg);
     },
 
     onjump: function(event, from, to, msg) {

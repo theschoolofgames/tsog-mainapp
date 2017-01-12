@@ -29,7 +29,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     _arEffectLayer: null,
     _workers: [],
-
+    diePosition: 0,
     _alphabetObjectArray: [],
 
     _currentMapX: 0,
@@ -37,6 +37,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _polygonConfigs: null,
 
     _eventGameOver: null,
+
+    _eventGameRevival: null,
     
     ctor: function(inputData,option) {
         this._super();
@@ -65,7 +67,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._polygonConfigs = [];
         this._parallaxs = [];
         this._workers = [];
-
+        this._coinsForRevive = 2;
         this._alphabetObjectArray = [];
 
         this.initBackground();
@@ -116,17 +118,39 @@ var AlphaRacingLayer = cc.Layer.extend({
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
                 this.unscheduleUpdate();
-
+                jsb.AudioEngine.play2d("sound/die.mp3");
                 this.runAction(cc.sequence(
                     cc.delayTime(3),
                     cc.callFunc(function() {
-                        self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
+                        self.diePosition = self._player.getPosition();
+                        if(self._coinsForRevive <= CurrencyManager.getInstance().getCoin())
+                            self._hudLayer.addChild(new DialogReviveAR(self._coinsForRevive), 9999);
+                        else {
+                            if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING)
+                                self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
+                            else
+                                cc.director.runScene(new HomeScene());
+
+                        } 
                     })
                 ))
                 // this.completedScene(localize("Game Over"));
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);
+
+        this._eventGameRevival = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: EVENT_AR_REVIVAL,
+            callback: function(event) {
+                self._player.setPosition(cc.p(self.diePosition.x - 300, cc.winSize.height/2 + 300));
+                self.scheduleUpdate();
+                self._player.revive();
+                self._coinsForRevive = self._coinsForRevive * 2;
+                // this.completedScene(localize("Game Over"));
+            }.bind(this)
+        });
+        cc.eventManager.addListener(this._eventGameRevival, 1);
     },
 
     onEnterTransitionDidFinish: function() {
@@ -138,6 +162,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._super();
 
         cc.eventManager.removeListener(this._eventGameOver);
+        cc.eventManager.removeListener(this._eventGameRevival);
         cc.audioEngine.stopMusic();
     },
 
@@ -150,7 +175,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         }
 
         this._workers.forEach(w => w.update(dt));
-
+        cc
         this.cameraFollower();
         this._bgGradient.setPosition(cc.pSub(cc.Camera.getDefaultCamera().getPosition(), cc.p(cc.winSize.width/2, cc.winSize.height/2)));
         this._arEffectLayer.setPosition(this._bgGradient.getPosition());
@@ -432,7 +457,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             this._player.getVelocity().y > this._player.getVelocity().x) {
             return false;
         }
-
+        cc.log("collisionStaticDynamic");
         this._player.run();
 
         return true;

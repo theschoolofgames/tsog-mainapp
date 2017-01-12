@@ -1,4 +1,4 @@
-var DialogPlayAlpharacing = cc.LayerColor.extend({
+var DialogPlayAlpharacing = Dialog.extend({
     _dialogBg: null,
     _isRetry: false,
 
@@ -23,6 +23,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
+        this.background = dialogBg;
     },
     _addText: function(isNotEnoughCoin) {
         var text = new cc.LabelBMFont(localize("Spend") + " " + COIN_NEED_TO_PLAY_ALPHARACING.toString(), res.HomeFont_fnt);
@@ -75,7 +76,7 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
 
         if(isNotEnoughCoin) {
             var buttonLearn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            buttonLearn.x = this._dialogBg.width/2 - 130;
+            buttonLearn.x = this._dialogBg.width/2;
             buttonLearn.y = 100;
             buttonLearn.scale = 0.6;
             this._dialogBg.addChild(buttonLearn);
@@ -91,24 +92,24 @@ var DialogPlayAlpharacing = cc.LayerColor.extend({
                 cc.director.runScene(new MapScene());
             });
 
-            var buttonShop = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            buttonShop.x = this._dialogBg.width/2 + 130;
-            buttonShop.y = 100;
-            buttonShop.scale = 0.6;
-            this._dialogBg.addChild(buttonShop);
-            lbShop = new cc.LabelBMFont(localize("Shop"), "res/font/custom_font.fnt");
-            lbShop.x = buttonShop.width/2;
-            lbShop.y = buttonShop.height/2;
-            buttonShop.addChild(lbShop);
-            buttonShop.addClickEventListener(function(){
-                cc.log("Shop");
-                if(canttouch)
-                    return;
-                canttouch = true;
-                // cc.director.runScene(new MapScene());
-                self.parent._blocktouch = false;
-                self.removeFromParent();
-            });
+            // var buttonShop = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            // buttonShop.x = this._dialogBg.width/2 + 130;
+            // buttonShop.y = 100;
+            // buttonShop.scale = 0.6;
+            // this._dialogBg.addChild(buttonShop);
+            // lbShop = new cc.LabelBMFont(localize("Cancel"), "res/font/custom_font.fnt");
+            // lbShop.x = buttonShop.width/2;
+            // lbShop.y = buttonShop.height/2;
+            // buttonShop.addChild(lbShop);
+            // buttonShop.addClickEventListener(function(){
+            //     cc.log("Shop");
+            //     if(canttouch)
+            //         return;
+            //     canttouch = true;
+            //     // cc.director.runScene(new MapScene());
+            //     self.parent._blocktouch = false;
+            //     self.removeFromParent();
+            // });
         } else {
             var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
             buttonPlay.x = this._dialogBg.width/2;

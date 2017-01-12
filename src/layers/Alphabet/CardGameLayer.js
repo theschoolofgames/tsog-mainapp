@@ -5,7 +5,7 @@ var MAX_OBJECT_ALLOWED = 50;
 var MAX_SLOT_ALLOWED = 5;
 var SLOT_WIDTH = 195;
 var SLOT_OFFSET_X = 100;
-var RANDOM_CARD_NUMBER = [1,2,3,4,5];
+var RANDOM_CARD_NUMBER = [];
 var OBJECT_DEFAULT_WIDTH = 100;
 var OBJECT_DEFAULT_HEIGHT = 70;
 
@@ -52,6 +52,11 @@ var CardGameLayer = TestLayer.extend({
         this._deactivateObjects = [];
         // cc.log("objArr: " + JSON.stringify(objArr[0].cardData));
         var data = objArr[0].cardData;
+        for(var i = 1; i < objArr[0].maxcardnumber + 1; i ++){
+            RANDOM_CARD_NUMBER.push(i);
+        };
+        RANDOM_CARD_NUMBER = shuffle(RANDOM_CARD_NUMBER).slice(0,5);
+        cc.log("RANDOM_CARD_NUMBER: " + RANDOM_CARD_NUMBER);
         for(var i =0; i < RANDOM_CARD_NUMBER.length; i++) {
             this._totalObjects = this._totalObjects + RANDOM_CARD_NUMBER[i];
         };
@@ -59,7 +64,9 @@ var CardGameLayer = TestLayer.extend({
         this._randomOrderNumber = shuffle(RANDOM_CARD_NUMBER);
         MAX_OBJECT_ALLOWED = this._randomOrderNumber[0];
         this._randomOrderNumber.splice(0,1);
+
         cc.log("MAX_OBJECT_ALLOWED: " + MAX_OBJECT_ALLOWED);
+
         this.amountObjectCanShow = MAX_SLOT_ALLOWED >= data.length ? data.length : MAX_SLOT_ALLOWED;
         this._fetchObjectData(data);
 
@@ -244,8 +251,7 @@ var CardGameLayer = TestLayer.extend({
         }
 
     },
-
-    _showNextObjects: function(){
+    _newTurn: function(){
         this._flipCardResult = null;
         MAX_OBJECT_ALLOWED = this._randomOrderNumber[0];
         cc.log("RandomORDERNUMBER: " + JSON.stringify(this._randomOrderNumber));
@@ -276,11 +282,21 @@ var CardGameLayer = TestLayer.extend({
         };
         this._currentAvailableSlot = null;
         this._card.removeFromParent();
-        this.calcShowObjectAmount();
         this._addCard();
-        // this.updateProgressBar();
-        // this._addSlots();
-        // this._addObjects();
+    },
+
+    _showNextObjects: function(){
+        cc.log("_showNextObjects _flipCardResult : " + this._flipCardResult);
+        this.calcShowObjectAmount();
+        cc.log("_deactivateObjects: "+ this._deactivateObjects.length);
+        cc.log("_numberOfObjectWillShow: " + this._numberOfObjectWillShow);
+        if(this._numberOfObjectWillShow == 0) {
+            this._newTurn();
+        }
+        else {
+            this._addSlots();
+            this._addObjects(); 
+        };
         this._loadTmx();
         this._blockFlag = false;
     },
@@ -296,16 +312,16 @@ var CardGameLayer = TestLayer.extend({
     },
 
     calcShowObjectAmount: function(){
-        // if(this._flipCardResult >= this.amountObjectCanShow) {
-        //     this._amountObjectShow = this.amountObjectCanShow;
-        //     this._flipCardResult -= this.amountObjectCanShow;
-        // }
-        // else 
-        // {
-        //     this._amountObjectShow = this._flipCardResult;
-        //     this._flipCardResult -=  this._amountObjectShow;
-        // };
-        this._amountObjectShow = this._flipCardResult;
+        if(this._flipCardResult >= this.amountObjectCanShow) {
+            this._amountObjectShow = this.amountObjectCanShow;
+            this._flipCardResult -= this.amountObjectCanShow;
+        }
+        else 
+        {
+            this._amountObjectShow = this._flipCardResult;
+            this._flipCardResult -=  this._amountObjectShow;
+        };
+        // this._amountObjectShow = this._flipCardResult;
     },
 
     _fetchObjectData: function(data) {
@@ -533,7 +549,7 @@ var CardGameLayer = TestLayer.extend({
         this._activateObjects.splice(this._currentObjectMoving.tag, 1)
         this._deactivateObjects.push(this._currentObjectMoving);
         this._objectUnavailable.push(this._currentObjectMoving);
-
+        this._numberOfObjectWillShow --;
         //set for playSoundObjectOder
         this._currentObjectOder += 1;
         

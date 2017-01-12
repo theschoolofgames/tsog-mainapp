@@ -28,6 +28,8 @@ var LevelDialog = Dialog.extend({
         this._dialogBg.x = cc.winSize.width/2;
         this._dialogBg.y = cc.winSize.height/2;
         this.addChild(this._dialogBg);
+        this.background = this._dialogBg;
+        this.background.setCascadeOpacityEnabled(true);
 
         var banner = new cc.Sprite("#level_dialog_banner_" + currentLanguage + ".png");
         banner.x = this._dialogBg.width/2;
@@ -49,6 +51,7 @@ var LevelDialog = Dialog.extend({
         l.y = 100 * this._csf;
         this._dialogBg.addChild(l);
         this._layerContent = l;
+        this._layerContent.setCascadeOpacityEnabled(true);
     },
 
     _addGamesSelector: function() {
@@ -72,7 +75,7 @@ var LevelDialog = Dialog.extend({
                 var gameSelector = new ccui.Button(gameSelectorImageName, "", "", ccui.Widget.PLIST_TEXTURE);
                 gameSelector.x = lastSelectorXPos + gameSelector.width/2 + 50 * this._csf;
                 gameSelector.y = (itemIdx < itemInARow) ? (layerContentSizeHeight/2 + gameSelector.height/2) : (layerContentSizeHeight/2 - gameSelector.height/2);
-
+                gameSelector.setCascadeOpacityEnabled(true);
                 var star = new cc.Sprite("#star-empty.png");
                 star.scale = 0.8;
                 star.x = gameSelector.width/2;
@@ -136,8 +139,8 @@ var LevelDialog = Dialog.extend({
     },
 
     _closePressed: function() {
-        AudioManager.getInstance().play(res.ui_close_mp3, false, null);
-        this.removeFromParent();
+        this.close();
+        // this.removeFromParent();
     },
 
     _fetchDataAtLevel: function(level) {
@@ -164,14 +167,17 @@ var LevelDialog = Dialog.extend({
     },
 
     _gameSelectorPressed: function(b) {
+        if (this.touchBlocked)
+            return;
+
         AudioManager.getInstance().play(res.ui_click_mp3_1, false, null);
         var durationsArray = [];
-        // cc.log(JSON.stringify(durationsArray));
+
         var stepData = b.getUserData();
         var dataLength = Object.keys(this._data[stepData]).length;
         var gameName = GAME_IDS[b.tag];
-        // cc.log("data:::: "  + JSON.stringify(this._data[stepData]));
-        for(var i = 1; i < dataLength + 1; i ++) {
+
+        for(var i = 1; i < dataLength + 1; i++) {
             cc.log("stepData: "  + i);
             durationsArray.push(this._data[stepData][i].duration);
         };
@@ -180,9 +186,7 @@ var LevelDialog = Dialog.extend({
         var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
         var timeForScene = this._data[stepData]["1"].duration;
         var option = this._data[stepData]["1"].option;
-        // cc.log("nextSceneData  : " + JSON.stringify(nextSceneData));
-        // cc.log("stepData  : " + JSON.stringify(durationsArray));
-        // cc.log("stepData  : " + JSON.stringify(this._data[stepData]));
+        
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option); 
