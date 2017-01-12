@@ -144,16 +144,15 @@ var ListeningTestLayer = TestLayer.extend({
     _addCountDownClock: function() {
         var self = this;
         var clockInitTime = GAME_CONFIG.listeningTestTime || UPDATED_CONFIG.listeningTestTime;
-        var clock = new Clock(clockInitTime, function(){
+        this._clock = new Clock(clockInitTime, function(){
             self.doCompletedScene();
         });
-        clock.setIsClockInTalkingAdi(true);
-        clock.visible = true;
-        clock.x = cc.winSize.width - 60;
-        clock.y = 100;
-        this.addChild(clock, 99);
+        this._clock.setIsClockInTalkingAdi(true);
+        this._clock.visible = true;
+        this._clock.x = cc.winSize.width - 60;
+        this._clock.y = 100;
+        this.addChild(this._clock, 99);
 
-        this._clock = clock;
     },
 
     _showObjects: function() {
@@ -326,8 +325,6 @@ var ListeningTestLayer = TestLayer.extend({
             this._nameNode.removeFromParent();
 
         var text = this._names[this._nameIdx];
-        cc.log("text: " + text);
-        cc.log("this._names: " + this._names);
         if (this._keyObject.length > 0)
             text = this._keyObject[this._currentKeyIndex];
         if (text.indexOf("color") > -1 || text.indexOf("btn") > -1) {
@@ -335,7 +332,6 @@ var ListeningTestLayer = TestLayer.extend({
             this._objSoundPath = "res/sounds/colors/" + localize(text) + ".mp3";
         }
         text = (currentLanguage == "en") ? text : localizeForWriting(text);
-        cc.log("_displayCurrentName: " + text);
         // cc.log("text ->>>" + text);
         this._nameNode = new cc.LabelBMFont(text, "hud-font.fnt");
         this._nameNode.x = this._objCenter.x
