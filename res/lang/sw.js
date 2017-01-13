@@ -960,6 +960,7 @@ languages["sw"] = {
     "BACK": "NYUMA",
     "Choose": "Chagua",
     "Game Over": "Shindano limekwisha",
+    "Learn": "Kujifunza",
 
     "put_objects_in_the_basket_": "sw/put_objects_in_the_basket_"
 };
