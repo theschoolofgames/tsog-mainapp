@@ -25,8 +25,11 @@ var ARAlphabetWorker = cc.Class.extend({
                 var ratioX = (this._player.x - cameraPos.x + cc.winSize.width/2);
                 var ratioY = (this._player.y - cameraPos.y + cc.winSize.height/2);
                 this._hudLayer.popGold(addedCoin, ratioX, ratioY, cameraPos);
-                CurrencyManager.getInstance().incDiamond(addedCoin);
 
+                CurrencyManager.getInstance().incDiamond(addedCoin);
+                cc.log("Alphabet Name: " + this._array[i].getName());
+
+                this._hudLayer.collectedAlphabet(this._array[i].getName());
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                 object.scale = 0.5;
                 object.setPosition(this._array[i].getPosition());

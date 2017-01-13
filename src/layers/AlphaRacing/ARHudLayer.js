@@ -8,7 +8,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _gamePLayLayer: null,
     _hearts: [],
 
-    ctor: function(layer) {
+    ctor: function(layer, wordNeedCollect) {
         this._showClock = false;
         // this._player = player;
         this._gamePLayLayer = layer;
@@ -18,9 +18,24 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this.updatePositonHud();
         this._addDistanceLabel();
         // this._addHPLabel();
+        this.addWordNeedCollect(wordNeedCollect);
         this.addGameProgressBar();
         // this.schedule(this.updateHP, 0.5);
         this._whiteBg.visible = false;
+    },
+
+    addWordNeedCollect: function(wordNeedCollect) {
+        // var node = new cc.Node();
+        // for(var i = 0; i < wordNeedCollect.length; i ++) {
+        //     var w = cc.Sprite("#" + wordNeedCollect[i])
+        // }
+
+        var word = new cc.LabelBMFont(wordNeedCollect,res.HomeFont_fnt);
+        word.x = this._settingBtn.x + this._settingBtn.width + word.width;
+        word.y = this._settingBtn.y + 10;
+        this.addChild(word);
+        word.opacity = 0;
+        cc.log("addWordNeedCollect: " + wordNeedCollect);
     },
 
     _playAdditionEffect: function(node, effectTime) {},
@@ -28,6 +43,10 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     addGameProgressBar:function(){
         this._super();
         this._progressBarBg.visible = false;
+    },
+
+    collectedAlphabet: function(alphabet){
+        cc.log("alphabet HUD: " + alphabet);
     },
 
     _addDistanceLabel: function() {

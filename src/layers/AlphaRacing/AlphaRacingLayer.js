@@ -41,6 +41,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _eventGameRevival: null,
 
     _tutorial: null,
+
+    _sourceData: null,
     
     ctor: function(inputData,option) {
         this._super();
@@ -50,6 +52,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
 
+
         this._bgGradient = new cc.LayerColor(cc.color("#ebfcff"));
         this.addChild(this._bgGradient);
 
@@ -57,9 +60,12 @@ var AlphaRacingLayer = cc.Layer.extend({
         // cc.log("camera: " + JSON.stringify(camera.getPosition()));
 
         // this.resetData();
-        this._inputData = inputData;
-        this._tempInputData = inputData.slice();
-
+        cc.log("inputData: " + JSON.stringify(inputData));
+        this._sourceData = shuffle(inputData);
+        this._inputData = this._sourceData[0];
+        var word = this._inputData.value;
+        this._sourceData.slice(0,1);
+        this._inputData = localizeForWriting(this._inputData.value).split('');
         this._elapsedTime = 0;
         // this.addRefreshButton();
 
@@ -73,7 +79,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._alphabetObjectArray = [];
 
         this.initBackground();
-        this.addHud();
+        this.addHud(word);
         this.addTutorial();
         this._arEffectLayer = new AREffectLayer();
         this.addChild(this._arEffectLayer, 10);
@@ -227,8 +233,9 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     },
 
-    addHud: function() {
-        var hudLayer = new ARHudLayer(this);
+    addHud: function(word) {
+        cc.log("this._inputData.value: " +word);
+        var hudLayer = new ARHudLayer(this, localizeForWriting(word));
 
         this.addChild(hudLayer, AR_HUD_ORDER);
         this._hudLayer = hudLayer;
@@ -554,19 +561,20 @@ var AlphaRacingLayer = cc.Layer.extend({
         for (var i = 0; i < posArray.length; i++) {
             let group = posArray.pop();
             let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
-            let alphabet = self._inputData[randomInputIndex];
+            cc.log("randomInputIndex: " + randomInputIndex);
+            let alphabet = inputArray[randomInputIndex];
             // // Set 0.8 probability for current alphabet
             // if (Utils.getRandomInt(0, 10) < 6){
             //     alphabet = self._currentChallange;
             // }
 
             group.posArray.forEach((pos) => {
-                cc.log("ALPHABET : " + alphabet.value);
-                var object = new cc.LabelBMFont(alphabet.value, res.CustomFont_fnt);
+                cc.log("ALPHABET : " + alphabet);
+                var object = new cc.LabelBMFont(alphabet, res.CustomFont_fnt);
                 object.setScale(0.8);
                 object.x = pos.x + tmxMap.x;
                 object.y = pos.y;
-                object.setName(alphabet.value);
+                object.setName(alphabet);
                 self.addChild(object, AR_WORD_ZODER);
                 self._alphabetObjectArray.push(object);
             });
