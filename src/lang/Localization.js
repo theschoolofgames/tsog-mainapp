@@ -1,27 +1,27 @@
-var currentLanguage = "en";
+var currentLanguage = DEFAULT_LANGUAGE;
 
 function localize(str) {
     // cc.log("localize");
-    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
+    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", DEFAULT_LANGUAGE);
     return (languages[currentLanguage])[str] || str;
 };
 
 function localizeForWriting(str) {
     // cc.log("localizeForWriting");
-    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
+    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", DEFAULT_LANGUAGE);
     return (languagesForWriting[currentLanguage])[str] || str;
 };
 
 function setLanguage(language){
     if (!language)
-        language = KVDatabase.getInstance().getString("currentLanguage", "en");
+        language = KVDatabase.getInstance().getString("currentLanguage", DEFAULT_LANGUAGE);
     currentLanguage = language;
 
     KVDatabase.getInstance().set("currentLanguage", language);
 }
 
 function localizeNumber(str) {
-    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
+    currentLanguage = KVDatabase.getInstance().getString("currentLanguage", DEFAULT_LANGUAGE);
     cc.log("localizeNumber \t str \t" + str);
     return (numbersForLocalize[currentLanguage])[str] || str;
 }

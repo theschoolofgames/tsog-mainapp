@@ -20,6 +20,8 @@ SCHOOL_NAME_COLOR = [
     res.GreenFont_fnt
 ];
 
+let DEFAULT_LANGUAGE = "en";
+
 var HINT_TOP_LEFT_ID = 0;
 var HINT_TOP_RIGHT_ID = 1;
 var HINT_BOTTOM_RIGHT_ID = 2;
