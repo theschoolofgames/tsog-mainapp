@@ -8,6 +8,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _gamePLayLayer: null,
     _hearts: [],
     _word: null,
+    _count: null,
 
     ctor: function(layer, wordNeedCollect) {
         this._showClock = false;
@@ -25,6 +26,9 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     addWordNeedCollect: function(wordNeedCollect) {
+        if(this._node)
+            this._node.removeFromParent();
+        this._node = null;
         this._word = wordNeedCollect;
         var node = new cc.Node();
         node.x = this._settingBtn.x + this._settingBtn.width + 20;
@@ -59,9 +63,16 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
         cc.log("index: " + index);
-        child = this._node.getChildByTag(index);
-        if(child)
-            child.removeFromParent();
+        for(var i = 0; i < this._word.length; i ++){
+            if(this._word[i] == alphabet) {
+                var child = this._node.getChildByTag(i);
+                if(child)
+                    child.removeFromParent();
+            }
+        }
+        this._count = this._node.getChildrenCount();
+        cc.log("childCount: " + this._count);
+        
     },
 
     _addDistanceLabel: function() {

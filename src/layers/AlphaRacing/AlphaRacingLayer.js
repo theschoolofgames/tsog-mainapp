@@ -66,7 +66,10 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._sourceData = shuffle(inputData);
         this._inputData = this._sourceData[0];
         this._word = localizeForWriting(this._inputData.value);
-        this._sourceData.slice(0,1);
+        cc.log("this._sourceData.length: " + this._sourceData.length);
+        if(this._sourceData.length > 1)
+            this._sourceData.splice(0,1);
+        cc.log("this._sourceData.length: " + this._sourceData.length);
         this._inputData = localizeForWriting(this._inputData.value).split('');
         this._elapsedTime = 0;
         // this.addRefreshButton();
@@ -113,6 +116,17 @@ var AlphaRacingLayer = cc.Layer.extend({
 
             jsb.fileUtils.writeStringToFile(JSON.stringify(this._polygonConfigs), cc.path.join(jsb.fileUtils.getWritablePath(), "ar_map_polygons.json"));
         }
+    },
+
+    newWordNeedCollect: function(){
+        this._inputData = this._sourceData[0];
+        this._word = localizeForWriting(this._inputData.value);
+        cc.log("newWordNeedCollect: " + this._word);
+        this._hudLayer.addWordNeedCollect(this._word);
+        if(this._sourceData.length > 1)
+            this._sourceData.splice(0,1);
+        this._inputData = localizeForWriting(this._inputData.value).split('');
+        this.addAlphabet();
     },
 
     addTutorial: function(){
@@ -569,15 +583,15 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         for (var i = 0; i < posArray.length; i++) {
             let group = posArray.pop();
-            let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
-            cc.log("randomInputIndex: " + randomInputIndex);
-            let alphabet = inputArray[randomInputIndex];
             // // Set 0.8 probability for current alphabet
             // if (Utils.getRandomInt(0, 10) < 6){
             //     alphabet = self._currentChallange;
             // }
 
             group.posArray.forEach((pos) => {
+                let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
+                cc.log("randomInputIndex: " + randomInputIndex);
+                let alphabet = inputArray[randomInputIndex];
                 cc.log("ALPHABET : " + alphabet);
                 var object = new cc.LabelBMFont(alphabet, res.CustomFont_fnt);
                 object.setScale(0.8);

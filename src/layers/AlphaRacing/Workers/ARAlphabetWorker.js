@@ -32,13 +32,16 @@ var ARAlphabetWorker = cc.Class.extend({
                 cc.log("Alphabet Name: " + this._array[i].getName());
 
                 this._hudLayer.collectedAlphabet(this._array[i].getName());
-                var index = this._layer._inputData.indexOf(this._array[i].getName());
-                if(index > -1)
-                    this._layer._inputData.splice(index, 1);
-                cc.log("Woker INDEX: " + index);
-                cc.log("IMPUTDATA: " + JSON.stringify(this._layer._inputData));
-                this._layer.addAlphabet();
-                this._array = this._layer._alphabetObjectArray;
+                // var index = this._layer._inputData.indexOf(this._array[i].getName());
+                // if(index > -1)
+                //     this._layer._inputData.splice(index, 1);
+                // cc.log("Woker INDEX: " + index);
+                // cc.log("IMPUTDATA: " + JSON.stringify(this._layer._inputData));
+                if(this._hudLayer._count == 0) {
+                    this._layer.newWordNeedCollect();
+                    this._array = this._layer._alphabetObjectArray;
+                    break;
+                };
                 ///-----------------------------------------
 
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
