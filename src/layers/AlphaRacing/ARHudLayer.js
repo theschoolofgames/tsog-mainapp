@@ -7,12 +7,12 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _player: null,
     _gamePLayLayer: null,
     _hearts: [],
+    _word: null,
 
     ctor: function(layer, wordNeedCollect) {
         this._showClock = false;
         // this._player = player;
         this._gamePLayLayer = layer;
-
         this._super(layer, null, "diamond", true);
         this._hearts = [];
         this.updatePositonHud();
@@ -25,17 +25,26 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     addWordNeedCollect: function(wordNeedCollect) {
-        // var node = new cc.Node();
-        // for(var i = 0; i < wordNeedCollect.length; i ++) {
-        //     var w = cc.Sprite("#" + wordNeedCollect[i])
-        // }
-
-        var word = new cc.LabelBMFont(wordNeedCollect,res.HomeFont_fnt);
-        word.x = this._settingBtn.x + this._settingBtn.width + word.width;
-        word.y = this._settingBtn.y + 10;
-        this.addChild(word);
-        word.opacity = 0;
-        cc.log("addWordNeedCollect: " + wordNeedCollect);
+        this._word = wordNeedCollect;
+        var node = new cc.Node();
+        node.x = this._settingBtn.x + this._settingBtn.width + 20;
+        node.y = this._settingBtn.y  - 40;
+        this.addChild(node);
+        for(var i = 0; i < wordNeedCollect.length; i ++) {
+            var w = new cc.LabelBMFont(wordNeedCollect[i],res.HomeFont_fnt);
+            w.x = i * 30 + w.x;
+            w.y = 0;
+            w.tag = i;
+            w.scale = 0.6;
+            node.addChild(w);
+        };
+        this._node = node;
+        // var word = new cc.LabelBMFont(wordNeedCollect,res.HomeFont_fnt);
+        // word.x = this._settingBtn.x + this._settingBtn.width + word.width;
+        // word.y = this._settingBtn.y + 10;
+        // this.addChild(word);
+        // word.opacity = 0;
+        // cc.log("addWordNeedCollect: " + wordNeedCollect);
     },
 
     _playAdditionEffect: function(node, effectTime) {},
@@ -47,6 +56,12 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
     collectedAlphabet: function(alphabet){
         cc.log("alphabet HUD: " + alphabet);
+        cc.log("this._word: "+this._word);
+        var index = this._word.indexOf(alphabet);
+        cc.log("index: " + index);
+        child = this._node.getChildByTag(index);
+        if(child)
+            child.removeFromParent();
     },
 
     _addDistanceLabel: function() {
