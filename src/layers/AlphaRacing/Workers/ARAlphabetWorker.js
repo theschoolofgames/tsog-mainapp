@@ -28,21 +28,10 @@ var ARAlphabetWorker = cc.Class.extend({
 
                 CurrencyManager.getInstance().incDiamond(addedCoin);
 
-                //When collect Alphabet
+
                 cc.log("Alphabet Name: " + this._array[i].getName());
 
                 this._hudLayer.collectedAlphabet(this._array[i].getName());
-                // var index = this._layer._inputData.indexOf(this._array[i].getName());
-                // if(index > -1)
-                //     this._layer._inputData.splice(index, 1);
-                // cc.log("Woker INDEX: " + index);
-                // cc.log("IMPUTDATA: " + JSON.stringify(this._layer._inputData));
-                if(this._hudLayer._count == 0) {
-                    this._layer.newWordNeedCollect();
-                    this._array = this._layer._alphabetObjectArray;
-                    break;
-                };
-                ///-----------------------------------------
 
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                 object.scale = 0.5;
@@ -59,6 +48,25 @@ var ARAlphabetWorker = cc.Class.extend({
                     ));
                 this._array[i].removeFromParent();
                 this._array.splice(i, 1);
+                //When collect Alphabet
+                
+                var self = this;
+                if(this._hudLayer._count == this._hudLayer.amoutWordCollected) {
+                    this._hudLayer._node.runAction(cc.sequence(
+                        cc.spawn(
+                            cc.fadeTo(0.5,255),
+                            cc.scaleTo(1.5, 1).easing(cc.easeElasticOut(0.5))
+                        ),
+                        cc.fadeTo(0.5,0),
+                        cc.delayTime(1),
+                        cc.callFunc(function(){
+                            self._layer.newWordNeedCollect();
+                            self._array = self._layer._alphabetObjectArray;
+                        })
+                    ))
+                    break;
+                };
+                ///-----------------------------------------
             }
         }
     },

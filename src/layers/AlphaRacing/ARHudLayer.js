@@ -9,6 +9,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _hearts: [],
     _word: null,
     _count: null,
+    amoutWordCollected: 0,
 
     ctor: function(layer, wordNeedCollect) {
         this._showClock = false;
@@ -26,6 +27,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     addWordNeedCollect: function(wordNeedCollect) {
+        this.amoutWordCollected = 0;
         if(this._node)
             this._node.removeFromParent();
         this._node = null;
@@ -41,8 +43,11 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
             w.tag = i;
             w.scale = 0.6;
             node.addChild(w);
+            w.opacity = 100;
         };
         this._node = node;
+        this._node.opacity = 0;
+        this._node.setCascadeOpacityEnabled(true);
         // var word = new cc.LabelBMFont(wordNeedCollect,res.HomeFont_fnt);
         // word.x = this._settingBtn.x + this._settingBtn.width + word.width;
         // word.y = this._settingBtn.y + 10;
@@ -60,16 +65,32 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
     collectedAlphabet: function(alphabet){
         cc.log("alphabet HUD: " + alphabet);
+        var self = this;
         cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
         cc.log("index: " + index);
         for(var i = 0; i < this._word.length; i ++){
             if(this._word[i] == alphabet) {
                 var child = this._node.getChildByTag(i);
-                if(child)
-                    child.removeFromParent();
+                if(child) {
+                    child.tag = 1000;
+                    child.opacity = 255;
+                    this.amoutWordCollected++;
+                    this._node.runAction(cc.sequence(
+                        cc.fadeTo(0.5, 255),
+                        cc.fadeTo(1, 0),
+                        cc.callFunc(function(){
+                        })
+                    ));
+                }
             }
-        }
+        };
+        // if(this.amoutWordCollected == this._count) {
+        //     this._node.runAction(cc.sequence(
+        //         cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5)),
+        //         cc.callFunc()
+        //     ))
+        // }
         this._count = this._node.getChildrenCount();
         cc.log("childCount: " + this._count);
         

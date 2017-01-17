@@ -83,7 +83,7 @@ var DataManager = cc.Class.extend({
     setDataAlpharacing: function(data) {
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
         if (currentData.length == 0)
-            currentData = ["ALPHARACING"];
+            currentData = ["GAME"];
 
         if (data.value)
             if (currentData.indexOf(data.value) >= 0)
@@ -130,7 +130,7 @@ var DataManager = cc.Class.extend({
         })
 
         if (currentData.length == 0)
-            currentData = ["ALPHARACING"];
+            currentData = ["GAME"];
 
         // cc.log("currentData == []: " + (currentData == []));
         // if(currentData.length == 0)
