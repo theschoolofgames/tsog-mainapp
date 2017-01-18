@@ -126,7 +126,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         if(this._sourceData.length > 1)
             this._sourceData.splice(0,1);
         this._inputData = localizeForWriting(this._inputData.value).split('');
-        this.addAlphabet();
+        // this.addAlphabet();
     },
 
     addTutorial: function(){
@@ -369,7 +369,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         var shapes = this.buildPhysicBodyFromTilemap(tmxMap, index);
         tmxMap.setUserData(shapes);
 
-        // cc.log(shapes.length);
+        cc.log("createNewMapSegment");
 
         this._maps.push(tmxMap);
     },
@@ -561,7 +561,9 @@ var AlphaRacingLayer = cc.Layer.extend({
     addAlphabet: function(tmxMap) {
 
         let posArray = this.getGroupPositions(this._tmxMap).filter(group => group.name.startsWith("alphaPosition"));
-        let inputArray = this._inputData.slice(0);
+        cc.log("this._inputData: " + JSON.stringify(this._inputData));
+        let inputArray = this._inputData[0];
+        this._inputData.splice(0,1);
         let groupIndex = 0;
         let self = this;
 
@@ -570,7 +572,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
 
         posArray = shuffle(posArray);
-        inputArray = shuffle(inputArray);
+        inputArray = (inputArray);
         
         // let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
         cc.log("this._alphabetObjectArray.length > 0: " + this._alphabetObjectArray.length);
@@ -591,7 +593,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             group.posArray.forEach((pos) => {
                 let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
                 cc.log("randomInputIndex: " + randomInputIndex);
-                let alphabet = inputArray[randomInputIndex];
+                let alphabet = inputArray;
                 cc.log("ALPHABET : " + alphabet);
                 var object = new cc.LabelBMFont(alphabet, res.CustomFont_fnt);
                 object.setScale(0.8);
