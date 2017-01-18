@@ -217,7 +217,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         for (var i = 0; i < this._parallaxs.length; i++)
             this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32), dt);
 
-
+        cc.log("this.isFirstTMXOutOfScreen: " + this.isFirstTMXOutOfScreen());
         if (this.isFirstTMXOutOfScreen()) {
             this.removeOutOfScreenMap();
             this.createNewMapSegment();
@@ -560,7 +560,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     addAlphabet: function(tmxMap) {
 
-        let posArray = this.getGroupPositions(this._tmxMap).filter(group => group.name.startsWith("alphaPosition"));
+        let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
         cc.log("this._inputData: " + JSON.stringify(this._inputData));
         let inputArray = this._inputData[0];
         this._inputData.splice(0,1);
@@ -597,7 +597,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                 cc.log("ALPHABET : " + alphabet);
                 var object = new cc.LabelBMFont(alphabet, res.CustomFont_fnt);
                 object.setScale(0.8);
-                object.x = pos.x + this._tmxMap.x;
+                object.x = pos.x + tmxMap.x;
                 object.y = pos.y;
                 object.setName(alphabet);
                 self.addChild(object, AR_WORD_ZODER);
@@ -633,8 +633,10 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     isFirstTMXOutOfScreen: function() {
         var camera = cc.Camera.getDefaultCamera();
-
+        cc.log("this._maps: " + this._maps.length);
         var firstTMX = this._maps[0];
+        cc.log("Left: " + (firstTMX.x + firstTMX.mapWidth * firstTMX.tileWidth ));
+        cc.log("Right: " + (camera.x - cc.winSize.width/2));
         return firstTMX.x + firstTMX.mapWidth * firstTMX.tileWidth < camera.x - cc.winSize.width/2;
     },
 
