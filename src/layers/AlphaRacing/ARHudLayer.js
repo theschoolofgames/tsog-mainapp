@@ -78,6 +78,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
                     this.amoutWordCollected++;
                     this._node.runAction(cc.sequence(
                         cc.fadeTo(0.5, 255),
+                        cc.delayTime(1.2),
                         cc.fadeTo(1, 0),
                         cc.callFunc(function(){
                         })

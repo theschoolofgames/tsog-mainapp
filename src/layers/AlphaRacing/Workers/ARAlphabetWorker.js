@@ -55,10 +55,10 @@ var ARAlphabetWorker = cc.Class.extend({
                     this._hudLayer._node.runAction(cc.sequence(
                         cc.spawn(
                             cc.fadeTo(0.5,255),
-                            cc.scaleTo(1.5, 1).easing(cc.easeElasticOut(0.5))
+                            cc.scaleTo(1.5, 1.2).easing(cc.easeElasticOut(0.5))
                         ),
-                        cc.fadeTo(0.5,0),
                         cc.delayTime(1),
+                        cc.fadeTo(0.5,0),
                         cc.callFunc(function(){
                             self._layer.newWordNeedCollect();
                             self._array = self._layer._alphabetObjectArray;
