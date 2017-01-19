@@ -62,7 +62,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         // var camera = cc.Camera.getDefaultCamera();
         // cc.log("camera: " + JSON.stringify(camera.getPosition()));
-
+        this._alphabetShowed = "";
         // this.resetData();
         cc.log("inputData: " + JSON.stringify(inputData));
         this._sourceData = shuffle(inputData);
@@ -74,6 +74,12 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._nextWord = localizeForWriting(this._sourceData[0].value);
         cc.log("this._sourceData.length: " + this._sourceData.length);
         this._inputData = shuffle(localizeForWriting(this._inputData.value).split(''));
+        var input = [];
+        for(var i  = 0; i < this._inputData.length; i++) {
+            if(input.indexOf(this._inputData[i]))
+                input.push(this._inputData[i])
+        };
+        this._inputData = input;
         this._elapsedTime = 0;
         // this.addRefreshButton();
 
@@ -123,6 +129,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     newWordNeedCollect: function(){
         this._inputData = this._sourceData[0];
+        this._alphabetShowed = "";
         this._word = localizeForWriting(this._inputData.value);
         if(this._sourceData.length > 1)
             this._sourceData.splice(0,1);
@@ -353,8 +360,8 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this._boosterWorker = new ARBoosterWorker(this._player);
         this._workers.push(this._boosterWorker);
-
-        this._workers.push(new ARAlphabetWorker(this ,this._player, this._alphabetObjectArray, this._hudLayer));
+        this.arAlphabetWorker = new ARAlphabetWorker(this ,this._player, this._alphabetObjectArray, this._hudLayer);
+        this._workers.push(this.arAlphabetWorker);
     },
 
     createNewMapSegment: function() {
@@ -364,6 +371,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         tmxMap.x = this._currentMapX;
         this.addChild(tmxMap, AR_LANDS_ZODER, 2);
 
+        cc.log("createNewMapSegment");
         this.addObstacles(tmxMap);
         this.addBoosters(tmxMap);
         this.addAlphabet(tmxMap);
@@ -373,7 +381,6 @@ var AlphaRacingLayer = cc.Layer.extend({
         var shapes = this.buildPhysicBodyFromTilemap(tmxMap, index);
         tmxMap.setUserData(shapes);
 
-        cc.log("createNewMapSegment");
 
         this._maps.push(tmxMap);
     },
@@ -504,7 +511,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             this._player.getVelocity().y > this._player.getVelocity().x) {
             return false;
         }
-        cc.log("collisionStaticDynamic");
+        // cc.log("collisionStaticDynamic");
         this._player.run();
 
         return true;
@@ -562,16 +569,47 @@ var AlphaRacingLayer = cc.Layer.extend({
         }
     },
 
+    addNewAlphabet: function(){
+        cc.log("--------------------------------")
+        var self = this;
+        this._inputData.splice(0,1);
+        let inputArray = this._inputData[0];
+        if(this._alphabetShowed.indexOf(inputArray) >= 0){
+            cc.log("return ->>>>>>>");
+            this.addNewAlphabet();
+            return;
+        };
+        this.runAction(cc.sequence(
+            cc.callFunc(function(){
+                var camera = cc.Camera.getDefaultCamera();
+                for(var j = self._alphabetObjectArray.length - 1; j >= 0; j--) {
+                    if(self._alphabetObjectArray[j].x > (camera.x + cc.winSize.width)) {
+                        self._alphabetObjectArray[j].removeFromParent();
+                        self._alphabetObjectArray.splice(j,1);
+                    }
+                };
+                // self._alphabetObjectArray = [];
+                cc.log("pass");
+                for(var i = 0; i < self._maps.length; i ++){
+                    self.addAlphabet(self._maps[i]);
+                };
+            }),
+            cc.delayTime(0.5),
+            cc.callFunc(function(){
+                self._hudLayer._isColected = false;
+            })
+        ));
+    },
+
     addAlphabet: function(tmxMap) {
 
-        let posArray = this.getGroupPositions(this._tmxMap).filter(group => group.name.startsWith("alphaPosition"));
-        cc.log("this._inputData: " + JSON.stringify(this._inputData));
+        let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
+        // cc.log("this._inputData: " + JSON.stringify(this._inputData));
         let inputArray = this._inputData[0];
-        cc.log("inputArray: " + inputArray);
-        this._inputData.splice(0,1);
-        if(this._inputData.length == 0){
-            this.newWordNeedCollect();
-        };
+        cc.log("addAlphabet: " + inputArray);
+        // if(this._inputData.length == 0){
+        //     this.newWordNeedCollect();
+        // };
         let groupIndex = 0;
         let self = this;
 
@@ -583,17 +621,17 @@ var AlphaRacingLayer = cc.Layer.extend({
         inputArray = (inputArray);
         
         // let randomGroupNumber = Utils.getRandomInt(0, posArray.length);
-        cc.log("this._alphabetObjectArray.length > 0: " + this._alphabetObjectArray.length);
+        // cc.log("this._alphabetObjectArray.length > 0: " + this._alphabetObjectArray.length);
         var camera = cc.Camera.getDefaultCamera();
-        if(this._alphabetObjectArray.length > 0) {
-            for(var j = 0; j < this._alphabetObjectArray.length; j ++) {
-                if(this._alphabetObjectArray[j].x < (camera.x + cc.winSize.width * 1.5)) {
-                    this._alphabetObjectArray[j].removeFromParent();
-                    cc.log("Run IF");
-                    this._alphabetObjectArray.splice(j,1);
-                }
-            };
-        };
+        // if(this._alphabetObjectArray.length > 0) {
+        //     for(var j = 0; j < this._alphabetObjectArray.length; j ++) {
+        //         if(this._alphabetObjectArray[j].x < (camera.x + cc.winSize.width * 1.5)) {
+        //             this._alphabetObjectArray[j].removeFromParent();
+        //             cc.log("Run IF");
+        //             this._alphabetObjectArray.splice(j,1);
+        //         }
+        //     };
+        // };
 
         for (var i = 0; i < posArray.length; i++) {
             let group = posArray.pop();
@@ -603,19 +641,23 @@ var AlphaRacingLayer = cc.Layer.extend({
             // }
 
             group.posArray.forEach((pos) => {
+                if(pos.x < camera.x + cc.winSize.width)
+                    return;
+                cc.log(pos.x);
                 let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
-                cc.log("randomInputIndex: " + randomInputIndex);
+                // cc.log("randomInputIndex: " + randomInputIndex);
                 let alphabet = inputArray;
-                cc.log("ALPHABET : " + alphabet);
+                // cc.log("ALPHABET : " + alphabet);
                 var object = new cc.LabelBMFont(alphabet, res.CustomFont_fnt);
                 object.setScale(0.8);
-                object.x = pos.x + this._tmxMap.x;
+                object.x = pos.x;
                 object.y = pos.y;
                 object.setName(alphabet);
                 self.addChild(object, AR_WORD_ZODER);
                 self._alphabetObjectArray.push(object);
             });
-        }
+        };
+        this._alphabetShowed = this._alphabetShowed + inputArray;
     },
 
     cameraFollower: function() {

@@ -8,7 +8,10 @@ var ARAlphabetWorker = cc.Class.extend({
     },
 
     update: function(dt) {
+        this._array = this._layer._alphabetObjectArray;
         for (var i = this._array.length-1; i >= 0; i--) {
+            if(this._hudLayer._isColected)
+                break;
             let delta = cc.pSub(this._player.getPosition(), this._array[i].getPosition());
 
             if (this._player.hasBoostFlag(ARMagnet.getBoostFlag()) && 
@@ -52,21 +55,13 @@ var ARAlphabetWorker = cc.Class.extend({
                 
                 var self = this;
                 if(this._hudLayer._count == this._hudLayer.amoutWordCollected) {
-                    this._hudLayer._node.runAction(cc.sequence(
-                        cc.spawn(
-                            cc.fadeTo(0.5,255),
-                            cc.scaleTo(1.5, 1.2).easing(cc.easeElasticOut(0.5))
-                        ),
-                        cc.delayTime(1),
-                        cc.fadeTo(0.5,0),
-                        cc.callFunc(function(){
-                            // self._layer.newWordNeedCollect();
-                            // self._hudLayer.addWordNeedCollect(self._layer._word);
-                            self._array = self._layer._alphabetObjectArray;
-                        })
-                    ))
+                    self._array = self._layer._alphabetObjectArray;
                     break;
                 };
+                // if(this._hudLayer._isColected) {
+                //     this._layer.addNewAlphabet();
+                //     break;
+                // };
                 ///-----------------------------------------
             }
         }

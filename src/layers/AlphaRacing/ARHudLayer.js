@@ -27,9 +27,26 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     addWordNeedCollect: function(wordNeedCollect) {
+        var delayTime = 0;
+        var self = this;
+
+        if(this._node) {
+            delayTime = 3;
+            this._node.runAction(cc.sequence(
+                cc.spawn(
+                    cc.fadeTo(0.5,255),
+                    cc.scaleTo(1.5, 2).easing(cc.easeElasticOut(0.5))
+                ),
+                cc.delayTime(1),
+                cc.fadeTo(0.5,0),
+                cc.callFunc(function(){
+                    // self._layer.newWordNeedCollect();
+                    self._node.removeFromParent();
+                    // self._hudLayer.addWordNeedCollect(self._layer._word);
+                })
+            ));
+        };
         this.amoutWordCollected = 0;
-        if(this._node)
-            this._node.removeFromParent();
         this._node = null;
         this._word = wordNeedCollect;
         var node = new cc.Node();
@@ -49,6 +66,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this._node.opacity = 0;
         this._node.setCascadeOpacityEnabled(true);
         this._node.runAction(cc.sequence(
+            cc.delayTime(delayTime),
             cc.spawn(
                 cc.fadeTo(0.5, 255),
                 cc.scaleTo(1, 2).easing(cc.easeElasticOut(0.5))
@@ -76,14 +94,15 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     },
 
     collectedAlphabet: function(alphabet){
-        cc.log("alphabet HUD: " + alphabet);
         var self = this;
         cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
+        var count = 0;
         for(var i = 0; i < this._word.length; i ++){
             if(this._word[i] == alphabet) {
                 var child = this._node.getChildByTag(i);
                 if(child) {
+                    count++;
                     // this._layer._inputData.splice(0,1);
                     child.tag = 1000;
                     child.opacity = 255;
@@ -95,13 +114,17 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
                         cc.callFunc(function(){
                         })
                     ));
-                    this._layer.addAlphabet();
+                    cc.log("alphabet HUD: " + alphabet);
+                    this._isColected = true;
+                    if(count < 2)
+                        this._layer.addNewAlphabet();
                 }
             }
         };
         if(this.amoutWordCollected == this._count) {
             this._layer._nextWord = localizeForWriting(this._layer._sourceData[0].value);
-            this.addWordNeedCollect(this._nextWord);
+            this.addWordNeedCollect(this._layer._nextWord);
+            this._layer.newWordNeedCollect();
         };
         this._count = this._node.getChildrenCount();
         cc.log("childCount: " + this._count);
