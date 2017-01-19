@@ -1,0 +1,115 @@
+{
+  "project_info": {
+    "project_number": "1018788348255",
+    "firebase_url": "https://tsog-d53a2.firebaseio.com",
+    "project_id": "tsog-d53a2",
+    "storage_bucket": "tsog-d53a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018788348255:android:d75ef75b87d16581",
+        "android_client_info": {
+          "package_name": "com.theschoolofgames.tsog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018788348255-g7tass2d7m46lqfpr8j7c33mpsgc3dk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theschoolofgames.tsog",
+            "certificate_hash": "E74F77D31477A61FEF34893E4A35B55C26F680F8"
+          }
+        },
+        {
+          "client_id": "1018788348255-59nmaqg26lpn7o2manppi6mr3be8kh2p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theschoolofgames.tsog",
+            "certificate_hash": "55B901329F877EF6F1F5E12D121EE29F2BF3D815"
+          }
+        },
+        {
+          "client_id": "1018788348255-vis6l7ccnvhst52nu5jk2us14eefsukb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theschoolofgames.tsog",
+            "certificate_hash": "72A9D848AE8FAAD9A77CE0057085E3C58F2401E3"
+          }
+        },
+        {
+          "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL3E8DNW4ZrP4EOx042TQLWik1m93r3KA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018788348255:android:447a1691a5a9867b",
+        "android_client_info": {
+          "package_name": "com.fuji.platform"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018788348255-53fej1eo0eb9kd901m5jgi64lv0q302p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fuji.platform",
+            "certificate_hash": "E74F77D31477A61FEF34893E4A35B55C26F680F8"
+          }
+        },
+        {
+          "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL3E8DNW4ZrP4EOx042TQLWik1m93r3KA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
