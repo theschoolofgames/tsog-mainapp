@@ -29,7 +29,7 @@ var ARAlphabetWorker = cc.Class.extend({
                 CurrencyManager.getInstance().incDiamond(addedCoin);
 
 
-                cc.log("Alphabet Name: " + this._array[i].getName());
+                
 
                 this._hudLayer.collectedAlphabet(this._array[i].getName());
 
@@ -60,7 +60,8 @@ var ARAlphabetWorker = cc.Class.extend({
                         cc.delayTime(1),
                         cc.fadeTo(0.5,0),
                         cc.callFunc(function(){
-                            self._layer.newWordNeedCollect();
+                            // self._layer.newWordNeedCollect();
+                            // self._hudLayer.addWordNeedCollect(self._layer._word);
                             self._array = self._layer._alphabetObjectArray;
                         })
                     ))
