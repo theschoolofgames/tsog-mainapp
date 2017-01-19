@@ -39,6 +39,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     _eventGameOver: null,
 
     _eventGameRevival: null,
+
+    _tutorial: null,
     
     ctor: function(inputData,option) {
         this._super();
@@ -72,7 +74,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
         this.initBackground();
         this.addHud();
-
+        this.addTutorial();
         this._arEffectLayer = new AREffectLayer();
         this.addChild(this._arEffectLayer, 10);
 
@@ -103,6 +105,14 @@ var AlphaRacingLayer = cc.Layer.extend({
 
             jsb.fileUtils.writeStringToFile(JSON.stringify(this._polygonConfigs), cc.path.join(jsb.fileUtils.getWritablePath(), "ar_map_polygons.json"));
         }
+    },
+
+    addTutorial: function(){
+        cc.log("addTutorial");
+        if(this._tutorial)
+            this._tutorial.removeFromParent();
+        this._tutorial = new TutorialLayer(cc.p(cc.winSize.width/2,cc.winSize.height/2), null);
+        this._hudLayer.addChild(this._tutorial, 10000)
     },
 
     onEnter: function() {
@@ -196,6 +206,16 @@ var AlphaRacingLayer = cc.Layer.extend({
         if (this._player.current != "died")
             this._player.jump();
 
+        var self =  this;
+        if(this._tutorial) {
+            this._tutorial.runAction(cc.sequence(
+                cc.fadeTo(0.5, 0),
+                cc.callFunc(function(){
+                    self._tutorial.removeFromParent();
+                    self._tutorial = null;
+                })
+            ))
+        };
         return true;
     },
 

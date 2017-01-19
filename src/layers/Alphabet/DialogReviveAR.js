@@ -57,6 +57,16 @@ var DialogReviveAR = cc.LayerColor.extend({
             var event = new cc.EventCustom(EVENT_AR_REVIVAL);
             cc.eventManager.dispatchEvent(event);
         });
+
+        var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
+        closeButton.x = this._dialogBg.width - 25;
+        closeButton.y = this._dialogBg.height - 25;
+        closeButton.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_close_mp3, false, null);
+            self.removeFromParent();
+            cc.director.runScene(new HomeScene());
+        });
+        this._dialogBg.addChild(closeButton);
     }
 
 }) 
