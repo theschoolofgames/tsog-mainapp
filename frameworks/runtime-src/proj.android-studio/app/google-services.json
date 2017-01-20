@@ -65,50 +65,6 @@
           "status": 2
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1018788348255:android:447a1691a5a9867b",
-        "android_client_info": {
-          "package_name": "com.fuji.platform"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "1018788348255-53fej1eo0eb9kd901m5jgi64lv0q302p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.fuji.platform",
-            "certificate_hash": "E74F77D31477A61FEF34893E4A35B55C26F680F8"
-          }
-        },
-        {
-          "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAL3E8DNW4ZrP4EOx042TQLWik1m93r3KA"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
     }
   ],
   "configuration_version": "1"

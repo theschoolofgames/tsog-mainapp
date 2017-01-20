@@ -28,6 +28,7 @@ import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
@@ -36,7 +37,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
+import com.h102.FirebaseWrapper;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
 
@@ -59,13 +61,14 @@ public class AppActivity extends Cocos2dxActivity {
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
         Wrapper.activity = this;
+        FirebaseWrapper.activity = this;
         SpeechRecognizer.setupInstance(this);
 
-        final Fabric fabric = new Fabric.Builder(this)
-                .kits(new Crashlytics())
-                .debuggable(true)
-                .build();
-        Fabric.with(fabric);
+//        final Fabric fabric = new Fabric.Builder(this)
+//                .kits(new Crashlytics())
+//                .debuggable(true)
+//                .build();
+//        Fabric.with(fabric);
 
         Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
 
@@ -101,5 +104,10 @@ public class AppActivity extends Cocos2dxActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        FirebaseWrapper.onActivityResult(requestCode, resultCode, data);
+    }
 }

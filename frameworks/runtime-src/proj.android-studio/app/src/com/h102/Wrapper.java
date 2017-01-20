@@ -1,7 +1,7 @@
 package com.h102;
 
 import com.android.vending.billing.IInAppBillingService;
-import com.crashlytics.android.Crashlytics;
+//import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -126,7 +126,7 @@ public class Wrapper
     }
 
     public static void fabricCustomLogging(String key, String value) {
-        Crashlytics.getInstance().core.setString(key, value);
+//        Crashlytics.getInstance().core.setString(key, value);
     }
 
     public static String getId() {

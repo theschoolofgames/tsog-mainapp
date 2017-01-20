@@ -11,4 +11,11 @@
     <string name="dialogNeutralButton">Later</string>
     <string name="dialogNegativeButton">No, thanks</string>
     <string name="newUpdateAvailable">New update found</string>
+
+    <string name="facebook_application_id" translatable="false">1432641826786710</string>
+    <!-- Facebook Application ID, prefixed by 'fb'.  Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1432641826786710</string>
+
+    <string name="twitter_consumer_key" translatable="false">z7iLZlkFBgVhwEUsZdu5rMlWq</string>
+    <string name="twitter_consumer_secret" translatable="false">SCfjbf8x78OwQlX3z01yE6Zs8nWlX5Z7FDvHhIw9tmkvzqvoIq</string>
 </resources>

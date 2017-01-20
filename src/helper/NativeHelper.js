@@ -293,6 +293,29 @@ var NativeHelperConfig = {
             "requestPermission",
             "(Ljava/lang/String;)V"
         ]
+    },
+
+    // Firebase 
+    isLoggedIn: {
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "isLoggedIn",
+            "()Z"
+        ]
+    },
+    login: {
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "login",
+            "()V"   
+        ]
+    },
+    logout: {
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logout",
+            "()V"   
+        ]
     }
 }
 
