@@ -1,55 +1,76 @@
 
 character.png
-size: 512,256
+size: 256,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 Leg L
   rotate: false
-  xy: 253, 112
-  size: 50, 82
-  orig: 50, 82
+  xy: 2, 2
+  size: 25, 41
+  orig: 25, 41
   offset: 0, 0
   index: -1
 Leg R
   rotate: false
-  xy: 253, 28
-  size: 49, 82
-  orig: 49, 82
+  xy: 29, 2
+  size: 25, 41
+  orig: 25, 41
   offset: 0, 0
   index: -1
 body
+  rotate: true
+  xy: 133, 116
+  size: 124, 121
+  orig: 124, 121
+  offset: 0, 0
+  index: -1
+body die
   rotate: false
-  xy: 2, 2
-  size: 249, 241
-  orig: 249, 241
+  xy: 2, 104
+  size: 129, 136
+  orig: 129, 136
   offset: 0, 0
   index: -1
 eyes
   rotate: false
-  xy: 305, 149
-  size: 56, 45
-  orig: 56, 45
+  xy: 56, 21
+  size: 28, 22
+  orig: 28, 22
+  offset: 0, 0
+  index: -1
+eyes 2 die
+  rotate: false
+  xy: 133, 105
+  size: 11, 9
+  orig: 11, 9
   offset: 0, 0
   index: -1
 mao 2
   rotate: false
-  xy: 363, 163
-  size: 37, 31
-  orig: 37, 31
+  xy: 86, 27
+  size: 19, 16
+  orig: 19, 16
   offset: 0, 0
   index: -1
 mouth
   rotate: false
-  xy: 305, 117
-  size: 46, 30
-  orig: 46, 30
+  xy: 56, 4
+  size: 23, 15
+  orig: 23, 15
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 253, 196
-  size: 252, 47
-  orig: 252, 47
+  xy: 2, 45
+  size: 126, 23
+  orig: 126, 23
+  offset: 0, 0
+  index: -1
+wings die
+  rotate: false
+  xy: 2, 70
+  size: 137, 32
+  orig: 137, 32
   offset: 0, 0
   index: -1
