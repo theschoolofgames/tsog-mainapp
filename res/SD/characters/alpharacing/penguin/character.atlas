@@ -1,55 +1,55 @@
 
 character.png
-size: 512,256
+size: 256,128
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 body
   rotate: true
-  xy: 2, 51
-  size: 191, 386
-  orig: 191, 386
+  xy: 2, 30
+  size: 96, 193
+  orig: 96, 193
   offset: 0, 0
   index: -1
 hand L
   rotate: true
-  xy: 390, 40
-  size: 63, 86
-  orig: 63, 86
+  xy: 197, 24
+  size: 32, 43
+  orig: 32, 43
   offset: 0, 0
   index: -1
 hand R
   rotate: false
-  xy: 390, 105
-  size: 92, 137
-  orig: 92, 137
+  xy: 197, 58
+  size: 46, 68
+  orig: 46, 68
   offset: 0, 0
   index: -1
 mouth down
   rotate: true
-  xy: 484, 190
-  size: 52, 21
-  orig: 52, 21
+  xy: 179, 2
+  size: 26, 11
+  orig: 26, 11
   offset: 0, 0
   index: -1
 mouth up
   rotate: true
-  xy: 484, 140
-  size: 48, 13
-  orig: 48, 13
+  xy: 245, 102
+  size: 24, 6
+  orig: 24, 6
   offset: 0, 0
   index: -1
 sao bien
   rotate: false
-  xy: 283, 6
-  size: 65, 43
-  orig: 65, 43
+  xy: 144, 7
+  size: 33, 21
+  orig: 33, 21
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 2, 2
-  size: 279, 47
-  orig: 279, 47
+  xy: 2, 5
+  size: 140, 23
+  orig: 140, 23
   offset: 0, 0
   index: -1
