@@ -1,0 +1,111 @@
+
+character.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Chan Phai
+  rotate: true
+  xy: 609, 182
+  size: 73, 102
+  orig: 73, 102
+  offset: 0, 0
+  index: -1
+Chan Trai
+  rotate: true
+  xy: 76, 15
+  size: 74, 104
+  orig: 74, 104
+  offset: 0, 0
+  index: -1
+Tay trai
+  rotate: true
+  xy: 466, 181
+  size: 74, 142
+  orig: 74, 142
+  offset: 0, 0
+  index: -1
+Tay trai 2
+  rotate: false
+  xy: 339, 103
+  size: 125, 104
+  orig: 125, 104
+  offset: 0, 0
+  index: -1
+bong
+  rotate: false
+  xy: 185, 208
+  size: 280, 47
+  orig: 280, 47
+  offset: 0, 0
+  index: -1
+dau
+  rotate: false
+  xy: 1, 90
+  size: 183, 165
+  orig: 183, 165
+  offset: 0, 0
+  index: -1
+long may phai
+  rotate: false
+  xy: 813, 203
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+long may trai
+  rotate: false
+  xy: 860, 238
+  size: 20, 17
+  orig: 20, 17
+  offset: 0, 0
+  index: -1
+mat phai
+  rotate: false
+  xy: 712, 190
+  size: 54, 65
+  orig: 54, 65
+  offset: 0, 0
+  index: -1
+mat trai
+  rotate: true
+  xy: 339, 71
+  size: 31, 51
+  orig: 31, 51
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: false
+  xy: 813, 224
+  size: 46, 31
+  orig: 46, 31
+  offset: 0, 0
+  index: -1
+mui
+  rotate: false
+  xy: 391, 76
+  size: 30, 26
+  orig: 30, 26
+  offset: 0, 0
+  index: -1
+tai phai
+  rotate: false
+  xy: 1, 1
+  size: 74, 88
+  orig: 74, 88
+  offset: 0, 0
+  index: -1
+tai trai
+  rotate: false
+  xy: 767, 198
+  size: 45, 57
+  orig: 45, 57
+  offset: 0, 0
+  index: -1
+than
+  rotate: true
+  xy: 185, 60
+  size: 147, 153
+  orig: 147, 153
+  offset: 0, 0
+  index: -1

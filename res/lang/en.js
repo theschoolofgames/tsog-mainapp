@@ -755,9 +755,7 @@ languages["en"] = {
     "young": "en/young",
     "zebra": "en/zebra",
     "zebras": "en/zebras",
-    "adi": "adi",
-    "monkey": "monkey",
-    "lion": "lion",
+    
 
     "1": "en/1",
     "2": "en/2",

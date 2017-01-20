@@ -461,6 +461,8 @@ languagesForWriting["sw"] = {
     "line": "Mstari",
     "curved-line": "Mstari Uliopinda",
     "straight-line": "Mstari Mnyofu",
+    "penguin": "penguin",
+    "lion": "simba",
 
     "you win": "umeshinda",
     "choose language": "Lugha Kuchagua",

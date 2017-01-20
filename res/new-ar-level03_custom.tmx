@@ -8,112 +8,112 @@
  </tileset>
  <layer name="Lands" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt19sKwyAMAFBht///472Osqy2as3acyBvYmJCi5YCAAAAAAAAAAAAADDfLYiz5v0na/2JeliztnafEdbq7pV7VI5e+/kGAIBMWu44W+9dtffBPbFHa829121Zn0nLjFrnO/qNMWLvEe8JAIAe7kGczbPEZ/2Mx6wCD5SpF99qmTWDX30ZWVOUt2fO2pm/gjib6JxXOPtSpl5kmsGsXhyRc8vMs8xjpCuffSlTLzLNwP+glDcVkgZ1
+   eJzt10sKAyEMAFChv/vfuNtSmo4z6pja9yA7MTFB0FIAAAAAAAAAAAAAAADyuASxat5fstWfqIc1a2v3GWGr7l65R+XotZ87AABk0vLG2fvuqn0PHokjWmvuvW7P+kxaZtQ639F/jBF7j/hPAAD0cA1iNfcSn/U1brMKPFGmXnyqZdYMvvVlZE1R3p45a2f+CGI10Tn/4ezvMvUi0wxm9eKMnLXzfgKkEQTY
   </data>
  </layer>
  <objectgroup name="alphaPosition1">
-  <object id="128" x="519.03" y="837.091"/>
-  <object id="236" x="2809.09" y="633.333"/>
-  <object id="237" x="4548.48" y="809.091"/>
-  <object id="238" x="6490.91" y="778.788"/>
-  <object id="239" x="8412.12" y="609.091"/>
-  <object id="240" x="9703.03" y="812.121"/>
-  <object id="241" x="11997" y="815.152"/>
-  <object id="242" x="13090.9" y="775.758"/>
-  <object id="243" x="15448.5" y="542.424"/>
+  <object id="128" x="515.03" y="887.091"/>
+  <object id="236" x="2805.09" y="683.333"/>
+  <object id="237" x="4544.48" y="859.091"/>
+  <object id="238" x="6486.91" y="828.788"/>
+  <object id="239" x="8408.12" y="659.091"/>
+  <object id="240" x="9699.03" y="862.121"/>
+  <object id="241" x="11993" y="865.152"/>
+  <object id="242" x="13086.9" y="825.758"/>
+  <object id="243" x="15444.5" y="592.424"/>
  </objectgroup>
  <objectgroup name="alphaPosition2">
-  <object id="146" x="8018.06" y="1022.06"/>
-  <object id="244" x="1236.36" y="554.545"/>
-  <object id="245" x="1954.55" y="730.303"/>
-  <object id="246" x="3642.42" y="757.576"/>
-  <object id="247" x="5178.79" y="751.515"/>
-  <object id="248" x="6087.88" y="706.061"/>
-  <object id="249" x="9233.33" y="575.758"/>
-  <object id="250" x="12690.9" y="536.364"/>
-  <object id="251" x="14839.4" y="775.758"/>
+  <object id="146" x="8022.06" y="1082.06"/>
+  <object id="244" x="1240.36" y="614.545"/>
+  <object id="245" x="1958.55" y="790.303"/>
+  <object id="246" x="3646.42" y="817.576"/>
+  <object id="247" x="5182.79" y="811.515"/>
+  <object id="248" x="6091.88" y="766.061"/>
+  <object id="249" x="9237.33" y="635.758"/>
+  <object id="250" x="12694.9" y="596.364"/>
+  <object id="251" x="14843.4" y="835.758"/>
  </objectgroup>
  <objectgroup name="alphaPosition3">
-  <object id="180" x="14031" y="641.091"/>
-  <object id="252" x="7139.39" y="790.909"/>
-  <object id="253" x="2487.88" y="851.515"/>
-  <object id="254" x="10675.8" y="872.727"/>
-  <object id="255" x="11318.2" y="615.152"/>
-  <object id="256" x="16136.4" y="1054.55"/>
+  <object id="180" x="14031" y="691.091"/>
+  <object id="252" x="7139.39" y="840.909"/>
+  <object id="253" x="2487.88" y="901.515"/>
+  <object id="254" x="10675.8" y="922.727"/>
+  <object id="255" x="11318.2" y="665.152"/>
+  <object id="256" x="16136.4" y="1104.55"/>
  </objectgroup>
  <layer name="LowLayer1" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt0bENACAMAzA+gP+v5QEmBlLAljpHSVsDAAAAAAAAAAAAAAAAAAAAAAC4Q3/sfu5eeYtU7s4uidzEz1fGY/dz98pbpHJ3dknknv75BBbsGFg=
+   eJzt0bENADAIAzA+4P9v+0MHKNSWmKOECAAAAAAAAAAAAAAAAAAAAAAAAIBZctn93P3lLbpyb3bpyK3++QFwFwvI
   </data>
  </layer>
  <layer name="LowLayer2" width="260" height="20">
   <data encoding="base64" compression="zlib">
-   eJztzjEBAAAMAiATrH/cxdADEpAAAAAAAAAAAAAAAAAAAAAAbLh2AAAAAJj1NF8ADw==
+   eJztzjEBAAAMAiATrH/cxdADEpAAAAAAAAAAAAAAAAAAAAAAAGy5dgAAAJjz+3AADw==
   </data>
  </layer>
  <objectgroup color="#ff0000" name="Obstacles">
-  <object id="192" name="standing" x="2896.97" y="880.941">
+  <object id="192" name="standing" x="2892.97" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="193" name="standing" x="3920.97" y="1072.94">
+  <object id="193" name="standing" x="3916.97" y="1138.94">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="194" name="standing" x="4240.97" y="1072.94">
+  <object id="194" name="standing" x="4236.97" y="1138.94">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="195" name="standing" x="5264.97" y="880.941">
+  <object id="195" name="standing" x="5260.97" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="197" name="standing" x="7312.97" y="880.941">
+  <object id="197" name="standing" x="7308.97" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="198" name="standing" x="9936.97" y="880.941">
+  <object id="198" name="standing" x="9932.97" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="200" name="standing" x="10833" y="880.941">
+  <object id="200" name="standing" x="10829" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="201" name="standing" x="11857" y="880.941">
+  <object id="201" name="standing" x="11853" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="202" name="standing" x="13009" y="688.94">
+  <object id="202" name="standing" x="13005" y="754.94">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="203" name="standing" x="13521" y="880.941">
+  <object id="203" name="standing" x="13517" y="946.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="205" name="standing" x="16337" y="1072.94">
+  <object id="205" name="standing" x="16333" y="1138.94">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup color="#80ff00" name="Boosters">
-  <object id="132" x="1596" y="854.061"/>
-  <object id="133" x="2684" y="854.061"/>
-  <object id="137" x="4284" y="918.061"/>
-  <object id="175" x="9980" y="726.061"/>
-  <object id="178" x="7548" y="598.061"/>
-  <object id="179" x="13500" y="726.061"/>
+  <object id="132" x="1596" y="906.061"/>
+  <object id="133" x="2684" y="906.061"/>
+  <object id="137" x="4284" y="970.061"/>
+  <object id="175" x="9980" y="778.061"/>
+  <object id="178" x="7548" y="650.061"/>
+  <object id="179" x="13500" y="778.061"/>
  </objectgroup>
 </map>
