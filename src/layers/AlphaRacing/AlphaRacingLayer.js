@@ -278,8 +278,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.collisionBias = 0;
         this._space = space;
 
-        // var phDebugNode = cc.PhysicsDebugNode.create(space);
-        // this.addChild(phDebugNode, 99999);
+        var phDebugNode = cc.PhysicsDebugNode.create(space);
+        this.addChild(phDebugNode, 99999);
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 

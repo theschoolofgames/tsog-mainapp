@@ -1,6 +1,10 @@
+let BOX_WIDTH = 75;
+let BOX_HEIGHT = 130;
 var ARPlayer = cc.PhysicsSprite.extend({
 
     ARPLAYER_ANIMATION_TAG: 1122,
+
+    _character: null,
 
     _space: null,
     _body: null,
@@ -16,19 +20,30 @@ var ARPlayer = cc.PhysicsSprite.extend({
     ctor: function(space) {
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
 
-        this._super("#adi_run1.png");
-        this.scale = 0.2;
+        this._super("alpharacingEmptyCharacter.png");
+        // this.scale = 0.2;
+
+        var name = CharacterManager.getInstance().getSelectedCharacter();
+        if(!name) {
+            name = "adi"
+        };
+
+        this._character = new sp.SkeletonAnimation("characters/alpharacing/" + name + "/character.json", "characters/alpharacing/" + name + "/character.atlas", 0.3);
+        this._character.setCascadeOpacityEnabled(true);
+        this._character.setMix('run', 'run', 0);
+        this._character.setMix('jump', 'run', 1);
+        this._character.x = this.width/2;
+        this._character.y  = 0;
+        this.addChild(this._character);
+        this.setCascadeOpacityEnabled(true);
 
         this._space = space;
-
-        cc.log("ARPlayer: width: " + this.width * this.scaleX);
-        cc.log("ARPlayer: height: " + this.height * this.scaleY);
 
         var body = space.addBody(new cp.Body(this._mass, Infinity));
         body.setPos(cc.p(50, cc.winSize.height * 0.8));
         this._body = body;
 
-        var shape = space.addShape(new cp.BoxShape(body, this.width * this.scaleX, this.height * this.scaleY));
+        var shape = space.addShape(new cp.BoxShape(body, BOX_WIDTH, BOX_HEIGHT));
         shape.setFriction(0);
         shape.setElasticity(0);
         shape.setCollisionType(CHIPMUNK_COLLISION_TYPE_DYNAMIC);
@@ -119,18 +134,20 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
     // StateMachine Callbacks
     onrun: function(event, from, to, msg) {
-        cc.log("running");
-        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
-        var animation = new cc.Animation(this.runAnimationFrames, 0.1);
-        runningAction = new cc.RepeatForever(new cc.Animate(animation));
-        runningAction.setTag(this.ARPLAYER_ANIMATION_TAG);
-        this.runAction(runningAction);
+        // cc.log("running");
+        // this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
+        // var animation = new cc.Animation(this.runAnimationFrames, 0.1);
+        // runningAction = new cc.RepeatForever(new cc.Animate(animation));
+        // runningAction.setTag(this.ARPLAYER_ANIMATION_TAG);
+        // this.runAction(runningAction);
+        this._character.setAnimation(0, 'run', true);
     },
 
     onjump: function(event, from, to, msg) {
 
-        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
-        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        // this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
+        // this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_jump1.png"));
+        this._character.setAnimation(0, 'jump', false);
         
         // cc.log("onjump " + event + " " + from + " " + to + " " + msg);
     },
@@ -138,14 +155,16 @@ var ARPlayer = cc.PhysicsSprite.extend({
     ondie: function(event, from, to, msg) {
         // cc.log("ondie " + event + " " + from + " " + to + " " + msg);
 
-        this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
-        this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_die.png"));
+        // this.stopActionByTag(this.ARPLAYER_ANIMATION_TAG);
+        // this.setSpriteFrame(cc.spriteFrameCache.getSpriteFrame(this._characterName + "_die.png"));
         this.runAction(cc.sequence(
             cc.delayTime(0.5),
             cc.moveBy(0.1, cc.p(0,-15)),
             cc.moveBy(0.4,cc.p(0, 200)).easing(cc.easeCircleActionOut()),
             cc.moveBy(0.5, cc.p(0, -600))
         ));
+
+        this._character.setAnimation(0, 'die', false);
     },
 
     onrunning: function(event, from, to) {
