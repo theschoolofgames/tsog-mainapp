@@ -347,6 +347,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         parallaxtreestop.addInfiniteScrollWithObjects([treestop1, treestop2, treestop3], 4, cc.p(-1, 0), cc.p(0, cc.winSize.height - treestop1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxtreestop, 1);
         this._parallaxs.push(parallaxtreestop);
+        for(var i =0; i < this._parallaxs.length; i++) {
+            this._parallaxs[i].y = this._parallaxs[i].y - 100;
+        };
 
         var gradientMask = new cc.LayerGradient(cc.color("#a9f22a"), cc.color("#aee0ff"), cc.p(0, 1));
         this._parallaxLayer.addChild(gradientMask);
