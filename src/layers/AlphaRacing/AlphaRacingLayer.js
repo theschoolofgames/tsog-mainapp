@@ -278,8 +278,8 @@ var AlphaRacingLayer = cc.Layer.extend({
         space.collisionBias = 0;
         this._space = space;
 
-        var phDebugNode = cc.PhysicsDebugNode.create(space);
-        this.addChild(phDebugNode, 99999);
+        // var phDebugNode = cc.PhysicsDebugNode.create(space);
+        // this.addChild(phDebugNode, 99999);
 
         space.addCollisionHandler(CHIPMUNK_COLLISION_TYPE_STATIC, CHIPMUNK_COLLISION_TYPE_DYNAMIC, this.collisionStaticDynamic.bind(this), null, null, null);
 
@@ -347,9 +347,9 @@ var AlphaRacingLayer = cc.Layer.extend({
         parallaxtreestop.addInfiniteScrollWithObjects([treestop1, treestop2, treestop3], 4, cc.p(-1, 0), cc.p(0, cc.winSize.height - treestop1.height), cc.p(1, 0), cc.p(0, 0), cc.p(-2, -2));
         this._parallaxLayer.addChild(parallaxtreestop, 1);
         this._parallaxs.push(parallaxtreestop);
-        for(var i =0; i < this._parallaxs.length; i++) {
-            this._parallaxs[i].y = this._parallaxs[i].y - 100;
-        };
+        // for(var i =0; i < this._parallaxs.length; i++) {
+        //     this._parallaxs[i].y = this._parallaxs[i].y - 100;
+        // };
 
         var gradientMask = new cc.LayerGradient(cc.color("#a9f22a"), cc.color("#aee0ff"), cc.p(0, 1));
         this._parallaxLayer.addChild(gradientMask);
