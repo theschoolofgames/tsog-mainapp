@@ -25,18 +25,14 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
-import android.Manifest;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 
 import com.crashlytics.android.Crashlytics;
+import EkStep.EkStep;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
 
@@ -68,7 +64,8 @@ public class AppActivity extends Cocos2dxActivity {
         Fabric.with(fabric);
 
         Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
-
+        EkStep e = new EkStep(this);
+        e.sendTelemetryEvent(e.getGeLaunchGameEvent());
         return glSurfaceView;
     }
 
@@ -101,5 +98,12 @@ public class AppActivity extends Cocos2dxActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+
+        EkStep e = new EkStep(this);
+        e.sendTelemetryEvent(e.getGeGameEndEvent());
+        super.onStop();
+    }
 
 }

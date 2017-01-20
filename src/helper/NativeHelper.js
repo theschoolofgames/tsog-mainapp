@@ -293,6 +293,23 @@ var NativeHelperConfig = {
             "requestPermission",
             "(Ljava/lang/String;)V"
         ]
+    },
+
+    // EkStep
+    sendTelemetryEvent: {
+        Android: [
+            "EkStep/EkStep",
+            "sendTelemetryEvent",
+            "(Ljava/lang/String;)V"
+        ]
+    },
+
+    launchGenieApp: {
+        Android: [
+            "EkStep/EkStep",
+            "launchGenieApp",
+            "()V"
+        ]
     }
 }
 
