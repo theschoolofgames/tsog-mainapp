@@ -32,19 +32,24 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
         if(this._node) {
             delayTime = 3;
-            this._node.runAction(cc.sequence(
+            var word = new cc.LabelBMFont(this._word,res.HomeFont_fnt);
+            word.x = this._node.x;
+            word.y = this._node.y;
+            word.opacity = 0;
+            this.addChild(word);
+            word.scale = 0.6;
+            word.runAction(cc.sequence(
                 cc.spawn(
                     cc.fadeTo(0.5,255),
-                    cc.scaleTo(1.5, 2).easing(cc.easeElasticOut(0.5))
+                    cc.scaleTo(1, 1).easing(cc.easeElasticOut(0.5))
                 ),
                 cc.delayTime(1),
                 cc.fadeTo(0.5,0),
                 cc.callFunc(function(){
-                    // self._layer.newWordNeedCollect();
-                    self._node.removeFromParent();
-                    // self._hudLayer.addWordNeedCollect(self._layer._word);
+                    word.removeFromParent();
                 })
             ));
+            self._node.removeFromParent();
         };
         this.amoutWordCollected = 0;
         this._node = null;
@@ -83,6 +88,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         // word.y = this._settingBtn.y + 10;
         // this.addChild(word);
         // word.opacity = 0;
+        this._oldWord = wordNeedCollect; 
         cc.log("addWordNeedCollect: " + wordNeedCollect);
     },
 
@@ -98,6 +104,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
         var count = 0;
+        cc.log("getChildrenCount: " + this._node.getChildrenCount());
         for(var i = 0; i < this._word.length; i ++){
             if(this._word[i] == alphabet) {
                 var child = this._node.getChildByTag(i);
