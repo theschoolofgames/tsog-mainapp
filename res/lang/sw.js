@@ -101,6 +101,7 @@ languages["sw"] = {
     "bedroom": "sw/bedroom",
     "bedrooms": "sw/bedrooms",
     "beds": "sw/beds",
+    "lion": "simba",
     "bee": "sw/bee",
     "bees": "sw/bees",
     "behind": "sw/behind",

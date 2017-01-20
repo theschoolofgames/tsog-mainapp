@@ -16,5 +16,14 @@
         "unlocked": false,
         "animationFrameCount": 5,
         "posY" : -300
+    },
+    {
+        "name": "lion",
+        "price": 2000,
+        "path": "lion",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
     }
 ]

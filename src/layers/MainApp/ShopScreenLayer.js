@@ -38,7 +38,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchMoved: this.onTouchMoved.bind(this),
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
-        // CurrencyManager.getInstance().incDiamond(2000);
+        CurrencyManager.getInstance().incDiamond(20000);
         cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         
