@@ -35,6 +35,9 @@ var ARPlayer = cc.PhysicsSprite.extend({
         this._character.x = this.width/2;
         this._character.y  = 14;
         this._character.scale = 0.7;
+        if (name != "adi") {
+            this._character.scale = this._character.scale * 0.5;
+        }
         this.addChild(this._character);
         this.setCascadeOpacityEnabled(true);
 
