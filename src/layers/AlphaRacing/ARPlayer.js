@@ -1,5 +1,5 @@
-let BOX_WIDTH = 75;
-let BOX_HEIGHT = 130;
+let BOX_WIDTH = 64;
+let BOX_HEIGHT = 105;
 var ARPlayer = cc.PhysicsSprite.extend({
 
     ARPLAYER_ANIMATION_TAG: 1122,
@@ -30,10 +30,11 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
         this._character = new sp.SkeletonAnimation("characters/alpharacing/" + name + "/character.json", "characters/alpharacing/" + name + "/character.atlas", 0.3);
         this._character.setCascadeOpacityEnabled(true);
-        this._character.setMix('run', 'run', 0);
-        this._character.setMix('jump', 'run', 1);
+        // this._character.setMix('run', 'run', 0);
+        // this._character.setMix('jump', 'run', 1);
         this._character.x = this.width/2;
-        this._character.y  = 0;
+        this._character.y  = 14;
+        this._character.scale = 0.7;
         this.addChild(this._character);
         this.setCascadeOpacityEnabled(true);
 
