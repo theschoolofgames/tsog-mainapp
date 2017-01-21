@@ -11,9 +11,12 @@ import com.firebase.ui.auth.ResultCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -41,9 +44,7 @@ public class FirebaseWrapper {
                         new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
 //                        new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()
                 )).build();
-        activity.startActivityForResult(
-                intent,
-            RC_SIGN_IN);
+        activity.startActivityForResult(intent, RC_SIGN_IN);
     }
 
     public static void logout() {
@@ -58,6 +59,24 @@ public class FirebaseWrapper {
                 });
     }
 
+    public static String getUserInfo() {
+        if (!isLoggedIn())
+            return null;
+
+        FirebaseUser user =  FirebaseAuth.getInstance().getCurrentUser();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", user.getDisplayName());
+            json.put("email", user.getEmail());
+            json.put("photoUrl", user.getPhotoUrl());
+            json.put("uid", user.getUid());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json.toString();
+    }
+
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.d(TAG, requestCode + " " + resultCode);
 
@@ -66,8 +85,6 @@ public class FirebaseWrapper {
 
             // Successfully signed in
             if (resultCode == ResultCodes.OK) {
-//                startActivity(SignedInActivity.createIntent(this, response));
-//                finish();
                 activity.runOnGLThread(new Runnable() {
                     @Override
                     public void run() {
@@ -79,7 +96,6 @@ public class FirebaseWrapper {
                 // Sign in failed
                 if (response == null) {
                     // User pressed back button
-//                    showSnackbar(R.string.sign_in_cancelled);
                     activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
@@ -90,18 +106,16 @@ public class FirebaseWrapper {
                 }
 
                 if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
-//                    showSnackbar(R.string.no_internet_connection);
                     activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
-                            Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', 'onLoggedIn', [false, 'no_internet_connection'])");
+                            Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', 'onLoggedIn', [false, 'NO_NETWORK'])");
                         }
                     });
                     return;
                 }
 
                 if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
-//                    showSnackbar(R.string.unknown_error);
                     activity.runOnGLThread(new Runnable() {
                         @Override
                         public void run() {
@@ -111,8 +125,6 @@ public class FirebaseWrapper {
                     return;
                 }
             }
-
-//            showSnackbar(R.string.unknown_sign_in_response);
         }
     }
 }

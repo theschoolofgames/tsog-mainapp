@@ -33,6 +33,8 @@
         "res/lang/sw.js",
         "res/lang/sw_writing.js",
         "res/lang/en_writing.js",
+
+        "src/firebase/User.js",
         
         "src/model/GameObject.js",
 
@@ -40,6 +42,7 @@
         "src/database/KVDatabase.js",
         "src/database/UserStorage.js",
 
+        "src/meerkat/FirebaseManager.js",
         "src/meerkat/DataManager.js",
         "src/meerkat/RequestsManager.js",
         "src/meerkat/IAPManager.js",

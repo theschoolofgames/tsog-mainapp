@@ -6,7 +6,7 @@
 //
 //
 #import "H102Wrapper.h"
-#import <PDKeychainBindings.h>
+#import "PDKeychainBindings.h"
 
 #import <Crashlytics/Crashlytics.h>
 #import "ScriptingCore.h"

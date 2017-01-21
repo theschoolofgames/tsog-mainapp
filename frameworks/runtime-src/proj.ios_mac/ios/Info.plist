@@ -40,6 +40,23 @@
 	<string>1.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1432641826786710</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>17.01.11.00</string>
 	<key>Fabric</key>
@@ -56,6 +73,10 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FacebookAppID</key>
+	<string>1432641826786710</string>
+	<key>FacebookDisplayName</key>
+	<string>TSOG</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array/>
 	<key>LSRequiresIPhoneOS</key>
@@ -91,6 +112,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>TSOG doesn't use this feature</string>
+	<key>NSContactsUsageDescription</key>
+	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TSOG doesn't use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>

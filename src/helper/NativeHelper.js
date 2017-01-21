@@ -297,6 +297,10 @@ var NativeHelperConfig = {
 
     // Firebase 
     isLoggedIn: {
+        iOS: [
+            "FirebaseWrapper",
+            "isLoggedIn"
+        ],
         Android: [
             "com/h102/FirebaseWrapper",
             "isLoggedIn",
@@ -304,6 +308,10 @@ var NativeHelperConfig = {
         ]
     },
     login: {
+        iOS: [
+            "FirebaseWrapper",
+            "login"
+        ],
         Android: [
             "com/h102/FirebaseWrapper",
             "login",
@@ -311,10 +319,25 @@ var NativeHelperConfig = {
         ]
     },
     logout: {
+        iOS: [
+            "FirebaseWrapper",
+            "logout"
+        ],
         Android: [
             "com/h102/FirebaseWrapper",
             "logout",
             "()V"   
+        ]
+    },
+    getUserInfo: {
+        iOS: [
+            "FirebaseWrapper",
+            "getUserInfo"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "getUserInfo",
+            "()Ljava/lang/String;"
         ]
     }
 }

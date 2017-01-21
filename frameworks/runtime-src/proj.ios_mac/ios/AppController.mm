@@ -26,6 +26,8 @@
 #import <UIKit/UIKit.h>
 #import "cocos2d.h"
 
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 #import "AppController.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
@@ -33,7 +35,8 @@
 
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <H102Wrapper.h>
+#import "H102Wrapper.h"
+#import "FirebaseWrapper.h"
 
 #import "AudioEngine.h"
 
@@ -82,6 +85,8 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
+    
+    [FirebaseWrapper setCurrentViewController:viewController];
   
   cocos2d::experimental::AudioEngine::lazyInit();
 
@@ -99,6 +104,9 @@ static AppDelegate s_sharedApplication;
   [[Fabric sharedSDK] setDebug: YES];
   
   [UIApplication sharedApplication].idleTimerDisabled = YES;
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
 
     return YES;
 }
@@ -116,6 +124,7 @@ static AppDelegate s_sharedApplication;
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    [FBSDKAppEvents activateApp];
     cocos2d::Director::getInstance()->resume();
 }
 
@@ -141,11 +150,18 @@ static AppDelegate s_sharedApplication;
      */
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    return [FirebaseWrapper application:app openURL:url options:options];
+}
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-  return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 

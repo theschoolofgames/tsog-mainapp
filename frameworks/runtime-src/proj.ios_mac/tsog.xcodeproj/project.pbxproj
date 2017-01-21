@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0105521F1E33805100B449AC /* FirebaseWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0105521E1E33805100B449AC /* FirebaseWrapper.m */; };
+		010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 010552361E338A2B00B449AC /* GoogleService-Info.plist */; };
+		0105523F1E33B4F700B449AC /* FirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0105523E1E33B4F700B449AC /* FirebaseDelegate.m */; };
+		010552421E33BA4C00B449AC /* Cocos2dxHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 010552411E33BA4C00B449AC /* Cocos2dxHelper.mm */; };
 		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
 		01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */; };
 		01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */; };
@@ -346,7 +350,6 @@
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
 		5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B241EFBA459BB96B1F452E /* sdkbox.framework */; };
-		6E4D7D60BC4600D7CC03BDA8 /* libPods-tsog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1071D6B872932C8335F089F0 /* libPods-tsog.a */; };
 		8462450698AB583F2ECECAF4 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */; };
 		A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
@@ -357,6 +360,7 @@
 		A922754C1517C094001B78AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754B1517C094001B78AA /* UIKit.framework */; };
 		A922754E1517C094001B78AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754D1517C094001B78AA /* Foundation.framework */; };
 		A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754F1517C094001B78AA /* CoreGraphics.framework */; };
+		B96B98D8EBAB9932FC35C073 /* Pods_tsog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04486EC9B7978CF2513CB5EA /* Pods_tsog.framework */; };
 		BA3A85EC1A724AE900924D24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3A85EB1A724AE900924D24 /* Security.framework */; };
 		BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E718019EB6E3E00932425 /* MediaPlayer.framework */; };
 		BAEE4D841AC40C11003BEB0F /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAEE4D831AC40C11003BEB0F /* Security.framework */; };
@@ -488,6 +492,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0105521D1E33805100B449AC /* FirebaseWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseWrapper.h; sourceTree = "<group>"; };
+		0105521E1E33805100B449AC /* FirebaseWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseWrapper.m; sourceTree = "<group>"; };
+		010552361E338A2B00B449AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0105523D1E33B4F700B449AC /* FirebaseDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirebaseDelegate.h; sourceTree = "<group>"; };
+		0105523E1E33B4F700B449AC /* FirebaseDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirebaseDelegate.m; sourceTree = "<group>"; };
+		010552401E33BA4C00B449AC /* Cocos2dxHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxHelper.h; sourceTree = "<group>"; };
+		010552411E33BA4C00B449AC /* Cocos2dxHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cocos2dxHelper.mm; sourceTree = "<group>"; };
 		01062FC61C194E7600AB72D4 /* H102Wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = H102Wrapper.mm; path = ios/H102Wrapper.mm; sourceTree = "<group>"; };
 		01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
 		01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionListener.h; sourceTree = "<group>"; };
@@ -1007,7 +1018,7 @@
 		01F481C11C23FFE300FCE13D /* TDStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStretch.h; sourceTree = "<group>"; };
 		01FDB8921C32773200D21971 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
 		040046FEB9CCA404A188E297 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
-		1071D6B872932C8335F089F0 /* libPods-tsog.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04486EC9B7978CF2513CB5EA /* Pods_tsog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tsog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		181B6DBD67525E579743CC69 /* libPods-tsog-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
@@ -1209,10 +1220,10 @@
 				A922754C1517C094001B78AA /* UIKit.framework in Frameworks */,
 				A922754E1517C094001B78AA /* Foundation.framework in Frameworks */,
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
-				6E4D7D60BC4600D7CC03BDA8 /* libPods-tsog.a in Frameworks */,
 				5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */,
 				A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */,
 				09774F24B79C133E33E12AAD /* StoreKit.framework in Frameworks */,
+				B96B98D8EBAB9932FC35C073 /* Pods_tsog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2258,11 +2269,11 @@
 				A922754B1517C094001B78AA /* UIKit.framework */,
 				A922754D1517C094001B78AA /* Foundation.framework */,
 				A922754F1517C094001B78AA /* CoreGraphics.framework */,
-				1071D6B872932C8335F089F0 /* libPods-tsog.a */,
 				181B6DBD67525E579743CC69 /* libPods-tsog-desktop.a */,
 				96B241EFBA459BB96B1F452E /* sdkbox.framework */,
 				7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */,
 				040046FEB9CCA404A188E297 /* StoreKit.framework */,
+				04486EC9B7978CF2513CB5EA /* Pods_tsog.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2287,6 +2298,7 @@
 				509D4AAF17EBB2AB00697056 /* Default@2x.png */,
 				5091732E17ECDF8A00D62437 /* Icons */,
 				509D4AB717EBB2AB00697056 /* Info.plist */,
+				010552361E338A2B00B449AC /* GoogleService-Info.plist */,
 				509D4AB817EBB2AB00697056 /* main.m */,
 				509D4AB917EBB2AB00697056 /* Prefix.pch */,
 				509D4ABA17EBB2AB00697056 /* RootViewController.h */,
@@ -2297,6 +2309,12 @@
 				014308FC1C1C298E00F7691E /* SpeechRecognitionListener.mm */,
 				01C6E51C1CA5516E003C043B /* Dialog.h */,
 				01C6E51D1CA5516E003C043B /* Dialog.m */,
+				0105521D1E33805100B449AC /* FirebaseWrapper.h */,
+				0105521E1E33805100B449AC /* FirebaseWrapper.m */,
+				0105523D1E33B4F700B449AC /* FirebaseDelegate.h */,
+				0105523E1E33B4F700B449AC /* FirebaseDelegate.m */,
+				010552401E33BA4C00B449AC /* Cocos2dxHelper.h */,
+				010552411E33BA4C00B449AC /* Cocos2dxHelper.mm */,
 			);
 			name = ios;
 			sourceTree = "<group>";
@@ -2609,6 +2627,7 @@
 				1AE159EC18C9DF3600FCA372 /* project.json in Resources */,
 				01F093D31C75965D00B4892E /* make_log_sub_table.py in Resources */,
 				1AD7E0A818C9DB93004817A6 /* main.js in Resources */,
+				010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */,
 				509D4ABE17EBB2AB00697056 /* Default.png in Resources */,
 				5091731E17ECDF7A00D62437 /* Icon-80.png in Resources */,
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
@@ -2759,6 +2778,7 @@
 				01F093221C75965D00B4892E /* parse_comline.c in Sources */,
 				01F093191C75965D00B4892E /* get_ngram.c in Sources */,
 				01F093541C75965D00B4892E /* cmu_lex_data.c in Sources */,
+				0105521F1E33805100B449AC /* FirebaseWrapper.m in Sources */,
 				016A01B01C15E07100A22838 /* SimpleAudioRecordEngine.mm in Sources */,
 				01F093431C75965D00B4892E /* idngram2lm.c in Sources */,
 				01F093B01C75965D00B4892E /* ms_mgau.c in Sources */,
@@ -2800,6 +2820,7 @@
 				01F093181C75965D00B4892E /* generate.c in Sources */,
 				01F481A41C23FAE200FCE13D /* WavFile.cpp in Sources */,
 				01F093DE1C75965D00B4892E /* jsgf_parser.c in Sources */,
+				0105523F1E33B4F700B449AC /* FirebaseDelegate.m in Sources */,
 				01F094001C75965D00B4892E /* profile.c in Sources */,
 				01F0933D1C75965D00B4892E /* rr_mkdtemp.c in Sources */,
 				01F093B31C75965D00B4892E /* ngram_search_fwdflat.c in Sources */,
@@ -2843,6 +2864,7 @@
 				01F093691C75965D00B4892E /* au_none.c in Sources */,
 				EB7B090D1BB50D2200B36D24 /* lwf_text.cpp in Sources */,
 				EB7B09001BB50D2200B36D24 /* lwf_format.cpp in Sources */,
+				010552421E33BA4C00B449AC /* Cocos2dxHelper.mm in Sources */,
 				01F093AD1C75965D00B4892E /* kws_search.c in Sources */,
 				01F093941C75965D00B4892E /* cst_socket.c in Sources */,
 				01F093111C75965D00B4892E /* disc_meth.c in Sources */,
@@ -3118,6 +3140,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 34F8D32X5G;
@@ -3146,6 +3169,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEVELOPMENT_TEAM = 34F8D32X5G;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -3172,6 +3196,7 @@
 			baseConfigurationReference = 3879C2E3DA2F966272FC4E96 /* Pods-tsog.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -3182,7 +3207,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/OpenEars/Classes",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -3197,7 +3222,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"sdkbox.framework\"",
@@ -3223,6 +3248,7 @@
 			baseConfigurationReference = FAF0A2C12778E5ECBEF02F3C /* Pods-tsog.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
@@ -3233,7 +3259,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(SRCROOT)/OpenEars/Classes",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -3248,7 +3274,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"sdkbox.framework\"",
