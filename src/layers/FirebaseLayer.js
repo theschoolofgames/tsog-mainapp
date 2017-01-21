@@ -51,6 +51,8 @@ var FirebaseLayer = cc.LayerColor.extend({
     onLoggedIn: function(succeed, msg) {
         cc.log(succeed + " " + msg);
 
+        // showNativeMessage("Login: " + succeed, msg ? msg : "");
+
         this.reloadButtonState();
     },
 
