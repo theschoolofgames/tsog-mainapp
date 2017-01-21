@@ -69,6 +69,8 @@ static UIViewController* viewController;
     return json;
 }
 
+//+ (void)
+
 #pragma mark Private Methods
 + (void)initialize {
     [FIRApp configure];

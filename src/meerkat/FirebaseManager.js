@@ -30,7 +30,15 @@ var FirebaseManager = cc.Class.extend({
         if (!data)
             return null;
 
-        return new User(data);
+        return User.getInstance().updateUserInfo(data);
+    },
+
+    getChildren: function() {
+        
+    },
+
+    getChild: function(childId) {
+
     },
 
     // callback
