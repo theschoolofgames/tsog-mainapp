@@ -59,7 +59,7 @@ static UIViewController* viewController;
     if (user.email)
         [dict setObject:user.email forKey:@"email"];
     if (user.photoURL)
-        [dict setObject:user.photoURL forKey:@"photoURL"];
+        [dict setObject:[user.photoURL absoluteString] forKey:@"photoURL"];
     [dict setObject:user.uid forKey:@"uid"];
     
     NSError * err;
