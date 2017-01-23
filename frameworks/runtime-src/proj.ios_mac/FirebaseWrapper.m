@@ -69,7 +69,15 @@ static UIViewController* viewController;
     return json;
 }
 
-//+ (void)
++ (void)setDatabaseAttribute:(NSString*)keysString value:(NSString*)value {
+  NSData *data = [keysString dataUsingEncoding:NSUTF8StringEncoding];
+  NSArray* keys = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+  
+  FIRDatabaseReference* root = [[FIRDatabase database] reference];
+  
+  for (NSUInteger i = 0; i < [keys count]; i++)
+    root = [root child:[keys objectAtIndex:i]];
+}
 
 #pragma mark Private Methods
 + (void)initialize {

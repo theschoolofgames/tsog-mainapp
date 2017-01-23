@@ -41,6 +41,8 @@ var FirebaseManager = cc.Class.extend({
 
     },
 
+
+
     // callback
     onLoggedIn: function(succeed, msg) {
         this._cbs.login(succeed, msg);
@@ -51,6 +53,9 @@ var FirebaseManager = cc.Class.extend({
         this._cbs.logout();
         delete this._cbs.logout;
     }
+
+    // private
+    
 });
 
 FirebaseManager._instance = null;
