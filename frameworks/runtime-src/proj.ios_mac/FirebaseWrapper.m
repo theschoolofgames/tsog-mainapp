@@ -90,4 +90,17 @@ static UIViewController* viewController;
     return [[FUIAuth defaultAuthUI] handleOpenURL:url sourceApplication:sourceApplication];
 }
 
++ (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *))restorationHandler {
+    BOOL handled = [[FIRDynamicLinks dynamicLinks]
+                    handleUniversalLink:userActivity.webpageURL
+                    completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                 NSError * _Nullable error) {
+                        NSLog(@"%@", dynamicLink.url.absoluteString);
+                    }];
+    
+    return handled;
+}
+
 @end

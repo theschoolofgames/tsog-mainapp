@@ -56,6 +56,16 @@
 				<string>com.googleusercontent.apps.1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundle ID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.theschoolofgames.tsog</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>17.01.11.00</string>
@@ -78,12 +88,12 @@
 	<key>FacebookDisplayName</key>
 	<string>TSOG</string>
 	<key>LSApplicationQueriesSchemes</key>
-  <array>
-    <string>fbapi</string>
-    <string>fb-messenger-api</string>
-    <string>fbauth2</string>
-    <string>fbshareextension</string>
-  </array>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

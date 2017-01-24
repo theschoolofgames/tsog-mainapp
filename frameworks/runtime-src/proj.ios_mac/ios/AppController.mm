@@ -165,6 +165,13 @@ static AppDelegate s_sharedApplication;
 }
 
 
+- (BOOL)application:(UIApplication *)application
+continueUserActivity:(NSUserActivity *)userActivity
+ restorationHandler:(void (^)(NSArray *))restorationHandler {
+    return [FirebaseWrapper application:application continueUserActivity:userActivity restorationHandler:restorationHandler];
+}
+
+
 #pragma mark -
 #pragma mark Memory management
 

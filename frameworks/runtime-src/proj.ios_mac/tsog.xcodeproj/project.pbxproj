@@ -1058,6 +1058,7 @@
 		509D4AE817EBB82000697056 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		5B2F464CA08F5688CCE2ACB5 /* PluginIAPJSHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginIAPJSHelper.h; path = ../Classes/PluginIAPJSHelper.h; sourceTree = SOURCE_ROOT; };
+		5ED6680F1E373542002F3FE8 /* tsog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tsog.entitlements; sourceTree = "<group>"; };
 		711C4CF98DC325D005838185 /* PluginIAPJSHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginIAPJSHelper.cpp; path = ../Classes/PluginIAPJSHelper.cpp; sourceTree = SOURCE_ROOT; };
 		7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginIAP.framework; sourceTree = SOURCE_ROOT; };
 		7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SDKBoxJSHelper.cpp; path = ../Classes/SDKBoxJSHelper.cpp; sourceTree = SOURCE_ROOT; };
@@ -2204,6 +2205,7 @@
 		A92275321517C094001B78AA = {
 			isa = PBXGroup;
 			children = (
+				5ED6680F1E373542002F3FE8 /* tsog.entitlements */,
 				01F090EA1C75965C00B4892E /* OpenEars */,
 				016A01AB1C15E01800A22838 /* SimpleAudioRecordEngine */,
 				01F4819B1C23FAE200FCE13D /* SoundStretch */,
@@ -2527,8 +2529,13 @@
 						DevelopmentTeam = 34F8D32X5G;
 					};
 					A922753C1517C094001B78AA = {
-						DevelopmentTeam = BSJF9ST45A;
+						DevelopmentTeam = 34F8D32X5G;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -3197,11 +3204,12 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tsog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = BSJF9ST45A;
+				DEVELOPMENT_TEAM = 34F8D32X5G;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3234,8 +3242,8 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "Hub102 Wildcard (*) Dev";
+				PROVISIONING_PROFILE = "f7d1f9ef-b473-4fda-9558-4030bad98121";
+				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../lwf $(SRCROOT)/../../SoundStretch $(SRCROOT)/../../SoundTouch $(SRCROOT)/OpenEars/Dependencies/**";
@@ -3249,6 +3257,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = tsog.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
@@ -3286,7 +3295,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "6350ab4f-8563-430b-ba2d-ed2dbf8849bc";
+				PROVISIONING_PROFILE = "3b335b59-f05d-4f6d-ba7b-5f3654a693d7";
 				PROVISIONING_PROFILE_SPECIFIER = "TSOG Distribution - AppStore";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
