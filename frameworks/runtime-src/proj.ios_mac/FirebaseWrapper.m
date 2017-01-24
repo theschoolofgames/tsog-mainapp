@@ -85,7 +85,6 @@ static UIViewController* viewController;
 
 + (void)fetchData:(NSString*)path {
   FIRDatabaseReference* root = [[FIRDatabase database] reference];
-  
   FIRDatabaseReference* child = [root child:path];
   
   [child observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {

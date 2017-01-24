@@ -17,13 +17,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by nick on 1/20/17.
@@ -82,6 +93,60 @@ public class FirebaseWrapper {
         }
 
         return json.toString();
+    }
+
+    public static void setData(String path, String values) {
+        Gson gson = new GsonBuilder().create();
+        Object data;
+        try {
+            data = gson.fromJson(values, new TypeToken<HashMap<String, Object>>() {}.getType());
+        } catch (Exception e) {
+            try {
+                data = gson.fromJson(values, new TypeToken<ArrayList<Object>>() {}.getType());
+            } catch (Exception e1) {
+                data = values;
+            }
+        }
+
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference child = root.child(path);
+        child.setValue(data);
+    }
+
+    public static void fetchData(String path) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference child = root.child(path);
+
+        child.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String dataString = "{}";
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.getValue() instanceof ArrayList || dataSnapshot.getValue() instanceof Map) {
+                        Gson gson = new Gson();
+                        dataString = gson.toJson(dataSnapshot.getValue());
+                    } else
+                        dataString = dataSnapshot.getValue().toString();
+                }
+
+                final String finalDataString = dataString;
+                activity.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', [%s, %s])", child.getKey(), finalDataString));
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public static String createChildAutoId(String path) {
+        return FirebaseDatabase.getInstance().getReference().child(path).push().getKey();
     }
 
     public static void onActivityResult(int requestCode, int resultCode, Intent data) {
