@@ -69,14 +69,46 @@ static UIViewController* viewController;
     return json;
 }
 
-+ (void)setDatabaseAttribute:(NSString*)keysString value:(NSString*)value {
-  NSData *data = [keysString dataUsingEncoding:NSUTF8StringEncoding];
-  NSArray* keys = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
++ (void)setData:(NSString*)key value:(NSString*)valueString {
+  NSError* error = nil;
+  NSData* data = [valueString dataUsingEncoding:NSUTF8StringEncoding];
+  id values = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+  
+  if (error)
+    values = valueString;
   
   FIRDatabaseReference* root = [[FIRDatabase database] reference];
+  FIRDatabaseReference* child = [root child:key];
   
-  for (NSUInteger i = 0; i < [keys count]; i++)
-    root = [root child:[keys objectAtIndex:i]];
+  [child setValue:values];
+}
+
++ (void)fetchData:(NSString*)path {
+  FIRDatabaseReference* root = [[FIRDatabase database] reference];
+  
+  FIRDatabaseReference* child = [root child:path];
+  
+  [child observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [child removeAllObservers];
+    
+    NSString* dataString = @"{}";
+    
+    if (snapshot.exists) {
+      if([snapshot.value isKindOfClass:[NSArray class]] || [snapshot.value isKindOfClass:[NSDictionary class]]){
+        //Is array
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:snapshot.value options:0 error:nil];
+        dataString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+      } else {
+        dataString = [snapshot.value stringValue];
+      }
+    }
+    
+    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', [%@, %@])", child.key, dataString]];
+  }];
+}
+
++ (NSString*)createChildAutoId:(NSString*)path {
+  return [[[[FIRDatabase database] reference] child:path] childByAutoId].key;
 }
 
 #pragma mark Private Methods

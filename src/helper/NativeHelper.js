@@ -339,7 +339,25 @@ var NativeHelperConfig = {
             "getUserInfo",
             "()Ljava/lang/String;"
         ]
-    }
+    },
+    setData: {
+        iOS: [
+            "FirebaseWrapper",
+            "setData:value:"
+        ]
+    },
+    fetchData: {
+        iOS: [
+            "FirebaseWrapper",
+            "fetchData:"
+        ]
+    },
+    createChildAutoId: {
+        iOS: [
+            "FirebaseWrapper",
+            "createChildAutoId:"
+        ]
+    },
 }
 
 var NativeHelperListener = {};
