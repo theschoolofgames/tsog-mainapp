@@ -25,32 +25,47 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-//import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.h102.FirebaseWrapper;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
 
 import java.util.Locale;
 
-import io.fabric.sdk.android.Fabric;
-
-public class AppActivity extends Cocos2dxActivity {
+public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
     private static final String TAG = AppActivity.class.getSimpleName();
 
     private static AppActivity app = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceStat) {
+        super.onCreate(savedInstanceStat);
+        FirebaseWrapper.activity = this;
+        FirebaseWrapper.setupDeepLinkListener();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseWrapper.onActivityStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FirebaseWrapper.onActivityStop();
+    }
 
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -61,7 +76,7 @@ public class AppActivity extends Cocos2dxActivity {
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
         Wrapper.activity = this;
-        FirebaseWrapper.activity = this;
+
         SpeechRecognizer.setupInstance(this);
 
 //        final Fabric fabric = new Fabric.Builder(this)
@@ -109,5 +124,20 @@ public class AppActivity extends Cocos2dxActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         FirebaseWrapper.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 }
