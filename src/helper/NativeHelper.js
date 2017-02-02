@@ -370,7 +370,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/FirebaseWrapper",
             "fetchData",
-            "(Ljava/lang/String;)"
+            "(Ljava/lang/String;)V"
         ]
     },
     createChildAutoId: {

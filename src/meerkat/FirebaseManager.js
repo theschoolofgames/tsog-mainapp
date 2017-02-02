@@ -33,8 +33,13 @@ var FirebaseManager = cc.Class.extend({
 
     authenticate: function() {
         debugLog("FirebaseManager.authenticate");
+        if (! NativeHelper.callNative("isLoggedIn")) {
+            return false;
+        }
+
         User.setCurrentUser(this.getUserInfo());
         this._updateDataModel();
+        return true;
     },
 
     setData: function(path, value) {

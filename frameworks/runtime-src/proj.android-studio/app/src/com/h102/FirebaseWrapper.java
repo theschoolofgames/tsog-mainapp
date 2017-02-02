@@ -114,6 +114,7 @@ public class FirebaseWrapper {
     }
 
     public static void fetchData(String path) {
+        Log.d(TAG, "fetchData: " + path);
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference child = root.child(path);
 
@@ -133,7 +134,7 @@ public class FirebaseWrapper {
                 activity.runOnGLThread(new Runnable() {
                     @Override
                     public void run() {
-                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', [%s, %s])", child.getKey(), finalDataString));
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', ['%s, '%s])", child.getKey(), finalDataString));
                     }
                 });
             }
