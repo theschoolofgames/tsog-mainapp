@@ -432,3 +432,16 @@ Utils.getValueOfObjectById = function(id) {
     else
         return id;
 }
+
+debugLog = function(data) {
+    if (TSOG_DEBUG) {
+        cc.log("TSOG_DEBUG: " + data);
+    }
+}
+
+debugLogStackTrace = function() { 
+  if (TSOG_DEBUG) {
+      var e = new Error();
+      debugLog(e.stack);
+  }
+}
