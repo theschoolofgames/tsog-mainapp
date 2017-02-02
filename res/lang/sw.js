@@ -101,6 +101,7 @@ languages["sw"] = {
     "bedroom": "sw/bedroom",
     "bedrooms": "sw/bedrooms",
     "beds": "sw/beds",
+    
     "bee": "sw/bee",
     "bees": "sw/bees",
     "behind": "sw/behind",
@@ -774,6 +775,7 @@ languages["sw"] = {
     "adi": "adi",
     "pen-1": "sw/pen-1",
     "pen": "sw/pen",
+    
 
     "1": "sw/1",
     "2": "sw/2",

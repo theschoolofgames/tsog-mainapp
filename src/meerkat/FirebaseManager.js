@@ -30,32 +30,142 @@ var FirebaseManager = cc.Class.extend({
         if (!data)
             return null;
 
-        return User.getInstance().updateUserInfo(data);
+        return User.setCurrentUser(data);
     },
 
-    getChildren: function() {
-        
+    authenticate: function() {
+        return this.getUserInfo();
     },
 
-    getChild: function(childId) {
+    setData: function(path, value) {
+        var data = value;
+        if (value instanceof Array || value instanceof Object)
+            data = JSON.stringify(value);
 
+        NativeHelper.callNative("setData", [path, data]);
     },
 
+    fetchData: function(path, cb) {
+        this._cbs.fetchData = cb;
+        NativeHelper.callNative("fetchData", [path]);
+    },
 
+    createChildAutoId: function(path) {
+        return NativeHelper.callNative("createChildAutoId", [path]);    
+    },
 
-    // callback
+    // callbacks
     onLoggedIn: function(succeed, msg) {
-        this._cbs.login(succeed, msg);
+        var cb = this._cbs.login;
         delete this._cbs.login;
+        cb && cb(succeed, msg);
+
+        this._updateDataModel();
     },
     
     onLoggedOut: function() {
-        this._cbs.logout();
+        var cb = this._cbs.logout;
         delete this._cbs.logout;
-    }
+        cb && cb();
+    },
+
+    onFetchedData: function(key, dataString) {
+        var data;
+        try {
+            data = JSON.parse(dataString);
+        } catch(e) {
+            data = dataString;
+        }
+        var cb = this._cbs.fetchData;
+        delete this._cbs.fetchData;
+        cb && cb(key, data);
+    },
 
     // private
-    
+    _updateDataModel: function() {
+
+        var self = this;
+
+        var user = this.getUserInfo();
+        var waterfallPromises = [];
+
+        // User
+        waterfallPromises.push(function(cb) {
+            var path = "users/" + user.uid;
+            self.fetchData(path, function(key, data) {
+                var nextPaths = [];
+
+                if (!(data instanceof Object)) {
+                    self.setData(path, {});
+                    data = {};
+                }
+
+                if (!data.hasOwnProperty("children")) {
+                    var childId = self.createChildAutoId("children");
+                    data.children = [childId];
+                    self.setData(path + "/children", data.children);
+
+                    var childPath = "children/" + childId;
+                    nextPaths.push(childPath);
+                } else {
+                    nextPaths = nextPaths.concat(data.children.map(function(cId) { return "children/" + cId; }));
+                }
+
+                user.populateFirebaseData(data);
+
+                cb(null, nextPaths);
+            });
+        });
+
+        // Children
+        waterfallPromises.push(function(nextPaths, cb) {
+            var parallelPromises = [];
+
+            for (var i = 0; i < nextPaths.length; i++) {
+                var path = nextPaths[i];
+
+                if (path.startsWith("children")) {
+                    parallelPromises.push(function(callback) {
+                        self.fetchData(path, function(key, data) {
+                            var shouldUpdate = false;
+
+                            if (!(data instanceof Object)) {
+                                data = {};
+                                shouldUpdate = true;
+                            }
+
+                            if (!data.hasOwnProperty("gold")) {
+                                data.gold = COIN_START_GAME;
+                                shouldUpdate = true;
+                            }
+
+                            if (!data.hasOwnProperty("diamond")) {
+                                data.diamond = 0;
+                                shouldUpdate = true;
+                            }
+
+                            if (shouldUpdate)
+                                self.setData(path, data);
+
+                            var child = user.findChild(key);
+                            cc.assert(child == null, "child with id " + key + " is null");
+                            child.populateFirebaseData(data);
+                            
+                            callback(null);
+                        })
+                    })
+                }
+            }
+
+            cc.async.parallel(parallelPromises, function(err, data) {
+                cb(null);
+            })
+        });
+
+        cc.async.waterfall(waterfallPromises, function(err, data) {
+            
+        })
+    },
 });
 
 FirebaseManager._instance = null;

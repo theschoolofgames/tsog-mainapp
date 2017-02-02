@@ -1,6 +1,7 @@
 var FirebaseLayer = cc.LayerColor.extend({
     _btnLogin: null,
     _btnLogout: null,
+    _btnHomeScene: null,
 
     _lbName: null,
     _lbEmail: null,
@@ -36,6 +37,16 @@ var FirebaseLayer = cc.LayerColor.extend({
         });
         this.addChild(this._btnLogout);
 
+        this._btnHomeScene = new ccui.Button();
+        this._btnHomeScene.titleText = "HOME SCENE";
+        this._btnHomeScene.titleFontSize = 30;
+        this._btnHomeScene.x = 150;
+        this._btnHomeScene.y = cc.winSize.height/2 + 100;
+        this._btnHomeScene.addClickEventListener(function() {
+            cc.director.runScene(new HomeScene());
+        });
+        this.addChild(this._btnHomeScene);
+
         this._lbName = new ccui.Text();
         this._lbName.fontSize = 24;
         this._lbName.x = cc.winSize.width/2 + 150;
@@ -64,13 +75,17 @@ var FirebaseLayer = cc.LayerColor.extend({
     },
 
     reloadState: function() {
-        this._btnLogin.setEnabled(!NativeHelper.callNative("isLoggedIn"));
-        this._btnLogout.setEnabled(NativeHelper.callNative("isLoggedIn"));
+        debugLogStackTrace();
+        
+        this._btnLogin.setEnabled(!User.isLoggedIn());
+        this._btnLogout.setEnabled(User.isLoggedIn());
+        this._btnHomeScene.setEnabled(User.isLoggedIn());
 
         this._btnLogin.setColor(this._btnLogin.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnLogout.setColor(this._btnLogout.enabled ? cc.color.WHITE : cc.color.GRAY);
+        this._btnHomeScene.setColor(this._btnHomeScene.enabled ? cc.color.WHITE : cc.color.GRAY);
 
-        if (FirebaseManager.getInstance().isLoggedIn()) {
+        if (User.isLoggedIn()) {
             var userInfo = FirebaseManager.getInstance().getUserInfo();
             this._lbUid.string = userInfo.uid;
             this._lbEmail.string = userInfo.email;

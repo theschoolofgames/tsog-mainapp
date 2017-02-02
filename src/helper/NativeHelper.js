@@ -339,7 +339,40 @@ var NativeHelperConfig = {
             "getUserInfo",
             "()Ljava/lang/String;"
         ]
-    }
+    },
+    setData: {
+        iOS: [
+            "FirebaseWrapper",
+            "setData:value:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "setData",
+            "(Ljava/lang/String;Ljava/lang/String;)"
+        ]
+    },
+    fetchData: {
+        iOS: [
+            "FirebaseWrapper",
+            "fetchData:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "fetchData",
+            "(Ljava/lang/String;)"
+        ]
+    },
+    createChildAutoId: {
+        iOS: [
+            "FirebaseWrapper",
+            "createChildAutoId:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "createChildAutoId",
+            "(Ljava/lang/String;)Ljava/lang/String;"
+        ]
+    },
 }
 
 var NativeHelperListener = {};
