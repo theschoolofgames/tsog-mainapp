@@ -83,6 +83,13 @@ static UIViewController* viewController;
   [child setValue:values];
 }
 
++ (void)setNumber:(NSString*)key value:(NSNumber*)value {
+    FIRDatabaseReference* root = [[FIRDatabase database] reference];
+    FIRDatabaseReference* child = [root child:key];
+    
+    [child setValue:value];
+}
+
 + (void)fetchData:(NSString*)path {
   FIRDatabaseReference* root = [[FIRDatabase database] reference];
   FIRDatabaseReference* child = [root child:path];
@@ -102,7 +109,7 @@ static UIViewController* viewController;
       }
     }
     
-    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', [%@, %@])", child.key, dataString]];
+    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', ['%@', '%@'])", child.key, dataString]];
   }];
 }
 

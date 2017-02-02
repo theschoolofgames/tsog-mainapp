@@ -1,7 +1,7 @@
 var Child = cc.Class.extend({
     _id: null,
 
-    _gold: 0,
+    _coin: 0,
     _diamond: 0,
 
     ctor: function(id) {
@@ -9,7 +9,7 @@ var Child = cc.Class.extend({
     },
 
     populateFirebaseData: function(data) {
-        this._gold = data.gold;
+        this._coin = data.coin;
         this._diamond = data.diamond;
     },
 
@@ -17,13 +17,13 @@ var Child = cc.Class.extend({
         return this._id;
     },
 
-    getGold: function() {
-        return this._gold;
+    getCoin: function() {
+        return this._coin;
     },
 
-    setGold: function(g) {
-        this._gold = g;
-        FirebaseManager.getInstance().setData("children/" + this._id, this._gold);
+    setCoin: function(g) {
+        this._coin = g;
+        FirebaseManager.getInstance().setData("children/" + this._id + "/coin", this._coin);
     },
 
     getDiamond: function() {
@@ -32,13 +32,13 @@ var Child = cc.Class.extend({
 
     setDiamond: function(d) {
         this._diamond = d;
-        FirebaseManager.getInstance().setData("children/" + this._id, this._diamond);
+        FirebaseManager.getInstance().setData("children/" + this._id + "/diamond", this._diamond);
     }
 });
 
 var _p = Child.prototype;
 
-cc.defineGetterSetter(_p, "gold", _p.getGold, _p.setGold);
+cc.defineGetterSetter(_p, "coin", _p.getCoint, _p.setCoint);
 cc.defineGetterSetter(_p, "diamond", _p.getDiamond, _p.setDiamond);
 
 p = null;

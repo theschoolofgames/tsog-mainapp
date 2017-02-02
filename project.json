@@ -35,6 +35,7 @@
         "res/lang/en_writing.js",
 
         "src/firebase/User.js",
+        "src/firebase/Child.js",
         
         "src/model/GameObject.js",
 

@@ -75,7 +75,6 @@ var FirebaseLayer = cc.LayerColor.extend({
     },
 
     reloadState: function() {
-        debugLogStackTrace();
         
         this._btnLogin.setEnabled(!User.isLoggedIn());
         this._btnLogout.setEnabled(User.isLoggedIn());
@@ -86,11 +85,11 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnHomeScene.setColor(this._btnHomeScene.enabled ? cc.color.WHITE : cc.color.GRAY);
 
         if (User.isLoggedIn()) {
-            var userInfo = FirebaseManager.getInstance().getUserInfo();
-            this._lbUid.string = userInfo.uid;
-            this._lbEmail.string = userInfo.email;
-            this._lbName.string = userInfo.name;
-            this._lbPhotoURL.string = userInfo.photoUrl;
+            var user = User.getCurrentUser();
+            this._lbUid.string = user.uid;
+            this._lbEmail.string = user.email;
+            this._lbName.string = user.name;
+            this._lbPhotoURL.string = user.photoUrl;
         } else {
             this._lbUid.string = this._lbEmail.string = this._lbName.string = this._lbPhotoURL.string = "";
         }

@@ -18,6 +18,8 @@ var User = cc.Class.extend({
             return;
         }
 
+        debugLog("updateUserInfo: " + JSON.stringify(data));
+
         this._name = data.name;
         this._email = data.email;
         this._photoUrl = data.photoUrl;
@@ -27,6 +29,7 @@ var User = cc.Class.extend({
     },
 
     populateFirebaseData: function(data) {
+        debugLog("User.populateFirebaseData: " + JSON.stringify(data));
         this._children = [];
         for(var i = 0; i < data.children.length; i++) {
             this._children.push(new Child(data.children[i]));
@@ -65,7 +68,7 @@ var User = cc.Class.extend({
 
     findChild: function(id) {
         for (var i = 0; i < this._children.length; i++) {
-            if (this._children[i].id == id)
+            if (this._children[i].getId() == id)
                 return this._children[i];
         }
         return null;
