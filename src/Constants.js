@@ -933,6 +933,9 @@ var FONT_NUMBER = [
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
 var MAX_BLOCK_NUMBER_SCALE = 0.8;
 var DYNAMIC_LINK = "https://ymt8s.app.goo.gl/?link=https://www.theschoolofgames.org/?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
+
+var GAME_OBJECTS_PROGRESS = "game_objects_progress";
+
 var NATIVE_SHARING_CAPTION = "Native sharing caption";
 var WHATSAPP_SHARING_CAPTION = "Whatsapp sharing caption";
 var FACEBOOK_SHARING_TITLE = "Facebook sharing title";
