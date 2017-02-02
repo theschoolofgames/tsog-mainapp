@@ -22,6 +22,7 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogin.x = 150;
         this._btnLogin.y = cc.winSize.height/2 + 200;
         this._btnLogin.addClickEventListener(function() {
+            debugLog("tapped _btnLogin");
             FirebaseManager.getInstance().login(function(succeed, msg) {
                 self.reloadState();
             })
@@ -34,6 +35,7 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogout.x = 150;
         this._btnLogout.y = cc.winSize.height/2 + 150;
         this._btnLogout.addClickEventListener(function() {
+            debugLog("tapped _btnLogout");
             FirebaseManager.getInstance().logout(function() {
                 self.reloadState();
             })
@@ -46,6 +48,7 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnHomeScene.x = 150;
         this._btnHomeScene.y = cc.winSize.height/2 + 100;
         this._btnHomeScene.addClickEventListener(function() {
+            debugLog("tapped _btnHomeScene");
             cc.director.runScene(new HomeScene());
         });
         this.addChild(this._btnHomeScene);
@@ -56,6 +59,7 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnShare.x = 150;
         this._btnShare.y = cc.winSize.height / 2 + 50;
         this._btnShare.addClickEventListener(function() {
+            debugLog("tapped _btnShare");
             var shareDialog = new ShareDialog();
             this.addChild(shareDialog, 99999);
         }.bind(this));
@@ -121,6 +125,7 @@ var FirebaseLayer = cc.LayerColor.extend({
     },
 
     reloadState: function() {
+        // debugLogStackTrace();
         
         this._btnLogin.setEnabled(!User.isLoggedIn());
         this._btnLogout.setEnabled(User.isLoggedIn());

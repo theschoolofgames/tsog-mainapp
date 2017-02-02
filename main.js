@@ -162,8 +162,7 @@ cc.game.onStart = function(){
         
         cc.audioEngine.setMusicVolume(1);
 
-        if (User.isLoggedIn())
-            FirebaseManager.getInstance().authenticate();
+        FirebaseManager.getInstance().authenticate();
         ProgressTracker.setupInstance();
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new HomeScene());
