@@ -19,6 +19,8 @@
 
 #import "Dialog.h"
 
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 #import "AppController.h"
 
 static UIViewController* viewController;
@@ -358,4 +360,24 @@ static NSMutableArray* noiseDetectionArray = nil;
     }
 }
 
+
++(void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url {
+    FBSDKShareLinkContent* content = [[FBSDKShareLinkContent alloc] init];
+    content.contentTitle = title;
+    content.contentDescription = description;
+    content.contentURL = [NSURL URLWithString:url];
+    
+    FBSDKShareDialog* dialog = [[FBSDKShareDialog alloc] init];
+    dialog.fromViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    dialog.mode = FBSDKShareDialogModeNative;
+    dialog.shareContent = content;
+    
+    if (![dialog canShow]) {
+        dialog.mode = FBSDKShareDialogModeBrowser;
+    }
+    
+    [dialog show];
+    
+//    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
+}
 @end

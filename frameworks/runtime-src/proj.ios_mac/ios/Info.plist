@@ -89,6 +89,7 @@
 	<string>TSOG</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>fbapi20150629</string>
 		<string>whatsapp</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>

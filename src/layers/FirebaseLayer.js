@@ -55,7 +55,7 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnNativeShare.x = 150;
         this._btnNativeShare.y = cc.winSize.height/2 + 50;
         this._btnNativeShare.addClickEventListener(function() {
-            NativeHelper.callNative("shareNative", ["hello", cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+            NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
         }.bind(this));
         this.addChild(this._btnNativeShare);
 
@@ -65,10 +65,21 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnWhatsappShare.x = 150;
         this._btnWhatsappShare.y = cc.winSize.height/2;
         this._btnWhatsappShare.addClickEventListener(function() {
-            NativeHelper.callNative("shareWhatsapp", ["hello", cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+            NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
         }.bind(this));
         this.addChild(this._btnWhatsappShare);
 
+        this._btnFacebookShare = new ccui.Button();
+        this._btnFacebookShare.titleText = "Share Facebook";
+        this._btnFacebookShare.titleFontSize = 30;
+        this._btnFacebookShare.x = 150;
+        this._btnFacebookShare.y = cc.winSize.height/2 - 50;
+        this._btnFacebookShare.addClickEventListener(function() {
+            NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
+                                    FACEBOOK_SHARING_DESCRIPTION,
+                                    cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        }.bind(this));
+        this.addChild(this._btnFacebookShare);
 
         this._lbName = new ccui.Text();
         this._lbName.fontSize = 24;
@@ -103,11 +114,14 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogout.setEnabled(User.isLoggedIn());
         this._btnHomeScene.setEnabled(User.isLoggedIn());
         this._btnNativeShare.setEnabled(User.isLoggedIn());
+        this._btnFacebookShare.setEnabled(User.isLoggedIn());     
 
         this._btnLogin.setColor(this._btnLogin.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnLogout.setColor(this._btnLogout.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnHomeScene.setColor(this._btnHomeScene.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnNativeShare.setColor(this._btnNativeShare.enabled ? cc.color.WHITE : cc.color.GRAY);
+        this._btnWhatsappShare.setColor(this._btnNativeShare.enabled ? cc.color.WHITE : cc.color.GRAY);
+        this._btnFacebookShare.setColor(this._btnNativeShare.enabled ? cc.color.WHITE : cc.color.GRAY);
 
         if (User.isLoggedIn()) {
             var user = User.getCurrentUser();

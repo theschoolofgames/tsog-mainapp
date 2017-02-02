@@ -22,6 +22,7 @@
 
 + (void)shareNativeWithCaption:(NSString*)caption andURL:(NSString*)url;
 + (void)shareWhatsappWithCaption:(NSString*)caption andURL:(NSString*)url;
++(void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url;
 
 @end
 
