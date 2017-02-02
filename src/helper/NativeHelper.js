@@ -351,15 +351,26 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)"
         ]
     },
-    setNumber: {
+    setInteger: {
         iOS: [
             "FirebaseWrapper",
-            "setNumber:value:"
+            "setInteger:value:"
         ],
         Android: [
             "com/h102/FirebaseWrapper",
-            "setNumber",
-            "(Ljava/lang/String;Ljava/lang/Number;)"
+            "setInteger",
+            "(Ljava/lang/String;I)V"
+        ]
+    },
+    setFloat: {
+        iOS: [
+            "FirebaseWrapper",
+            "setFloat:value:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "setFloat",
+            "(Ljava/lang/String;F)V"
         ]
     },
     fetchData: {

@@ -49,7 +49,11 @@ var FirebaseManager = cc.Class.extend({
 
         var method = "setData";
         if (typeof data === "number") {
-            method = "setNumber";
+            if (data % 1 === 0) {
+                method = "setInteger";
+            } else {
+                method = "setFloat";
+            }
         }
         NativeHelper.callNative(method, [path, data]);
     },

@@ -83,11 +83,16 @@ static UIViewController* viewController;
   [child setValue:values];
 }
 
-+ (void)setNumber:(NSString*)key value:(NSNumber*)value {
++ (void)setInteger:(NSString*)key value:(NSNumber*)value {
     FIRDatabaseReference* root = [[FIRDatabase database] reference];
     FIRDatabaseReference* child = [root child:key];
     
     [child setValue:value];
+}
+
++ (void)setFloat:(NSString*)key value:(NSNumber*)value {
+    // obj-c can use NSNumber here
+    [self setInteger:key value:value];
 }
 
 + (void)fetchData:(NSString*)path {

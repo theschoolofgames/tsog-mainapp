@@ -113,7 +113,13 @@ public class FirebaseWrapper {
         child.setValue(data);
     }
 
-    public static void setNumber(String path, Number value) {
+    public static void setInteger(String path, int value) {
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference child = root.child(path);
+        child.setValue(value);
+    }
+
+    public static void setFloat(String path, float value) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference child = root.child(path);
         child.setValue(value);
