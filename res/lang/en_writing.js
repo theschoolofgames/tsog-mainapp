@@ -466,6 +466,10 @@ languagesForWriting["en"] = {
     "line": "line",
     "curved-line": "curved-line",
     "straight-line": "straight-line",
+    "adi": "adi",
+    "monkey": "monkey",
+    "lion": "lion",
+    "penguin": "penguin",
 
     "you win": "you win",
     "choose language": "Choose Language",
