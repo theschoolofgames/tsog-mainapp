@@ -42,6 +42,8 @@
 
 @implementation AppController
 
+@synthesize viewController = _viewController;
+
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -65,32 +67,32 @@ static AppDelegate s_sharedApplication;
 
     [eaglView setMultipleTouchEnabled:YES];
     
-    // Use RootViewController manage CCEAGLView
-    viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    viewController.wantsFullScreenLayout = YES;
-    viewController.view = eaglView;
+    // Use Root__viewController manage CCEAGLView
+    _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    _viewController.wantsFullScreenLayout = YES;
+    _viewController.view = eaglView;
 
-    // Set RootViewController to window
+    // Set Root_viewController to window
     if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
     {
         // warning: addSubView doesn't work on iOS6
-        [window addSubview: viewController.view];
+        [window addSubview: _viewController.view];
     }
     else
     {
         // use this method on ios6
-        [window setRootViewController:viewController];
+        [window setRootViewController:_viewController];
     }
     
     [window makeKeyAndVisible];
 
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
-    [FirebaseWrapper setCurrentViewController:viewController];
+    [FirebaseWrapper setCurrentViewController:_viewController];
   
   cocos2d::experimental::AudioEngine::lazyInit();
 
-    // IMPORTANT: Setting the GLView should be done after creating the RootViewController
+    // IMPORTANT: Setting the GLView should be done after creating the Root_viewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
