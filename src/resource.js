@@ -72,6 +72,7 @@ var res = {
     Forest_Config_JSON: "config/forest.json",
     Game_Config_JSON: "config/game.json",
     Room_Config_JSON: "config/room.json",
+    Progress_Config_JSON: "config/progresstracker.json",
     Writing_config_JSON: "config/writing_test.json",
     Updated_config_JSON: "config/updated.json",
     Game_Object_JSON: "config/game_object.json",

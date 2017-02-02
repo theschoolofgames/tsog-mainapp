@@ -2,7 +2,9 @@ var FirebaseLayer = cc.LayerColor.extend({
     _btnLogin: null,
     _btnLogout: null,
     _btnHomeScene: null,
-    _btnNativeShare: null,
+    _btnShare: null,
+    // _btnNativeShare: null,
+    // _btnWhatsappShare: null,
 
     _lbName: null,
     _lbEmail: null,
@@ -48,16 +50,48 @@ var FirebaseLayer = cc.LayerColor.extend({
         });
         this.addChild(this._btnHomeScene);
 
-        this._btnNativeShare = new ccui.Button();
-        this._btnNativeShare.titleText = "Share native";
-        this._btnNativeShare.titleFontSize = 30;
-        this._btnNativeShare.x = 150;
-        this._btnNativeShare.y = cc.winSize.height/2 + 50;
-        this._btnNativeShare.addClickEventListener(function() {
-            var firebase_uid = FirebaseManager.getInstance().getUserInfo().uid;
-            NativeHelper.callNative("shareNative", ["hello", cc.formatStr(DYNAMIC_LINK, firebase_uid)]);
-        });
-        this.addChild(this._btnNativeShare);
+        this._btnShare = new ccui.Button();
+        this._btnShare.titleText = "SHARE DIALOG";
+        this._btnShare.titleFontSize = 30;
+        this._btnShare.x = 150;
+        this._btnShare.y = cc.winSize.height / 2 + 50;
+        this._btnShare.addClickEventListener(function() {
+            var shareDialog = new ShareDialog();
+            this.addChild(shareDialog, 99999);
+        }.bind(this));
+        this.addChild(this._btnShare);
+
+        // this._btnNativeShare = new ccui.Button();
+        // this._btnNativeShare.titleText = "Share native";
+        // this._btnNativeShare.titleFontSize = 30;
+        // this._btnNativeShare.x = 150;
+        // this._btnNativeShare.y = cc.winSize.height/2 + 50;
+        // this._btnNativeShare.addClickEventListener(function() {
+        //     NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        // }.bind(this));
+        // this.addChild(this._btnNativeShare);
+
+        // this._btnWhatsappShare = new ccui.Button();
+        // this._btnWhatsappShare.titleText = "Share Whatsapp";
+        // this._btnWhatsappShare.titleFontSize = 30;
+        // this._btnWhatsappShare.x = 150;
+        // this._btnWhatsappShare.y = cc.winSize.height/2;
+        // this._btnWhatsappShare.addClickEventListener(function() {
+        //     NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        // }.bind(this));
+        // this.addChild(this._btnWhatsappShare);
+
+        // this._btnFacebookShare = new ccui.Button();
+        // this._btnFacebookShare.titleText = "Share Facebook";
+        // this._btnFacebookShare.titleFontSize = 30;
+        // this._btnFacebookShare.x = 150;
+        // this._btnFacebookShare.y = cc.winSize.height/2 - 50;
+        // this._btnFacebookShare.addClickEventListener(function() {
+        //     NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
+        //                             FACEBOOK_SHARING_DESCRIPTION,
+        //                             cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        // }.bind(this));
+        // this.addChild(this._btnFacebookShare);
 
         this._lbName = new ccui.Text();
         this._lbName.fontSize = 24;
@@ -91,12 +125,12 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogin.setEnabled(!User.isLoggedIn());
         this._btnLogout.setEnabled(User.isLoggedIn());
         this._btnHomeScene.setEnabled(User.isLoggedIn());
-        this._btnNativeShare.setEnabled(User.isLoggedIn());
+        this._btnShare.setEnabled(User.isLoggedIn());  
 
         this._btnLogin.setColor(this._btnLogin.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnLogout.setColor(this._btnLogout.enabled ? cc.color.WHITE : cc.color.GRAY);
         this._btnHomeScene.setColor(this._btnHomeScene.enabled ? cc.color.WHITE : cc.color.GRAY);
-        this._btnNativeShare.setColor(this._btnNativeShare.enabled ? cc.color.WHITE : cc.color.GRAY);
+        this._btnShare.setColor(this._btnShare.enabled ? cc.color.WHITE : cc.color.GRAY);
 
         if (User.isLoggedIn()) {
             var user = User.getCurrentUser();

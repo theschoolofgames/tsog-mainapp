@@ -19,6 +19,8 @@
 
 #import "Dialog.h"
 
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
 #import "AppController.h"
 
 static UIViewController* viewController;
@@ -322,7 +324,7 @@ static NSMutableArray* noiseDetectionArray = nil;
   }
 }
 
-+ (void)shareWithCaption:(NSString*)caption andURL:(NSString*)url {
++ (void)shareNativeWithCaption:(NSString*)caption andURL:(NSString*)url {
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = (UIViewController*)appController.viewController;
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:@[caption, url] applicationActivities:nil];
@@ -339,4 +341,52 @@ static NSMutableArray* noiseDetectionArray = nil;
     }
 }
 
++ (void)shareWhatsappWithCaption:(NSString*)caption andURL:(NSString*)url {
+    url = [url stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+    url = [url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    url = [url stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+    url = [url stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+    url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+    url = [url stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    caption = [caption stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    caption = [caption stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    NSString* urlWhats = [NSString stringWithFormat:@"whatsapp://send?text=%@%@%@", caption, @"%0A", url];
+//    NSString *urlWhats = @"whatsapp://send?text=Hello%2C%20World!";
+    NSURL* whatsappURL = [NSURL URLWithString:urlWhats];
+    if ([[UIApplication sharedApplication] canOpenURL:whatsappURL]) {
+        [[UIApplication sharedApplication] openURL:whatsappURL];
+    } else {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"WhatsApp not installed" message:@"Your device has no WhatsApp installed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+
++(void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url {
+    FBSDKShareLinkContent* content = [[FBSDKShareLinkContent alloc] init];
+    content.contentTitle = title;
+    content.contentDescription = description;
+    content.contentURL = [NSURL URLWithString:url];
+    
+    FBSDKShareDialog* dialog = [[FBSDKShareDialog alloc] init];
+    dialog.fromViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    dialog.mode = FBSDKShareDialogModeNative;
+    dialog.shareContent = content;
+    
+    if (![dialog canShow]) {
+        dialog.mode = FBSDKShareDialogModeBrowser;
+    }
+    
+    [dialog show];
+    
+//    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
+}
 @end

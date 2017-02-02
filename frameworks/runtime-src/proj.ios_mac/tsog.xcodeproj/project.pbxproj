@@ -350,6 +350,7 @@
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
 		5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B241EFBA459BB96B1F452E /* sdkbox.framework */; };
+		5EFA74811E433E570023E1AD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */; };
 		8462450698AB583F2ECECAF4 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */; };
 		A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */; };
 		A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A92275411517C094001B78AA /* QuartzCore.framework */; };
@@ -1059,6 +1060,7 @@
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		5B2F464CA08F5688CCE2ACB5 /* PluginIAPJSHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginIAPJSHelper.h; path = ../Classes/PluginIAPJSHelper.h; sourceTree = SOURCE_ROOT; };
 		5ED6680F1E373542002F3FE8 /* tsog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tsog.entitlements; sourceTree = "<group>"; };
+		5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		711C4CF98DC325D005838185 /* PluginIAPJSHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginIAPJSHelper.cpp; path = ../Classes/PluginIAPJSHelper.cpp; sourceTree = SOURCE_ROOT; };
 		7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginIAP.framework; sourceTree = SOURCE_ROOT; };
 		7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = SDKBoxJSHelper.cpp; path = ../Classes/SDKBoxJSHelper.cpp; sourceTree = SOURCE_ROOT; };
@@ -1194,6 +1196,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EFA74811E433E570023E1AD /* FBSDKShareKit.framework in Frameworks */,
 				0178BCF41C55EEB000018225 /* OpenAL.framework in Frameworks */,
 				01FDB8931C32773200D21971 /* CoreAudio.framework in Frameworks */,
 				01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */,
@@ -2236,6 +2239,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */,
 				01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */,
 				01F3C1451DF67F1100B6FE43 /* AcousticModelSwahili.bundle */,
 				0178BCF31C55EEB000018225 /* OpenAL.framework */,

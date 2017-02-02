@@ -1,0 +1,217 @@
+{
+  "word_a": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_b": {
+    "completedLevelIds": {
+      "1-1": true
+    }
+  },
+  "word_c": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_d": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_e": {
+    "completedLevelIds": {
+      "1-1": true
+    }
+  },
+  "word_f": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_g": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_h": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "word_i": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true,
+      "1-3": true
+    }
+  },
+  "number_1": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true,
+      "1-3": true
+    }
+  },
+  "number_2": {
+    "completedLevelIds": {
+      "1-1": true
+    }
+  },
+  "number_3": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_4": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_5": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_6": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_7": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_8": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "number_9": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "egg": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "bun": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "cap": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "book": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "ball": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "queen": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "lamp": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "tiger": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "cat": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+1=2": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+2=3": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+4=5": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+5=6": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+6=7": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+7=8": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "1+8=9": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "2+3=5": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  },
+  "3+4=7": {
+    "completedLevelIds": {
+      "1-1": true,
+      "1-2": true
+    }
+  }
+}
