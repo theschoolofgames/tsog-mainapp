@@ -3,6 +3,7 @@ var FirebaseLayer = cc.LayerColor.extend({
     _btnLogout: null,
     _btnHomeScene: null,
     _btnNativeShare: null,
+    _btnWhatsappShare: null,
 
     _lbName: null,
     _lbEmail: null,
@@ -54,10 +55,20 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnNativeShare.x = 150;
         this._btnNativeShare.y = cc.winSize.height/2 + 50;
         this._btnNativeShare.addClickEventListener(function() {
-            var firebase_uid = FirebaseManager.getInstance().getUserInfo().uid;
-            NativeHelper.callNative("shareNative", ["hello", cc.formatStr(DYNAMIC_LINK, firebase_uid)]);
-        });
+            NativeHelper.callNative("shareNative", ["hello", cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        }.bind(this));
         this.addChild(this._btnNativeShare);
+
+        this._btnWhatsappShare = new ccui.Button();
+        this._btnWhatsappShare.titleText = "Share Whatsapp";
+        this._btnWhatsappShare.titleFontSize = 30;
+        this._btnWhatsappShare.x = 150;
+        this._btnWhatsappShare.y = cc.winSize.height/2;
+        this._btnWhatsappShare.addClickEventListener(function() {
+            NativeHelper.callNative("shareWhatsapp", ["hello", cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        }.bind(this));
+        this.addChild(this._btnWhatsappShare);
+
 
         this._lbName = new ccui.Text();
         this._lbName.fontSize = 24;

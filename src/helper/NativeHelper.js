@@ -387,7 +387,23 @@ var NativeHelperConfig = {
     shareNative: {
         iOS: [
             "H102Wrapper",
-            "shareWithCaption:andURL:"
+            "shareNativeWithCaption:andURL:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "shareNative",
+            "(V)Ljava/lang/String;Ljava/lang/String;"
+        ]
+    },
+    shareWhatsapp: {
+        iOS: [
+            "H102Wrapper",
+            "shareWhatsappWithCaption:andURL:"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "shareWhatsapp",
+            "(V)Ljava/lang/String;Ljava/lang/String;"   
         ]
     }
 }

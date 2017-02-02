@@ -322,7 +322,7 @@ static NSMutableArray* noiseDetectionArray = nil;
   }
 }
 
-+ (void)shareWithCaption:(NSString*)caption andURL:(NSString*)url {
++ (void)shareNativeWithCaption:(NSString*)caption andURL:(NSString*)url {
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = (UIViewController*)appController.viewController;
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:@[caption, url] applicationActivities:nil];
@@ -336,6 +336,25 @@ static NSMutableArray* noiseDetectionArray = nil;
         CGRect rect = CGRectMake(rootController.view.bounds.size.width/2, rootController.view.bounds.size.height/2, 1, 1);
         //Change rect according to where you need to display it. Using a junk value here
         [popup presentPopoverFromRect:rect inView:rootController.view permittedArrowDirections:0 animated:YES];
+    }
+}
+
++ (void)shareWhatsappWithCaption:(NSString*)caption andURL:(NSString*)url {
+    url = [url stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+    url = [url stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    url = [url stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+    url = [url stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+    url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+    url = [url stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    
+    NSString* urlWhats = [NSString stringWithFormat:@"whatsapp://send?text=%@%@%@", caption, @"%0A", url];
+//    NSString *urlWhats = @"whatsapp://send?text=Hello%2C%20World!";
+    NSURL* whatsappURL = [NSURL URLWithString:urlWhats];
+    if ([[UIApplication sharedApplication] canOpenURL:whatsappURL]) {
+        [[UIApplication sharedApplication] openURL:whatsappURL];
+    } else {
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"WhatsApp not installed" message:@"Your device has no WhatsApp installed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
     }
 }
 

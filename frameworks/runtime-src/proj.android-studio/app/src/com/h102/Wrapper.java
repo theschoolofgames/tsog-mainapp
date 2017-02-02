@@ -372,4 +372,13 @@ public class Wrapper
         else
             Executors.newSingleThreadExecutor().execute(runnable);
     }
+
+    public static void share(String caption, String url) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TITLE, caption);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+        sendIntent.setType("text/plain");
+        activity.startActivity(sendIntent);
+    }
 }
