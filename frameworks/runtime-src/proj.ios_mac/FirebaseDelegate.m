@@ -15,7 +15,8 @@
     if (user)
         [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onLoggedIn',[true, null])"]];
     else {
-        [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onLoggedIn',[false, %@])", error.localizedDescription]];
+        NSString* error_ = [error.localizedDescription stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onLoggedIn',[false, '%@'])", error_]];
     }
 }
 
