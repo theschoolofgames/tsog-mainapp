@@ -58,14 +58,18 @@ var FirebaseManager = cc.Class.extend({
     onLoggedIn: function(succeed, msg) {
         var cb = this._cbs.login;
         delete this._cbs.login;
-        cb && cb(succeed, msg);
 
         this._updateDataModel();
+
+        cb && cb(succeed, msg);
     },
     
     onLoggedOut: function() {
         var cb = this._cbs.logout;
         delete this._cbs.logout;
+
+        User.logout();
+        
         cb && cb();
     },
 

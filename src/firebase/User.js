@@ -105,6 +105,11 @@ User.getCurrentChild = function() {
     return User.getCurrentUser().getCurrentChild();
 };
 
+User.logout = function() {
+    User._instance = null;
+    return true;
+};
+
 User.setCurrentUser = function(data) {
     debugLogStackTrace();
     cc.assert(data != null, "data cannot be null");
