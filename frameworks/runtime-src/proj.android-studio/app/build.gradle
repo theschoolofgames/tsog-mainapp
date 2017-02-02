@@ -30,7 +30,7 @@ android {
 
     signingConfigs {
 
-       release {
+        release {
             if (project.hasProperty("RELEASE_STORE_FILE")) {
                 storeFile file(RELEASE_STORE_FILE)
                 storePassword RELEASE_STORE_PASSWORD
@@ -70,17 +70,22 @@ crashlytics {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
-    compile 'com.google.code.gson:gson:2.4'
-    compile 'commons-io:commons-io:2.4'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.3@aar') {
         transitive = true
     }
     compile('com.crashlytics.sdk.android:crashlytics-ndk:1.1.2@aar') {
         transitive = true
     }
-    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.google.code.gson:gson:2.4'
+    compile 'commons-io:commons-io:2.4'
+    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.google.firebase:firebase-database:10.0.1'
+    compile 'com.google.firebase:firebase-config:10.0.1'
+    compile 'com.google.firebase:firebase-invites:10.0.1'
 }
 
 ant.importBuild 'assets.xml'
 preBuild.dependsOn(list, checksum)
 clean.dependsOn(clean_assets)
+apply plugin: 'com.google.gms.google-services'

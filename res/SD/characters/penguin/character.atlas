@@ -1,0 +1,97 @@
+
+character.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: true
+  xy: 2, 51
+  size: 198, 346
+  orig: 198, 346
+  offset: 0, 0
+  index: -1
+close eye
+  rotate: false
+  xy: 799, 211
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 350, 78
+  size: 95, 39
+  orig: 95, 39
+  offset: 0, 0
+  index: -1
+hand L
+  rotate: false
+  xy: 453, 126
+  size: 94, 123
+  orig: 94, 123
+  offset: 0, 0
+  index: -1
+hand L 2
+  rotate: false
+  xy: 350, 119
+  size: 101, 130
+  orig: 101, 130
+  offset: 0, 0
+  index: -1
+hand R
+  rotate: false
+  xy: 549, 126
+  size: 94, 123
+  orig: 94, 123
+  offset: 0, 0
+  index: -1
+leg L
+  rotate: false
+  xy: 645, 169
+  size: 75, 80
+  orig: 75, 80
+  offset: 0, 0
+  index: -1
+leg R
+  rotate: false
+  xy: 722, 169
+  size: 75, 80
+  orig: 75, 80
+  offset: 0, 0
+  index: -1
+mo hong
+  rotate: false
+  xy: 645, 158
+  size: 74, 9
+  orig: 74, 9
+  offset: 0, 0
+  index: -1
+mui
+  rotate: false
+  xy: 350, 43
+  size: 27, 33
+  orig: 27, 33
+  offset: 0, 0
+  index: -1
+sao bien
+  rotate: false
+  xy: 283, 6
+  size: 65, 43
+  orig: 65, 43
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 2
+  size: 279, 47
+  orig: 279, 47
+  offset: 0, 0
+  index: -1
+trong mat L
+  rotate: false
+  xy: 645, 129
+  size: 23, 27
+  orig: 23, 27
+  offset: 0, 0
+  index: -1

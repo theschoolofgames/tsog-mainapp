@@ -89,12 +89,12 @@
             "type": "STAND_ITEM"
         },
         {
-            "imageName": "eagle",
-            "type": "EAGLE_ITEM"
-        },
-        {
             "imageName": "horse",
             "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "eagle",
+            "type": "EAGLE_ITEM"
         },
         {
             "imageName": "puppy",
@@ -302,113 +302,7 @@
             "anchorY": 0.5
         }
     ],
-    "eagle": [
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        },
-        {
-            "x": 462,
-            "y": 310,
-            "z": 2,
-            "anchorX": 0.5,
-            "anchorY": 0
-        }
-    ],
+    
     "fly": [
         {
             "x": 759 ,
@@ -517,7 +411,113 @@
         }
 
     ],
-
+    "eagle": [
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 462,
+            "y": 310,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        }
+    ],
     "water": [
         {
             "x": 630,

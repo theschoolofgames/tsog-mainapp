@@ -421,7 +421,7 @@ Utils.runAnimation = function(node, effectName, effectDelay, effectFrames, loop,
             actions
         ));
     }
-    cc.log("runAction");
+    // cc.log("runAction");
     node.runAction(effectAction);
 }
 
