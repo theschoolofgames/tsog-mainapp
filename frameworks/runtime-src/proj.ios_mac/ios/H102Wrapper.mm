@@ -348,6 +348,15 @@ static NSMutableArray* noiseDetectionArray = nil;
     url = [url stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
     url = [url stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
     url = [url stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    url = [url stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+    
+    caption = [caption stringByReplacingOccurrencesOfString:@":" withString:@"%3A"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"?" withString:@"%3F"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"," withString:@"%2C"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"=" withString:@"%3D"];
+    caption = [caption stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    caption = [caption stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
     
     NSString* urlWhats = [NSString stringWithFormat:@"whatsapp://send?text=%@%@%@", caption, @"%0A", url];
 //    NSString *urlWhats = @"whatsapp://send?text=Hello%2C%20World!";

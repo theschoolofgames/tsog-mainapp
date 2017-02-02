@@ -115,6 +115,8 @@
         "src/layers/Alphabet/SpeakingTestForFruiddition.js",
         "src/layers/Alphabet/SpeakingTestForBuildingBlocks.js",
 
+        "src/layers/ShareDialog.js",
+
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARHudLayer.js",
         "src/layers/AlphaRacing/AREffectLayer.js",
