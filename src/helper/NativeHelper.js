@@ -384,6 +384,12 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;)Ljava/lang/String;"
         ]
     },
+    shareNative: {
+        iOS: [
+            "H102Wrapper",
+            "shareWithCaption:andURL:"
+        ]
+    }
 }
 
 var NativeHelperListener = {};

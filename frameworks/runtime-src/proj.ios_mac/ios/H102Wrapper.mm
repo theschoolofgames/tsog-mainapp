@@ -19,6 +19,8 @@
 
 #import "Dialog.h"
 
+#import "AppController.h"
+
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL invalidateTimer = NO;
@@ -318,6 +320,23 @@ static NSMutableArray* noiseDetectionArray = nil;
       });
     }];
   }
+}
+
++ (void)shareWithCaption:(NSString*)caption andURL:(NSString*)url {
+    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+    UIViewController *rootController = (UIViewController*)appController.viewController;
+    UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:@[caption, url] applicationActivities:nil];
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        // For iPhone
+        [rootController presentViewController:activityController animated:YES completion:nil];
+    } else {
+        // For iPad, present it as a popover as you already know
+        UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityController];
+        CGRect rect = CGRectMake(rootController.view.bounds.size.width/2, rootController.view.bounds.size.height/2, 1, 1);
+        //Change rect according to where you need to display it. Using a junk value here
+        [popup presentPopoverFromRect:rect inView:rootController.view permittedArrowDirections:0 animated:YES];
+    }
 }
 
 @end

@@ -932,3 +932,4 @@ var FONT_NUMBER = [
 
 var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
 var MAX_BLOCK_NUMBER_SCALE = 0.8;
+var DYNAMIC_LINK = "https://ymt8s.app.goo.gl/?link=https://www.theschoolofgames.org/?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
