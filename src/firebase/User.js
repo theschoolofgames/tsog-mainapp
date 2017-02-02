@@ -18,6 +18,8 @@ var User = cc.Class.extend({
             return;
         }
 
+        debugLog("updateUserInfo: " + JSON.stringify(data));
+
         this._name = data.name;
         this._email = data.email;
         this._photoUrl = data.photoUrl;
@@ -27,6 +29,7 @@ var User = cc.Class.extend({
     },
 
     populateFirebaseData: function(data) {
+        debugLog("User.populateFirebaseData: " + JSON.stringify(data));
         this._children = [];
         for(var i = 0; i < data.children.length; i++) {
             this._children.push(new Child(data.children[i]));
@@ -65,7 +68,7 @@ var User = cc.Class.extend({
 
     findChild: function(id) {
         for (var i = 0; i < this._children.length; i++) {
-            if (this._children[i].id == id)
+            if (this._children[i].getId() == id)
                 return this._children[i];
         }
         return null;
@@ -73,6 +76,10 @@ var User = cc.Class.extend({
 
     getFirstChild: function() {
         return this._children[0];
+    },
+
+    getCurrentChild: function() {
+        return this.getFirstChild();
     }
 });
 
@@ -87,11 +94,30 @@ p = null;
 
 User._instance = null;
 
-User.getInstance = function () {
-  return User._instance || User.setupInstance();
+User.getCurrentUser = function () {
+  return User._instance;
 };
 
-User.setupInstance = function () {
+User.isLoggedIn = function() {
+    return User._instance != null;
+};
+
+User.getCurrentChild = function() {
+    cc.assert(User.isLoggedIn(), "user is not logged in");
+
+    return User.getCurrentUser().getCurrentChild();
+};
+
+User.logout = function() {
+    User._instance = null;
+    return true;
+};
+
+User.setCurrentUser = function(data) {
+    debugLogStackTrace();
+    cc.assert(data != null, "data cannot be null");
+
     User._instance = new User();
+    User._instance.updateUserInfo(data);
     return User._instance;
-}
+};

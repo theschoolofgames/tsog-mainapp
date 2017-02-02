@@ -27,10 +27,14 @@ var FirebaseManager = cc.Class.extend({
 
     getUserInfo: function() {
         var data = NativeHelper.callNative("getUserInfo");
-        if (!data)
-            return null;
+        debugLog("getUserInfo: " + data);
+        return data;
+    },
 
-        return User.getInstance().updateUserInfo(data);
+    authenticate: function() {
+        debugLog("FirebaseManager.authenticate");
+        User.setCurrentUser(this.getUserInfo());
+        this._updateDataModel();
     },
 
     setData: function(path, value) {
@@ -38,10 +42,15 @@ var FirebaseManager = cc.Class.extend({
         if (value instanceof Array || value instanceof Object)
             data = JSON.stringify(value);
 
-        NativeHelper.callNative("setData", [path, data]);
+        var method = "setData";
+        if (typeof data === "number") {
+            method = "setNumber";
+        }
+        NativeHelper.callNative(method, [path, data]);
     },
 
     fetchData: function(path, cb) {
+        debugLog("fetchData: " + path);
         this._cbs.fetchData = cb;
         NativeHelper.callNative("fetchData", [path]);
     },
@@ -54,14 +63,18 @@ var FirebaseManager = cc.Class.extend({
     onLoggedIn: function(succeed, msg) {
         var cb = this._cbs.login;
         delete this._cbs.login;
-        cb && cb(succeed, msg);
 
-        this._updateDataModel();
+        this.authenticate();
+
+        cb && cb(succeed, msg);
     },
     
     onLoggedOut: function() {
         var cb = this._cbs.logout;
         delete this._cbs.logout;
+
+        User.logout();
+
         cb && cb();
     },
 
@@ -79,10 +92,11 @@ var FirebaseManager = cc.Class.extend({
 
     // private
     _updateDataModel: function() {
+        debugLog("_updateDataModel");
 
         var self = this;
 
-        var user = this.getUserInfo();
+        var user = User.getCurrentUser();
         var waterfallPromises = [];
 
         // User
@@ -130,13 +144,13 @@ var FirebaseManager = cc.Class.extend({
                                 shouldUpdate = true;
                             }
 
-                            if (!data.hasOwnProperty("gold")) {
-                                data.gold = COIN_START_GAME;
+                            if (!data.hasOwnProperty("coin")) {
+                                data.coin = COIN_START_GAME;
                                 shouldUpdate = true;
                             }
 
                             if (!data.hasOwnProperty("diamond")) {
-                                data.diamond = 0;
+                                data.diamond = DIAMOND_START_GAME;
                                 shouldUpdate = true;
                             }
 
@@ -144,7 +158,7 @@ var FirebaseManager = cc.Class.extend({
                                 self.setData(path, data);
 
                             var child = user.findChild(key);
-                            cc.assert(child == null, "child with id " + key + " is null");
+                            cc.assert(child, "child with id " + key + " is null");
                             child.populateFirebaseData(data);
                             
                             callback(null);

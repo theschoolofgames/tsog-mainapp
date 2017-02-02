@@ -1,0 +1,139 @@
+
+character.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Chan Phai
+  rotate: true
+  xy: 2, 2
+  size: 77, 107
+  orig: 77, 107
+  offset: 0, 0
+  index: -1
+Chan Trai
+  rotate: true
+  xy: 111, 2
+  size: 77, 107
+  orig: 77, 107
+  offset: 0, 0
+  index: -1
+Tay ph
+  rotate: true
+  xy: 210, 129
+  size: 76, 141
+  orig: 76, 141
+  offset: 0, 0
+  index: -1
+Tay trai
+  rotate: true
+  xy: 353, 129
+  size: 76, 141
+  orig: 76, 141
+  offset: 0, 0
+  index: -1
+Than
+  rotate: true
+  xy: 496, 103
+  size: 151, 159
+  orig: 151, 159
+  offset: 0, 0
+  index: -1
+dau
+  rotate: false
+  xy: 2, 81
+  size: 206, 173
+  orig: 206, 173
+  offset: 0, 0
+  index: -1
+long may phai
+  rotate: false
+  xy: 277, 107
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+long may trai
+  rotate: false
+  xy: 963, 206
+  size: 28, 19
+  orig: 28, 19
+  offset: 0, 0
+  index: -1
+mat ph
+  rotate: false
+  xy: 737, 191
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mat tr
+  rotate: false
+  xy: 856, 194
+  size: 52, 60
+  orig: 52, 60
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: false
+  xy: 210, 98
+  size: 65, 29
+  orig: 65, 29
+  offset: 0, 0
+  index: -1
+mui
+  rotate: false
+  xy: 963, 227
+  size: 49, 27
+  orig: 49, 27
+  offset: 0, 0
+  index: -1
+nham mat phai
+  rotate: false
+  xy: 797, 192
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+nham mat trai
+  rotate: false
+  xy: 910, 194
+  size: 51, 60
+  orig: 51, 60
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 210, 207
+  size: 279, 47
+  orig: 279, 47
+  offset: 0, 0
+  index: -1
+tai phai
+  rotate: false
+  xy: 657, 182
+  size: 78, 72
+  orig: 78, 72
+  offset: 0, 0
+  index: -1
+tai trai
+  rotate: false
+  xy: 657, 118
+  size: 61, 62
+  orig: 61, 62
+  offset: 0, 0
+  index: -1
+trong mat ph
+  rotate: false
+  xy: 309, 107
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+trong mat tr
+  rotate: false
+  xy: 993, 206
+  size: 19, 19
+  orig: 19, 19
+  offset: 0, 0
+  index: -1

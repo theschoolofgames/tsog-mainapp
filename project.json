@@ -36,6 +36,7 @@
 
         "src/firebase/User.js",
         "src/firebase/ProgressTracker.js",
+        "src/firebase/Child.js",
         
         "src/model/GameObject.js",
 
@@ -77,7 +78,6 @@
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",
         "src/layers/Alphabet/AdiDogNode.js",
-        "src/layers/Alphabet/CharacterAlpharacingNode.js",
         "src/layers/Alphabet/SpeakingTestLayer.js",
         "src/layers/Alphabet/Clock.js",
         "src/layers/Alphabet/ForestLayer.js",
@@ -131,6 +131,7 @@
         "src/layers/AlphaRacing/Boosters/ARInvisible.js",
         "src/layers/AlphaRacing/Boosters/ARMagnet.js",
         "src/layers/AlphaRacing/ARPlayer.js",
+        "src/layers/AlphaRacing/CharacterAlpharacingNode.js",
 
         "src/layers/SceneFlow/SceneFlowController.js",
         

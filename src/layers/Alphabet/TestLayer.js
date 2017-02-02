@@ -46,6 +46,7 @@ var TestLayer = cc.LayerColor.extend({
         // cc.log("data TestLayer: " + JSON.stringify(data));
         for(var i = 0; i < data.length; i ++) {
             DataManager.getInstance().setDataAlpharacing(data[i]);
+            cc.log("data[i]: " + JSON.stringify(data[i]));
         }
     },
 

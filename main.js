@@ -161,6 +161,8 @@ cc.game.onStart = function(){
         AudioManager.getInstance().preload(res.you_win_mp3);
         
         cc.audioEngine.setMusicVolume(1);
+
+        FirebaseManager.getInstance().authenticate();
         
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new HomeScene());

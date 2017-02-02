@@ -20,6 +20,8 @@
 + (void)segmentTrack:(NSString *)event properties:(NSString *)traits;
 + (void)startRestClock:(NSNumber *)timeToPauseGame;
 
++ (void)shareWithCaption:(NSString*)caption andURL:(NSString*)url;
+
 @end
 
 

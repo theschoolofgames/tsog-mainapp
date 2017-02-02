@@ -26,8 +26,12 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addChild(bg, 0);
         // this.addBackToHomeScene();
         this._characterList = CharacterManager.getInstance().getCharacterList();
-
-        // cc.log("characterList: " + JSON.stringify(this._characterList));
+        var currentCharacter = CharacterManager.getInstance().getSelectedCharacter();
+        for(var i = 0; i < this._characterList.length; i++) {
+            if(this._characterList[i].name == currentCharacter)
+                this._index = i;
+        };
+        cc.log("characterList: " + JSON.stringify(this._characterList));
         this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
@@ -38,7 +42,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchMoved: this.onTouchMoved.bind(this),
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
-        // CurrencyManager.getInstance().incDiamond(2000);
+        cc.log("Character Selected: " + CharacterManager.getInstance().getSelectedCharacter());
         cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         
@@ -211,7 +215,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
             lbButton = "";
         };
-        var name = localize(characterCfg.name).toUpperCase();
+        var name = localizeForWriting(characterCfg.name).toUpperCase();
         var characterName = new cc.LabelBMFont("" + name, "res/font/custom_font.fnt");
         characterName.scale = 0.4;
         characterName.anchorX = 0;
