@@ -118,6 +118,7 @@
         "src/layers/Alphabet/SpeakingTestForBuildingBlocks.js",
 
         "src/layers/ShareDialog.js",
+        "src/layers/Alphabet/Invitation.js",
 
         "src/layers/AlphaRacing/AlphaRacingLayer.js",
         "src/layers/AlphaRacing/ARHudLayer.js",

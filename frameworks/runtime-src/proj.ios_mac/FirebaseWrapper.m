@@ -114,7 +114,7 @@ static UIViewController* viewController;
       }
     }
     
-    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', ['%@', '%@'])", child.key, dataString]];
+    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', ['%@', '%@', '%@', '%@'])", child.key, dataString, !snapshot.exists ? @"true" : @"false", path ]];
   }];
 }
 
@@ -141,6 +141,17 @@ continueUserActivity:(NSUserActivity *)userActivity
                     completion:^(FIRDynamicLink * _Nullable dynamicLink,
                                  NSError * _Nullable error) {
                         NSLog(@"%@", dynamicLink.url.absoluteString);
+                        
+                        NSURLComponents * urlComponents = [[NSURLComponents alloc] initWithURL:dynamicLink.url resolvingAgainstBaseURL:false];
+                        NSArray * queryItems = urlComponents.queryItems;
+                        for (int i = 0; i < [queryItems count]; i++) {
+                            NSURLQueryItem* component = [queryItems objectAtIndex:i];
+                            if ([component.name isEqualToString:@"inviter_id"]) {
+                                [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onGameStartedFromDeeplink', ['%@'])", component.value]];
+                                break;
+                            }
+                        }
+//
                     }];
     
     return handled;

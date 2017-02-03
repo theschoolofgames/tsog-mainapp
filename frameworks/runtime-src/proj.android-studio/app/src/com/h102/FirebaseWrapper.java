@@ -1,6 +1,7 @@
 package com.h102;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -31,10 +32,16 @@ import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import cz.msebera.android.httpclient.NameValuePair;
+import cz.msebera.android.httpclient.client.utils.URLEncodedUtils;
 
 /**
  * Created by nick on 1/20/17.
@@ -125,14 +132,14 @@ public class FirebaseWrapper {
         child.setValue(value);
     }
 
-    public static void fetchData(String path) {
+    public static void fetchData(final String path) {
         Log.d(TAG, "fetchData: " + path);
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference child = root.child(path);
 
         child.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 String dataString = "{}";
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.getValue() instanceof ArrayList || dataSnapshot.getValue() instanceof Map) {
@@ -141,12 +148,13 @@ public class FirebaseWrapper {
                     } else
                         dataString = dataSnapshot.getValue().toString();
                 }
+//                Log.d()
 
                 final String finalDataString = dataString;
                 activity.runOnGLThread(new Runnable() {
                     @Override
                     public void run() {
-                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', ['%s', '%s'])", child.getKey(), finalDataString));
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', ['%s', '%s', '%s', '%s'])", child.getKey(), finalDataString, !dataSnapshot.exists() ? "true" : "false", path));
                     }
                 });
             }
@@ -237,12 +245,23 @@ public class FirebaseWrapper {
                                     Intent intent = result.getInvitationIntent();
                                     String deepLink = AppInviteReferral.getDeepLink(intent);
                                     Log.d(TAG, "deep link: " + deepLink);
+                                    Uri url = Uri.parse(deepLink);
+                                    Set<String> paramNames = url.getQueryParameterNames();
+                                    Log.d(TAG, paramNames.toString());
+                                    for (String key : paramNames) {
+                                        Log.d(TAG, "key = " + key);
+                                        if (key.equals("inviter_id")) {
+                                            final String inviterId = url.getQueryParameter(key);
+                                            activity.runOnGLThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', 'onGameStartedFromDeeplink', ['" + inviterId + "'])");
+                                                }
+                                            });
+                                            break;
+                                        }
+                                    }
 
-                                    // Handle the deep link. For example, open the linked
-                                    // content, or apply promotional credit to the user's
-                                    // account.
-
-                                    // ...
                                 } else {
                                     Log.d(TAG, "getInvitation: no deep link found.");
                                 }
