@@ -189,7 +189,10 @@ var LevelDialog = Dialog.extend({
         
         // process redirecting
         SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
-        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option); 
+        SceneFlowController.getInstance().setStepData(this._data[stepData]);
+        SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option);
+        cc.log(SceneFlowController.getInstance().getCurrentStepData());
+
     },
 
 });

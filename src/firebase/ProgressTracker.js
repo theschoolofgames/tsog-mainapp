@@ -15,7 +15,7 @@ var ProgressTracker = cc.Class.extend({
             var o = objectArray[i];
             var completedLevelIds = this._current[o]["completedLevelIds"];
             var idArray = Object.keys(completedLevelIds);
-            this._calculatedObj[o] = idArray.length / 3;
+            this._calculatedObj[o] = idArray.length / OBJECT_TOTAL_COMPLETED_COUNT;
             cc.log(objectArray[i] + "---" + idArray.length);
         }
 
