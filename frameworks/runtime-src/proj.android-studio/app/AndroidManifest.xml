@@ -33,4 +33,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <provider android:authorities="com.facebook.app.FacebookContentProvider1432641826786710"
+        android:name="com.facebook.FacebookContentProvider"
+        android:exported="true"/>
 </manifest>

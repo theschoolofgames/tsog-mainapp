@@ -2,6 +2,8 @@ package com.h102;
 
 import com.android.vending.billing.IInAppBillingService;
 //import com.crashlytics.android.Crashlytics;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -408,6 +410,22 @@ public class Wrapper
                             .show();
                 }
             });
+        }
+    }
+
+    public static void shareFacebook(String title, String description, String url) {
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .setContentDescription(description)
+                .setContentTitle(title)
+                .build();
+
+        ShareDialog shareDialog = new ShareDialog(activity);
+
+        if (!shareDialog.canShow(content, ShareDialog.Mode.NATIVE)) {
+            shareDialog.show(content, ShareDialog.Mode.WEB);
+        } else {
+            shareDialog.show(content, ShareDialog.Mode.NATIVE);
         }
     }
 }
