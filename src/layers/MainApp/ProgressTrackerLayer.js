@@ -3,7 +3,7 @@ var CustomTableViewCell = cc.TableViewCell.extend({
     lbIndex: null,
     lbName: null,
     lbScore: null,
-    highlight: null,
+    progressColor:null,
     draw:function (ctx) {
         this._super(ctx);
     }
@@ -87,6 +87,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             case "Alphabets":
                 cc.log("Alphabets");
                 this._filterGameObjectJSON("word");
+                this.createTableView();
                 // this.addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
                 break;
             case "Numbers":
@@ -113,40 +114,46 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     createTableView: function() {
         if(this._tableView)
             this._tableView.removeFromParent();
-        this._tableView = new cc.TableView(this, cc.size(cc.winSize.width - 100, cc.winSize.height/3 * 2));
-        this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
-        this._tableView.x = 5;
-        this._tableView.y = 100;
+        this._tableView = new cc.TableView(this, cc.size(cc.winSize.width - 100, cc.winSize.height/4 * 3));
         this._tableView.setDelegate(this);
+        this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
+        this._tableView.x = 30;
+        this._tableView.y = 100;
+        // var layer = new cc.LayerColor(cc.color.RED, cc.winSize.width - 100, cc.winSize.height/3 * 2);
+        // this._tableView.addChild(layer,100000);
         this.addChild(this._tableView);
+        this._tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
+        cc.log("ODER: " + this._tableView.getVerticalFillOrder());
+        
     },
 
-    scrollViewDidScroll:function (view) {
-    },
-    scrollViewDidZoom:function (view) {
-    },
+    // scrollViewDidScroll:function (view) {
+    // },
+    // scrollViewDidZoom:function (view) {
+    // },
 
-    tableCellTouched:function (table, cell) {
-        var index = this.numberOfCellsInTableView(table)-cell.getIdx()-1;
-    },
+    // tableCellTouched:function (table, cell) {
+    //     var index = this.numberOfCellsInTableView(table)-cell.getIdx()-1;
+    // },
 
     tableCellSizeForIndex:function (table, idx) {
-        return cc.size(this._bg.getContentSize().width, 55);
+        return cc.size(200, cc.winSize.height/3 * 2);
     },
 
     tableCellAtIndex:function (table, idx) {
+        cc.log("idx:" + idx);
         var self = this;
         var cell = table.dequeueCell();
-        var index = this.numberOfCellsInTableView(table)-idx-1;
-        var data = this._data[index];
+        var index = idx;
+        var data = this.arrayObjectInType[index];
         if (!cell) {
-            cell = this.createCell(this._data[index], table, idx);
+            cell = this.createCell(this.arrayObjectInType[index], table, idx);
         }
         else {
-            data = this._data[index];
-            cell.lbName.setString(data["displayName"].substring(0, 18));
-            var texture = cc.textureCache.addImage("default-avatar.png");
-            cell.avatar.setTexture(texture);
+            data = this.arrayObjectInType[index];
+            cell.lbName.setString(data["value"]);
+            // var texture = cc.textureCache.addImage("default-avatar.png");
+            // cell.avatar.setTexture(texture);
         }
         return cell;
     },
@@ -157,59 +164,31 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     createCell: function(data, table, idx) {
+        cc.log("createCell: " + JSON.stringify(data));
         cell = new CustomTableViewCell();
-        var userFrame = new cc.Scale9Sprite("friend-frame.png", cc.rect(54.166666667,0,5.8333333333,56.458333333));
-        userFrame.setPreferredSize(cc.size(265.83333333, 56.458333333));
-        userFrame.x = 20;
-        userFrame.y = 26;
-        userFrame.anchorX = 0;
-        cell.addChild(userFrame);
+        var palaceFrame = new cc.Sprite("res/SD/square.png");
+        palaceFrame.x = 20;
+        palaceFrame.y = 26;
+        palaceFrame.anchorX = 0;
+        palaceFrame.anchorY = 0
+        palaceFrame.scale = 0.6;
+        cell.addChild(palaceFrame);
 
-        var borderAvatar = new cc.Sprite("#border-avatar.png");
-        borderAvatar.x = 80;
-        borderAvatar.y = userFrame.height/2;
-        borderAvatar.scale = 1.1;
-        userFrame.addChild(borderAvatar, 1);
+        // cell.avatar = new cc.Sprite("default-avatar.png");
+        // cell.avatar.x = clipper.width/2;
+        // cell.avatar.y = clipper.height/2;
+        // cell.avatar.scale = 30 / cell.avatar.width;
+        // cell.avatar.tag = 114;
+        // // Not load real avatar
+        // cell.avatar.userData = false;
+        // clipper.addChild(cell.avatar);
 
-        var clipper = new cc.ClippingNode();
-        clipper.attr({
-            width: 30,
-            height: 30,
-            anchorX: 0.5,
-            anchorY: 0.5,
-            x: borderAvatar.x - 1,
-            y: borderAvatar.y + 2
-        });
-        clipper.alphaThreshold = 0.05;
-        userFrame.addChild(clipper);
-
-        var stencil = new cc.Sprite("default-avatar.png");
-        stencil.attr({
-            scale: 30/stencil.width,
-            anchorX: 0.5,
-            anchorY: 0.5,
-            x: clipper.width/2,
-            y: clipper.height/2
-        });
-        clipper.stencil = stencil;
-        clipper.addChild(stencil);
-
-        cell.avatar = new cc.Sprite("default-avatar.png");
-        cell.avatar.x = clipper.width/2;
-        cell.avatar.y = clipper.height/2;
-        cell.avatar.scale = 30 / cell.avatar.width;
-        cell.avatar.tag = 114;
-        // Not load real avatar
-        cell.avatar.userData = false;
-        clipper.addChild(cell.avatar);
-
-        cell.lbName = new cc.LabelTTF(data["displayName"].substring(0,18),  "Arial", 14); // TODO
-        cell.lbName.color = cc.color("#c3c4f7");
-        cell.lbName.enableStroke(cc.color("#f5f5f5"), 1);
-        cell.lbName.anchorX = 0;
+        cell.lbName = new cc.LabelBMFont(data["value"],  res.HomeFont_fnt);
         cell.lbName.x = 100;
-        cell.lbName.y = userFrame.height/2 + 5;
-        userFrame.addChild(cell.lbName);
+        cell.lbName.y = palaceFrame.height/2;
+        palaceFrame.addChild(cell.lbName);
+
+        
 
         return cell;
     }

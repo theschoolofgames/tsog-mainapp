@@ -21,8 +21,8 @@ var HomeScreenLayer = cc.Layer.extend({
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer(),2);
-        // var layer = new ProgressTrackerLayer();
-        // this.addChild(layer, 999999);
+        var layer = new ProgressTrackerLayer();
+        this.addChild(layer, 999999);
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
