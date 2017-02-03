@@ -6,6 +6,9 @@ var SceneFlowController = cc.Class.extend({
     _currentLoopSceneName: null,
     _previousSceneName: null,
 
+    _currentStepIndex: null,
+    _currentStepData: null,
+
     _currentPreLoopSceneIdx: 0,
     _currentLoopSceneIdx: 0,
     _totalSceneInStep: 0,
@@ -88,6 +91,17 @@ var SceneFlowController = cc.Class.extend({
         return this._currentStepIndex;
     },
 
+    getCurrentStepData: function() {
+        var dataArray = [];
+        var gameIds = Object.keys(this._currentStepData);
+        for (var i = 0; i < gameIds.length; i++) {
+            var data = this._currentStepData[gameIds[i]].data;
+            if (!cc.isObject(data[0])) // workaround
+                dataArray.push.apply(dataArray, data);
+        }
+        return dataArray;
+    },
+
     getLastedStepPressed: function() {
         return this._lastedStepPressed || "";
     },
@@ -112,24 +126,28 @@ var SceneFlowController = cc.Class.extend({
         return sceneName;
     },
 
+    setStepData: function(stepData) {
+        this._currentStepData = stepData;
+    },
+
     resetFlow: function() {
         this._currentLoopSceneIdx = this._currentPreLoopSceneIdx = 0;
     },
 
-    cacheData: function(stepIdx, sceneIdx, sceneName, scenePool) {
-        // cc.log("stepIdx - sceneName - scenePool " + stepIdx + " - " + sceneName + " - " + JSON.stringify(scenePool));
+    cacheData: function(stepIdx, sceneIdx, sceneName, sceneData) {
+        // cc.log("stepIdx - sceneName - sceneData " + stepIdx + " - " + sceneName + " - " + JSON.stringify(sceneData));
         this._currentStepIndex = stepIdx;
         this._currentLoopSceneIdx = sceneIdx;
         this._currentLoopSceneName = sceneName;
 
-        // var totalSceneInStep = Object.keys(scenePool).length;
+        // var totalSceneInStep = Object.keys(sceneData).length;
         // this.setTotalSceneInStep(totalSceneInStep);
 
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
             currentStepIndex: stepIdx,
             currentLoopSceneIdx: sceneIdx,
             currentLoopSceneName: sceneName,
-            currentSceneData: scenePool
+            currentSceneData: sceneData
         }));
     },
 
@@ -152,6 +170,7 @@ var SceneFlowController = cc.Class.extend({
         this._currentLoopSceneIdx = 0;
         this._currentLoopSceneName = "";
         this._currentSceneData = [];
+        this._currentStepData = null;
         // cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
     },
 
@@ -160,9 +179,9 @@ var SceneFlowController = cc.Class.extend({
     },
 
     moveToNextScene: function(sceneName, data, timeForScene, sceneOption) {
+        cc.log("moveToNextScene -> data -> " + JSON.stringify(data));
         var option = null;
         var sceneNumber = KVDatabase.getInstance().getInt("scene_number");
-
         KVDatabase.getInstance().set("scene_number", sceneNumber + 1);
         cc.log("moveToNextScene: " + sceneName);
         switch(sceneName) {

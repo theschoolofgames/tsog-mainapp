@@ -19,12 +19,20 @@ var GameObjectsProgress = cc.Class.extend({
         KVDatabase.getInstance().set(GAME_OBJECTS_PROGRESS, JSON.stringify(this._data));
     },
 
+    _checkProgress: function() {
+        debugLog(JSON.stringify(this._data));
+    },
+
     countCompleted: function(gameObjectId) {
         var completedLevelIds = Object.keys(this._data[gameObjectId]["completedLevelIds"]);
         return completedLevelIds.length;
     },
 
     setCompleted: function(gameObjectId, levelId) {
+        if (!this._data[gameObjectId]) {
+            this._data[gameObjectId] = {};
+            this._data[gameObjectId]["completedLevelIds"] = {};
+        }
         this._data[gameObjectId]["completedLevelIds"][levelId] = true;
         this._saveProgress();
     },
@@ -41,23 +49,9 @@ GameObjectsProgress.setupInstance = function() {
     return GameObjectsProgress._instance;
 };
 
-var TEMP_DATA = {
-    "word_a": {
-        "completedLevelIds": {
-            "1-1": true,
-            "1-2": true,
-            "1-3": true
-        }
-    },
-    "word_b": {
-        "completedLevelIds": {
-            "2-1": true,
-            "2-2": true
-        }
-    },
-    "word_c": {
-        "completedLevelIds": {
-            "3-1": true
-        }
-    }
-}
+GameObjectsProgress.setGameObjectsProgress = function(gameObjectIdArray, levelId) {
+    for (var i = 0; i < gameObjectIdArray.length; i++)
+        GameObjectsProgress._instance.setCompleted(gameObjectIdArray[i], levelId);
+
+    GameObjectsProgress._instance._checkProgress();
+};

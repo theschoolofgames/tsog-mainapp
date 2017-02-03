@@ -356,12 +356,15 @@ Utils.getScaleFactorTo16And9 = function() {
 }
 
 Utils.updateStepData = function() {
+    var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
     var currentLevel = SceneFlowController.getInstance().getCurrentStep();
     var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
     var totalSceneInStep = SceneFlowController.getInstance().getTotalSceneInStep();
     var stepData = {};
     var currentTotalStars;
     var completed;
+    cc.log("currentLevel -> " + currentLevel);
+    GameObjectsProgress.setGameObjectsProgress(currentStepData, currentLevel);
 
     var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
     if (data != null && data != "" && data != "{}") {
@@ -378,8 +381,8 @@ Utils.updateStepData = function() {
 
     currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]);
     completed = ((currentTotalStars+1) >= totalSceneInStep) ? 1 : 0;
-    cc.log("totalSceneInStep: " + totalSceneInStep);
-    cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
+    // cc.log("totalSceneInStep: " + totalSceneInStep);
+    // cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
     stepData[currentLevel][currentSceneIdx] = 1;
     stepData[currentLevel]["completed"] = completed;
     stepData[currentLevel]["totalStars"] = currentTotalStars+1;
