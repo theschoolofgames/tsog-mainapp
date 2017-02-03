@@ -2,16 +2,16 @@ var GameObjectsProgress = cc.Class.extend({
     _data: null,
 
     ctor: function() {
-
+        this._data = {};
         var data = KVDatabase.getInstance().getString(GAME_OBJECTS_PROGRESS, "");
         if (data != "")
             this._data = JSON.parse(data);
-        else {
-            cc.loader.loadJson("res/config/progresstracker.json", function(err, loadedData) {
-                if (!err)
-                    this._data = loadedData;
-            }.bind(this));
-        }
+        // else {
+        //     cc.loader.loadJson("res/config/progresstracker.json", function(err, loadedData) {
+        //         if (!err)
+        //             this._data = loadedData;
+        //     }.bind(this));
+        // }
         cc.log("load data" + JSON.stringify(this._data));
     },
 
@@ -24,17 +24,36 @@ var GameObjectsProgress = cc.Class.extend({
     },
 
     countCompleted: function(gameObjectId) {
+        debugLog("countCompleted gameObjectId -> " + gameObjectId);
+        if (!this._data[gameObjectId])
+            return;
+        debugLog("countCompleted");
         var completedLevelIds = Object.keys(this._data[gameObjectId]["completedLevelIds"]);
+        debugLog("completedLevelIds -> " + completedLevelIds);
         return completedLevelIds.length;
     },
 
     setCompleted: function(gameObjectId, levelId) {
+        debugLog("setCompleted -> " + gameObjectId);
         if (!this._data[gameObjectId]) {
             this._data[gameObjectId] = {};
             this._data[gameObjectId]["completedLevelIds"] = {};
         }
         this._data[gameObjectId]["completedLevelIds"][levelId] = true;
         this._saveProgress();
+    },
+
+    getGameObjectsLearned: function() {
+        var gameObjectsLearnedArray = [];
+        var objectIdArray = Object.keys(this._data);
+        for (var i = 0; i < objectIdArray.length; i++) {
+            // debugLog("objectIdArray -> " + objectIdArray[i]);
+            var count = this.countCompleted(objectIdArray[i]);
+            if (count > 0)
+                gameObjectsLearnedArray.push(objectIdArray[i]);
+        }
+
+        return gameObjectsLearnedArray;
     },
 });
 
@@ -54,4 +73,7 @@ GameObjectsProgress.setGameObjectsProgress = function(gameObjectIdArray, levelId
         GameObjectsProgress._instance.setCompleted(gameObjectIdArray[i], levelId);
 
     GameObjectsProgress._instance._checkProgress();
+    debugLog("getGameObjectsLearned -> " + GameObjectsProgress._instance.getGameObjectsLearned());
+
 };
+

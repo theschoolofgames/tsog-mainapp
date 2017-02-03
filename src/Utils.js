@@ -363,8 +363,6 @@ Utils.updateStepData = function() {
     var stepData = {};
     var currentTotalStars;
     var completed;
-    cc.log("currentLevel -> " + currentLevel);
-    GameObjectsProgress.setGameObjectsProgress(currentStepData, currentLevel);
 
     var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
     if (data != null && data != "" && data != "{}") {

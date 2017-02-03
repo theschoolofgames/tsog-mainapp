@@ -251,6 +251,12 @@ var TestLayer = cc.LayerColor.extend({
             cc.log("sceneData: " + JSON.stringify(sceneData));
             SceneFlowController.getInstance().moveToNextScene(nextSceneName, sceneData, durationArray[numberScene]);
         } else {
+            var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
+            var currentLevel = SceneFlowController.getInstance().getCurrentStep();
+            debugLog("currentStepData -> " + currentStepData);
+            debugLog("currentLevel -> " + currentLevel);
+            GameObjectsProgress.setGameObjectsProgress(currentStepData, currentLevel);
+
             this.removeCardGameData();
             Utils.updateStepData();
             SceneFlowController.getInstance().clearData();
