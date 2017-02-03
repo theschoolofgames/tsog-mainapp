@@ -403,7 +403,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/Wrapper",
             "shareNative",
-            "(V)Ljava/lang/String;Ljava/lang/String;"
+            "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
     shareWhatsapp: {
@@ -414,7 +414,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/Wrapper",
             "shareWhatsapp",
-            "(V)Ljava/lang/String;Ljava/lang/String;"   
+            "(Ljava/lang/String;Ljava/lang/String;)V"   
         ]
     },
     shareFacebook: {
@@ -425,7 +425,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/Wrapper",
             "shareFacebook",
-            "(V)Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;"
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
         ]
     }
 }

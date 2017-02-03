@@ -34,6 +34,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -373,12 +374,40 @@ public class Wrapper
             Executors.newSingleThreadExecutor().execute(runnable);
     }
 
-    public static void share(String caption, String url) {
+    public static void shareNative(String caption, String url) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TITLE, caption);
         sendIntent.putExtra(Intent.EXTRA_TEXT, url);
         sendIntent.setType("text/plain");
         activity.startActivity(sendIntent);
+    }
+
+    public static void shareWhatsapp(String caption, String url) {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+        sendIntent.setType("text/plain");
+        sendIntent.setPackage("com.whatsapp");
+        try {
+            activity.startActivity(sendIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+//                    Toast.makeText(activity, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(activity)
+                            .setTitle("WhatsApp not installed")
+                            .setMessage("Your device has no WhatsApp installed.")
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        }
     }
 }
