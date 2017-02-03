@@ -38,6 +38,20 @@ var FirebaseManager = cc.Class.extend({
         }
 
         User.setCurrentUser(this.getUserInfo());
+
+        var inviteeId = User.getCurrentUser().getUid();
+        var inviterId = KVDatabase.getInstance().getString("inviterId");
+
+        if (inviteeId && inviterId && inviterId != inviteeId) {
+            KVDatabase.getInstance().remove("inviterId");
+            var path = "invitations/" + inviteeId;
+            FirebaseManager.getInstance().fetchData(path, function(key, data, isNull, fullPath) {
+                if (key == inviteeId && isNull) {
+                    Invitation.create(inviteeId, inviterId);
+                }
+            });
+        }
+
         this._updateDataModel();
         return true;
     },
@@ -60,7 +74,8 @@ var FirebaseManager = cc.Class.extend({
 
     fetchData: function(path, cb) {
         debugLog("fetchData: " + path);
-        this._cbs.fetchData = cb;
+        this._cbs.fetchData = this._cbs.fetchData || {};
+        this._cbs.fetchData[path] = cb;
         NativeHelper.callNative("fetchData", [path]);
     },
 
@@ -87,16 +102,24 @@ var FirebaseManager = cc.Class.extend({
         cb && cb();
     },
 
-    onFetchedData: function(key, dataString) {
+    onFetchedData: function(key, dataString, isNull, fullPath) {
         var data;
         try {
             data = JSON.parse(dataString);
         } catch(e) {
             data = dataString;
         }
-        var cb = this._cbs.fetchData;
-        delete this._cbs.fetchData;
-        cb && cb(key, data);
+        var cb = this._cbs.fetchData[fullPath];
+        delete this._cbs.fetchData[fullPath];
+        cb && cb(key, data, isNull);
+    },
+
+    onGameStartedFromDeeplink: function(inviterId) {
+        debugLog("JS, onGameStartedFromDeeplink: " + inviterId);
+        if (isFirstTime == true) {
+            isFirstTime = false;
+            KVDatabase.getInstance().set("inviterId", inviterId);
+        } 
     },
 
     // private
@@ -111,7 +134,7 @@ var FirebaseManager = cc.Class.extend({
         // User
         waterfallPromises.push(function(cb) {
             var path = "users/" + user.uid;
-            self.fetchData(path, function(key, data) {
+            self.fetchData(path, function(key, data, isNull, fullPath) {
                 var nextPaths = [];
 
                 if (!(data instanceof Object)) {
@@ -145,7 +168,7 @@ var FirebaseManager = cc.Class.extend({
 
                 if (path.startsWith("children")) {
                     parallelPromises.push(function(callback) {
-                        self.fetchData(path, function(key, data) {
+                        self.fetchData(path, function(key, data, isNull, fullPath) {
                             var shouldUpdate = false;
 
                             if (!(data instanceof Object)) {

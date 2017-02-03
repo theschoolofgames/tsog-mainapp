@@ -23,9 +23,29 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(new HomeHUDLayer(),2);
         // var layer = new ProgressTrackerLayer();
         // this.addChild(layer, 999999);
+        this.addProgressTrackerButton();
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
+    },
+
+    addProgressTrackerButton: function(){
+        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width - button.width/2  - 10;
+        button.y = cc.winSize.height - button.height + 10;
+        this.addChild(button, 99);
+        var self = this;
+        button.addClickEventListener(function() {
+            var layer = new ProgressTrackerLayer();
+            self.addChild(layer, 999999);
+        });
+        
+        var text = localizeForWriting("Progress Tracker");
+        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        lb.scale = (button.width * 0.9) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.getVirtualRenderer().addChild(lb);
     },
 
     addBackGround: function() {

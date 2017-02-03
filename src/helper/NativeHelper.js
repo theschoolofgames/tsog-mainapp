@@ -348,7 +348,7 @@ var NativeHelperConfig = {
         Android: [
             "com/h102/FirebaseWrapper",
             "setData",
-            "(Ljava/lang/String;Ljava/lang/String;)"
+            "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
     setInteger: {
@@ -453,6 +453,10 @@ NativeHelper.removeListener = function(name) {
 }
 
 NativeHelper.onReceive = function(name, fnName, args) {
+    debugLog("onReceive");
+    debugLog(name);
+    debugLog(fnName);
+    debugLog(args);
     if (NativeHelperListener[name]) {
         args = args || [];
 

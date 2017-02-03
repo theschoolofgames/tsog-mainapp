@@ -47,6 +47,8 @@
  *
  */
 
+var isFirstTime = false;
+
 cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
@@ -168,6 +170,11 @@ cc.game.onStart = function(){
         // cc.director.runScene(new HomeScene());
         // cc.director.runScene(new AlphaRacingScene([]));
         cc.director.runScene(new FirebaseScene());
+
+        if (KVDatabase.getInstance().getString("first_time") !== "false") {
+            KVDatabase.getInstance().set("first_time", "false");
+            isFirstTime = true;
+        }
 
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
