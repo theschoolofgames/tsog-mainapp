@@ -4,10 +4,12 @@ var CustomTableViewCell = cc.TableViewCell.extend({
     lbName: null,
     lbScore: null,
     progressColor:null,
+    image: null,
     draw:function (ctx) {
         this._super(ctx);
     }
 });
+var MAX_WIDTH = 200;
 var NAME_TAB = ["Alphabets","Numbers", "Vocabulary", "Math"];
 var PROGRESSTRACKER = [];
 var ProgressTrackerLayer = cc.LayerColor.extend({
@@ -17,7 +19,6 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     ctor: function () {
         // body...
         this._super(cc.color(255,255,255,255));
-        this.addBackground();
         cc.loader.loadJson(res.Progress_Config_JSON, function(err, data) {
             if (!err) {
                 PROGRESSTRACKER = data;
@@ -30,14 +31,33 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         });
         var key = Object.keys(PROGRESSTRACKER);
         cc.log("PROGRESSTRACKER: " + JSON.stringify(key));
+
         this._filterGameObjectJSON("word");
+        this.createTableView();
+        this.addButton();
+        this.addBackButton();
+        // var test = new cc.Sprite("res/SD/objects/salt.png");
+        // test.x = cc.winSize.width/2;
+        // test.y = cc.winSize.height/2;
+        // this.addChild(test, 1000);
+        cc.log("TEST: " + GameObjectsProgress.getInstance().countCompleted("word_a"));
     },
     onExit: function() {
         this._super();
         this._tableView = null;
     },
+    addBackButton: function(){
+        var self = this;
+        var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = 50;
+        button.y = cc.winSize.height - 50;
+        this.addChild(button);
+        button.addClickEventListener(function(){
+            self.removeFromParent();
+        });
+    },
 
-    _filterGameObjectJSON: function(key) {
+    _filterGameObjectJSON: function(key, key2) {
         let self = this;
         self.arrayObjectInType = [];
         cc.loader.loadJson(res.Game_Object_JSON, function(err, data) {
@@ -52,7 +72,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         });
 
             var objectArray = self.gameObjectJson.filter((gameObject) => {
-
+                if(key2)
+                    return gameObject.type == key || gameObject.type == key2;
                 return gameObject.type == key;
             });
             self.arrayObjectInType = (objectArray);
@@ -61,7 +82,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
 
     },
 
-    addBackground: function(){
+    addButton: function(){
         for(var i = 0; i < 4; i++){
             var button = new ccui.Button("block-empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
             button.x = 200 + i * button.width;
@@ -75,14 +96,20 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             button.name = string;
             button.addChild(lb);
             this.addChild(button);
+            button.setColor(cc.color.GREEN);
+            if(i == 0) {
+                button.setColor(cc.color.RED);
+                this._currentButton = button;
+            };
             button.addClickEventListener(this._onPressed.bind(this));
         }
     },
 
     _onPressed: function(button) {
         AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-        this._button = button;
+        this._currentButton.setColor(cc.color.GREEN);
         var buttonName = button.name;
+        button.setColor(cc.color.RED);
         switch(buttonName) {
             case "Alphabets":
                 cc.log("Alphabets");
@@ -93,11 +120,13 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             case "Numbers":
                 cc.log("Numbers");
                 this._filterGameObjectJSON("number");
+                this.createTableView();
                 // cc.director.runScene(new MapScene());
                 break;
             case "Vocabulary":
                 cc.log("Vocabulary");
-                this._filterGameObjectJSON("object");
+                this._filterGameObjectJSON("object", "animal");
+                this.createTableView();
                 // cc.director.replaceScene(new TalkingAdiScene());
                 break;
             case "Math":
@@ -106,7 +135,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
                 break;
             default:
                 break;
-        }
+        };
+        this._currentButton = button;
     },
 
     //TableView
@@ -114,7 +144,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     createTableView: function() {
         if(this._tableView)
             this._tableView.removeFromParent();
-        this._tableView = new cc.TableView(this, cc.size(cc.winSize.width - 100, cc.winSize.height/4 * 3));
+        this._tableView = new cc.TableView(this, cc.size(cc.winSize.width - 100, cc.winSize.height/2));
         this._tableView.setDelegate(this);
         this._tableView.setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL);
         this._tableView.x = 30;
@@ -127,14 +157,14 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         
     },
 
-    // scrollViewDidScroll:function (view) {
-    // },
-    // scrollViewDidZoom:function (view) {
-    // },
+    scrollViewDidScroll:function (view) {
+    },
+    scrollViewDidZoom:function (view) {
+    },
 
-    // tableCellTouched:function (table, cell) {
-    //     var index = this.numberOfCellsInTableView(table)-cell.getIdx()-1;
-    // },
+    tableCellTouched:function (table, cell) {
+        
+    },
 
     tableCellSizeForIndex:function (table, idx) {
         return cc.size(200, cc.winSize.height/3 * 2);
@@ -146,15 +176,28 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         var cell = table.dequeueCell();
         var index = idx;
         var data = this.arrayObjectInType[index];
+        cc.log("DATA: " + JSON.stringify(data));
         if (!cell) {
             cell = this.createCell(this.arrayObjectInType[index], table, idx);
         }
         else {
             data = this.arrayObjectInType[index];
-            cell.lbName.setString(data["value"]);
-            // var texture = cc.textureCache.addImage("default-avatar.png");
-            // cell.avatar.setTexture(texture);
-        }
+            if(data["type"] == "word" || data["type"] == "number")
+                cell.lbName.setString(data["value"]);
+            var id = data["id"];         
+            var pecent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT;
+            cell.progressColor.percentage = pecent * 100;
+            if(data["type"] == "object" || data["type"] == "animal") {
+                var spritePath = "objects/" + data["value"].toLowerCase() + ".png";
+                if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) 
+                    spritePath = "animals/" + data["value"].toLowerCase() + ".png";
+                // cc.spriteFrameCache.
+                cell.lbName.setString(data["value"].toUpperCase());
+                cell.image.setTexture("res/SD/" + spritePath);
+                this.setScaleImage(cell.image);
+            };
+            
+        };
         return cell;
     },
 
@@ -168,29 +211,63 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         cell = new CustomTableViewCell();
         var palaceFrame = new cc.Sprite("res/SD/square.png");
         palaceFrame.x = 20;
-        palaceFrame.y = 26;
+        palaceFrame.y = 110;
         palaceFrame.anchorX = 0;
         palaceFrame.anchorY = 0
         palaceFrame.scale = 0.6;
         cell.addChild(palaceFrame);
 
-        // cell.avatar = new cc.Sprite("default-avatar.png");
-        // cell.avatar.x = clipper.width/2;
-        // cell.avatar.y = clipper.height/2;
-        // cell.avatar.scale = 30 / cell.avatar.width;
-        // cell.avatar.tag = 114;
-        // // Not load real avatar
-        // cell.avatar.userData = false;
-        // clipper.addChild(cell.avatar);
-
-        cell.lbName = new cc.LabelBMFont(data["value"],  res.HomeFont_fnt);
-        cell.lbName.x = 100;
-        cell.lbName.y = palaceFrame.height/2;
-        palaceFrame.addChild(cell.lbName);
-
         
+        //ProgressBar
+        var progressBarBg = new cc.Sprite("#progress-bar.png");
+        progressBarBg.x = palaceFrame.width/2;
+        progressBarBg.y = 40 + progressBarBg.height/2;
+        palaceFrame.addChild(progressBarBg);
+        //       
+        cc.log("ID: " + data["id"]);  
+        var id = data["id"];         
+        var pecent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT;
+        cc.log("pecent: " + pecent);
+        var colorBar = new cc.Sprite("#colorbar.png");
+        var gameProgressBar = new cc.ProgressTimer(colorBar);
+        gameProgressBar.x = progressBarBg.width/2 - 1;
+        gameProgressBar.y = progressBarBg.height/2 + 2;
+        gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
+        gameProgressBar.midPoint = cc.p(0, 1);
+        gameProgressBar.barChangeRate = cc.p(1, 0);
+        gameProgressBar.percentage = pecent * 100;
+        // gameProgressBar.shaderProgram = shaderScrolling;
+        progressBarBg.addChild(gameProgressBar);
+        cell.progressColor = gameProgressBar;
+        if(data["type"] == "word" || data["type"] == "number") {
+            cell.lbName = new cc.LabelBMFont(data["value"],  res.HomeFont_fnt);
+            cell.lbName.scale = 2;
+            cell.lbName.x = palaceFrame.width/2;
+            cell.lbName.y = palaceFrame.height/2 + 30;
+            palaceFrame.addChild(cell.lbName);
+        };
+        if(data["type"] == "object" || data["type"] == "animal") {
+            var spritePath = "objects/" + data["value"].toLowerCase() + ".png";
+            if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) 
+                spritePath = "animals/" + data["value"].toLowerCase() + ".png";
+            cell.image = new cc.Sprite("res/SD/" + spritePath);
+            palaceFrame.addChild(cell.image);
+            cell.image.x = palaceFrame.width/2;
+            cell.image.y = palaceFrame.height/2 + 100;
+            this.setScaleImage(cell.image);
+            cell.lbName = new cc.LabelBMFont(data["value"].toUpperCase(),  res.HomeFont_fnt);
+            cell.lbName.scale = 0.5;
+            cell.lbName.x = palaceFrame.width/2;
+            cell.lbName.y = progressBarBg.y + 50;
+            palaceFrame.addChild(cell.lbName);
+        };
 
         return cell;
+    },
+    setScaleImage: function(sprite){
+        sprite.scale = 1;
+        var scale = MAX_WIDTH/ Math.max(sprite.width,sprite.height);
+        sprite.scale = scale;
     }
 
 })

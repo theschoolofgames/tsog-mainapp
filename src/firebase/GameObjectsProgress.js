@@ -24,6 +24,8 @@ var GameObjectsProgress = cc.Class.extend({
     },
 
     countCompleted: function(gameObjectId) {
+        if(!this._data[gameObjectId])
+            return 0;
         var completedLevelIds = Object.keys(this._data[gameObjectId]["completedLevelIds"]);
         return completedLevelIds.length;
     },

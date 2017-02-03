@@ -65,14 +65,9 @@
     "value": "seed"
   },
   {
-    "id": "seed",
+    "id": "step",
     "type": "object",
-    "value": "seed"
-  },
-  {
-    "id": "steep",
-    "type": "object",
-    "value": "steep"
+    "value": "step"
   },
   {
     "id": "stew",
