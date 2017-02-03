@@ -115,6 +115,7 @@ cc.game.onStart = function(){
         IAPManager.setupInstance();
         CharacterManager.setupInstance();
         AudioManager.setupInstance();
+        GameObjectsProgress.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);
@@ -163,7 +164,6 @@ cc.game.onStart = function(){
         cc.audioEngine.setMusicVolume(1);
 
         FirebaseManager.getInstance().authenticate();
-        ProgressTracker.setupInstance();
         // cc.director.runScene(new WelcomeScene());
         // cc.director.runScene(new HomeScene());
         // cc.director.runScene(new AlphaRacingScene([]));

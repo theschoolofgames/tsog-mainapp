@@ -6,24 +6,26 @@ var GameObjectsProgress = cc.Class.extend({
         var data = KVDatabase.getInstance().getString(GAME_OBJECTS_PROGRESS, "");
         if (data != "")
             this._data = JSON.parse(data);
-        else
-            this._data = TEMP_DATA;
+        else {
+            cc.loader.loadJson("res/config/progresstracker.json", function(err, loadedData) {
+                if (!err)
+                    this._data = loadedData;
+            }.bind(this));
+        }
+        cc.log("load data" + JSON.stringify(this._data));
     },
 
     _saveProgress: function() {
         KVDatabase.getInstance().set(GAME_OBJECTS_PROGRESS, JSON.stringify(this._data));
     },
 
-    getObjectsProgress: function () {
-        return this._data;
+    countCompleted: function(gameObjectId) {
+        var completedLevelIds = Object.keys(this._data[gameObjectId]["completedLevelIds"]);
+        return completedLevelIds.length;
     },
 
-    getProgressById: function(id) {
-        return this._data[id];
-    },
-
-    setProgressById: function(id, level) {
-        this._data[id]["completedLevelIds"][level] = true;
+    setCompleted: function(gameObjectId, levelId) {
+        this._data[gameObjectId]["completedLevelIds"][levelId] = true;
         this._saveProgress();
     },
 });
