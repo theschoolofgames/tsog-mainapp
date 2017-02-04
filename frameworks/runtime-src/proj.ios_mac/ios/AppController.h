@@ -24,6 +24,7 @@
  ****************************************************************************/
 
 @class RootViewController;
+@class FIRRemoteConfig;
 
 @interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate,UIApplicationDelegate>
 {
@@ -31,4 +32,5 @@
     RootViewController    *_viewController;
 }
 @property (readonly) id viewController;
+@property (nonatomic, strong) FIRRemoteConfig *remoteConfig;
 @end

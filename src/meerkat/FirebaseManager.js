@@ -79,6 +79,12 @@ var FirebaseManager = cc.Class.extend({
         NativeHelper.callNative("fetchData", [path]);
     },
 
+    fetchConfig: function(duration, cb) {
+        debugLog("fetchConfigWithDuration: " + duration);
+        this._cbs.fetchConfig = cb;
+        NativeHelper.callNative("fetchConfig", [duration]);
+    },
+
     createChildAutoId: function(path) {
         return NativeHelper.callNative("createChildAutoId", [path]);    
     },
@@ -112,6 +118,20 @@ var FirebaseManager = cc.Class.extend({
         var cb = this._cbs.fetchData[fullPath];
         delete this._cbs.fetchData[fullPath];
         cb && cb(key, data, isNull);
+    },
+
+    onFetchedConfig: function(succeed, dataString) {
+        var data;
+
+        try {
+            data = JSON.parse(dataString);
+        } catch (e) {
+            data = dataString;
+        }
+
+        var cb = this._cbs.fetchConfig;
+        delete this._cbs.fetchConfig;
+        cb && cb(succeed, dataString);
     },
 
     onGameStartedFromDeeplink: function(inviterId) {

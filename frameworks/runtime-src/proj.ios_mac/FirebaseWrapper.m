@@ -157,4 +157,38 @@ continueUserActivity:(NSUserActivity *)userActivity
     return handled;
 }
 
++ (void)fetchConfigWithExpirationDuration:(NSString*)duration {
+    FIRRemoteConfig* remoteConfig = [FIRRemoteConfig remoteConfig];
+    [remoteConfig fetchWithExpirationDuration:[duration integerValue] completionHandler:^(FIRRemoteConfigFetchStatus status, NSError * _Nullable error) {
+        NSString* jsonString = @"{}";
+        NSString* success = @"false";
+        if (status == FIRRemoteConfigFetchStatusSuccess) {
+            success = @"true";
+            NSSet<NSString*>* configKeys = [remoteConfig keysWithPrefix:@""];
+            NSMutableDictionary* configs = [[NSMutableDictionary alloc] init];
+            for (NSString* key in configKeys) {
+                configs[key] = [remoteConfig[key] stringValue];
+            }
+            
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:configs options:0 error:nil];
+            if (jsonData) {
+                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
+        } else {
+            NSSet<NSString*>* configKeys = [remoteConfig keysWithPrefix:@""];
+            NSMutableDictionary* configs = [[NSMutableDictionary alloc] init];
+            for (NSString* key in configKeys) {
+                configs[key] = [remoteConfig[key] stringValue];
+            }
+            
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:configs options:0 error:nil];
+            if (jsonData) {
+                jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            }
+        }
+        NSString* evaluatedString = [[NSString alloc] initWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedConfig', ['%@', '%@'])", success, jsonString ];
+        [Cocos2dxHelper evalString:evaluatedString];
+    }];
+}
+
 @end

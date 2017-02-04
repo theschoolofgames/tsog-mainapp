@@ -23,6 +23,8 @@
 
 #import "AppController.h"
 
+#import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
+
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL invalidateTimer = NO;
@@ -389,4 +391,6 @@ static NSMutableArray* noiseDetectionArray = nil;
     
 //    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
 }
+
+
 @end
