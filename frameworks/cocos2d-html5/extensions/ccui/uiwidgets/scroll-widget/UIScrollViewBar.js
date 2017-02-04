@@ -60,6 +60,7 @@ ccui.ScrollViewBar = ccui.ProtectedNode.extend(/** @lends ccui.ScrollViewBar# */
      * @param {ccui.ScrollView.DIR_NONE | ccui.ScrollView.DIR_HORIZONTAL | ccui.ScrollView.DIR_VERTICAL | ccui.ScrollView.DIR_BOTH} direction
      */
     ctor: function (parent, direction) {
+        debugLog("UIScrollViewBar ctor");
         cc.ProtectedNode.prototype.ctor.call(this);
         this._direction = direction;
         this._parentScroll  = parent;
