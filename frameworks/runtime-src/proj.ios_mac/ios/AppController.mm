@@ -37,6 +37,7 @@
 #import <Crashlytics/Crashlytics.h>
 #import "H102Wrapper.h"
 #import "FirebaseWrapper.h"
+#import "Firebase.h"
 
 #import "AudioEngine.h"
 
@@ -89,6 +90,8 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
     [FirebaseWrapper setCurrentViewController:_viewController];
+    [FIRDatabase database].persistenceEnabled = YES;
+
   
   cocos2d::experimental::AudioEngine::lazyInit();
 
