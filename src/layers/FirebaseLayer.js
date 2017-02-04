@@ -23,8 +23,11 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogin.y = cc.winSize.height/2 + 200;
         this._btnLogin.addClickEventListener(function() {
             debugLog("tapped _btnLogin");
+            LoadingIndicator.show();
             FirebaseManager.getInstance().login(function(succeed, msg) {
                 self.reloadState();
+                debugLog("gonna remove loading indicator");
+                LoadingIndicator.hide();
             })
         });
         this.addChild(this._btnLogin);

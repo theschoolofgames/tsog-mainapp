@@ -31,9 +31,10 @@ var FirebaseManager = cc.Class.extend({
         return data;
     },
 
-    authenticate: function() {
+    authenticate: function(finishCallback) {
         debugLog("FirebaseManager.authenticate");
         if (! NativeHelper.callNative("isLoggedIn")) {
+            finishCallback(false);
             return false;
         }
 
@@ -52,7 +53,7 @@ var FirebaseManager = cc.Class.extend({
             });
         }
 
-        this._updateDataModel();
+        this._updateDataModel(finishCallback);
         return true;
     },
 
@@ -88,9 +89,11 @@ var FirebaseManager = cc.Class.extend({
         var cb = this._cbs.login;
         delete this._cbs.login;
 
-        this.authenticate();
-
-        cb && cb(succeed, msg);
+        if (succeed) {
+            this.authenticate(cb);
+        } else {
+            cb && cb(succeed, msg);
+        }
     },
     
     onLoggedOut: function() {
@@ -123,7 +126,7 @@ var FirebaseManager = cc.Class.extend({
     },
 
     // private
-    _updateDataModel: function() {
+    _updateDataModel: function(finishCallback) {
         debugLog("_updateDataModel");
 
         var self = this;
@@ -192,6 +195,8 @@ var FirebaseManager = cc.Class.extend({
                             var child = user.findChild(key);
                             cc.assert(child, "child with id " + key + " is null");
                             child.populateFirebaseData(data);
+
+                            finishCallback(true);
                             
                             callback(null);
                         })
