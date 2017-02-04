@@ -36,6 +36,7 @@ import android.support.annotation.Nullable;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.database.FirebaseDatabase;
 import com.h102.FirebaseWrapper;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
@@ -53,6 +54,7 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
         super.onCreate(savedInstanceStat);
         FirebaseWrapper.activity = this;
         FirebaseWrapper.setupDeepLinkListener();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     @Override

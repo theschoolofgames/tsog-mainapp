@@ -165,11 +165,13 @@ cc.game.onStart = function(){
         
         cc.audioEngine.setMusicVolume(1);
 
-        FirebaseManager.getInstance().authenticate();
-        // cc.director.runScene(new WelcomeScene());
-        // cc.director.runScene(new HomeScene());
-        // cc.director.runScene(new AlphaRacingScene([]));
-        cc.director.runScene(new FirebaseScene());
+        FirebaseManager.getInstance().authenticate(function(loggedIn) {
+            debugLog("authenticate result: " + loggedIn);
+            // cc.director.runScene(new WelcomeScene());
+            // cc.director.runScene(new HomeScene());
+            // cc.director.runScene(new AlphaRacingScene([]));
+            cc.director.runScene(new FirebaseScene());
+        });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {
             KVDatabase.getInstance().set("first_time", "false");
