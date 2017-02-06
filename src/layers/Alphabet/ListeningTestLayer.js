@@ -566,8 +566,8 @@ var ListeningTestLayer = TestLayer.extend({
         };
         this._totalGoals = (this._keyObject.length > 0) ? this._keyObject.length  : this._names.length;
         cc.log("listening names after map: " + JSON.stringify(this._names));
-        if (this._keyObject.length > 0)
-            this.setData(this._keyObject);
+        // if (this._keyObject.length > 0)
+        //     this.setData(this._keyObject);
 
         this._data = data;
     },
