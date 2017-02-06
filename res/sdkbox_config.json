@@ -16,6 +16,18 @@
                 "subscription_monthly": {
                     "type": "non_consumable",
                     "id": "com.theschoolofgames.tsog.subscription.monthly"
+                },
+                "set_1": {
+                    "type": "consumable",
+                    "id": "com.theschoolofgames.tsog.set1"
+                },
+                "set_2": {
+                    "type": "consumable",
+                    "id": "com.theschoolofgames.tsog.set2"
+                },
+                "set_3": {
+                    "type": "consumable",
+                    "id": "com.theschoolofgames.tsog.set3"
                 }
             }
         }

@@ -37,8 +37,10 @@
 #import <Crashlytics/Crashlytics.h>
 #import "H102Wrapper.h"
 #import "FirebaseWrapper.h"
+#import "Firebase.h"
 
 #import "AudioEngine.h"
+#import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
 
 @implementation AppController
 
@@ -89,8 +91,10 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] setStatusBarHidden: YES];
     
     [FirebaseWrapper setCurrentViewController:_viewController];
+    [FIRDatabase database].persistenceEnabled = YES;
+
   
-  cocos2d::experimental::AudioEngine::lazyInit();
+    cocos2d::experimental::AudioEngine::lazyInit();
 
     // IMPORTANT: Setting the GLView should be done after creating the Root_viewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
@@ -103,16 +107,41 @@ static AppDelegate s_sharedApplication;
 //   [SEGAnalytics debug:YES];
   
     [Fabric with:@[[Crashlytics class]]];
-  [[Fabric sharedSDK] setDebug: YES];
+    [[Fabric sharedSDK] setDebug: YES];
   
-  [UIApplication sharedApplication].idleTimerDisabled = YES;
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
 
+    self.remoteConfig = [FIRRemoteConfig remoteConfig];
+    FIRRemoteConfigSettings *remoteConfigSettings = [[FIRRemoteConfigSettings alloc] initWithDeveloperModeEnabled:YES];
+    self.remoteConfig.configSettings = remoteConfigSettings;
+    
+    //[self.remoteConfig setDefaultsFromPlistFileName:@"RemoteConfigDefaults"];
+    
+    [self fetchConfig];
+    
     return YES;
 }
 
+- (void)fetchConfig {    
+    [self.remoteConfig fetchWithExpirationDuration:0 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError * _Nullable error) {
+        if (status == FIRRemoteConfigFetchStatusSuccess) {
+            NSLog(@"Config fetched!");
+            [self.remoteConfig activateFetched];
+            NSSet<NSString*>* configKeys = [self.remoteConfig keysWithPrefix:@""];
+            NSMutableDictionary* configs = [[NSMutableDictionary alloc] init];
+            for (NSString* key in configKeys) {
+                configs[key] = [self.remoteConfig[key] stringValue];
+            }
+            
+        } else {
+            NSLog(@"Config not fetched");
+            NSLog(@"Error %@", error.localizedDescription);
+        }
+    }];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*

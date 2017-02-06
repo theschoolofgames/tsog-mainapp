@@ -31,9 +31,10 @@ var FirebaseManager = cc.Class.extend({
         return data;
     },
 
-    authenticate: function() {
+    authenticate: function(finishCallback) {
         debugLog("FirebaseManager.authenticate");
         if (! NativeHelper.callNative("isLoggedIn")) {
+            finishCallback(false);
             return false;
         }
 
@@ -52,7 +53,7 @@ var FirebaseManager = cc.Class.extend({
             });
         }
 
-        this._updateDataModel();
+        this._updateDataModel(finishCallback);
         return true;
     },
 
@@ -79,6 +80,12 @@ var FirebaseManager = cc.Class.extend({
         NativeHelper.callNative("fetchData", [path]);
     },
 
+    fetchConfig: function(duration, cb) {
+        debugLog("fetchConfigWithDuration: " + duration);
+        this._cbs.fetchConfig = cb;
+        NativeHelper.callNative("fetchConfig", [duration]);
+    },
+
     createChildAutoId: function(path) {
         return NativeHelper.callNative("createChildAutoId", [path]);    
     },
@@ -88,9 +95,11 @@ var FirebaseManager = cc.Class.extend({
         var cb = this._cbs.login;
         delete this._cbs.login;
 
-        this.authenticate();
-
-        cb && cb(succeed, msg);
+        if (succeed) {
+            this.authenticate(cb);
+        } else {
+            cb && cb(succeed, msg);
+        }
     },
     
     onLoggedOut: function() {
@@ -114,6 +123,20 @@ var FirebaseManager = cc.Class.extend({
         cb && cb(key, data, isNull);
     },
 
+    onFetchedConfig: function(succeed, dataString) {
+        var data;
+
+        try {
+            data = JSON.parse(dataString);
+        } catch (e) {
+            data = dataString;
+        }
+
+        var cb = this._cbs.fetchConfig;
+        delete this._cbs.fetchConfig;
+        cb && cb(succeed, dataString);
+    },
+
     onGameStartedFromDeeplink: function(inviterId) {
         debugLog("JS, onGameStartedFromDeeplink: " + inviterId);
         if (isFirstTime == true) {
@@ -123,7 +146,7 @@ var FirebaseManager = cc.Class.extend({
     },
 
     // private
-    _updateDataModel: function() {
+    _updateDataModel: function(finishCallback) {
         debugLog("_updateDataModel");
 
         var self = this;
@@ -192,6 +215,8 @@ var FirebaseManager = cc.Class.extend({
                             var child = user.findChild(key);
                             cc.assert(child, "child with id " + key + " is null");
                             child.populateFirebaseData(data);
+
+                            finishCallback(true);
                             
                             callback(null);
                         })

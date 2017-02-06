@@ -150,6 +150,8 @@
 
         "src/lang/Localization.js",
 
-        "src/Global.js"
+        "src/Global.js",
+
+        "src/layers/LoadingIndicator.js"
     ]
 }

@@ -384,6 +384,17 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;)V"
         ]
     },
+    fetchConfig: {
+        iOS: [
+            "FirebaseWrapper",
+            "fetchConfigWithExpirationDuration:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "fetchConfig",
+            "(Ljava/lang/String;)V"
+        ]
+    },
     createChildAutoId: {
         iOS: [
             "FirebaseWrapper",

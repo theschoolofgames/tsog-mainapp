@@ -213,55 +213,55 @@
       "1-2": true
     }
   },
-  "1 + 1 = 2": {
+  "1+1=2": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 2 = 3": {
+  "1+2=3": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 4 = 5": {
+  "1+4=5": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 5 = 6": {
+  "1+5=6": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 6 = 7": {
+  "1+6=7": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 7 = 8": {
+  "1+7=8": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "1 + 8 = 9": {
+  "1+8=9": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "2 + 3 = 5": {
+  "2+3=5": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true
     }
   },
-  "3 + 4 = 7": {
+  "3+4=7": {
     "completedLevelIds": {
       "1-1": true,
       "1-2": true

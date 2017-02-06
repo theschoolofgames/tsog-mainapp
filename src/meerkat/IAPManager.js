@@ -66,7 +66,7 @@ var IAPManager = cc.Class.extend({
         sdkbox.IAP.init();
 
         var self = this;
-
+        
         if (cc.sys.os === "Android")
             NativeHelper.callNative("initInAppBillingService");
 
@@ -74,8 +74,8 @@ var IAPManager = cc.Class.extend({
         sdkbox.IAP.setListener({
             onSuccess : function (product) {
                 // Purchase success
-                //console.log("onProductPurchaseSuccess");
-                //console.log(JSON.stringify(product));
+                console.log("onProductPurchaseSuccess");
+                console.log(JSON.stringify(product));
 
                 // Only one type of IAP so dont need to check productID
                 KVDatabase.getInstance().set("subscribed", 1);
@@ -84,15 +84,15 @@ var IAPManager = cc.Class.extend({
                 // Utils.startCountDownTimePlayed("showPayWall");
             },
             onFailure : function (product, msg) {
-                //console.log("onProductPurchaseFailure");
-                //console.log(JSON.stringify(product));
+                console.log("onProductPurchaseFailure");
+                console.log(JSON.stringify(product));
                 //console.log(msg);
                 // Utils.startCountDownTimePlayed("showPayWall");
                 if (self.purchaseCallback)
                     self.purchaseCallback(false);
             },
             onCanceled : function (product) {
-                //Purchase was canceled by user
+                // Purchase was canceled by user
                 // Utils.startCountDownTimePlayed("showPayWall");
                 if (self.purchaseCallback)
                     self.purchaseCallback(false);

@@ -3,8 +3,6 @@ var FirebaseLayer = cc.LayerColor.extend({
     _btnLogout: null,
     _btnHomeScene: null,
     _btnShare: null,
-    // _btnNativeShare: null,
-    // _btnWhatsappShare: null,
 
     _lbName: null,
     _lbEmail: null,
@@ -23,8 +21,11 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._btnLogin.y = cc.winSize.height/2 + 200;
         this._btnLogin.addClickEventListener(function() {
             debugLog("tapped _btnLogin");
+            LoadingIndicator.show();
             FirebaseManager.getInstance().login(function(succeed, msg) {
                 self.reloadState();
+                debugLog("gonna remove loading indicator");
+                LoadingIndicator.hide();
             })
         });
         this.addChild(this._btnLogin);
@@ -65,15 +66,17 @@ var FirebaseLayer = cc.LayerColor.extend({
         }.bind(this));
         this.addChild(this._btnShare);
 
-        // this._btnNativeShare = new ccui.Button();
-        // this._btnNativeShare.titleText = "Share native";
-        // this._btnNativeShare.titleFontSize = 30;
-        // this._btnNativeShare.x = 150;
-        // this._btnNativeShare.y = cc.winSize.height/2 + 50;
-        // this._btnNativeShare.addClickEventListener(function() {
-        //     NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
-        // }.bind(this));
-        // this.addChild(this._btnNativeShare);
+        this._btnFetchConfig = new ccui.Button();
+        this._btnFetchConfig.titleText = "FETCH CONFIG";
+        this._btnFetchConfig.titleFontSize = 30;
+        this._btnFetchConfig.x = 150;
+        this._btnFetchConfig.y = cc.winSize.height/2;
+        this._btnFetchConfig.addClickEventListener(function() {
+            FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
+                debugLog(data);
+            });
+        }.bind(this));
+        this.addChild(this._btnFetchConfig);
 
         // this._btnWhatsappShare = new ccui.Button();
         // this._btnWhatsappShare.titleText = "Share Whatsapp";
