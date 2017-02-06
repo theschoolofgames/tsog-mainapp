@@ -15,30 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "1018788348255-g7tass2d7m46lqfpr8j7c33mpsgc3dk3.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.theschoolofgames.tsog",
-            "certificate_hash": "E74F77D31477A61FEF34893E4A35B55C26F680F8"
-          }
-        },
-        {
-          "client_id": "1018788348255-59nmaqg26lpn7o2manppi6mr3be8kh2p.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.theschoolofgames.tsog",
-            "certificate_hash": "55B901329F877EF6F1F5E12D121EE29F2BF3D815"
-          }
-        },
-        {
-          "client_id": "1018788348255-vis6l7ccnvhst52nu5jk2us14eefsukb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.theschoolofgames.tsog",
-            "certificate_hash": "72A9D848AE8FAAD9A77CE0057085E3C58F2401E3"
-          }
-        },
-        {
           "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -58,6 +34,14 @@
             {
               "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.theschoolofgames.tsog",
+                "app_store_id": "1090937711"
+              }
             }
           ]
         },

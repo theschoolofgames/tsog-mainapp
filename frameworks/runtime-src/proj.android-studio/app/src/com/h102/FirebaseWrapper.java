@@ -2,10 +2,13 @@ package com.h102;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Debug;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.BuildConfig;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
@@ -23,6 +26,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigValue;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +41,7 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +61,12 @@ public class FirebaseWrapper {
     public static AppActivity activity;
 
     private static GoogleApiClient mGoogleApiClient = null;
+
+    private static String configFetchedSuccessfully = "false";
+
+    private static String configJsonString = "";
+
+    private static FirebaseRemoteConfig remoteConfig = null;
 
     public static boolean isLoggedIn() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -269,8 +282,48 @@ public class FirebaseWrapper {
                         });
     }
 
+    public static void fetchConfig(String duration) {
+        remoteConfig.fetch(Long.parseLong(duration)).addOnCompleteListener(activity, new OnCompleteListener<Void>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+                configFetchedSuccessfully = "false";
+                configJsonString = "{}";
+
+                if (task.isSuccessful()) {
+                    configFetchedSuccessfully = "true";
+                    remoteConfig.activateFetched();
+                }
+
+                Set<String> configsKey = remoteConfig.getKeysByPrefix(null);
+                Log.d(TAG, "configsKey == " + configsKey.toString());
+
+                HashMap<String, String> configs = new HashMap<String, String>();
+                for (String key: configsKey) {
+                    configs.put(key, remoteConfig.getString(key));
+                }
+                Log.d(TAG, "configs = " + configs.toString());
+                configJsonString = new Gson().toJson(configs);
+                Log.d(TAG, "configJsonString == " + configJsonString);
+                activity.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', " +
+                                "'onFetchedConfig', [" + configFetchedSuccessfully + ", '" + configJsonString + "'])");
+                    }
+                });
+            }
+        });
+    }
+
     public static void onActivityStart() {
         mGoogleApiClient.connect();
+        remoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        remoteConfig.setConfigSettings(configSettings);
     }
 
     public static void onActivityStop() {

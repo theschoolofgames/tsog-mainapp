@@ -19,6 +19,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     _index : 0,
     _scrollBar: null,
     _scrollPoint: null,
+    _currentIdx: 0,
     ctor: function () {
         // body...
         this._super(cc.color(255,255,255,255));
@@ -33,7 +34,6 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             }
         });
         var key = Object.keys(PROGRESSTRACKER);
-        cc.log("PROGRESSTRACKER: " + JSON.stringify(key));
 
         this._filterGameObjectJSON("word");
         this.createTableView();
@@ -177,9 +177,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this._scrollBar = scrollbar;
         scrollbar.scale = 2;
         var pointScroll = new cc.Sprite("res/SD/point-scroll.png");
-        cc.log("this._index ===========" + this._index);
         pointScroll.anchorX = 0;
-        pointScroll.x = this._scrollBar.width * Math.max(0,this._index - 5)/(this.arrayObjectInType.length - 5);
+        pointScroll.x = 0;
         pointScroll.y = this._scrollBar.height/2;
         this._scrollBar.addChild(pointScroll);
         this._scrollPoint = pointScroll;
@@ -218,13 +217,12 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     scrollViewDidScroll:function (view) {
-        cc.log("PERCENT: " + (this._index/this.arrayObjectInType.length));
         this._scrollBar.stopAllActions();
         this._scrollBar.visible = true;
         this._scrollBar.opacity = 255;
-        this._scrollPoint.x = this._scrollBar.width * Math.max(0,this._index - 5)/this.arrayObjectInType.length;
-        var pos = this._tableView.getContainer();
-        // cc.log("Cell Position: " + cell.x);
+        cc.log("getContentSize : " + this._tableView.getContentSize().width);
+        
+        this._scrollPoint.x = - this._scrollBar.width * this._tableView.getContentOffset().x/this._tableView.getContentSize().width;
     },
     scrollViewDidZoom:function (view) {
     },
@@ -243,13 +241,11 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     tableCellAtIndex:function (table, idx) {
-        cc.log("idx:" + idx);
         this._index = idx;
         var self = this;
         var cell = table.dequeueCell();
         var index = idx;
         var data = this.arrayObjectInType[index];
-        cc.log("DATA: " + JSON.stringify(data));
         if (!cell) {
             cell = this.createCell(this.arrayObjectInType[index], table, idx);
         }
@@ -258,12 +254,10 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             if(data["type"] == "word" || data["type"] == "number" || data["type"] == "math")
                 cell.lbName.setString(data["value"]);
             var id = data["id"];     
-            cc.log("ID: " + id);    
             var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
             percent = Math.ceil(percent);
             cell.progressColor.percentage = percent;
             cell.percent.setString(percent + "%");
-            cc.log("percent: " + percent);
             if(data["type"] == "object" || data["type"] == "animal") {
                 var spritePath = "objects/" + data["value"].toLowerCase() + ".png";
                 if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) 
@@ -284,8 +278,6 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     createCell: function(data, table, idx) {
-        cc.log("Button Name: " + this._type);
-        cc.log("createCell: " + JSON.stringify(data));
         cell = new CustomTableViewCell();
         var imagePath = "res/SD/square.png";
         if(this._type == "math")
@@ -307,11 +299,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         progressBarBg.y = 70 + progressBarBg.height/2;
         palaceFrame.addChild(progressBarBg);
         //       
-        cc.log("ID: " + data["id"]);  
         var id = data["id"];         
         var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
         percent = Math.ceil(percent);
-        cc.log("percent: " + percent);
         var colorBar = new cc.Sprite("#colorbar.png");
         var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 - 1;
@@ -322,7 +312,6 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         gameProgressBar.percentage = percent;
         progressBarBg.addChild(gameProgressBar);
         cell.progressColor = gameProgressBar;
-        cc.log(percent.toString() + "%");
         cell.percent = new cc.LabelBMFont(percent.toString() + "%",res.CustomFont_fnt);
         cell.percent.x = gameProgressBar.x;
         cell.percent.y = gameProgressBar.y - 40;

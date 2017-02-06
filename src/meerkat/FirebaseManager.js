@@ -81,6 +81,7 @@ var FirebaseManager = cc.Class.extend({
     },
 
     fetchConfig: function(duration, cb) {
+        duration = duration + "";
         debugLog("fetchConfigWithDuration: " + duration);
         this._cbs.fetchConfig = cb;
         NativeHelper.callNative("fetchConfig", [duration]);
