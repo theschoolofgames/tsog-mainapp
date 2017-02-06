@@ -120,27 +120,7 @@ static AppDelegate s_sharedApplication;
     
     //[self.remoteConfig setDefaultsFromPlistFileName:@"RemoteConfigDefaults"];
     
-    [self fetchConfig];
-    
     return YES;
-}
-
-- (void)fetchConfig {    
-    [self.remoteConfig fetchWithExpirationDuration:0 completionHandler:^(FIRRemoteConfigFetchStatus status, NSError * _Nullable error) {
-        if (status == FIRRemoteConfigFetchStatusSuccess) {
-            NSLog(@"Config fetched!");
-            [self.remoteConfig activateFetched];
-            NSSet<NSString*>* configKeys = [self.remoteConfig keysWithPrefix:@""];
-            NSMutableDictionary* configs = [[NSMutableDictionary alloc] init];
-            for (NSString* key in configKeys) {
-                configs[key] = [self.remoteConfig[key] stringValue];
-            }
-            
-        } else {
-            NSLog(@"Config not fetched");
-            NSLog(@"Error %@", error.localizedDescription);
-        }
-    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
