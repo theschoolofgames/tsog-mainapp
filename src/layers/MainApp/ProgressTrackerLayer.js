@@ -19,6 +19,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     _index : 0,
     _scrollBar: null,
     _scrollPoint: null,
+    _currentIdx: 0,
     ctor: function () {
         // body...
         this._super(cc.color(255,255,255,255));
@@ -218,12 +219,16 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     scrollViewDidScroll:function (view) {
-        cc.log("PERCENT: " + (this._index/this.arrayObjectInType.length));
         this._scrollBar.stopAllActions();
         this._scrollBar.visible = true;
         this._scrollBar.opacity = 255;
-        this._scrollPoint.x = this._scrollBar.width * Math.max(0,this._index - 5)/this.arrayObjectInType.length;
-        var pos = this._tableView.getContainer();
+        cc.log("getContentSize : " + this._tableView.getContentSize().width);
+        // this._scrollPoint.stopAllActions();
+        // this._scrollPoint.runAction(cc.sequence(
+        //     cc.moveTo(0.5,cc.p(this._scrollBar.width * Math.max(0,this._index - 5)/this.arrayObjectInType.length, this._scrollPoint.y))
+        // ));
+        this._scrollPoint.x = - this._scrollBar.width * this._tableView.getContentOffset().x/this._tableView.getContentSize().width;
+        // var pos = this._tableView.getContainer();
         // cc.log("Cell Position: " + cell.x);
     },
     scrollViewDidZoom:function (view) {
