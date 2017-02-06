@@ -267,7 +267,7 @@ var TreeGameLayer = TestLayer.extend({
                 if (o[0])
                     return o[0];
             });
-            this.setData(this._data);
+            // this.setData(this._data);
 
         } else
             this._data = [{

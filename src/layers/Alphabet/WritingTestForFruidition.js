@@ -97,7 +97,7 @@ var WritingTestForFruidition = WritingTestLayer.extend({
         this._data["second"] = this._data["second"].map(function(o) {
             return Utils.getValueOfObjectById(o);
         });
-        this.setData(this._data);
+        // this.setData(this._data);
         this._writingWords = this._names;
         // cc.log("WritingTestForFruidition this._writingWords: " + this._writingWords);
         // cc.log("WritingTestForFruidition this._names: " + this._names);

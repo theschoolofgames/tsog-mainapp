@@ -78,7 +78,7 @@ var CardGameLayer = TestLayer.extend({
             else
                 return id;
         });
-        this.setData(dataForTest);
+        // this.setData(dataForTest);
         // this.setCardGameData(dataForTest);
         this._timeForScene = timeForScene;
         this._loadTmx();

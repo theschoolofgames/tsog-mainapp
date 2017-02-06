@@ -38,6 +38,7 @@ var TestLayer = cc.LayerColor.extend({
     },
     // TODO: recheck type of this.data
     setData: function(data) {
+        debugLog("TestLayer setData -> " + data);
         this.data = data;
 
         if(data instanceof String)
@@ -45,8 +46,10 @@ var TestLayer = cc.LayerColor.extend({
 
         // cc.log("data TestLayer: " + JSON.stringify(data));
         for(var i = 0; i < data.length; i ++) {
+            if (!data[i])
+                continue;
             DataManager.getInstance().setDataAlpharacing(data[i]);
-            cc.log("data[i]: " + JSON.stringify(data[i]));
+            cc.log("setData -> setDataAlpharacing -> data[i]: " + JSON.stringify(data[i]));
         }
     },
 
@@ -246,16 +249,30 @@ var TestLayer = cc.LayerColor.extend({
             this.setCardGameData(this.getCardGameData());
             var numberScene = KVDatabase.getInstance().getInt("scene_number");
             var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
-            // cc.log("durationArray: " + JSON.stringify(durationArray));
             var sceneData = SceneFlowController.getInstance().getNextSceneData();
-            cc.log("sceneData: " + JSON.stringify(sceneData));
+
             SceneFlowController.getInstance().moveToNextScene(nextSceneName, sceneData, durationArray[numberScene]);
         } else {
             var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
             var currentLevel = SceneFlowController.getInstance().getCurrentStep();
-            debugLog("currentStepData -> " + currentStepData);
-            debugLog("currentLevel -> " + currentLevel);
+            var currentGameIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
             GameObjectsProgress.setGameObjectsProgress(currentStepData, currentLevel);
+
+            var didCurrentGameCompleted = DataManager.getInstance().isGameCompleted(currentGameIdx);
+            debugLog("didCurrentGameCompleted - > " + didCurrentGameCompleted);
+            if (!didCurrentGameCompleted) {
+                var objectsLearned = GameObjectsProgress.getInstance().getGameObjectsLearned();
+                debugLog("before mapping objectsLearned -> " + objectsLearned);
+                objectsLearned = objectsLearned.map(function(obj) {
+                    debugLog("on mapping objectsLearned -> " + obj);
+                    var o = GameObject.getInstance().findById(obj)
+                    if (o[0])
+                        return o[0];
+                    else
+                        return null;
+                });
+                this.setData(objectsLearned);
+            }
 
             this.removeCardGameData();
             Utils.updateStepData();

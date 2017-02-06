@@ -11,7 +11,7 @@ var SpeakingTestForFruiddition = SpeakingTestLayer.extend({
         });
 
         this._names = this._data["third"];   
-        this.setData(this._data);
+        // this.setData(this._data);
     },
 
 });

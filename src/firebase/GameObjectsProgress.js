@@ -16,6 +16,7 @@ var GameObjectsProgress = cc.Class.extend({
     },
 
     _saveProgress: function() {
+        debugLog("_saveProgress -> " +  JSON.stringify(this._data));
         KVDatabase.getInstance().set(GAME_OBJECTS_PROGRESS, JSON.stringify(this._data));
     },
 
@@ -24,15 +25,15 @@ var GameObjectsProgress = cc.Class.extend({
     },
 
     countCompleted: function(gameObjectId) {
-        if(!this._data[gameObjectId])
+        var gameObjectData = this._data[gameObjectId];
+        if(!gameObjectData)
             return 0;
-        var completedLevelIds = Object.keys(this._data[gameObjectId]["completedLevelIds"]);
-        debugLog("completedLevelIds -> " + completedLevelIds);
+        var completedLevelIds = Object.keys(gameObjectData["completedLevelIds"]);
+        // debugLog("completedLevelIds -> " + completedLevelIds);
         return completedLevelIds.length;
     },
 
     setCompleted: function(gameObjectId, levelId) {
-        debugLog("setCompleted -> " + gameObjectId);
         if (!this._data[gameObjectId]) {
             this._data[gameObjectId] = {};
             this._data[gameObjectId]["completedLevelIds"] = {};
@@ -45,7 +46,7 @@ var GameObjectsProgress = cc.Class.extend({
         var gameObjectsLearnedArray = [];
         var objectIdArray = Object.keys(this._data);
         for (var i = 0; i < objectIdArray.length; i++) {
-            // debugLog("objectIdArray -> " + objectIdArray[i]);
+            debugLog("getGameObjectsLearned -> objectIdArray -> " + objectIdArray[i]);
             var count = this.countCompleted(objectIdArray[i]);
             if (count > 0)
                 gameObjectsLearnedArray.push(objectIdArray[i]);
@@ -70,8 +71,7 @@ GameObjectsProgress.setGameObjectsProgress = function(gameObjectIdArray, levelId
     for (var i = 0; i < gameObjectIdArray.length; i++)
         GameObjectsProgress._instance.setCompleted(gameObjectIdArray[i], levelId);
 
-    GameObjectsProgress._instance._checkProgress();
-    debugLog("getGameObjectsLearned -> " + GameObjectsProgress._instance.getGameObjectsLearned());
-
+    // GameObjectsProgress._instance._checkProgress();
+    // debugLog("getGameObjectsLearned -> " + GameObjectsProgress._instance.getGameObjectsLearned());
 };
 
