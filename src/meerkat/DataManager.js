@@ -163,6 +163,20 @@ var DataManager = cc.Class.extend({
             return levelData[gameId]["completed"];
         return false;
     },
+
+    filterGameObjectsData: function(dataArray) {
+        debugLog("getCurrentSceneName: \t " + SceneFlowController.getInstance().getCurrentSceneName());
+        dataArray = dataArray.map(function(obj) {
+            debugLog("on mapping objectsLearned -> " + obj);
+            var o = GameObject.getInstance().findById(obj);
+            if (o[0])
+                return o[0];
+            else
+                return null;
+        });
+
+        return dataArray;
+    },
 });
 
 DataManager._instance = null;

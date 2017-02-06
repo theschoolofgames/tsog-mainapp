@@ -66,10 +66,11 @@ GameObjectsProgress.setupInstance = function() {
 };
 
 GameObjectsProgress.setGameObjectsProgress = function(gameObjectIdArray, levelId) {
+    debugLog("GameObjectsProgress \t setGameObjectsProgress \t" + gameObjectIdArray);
     for (var i = 0; i < gameObjectIdArray.length; i++)
         GameObjectsProgress._instance.setCompleted(gameObjectIdArray[i], levelId);
 
-    // GameObjectsProgress._instance._checkProgress();
+    debugLog("GameObjectsProgress \t _checkProgress:" + JSON.stringify(GameObjectsProgress._instance._checkProgress()));
     // debugLog("getGameObjectsLearned -> " + GameObjectsProgress._instance.getGameObjectsLearned());
 };
 

@@ -64,18 +64,11 @@ var SceneFlowController = cc.Class.extend({
             }
         }
 
-        // cc.log("getNextSceneName: " + sceneName);
-        // cc.log("this._currentLoopSceneIdx \t \t \t \t \t \t  " + this._currentLoopSceneIdx);
-        // cc.log("this._currentSceneData \t \t \t \t \t \t  " + JSON.stringify(this._currentSceneData));
-        // cc.log("\t \t \t \t \t \t NEXT LOOP SCENE INDEX \t \t \t \t \t \t " + a);
-        // cc.log("\t \t \t \t \t \t DATA NEXT SCENE ->>>> \t \t \t \t \t \t  " + JSON.stringify(this._currentSceneData[parseInt(this._currentLoopSceneIdx)+1].data));
-        // cc.log("getNextSceneName: " + sceneName);
         return sceneName;
     },
 
     getNextSceneData: function() {
         var scenePoolKeys = Object.keys(this._currentSceneData);
-        // cc.log("\t \t \t \t \t \t DATA NEXT SCENE ->>>> \t \t \t \t \t \t  " + JSON.stringify(this._currentSceneData[scenePoolKeys[0]].data));
         return this._currentSceneData[scenePoolKeys[0]].data;
     },
 
@@ -94,11 +87,30 @@ var SceneFlowController = cc.Class.extend({
     getCurrentStepData: function() {
         var dataArray = [];
         var gameIds = Object.keys(this._currentStepData);
-        for (var i = 0; i < gameIds.length; i++) {
-            var data = this._currentStepData[gameIds[i]].data;
-            if (!cc.isObject(data[0])) // workaround
-                dataArray.push.apply(dataArray, data);
-        }
+        var firstGameName = this._currentStepData[gameIds[0]].name;
+
+        if (firstGameName.indexOf("fruiddition") > -1) {
+            var fruidditionData = this._currentStepData[gameIds[0]]["data"]["data"][0];
+            // debugLog("fruidditionData -> " + JSON.stringify(fruidditionData));
+            var totalOperation = fruidditionData["first"].length;
+            for (var k = 0; k < totalOperation; k++) {
+                var firstOpe = (fruidditionData["firstOperation"][k] == "plus") ? "+" : "-" ;
+                var operationId = fruidditionData["first"][k] 
+                                    + firstOpe
+                                    + fruidditionData["second"][k]
+                                    + "="
+                                    + fruidditionData["third"][k];
+                // debugLog("operationId -> " + operationId);
+                dataArray.push(operationId);
+            }
+        } else 
+            for (var i = 0; i < gameIds.length; i++) {
+                var data = this._currentStepData[gameIds[i]].data;
+                if (!cc.isObject(data[0])) // workaround
+                    dataArray.push.apply(dataArray, data);
+            }
+
+        
         return dataArray;
     },
 
@@ -135,13 +147,9 @@ var SceneFlowController = cc.Class.extend({
     },
 
     cacheData: function(stepIdx, sceneIdx, sceneName, sceneData) {
-        // cc.log("stepIdx - sceneName - sceneData " + stepIdx + " - " + sceneName + " - " + JSON.stringify(sceneData));
         this._currentStepIndex = stepIdx;
         this._currentLoopSceneIdx = sceneIdx;
         this._currentLoopSceneName = sceneName;
-
-        // var totalSceneInStep = Object.keys(sceneData).length;
-        // this.setTotalSceneInStep(totalSceneInStep);
 
         KVDatabase.getInstance().set("sceneFlowCache", JSON.stringify({
             currentStepIndex: stepIdx,
@@ -155,7 +163,7 @@ var SceneFlowController = cc.Class.extend({
         var data = KVDatabase.getInstance().getString("sceneFlowCache");
         if (data == null || data == "")
             return;
-        // cc.log("SceneFlowController: " + data);
+
         data = JSON.parse(data);
 
         this._currentPreLoopSceneIdx = data.currentPreLoopSceneIdx || 0;
@@ -171,7 +179,6 @@ var SceneFlowController = cc.Class.extend({
         this._currentLoopSceneName = "";
         this._currentSceneData = [];
         this._currentStepData = null;
-        // cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
     },
 
     clearLastedStepPressed: function() {
