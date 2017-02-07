@@ -196,24 +196,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this._tableView.x = 30;
         this._tableView.y = 150;
         this.createScrollBar();
-        // var layer = new cc.LayerColor(cc.color.RED, cc.winSize.width - 100, cc.winSize.height/3 * 2);
-        // this._tableView.addChild(layer,100000);
         this.addChild(this._tableView, 1);
         this._tableView.setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN);
-        // var sc = new ccui.ScrollView();
-        // sc.setContentSize(cc.winSize.width - 100, cc.winSize.height/2);
-        // sc.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-        // sc.setScrollBarEnabled(true);
-        // sc.setInnerContainerSize(cc.size(200 * this.arrayObjectInType.length,cc.winSize.height/2));
-        // sc.setScrollBarWidth(50);
-        // sc.setScrollBarAutoHideEnabled(false);
-
-        // debugLog("scrollvar opacity -> " + sc.getScrollBarOpacity());
-        // debugLog("scrollvar enabled -> " + sc.isScrollBarEnabled());
-        // debugLog("scrollvar width -> " + sc.getScrollBarWidth());
-        // sc.x = 30;
-        // sc.y = 100;
-        // this.addChild(sc, 2);
+        
     },
 
     scrollViewDidScroll:function (view) {
