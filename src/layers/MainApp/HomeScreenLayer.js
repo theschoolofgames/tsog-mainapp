@@ -36,13 +36,14 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(button, 99);
         var self = this;
         button.addClickEventListener(function() {
-            var layer = new ProgressTrackerLayer();
-            self.addChild(layer, 999999);
+            // var layer = new ProgressTrackerLayer();
+            // self.addChild(layer, 999999);
+            cc.director.replaceScene(new GrownUpMenuScene());
         });
         
-        var text = localizeForWriting("Progress Tracker");
+        var text = localizeForWriting("Grown-up");
         var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
-        lb.scale = (button.width * 0.9) / lb.width;
+        lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
         button.getVirtualRenderer().addChild(lb);
