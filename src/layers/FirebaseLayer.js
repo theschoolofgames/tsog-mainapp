@@ -66,27 +66,37 @@ var FirebaseLayer = cc.LayerColor.extend({
         }.bind(this));
         this.addChild(this._btnShare);
 
-        this._btnFetchConfig = new ccui.Button();
-        this._btnFetchConfig.titleText = "FETCH CONFIG";
-        this._btnFetchConfig.titleFontSize = 30;
-        this._btnFetchConfig.x = 150;
-        this._btnFetchConfig.y = cc.winSize.height/2;
-        this._btnFetchConfig.addClickEventListener(function() {
-            FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-                debugLog(data);
-            });
-        }.bind(this));
-        this.addChild(this._btnFetchConfig);
-
-        // this._btnWhatsappShare = new ccui.Button();
-        // this._btnWhatsappShare.titleText = "Share Whatsapp";
-        // this._btnWhatsappShare.titleFontSize = 30;
-        // this._btnWhatsappShare.x = 150;
-        // this._btnWhatsappShare.y = cc.winSize.height/2;
-        // this._btnWhatsappShare.addClickEventListener(function() {
-        //     NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, this._lbUid.string)]);
+        // this._btnFetchConfig = new ccui.Button();
+        // this._btnFetchConfig.titleText = "FETCH CONFIG";
+        // this._btnFetchConfig.titleFontSize = 30;
+        // this._btnFetchConfig.x = 150;
+        // this._btnFetchConfig.y = cc.winSize.height/2;
+        // this._btnFetchConfig.addClickEventListener(function() {
+        //     FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
+        //         debugLog(data);
+        //     });
         // }.bind(this));
-        // this.addChild(this._btnWhatsappShare);
+        // this.addChild(this._btnFetchConfig);
+
+        // this._btnBuySet1 = new ccui.Button();
+        // this._btnBuySet1.titleText = "BUY MONTHLY";
+        // this._btnBuySet1.titleFontSize = 30;
+        // this._btnBuySet1.x = 150;
+        // this._btnBuySet1.y = cc.winSize.height/2 - 50;
+        // this._btnBuySet1.addClickEventListener(function() {
+        //     IAPManager.getInstance().purchase("subscription_monthly");
+        // }.bind(this));
+        // this.addChild(this._btnBuySet1);
+
+        // this._btnBuySet2 = new ccui.Button();
+        // this._btnBuySet2.titleText = "BUY SET 2";
+        // this._btnBuySet2.titleFontSize = 30;
+        // this._btnBuySet2.x = 150;
+        // this._btnBuySet2.y = cc.winSize.height/2 - 100;
+        // this._btnBuySet2.addClickEventListener(function() {
+        //     IAPManager.getInstance().purchase("set_2");
+        // }.bind(this));
+        // this.addChild(this._btnBuySet2);
 
         // this._btnFacebookShare = new ccui.Button();
         // this._btnFacebookShare.titleText = "Share Facebook";
