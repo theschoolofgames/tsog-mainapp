@@ -53,6 +53,11 @@ var FirebaseManager = cc.Class.extend({
             });
         }
 
+        FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
+            var config = JSON.parse(data);
+            OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
+        });
+
         this._updateDataModel(finishCallback);
         return true;
     },
