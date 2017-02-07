@@ -3246,7 +3246,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "20bc6641-4979-4490-8ff4-42fbc05b3a19";
+				PROVISIONING_PROFILE = "c201a056-73dd-45e2-ac1a-bff07c7f80e8";
 				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
