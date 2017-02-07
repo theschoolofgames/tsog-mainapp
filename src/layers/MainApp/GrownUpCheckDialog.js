@@ -104,17 +104,22 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     },
 
     _addDialogBg: function() {
-        var dialogBg = new cc.Sprite("#level_dialog_frame.png");
+        var dialogBg = new cc.Sprite("res/SD/grownup/dialog_bg.png");
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
 
-        var title = new cc.LabelBMFont("For Parent",res.HomeFont_fnt);
-        title.x = this._dialogBg.width/2;
-        title.y = this._dialogBg.height - title.height + 30;
-        this._dialogBg.addChild(title);
-        this._title = title;
+        var ribbon = new cc.Sprite("res/SD/grownup/ribbon.png");
+        ribbon.x = dialogBg.width/2;
+        ribbon.y = dialogBg.height - 10;
+        dialogBg.addChild(ribbon);
+        var title = new cc.LabelBMFont("For Parent",res.CustomFont_fnt);
+        title.scale = 0.55;
+        title.x = ribbon.width/2;
+        title.y = ribbon.height/2 + 25;
+        ribbon.addChild(title);
+        this._ribbon = ribbon;
     },
 
     addCloseButton: function() {
@@ -147,19 +152,19 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     },
 
     addNumberForAdultAndProgressBar: function(){
-        var requiredLb = new cc.LabelBMFont("Press number " + this._numberForAdult + " for 3 seconds", res.HomeFont_fnt);
-        requiredLb.scale = 0.5;
+        var requiredLb = new cc.LabelBMFont("Press number \" " + this._numberForAdult + " \" for 3 seconds", res.CustomFont_fnt);
+        requiredLb.scale = 0.4;
         requiredLb.x = this._dialogBg.width/2;
-        requiredLb.y = this._title.y - 50;
+        requiredLb.y = this._ribbon.y - 70;
         this._dialogBg.addChild(requiredLb);
-        var progressBarBg = new cc.Sprite("#progress-bar.png");
+        var progressBarBg = new cc.Sprite("res/SD/grownup/progress-bar-grown-up.png");
         progressBarBg.x = this._dialogBg.width/2;
-        progressBarBg.y = this._dialogBg.height - 150;
+        progressBarBg.y = this._dialogBg.height - 140;
         this._dialogBg.addChild(progressBarBg);
-        var colorBar = new cc.Sprite("#colorbar.png");
+        var colorBar = new cc.Sprite("res/SD/grownup/colorbar-grown-up.png");
         var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 - 1;
-        gameProgressBar.y = progressBarBg.height/2 + 2;
+        gameProgressBar.y = progressBarBg.height/2;
         gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
         gameProgressBar.midPoint = cc.p(0, 1);
         gameProgressBar.barChangeRate = cc.p(1, 0);
