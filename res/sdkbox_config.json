@@ -5,6 +5,18 @@
                 "subscription_monthly": {
                     "type": "non_consumable",
                     "id": "com.theschoolofgames.tsog.subscription.month"
+                },
+                "set_1": {
+                    "type": "consumable",
+                    "id": "com.theschoolofgames.tsog.set1"
+                },
+                "set_2": {
+                    "type": "non_consumable",
+                    "id": "com.theschoolofgames.tsog.set2"
+                },
+                "set_3": {
+                    "type": "consumable",
+                    "id": "com.theschoolofgames.tsog.set3"
                 }
             }, 
             "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArqQbIPc7t6MFdmn9zc6hLKc3xuCrYtGDUAolg+3K48bvBszi94EcAKxYmyI5CqbgyjfXAy4btkZ36A5fElAwKm2hmKHHKo+vW6/OibgVhdGzOWCxouM8dsGoqgNBtl4j0TBEq1ltkKIhD0cNDloqWH8/EtLoBRZbhqjv4LtHJ/IRj7kWVjrThXtqt+PKCm9cgi4YmIDei8vcxJpumNVdInPsNllN8NOHunEOpQfNLDi0ybZbEFod1LVovALulBllIZ7CMCfedZNgAVnQv7p47VQ6BxCUSN8wWNcDhzGYlSR4Enyz0Z02pwOdL/WvFcO/3zaWpcN9nCo6FPxBKQxT+wIDAQAB"
