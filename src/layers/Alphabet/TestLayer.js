@@ -263,14 +263,8 @@ var TestLayer = cc.LayerColor.extend({
             if (!didCurrentGameCompleted) {
                 var objectsLearned = GameObjectsProgress.getInstance().getGameObjectsLearned();
                 debugLog("before mapping objectsLearned -> " + objectsLearned);
-                objectsLearned = objectsLearned.map(function(obj) {
-                    debugLog("on mapping objectsLearned -> " + obj);
-                    var o = GameObject.getInstance().findById(obj)
-                    if (o[0])
-                        return o[0];
-                    else
-                        return null;
-                });
+                objectsLearned = DataManager.getInstance().filterGameObjectsData(objectsLearned);
+
                 this.setData(objectsLearned);
             }
 
