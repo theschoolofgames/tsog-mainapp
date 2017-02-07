@@ -35,7 +35,6 @@
         "res/lang/en_writing.js",
 
         "src/firebase/User.js",
-        "src/firebase/ProgressTracker.js",
         "src/firebase/GameObjectsProgress.js",
         "src/firebase/Child.js",
         
@@ -69,6 +68,7 @@
         "src/layers/MainApp/HomeScreenLayer.js",
         "src/layers/MainApp/ShopScreenLayer.js",
         "src/layers/MainApp/ProgressTrackerLayer.js",
+        "src/layers/MainApp/GrownUpMenuLayer.js",
 
         "src/layers/TestGameLayer.js",
 
