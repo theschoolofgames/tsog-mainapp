@@ -39,6 +39,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this.createTableView();
         this.addButton();
         this.addBackButton();
+        
         // var test = new cc.Sprite("res/SD/objects/salt.png");
         // test.x = cc.winSize.width/2;
         // test.y = cc.winSize.height/2;
