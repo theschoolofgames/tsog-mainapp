@@ -47,9 +47,8 @@ var res = {
     Button_twitter_pressed_png: "res/SD/dialogs/share/button_twitter_pressed.png",
     Button_whatsapp_normal_png: "res/SD/dialogs/share/button_whatsapp_normal.png",
     Button_whatsapp_pressed_png: "res/SD/dialogs/share/button_whatsapp_pressed.png",
-
-
-
+    Button_facebook_normal_png: "res/SD/dialogs/share/button_facebook_normal.png",
+    Button_facebook_pressed_png: "res/SD/dialogs/share/button_facebook_pressed.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
