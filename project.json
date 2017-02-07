@@ -69,6 +69,7 @@
         "src/layers/MainApp/HomeScreenLayer.js",
         "src/layers/MainApp/ShopScreenLayer.js",
         "src/layers/MainApp/ProgressTrackerLayer.js",
+        "src/layers/MainApp/GrownUpCheckDialog.js",
 
         "src/layers/TestGameLayer.js",
 
