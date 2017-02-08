@@ -105,7 +105,7 @@ var ShadowGameLayer = TestLayer.extend({
         cc.log("tempArray after : \t -> " + JSON.stringify(tempArray));
         // cc.log("this._duplicateGroup : \t -> " + JSON.stringify(this._duplicateGroup));
         this._objectsArray = tempArray;
-        this.setData(this._objectsArray);
+        // this.setData(this._objectsArray);
     },
 
     _parseGameObjectJSON: function() {

@@ -3209,7 +3209,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tsog.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: anshul dhawan (ADJ4TYWE57)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -3246,7 +3246,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "f7d1f9ef-b473-4fda-9558-4030bad98121";
+				PROVISIONING_PROFILE = "c201a056-73dd-45e2-ac1a-bff07c7f80e8";
 				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3262,8 +3262,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = tsog.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer: anshul dhawan (ADJ4TYWE57)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 34F8D32X5G;
@@ -3299,8 +3299,8 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.theschoolofgames.tsog;
-				PROVISIONING_PROFILE = "3b335b59-f05d-4f6d-ba7b-5f3654a693d7";
-				PROVISIONING_PROFILE_SPECIFIER = "TSOG Distribution - AppStore";
+				PROVISIONING_PROFILE = "20bc6641-4979-4490-8ff4-42fbc05b3a19";
+				PROVISIONING_PROFILE_SPECIFIER = "TSOG - Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/spidermonkey/include/ios $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/auto $(SRCROOT)/../../cocos2d-x/plugin/jsbindings/manual $(SRCROOT)/../../lwf $(SRCROOT)/../../SoundStretch $(SRCROOT)/../../SoundTouch $(SRCROOT)/OpenEars/Dependencies/**";

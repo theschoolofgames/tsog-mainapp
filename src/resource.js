@@ -31,6 +31,24 @@ var res = {
     Homescreen_png : "homescreen.png",
     AlpharacingBG_plist: "alpha-racing-background.plist",
 
+    // dialog
+    Dialog_bg_png: "res/SD/dialogs/dialog_bg.png",
+    Button_x_normal_png: "res/SD/dialogs/button_x_normal.png",
+    Button_x_pressed_png: "res/SD/dialogs/button_x_pressed.png",
+    Button_background_png: "res/SD/dialogs/button_background.png",
+    Pugdog_png: "res/SD/dialogs/pugdog.png",
+    Ribbon_png: "res/SD/dialogs/ribbon.png",
+
+
+    //share dialog
+    Button_more_normal_png: "res/SD/dialogs/share/button_more_normal.png",
+    Button_more_pressed_png: "res/SD/dialogs/share/button_more_pressed.png",
+    Button_twitter_normal_png: "res/SD/dialogs/share/button_twitter_normal.png",
+    Button_twitter_pressed_png: "res/SD/dialogs/share/button_twitter_pressed.png",
+    Button_whatsapp_normal_png: "res/SD/dialogs/share/button_whatsapp_normal.png",
+    Button_whatsapp_pressed_png: "res/SD/dialogs/share/button_whatsapp_pressed.png",
+    Button_facebook_normal_png: "res/SD/dialogs/share/button_facebook_normal.png",
+    Button_facebook_pressed_png: "res/SD/dialogs/share/button_facebook_pressed.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

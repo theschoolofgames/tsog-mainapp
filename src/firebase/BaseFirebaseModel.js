@@ -60,18 +60,18 @@ var BaseFirebaseModel = cc.Class.extend({
 	}
 });
 
-var User = BaseFirebaseModel.extend({
-	_className: "User",
-	ctor: function(id, initCallback) {
-		this.setDefaultValues({
-			"name": "tester",
-			"diamond": 2
-		});
+// var TestModel = BaseFirebaseModel.extend({
+// 	_className: "TestModel",
+// 	ctor: function(id, initCallback) {
+// 		this.setDefaultValues({
+// 			"name": "tester",
+// 			"diamond": 2
+// 		});
 
-		this._super("/children/" + id, ["coin", "diamond", "name"], initCallback);
-	}
-})
+// 		this._super("/children/" + id, ["coin", "diamond", "name"], initCallback);
+// 	}
+// })
 
-TestModel.find = function(id, cb) {
-	var obj = new TestModel(id, cb);
-}
+// TestModel.find = function(id, cb) {
+// 	var obj = new TestModel(id, cb);
+// }

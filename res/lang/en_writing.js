@@ -476,4 +476,10 @@ languagesForWriting["en"] = {
     "home": "home",
     "play": "play",
     "learn": "learn",
+    "grown-up": "Grown-up",
+    "share": "Share & Spread the message",
+    "like us": "Like Us",
+    "follow us": "Follow Us",
+    "progresstracker": "Progress Tracker",
+    "pay": "Pay with Your Heart"
 };

@@ -53,6 +53,11 @@ var FirebaseManager = cc.Class.extend({
             });
         }
 
+        FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
+            var config = JSON.parse(data);
+            OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
+        });
+
         this._updateDataModel(finishCallback);
         return true;
     },
@@ -85,6 +90,13 @@ var FirebaseManager = cc.Class.extend({
 
         data = JSON.stringify(data);
         NativeHelper.callNative("updateChildValues", [path, data]);
+    },
+
+    fetchConfig: function(duration, cb) {
+        duration = duration + "";
+        debugLog("fetchConfigWithDuration: " + duration);
+        this._cbs.fetchConfig = cb;
+        NativeHelper.callNative("fetchConfig", [duration]);
     },
 
     createChildAutoId: function(path) {
@@ -122,6 +134,20 @@ var FirebaseManager = cc.Class.extend({
         var cb = this._cbs.fetchData[fullPath];
         // delete this._cbs.fetchData[fullPath];
         cb && cb(key, data, isNull, fullPath);
+    },
+
+    onFetchedConfig: function(succeed, dataString) {
+        var data;
+
+        try {
+            data = JSON.parse(dataString);
+        } catch (e) {
+            data = dataString;
+        }
+
+        var cb = this._cbs.fetchConfig;
+        delete this._cbs.fetchConfig;
+        cb && cb(succeed, dataString);
     },
 
     onGameStartedFromDeeplink: function(inviterId) {

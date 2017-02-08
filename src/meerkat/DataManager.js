@@ -80,6 +80,7 @@ var DataManager = cc.Class.extend({
         this._gameData[userId] = data;
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
     },
+
     setDataAlpharacing: function(data) {
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
         if (currentData.length == 0)
@@ -120,6 +121,7 @@ var DataManager = cc.Class.extend({
         // };
         // KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData))
     },
+
     getDataAlpharacing: function(){
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
 
@@ -147,7 +149,34 @@ var DataManager = cc.Class.extend({
                 amount: 20
             }
         });
-    }
+    },
+
+    isGameCompleted: function(gameId) {
+        var levelData = {};
+        var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(levelData));
+        if (data != null && data != "" && data != "{}") {
+            data = JSON.parse(data);
+            levelData = data;
+        }
+
+        if (levelData[gameId] && levelData[gameId]["completed"])
+            return levelData[gameId]["completed"];
+        return false;
+    },
+
+    filterGameObjectsData: function(dataArray) {
+        debugLog("getCurrentSceneName: \t " + SceneFlowController.getInstance().getCurrentSceneName());
+        dataArray = dataArray.map(function(obj) {
+            debugLog("on mapping objectsLearned -> " + obj);
+            var o = GameObject.getInstance().findById(obj);
+            if (o[0])
+                return o[0];
+            else
+                return null;
+        });
+
+        return dataArray;
+    },
 });
 
 DataManager._instance = null;

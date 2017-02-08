@@ -15,7 +15,7 @@ var SpeakingTestForBuildingBlocks = SpeakingTestLayer.extend({
         });
 
         this._names = this._data["third"];   
-        this.setData(this._data);
+        // this.setData(this._data);
         // cc.log("data after map: " + JSON.stringify(this._names));
     },
 

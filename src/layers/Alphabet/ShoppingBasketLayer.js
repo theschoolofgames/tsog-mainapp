@@ -149,7 +149,7 @@ var ShoppingBasketLayer = TestLayer.extend({
 
     _fetchObjectData: function(data) {
         ShoppingBasketLayer._data = data;
-        this.setData(data);
+        // this.setData(data);
         if (data) {
             if (data[0].requiredShoppingAmount) {
                 this._requiredAmount = data[0].requiredShoppingAmount;

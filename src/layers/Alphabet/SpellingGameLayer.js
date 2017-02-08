@@ -39,7 +39,7 @@ var SpellingGameLayer = TestLayer.extend({
         if (this._data.length == 0)
             return;
 
-        this.setData(this._data);
+        // this.setData(this._data);
         this._totalLetters = this._checkTotalLetters(this._data);
         this._objectName = this._data.shift();
         this._currentLetters = localizeForWriting(this._objectName).split('');

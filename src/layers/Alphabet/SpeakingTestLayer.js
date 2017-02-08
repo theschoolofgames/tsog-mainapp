@@ -503,7 +503,7 @@ var SpeakingTestLayer = TestLayer.extend({
         };
         if(!dataForWriting[0].dataSpeaking)
         dataForWriting  = this._data;   
-        this.setData(dataForWriting);
+        // this.setData(dataForWriting);
         cc.log("data after map: " + JSON.stringify(this._names));
     },
 
