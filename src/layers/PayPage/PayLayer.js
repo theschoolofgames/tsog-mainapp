@@ -91,6 +91,7 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	_addItems: function() {
+		var self = this;
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
 								res.Icon_gold_medium_png, SET_SMALL_PRICE,
 								SET_SMALL_COINS, SET_SMALL_DIAMONDS, function() {
@@ -101,6 +102,7 @@ var PayLayer = cc.Layer.extend({
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_SMALL_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_SMALL_DIAMONDS));
+											self._succeedDialog();
 										}
 									});
 								}.bind(this));
@@ -115,6 +117,7 @@ var PayLayer = cc.Layer.extend({
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_MEDIUM_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_MEDIUM_DIAMONDS));
+											self._succeedDialog();
 										}
 									});
 								}.bind(this));
@@ -129,6 +132,7 @@ var PayLayer = cc.Layer.extend({
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_BIG_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_BIG_DIAMONDS));
+											self._succeedDialog();
 										}
 									});
 								}.bind(this));
@@ -163,7 +167,41 @@ var PayLayer = cc.Layer.extend({
         itemLabel.x = slot.width / 2;
         itemLabel.y = slot.height * 7/8;
         slot.addChild(itemLabel);
-	}
+	},
+
+	_succeedDialog: function() {
+		debugLog("_succeedDialog");
+		var dialog = new cc.Sprite("res/SD/grownup/dialog_bg.png");
+		dialog.x = cc.winSize.width/2;
+		dialog.y = cc.winSize.height/2;
+
+		var dialogLayer = new Dialog();
+		dialogLayer.addChild(dialog);
+
+		dialogLayer.background = dialog;
+		this.addChild(dialogLayer);
+
+		var title = new cc.LabelBMFont("Purchase Succeed",res.Grown_Up_fnt);
+        title.scale = 0.55;
+        title.x = dialog.width/2;
+        title.y = dialog.height/2 + title.height;
+        dialog.addChild(title);
+
+        var confirmBtn = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
+        confirmBtn.x = dialog.width/2;
+        confirmBtn.y = dialog.height/2 - 20;
+        dialog.addChild(confirmBtn);
+
+        var title = new cc.LabelBMFont("Ok",res.Grown_Up_fnt);
+        title.scale = 0.55;
+        title.x = confirmBtn.width/2;
+        title.y = confirmBtn.height/2 + 3;
+        confirmBtn.addChild(title);
+
+        confirmBtn.addClickEventListener(function() {
+        	cc.director.replaceScene(new WelcomeScene());
+        });
+	},
 });
 
 var PayScene = cc.Scene.extend({

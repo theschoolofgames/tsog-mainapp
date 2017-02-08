@@ -356,6 +356,8 @@ var res = {
     Mission_Page_bg: "res/SD/bg/bg_mission_page.jpg",
     Mission_Page_Plist: "res/SD/mission_page.plist",
     Mission_Page_png: "res/SD/mission_page.png",
+    Grown_Up_fnt: "res/font/grownupcheckfont-export.fnt",
+    Grown_Up_png: "res/font/grownupcheckfont-export.png",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

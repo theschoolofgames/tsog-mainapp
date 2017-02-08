@@ -42,7 +42,7 @@ var HomeScreenLayer = cc.Layer.extend({
         });
         
         var text = localizeForWriting("Grown-up");
-        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
