@@ -34,6 +34,7 @@
         "res/lang/sw_writing.js",
         "res/lang/en_writing.js",
 
+        "src/firebase/BaseFirebaseModel.js",
         "src/firebase/User.js",
         "src/firebase/ProgressTracker.js",
         "src/firebase/GameObjectsProgress.js",

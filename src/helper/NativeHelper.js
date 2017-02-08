@@ -351,6 +351,17 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
+    updateChildValues: {
+        iOS: [
+            "FirebaseWrapper",
+            "updateChildValues:value:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "updateChildValues",
+            "(Ljava/lang/String;Ljava/lang/String;)V"
+        ]
+    },
     setInteger: {
         iOS: [
             "FirebaseWrapper",
@@ -453,10 +464,6 @@ NativeHelper.removeListener = function(name) {
 }
 
 NativeHelper.onReceive = function(name, fnName, args) {
-    debugLog("onReceive");
-    debugLog(name);
-    debugLog(fnName);
-    debugLog(args);
     if (NativeHelperListener[name]) {
         args = args || [];
 

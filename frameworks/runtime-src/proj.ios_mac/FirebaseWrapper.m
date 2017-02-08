@@ -83,6 +83,20 @@ static UIViewController* viewController;
   [child setValue:values];
 }
 
++ (void)updateChildValues:(NSString*)path value:(NSString*)valueString {
+    NSError* error = nil;
+    NSData* data = [valueString dataUsingEncoding:NSUTF8StringEncoding];
+    id values = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    
+    if (error)
+        values = valueString;
+    
+    FIRDatabaseReference* root = [[FIRDatabase database] reference];
+    FIRDatabaseReference* child = [root child:path];
+    
+    [child updateChildValues:values];
+}
+
 + (void)setInteger:(NSString*)key value:(NSNumber*)value {
     FIRDatabaseReference* root = [[FIRDatabase database] reference];
     FIRDatabaseReference* child = [root child:key];
@@ -100,8 +114,6 @@ static UIViewController* viewController;
   FIRDatabaseReference* child = [root child:path];
   
   [child observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-    [child removeAllObservers];
-    
     NSString* dataString = @"{}";
     
     if (snapshot.exists) {
@@ -112,9 +124,11 @@ static UIViewController* viewController;
       } else {
         dataString = [snapshot.value stringValue];
       }
+    } else {
+        [child removeAllObservers];
     }
     
-    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', ['%@', '%@', '%@', '%@'])", child.key, dataString, !snapshot.exists ? @"true" : @"false", path ]];
+    [Cocos2dxHelper evalString:[NSString stringWithFormat:@"NativeHelper.onReceive('Firebase', 'onFetchedData', ['%@', '%@', %@, '%@'])", child.key, dataString, !snapshot.exists ? @"true" : @"false", path ]];
   }];
 }
 

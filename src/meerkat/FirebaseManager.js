@@ -80,6 +80,13 @@ var FirebaseManager = cc.Class.extend({
         NativeHelper.callNative("fetchData", [path]);
     },
 
+    updateChildValues: function(path, data) {
+        cc.assert(data instanceof Object, "data must be an object of key-value pairs");
+
+        data = JSON.stringify(data);
+        NativeHelper.callNative("updateChildValues", [path, data]);
+    },
+
     createChildAutoId: function(path) {
         return NativeHelper.callNative("createChildAutoId", [path]);    
     },
@@ -113,8 +120,8 @@ var FirebaseManager = cc.Class.extend({
             data = dataString;
         }
         var cb = this._cbs.fetchData[fullPath];
-        delete this._cbs.fetchData[fullPath];
-        cb && cb(key, data, isNull);
+        // delete this._cbs.fetchData[fullPath];
+        cb && cb(key, data, isNull, fullPath);
     },
 
     onGameStartedFromDeeplink: function(inviterId) {
