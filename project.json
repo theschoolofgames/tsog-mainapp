@@ -153,6 +153,8 @@
 
         "src/Global.js",
 
-        "src/layers/LoadingIndicator.js"
+        "src/layers/LoadingIndicator.js",
+
+        "src/layers/parent/MissionPageLayer.js"
     ]
 }

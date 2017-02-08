@@ -343,6 +343,11 @@ var res = {
     AR_New_Level_02_Custom_TMX: "res/new-ar-level02_custom.tmx",
     AR_New_Level_03_Custom_TMX: "res/new-ar-level03_custom.tmx",
 
+    // Mission page
+    Mission_Page_bg: "res/SD/bg/bg_mission_page.jpg",
+    Mission_Page_Plist: "res/SD/mission_page.plist",
+    Mission_Page_png: "res/SD/mission_page.png",
+
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };
 
