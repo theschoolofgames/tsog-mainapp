@@ -46,34 +46,38 @@ var BaseFirebaseModel = cc.Class.extend({
 	},
 
 	_init: function() {
-		var self = this;
 		var data = {};
-        for (var i = 0; i < self._listeningKeys.length; i++) {
-        	var key = self._listeningKeys[i];
+        for (var i = 0; i < this._listeningKeys.length; i++) {
+        	var key = this._listeningKeys[i];
 
-    		if (self._defaultValues[key]) {
-    			data[key] = self._defaultValues[key];
+    		if (this._defaultValues[key]) {
+    			data[key] = this._defaultValues[key];
     		}
 
-        	// create field
-        	// "childrenIds" => "_childrenIds"
-        	self["_" + key] = data[key];
-
-        	// getter function
-        	// "childrenIds" => "getChildrenIds"
-        	self["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
-        		return self["_" + key];
-        	}
-
-        	// setter function
-        	// "childrenIds" => "setChildrenIds"
-        	self["set" + key.charAt(0).toUpperCase() + key.slice(1)] = function(value) {
-        		self["_" + key] = value;
-        		var kv = {};
-        		kv[key] = value;
-        		self._updateData(kv);
-        	}
+			// create field
+	    	// "childrenIds" => "_childrenIds"
+	    	this["_" + key] = data[key];
+	    	this._defineGetterSetter(key);
         }
+	},
+
+	_defineGetterSetter: function(key) {
+		var self = this;
+
+		// getter function
+    	// "childrenIds" => "getChildrenIds"
+    	self["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
+    		return self["_" + key] || self._defaultValues[key];
+    	}
+
+    	// setter function
+    	// "childrenIds" => "setChildrenIds"
+    	self["set" + key.charAt(0).toUpperCase() + key.slice(1)] = function(value) {
+    		self["_" + key] = value;
+    		var kv = {};
+    		kv[key] = value;
+    		self._updateData(kv);
+    	}
 	},
 
 	_listen: function(path, cb) {

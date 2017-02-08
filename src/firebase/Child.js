@@ -8,5 +8,7 @@ var Child = BaseFirebaseModel.extend({
         });
         
         this._super("/children/" + id, id, ["coin", "diamond"], initCallback);
+
+        debugLog("TEST getCoin: " + this.getCoin());
     },
 });
