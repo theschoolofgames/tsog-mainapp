@@ -162,7 +162,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
         for(var i = 0; i < 4; i++){
             var button = new ccui.Button("res/SD/progresstracker/button-tab.png", "res/SD/progresstracker/button-tab-pressed.png", "res/SD/progresstracker/button-tab-disable.png");
-            button.x = 200 + i * (button.width + 100);
+            button.x = 200 + i * (cc.winSize.width/5 + 10);
             button.y = cc.winSize.height - 75;
             var string = NAME_TAB[i];
             // button.setColor(cc.color.RED);
@@ -179,7 +179,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
                 this._currentButton = button;
                 button.setEnabled(false);
                 this._bgBtnChoose.x = button.width/2;
-                this._bgBtnChoose.y = button.height/2;
+                this._bgBtnChoose.y = button.height/2 - 1;
                 button.addChild(this._bgBtnChoose, -1);
             };
             button.addClickEventListener(this._onPressed.bind(this));
@@ -196,7 +196,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         button.enabled = (false);
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
         this._bgBtnChoose.x = button.width/2;
-        this._bgBtnChoose.y = button.height/2;
+        this._bgBtnChoose.y = button.height/2 - 1;
         button.addChild(this._bgBtnChoose, -1);
         switch(buttonName) {
             case "Alphabets":
@@ -283,7 +283,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         cc.log("getContentSize : " + this._tableView.getContentSize().width);
         cc.log("POS: " + this._tableView.getContentOffset().x);
         
-        this._scrollPoint.x = - (this._scrollBar.width - this._scrollPoint.width) * this._tableView.getContentOffset().x/(this._tableView.getContentSize().width - 1000);
+        this._scrollPoint.x = - (this._scrollBar.width - this._scrollPoint.width) * this._tableView.getContentOffset().x/(this._tableView.getContentSize().width - 1000 * Utils.getScaleFactorTo16And9());
     },
     scrollViewDidZoom:function (view) {
     },
