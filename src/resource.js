@@ -39,7 +39,6 @@ var res = {
     Pugdog_png: "res/SD/dialogs/pugdog.png",
     Ribbon_png: "res/SD/dialogs/ribbon.png",
 
-
     //share dialog
     Button_more_normal_png: "res/SD/dialogs/share/button_more_normal.png",
     Button_more_pressed_png: "res/SD/dialogs/share/button_more_pressed.png",
@@ -49,6 +48,17 @@ var res = {
     Button_whatsapp_pressed_png: "res/SD/dialogs/share/button_whatsapp_pressed.png",
     Button_facebook_normal_png: "res/SD/dialogs/share/button_facebook_normal.png",
     Button_facebook_pressed_png: "res/SD/dialogs/share/button_facebook_pressed.png",
+
+    //pay dialog
+    Icon_gold_big_png: "res/SD/dialogs/pay/icon_gold_big.png",
+    Icon_gold_medium_png: "res/SD/dialogs/pay/icon_gold_medium.png",
+    Icon_gold_small_png: "res/SD/dialogs/pay/icon_gold_small.png",
+    Item_background_png: "res/SD/dialogs/pay/item_background.png",
+    Pay_background_png: "res/SD/dialogs/pay/pay_background.png",
+    Pay_border_png: "res/SD/dialogs/pay/pay_border.png",
+    Pay_breaking_line_png: "res/SD/dialogs/pay/pay_breaking_line.png",
+    Pay_button_normal_png: "res/SD/dialogs/pay/pay_button_normal.png",
+    Pay_button_pressed_png: "res/SD/dialogs/pay/pay_button_pressed.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",
@@ -341,6 +351,13 @@ var res = {
     AR_New_Level_01_Custom_TMX: "res/new-ar-level01_custom.tmx",
     AR_New_Level_02_Custom_TMX: "res/new-ar-level02_custom.tmx",
     AR_New_Level_03_Custom_TMX: "res/new-ar-level03_custom.tmx",
+
+    // Mission page
+    Mission_Page_bg: "res/SD/bg/bg_mission_page.jpg",
+    Mission_Page_Plist: "res/SD/mission_page.plist",
+    Mission_Page_png: "res/SD/mission_page.png",
+    Grown_Up_fnt: "res/font/grownupcheckfont-export.fnt",
+    Grown_Up_png: "res/font/grownupcheckfont-export.png",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
 };

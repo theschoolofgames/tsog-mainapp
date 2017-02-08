@@ -66,17 +66,15 @@ var FirebaseLayer = cc.LayerColor.extend({
         }.bind(this));
         this.addChild(this._btnShare);
 
-        // this._btnFetchConfig = new ccui.Button();
-        // this._btnFetchConfig.titleText = "FETCH CONFIG";
-        // this._btnFetchConfig.titleFontSize = 30;
-        // this._btnFetchConfig.x = 150;
-        // this._btnFetchConfig.y = cc.winSize.height/2;
-        // this._btnFetchConfig.addClickEventListener(function() {
-        //     FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-        //         debugLog(data);
-        //     });
-        // }.bind(this));
-        // this.addChild(this._btnFetchConfig);
+        this._btnPay = new ccui.Button();
+        this._btnPay.titleText = "PAY PAGE";
+        this._btnPay.titleFontSize = 30;
+        this._btnPay.x = 150;
+        this._btnPay.y = cc.winSize.height/2;
+        this._btnPay.addClickEventListener(function() {
+            cc.director.runScene(new PayScene());
+        }.bind(this));
+        this.addChild(this._btnPay);
 
         // this._btnBuySet1 = new ccui.Button();
         // this._btnBuySet1.titleText = "BUY MONTHLY";

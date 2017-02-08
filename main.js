@@ -149,6 +149,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Mission_Page_Plist);
 
         AudioManager.getInstance().preload(res.alpha_racing_mp3);
         AudioManager.getInstance().preload(res.back_sound_mp3);
@@ -170,7 +171,8 @@ cc.game.onStart = function(){
             // cc.director.runScene(new WelcomeScene());
             // cc.director.runScene(new HomeScene());
             // cc.director.runScene(new AlphaRacingScene([]));
-            cc.director.runScene(new FirebaseScene());
+            // cc.director.runScene(new FirebaseScene());
+            cc.director.runScene(new MissionPageScene());
         });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {
@@ -195,6 +197,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Mission_Page_Plist);
         });
     }, this);
 };

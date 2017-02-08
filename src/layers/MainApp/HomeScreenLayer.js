@@ -21,8 +21,7 @@ var HomeScreenLayer = cc.Layer.extend({
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer(),2);
-        var dialog = new GrownUpCheckDialog();
-        this.addChild(dialog, 999999);
+        // this.addChild(new ProgressTrackerLayer(), 100);
         this.addProgressTrackerButton();
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
@@ -38,15 +37,20 @@ var HomeScreenLayer = cc.Layer.extend({
         button.addClickEventListener(function() {
             // var layer = new ProgressTrackerLayer();
             // self.addChild(layer, 999999);
-            cc.director.replaceScene(new GrownUpMenuScene());
+            var dialog = new GrownUpCheckDialog(self.grownUpCheckCallback);
+            self.addChild(dialog, 999999);
         });
         
         var text = localizeForWriting("Grown-up");
-        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
+        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
         button.getVirtualRenderer().addChild(lb);
+    },
+
+    grownUpCheckCallback: function() {
+        cc.director.replaceScene(new GrownUpMenuScene())
     },
 
     addBackGround: function() {
