@@ -18,14 +18,14 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
             this._numberArray.push(i)
         };
         shuffle(this._numberArray);
-        this._numberArray.splice(0,3);
+        this._numberArray = this._numberArray.splice(0,6);
         shuffle(this._colors);
         this._colors = this._colors.splice(0,6);
         cc.log("COLOR: " + JSON.stringify(this._colors));
         this._numberForAdult = this._numberArray[Math.floor(Math.random() * this._numberArray.length)];
         cc.log("NUMBER: " + JSON.stringify(this._numberArray));
-        this.addRandomNumber();
         this.addNumberForAdultAndProgressBar();
+        this.addRandomNumber();
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -62,7 +62,6 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
                 this._startTouchPosition = touchedPos;
                 this._timeTouched = new Date().getTime() / 1000;
                 this._isTouching = true;
-                cc.log("TOUCH ON : " + node.tag);
                 this._objectTouching = node;
             };
             if(isRectContainsPoint && node.tag != this._numberForAdult) 
@@ -71,23 +70,23 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         return true;
     },
     onTouchMoved: function(touch, event){
-        cc.log("onTouchMoved");
         var touchedPos = touch.getLocation();
-        cc.log("touchedPos: " + JSON.stringify(touchedPos));
-        var delta = cc.pSub(touchedPos, this._startTouchPosition);
-        cc.log("delta: " + cc.pLengthSQ(delta));
-        if(cc.pLengthSQ(delta) > 20 && this._isTouching) {
-            cc.log("FALSE");
-            this._timeForTouched = 0;
-            this._isTouching = false;
-            this.runActionFail();
-        };
+        if(this._startTouchPosition) {
+            var delta = cc.pSub(touchedPos, this._startTouchPosition);
+            if(cc.pLengthSQ(delta) > 625 && this._isTouching) {
+                cc.log("FALSE");
+                this._timeForTouched = 0;
+                this._isTouching = false;
+                this.runActionFail();
+            };
+        }
 
     },
     onTouchEnded: function(touch, event){
         cc.log("onTouchEnded");
+        this._startTouchPosition = null,
         this._timeForTouched = 0;
-        if(this._objectTouching && this._timeForTouched < 3)
+        if(this._objectTouching && this._timeForTouched < TIME_FOR_ADULT_TOCH)
             this.runActionFail();
         this._isTouching = false;
     },
@@ -97,8 +96,8 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         // cc.log("currentTime: " + currentTime);
         if(this._isTouching)
             this._timeForTouched = currentTime - this._timeTouched;
-        this._progressBar.percentage = this._timeForTouched/3 * 100;
-        if(this._timeForTouched >= 3 && this._isTouching)
+        this._progressBar.percentage = this._timeForTouched/TIME_FOR_ADULT_TOCH * 100;
+        if(this._timeForTouched >= TIME_FOR_ADULT_TOCH && this._isTouching)
             this.removeFromParent();
             // cc.log("DING DING");
     },
@@ -136,18 +135,19 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
 
     addRandomNumber: function(){
         for(var i = 0; i < this._numberArray.length; i++) {
-            btn = new cc.Sprite("#btn_" + this._colors[i] + ".png");
-            btn.x = 150 + i % 3 * 120;
-            btn.y = this._dialogBg.height - 240 - 130 * (Math.floor(i/3));
+            var number = this._numberArray[i];
+            btn = new ccui.Button("res/SD/grownup/button-" + number + ".png", "res/SD/grownup/button-" + number + "-pressed.png", "");
+            btn.x = this._progressBarBg.x - this._progressBarBg.width/2 + btn.width/2 +  i % 3 * 165;
+            btn.y = this._dialogBg.height - 240 - 140 * (Math.floor(i/3));
+            btn.setSwallowTouches(false);
             this._dialogBg.addChild(btn);
             this._numbersNodeArray.push(btn);
-            var number = this._numberArray[i];
             btn.tag = number;
-            var numberLb = new cc.LabelBMFont(number.toString(), res.CustomFont_fnt);
-            numberLb.x = btn.width/2;
-            numberLb.y = btn.height/2;
-            numberLb.scale = 0.5;
-            btn.addChild(numberLb);
+            var underButton = new cc.Sprite("res/SD/grownup/button_bg_grownup.png");
+            underButton.x = btn.width/2;
+            underButton.y = btn.height/2;
+            btn.addChild(underButton, -1);
+            
         }
     },
 
@@ -160,6 +160,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         var progressBarBg = new cc.Sprite("res/SD/grownup/progress-bar-grown-up.png");
         progressBarBg.x = this._dialogBg.width/2;
         progressBarBg.y = this._dialogBg.height - 140;
+        this._progressBarBg = progressBarBg;
         this._dialogBg.addChild(progressBarBg);
         var colorBar = new cc.Sprite("res/SD/grownup/colorbar-grown-up.png");
         var gameProgressBar = new cc.ProgressTimer(colorBar);
