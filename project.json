@@ -140,12 +140,15 @@
         "src/layers/AlphaRacing/ARPlayer.js",
         "src/layers/AlphaRacing/CharacterAlpharacingNode.js",
 
+        "src/layers/PayPage/PayLayer.js",
+
         "src/layers/SceneFlow/SceneFlowController.js",
         
         "src/layers/GameTests/GameTestSelector.js",
         "src/layers/GameTests/ObjectTestSelector.js",
 
         "src/common/MessageDialog.js",
+        "src/common/RepeatingSpriteNode.js",
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
@@ -154,6 +157,8 @@
 
         "src/Global.js",
 
-        "src/layers/LoadingIndicator.js"
+        "src/layers/LoadingIndicator.js",
+
+        "src/layers/parent/MissionPageLayer.js"
     ]
 }

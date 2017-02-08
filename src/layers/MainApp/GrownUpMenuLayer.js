@@ -132,6 +132,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var btnName = button.name;
         switch(btnName) {
             case "Share":
+                var layer = new ShareDialog();
+                this.addChild(layer, 999999);
                 break;
             case "LikeUs":
                 break;
@@ -142,6 +144,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 this.addChild(layer, 999999);
                 break;
             case "Pay":
+                cc.director.replaceScene(new PayScene());
                 break;
             default:
                 break;
