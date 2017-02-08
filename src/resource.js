@@ -39,7 +39,6 @@ var res = {
     Pugdog_png: "res/SD/dialogs/pugdog.png",
     Ribbon_png: "res/SD/dialogs/ribbon.png",
 
-
     //share dialog
     Button_more_normal_png: "res/SD/dialogs/share/button_more_normal.png",
     Button_more_pressed_png: "res/SD/dialogs/share/button_more_pressed.png",
@@ -47,9 +46,19 @@ var res = {
     Button_twitter_pressed_png: "res/SD/dialogs/share/button_twitter_pressed.png",
     Button_whatsapp_normal_png: "res/SD/dialogs/share/button_whatsapp_normal.png",
     Button_whatsapp_pressed_png: "res/SD/dialogs/share/button_whatsapp_pressed.png",
+    Button_facebook_normal_png: "res/SD/dialogs/share/button_facebook_normal.png",
+    Button_facebook_pressed_png: "res/SD/dialogs/share/button_facebook_pressed.png",
 
-
-
+    //pay dialog
+    Icon_gold_big_png: "res/SD/dialogs/pay/icon_gold_big.png",
+    Icon_gold_medium_png: "res/SD/dialogs/pay/icon_gold_medium.png",
+    Icon_gold_small_png: "res/SD/dialogs/pay/icon_gold_small.png",
+    Item_background_png: "res/SD/dialogs/pay/item_background.png",
+    Pay_background_png: "res/SD/dialogs/pay/pay_background.png",
+    Pay_border_png: "res/SD/dialogs/pay/pay_border.png",
+    Pay_breaking_line_png: "res/SD/dialogs/pay/pay_breaking_line.png",
+    Pay_button_normal_png: "res/SD/dialogs/pay/pay_button_normal.png",
+    Pay_button_pressed_png: "res/SD/dialogs/pay/pay_button_pressed.png",
 
     // Temporary
     LoginSucceed_png: "login-succeed.png",

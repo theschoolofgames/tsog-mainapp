@@ -55,7 +55,7 @@ var ShareDialog = Dialog.extend({
 		buttonFacebookBg.y = this._dialogBg.height / 2 + 10;
 		this._dialogBg.addChild(buttonFacebookBg);
 
-		var buttonFacebook = new ccui.Button(res.Button_twitter_normal_png, res.Button_twitter_pressed_png);
+		var buttonFacebook = new ccui.Button(res.Button_facebook_normal_png, res.Button_facebook_pressed_png);
 		buttonFacebook.x = buttonFacebookBg.x;
 		buttonFacebook.y = buttonFacebookBg.y;
 		buttonFacebook.addClickEventListener(function() {
@@ -75,6 +75,7 @@ var ShareDialog = Dialog.extend({
 		buttonNative.x = buttonNativeBg.x;
 		buttonNative.y = buttonNativeBg.y;
 		buttonNative.addClickEventListener(function() {
+			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 			NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
 		});	
 		this._dialogBg.addChild(buttonNative);
@@ -83,6 +84,7 @@ var ShareDialog = Dialog.extend({
 		buttonClose.x = this._dialogBg.width - buttonClose.width / 2;
 		buttonClose.y = this._dialogBg.height - buttonClose.height / 2;
 		buttonClose.addClickEventListener(function() {
+			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 			this.close();
 		}.bind(this));	
 		this._dialogBg.addChild(buttonClose);

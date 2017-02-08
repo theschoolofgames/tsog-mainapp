@@ -10,8 +10,9 @@ var IAPManager = cc.Class.extend({
         sdkbox.IAP.refresh();
     },
 
-    purchase: function(name) {
+    purchase: function(name, cb) {
         sdkbox.IAP.purchase(name);
+        this.purchaseCallback = cb;
     },
 
     purchaseMonthlySubscription: function(callback){
