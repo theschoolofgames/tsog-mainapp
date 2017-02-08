@@ -96,7 +96,7 @@ var PayLayer = cc.Layer.extend({
 								SET_SMALL_COINS, SET_SMALL_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set_1", function(succeed) {
-										if (succeed) {
+										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_SMALL_COINS));
@@ -110,7 +110,7 @@ var PayLayer = cc.Layer.extend({
 								SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set_2", function(succeed) {
-										if (succeed) {
+										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_MEDIUM_COINS));
@@ -124,7 +124,7 @@ var PayLayer = cc.Layer.extend({
 								SET_BIG_COINS, SET_BIG_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set_3", function(succeed) {
-										if (succeed) {
+										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_BIG_COINS));
