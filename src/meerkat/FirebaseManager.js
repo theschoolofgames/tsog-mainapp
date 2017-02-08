@@ -35,31 +35,48 @@ var FirebaseManager = cc.Class.extend({
         debugLog("FirebaseManager.authenticate");
         if (! NativeHelper.callNative("isLoggedIn")) {
             finishCallback(false);
-            return false;
         }
 
-        User.setCurrentUser(this.getUserInfo());
+        User.setCurrentUser(this.getUserInfo(), function(found) {
+            debugLog("setCurrentUser found: " + found);
+            var user = User.getCurrentUser();
+            if (!found) {
+                user.create();
+            }
+            user.fetchDependencies(function() {
+                debugLog("Loadded current user's dependencies");
 
-        var inviteeId = User.getCurrentUser().getUid();
-        var inviterId = KVDatabase.getInstance().getString("inviterId");
-
-        if (inviteeId && inviterId && inviterId != inviteeId) {
-            KVDatabase.getInstance().remove("inviterId");
-            var path = "invitations/" + inviteeId;
-            FirebaseManager.getInstance().fetchData(path, function(key, data, isNull, fullPath) {
-                if (key == inviteeId && isNull) {
-                    Invitation.create(inviteeId, inviterId);
+                if (user.getChildren().length == 0) {
+                    user.createChild(function(success) {
+                        debugLog("  createChild result: " + success);
+                        finishCallback(true);
+                    })
+                } else {
+                    finishCallback(true);
                 }
             });
-        }
-
-        FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-            var config = JSON.parse(data);
-            OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
         });
 
-        this._updateDataModel(finishCallback);
-        return true;
+        // var inviteeId = User.getCurrentUser().getUid();
+        // var inviterId = KVDatabase.getInstance().getString("inviterId");
+
+        // if (inviteeId && inviterId && inviterId != inviteeId) {
+        //     KVDatabase.getInstance().remove("inviterId");
+        //     var path = "invitations/" + inviteeId;
+        //     FirebaseManager.getInstance().fetchData(path, function(key, data, isNull, fullPath) {
+        //         if (key == inviteeId && isNull) {
+        //             Invitation.create(inviteeId, inviterId);
+        //         }
+        //     });
+        // }
+
+        // FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
+        //     var config = JSON.parse(data);
+        //     OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
+        // });
+
+        // this._updateDataModel(finishCallback);
+        // return true;
     },
 
     setData: function(path, value) {

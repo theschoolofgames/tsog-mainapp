@@ -134,6 +134,12 @@ var FirebaseLayer = cc.LayerColor.extend({
         this._lbUid.y = cc.winSize.height/2 - 75;
         this.addChild(this._lbUid);
 
+        this._lbChildUid = new ccui.Text();
+        this._lbChildUid.fontSize = 24;
+        this._lbChildUid.x = cc.winSize.width/2 + 150;
+        this._lbChildUid.y = cc.winSize.height/2 - 125;
+        this.addChild(this._lbChildUid);
+
         this.reloadState();
     },
 
@@ -152,12 +158,13 @@ var FirebaseLayer = cc.LayerColor.extend({
 
         if (User.isLoggedIn()) {
             var user = User.getCurrentUser();
-            this._lbUid.string = user.uid;
+            this._lbUid.string = "User id: " + user.getId();
+            this._lbChildUid.string = "Child id: " + user.getCurrentChild().getId();
             this._lbEmail.string = user.email;
             this._lbName.string = user.name;
             this._lbPhotoURL.string = user.photoUrl;
         } else {
-            this._lbUid.string = this._lbEmail.string = this._lbName.string = this._lbPhotoURL.string = "";
+            this._lbUid.string = this._lbEmail.string = this._lbName.string = this._lbPhotoURL.string = this._lbChildUid.string = "";
         }
     }, 
 });

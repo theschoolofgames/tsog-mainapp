@@ -1,96 +1,55 @@
-var User = cc.Class.extend({
-    _name: null,
-    _email: null,
-    _photoUrl: null,
-    _uid: null,
+var User = BaseFirebaseModel.extend({
+    _className: "User",
 
-    _children: null,
+    name: null,
+    email: null,
+    photoUrl: null,
+    uid: null,
 
-    ctor: function() {
-        
-    },
+    children: null,
 
-    updateUserInfo: function(stringData) {
-        var data;
+    ctor: function(data, initCallback) {
         try {
-            data = JSON.parse(stringData);
+            data = JSON.parse(data);
         } catch(e) {
             return;
         }
+        this.name = data.name;
+        this.email = data.email;
+        this.photoUrl = data.photoUrl;
+        this.uid = data.uid;
 
-        debugLog("updateUserInfo: " + JSON.stringify(data));
+        this.setDefaultValues({
+         "childrenIds": []
+        });
 
-        this._name = data.name;
-        this._email = data.email;
-        this._photoUrl = data.photoUrl;
-        this._uid = data.uid;
+        this.hasMany("children", Child);
 
-        return this;
+        this._super("/users/" + data.uid, data.uid, ["childrenIds"], initCallback);
     },
 
-    populateFirebaseData: function(data) {
-        debugLog("User.populateFirebaseData: " + JSON.stringify(data));
-        this._children = [];
-        for(var i = 0; i < data.children.length; i++) {
-            this._children.push(new Child(data.children[i]));
-        }
+    createChild: function(cb) {
+        var childId = FirebaseManager.getInstance().createChildAutoId("children");
+        var childrenIds = this.getChildrenIds();
+        childrenIds.push(childId);
+        this.setChildrenIds(childrenIds); // to trigger save
 
-        return this;
-    },
+        var newChild = new Child(childId, function(found) {
+            cb && cb(found);
+        });
+        newChild.create();
 
-    getName: function() {
-        return this._name;
-    },
-
-    setName: function(name) {
-        this._name = name;
-    },
-
-    getEmail: function() {
-        return this._email;
-    },
-
-    setEmail: function(email) {
-        this._email = email;
-    },
-
-    getPhotoUrl: function() {
-        return this._photoUrl;
-    },
-
-    setPhotoUrl: function(photoUrl) {
-        this._photoUrl = photoUrl;
-    },
-
-    getUid: function() {
-        return this._uid;
-    },
-
-    findChild: function(id) {
-        for (var i = 0; i < this._children.length; i++) {
-            if (this._children[i].getId() == id)
-                return this._children[i];
-        }
-        return null;
+        this.getChildren().push(newChild);
     },
 
     getFirstChild: function() {
-        return this._children[0];
+        return this.getChildren()[0];
     },
 
     getCurrentChild: function() {
         return this.getFirstChild();
     }
 });
-
-var _p = User.prototype;
-
-cc.defineGetterSetter(_p, "name", _p.getName, _p.setName);
-cc.defineGetterSetter(_p, "email", _p.getEmail, _p.setEmail);
-cc.defineGetterSetter(_p, "photoUrl", _p.getPhotoUrl, _p.setPhotoUrl);
-cc.defineGetterSetter(_p, "uid", _p.getUid);
-
-p = null;
 
 User._instance = null;
 
@@ -113,11 +72,10 @@ User.logout = function() {
     return true;
 };
 
-User.setCurrentUser = function(data) {
-    debugLogStackTrace();
+User.setCurrentUser = function(data, initCallback) {
+    // debugLogStackTrace();
     cc.assert(data != null, "data cannot be null");
 
-    User._instance = new User();
-    User._instance.updateUserInfo(data);
+    User._instance = new User(data, initCallback);
     return User._instance;
 };
