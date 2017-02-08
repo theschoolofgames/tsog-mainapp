@@ -117,10 +117,10 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         ribbon.x = dialogBg.width/2;
         ribbon.y = dialogBg.height - 10;
         dialogBg.addChild(ribbon);
-        var title = new cc.LabelBMFont("For Parent",res.CustomFont_fnt);
-        title.scale = 0.55;
+        var title = new cc.LabelBMFont("For Parent", "res/font/grownupcheckfont-export.fnt");
+        title.scale = 0.7;
         title.x = ribbon.width/2;
-        title.y = ribbon.height/2 + 25;
+        title.y = ribbon.height/2 + 32;
         ribbon.addChild(title);
         this._ribbon = ribbon;
     },
@@ -151,13 +151,12 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
             underButton.x = btn.width/2;
             underButton.y = btn.height/2;
             btn.addChild(underButton, -1);
-            
         }
     },
 
     addNumberForAdultAndProgressBar: function(){
-        var requiredLb = new cc.LabelBMFont("Press number \" " + this._numberForAdult + " \" for 3 seconds", res.CustomFont_fnt);
-        requiredLb.scale = 0.4;
+        var requiredLb = new cc.LabelBMFont("Press number \"" + this._numberForAdult + "\" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
+        requiredLb.scale = 0.5;
         requiredLb.x = this._dialogBg.width/2;
         requiredLb.y = this._ribbon.y - 70;
         this._dialogBg.addChild(requiredLb);
@@ -177,7 +176,4 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         progressBarBg.addChild(gameProgressBar);
         this._progressBar = gameProgressBar;
     }
-
-
-
 })
