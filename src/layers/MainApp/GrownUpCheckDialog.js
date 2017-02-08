@@ -7,8 +7,10 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     _timeForTouched: 0,
     _objectTouching: null,
     _progressBar: null,
-    ctor: function(text){
+    _callback: null,
+    ctor: function(callback){
         this._super(cc.color(0, 0, 0 , 200));
+        this._callback = callback;
         this._colors = ["black", "blue", "green", "orange", "pink", "purple", "red", "brown", "white", "yellow"];
         this._numbersNodeArray = [];
         this._addDialogBg();
@@ -97,9 +99,11 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         if(this._isTouching)
             this._timeForTouched = currentTime - this._timeTouched;
         this._progressBar.percentage = this._timeForTouched/TIME_FOR_ADULT_TOCH * 100;
-        if(this._timeForTouched >= TIME_FOR_ADULT_TOCH && this._isTouching)
-            this.removeFromParent();
-            // cc.log("DING DING");
+        //PASS CHECK
+        if(this._timeForTouched >= TIME_FOR_ADULT_TOCH && this._isTouching) {
+            this._callback();
+            cc.log("DING DING");
+        }
     },
 
     _addDialogBg: function() {
