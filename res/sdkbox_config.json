@@ -2,10 +2,6 @@
     "android": {
         "iap": {
             "items": {
-                "subscription_monthly": {
-                    "type": "non_consumable",
-                    "id": "com.theschoolofgames.tsog.subscription.month"
-                },
                 "set_1": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set1"
@@ -25,10 +21,6 @@
     "ios": {
         "iap": {
             "items": {
-                "subscription_monthly": {
-                    "type": "non_consumable",
-                    "id": "com.theschoolofgames.tsog.subscription.monthly"
-                },
                 "set_1": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set1"
