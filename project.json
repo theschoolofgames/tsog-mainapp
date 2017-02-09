@@ -71,6 +71,7 @@
         "src/layers/MainApp/ProgressTrackerLayer.js",
         "src/layers/MainApp/GrownUpMenuLayer.js",
         "src/layers/MainApp/GrownUpCheckDialog.js",
+        "src/layers/MainApp/RewardScreen.js",
 
         "src/layers/TestGameLayer.js",
 
