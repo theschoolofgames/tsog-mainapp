@@ -78,8 +78,12 @@ var MissionPageLayer = cc.Layer.extend({
                     LoadingIndicator.show();
                     FirebaseManager.getInstance().login(function(succeed, msg) {
                         // debugLog("gonna remove loading indicator");
-                        LoadingIndicator.hide();
-                        this.addChild(new GrownUpCheckDialog(this._payCallBack));
+                        if (succeed) {
+                            LoadingIndicator.hide();
+                            this.addChild(new GrownUpCheckDialog(this._payCallBack));
+                        } else {
+                            LoadingIndicator.hide();
+                        }
                     }.bind(this))    
                 }
                 break;
@@ -90,8 +94,12 @@ var MissionPageLayer = cc.Layer.extend({
                     LoadingIndicator.show();
                     FirebaseManager.getInstance().login(function(succeed, msg) {
                         // debugLog("gonna remove loading indicator");
-                        LoadingIndicator.hide();
-                        cc.director.replaceScene(new WelcomeScene());
+                        if (succeed) {
+                            LoadingIndicator.hide();
+                            cc.director.replaceScene(new WelcomeScene());
+                        } else {
+                            LoadingIndicator.hide();
+                        }
                     })
                 }
                 break;
