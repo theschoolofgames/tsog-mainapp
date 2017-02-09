@@ -377,13 +377,13 @@ Utils.updateStepData = function() {
     if (!stepData[currentLevel]["totalStars"])
         stepData[currentLevel]["totalStars"] = 0;
 
-    currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]);
-    completed = ((currentTotalStars+1) >= totalSceneInStep) ? 1 : 0;
+    currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]) + 1;
+    stepData[currentLevel]["totalStars"] = currentTotalStars;
+    completed = (currentTotalStars * 1.0 / totalSceneInStep >= NEW_LEVEL_UNLOCKING_STAR_RATIO) ? 1 : 0;
     // cc.log("totalSceneInStep: " + totalSceneInStep);
     // cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
     stepData[currentLevel][currentSceneIdx] = 1;
     stepData[currentLevel]["completed"] = completed;
-    stepData[currentLevel]["totalStars"] = currentTotalStars+1;
 
     KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
 }

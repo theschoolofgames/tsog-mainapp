@@ -4,7 +4,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
-var TSOG_DEBUG = true;
+var TSOG_DEBUG = false;
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;
 
@@ -956,3 +956,5 @@ var SET_BIG_COINS = "800";
 var SET_BIG_DIAMONDS = "500";
 
 var TIME_FOR_ADULT_TOCH = 3;
+
+var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;
