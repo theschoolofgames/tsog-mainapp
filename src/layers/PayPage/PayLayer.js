@@ -103,6 +103,7 @@ var PayLayer = cc.Layer.extend({
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_SMALL_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_SMALL_DIAMONDS));
 											self._succeedDialog();
+                                            // cc.director.replaceScene(new RewardScene(SET_SMALL_COINS, SET_SMALL_DIAMONDS));
 										}
 									});
 								}.bind(this));
@@ -118,6 +119,7 @@ var PayLayer = cc.Layer.extend({
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_MEDIUM_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_MEDIUM_DIAMONDS));
 											self._succeedDialog();
+                                            // cc.director.replaceScene(new RewardScene(SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS));
 										}
 									});
 								}.bind(this));
@@ -133,6 +135,7 @@ var PayLayer = cc.Layer.extend({
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_BIG_COINS));
 											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_BIG_DIAMONDS));
 											self._succeedDialog();
+                                            // cc.director.replaceScene(new RewardScene(SET_BIG_COINS, SET_BIG_DIAMONDS));
 										}
 									});
 								}.bind(this));
