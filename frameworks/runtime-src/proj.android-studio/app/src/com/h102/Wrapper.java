@@ -428,4 +428,11 @@ public class Wrapper
             shareDialog.show(content, ShareDialog.Mode.NATIVE);
         }
     }
+
+    public static void shareTwitter(String description, String url) {
+        String tweetUrl = "https://twitter.com/intent/tweet?text='" + description + "'&url="
+                + url;
+        Uri uri = Uri.parse(tweetUrl);
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+    }
 }

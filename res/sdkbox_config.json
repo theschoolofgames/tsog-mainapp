@@ -2,15 +2,15 @@
     "android": {
         "iap": {
             "items": {
-                "set_1": {
+                "set1": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set1"
                 },
-                "set_2": {
+                "set2": {
                     "type": "non_consumable",
                     "id": "com.theschoolofgames.tsog.set2"
                 },
-                "set_3": {
+                "set3": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set3"
                 }
@@ -21,15 +21,15 @@
     "ios": {
         "iap": {
             "items": {
-                "set_1": {
+                "set1": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set1"
                 },
-                "set_2": {
+                "set2": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set2"
                 },
-                "set_3": {
+                "set3": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set3"
                 }

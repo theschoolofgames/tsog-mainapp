@@ -449,6 +449,17 @@ var NativeHelperConfig = {
             "shareFacebook",
             "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
         ]
+    },
+    shareTwitter: {
+        iOS: [
+            "H102Wrapper",
+            "shareTwitterWithDescription:andURL:"
+        ], 
+        Android: [
+            "com/h102/Wrapper",
+            "shareTwitter",
+            "(Ljava/lang/String;Ljava/lang/String;)V"
+        ]
     }
 }
 

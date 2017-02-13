@@ -25,6 +25,8 @@
 
 #import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
 
+#import <Social/Social.h>
+
 static UIViewController* viewController;
 static double startTime = -1;
 static BOOL invalidateTimer = NO;
@@ -392,5 +394,19 @@ static NSMutableArray* noiseDetectionArray = nil;
 //    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
 }
 
++(void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url {
+    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+    UIViewController *rootController = (UIViewController*)appController.viewController;
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        SLComposeViewController* tweetShare = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetShare addURL:[NSURL URLWithString:url]];
+        [tweetShare setInitialText:description];
+        [rootController presentViewController:tweetShare animated:true completion:nil];
+    } else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Accounts" message:@"Please login to a Twitter account to tweet." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [rootController presentViewController:alert animated:true completion:nil];
+    }
+}
 
 @end
