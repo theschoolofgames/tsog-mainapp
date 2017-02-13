@@ -6,7 +6,8 @@ var RewardScreenLayer = cc.Layer.extend({
         cc.log("diamonds: " + diamonds);
         this._createBackground();
         this._addPageBorders();
-        this._addContent();
+        this._addContent(coins, diamonds);
+        this.addBackButton();
     },
 
     _createBackground: function() {
@@ -54,17 +55,17 @@ var RewardScreenLayer = cc.Layer.extend({
         this.addChild(bottomBorder);
     },
 
-    _addContent: function(){
+    _addContent: function(coins, diamonds){
         var self = this;
         var lb = new cc.LabelBMFont("Thank you for joining us in our mission", "res/font/grownupcheckfont-export.fnt");
-        lb.scale = 0.8;
+        lb.scale = 0.5;
         lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height - 80;
+        lb.y = cc.winSize.height - 50;
         this.addChild(lb, 1);
 
         buttonShare = new ccui.Button("res/SD/dialogs/pay/pay_button_normal.png", "res/SD/dialogs/pay/pay_button_pressed.png", "");
-        buttonShare.x = cc.winSize.width/2 - 200;
-        buttonShare.y = 100;
+        buttonShare.x = cc.winSize.width/2 - 100;
+        buttonShare.y = 70;
         this.addChild(buttonShare);
         var lbShare = new cc.LabelBMFont("Share the news", res.HomeFont_fnt);
         lbShare.scale = 0.3;
@@ -76,8 +77,8 @@ var RewardScreenLayer = cc.Layer.extend({
         });
 
         buttonRate = new ccui.Button("res/SD/dialogs/pay/pay_button_normal.png", "res/SD/dialogs/pay/pay_button_pressed.png", "");
-        buttonRate.x = cc.winSize.width/2 + 200;
-        buttonRate.y = 100;
+        buttonRate.x = cc.winSize.width/2 + 100;
+        buttonRate.y = 70;
         this.addChild(buttonRate);
         var lbRate = new cc.LabelBMFont("Rate us", res.HomeFont_fnt);
         lbRate.scale = 0.3;
@@ -88,12 +89,65 @@ var RewardScreenLayer = cc.Layer.extend({
             cc.sys.openURL(GAME_URL);
         });
 
-        lbReward = new cc.LabelBMFont("YOUR REWARD", res.HomeFont_fnt);
-        lbReward.scale = 0.8;
-        lbReward.x = cc.winSize.width/2;
-        lbReward.y = cc.winSize.height/5 * 4 - 50;
-        this.addChild(lbReward);
-    }
+        var ribbon = new cc.Sprite("res/SD/dialogs/ribbon.png");
+        ribbon.x = cc.winSize.width/2;
+        ribbon.y = cc.winSize.height / 5 * 4;
+        this.addChild(ribbon);
+
+        lbReward = new cc.LabelBMFont("YOUR REWARD", res.Grown_Up_fnt);
+        lbReward.scale = 0.4;
+        lbReward.x = ribbon.width/2;
+        lbReward.y = ribbon.height/2 + 25;
+        ribbon.addChild(lbReward);
+
+        var coinBg = new cc.Sprite("res/SD/progresstracker/square.png");
+        coinBg.setAnchorPoint(1,0.5);
+        coinBg.x = cc.winSize.width/2 - 50;
+        coinBg.y = cc.winSize.height/2 - 40;
+        this.addChild(coinBg);
+        var light = new cc.Sprite("res/SD/progresstracker/light.png");
+        light.x = coinBg.width/2;
+        light.y = coinBg.height/2 - 50;
+        coinBg.addChild(light);
+        var coinIcon = new cc.Sprite("res/SD/reward/iconcoinreward.png");
+        coinIcon.x = coinBg.width/2;
+        coinIcon.y = coinBg.height/2 - 60;
+        coinBg.addChild(coinIcon);
+        var coinRewardLb = new cc.LabelBMFont(coins + " Coins", res.Grown_Up_fnt);
+        coinRewardLb.scale = 0.4;
+        coinRewardLb.x = coinBg.width/2;
+        coinRewardLb.y = coinBg.height - 40;
+        coinBg.addChild(coinRewardLb);
+
+        var diamondBg = new cc.Sprite("res/SD/progresstracker/square.png");
+        diamondBg.setAnchorPoint(0,0.5);
+        diamondBg.x = cc.winSize.width/2 + 50;
+        diamondBg.y = cc.winSize.height/2 - 40;
+        this.addChild(diamondBg);
+        var light = new cc.Sprite("res/SD/progresstracker/light.png");
+        light.x = diamondBg.width/2;
+        light.y = diamondBg.height/2 - 50;
+        diamondBg.addChild(light);
+        var diamondIcon = new cc.Sprite("res/SD/reward/icondiamondreward.png");
+        diamondIcon.x = diamondBg.width/2;
+        diamondIcon.y = diamondBg.height/2 - 60;
+        diamondBg.addChild(diamondIcon);
+        var diamondRewardLb = new cc.LabelBMFont(diamonds + " Diamonds", res.Grown_Up_fnt);
+        diamondRewardLb.scale = 0.4;
+        diamondRewardLb.x = diamondBg.width/2;
+        diamondRewardLb.y = diamondBg.height - 40;
+        diamondBg.addChild(diamondRewardLb);
+    },
+    addBackButton: function(){
+        var self = this;
+        var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = 50;
+        button.y = cc.winSize.height - 70;
+        this.addChild(button);
+        button.addClickEventListener(function(){
+            cc.director.runScene(new HomeScene());
+        });
+    },
 });
 var RewardScene = cc.Scene.extend({
     ctor: function(coins, diamonds) {
