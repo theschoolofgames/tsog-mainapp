@@ -169,10 +169,10 @@ cc.game.onStart = function(){
         FirebaseManager.getInstance().authenticate(function(loggedIn) {
             debugLog("authenticate result: " + loggedIn);
             // cc.director.runScene(new WelcomeScene());
-            // cc.director.runScene(new HomeScene());
+            cc.director.runScene(new HomeScene());
             // cc.director.runScene(new AlphaRacingScene([]));
             // cc.director.runScene(new FirebaseScene());
-            cc.director.runScene(new MissionPageScene());
+            // cc.director.runScene(new RewardScene());
         });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {

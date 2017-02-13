@@ -161,26 +161,33 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     addButton: function(){
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
         for(var i = 0; i < 4; i++){
-            var button = new ccui.Button("res/SD/progresstracker/button-tab.png", "res/SD/progresstracker/button-tab-pressed.png", "res/SD/progresstracker/button-tab-disable.png");
-            button.x = 200 + i * (cc.winSize.width/5 + 10);
+            var button = new ccui.Button("res/SD/progresstracker/tab-normal.png", "res/SD/progresstracker/tab-normal.png", "");
+            button.x = 200 + i * (button.width - 2);
             button.y = cc.winSize.height - 75;
             var string = NAME_TAB[i];
             // button.setColor(cc.color.RED);
-            var lb = new cc.LabelBMFont(string, res.HomeFont_fnt);
-            lb.scale = 0.4;
+            var lb = new cc.LabelBMFont(string, "res/font/progresstrackerfont-export.fnt");
+            lb.scale = 0.63;
             lb.x = button.width/2;
             lb.y = button.height/2 + 10;
             button.name = string;
             button.addChild(lb);
-            this.addChild(button, 1000);
+            this.addChild(button, 5);
             // button.setColor(cc.color.GREEN);
             if(i == 0) {
                 // button.setColor(cc.color.RED);
+                button.setZOrder(10);
                 this._currentButton = button;
-                button.setEnabled(false);
-                this._bgBtnChoose.x = button.width/2;
+                // button.setEnabled(false);
+                this._bgBtnChoose.x = button.width/2 + 1;
                 this._bgBtnChoose.y = button.height/2 - 1;
-                button.addChild(this._bgBtnChoose, -1);
+                button.addChild(this._bgBtnChoose, 1);
+                var lbChoose = new cc.LabelBMFont(string, "res/font/grownupcheckfont-export.fnt");
+                lbChoose.scale = 0.4;
+                lbChoose.x = this._bgBtnChoose.width/2;
+                lbChoose.y = this._bgBtnChoose.height/2 + 10;
+                lbChoose.tag = 1;
+                this._bgBtnChoose.addChild(lbChoose);
             };
             button.addClickEventListener(this._onPressed.bind(this));
         }
@@ -188,16 +195,25 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
 
     _onPressed: function(button) {
         AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+
+        this._currentButton.setZOrder(1);
         // this._currentButton.setColor(cc.color.GREEN);
-        this._currentButton.enabled = (true);
+        // this._currentButton.enabled = (true);
+        button.setZOrder(10);
         this._bgBtnChoose.removeFromParent();
         var buttonName = button.name;
         // button.setColor(cc.color.RED);
-        button.enabled = (false);
+        // button.enabled = (false);
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
-        this._bgBtnChoose.x = button.width/2;
+        this._bgBtnChoose.x = button.width/2 + 1;
         this._bgBtnChoose.y = button.height/2 - 1;
-        button.addChild(this._bgBtnChoose, -1);
+        var lbChoose = new cc.LabelBMFont(buttonName, "res/font/grownupcheckfont-export.fnt");
+        lbChoose.scale = 0.4;
+        lbChoose.x = this._bgBtnChoose.width/2;
+        lbChoose.y = this._bgBtnChoose.height/2 + 10;
+        lbChoose.tag = 1;
+        button.addChild(this._bgBtnChoose, 1);
+        this._bgBtnChoose.addChild(lbChoose);
         switch(buttonName) {
             case "Alphabets":
                 cc.log("Alphabets");
