@@ -4,6 +4,21 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>btn_empty.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{291,73}</string>
+                <key>spriteSourceSize</key>
+                <string>{291,73}</string>
+                <key>textureRect</key>
+                <string>{{582,273},{291,73}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>btn_pay_with_heart.png</key>
             <dict>
                 <key>aliases</key>
@@ -15,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{291,73}</string>
                 <key>textureRect</key>
-                <string>{{1,139},{291,73}}</string>
+                <string>{{582,348},{291,73}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +45,22 @@
                 <key>spriteSourceSize</key>
                 <string>{291,73}</string>
                 <key>textureRect</key>
-                <string>{{294,139},{291,73}}</string>
+                <string>{{582,423},{291,73}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>children.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{579,494}</string>
+                <key>spriteSourceSize</key>
+                <string>{579,494}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{579,494}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{334,136}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{334,136}}</string>
+                <string>{{582,1},{334,136}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{324,132}</string>
                 <key>textureRect</key>
-                <string>{{337,1},{324,132}}</string>
+                <string>{{582,139},{324,132}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -72,9 +102,9 @@
             <key>realTextureFileName</key>
             <string>mission_page.png</string>
             <key>size</key>
-            <string>{662,213}</string>
+            <string>{917,497}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:90eca3c13124327c421447bc4c48d10b:f73f29b1af61147b0060fae06cdba97f:01f020d7d0284a9774acb95a71e6089c$</string>
+            <string>$TexturePacker:SmartUpdate:eaafcf4cde3fe3401bd2988b0067c554:9ca4c2d46817decb324913f4fb732fef:01f020d7d0284a9774acb95a71e6089c$</string>
             <key>textureFileName</key>
             <string>mission_page.png</string>
         </dict>
