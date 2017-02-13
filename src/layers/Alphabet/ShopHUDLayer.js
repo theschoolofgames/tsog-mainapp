@@ -11,6 +11,8 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
     _bgDiamond: null,
     _backButton: null,
 
+    _backBtnCallback: null,
+
     ctor: function() {
         this._showClock = false;
         this._super();
@@ -37,8 +39,11 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
             AudioManager.getInstance().play(res.back_sound_mp3, false, null);
-            cc.director.runScene(new HomeScene());
-        });
+            if (this._backBtnCallback)
+                callback();
+            else
+                cc.director.runScene(new HomeScene());
+        }.bind(this));
         this._backButton = button;
     },
 
@@ -88,5 +93,9 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         var diamond = CurrencyManager.getInstance().getDiamond();
         this._lbCoin.setString(coin);
         this._lbDiamond.setString(diamond);
+    },
+
+    setBackBtnCallback: function(callback) {
+        this._backBtnCallback = callback;
     },
 });

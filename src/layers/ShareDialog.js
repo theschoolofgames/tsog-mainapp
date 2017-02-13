@@ -20,6 +20,7 @@ var ShareDialog = Dialog.extend({
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
         this.background = dialogBg;
+        this.background.setCascadeOpacityEnabled(true);
 	},
 
 	_addTitle: function() {

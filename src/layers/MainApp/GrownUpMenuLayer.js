@@ -168,7 +168,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height - 50;
         this.addChild(button);
         button.addClickEventListener(function(){
-            cc.director.replaceScene(new HomeScene());
+            cc.director.replaceScene(new MissionPageScene(true));
         });
     },
 

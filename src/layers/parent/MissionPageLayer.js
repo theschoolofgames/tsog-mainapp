@@ -1,15 +1,31 @@
 var MissionPageLayer = cc.Layer.extend({
+    _hasLaterBtn: false,
+
     _contentTextScale: 0.35,
     _contentTextOffSetY: 5,
 
     _buttonOffSetY: 10,
 
-    ctor: function() {
+    _backgroundZOrder: 1,
+    _childrenZOrder: 3,
+    _cloudZOrder: 2,
+
+    _childrenOffSetY: 0,
+
+    ctor: function(hasLaterBtn) {
         this._super();
+        this._hasLaterBtn = hasLaterBtn;
+
+        debugLog("MissionPageLayer ctor _hasLaterBtn -> " + this._hasLaterBtn);
+        if (hasLaterBtn) {
+            this._childrenOffSetY = 50;
+            this._addLaterBtn();
+        }
 
         this._addBackground();
         this._addMissionContent();
         this._addButtons();
+
     },
 
     _addBackground: function() {
@@ -17,31 +33,80 @@ var MissionPageLayer = cc.Layer.extend({
         background.x = cc.winSize.width/2;
         background.y = cc.winSize.height/2;
         this.addChild(background);
+
+        var children = new cc.Sprite("#children.png");
+        children.scale = 0.9;
+        children.x = cc.winSize.width/2;
+        children.y = cc.winSize.height/2 + this._childrenOffSetY;
+        this.addChild(children, this._childrenZOrder);
     },
 
     _addButtons: function() {
         var b = new ccui.Button("btn_pay_with_heart.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
         b.x = cc.winSize.width/2 - b.width/2 - 20;
-        b.y = b.height - this._buttonOffSetY;
+        b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
         this.addChild(b);
 
         b.addClickEventListener(this._btnPressed.bind(this));
 
-        b = new ccui.Button("btn_play_for_free.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        b.name = "play";
+        var lb = new cc.LabelBMFont("Pay with your", res.HomeFont_fnt);
+        lb.scale = 0.4;
+        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        lb.x = b.width/2 - 30;
+        lb.y = b.height/2 + 10;
+        b.addChild(lb);
+
+        if (this._hasLaterBtn) {
+            b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            b.name = "share";
+
+            var lb = new cc.LabelBMFont("Share & Spread the message", res.HomeFont_fnt);
+            lb.scale = 0.3;
+            lb.boundingWidth = b.width*2;
+        } else {
+            b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            b.name = "play";
+
+            var lb = new cc.LabelBMFont("Play for free", res.HomeFont_fnt);
+            lb.scale = 0.4;
+        }
+        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        lb.x = b.width/2;
+        lb.y = b.height/2 + 5;
+        b.addChild(lb);
+        
         b.x = cc.winSize.width/2 + b.width/2 + 20;
-        b.y = b.height - this._buttonOffSetY;
+        b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
         this.addChild(b);
 
         b.addClickEventListener(this._btnPressed.bind(this));
+
+    },
+
+    _addLaterBtn: function() {
+        var b = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
+        b.x = cc.winSize.width/2;
+        b.y = b.height/2;
+        this.addChild(b, this._childrenZOrder);
+        b.addClickEventListener(function() {
+            cc.director.replaceScene(new GrownUpMenuScene());
+        }.bind(this));
+
+        var content = "I'll do it later!";
+        var lb = new cc.LabelBMFont(content, res.HomeFont_fnt);
+        lb.scale = 0.3;
+        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        lb.x = b.width/2;
+        lb.y = b.height/2 + this._contentTextOffSetY;
+        b.addChild(lb);
     },
 
     _addMissionContent: function() {
         var lCloud = new cc.Sprite("#left_cloud.png");
         lCloud.setAnchorPoint(0, 1);
         lCloud.y = cc.winSize.height;
-        this.addChild(lCloud);
+        this.addChild(lCloud, this._cloudZOrder);
 
         var content = "When you pay with your heart, we educate a child in need";
         var lContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
@@ -56,7 +121,7 @@ var MissionPageLayer = cc.Layer.extend({
         rCloud.setAnchorPoint(1, 1);
         rCloud.x = cc.winSize.width;
         rCloud.y = cc.winSize.height;
-        this.addChild(rCloud);
+        this.addChild(rCloud, this._cloudZOrder);
 
         content = "Our mission is provide equal education to every child";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
@@ -73,7 +138,7 @@ var MissionPageLayer = cc.Layer.extend({
         switch(btnName) {
             case "pay":
                 if (User.isLoggedIn())
-                    this.addChild(new GrownUpCheckDialog(this._payCallBack));
+                    this.addChild(new GrownUpCheckDialog(this._payCallBack), this._childrenZOrder+1);
                 else {
                     LoadingIndicator.show();
                     FirebaseManager.getInstance().login(function(succeed, msg) {
@@ -103,6 +168,9 @@ var MissionPageLayer = cc.Layer.extend({
                     })
                 }
                 break;
+            case "share":
+                var layer = new ShareDialog();
+                this.addChild(layer, 999999);
             default:
                 break;
         }
@@ -115,9 +183,9 @@ var MissionPageLayer = cc.Layer.extend({
 });
 
 var MissionPageScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(hasLaterBtn) {
         this._super();
 
-        this.addChild(new MissionPageLayer());
+        this.addChild(new MissionPageLayer(hasLaterBtn));
     }
 });
