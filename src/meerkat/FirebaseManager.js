@@ -35,6 +35,7 @@ var FirebaseManager = cc.Class.extend({
         debugLog("FirebaseManager.authenticate");
         if (! NativeHelper.callNative("isLoggedIn")) {
             finishCallback(false);
+            return false;
         }
 
         User.setCurrentUser(this.getUserInfo(), function(found) {

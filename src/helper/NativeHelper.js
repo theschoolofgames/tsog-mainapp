@@ -473,6 +473,8 @@ NativeHelper.callNative = function(method, args) {
     }
 
     args = args || [];
+    debugLog("NativeHelper.callNative: " + method + ", args: " + JSON.stringify(args));
+    
     args = NativeHelperConfig[method][cc.sys.os].concat(args);
     return jsb.reflection.callStaticMethod.apply(this, args);
 }
