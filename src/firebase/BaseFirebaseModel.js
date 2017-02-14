@@ -98,9 +98,10 @@ var BaseFirebaseModel = cc.Class.extend({
 		        			data[key] = dirtyKeyValues[key];
 		        		}
 		        	}
+		        	
+			        self["_" + key] = data[key];
 		        }
 
-		        self["_" + key] = data[key];
 
 	            if (Object.keys(dirtyKeyValues).length > 0) {
 	            	self._updateData(dirtyKeyValues);
