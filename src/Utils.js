@@ -432,6 +432,13 @@ Utils.getValueOfObjectById = function(id) {
         return o[0].value;
     else
         return id;
+},
+Utils.randFloat2 = function (min, max){
+    return Math.random() * (max - min) + min;
+}
+
+randBool = function() {
+    return Math.random() >= 0.5 ? true : false;
 }
 
 debugLog = function(data) {

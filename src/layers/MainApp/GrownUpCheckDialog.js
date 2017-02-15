@@ -1,3 +1,15 @@
+var config = {
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine"
+};
 var GrownUpCheckDialog = cc.LayerColor.extend({
     _dialogBg: null,
     _numberArray: [],
@@ -151,12 +163,15 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
             underButton.x = btn.width/2;
             underButton.y = btn.height/2;
             btn.addChild(underButton, -1);
+            btn.addClickEventListener(function(){
+                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            });
         }
     },
 
     addNumberForAdultAndProgressBar: function(){
-        var requiredLb = new cc.LabelBMFont("Press number \"" + this._numberForAdult + "\" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
-        requiredLb.scale = 0.5;
+        var requiredLb = new cc.LabelBMFont("Press number \" " + config[this._numberForAdult.toString()].toUpperCase() + " \" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
+        requiredLb.scale = 0.4;
         requiredLb.x = this._dialogBg.width/2;
         requiredLb.y = this._ribbon.y - 70;
         this._dialogBg.addChild(requiredLb);

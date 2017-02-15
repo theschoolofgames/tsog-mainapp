@@ -126,7 +126,8 @@ var res = {
     Forest_png: "forest.png",
     NewAccount_Plist: "newaccount.plist",
     NewAccount_Png: "newaccount.png",
-
+    Common_plist : "common.plist",
+    Common_png: "common.png",
     Figure_Game_Plist: "figure-game.plist",
     Figure_Game_Png: "figure-game.png",
     Map_Plist: "map.plist",

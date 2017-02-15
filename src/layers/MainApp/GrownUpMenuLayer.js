@@ -61,8 +61,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     },
 
     _addTabs: function() {
-        this._addTabBtn("Features", cc.winSize.width/2, cc.winSize.height - 100, -0.5);
-        this._addTabBtn("AboutUs", cc.winSize.width/2, cc.winSize.height - 100, 0.5);
+        this._addTabBtn("Features", cc.winSize.width/2 + 1, cc.winSize.height - 75, -0.5);
+        this._addTabBtn("AboutUs", cc.winSize.width/2 - 1, cc.winSize.height - 75, 0.5);
     },
 
     _addTabBtn: function(tabName, x, y, offsetX) {
@@ -70,9 +70,27 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _btn.x = x + _btn.width*offsetX;
         _btn.y = y;
         _btn.name = tabName;
+        if(tabName == "Features"){
+            _btn.setZOrder(10);
+            this._currentButton = _btn;
+            this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
+            this._bgBtnChoose.x = _btn.width/2 + 1;
+            this._bgBtnChoose.y = _btn.height/2 - 1;
+            _btn.addChild(this._bgBtnChoose, 10);
+            var lbChoose = new cc.LabelBMFont(tabName, "res/font/grownupcheckfont-export.fnt");
+            lbChoose.scale = 0.4;
+            lbChoose.x = this._bgBtnChoose.width/2;
+            lbChoose.y = this._bgBtnChoose.height/2 + 10;
+            lbChoose.tag = 1;
+            this._bgBtnChoose.addChild(lbChoose);
+        };
+        var title = new cc.LabelBMFont(tabName, "res/font/progresstrackerfont-export.fnt");
+        title.scale = 0.6;
+        title.x = _btn.width/2;
+        title.y = _btn.height/2 + 10;
+        _btn.addChild(title);
 
         _btn.addClickEventListener(this._tabPressed.bind(this));
-
         // var btnTitle = this._createBtnTitle(localizeForWriting(tabName), _btn);
         // _btn.addChild(btnTitle);
 
@@ -120,31 +138,90 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.visible = false;
         this.addChild(this._aboutUsLayer);
 
-        _likeUsBtn = new ccui.Button("block-empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        _likeUsBtn.name = "LikeUs";
-        _likeUsBtn.x = cc.winSize.width/2;
-        _likeUsBtn.y = cc.winSize.height/2 + _likeUsBtn.height;
-        _likeUsBtn.addClickEventListener(this._btnPressed.bind(this));
+        var lb = new cc.LabelBMFont(TEXT_AT_GROWNUP_1, "res/font/grownupcheckfont-export.fnt");
+        lb.x = cc.winSize.width/2;
+        lb.y = cc.winSize.height/5 * 4 - 40;
+        lb.scale = 0.45;
+        this._aboutUsLayer.addChild(lb);
 
-        _followUsBtn = new ccui.Button("block-empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        _followUsBtn.name = "FollowUs";
-        _followUsBtn.x = cc.winSize.width/4 * 3;
-        _followUsBtn.y = cc.winSize.height/2 + _followUsBtn.height;
-        _followUsBtn.addClickEventListener(this._btnPressed.bind(this));
+        var buttonBg = new cc.Sprite("res/SD/aboutus/bg-aboutus.png");
+        buttonBg.setAnchorPoint(0.5, 1);
+        buttonBg.x = cc.winSize.width/2;
+        buttonBg.y = lb.y - 50;
+        this._aboutUsLayer.addChild(buttonBg);
 
-        _shareBtn = new ccui.Button("block-empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+
+        _shareBtn = new ccui.Button("res/SD/aboutus/share-button-aboutus.png", "res/SD/aboutus/share-button-aboutus-pressed.png", "");
         _shareBtn.name = "Share";
-        _shareBtn.x = cc.winSize.width/4;
-        _shareBtn.y = cc.winSize.height/2 + _shareBtn.height;
+        _shareBtn.anchorX = 0;
+        _shareBtn.x = 60;
+        _shareBtn.y = buttonBg.height/2;
         _shareBtn.addClickEventListener(this._btnPressed.bind(this));
+        buttonBg.addChild(_shareBtn);
 
+        _likeUsBtn = new ccui.Button(res.Button_facebook_normal_png, res.Button_facebook_pressed_png);
+        _likeUsBtn.name = "LikeUs";
+        _likeUsBtn.anchorY = 0;
+        _likeUsBtn.x = _shareBtn.x + _shareBtn.width + _likeUsBtn.width/2 + 70;
+        _likeUsBtn.y = _shareBtn.y - _shareBtn.height/2;
+        _likeUsBtn.addClickEventListener(this._btnPressed.bind(this));
+        buttonBg.addChild(_likeUsBtn);
+        var lbLikeUs = new cc.LabelBMFont("Like us", res.HomeFont_fnt);
+        lbLikeUs.scale = 0.4;
+        lbLikeUs.anchorY = 1;
+        lbLikeUs.x = _likeUsBtn.width/2;
+        lbLikeUs.y = - 6;
+        _likeUsBtn.addChild(lbLikeUs);
+
+        _followUsBtn = new ccui.Button("res/SD/aboutus/twitter.png", "res/SD/aboutus/twitter-pressed.png");
+        _followUsBtn.name = "FollowUs";
+        _followUsBtn.anchorY = 0;
+        _followUsBtn.x = _likeUsBtn.x + _likeUsBtn.width + _followUsBtn.width/2 + 40;
+        _followUsBtn.y = _shareBtn.y - _shareBtn.height/2;
+        _followUsBtn.addClickEventListener(this._btnPressed.bind(this));
+        buttonBg.addChild(_followUsBtn);
+        var lbFollowUs = new cc.LabelBMFont("Follow us", res.HomeFont_fnt);
+        lbFollowUs.scale = 0.4;
+        lbFollowUs.anchorY = 1;
+        lbFollowUs.x = _followUsBtn.width/2;
+        lbFollowUs.y = - 6;
+        _followUsBtn.addChild(lbFollowUs);
+
+
+        var lb2 = new cc.LabelBMFont(TEXT_AT_GROWNUP_2, "res/font/grownupcheckfont-export.fnt");
+        lb2.scale = 0.4;
+        lb2.anchorX = 0;
+        lb2.anchorY = 1;
+        lb2.x = - buttonBg.width/2 + buttonBg.x;
+        lb2.y = buttonBg.getBoundingBox().y - 20;
+        this._aboutUsLayer.addChild(lb2);
+        lb2.setBoundingWidth(lb2.width/5 * 4);
+        lb2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+
+        var lb3 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 20, cc.color("#1679bd"), 1,TEXT_AT_GROWNUP_3);
+        lb3.setColor(cc.color("#5ce9fd"));
+        lb3.x = lb2.getBoundingBox().x + lb2.getBoundingBox().width/2;
+        lb3.y = lb2.getBoundingBox().y - 20;
+        this._aboutUsLayer.addChild(lb3);
+
+        var lb4 = new cc.LabelBMFont(TEXT_AT_GROWNUP_4, "res/font/grownupcheckfont-export.fnt");
+        lb4.scale = 0.4;
+        lb4.anchorX = 1;
+        lb4.anchorY = 1;
+        lb4.x = buttonBg.getBoundingBox().x + buttonBg.width;
+        lb4.y = buttonBg.getBoundingBox().y - 20;
+        this._aboutUsLayer.addChild(lb4);
+        lb4.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+
+        var lb5 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,TEXT_AT_GROWNUP_5);
+        lb5.setColor(cc.color("#5ce9fd"));
+        lb5.x = cc.winSize.width/2;
+        lb5.y = 50;
+        this._aboutUsLayer.addChild(lb5);
         // _likeUsBtn.addChild(this._createBtnTitle(localizeForWriting("Like Us"), _likeUsBtn));
         // _followUsBtn.addChild(this._createBtnTitle(localizeForWriting("Follow Us"), _followUsBtn));
         // _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share & Spread the message"), _shareBtn));
 
-        this._aboutUsLayer.addChild(_likeUsBtn);
-        this._aboutUsLayer.addChild(_followUsBtn);
-        this._aboutUsLayer.addChild(_shareBtn);
     },
 
     _createBtnTitle: function (title, button, offsetX) {
@@ -169,8 +246,22 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     },
 
     _tabPressed: function(button) {
-        AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
         var tabName = button.name;
+        this._bgBtnChoose.removeFromParent();
+        this._currentButton.setZOrder(1);
+        button.setZOrder(10);
+        this._currentButton = button;
+        this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
+        this._bgBtnChoose.x = button.width/2 + 1;
+        this._bgBtnChoose.y = button.height/2 - 1;
+        var lbChoose = new cc.LabelBMFont(tabName, "res/font/grownupcheckfont-export.fnt");
+        lbChoose.scale = 0.4;
+        lbChoose.x = this._bgBtnChoose.width/2;
+        lbChoose.y = this._bgBtnChoose.height/2 + 10;
+        lbChoose.tag = 1;
+        this._bgBtnChoose.addChild(lbChoose);
+        button.addChild(this._bgBtnChoose)
+        AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
         switch(tabName) {
             case "Features":
                 this._showFeatures();
@@ -222,7 +313,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var self = this;
         var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         button.x = 50;
-        button.y = cc.winSize.height - 50;
+        button.y = cc.winSize.height - 70;
         this.addChild(button);
         button.addClickEventListener(function(){
             cc.director.replaceScene(new MissionPageScene(true));
