@@ -118,6 +118,7 @@ cc.game.onStart = function(){
         CharacterManager.setupInstance();
         AudioManager.setupInstance();
         GameObjectsProgress.setupInstance();
+        CustomLabel.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);
@@ -150,6 +151,7 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Mission_Page_Plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Features_Menu_Plist);
 
         AudioManager.getInstance().preload(res.alpha_racing_mp3);
         AudioManager.getInstance().preload(res.back_sound_mp3);
@@ -173,7 +175,11 @@ cc.game.onStart = function(){
             // cc.director.runScene(new AlphaRacingScene([]));
             // cc.director.runScene(new FirebaseScene());
             // cc.director.runScene(new RewardScene(200,300));
-            cc.director.runScene(new MissionPageScene());
+            // cc.director.runScene(new GrownUpMenuScene());
+            if (loggedIn)
+                cc.director.runScene(new WelcomeScene());
+            else
+                cc.director.runScene(new MissionPageScene());
         });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {
@@ -199,6 +205,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
             cc.spriteFrameCache.addSpriteFrames(res.Mission_Page_Plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Features_Menu_Plist);
         });
     }, this);
 };

@@ -126,7 +126,8 @@ var res = {
     Forest_png: "forest.png",
     NewAccount_Plist: "newaccount.plist",
     NewAccount_Png: "newaccount.png",
-
+    Common_plist : "common.plist",
+    Common_png: "common.png",
     Figure_Game_Plist: "figure-game.plist",
     Figure_Game_Png: "figure-game.png",
     Map_Plist: "map.plist",
@@ -356,6 +357,8 @@ var res = {
     Mission_Page_bg: "res/SD/bg/bg_mission_page.jpg",
     Mission_Page_Plist: "res/SD/mission_page.plist",
     Mission_Page_png: "res/SD/mission_page.png",
+    Features_Menu_Plist: "res/SD/features-menu.plist",
+    Features_Menu_png: "res/SD/features-menu.png",
     Grown_Up_fnt: "res/font/grownupcheckfont-export.fnt",
     Grown_Up_png: "res/font/grownupcheckfont-export.png",
 

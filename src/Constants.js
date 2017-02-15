@@ -4,8 +4,10 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
+
 var TSOG_DEBUG = true;
-var GAME_URL = "https://trello.com/b/eNT2Croa/tsog-phase-4";
+var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
+var GAME_URL_IOS = "http://Coming Soon/";
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;
 
@@ -942,6 +944,7 @@ var NATIVE_SHARING_CAPTION = "Native sharing caption";
 var WHATSAPP_SHARING_CAPTION = "Whatsapp sharing caption";
 var FACEBOOK_SHARING_TITLE = "Facebook sharing title";
 var FACEBOOK_SHARING_DESCRIPTION = "Facebook sharing description";
+var TWITTER_SHARING_DESCRIPTION = "Twitter sharing description";
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";
@@ -961,3 +964,10 @@ var SET_BIG_DIAMONDS = "500";
 var TIME_FOR_ADULT_TOCH = 3;
 
 var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;
+var TEXT_AT_GROWNUP_1 = "The School of game is product of Equally Pbc. Equally is a public "
+                        + "benefit corporation with a purpose of improving access " 
+                        + "to education and oppotunities for everyone";
+var TEXT_AT_GROWNUP_2 = "For support suggestion contact at";
+var TEXT_AT_GROWNUP_3 = "info@theschoolofgame.org";
+var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
+var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgame.org";
