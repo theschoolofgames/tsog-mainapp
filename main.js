@@ -175,11 +175,11 @@ cc.game.onStart = function(){
             // cc.director.runScene(new AlphaRacingScene([]));
             // cc.director.runScene(new FirebaseScene());
             // cc.director.runScene(new RewardScene(200,300));
-            // cc.director.runScene(new GrownUpMenuScene());
-            if (loggedIn)
-                cc.director.runScene(new WelcomeScene());
-            else
-                cc.director.runScene(new MissionPageScene());
+            cc.director.runScene(new GrownUpMenuScene());
+            // if (loggedIn)
+            //     cc.director.runScene(new WelcomeScene());
+            // else
+            //     cc.director.runScene(new MissionPageScene());
         });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {

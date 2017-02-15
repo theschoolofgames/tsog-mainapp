@@ -106,7 +106,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _payBtn.addClickEventListener(this._btnPressed.bind(this));
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
-        _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn));
+        _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, -30));
         _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share & Spread the message"), _shareBtn));
 
         this._featuresLayer.addChild(_progressTrackerBtn);
@@ -147,15 +147,22 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.addChild(_shareBtn);
     },
 
-    _createBtnTitle: function (title, button) {
+    _createBtnTitle: function (title, button, offsetX) {
+        offsetX = offsetX || 0;
         var btnTitleConfig = labelConfig[button.name];
         // var btnTitle = new cc.LabelBMFont(title, res.HomeFont_fnt);
-        cc.log("btnTitleConfig" + JSON.stringify(btnTitleConfig));
         var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], btnTitleConfig.fontSize, cc.color(btnTitleConfig.color), btnTitleConfig.outlineSize,title);
-        // btnTitle.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        // btnTitle.scale = 0.5 / button.scale * scale;
+
         btnTitle.setDimensions(button.width * btnTitleConfig.boundingWidthRatio, button.height * btnTitleConfig.boundingHeightRatio);
-        btnTitle.x = button.width/2;
+        btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
+        btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
+                                btnTitleConfig.shadowColor[1],
+                                btnTitleConfig.shadowColor[2],
+                                btnTitleConfig.shadowColor[3]
+                            ),
+                            cc.size(0, -btnTitleConfig.shadowSize)
+        );
+        btnTitle.x = button.width/2 + offsetX;
         btnTitle.y = button.height/2;
 
         return btnTitle;
@@ -227,22 +234,31 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 var labelConfig = {
     "Share": {
         "color": "#2287c5",
-        "fontSize": 22,
-        "outlineSize": 2,
+        "shadowColor": [34, 135, 197, 127],
+        "shadowSize": 2,
+        "shadowRadius": 6,
+        "fontSize": 18,
+        "outlineSize": 1.5,
         "boundingWidthRatio": 1,
         "boundingHeightRatio": 0.5
     },
     "Pay": {
         "color": "#b15a10",
-        "fontSize": 22,
-        "outlineSize": 2,
+        "shadowColor": [167, 90, 0, 127],
+        "shadowSize": 2,
+        "shadowRadius": 6,
+        "fontSize": 18,
+        "outlineSize": 1.5,
         "boundingWidthRatio": 0.6,
         "boundingHeightRatio": 0.5
     },
     "ProgressTracker": {
         "color": "#18a401",
-        "fontSize": 24,
-        "outlineSize": 2,
+        "shadowColor": [17, 160, 0, 127],
+        "shadowSize": 2,
+        "shadowRadius": 6,
+        "fontSize": 20,
+        "outlineSize": 1.5,
         "boundingWidthRatio": 1,
         "boundingHeightRatio": 0.4
     }
