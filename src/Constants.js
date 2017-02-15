@@ -942,6 +942,7 @@ var NATIVE_SHARING_CAPTION = "Native sharing caption";
 var WHATSAPP_SHARING_CAPTION = "Whatsapp sharing caption";
 var FACEBOOK_SHARING_TITLE = "Facebook sharing title";
 var FACEBOOK_SHARING_DESCRIPTION = "Facebook sharing description";
+var TWITTER_SHARING_DESCRIPTION = "Twitter sharing description";
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";
