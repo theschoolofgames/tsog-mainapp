@@ -286,7 +286,7 @@ var ShoppingBasketLayer = TestLayer.extend({
             //         })
             //     ));
             // else {
-            //     Utils.updateStepData();
+            //     User.getCurrentChild().winCurrentLevelStep();
             //     SceneFlowController.getInstance().clearData();
             //     cc.director.runScene(new MapScene());
             // }
