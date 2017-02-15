@@ -139,9 +139,10 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this.addChild(this._aboutUsLayer);
 
         var lb = new cc.LabelBMFont(TEXT_AT_GROWNUP_1, "res/font/grownupcheckfont-export.fnt");
+        lb.scale = 0.3;
         lb.x = cc.winSize.width/2;
         lb.y = cc.winSize.height/5 * 4 - 40;
-        lb.scale = 0.45;
+        lb.setBoundingWidth(cc.winSize.width * 2);
         this._aboutUsLayer.addChild(lb);
 
         var buttonBg = new cc.Sprite("res/SD/aboutus/bg-aboutus.png");
@@ -205,6 +206,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.addChild(lb3);
 
         var lb4 = new cc.LabelBMFont(TEXT_AT_GROWNUP_4, "res/font/grownupcheckfont-export.fnt");
+        lb4.setBoundingWidth(cc.winSize.width/2);
         lb4.scale = 0.4;
         lb4.anchorX = 1;
         lb4.anchorY = 1;
