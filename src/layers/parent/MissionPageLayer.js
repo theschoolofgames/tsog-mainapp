@@ -93,7 +93,7 @@ var MissionPageLayer = cc.Layer.extend({
             cc.director.replaceScene(new GrownUpMenuScene());
         }.bind(this));
 
-        var content = "I'll do it later!";
+        var content = "Maybe later!";
         var lb = new cc.LabelBMFont(content, res.HomeFont_fnt);
         lb.scale = 0.3;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
