@@ -64,6 +64,8 @@ var ShareDialog = Dialog.extend({
 	        NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
 	                    FACEBOOK_SHARING_DESCRIPTION,
 	                    cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
+	        // NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
+	        //             cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
 		});
 		this._dialogBg.addChild(buttonFacebook);
 

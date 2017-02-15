@@ -1,21 +1,19 @@
 package com.h102;
 
 import com.android.vending.billing.IInAppBillingService;
-//import com.crashlytics.android.Crashlytics;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.concurrent.Executors;
 
 import com.hub102.tsog.BuildConfig;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -36,7 +34,6 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.cocos2dx.javascript.AppActivity;
 import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
@@ -430,9 +427,24 @@ public class Wrapper
     }
 
     public static void shareTwitter(String description, String url) {
-        String tweetUrl = "https://twitter.com/intent/tweet?text='" + description + "'&url="
-                + url;
-        Uri uri = Uri.parse(tweetUrl);
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+//        String tweetUrl = "https://twitter.com/intent/tweet?text=" + description + "&url="
+//                + url;
+//        Uri uri = Uri.parse(tweetUrl);
+////        activity.startActivity(new Intent(Intent.ACTION_VIEW, uri));
+//        Intent i = new Intent(Intent.ACTION_SEND);
+//        i.setClassName("com.twitter.android","com.twitter.android.PostActivity");
+//        i.setType("text/plain");
+//        i.putExtra(Intent.EXTRA_SUBJECT, description);
+//        i.putExtra(Intent.EXTRA_TEXT, url);
+//        activity.startActivity(Intent.createChooser(i, "Share URL"));
+        try {
+            Intent intent = new TweetComposer.Builder(activity)
+                    .text(description)
+                    .url(new URL(url))
+                    .createIntent();
+            activity.startActivityForResult(intent, 100);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
