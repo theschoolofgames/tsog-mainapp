@@ -93,11 +93,11 @@ var PayLayer = cc.Layer.extend({
 	_addItems: function() {
 		var self = this;
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
-								res.Icon_gold_medium_png, SET_SMALL_PRICE,
+								res.Icon_gold_small_png, SET_SMALL_PRICE,
 								SET_SMALL_COINS, SET_SMALL_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set1", function(succeed) {
-										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
+										if (succeed) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_SMALL_COINS));
@@ -109,11 +109,11 @@ var PayLayer = cc.Layer.extend({
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
-								res.Icon_gold_small_png, SET_MEDIUM_PRICE, 
+								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
 								SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set2", function(succeed) {
-										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
+										if (succeed) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_MEDIUM_COINS));
@@ -129,7 +129,7 @@ var PayLayer = cc.Layer.extend({
 								SET_BIG_COINS, SET_BIG_DIAMONDS, function() {
 									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 									IAPManager.getInstance().purchase("set3", function(succeed) {
-										if (succeed || cc.sys.os == cc.sys.OS_IOS) {
+										if (succeed) {
 											var currentCoin = parseInt(User.getCurrentChild().getCoin());
 											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
 											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_BIG_COINS));
@@ -158,10 +158,10 @@ var PayLayer = cc.Layer.extend({
 		button.addClickEventListener(callback);
 		slot.addChild(button);
 
-		var buttonLabel = new cc.LabelBMFont("Buy " + price + "$", res.HomeFont_fnt);
+		var buttonLabel = new cc.LabelBMFont("Buy " + price, res.HomeFont_fnt);
         buttonLabel.scale = 0.4;
-        buttonLabel.x = buttonLabel.width / 3.6;
-        buttonLabel.y = buttonLabel.height / 2.2;
+        buttonLabel.x = button.width / 2;
+        buttonLabel.y = button.height / 1.65;
         button.addChild(buttonLabel);	
 
         var itemLabel = new cc.LabelBMFont(coins + " coins\n" + diamonds + " diamonds", res.HudFont_fnt);

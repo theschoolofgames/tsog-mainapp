@@ -120,9 +120,18 @@ var IAPManager = cc.Class.extend({
                 console.log("onProductRequestSuccess");
                 //Returns you the data for all the iap products
                 //You can get each item using following method
-                // for (var i = 0; i < products.length; i++) {
-                //     console.log(JSON.stringify(products[i]));
-                // }
+                for (var i = 0; i < products.length; i++) {
+                    console.log(JSON.stringify(products[i]));
+                    if (products[i]["id"] == SET_SMALL_ID) {
+                        SET_SMALL_PRICE = products[i]["price"] || SET_SMALL_PRICE;
+                    }
+                    else if (products[i]["id"] == SET_MEDIUM_ID) {
+                        SET_MEDIUM_PRICE = products[i]["price"] || SET_MEDIUM_PRICE;
+                    }
+                    else if (products[i]["id"] == SET_BIG_ID) {
+                        SET_BIG_PRICE = products[i]["price"] || SET_BIG_PRICE;
+                    }
+                }
             },
             onProductRequestFailure : function (msg) {
                 console.log("onProductRequestFailure");

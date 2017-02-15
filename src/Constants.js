@@ -4,7 +4,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.2.101:3000/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
-var TSOG_DEBUG = false;
+var TSOG_DEBUG = true;
 var GAME_URL = "https://trello.com/b/eNT2Croa/tsog-phase-4";
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;
@@ -943,16 +943,18 @@ var WHATSAPP_SHARING_CAPTION = "Whatsapp sharing caption";
 var FACEBOOK_SHARING_TITLE = "Facebook sharing title";
 var FACEBOOK_SHARING_DESCRIPTION = "Facebook sharing description";
 
-
-var SET_SMALL_PRICE = "4.99";
+var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
+var SET_SMALL_PRICE = "$4.99";
 var SET_SMALL_COINS = "100";
 var SET_SMALL_DIAMONDS = "50";
 
-var SET_MEDIUM_PRICE = "9.99";
+var SET_MEDIUM_ID = "com.theschoolofgames.tsog.set2";
+var SET_MEDIUM_PRICE = "$9.99";
 var SET_MEDIUM_COINS = "300";
 var SET_MEDIUM_DIAMONDS = "200";
 
-var SET_BIG_PRICE = "14.99";
+var SET_BIG_ID = "com.theschoolofgames.tsog.set3";
+var SET_BIG_PRICE = "$14.99";
 var SET_BIG_COINS = "800";
 var SET_BIG_DIAMONDS = "500";
 

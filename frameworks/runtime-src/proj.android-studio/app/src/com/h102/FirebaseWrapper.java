@@ -133,6 +133,20 @@ public class FirebaseWrapper {
         child.setValue(data);
     }
 
+    public static void updateChildValues(String path, String values) {
+        Gson gson = new GsonBuilder().create();
+        HashMap<String, Object> data;
+        try {
+            data = gson.fromJson(values, new TypeToken<HashMap<String, Object>>() {}.getType());
+
+            DatabaseReference root = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference child = root.child(path);
+            child.updateChildren(data);
+        } catch (Exception e) {
+            Log.e(TAG, "Cant convert to map");
+        }
+    }
+
     public static void setInteger(String path, int value) {
         DatabaseReference root = FirebaseDatabase.getInstance().getReference();
         DatabaseReference child = root.child(path);
@@ -167,7 +181,7 @@ public class FirebaseWrapper {
                 activity.runOnGLThread(new Runnable() {
                     @Override
                     public void run() {
-                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', ['%s', '%s', '%s', '%s'])", child.getKey(), finalDataString, !dataSnapshot.exists() ? "true" : "false", path));
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("NativeHelper.onReceive('Firebase', 'onFetchedData', ['%s', '%s', %s, '%s'])", child.getKey(), finalDataString, !dataSnapshot.exists() ? "true" : "false", path));
                     }
                 });
             }
