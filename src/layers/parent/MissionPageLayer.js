@@ -73,7 +73,7 @@ var MissionPageLayer = cc.Layer.extend({
         }
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = b.width/2;
-        lb.y = b.height/2 + 5;
+        lb.y = b.height/2 + 10;
         b.addChild(lb);
         
         b.x = cc.winSize.width/2 + b.width/2 + 20;

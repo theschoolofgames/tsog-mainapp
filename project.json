@@ -160,6 +160,7 @@
 
         "src/layers/LoadingIndicator.js",
 
-        "src/layers/parent/MissionPageLayer.js"
+        "src/layers/parent/MissionPageLayer.js",
+        "src/common/CustomLabel.js"
     ]
 }
