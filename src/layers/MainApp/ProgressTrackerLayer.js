@@ -128,6 +128,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height - 70;
         this.addChild(button);
         button.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             self.removeFromParent();
         });
     },

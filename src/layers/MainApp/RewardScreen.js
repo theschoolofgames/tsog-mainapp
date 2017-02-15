@@ -8,6 +8,7 @@ var RewardScreenLayer = cc.Layer.extend({
         this._addPageBorders();
         this._addContent(coins, diamonds);
         this.addBackButton();
+        this.addCoinRain();
     },
 
     _createBackground: function() {
@@ -73,6 +74,7 @@ var RewardScreenLayer = cc.Layer.extend({
         // lbShare.x = buttonShare.width/2;
         // lbShare.y = buttonShare.height/2 + 5;
         buttonShare.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             self.addChild(new ShareDialog(), 1);
         });
 
@@ -86,7 +88,11 @@ var RewardScreenLayer = cc.Layer.extend({
         // lbRate.x = buttonRate.width/2;
         // lbRate.y = buttonRate.height/2 + 5;
         buttonRate.addClickEventListener(function(){
-            cc.sys.openURL(GAME_URL);
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            if (cc.sys.os === cc.sys.OS_ANDROID)
+                cc.sys.openURL(GAME_URL_ANDROID)
+            else
+                cc.sys.openURL(GAME_URL_IOS);
         });
 
         var ribbon = new cc.Sprite("res/SD/dialogs/ribbon.png");
@@ -145,9 +151,15 @@ var RewardScreenLayer = cc.Layer.extend({
         button.y = cc.winSize.height - 70;
         this.addChild(button);
         button.addClickEventListener(function(){
-            cc.director.runScene(new HomeScene());
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            cc.director.runScene(new WelcomeScene());
         });
     },
+    addCoinRain: function(){
+        var cr = new CoinRain();
+        this.addChild(cr, 10000);
+        cr.startWithCallback(null);
+    }
 });
 var RewardScene = cc.Scene.extend({
     ctor: function(coins, diamonds) {
