@@ -86,7 +86,7 @@ var MissionPageLayer = cc.Layer.extend({
 
     _addLaterBtn: function() {
         var b = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
-        b.x = cc.winSize.width/2 - b.width/2 - 20;
+        b.x = cc.winSize.width/2;
         b.y = b.height/2;
         this.addChild(b, this._childrenZOrder);
         b.addClickEventListener(function() {
@@ -95,22 +95,6 @@ var MissionPageLayer = cc.Layer.extend({
 
         var content = "Maybe later!";
         var lb = new cc.LabelBMFont(content, res.HomeFont_fnt);
-        lb.scale = 0.3;
-        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        lb.x = b.width/2;
-        lb.y = b.height/2 + this._contentTextOffSetY;
-        b.addChild(lb);
-
-        b = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
-        b.x = cc.winSize.width/2 + b.width/2 + 20;
-        b.y = b.height/2;
-        this.addChild(b, this._childrenZOrder);
-        b.addClickEventListener(function() {
-            cc.director.replaceScene(new HomeScene());
-        }.bind(this));
-
-        content = "Back to Home";
-        lb = new cc.LabelBMFont(content, res.HomeFont_fnt);
         lb.scale = 0.3;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = b.width/2;
