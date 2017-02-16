@@ -170,7 +170,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     },
 
     addNumberForAdultAndProgressBar: function(){
-        var requiredLb = new cc.LabelBMFont("Press number \" " + config[this._numberForAdult.toString()].toUpperCase() + " \" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
+        var requiredLb = new cc.LabelBMFont("Press number \"" + config[this._numberForAdult.toString()].toUpperCase() + "\" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
         requiredLb.scale = 0.4;
         requiredLb.x = this._dialogBg.width/2;
         requiredLb.y = this._ribbon.y - 70;
