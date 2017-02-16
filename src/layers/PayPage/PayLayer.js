@@ -199,7 +199,8 @@ var PayLayer = cc.Layer.extend({
 				}
 				User.getCurrentChild().setCoin(currentCoin + parseInt(coins));
 				User.getCurrentChild().setDiamond(currentDiamond + parseInt(diamonds));
-				this._succeedDialog();
+				// this._succeedDialog();
+				cc.director.replaceScene(new RewardScene(coins, diamonds));
 			}
 		}.bind(this));
 	}

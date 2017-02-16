@@ -47,14 +47,13 @@ var FirebaseManager = cc.Class.extend({
             user.fetchDependencies(function() {
                 debugLog("Loadded current user's dependencies");
 
+                debugLog("user: " + JSON.stringify(user));
                 if (user.getChildren().length == 0) {
-                    user.createChild(function(success) {
-                        debugLog("  createChild result: " + success);
-                        finishCallback(true);
-                    })
-                } else {
-                    finishCallback(true);
+                    user.createChild();
                 }
+                user.selectChild(user.getChildrenIds()[0], function() {
+                    finishCallback(true);
+                });
 
                 var inviteeId = user.getId();
                 var inviterId = KVDatabase.getInstance().getString("inviterId");
@@ -75,43 +74,22 @@ var FirebaseManager = cc.Class.extend({
             this._setRemoteConstantValue(data);
         }.bind(this));
 
-        // var inviteeId = User.getCurrentUser().getUid();
-        // var inviterId = KVDatabase.getInstance().getString("inviterId");
-
-        // if (inviteeId && inviterId && inviterId != inviteeId) {
-        //     KVDatabase.getInstance().remove("inviterId");
-        //     var path = "invitations/" + inviteeId;
-        //     FirebaseManager.getInstance().fetchData(path, function(key, data, isNull, fullPath) {
-        //         if (key == inviteeId && isNull) {
-        //             Invitation.create(inviteeId, inviterId);
-        //         }
-        //     });
-        // }
-
-        // FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-        //     var config = JSON.parse(data);
-        //     OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
-        // });
-
-        // this._updateDataModel(finishCallback);
-        // return true;
     },
 
     _setRemoteConstantValue: function(data) {
         var config = JSON.parse(data);
         OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
 
-        // SET_SMALL_PRICE = config["set_1_price"] || SET_SMALL_PRICE;
         SET_SMALL_COINS = config["set_1_coins"] || SET_SMALL_COINS;
         SET_SMALL_DIAMONDS = config["set_1_diamonds"] || SET_SMALL_DIAMONDS;
 
-        // SET_MEDIUM_PRICE = config["set_2_price"] || SET_MEDIUM_PRICE;
         SET_MEDIUM_COINS = config["set_2_coins"] || SET_MEDIUM_COINS;
         SET_MEDIUM_DIAMONDS = config["set_2_diamonds"] || SET_MEDIUM_DIAMONDS;
 
-        // SET_BIG_PRICE = config["set_3_price"] || SET_BIG_PRICE;
         SET_BIG_COINS = config["set_3_coins"] || SET_BIG_COINS;
         SET_BIG_DIAMONDS = config["set_3_diamonds"] || SET_BIG_DIAMONDS;
+
+        NEW_LEVEL_UNLOCKING_STAR_RATIO = config["new_level_unlocking_star_ratio"] || NEW_LEVEL_UNLOCKING_STAR_RATIO;
     },
 
     setData: function(path, value) {

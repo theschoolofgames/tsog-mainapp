@@ -6,9 +6,10 @@ var User = BaseFirebaseModel.extend({
     photoUrl: null,
     uid: null,
 
-    children: null,
+    _selectedChildIndex: null,
 
     ctor: function(data, initCallback) {
+        this.fixCocosBugs();
         try {
             data = JSON.parse(data);
         } catch(e) {
@@ -30,24 +31,44 @@ var User = BaseFirebaseModel.extend({
 
     createChild: function(cb) {
         var childId = FirebaseManager.getInstance().createChildAutoId("children");
+        debugLog(this._className + ".createChild: " + childId);
         var childrenIds = this.getChildrenIds();
         childrenIds.push(childId);
         this.setChildrenIds(childrenIds); // to trigger save
 
         var newChild = new Child(childId, function(found) {
-            cb && cb(found);
         });
         newChild.create();
 
         this.getChildren().push(newChild);
+
+        return childId;
     },
 
-    getFirstChild: function() {
-        return this.getChildren()[0];
+    selectChild: function(id, cb) {
+        debugLog(this._className + ".selectChild: " + id);
+        debugLog("this.getChildren(): " + JSON.stringify(this.getChildren()));
+        for (var i = 0; i < this.getChildren().length; i++) {
+            debugLog("  - #" + i + ": " + this.getChildren()[i].getId());
+            if (this.getChildren()[i].getId() == id) {
+                this._selectedChildIndex = i;
+                this.getChildren()[i].fetchDependencies(function() {
+                    cb && cb();
+                });
+                return true;
+            }
+        }
+        return false;
     },
 
     getCurrentChild: function() {
-        return this.getFirstChild();
+        debugLog(this._className + ".getCurrentChild: _selectedChildIndex is " + this._selectedChildIndex);
+        if (this._selectedChildIndex == null) {
+            return null;
+        }
+        debugLog("this.getChildren(): " + JSON.stringify(this.getChildren()));
+
+        return this.getChildren()[this._selectedChildIndex];
     }
 });
 

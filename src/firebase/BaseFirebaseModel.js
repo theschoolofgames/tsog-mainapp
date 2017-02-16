@@ -18,9 +18,21 @@ var BaseFirebaseModel = cc.Class.extend({
 		this._initCallback = initCallback;
 		this._path = path;
 		this._listeningKeys = keys;
+		this._listeningKeys.push("_created");
 
 		this._init();
 		this._listen(path);
+	},
+
+	fixCocosBugs: function() {
+		// stupid bug where member variable is shared between object instances
+		this._hasOnes = {};
+		this._hasManys = {};
+		this._defaultValues = [];
+		this._listeningKeys = [];
+
+		this._defaultValues["_created"] = true;
+		this._listeningKeys.push("_created");
 	},
 
 	getId: function() {
@@ -31,18 +43,22 @@ var BaseFirebaseModel = cc.Class.extend({
 		cc.assert(!this._listened, "setDefaultValues() can only be called before _listen()");
 
 		this._defaultValues = defaults;
+
+		this._defaultValues["_created"] = true;
 	},
 
-	hasOne: function(key, modelClass) {
+	// TODO implement eagerLoad
+	hasOne: function(key, modelClass, eagerLoad) {
 		cc.assert(!this._listened, "hasOne() can only be called before _listen()");
 
-		this._hasOnes[key] = modelClass;
+		this._hasOnes[key] = { klass: modelClass, eagerLoad: eagerLoad == true };
 	},
 
-	hasMany: function(key, modelClass) {
+	// TODO implement eagerLoad
+	hasMany: function(key, modelClass, eagerLoad) {
 		cc.assert(!this._listened, "hasMany() can only be called before _listen()");
 
-		this._hasManys[key] = modelClass;
+		this._hasManys[key] = { klass: modelClass, eagerLoad: eagerLoad == true };
 	},
 
 	_init: function() {
@@ -139,6 +155,59 @@ var BaseFirebaseModel = cc.Class.extend({
 		FirebaseManager.getInstance().setData(this._path, this._toPureData());
 	},
 
+	_onFetchDependenciesCompleted: function() {
+		this._fetchDependencyCallback && this._fetchDependencyCallback();
+	},
+
+	_setupDependency: function(key, klass, eagerLoad, isHasOne) {
+		debugLog("  - " + this._className + "._setupDependency: " + key + ", eagerLoad: " + eagerLoad + ", type: " + (isHasOne ? "hasOne" : "hasMany"));
+		var self = this;
+
+		var idKey = key + "Id";
+		if (!isHasOne) {
+			idKey = idKey + "s";
+			this["_" + key] = [];
+		}
+
+		// getter function
+    	// "levelProgress" => "getLevelProgress()"
+    	debugLog("    -> create function " + "get" + key.charAt(0).toUpperCase() + key.slice(1));
+    	this["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
+    		return self["_" + key];
+    	}
+
+    	// setter function
+    	// "levelProgress" => "setLevelProgress()"
+    	debugLog("    -> create function " + "set" + key.charAt(0).toUpperCase() + key.slice(1));
+    	this["set" + key.charAt(0).toUpperCase() + key.slice(1)] = function(value) {
+    		self["_" + key] = value;
+    	}
+
+		if (this["_" + idKey]) {
+			var dependentIds = this["_" + idKey];
+			if (isHasOne) {
+				dependentIds = [dependentIds];
+			}
+			// debugLog("idKey: " + "_" + idKey + ", dependentIds: " + JSON.stringify(dependentIds));
+
+			for(var i = 0; i < dependentIds.length; i++) {
+				var id = dependentIds[i];
+
+				this._increaseFetchDependencyCount();
+				var obj = new klass(id, function(found) {
+					self._decreaseFetchDependencyCount();
+				});
+
+				if (isHasOne) {
+					this["_" + key] = obj;
+				} else {
+					this["_" + key].push(obj);
+					// debugLog("    - push into " + "_" + key + ": " + JSON.stringify(obj));
+				}
+			}
+		}
+	},
+
 	fetchDependencies: function(cb) {
 		var self = this;
 
@@ -150,42 +219,10 @@ var BaseFirebaseModel = cc.Class.extend({
 		this._increaseFetchDependencyCount();
 
 		for(var key in this._hasOnes) {
-			debugLog("  - hasOne: " + key);
-			var klass = this._hasOnes[key];
-			var idKey = key + "Id";
-			if (this["_" + idKey]) {
-
-			}
+			this._setupDependency(key, this._hasOnes[key].klass, this._hasOnes[key].eagerLoad, true);
 		}
-
 		for(var key in this._hasManys) {
-			debugLog("  - hasMany: " + key);
-			var klass = this._hasManys[key];
-			var idKey = key + "Ids";
-
-			this["_" + key] = [];
-			var objArray = this["_" + key];
-
-			// getter function
-        	// "children" => "getChildren"
-        	this["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
-        		return this["_" + key];
-        	}
-
-        	debugLog("_" + idKey + ": " + JSON.stringify(this["_" + idKey]));
-
-			if (this["_" + idKey]) {
-				var ids = this["_" + idKey];
-				for(var i = 0; i < ids.length; i++) {
-					var id = ids[i];
-
-					this._increaseFetchDependencyCount();
-					var obj = new klass(id, function(found) {
-						self._decreaseFetchDependencyCount();
-					});
-					objArray.push(obj);
-				}
-			}
+			this._setupDependency(key, this._hasManys[key].klass, this._hasManys[key].eagerLoad, false);
 		}
 
 		this._decreaseFetchDependencyCount();
@@ -200,7 +237,7 @@ var BaseFirebaseModel = cc.Class.extend({
 		this._fetchDependencyCount--;
 		debugLog(this._className + "._decreaseFetchDependencyCount(). It's now: " + this._fetchDependencyCount);
 		if (this._fetchDependencyCount == 0) {
-			this._fetchDependencyCallback && this._fetchDependencyCallback();
+			this._onFetchDependenciesCompleted();
 		}
 	},
 });
