@@ -385,7 +385,7 @@ var StoryMainLayer = TestLayer.extend({
         // }
 
         // TODO remove after complete listening and speaking flow after story game
-        Utils.updateStepData();
+        User.getCurrentChild().winCurrentLevelStep();
         SceneFlowController.getInstance().clearData();
         cc.director.replaceScene(new cc.TransitionFade(1, new MapScene(), cc.color(255, 255, 255, 255)));
     },

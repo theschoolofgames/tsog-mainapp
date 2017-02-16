@@ -441,7 +441,7 @@ var FreeColorLayer = TestLayer.extend({
         btn.x = cc.winSize.width - btn.width;
         btn.y = cc.winSize.height/2;
         btn.addClickEventListener(function() {
-            Utils.updateStepData();
+            User.getCurrentChild().winCurrentLevelStep();
             SceneFlowController.getInstance().clearData();
             cc.director.runScene(new MapScene());
         }.bind(this));

@@ -587,7 +587,7 @@ var AlphaRacingLayer = cc.LayerColor.extend({
                 SceneFlowController.getInstance().moveToNextScene(nextSceneName, this._inputData, durationArray[numberScene]);
             }
             else {
-                Utils.updateStepData();
+                User.getCurrentChild().winCurrentLevelStep();
                 SceneFlowController.getInstance().clearData();
                 cc.director.runScene(new MapScene());
             }

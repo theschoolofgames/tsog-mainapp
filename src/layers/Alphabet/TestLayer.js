@@ -269,7 +269,7 @@ var TestLayer = cc.LayerColor.extend({
             }
 
             this.removeCardGameData();
-            Utils.updateStepData();
+            User.getCurrentChild().winCurrentLevelStep();
             SceneFlowController.getInstance().clearData();
             cc.director.runScene(new MapScene());
         }

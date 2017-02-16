@@ -47,14 +47,13 @@ var FirebaseManager = cc.Class.extend({
             user.fetchDependencies(function() {
                 debugLog("Loadded current user's dependencies");
 
+                debugLog("user: " + JSON.stringify(user));
                 if (user.getChildren().length == 0) {
-                    user.createChild(function(success) {
-                        debugLog("  createChild result: " + success);
-                        finishCallback(true);
-                    })
-                } else {
-                    finishCallback(true);
+                    user.createChild();
                 }
+                user.selectChild(user.getChildrenIds()[0], function() {
+                    finishCallback(true);
+                });
 
                 var inviteeId = user.getId();
                 var inviterId = KVDatabase.getInstance().getString("inviterId");
@@ -75,26 +74,6 @@ var FirebaseManager = cc.Class.extend({
             this._setRemoteConstantValue(data);
         }.bind(this));
 
-        // var inviteeId = User.getCurrentUser().getUid();
-        // var inviterId = KVDatabase.getInstance().getString("inviterId");
-
-        // if (inviteeId && inviterId && inviterId != inviteeId) {
-        //     KVDatabase.getInstance().remove("inviterId");
-        //     var path = "invitations/" + inviteeId;
-        //     FirebaseManager.getInstance().fetchData(path, function(key, data, isNull, fullPath) {
-        //         if (key == inviteeId && isNull) {
-        //             Invitation.create(inviteeId, inviterId);
-        //         }
-        //     });
-        // }
-
-        // FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-        //     var config = JSON.parse(data);
-        //     OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
-        // });
-
-        // this._updateDataModel(finishCallback);
-        // return true;
     },
 
     _setRemoteConstantValue: function(data) {
