@@ -350,6 +350,7 @@
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
 		5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B241EFBA459BB96B1F452E /* sdkbox.framework */; };
+		5E0BD1A91E547F5F00A6FC45 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E0BD1A81E547F5F00A6FC45 /* monkey.jpg */; };
 		5EFA74811E433E570023E1AD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */; };
 		8462450698AB583F2ECECAF4 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */; };
 		A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */; };
@@ -1059,6 +1060,7 @@
 		509D4AE817EBB82000697056 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		5B2F464CA08F5688CCE2ACB5 /* PluginIAPJSHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginIAPJSHelper.h; path = ../Classes/PluginIAPJSHelper.h; sourceTree = SOURCE_ROOT; };
+		5E0BD1A81E547F5F00A6FC45 /* monkey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = monkey.jpg; path = ../../../_sourceart/character/monkey.jpg; sourceTree = "<group>"; };
 		5ED6680F1E373542002F3FE8 /* tsog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = tsog.entitlements; sourceTree = "<group>"; };
 		5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		711C4CF98DC325D005838185 /* PluginIAPJSHelper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginIAPJSHelper.cpp; path = ../Classes/PluginIAPJSHelper.cpp; sourceTree = SOURCE_ROOT; };
@@ -2156,6 +2158,7 @@
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E0BD1A81E547F5F00A6FC45 /* monkey.jpg */,
 				1A1A081B18C9DF05005C6854 /* project.json */,
 				1A6BF21418C9DB5900FB0E1C /* main.js */,
 				C0799CB518BAE62000E9C828 /* res */,
@@ -2636,6 +2639,7 @@
 			files = (
 				BAF426FB19484B3E002B22EF /* script in Resources */,
 				1AE159EC18C9DF3600FCA372 /* project.json in Resources */,
+				5E0BD1A91E547F5F00A6FC45 /* monkey.jpg in Resources */,
 				01F093D31C75965D00B4892E /* make_log_sub_table.py in Resources */,
 				1AD7E0A818C9DB93004817A6 /* main.js in Resources */,
 				010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */,

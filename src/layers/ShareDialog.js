@@ -61,11 +61,11 @@ var ShareDialog = Dialog.extend({
 		buttonFacebook.y = buttonFacebookBg.y;
 		buttonFacebook.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-	        NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
-	                    FACEBOOK_SHARING_DESCRIPTION,
-	                    cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-	        // NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
+	        // NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
+	        //             FACEBOOK_SHARING_DESCRIPTION,
 	        //             cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
+	        NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
+	                    cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
 		});
 		this._dialogBg.addChild(buttonFacebook);
 

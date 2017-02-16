@@ -399,6 +399,7 @@ static NSMutableArray* noiseDetectionArray = nil;
     UIViewController *rootController = (UIViewController*)appController.viewController;
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
         SLComposeViewController* tweetShare = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetShare addImage:[UIImage imageNamed:@"monkey.jpg"]];
         [tweetShare addURL:[NSURL URLWithString:url]];
         [tweetShare setInitialText:description];
         [rootController presentViewController:tweetShare animated:true completion:nil];

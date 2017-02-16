@@ -1,5 +1,6 @@
 var PayLayer = cc.Layer.extend({
 	_bottomPageH: 0,
+	_purchasedSet: null,
 
 	ctor: function() {
 		this._super();
@@ -95,49 +96,22 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
 								res.Icon_gold_small_png, SET_SMALL_PRICE,
 								SET_SMALL_COINS, SET_SMALL_DIAMONDS, function() {
-									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-									IAPManager.getInstance().purchase("set1", function(succeed) {
-										if (succeed) {
-											var currentCoin = parseInt(User.getCurrentChild().getCoin());
-											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
-											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_SMALL_COINS));
-											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_SMALL_DIAMONDS));
-											self._succeedDialog();
-                                            // cc.director.replaceScene(new RewardScene(SET_SMALL_COINS, SET_SMALL_DIAMONDS));
-										}
-									});
+									this._purchasedSet = "set1";
+									this.itemCallback();
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
 								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
 								SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS, function() {
-									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-									IAPManager.getInstance().purchase("set2", function(succeed) {
-										if (succeed) {
-											var currentCoin = parseInt(User.getCurrentChild().getCoin());
-											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
-											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_MEDIUM_COINS));
-											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_MEDIUM_DIAMONDS));
-											self._succeedDialog();
-                                            // cc.director.replaceScene(new RewardScene(SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS));
-										}
-									});
+									this._purchasedSet = "set2";
+									this.itemCallback();
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 2.2, 
 								res.Icon_gold_big_png, SET_BIG_PRICE,
 								SET_BIG_COINS, SET_BIG_DIAMONDS, function() {
-									AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-									IAPManager.getInstance().purchase("set3", function(succeed) {
-										if (succeed) {
-											var currentCoin = parseInt(User.getCurrentChild().getCoin());
-											var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
-											User.getCurrentChild().setCoin(currentCoin + parseInt(SET_BIG_COINS));
-											User.getCurrentChild().setDiamond(currentDiamond + parseInt(SET_BIG_DIAMONDS));
-											self._succeedDialog();
-                                            // cc.director.replaceScene(new RewardScene(SET_BIG_COINS, SET_BIG_DIAMONDS));
-										}
-									});
+									this._purchasedSet = "set3";
+									this.itemCallback();
 								}.bind(this));
 	},
 
@@ -205,6 +179,31 @@ var PayLayer = cc.Layer.extend({
         	cc.director.replaceScene(new WelcomeScene());
         });
 	},
+
+	itemCallback: function() {
+		AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+		IAPManager.getInstance().purchase(this._purchasedSet, function(succeed) {
+			if (succeed) {
+				var currentCoin = parseInt(User.getCurrentChild().getCoin());
+				var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
+				var coins = 0, diamonds = 0
+				if (this._purchasedSet == "set1") {
+					coins = SET_SMALL_COINS;
+					diamonds = SET_SMALL_DIAMONDS;
+				} else if (this._purchasedSet == "set2") {
+					coins = SET_MEDIUM_COINS;
+					diamonds = SET_MEDIUM_DIAMONDS;
+				} else if (this._purchasedSet == "set3") {
+					coins = SET_BIG_COINS;
+					diamonds = SET_BIG_DIAMONDS;
+				}
+				User.getCurrentChild().setCoin(currentCoin + parseInt(coins));
+				User.getCurrentChild().setDiamond(currentDiamond + parseInt(diamonds));
+				this._succeedDialog();
+			}
+		}.bind(this));
+	}
+
 });
 
 var PayScene = cc.Scene.extend({
