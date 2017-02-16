@@ -19,6 +19,36 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>button-grown-up-pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,22}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,22}</string>
+                <key>textureRect</key>
+                <string>{{1739,293},{64,22}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>button-grown-up.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,22}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,22}</string>
+                <key>textureRect</key>
+                <string>{{1805,293},{64,22}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>button-unlock-pressed.png</key>
             <dict>
                 <key>aliases</key>
@@ -60,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{60,56}</string>
                 <key>textureRect</key>
-                <string>{{1739,293},{60,56}}</string>
+                <string>{{1739,317},{60,56}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{60,56}</string>
                 <key>textureRect</key>
-                <string>{{1739,351},{60,56}}</string>
+                <string>{{1526,375},{60,56}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>home_door.png</key>
             <dict>
@@ -139,36 +169,6 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>navigate-1.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{40,55}</string>
-                <key>spriteSourceSize</key>
-                <string>{40,55}</string>
-                <key>textureRect</key>
-                <string>{{1801,293},{40,55}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>navigate-2.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{40,55}</string>
-                <key>spriteSourceSize</key>
-                <string>{40,55}</string>
-                <key>textureRect</key>
-                <string>{{1801,350},{40,55}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>navigate.png</key>
             <dict>
                 <key>aliases</key>
@@ -224,7 +224,7 @@
             <key>size</key>
             <string>{1857,493}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:91dab1538e6fd8c8b117dfd9809b5e5d:c81d069191f61ab3f177f7be2fe52bf2:fae1a3b897d198dfbf3fcdd2d231bbdf$</string>
+            <string>$TexturePacker:SmartUpdate:5b7ddea20f31936f9860348221f39b03:aa495b4cfa44e004f3aa4f2e27e25382:fae1a3b897d198dfbf3fcdd2d231bbdf$</string>
             <key>textureFileName</key>
             <string>homescreen.png</string>
         </dict>

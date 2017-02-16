@@ -74,6 +74,10 @@ static NSMutableArray* noiseDetectionArray = nil;
 //    [message show];
 //  }
 //}
++ (void)sendEmail: (NSString *)email {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:email]];
+}
+
 
 + (void)showMessage:(NSString *)title message:(NSString *)message  {
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title

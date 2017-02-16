@@ -1,18 +1,66 @@
 var GrownUpMenuLayer = cc.LayerColor.extend({
     _featuresLayer: null,
     _aboutUsLayer: null,
-
+    _lbArray: [],
     _featuresBtnOffSetY: 50,
 
     ctor: function() {
         this._super(cc.color(255, 255, 255));
-
+        this._lbArray = [];
         this._addBackground();
         this._addPageBorders();
         this._addTabs();
         this._addFeaturesBtn();
         this._addAboutUsBtn();
         this.addBackButton();
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this),
+            onTouchMoved: this.onTouchMoved.bind(this),
+            onTouchEnded: this.onTouchEnded.bind(this),
+        }, this);
+    },
+
+    onTouchBegan:function(touch, event) {
+        var touchedPos = touch.getLocation();
+        for(var i = 0; i < this._lbArray.length; i++) {
+            var node = this._lbArray[i];
+            var isRectContainsPoint = cc.rectContainsPoint(node.getBoundingBox(), touchedPos);
+            if(isRectContainsPoint) {
+                this._startTouchPosition = touchedPos;
+                this._isTouching = true;
+                cc.log("TOUCHING TEXT: " + node.name);
+                this._handleTouchAction(node.name);
+            };
+        }
+        return true;
+    },
+
+    onTouchMoved: function(touch, event) {
+
+    },
+
+    onTouchEnded: function(touch, event) {
+
+    },
+
+    _handleTouchAction: function(name){
+        switch(name) {
+            case "privacy":
+                cc.sys.openURL(PRIVACY_POLICY_URL)
+                break;
+            case "web":
+                cc.sys.openURL(WEB_URL)
+                break;
+            case "email":
+                // cc.sys.openURL("mailto:info@theschoolofgame.org");
+                cc.sys.openURL("mailto:" + EMAIL_ADRESS_GAME);
+                // NativeHelper.callNative("sendEmail", ["mailto:info@theschoolofgame.org"]);
+                break;
+            default:
+                break;
+        }
     },
 
     _addPageBorders: function() {
@@ -62,7 +110,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
     _addTabs: function() {
         this._addTabBtn("Features", cc.winSize.width/2 + 1, cc.winSize.height - 75, -0.5);
-        this._addTabBtn("AboutUs", cc.winSize.width/2 - 1, cc.winSize.height - 75, 0.5);
+        this._addTabBtn("About us", cc.winSize.width/2 - 1, cc.winSize.height - 75, 0.5);
     },
 
     _addTabBtn: function(tabName, x, y, offsetX) {
@@ -151,7 +199,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         buttonBg.y = lb.y - 50;
         this._aboutUsLayer.addChild(buttonBg);
 
-
         _shareBtn = new ccui.Button("res/SD/aboutus/share-button-aboutus.png", "res/SD/aboutus/share-button-aboutus-pressed.png", "");
         _shareBtn.name = "Share";
         _shareBtn.anchorX = 0;
@@ -204,6 +251,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         lb3.x = lb2.getBoundingBox().x + lb2.getBoundingBox().width/2;
         lb3.y = lb2.getBoundingBox().y - 20;
         this._aboutUsLayer.addChild(lb3);
+        this._lbArray.push(lb3);
+        lb3.name = "email";
 
         var lb4 = new cc.LabelBMFont(TEXT_AT_GROWNUP_4, "res/font/grownupcheckfont-export.fnt");
         lb4.setBoundingWidth(cc.winSize.width/2);
@@ -215,11 +264,17 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.addChild(lb4);
         lb4.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
 
+        this._lbArray.push(lb4);
+        lb4.name = "privacy";
+
         var lb5 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,TEXT_AT_GROWNUP_5);
         lb5.setColor(cc.color("#5ce9fd"));
         lb5.x = cc.winSize.width/2;
         lb5.y = 50;
         this._aboutUsLayer.addChild(lb5);
+
+        this._lbArray.push(lb5);
+        lb5.name = "web";
         // _likeUsBtn.addChild(this._createBtnTitle(localizeForWriting("Like Us"), _likeUsBtn));
         // _followUsBtn.addChild(this._createBtnTitle(localizeForWriting("Follow Us"), _followUsBtn));
         // _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share & Spread the message"), _shareBtn));
@@ -268,7 +323,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             case "Features":
                 this._showFeatures();
                 break;
-            case "AboutUs":
+            case "About us":
                 this._showAboutUs();
                 break;
             default:
@@ -286,8 +341,10 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 this.addChild(layer, 999999);
                 break;
             case "LikeUs":
+                cc.sys.openURL(FACEBOOK_FAN_PAGE)
                 break;
             case "FollowUs":
+                cc.sys.openURL(TWITTER_FAN_PAGE)
                 break;
             case "ProgressTracker":
                 var layer = new ProgressTrackerLayer();
@@ -318,7 +375,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height - 70;
         this.addChild(button);
         button.addClickEventListener(function(){
-            cc.director.replaceScene(new MissionPageScene(true));
+            cc.director.replaceScene(new HomeScene());
         });
     },
 
