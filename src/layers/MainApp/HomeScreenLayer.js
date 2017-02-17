@@ -178,8 +178,8 @@ var HomeScreenLayer = cc.Layer.extend({
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
         // cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
-        var lastLevel = UserStorage.getInstance().getLastLevelPlay();
-        lastLevel = "L. " + lastLevel;
+        // var lastLevel = UserStorage.getInstance().getLastLevelPlay();
+        // lastLevel = "L. " + lastLevel;
         // var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
         // lbHighScore.scale = 0.5;
         // lbHighScore.x = lbLearn.x;

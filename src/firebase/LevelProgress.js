@@ -10,8 +10,8 @@ var LevelProgress = BaseFirebaseModel.extend({
     },
 
     winCurrentLevelStep: function() {
-        Utils.updateStepData();
-        return;
+        // Utils.updateStepData();
+        // return;
         debugLog("winCurrentLevelStep");
     	var currentLevel = SceneFlowController.getInstance().getCurrentStep();
 	    var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();

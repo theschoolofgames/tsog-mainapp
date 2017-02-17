@@ -8,8 +8,12 @@ var LevelDialog = Dialog.extend({
     _gamesSelector: [],
     _stars: [],
 
+    _completedSteps: null,
+
     ctor: function(level) {
         this._super();
+
+        this._getCompletedSteps();
 
         this._addDialog();
         this._addLayerContent();
@@ -20,6 +24,10 @@ var LevelDialog = Dialog.extend({
             this._level = level;
             this._fetchDataAtLevel(level);
         };
+    },
+
+    _getCompletedSteps: function() {
+        this._completedSteps = User.getCurrentUser().getCurrentChild().getLevelProgress().getCompletedSteps();
     },
 
     _addDialog: function() {
@@ -111,28 +119,17 @@ var LevelDialog = Dialog.extend({
     },
 
     _updateLevelDialog: function() {
-        var stepData = KVDatabase.getInstance().getString("stepData");
-        var currentLevel = this._level;
-        
-        if (stepData == null || stepData == "" || stepData == undefined)
+        if (this._completedSteps == null || this._completedSteps == "" || this._completedSteps == undefined) {
             return;
+        }
 
-        stepData = JSON.parse(stepData);
+        for (var stepIndex in this._completedSteps) {
+            if (this._completedSteps.hasOwnProperty(stepIndex)) {
+                var stepPrefix = stepIndex.substring(0, stepIndex.lastIndexOf("-"));
+                var stepGame = stepIndex.substring(stepIndex.lastIndexOf("-") + 1);
 
-        for (var step in stepData) {
-            var eachStepData = stepData[step];
-            if (!eachStepData)
-                return;
-
-            for (var info in eachStepData){
-                var eachStepInfo = eachStepData[info];
-
-                if (info == "totalStars" || info == "completed" || !eachStepInfo)
-                    continue;
-
-                if (stepData[currentLevel] && stepData[currentLevel][info]) {
-                    var i = parseInt(info);
-                    this._stars[i-1].setSpriteFrame("star-filled.png"); // because of level started with 1
+                if (stepPrefix == this._level) {
+                    this._stars[stepGame - 1].setSpriteFrame("star-filled.png");
                 }
             }
         }
