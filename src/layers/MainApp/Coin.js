@@ -63,22 +63,25 @@ var Coin = cc.Node.extend({
         this.burstDidStop = null;
         this.didBounce = null;
 
-        cc.spriteFrameCache.addSpriteFrames(res.Common_plist);
-        this.sprite = new cc.Sprite("#coin-01.png");//TODO
+        // cc.spriteFrameCache.addSpriteFrames(res.Common_plist);
+        var name = Math.random() < 0.5 ? "gold" : "diamond";
+        numberOfFrame = name == "gold" ? 10 : 9;
+        this.sprite = new cc.Sprite("#" + name + "-00.png");//TODO
+        this.name = name;
         this.addChild(this.sprite);
         if (!inCoinRain) {
             this.sprite.visible = false;
         }
-
     //  radius = sprite.contentSize.height/2.0f;
         this.radius = 24;
         this.velMin = 30 * this.radius;
         this.velMax = 40 * this.radius;
 
         var animFrames = [];
-        for (var i = 1; i <= 27; i++) {
+        for (var i = 1; i < numberOfFrame; i++) {
+            cc.log("iNdex : " + i);
             var idx = i < 10 ? "0" + i : i;
-            var str = "coin-" + idx + ".png";
+            var str = name + "-" + idx + ".png";
             var spriteFrame = cc.spriteFrameCache.getSpriteFrame(str);
             var animFrame = new cc.AnimationFrame();
             animFrame.initWithSpriteFrame(spriteFrame, 1, null)

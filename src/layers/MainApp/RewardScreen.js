@@ -58,7 +58,7 @@ var RewardScreenLayer = cc.Layer.extend({
 
     _addContent: function(coins, diamonds){
         var self = this;
-        var lb = new cc.LabelBMFont("Thank you for joining us in our mission", "res/font/grownupcheckfont-export.fnt");
+        var lb = new cc.LabelBMFont(localizeForWriting("Thank you for joining us in our mission"), "res/font/grownupcheckfont-export.fnt");
         lb.scale = 0.5;
         lb.x = cc.winSize.width/2;
         lb.y = cc.winSize.height - 50;
@@ -100,7 +100,7 @@ var RewardScreenLayer = cc.Layer.extend({
         ribbon.y = cc.winSize.height / 5 * 4;
         this.addChild(ribbon);
 
-        lbReward = new cc.LabelBMFont("YOUR REWARD", res.Grown_Up_fnt);
+        lbReward = new cc.LabelBMFont(localizeForWriting("YOUR REWARD"), res.Grown_Up_fnt);
         lbReward.scale = 0.4;
         lbReward.x = ribbon.width/2;
         lbReward.y = ribbon.height/2 + 25;
@@ -119,7 +119,7 @@ var RewardScreenLayer = cc.Layer.extend({
         coinIcon.x = coinBg.width/2;
         coinIcon.y = coinBg.height/2 - 60;
         coinBg.addChild(coinIcon);
-        var coinRewardLb = new cc.LabelBMFont(coins + " Coins", res.Grown_Up_fnt);
+        var coinRewardLb = new cc.LabelBMFont(coins + localizeForWriting(" Coins"), res.Grown_Up_fnt);
         coinRewardLb.scale = 0.4;
         coinRewardLb.x = coinBg.width/2;
         coinRewardLb.y = coinBg.height - 40;
@@ -138,7 +138,7 @@ var RewardScreenLayer = cc.Layer.extend({
         diamondIcon.x = diamondBg.width/2;
         diamondIcon.y = diamondBg.height/2 - 60;
         diamondBg.addChild(diamondIcon);
-        var diamondRewardLb = new cc.LabelBMFont(diamonds + " Diamonds", res.Grown_Up_fnt);
+        var diamondRewardLb = new cc.LabelBMFont(diamonds + localizeForWriting(" Diamonds"), res.Grown_Up_fnt);
         diamondRewardLb.scale = 0.4;
         diamondRewardLb.x = diamondBg.width/2;
         diamondRewardLb.y = diamondBg.height - 40;

@@ -6,12 +6,12 @@ var GameObjectsProgress = cc.Class.extend({
         var data = KVDatabase.getInstance().getString(GAME_OBJECTS_PROGRESS, "");
         if (data != "")
             this._data = JSON.parse(data);
-        else {
-            cc.loader.loadJson("res/config/progresstracker.json", function(err, loadedData) {
-                if (!err)
-                    this._data = loadedData;
-            }.bind(this));
-        }
+        // else {
+        //     cc.loader.loadJson("res/config/progresstracker.json", function(err, loadedData) {
+        //         if (!err)
+        //             this._data = loadedData;
+        //     }.bind(this));
+        // }
         cc.log("load data" + JSON.stringify(this._data));
     },
 

@@ -125,14 +125,14 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             this._bgBtnChoose.x = _btn.width/2 + 1;
             this._bgBtnChoose.y = _btn.height/2 - 1;
             _btn.addChild(this._bgBtnChoose, 10);
-            var lbChoose = new cc.LabelBMFont(tabName, "res/font/grownupcheckfont-export.fnt");
+            var lbChoose = new cc.LabelBMFont(localizeForWriting(tabName), "res/font/grownupcheckfont-export.fnt");
             lbChoose.scale = 0.4;
             lbChoose.x = this._bgBtnChoose.width/2;
             lbChoose.y = this._bgBtnChoose.height/2 + 10;
             lbChoose.tag = 1;
             this._bgBtnChoose.addChild(lbChoose);
         };
-        var title = new cc.LabelBMFont(tabName, "res/font/progresstrackerfont-export.fnt");
+        var title = new cc.LabelBMFont(localizeForWriting(tabName), "res/font/progresstrackerfont-export.fnt");
         title.scale = 0.6;
         title.x = _btn.width/2;
         title.y = _btn.height/2 + 10;
@@ -186,7 +186,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.visible = false;
         this.addChild(this._aboutUsLayer);
 
-        var lb = new cc.LabelBMFont(TEXT_AT_GROWNUP_1, "res/font/grownupcheckfont-export.fnt");
+        var lb = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_1), "res/font/grownupcheckfont-export.fnt");
         lb.scale = 0.3;
         lb.x = cc.winSize.width/2;
         lb.y = cc.winSize.height/5 * 4 - 40;
@@ -214,7 +214,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _likeUsBtn.y = _shareBtn.y - _shareBtn.height/2;
         _likeUsBtn.addClickEventListener(this._btnPressed.bind(this));
         buttonBg.addChild(_likeUsBtn);
-        var lbLikeUs = new cc.LabelBMFont("Like us", res.HomeFont_fnt);
+        var lbLikeUs = new cc.LabelBMFont(localizeForWriting("Like us"), res.HomeFont_fnt);
         lbLikeUs.scale = 0.4;
         lbLikeUs.anchorY = 1;
         lbLikeUs.x = _likeUsBtn.width/2;
@@ -228,7 +228,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _followUsBtn.y = _shareBtn.y - _shareBtn.height/2;
         _followUsBtn.addClickEventListener(this._btnPressed.bind(this));
         buttonBg.addChild(_followUsBtn);
-        var lbFollowUs = new cc.LabelBMFont("Follow us", res.HomeFont_fnt);
+        var lbFollowUs = new cc.LabelBMFont(localizeForWriting("Follow us"), res.HomeFont_fnt);
         lbFollowUs.scale = 0.4;
         lbFollowUs.anchorY = 1;
         lbFollowUs.x = _followUsBtn.width/2;
@@ -236,7 +236,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _followUsBtn.addChild(lbFollowUs);
 
 
-        var lb2 = new cc.LabelBMFont(TEXT_AT_GROWNUP_2, "res/font/grownupcheckfont-export.fnt");
+        var lb2 = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_2), "res/font/grownupcheckfont-export.fnt");
         lb2.scale = 0.4;
         lb2.anchorX = 0;
         lb2.anchorY = 1;
@@ -246,7 +246,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         lb2.setBoundingWidth(lb2.width/5 * 4);
         lb2.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
 
-        var lb3 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 20, cc.color("#1679bd"), 1,TEXT_AT_GROWNUP_3);
+        var lb3 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 20, cc.color("#1679bd"), 1,localizeForWriting(TEXT_AT_GROWNUP_3));
         lb3.setColor(cc.color("#5ce9fd"));
         lb3.x = lb2.getBoundingBox().x + lb2.getBoundingBox().width/2;
         lb3.y = lb2.getBoundingBox().y - 20;
@@ -254,7 +254,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._lbArray.push(lb3);
         lb3.name = "email";
 
-        var lb4 = new cc.LabelBMFont(TEXT_AT_GROWNUP_4, "res/font/grownupcheckfont-export.fnt");
+        var lb4 = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_4), "res/font/grownupcheckfont-export.fnt");
         lb4.setBoundingWidth(cc.winSize.width/2);
         lb4.scale = 0.4;
         lb4.anchorX = 1;
@@ -267,7 +267,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._lbArray.push(lb4);
         lb4.name = "privacy";
 
-        var lb5 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,TEXT_AT_GROWNUP_5);
+        var lb5 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,localizeForWriting(TEXT_AT_GROWNUP_5));
         lb5.setColor(cc.color("#5ce9fd"));
         lb5.x = cc.winSize.width/2;
         lb5.y = 50;
@@ -285,7 +285,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         offsetX = offsetX || 0;
         var btnTitleConfig = labelConfig[button.name];
         // var btnTitle = new cc.LabelBMFont(title, res.HomeFont_fnt);
-        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], btnTitleConfig.fontSize, cc.color(btnTitleConfig.color), btnTitleConfig.outlineSize,title);
+        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], btnTitleConfig.fontSize, cc.color(btnTitleConfig.color), btnTitleConfig.outlineSize,localizeForWriting(title));
 
         btnTitle.setDimensions(button.width * btnTitleConfig.boundingWidthRatio, button.height * btnTitleConfig.boundingHeightRatio);
         btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
@@ -311,7 +311,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
         this._bgBtnChoose.x = button.width/2 + 1;
         this._bgBtnChoose.y = button.height/2 - 1;
-        var lbChoose = new cc.LabelBMFont(tabName, "res/font/grownupcheckfont-export.fnt");
+        var lbChoose = new cc.LabelBMFont(localizeForWriting(tabName), "res/font/grownupcheckfont-export.fnt");
         lbChoose.scale = 0.4;
         lbChoose.x = this._bgBtnChoose.width/2;
         lbChoose.y = this._bgBtnChoose.height/2 + 10;
