@@ -68,11 +68,11 @@ var RewardScreenLayer = cc.Layer.extend({
         buttonShare.x = cc.winSize.width/2 - 160;
         buttonShare.y = 70;
         this.addChild(buttonShare);
-        // var lbShare = new cc.LabelBMFont("Share the news", res.HomeFont_fnt);
-        // lbShare.scale = 0.3;
-        // buttonShare.addChild(lbShare,1);
-        // lbShare.x = buttonShare.width/2;
-        // lbShare.y = buttonShare.height/2 + 5;
+        var lbShare = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 22, cc.color("#2287c5"), 1,localizeForWriting("Share the news"));
+        // lbShare.color = cc.color("#18a401");
+        buttonShare.addChild(lbShare,1);
+        lbShare.x = buttonShare.width/2;
+        lbShare.y = buttonShare.height/2 + 5;
         buttonShare.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             self.addChild(new ShareDialog(), 1);
@@ -82,11 +82,11 @@ var RewardScreenLayer = cc.Layer.extend({
         buttonRate.x = cc.winSize.width/2 + 160;
         buttonRate.y = 70;
         this.addChild(buttonRate);
-        // var lbRate = new cc.LabelBMFont("Rate us", res.HomeFont_fnt);
+        var lbRate = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 25, cc.color("#b15a10"), 1,localizeForWriting("Rate Us"));
         // lbRate.scale = 0.3;
-        // buttonRate.addChild(lbRate,1);
-        // lbRate.x = buttonRate.width/2;
-        // lbRate.y = buttonRate.height/2 + 5;
+        buttonRate.addChild(lbRate,1);
+        lbRate.x = buttonRate.width/2;
+        lbRate.y = buttonRate.height/2 + 5;
         buttonRate.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             if (cc.sys.os === cc.sys.OS_ANDROID)
