@@ -163,7 +163,8 @@
 
         "src/layers/LoadingIndicator.js",
 
-        "src/layers/parent/MissionPageLayer.js",
+        "src/layers/parent/MissionPageBeforeLogin.js",
+        "src/layers/parent/MissionPageAfterLogin.js",
         "src/common/CustomLabel.js"
     ]
 }

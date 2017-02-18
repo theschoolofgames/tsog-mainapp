@@ -22,6 +22,14 @@ var SceneFlowController = cc.Class.extend({
         this._loopScenes = sceneFlow.loopScreens;
     },
 
+    setSceneGoAfterRewardScene: function(sceneName) {
+        KVDatabase.getInstance().set("sceneGoAfterRewardScene", sceneName);
+    },
+
+    getSceneGoAfterRewardScene: function() {
+        return KVDatabase.getInstance().getString("sceneGoAfterRewardScene", "");
+    },
+
     setLastedStepUnlocked: function(step) {
         this._lastedStepUnlocked = step || "";
         cc.log("this._lastedStepUnlocked: " + this._lastedStepUnlocked);

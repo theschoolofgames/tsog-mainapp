@@ -40,7 +40,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         button.addClickEventListener(function(){
             AudioManager.getInstance().play(res.back_sound_mp3, false, null);
             if (this._backBtnCallback)
-                callback();
+                this._backBtnCallback();
             else
                 cc.director.runScene(new HomeScene());
         }.bind(this));

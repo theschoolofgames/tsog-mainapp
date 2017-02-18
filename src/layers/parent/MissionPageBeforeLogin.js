@@ -1,5 +1,5 @@
-var MissionPageLayer = cc.Layer.extend({
-    _hasLaterBtn: false,
+var MissionPageBeforeLogin = cc.Layer.extend({
+    _loggedIn: false,
 
     _contentTextScale: 0.35,
     _contentTextOffSetY: 5,
@@ -9,18 +9,12 @@ var MissionPageLayer = cc.Layer.extend({
     _backgroundZOrder: 1,
     _childrenZOrder: 3,
     _cloudZOrder: 2,
+    _grownupCheckDialogZOrder: 5,
 
     _childrenOffSetY: 0,
 
-    ctor: function(hasLaterBtn) {
+    ctor: function() {
         this._super();
-        this._hasLaterBtn = hasLaterBtn;
-
-        debugLog("MissionPageLayer ctor _hasLaterBtn -> " + this._hasLaterBtn);
-        if (hasLaterBtn) {
-            this._childrenOffSetY = 50;
-            this._addLaterBtn();
-        }
 
         this._addBackground();
         this._addMissionContent();
@@ -48,7 +42,7 @@ var MissionPageLayer = cc.Layer.extend({
         b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
         this.addChild(b);
 
-        b.addClickEventListener(this._btnPressed.bind(this));
+        b.addClickEventListener(this._payBtnPressed.bind(this));
 
         var lb = new cc.LabelBMFont("Pay with your", res.HomeFont_fnt);
         lb.scale = 0.4;
@@ -57,20 +51,11 @@ var MissionPageLayer = cc.Layer.extend({
         lb.y = b.height/2 + 10;
         b.addChild(lb);
 
-        if (this._hasLaterBtn) {
-            b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            b.name = "share";
+        b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        b.name = "play";
 
-            var lb = new cc.LabelBMFont("Share & Spread the message", res.HomeFont_fnt);
-            lb.scale = 0.3;
-            lb.boundingWidth = b.width*2;
-        } else {
-            b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            b.name = "play";
-
-            var lb = new cc.LabelBMFont("Play for free", res.HomeFont_fnt);
-            lb.scale = 0.4;
-        }
+        var lb = new cc.LabelBMFont("Play for free", res.HomeFont_fnt);
+        lb.scale = 0.4;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = b.width/2;
         lb.y = b.height/2 + 10;
@@ -80,7 +65,7 @@ var MissionPageLayer = cc.Layer.extend({
         b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
         this.addChild(b);
 
-        b.addClickEventListener(this._btnPressed.bind(this));
+        b.addClickEventListener(this._playBtnPressed.bind(this));
 
     },
 
@@ -133,59 +118,45 @@ var MissionPageLayer = cc.Layer.extend({
         rCloud.addChild(rContent);
     },
 
-    _btnPressed: function(button) {
-        var btnName = button.name;
-        switch(btnName) {
-            case "pay":
-                if (User.isLoggedIn())
-                    this.addChild(new GrownUpCheckDialog(this._payCallBack), this._childrenZOrder+1);
-                else {
-                    LoadingIndicator.show();
-                    FirebaseManager.getInstance().login(function(succeed, msg) {
-                        // debugLog("gonna remove loading indicator");
-                        if (succeed) {
-                            LoadingIndicator.hide();
-                            this.addChild(new GrownUpCheckDialog(this._payCallBack));
-                        } else {
-                            LoadingIndicator.hide();
-                        }
-                    }.bind(this))    
-                }
-                break;
-            case "play":
-                if (User.isLoggedIn())
-                    cc.director.replaceScene(new WelcomeScene());
-                else {
-                    LoadingIndicator.show();
-                    FirebaseManager.getInstance().login(function(succeed, msg) {
-                        // debugLog("gonna remove loading indicator");
-                        if (succeed) {
-                            LoadingIndicator.hide();
-                            cc.director.replaceScene(new WelcomeScene());
-                        } else {
-                            LoadingIndicator.hide();
-                        }
-                    })
-                }
-                break;
-            case "share":
-                var layer = new ShareDialog();
-                this.addChild(layer, 999999);
-            default:
-                break;
-        }
+    _grownUpCheckCallback: function() {
+        SceneFlowController.getInstance().setSceneGoAfterRewardScene("welcome");
+        cc.director.replaceScene(new PayScene(function() {
+            cc.director.replaceScene(new MissionPageBeforeLoginScene());
+        }));
     },
 
-    _payCallBack: function() {
-        cc.director.replaceScene(new PayScene());
+    _payBtnPressed: function() {
+        LoadingIndicator.show();
+        FirebaseManager.getInstance().login(function(succeed, msg) {
+            // debugLog("gonna remove loading indicator");
+            if (succeed) {
+                LoadingIndicator.hide();
+                this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
+            } else {
+                LoadingIndicator.hide();
+            }
+        }.bind(this));
+    },
+
+    _playBtnPressed: function() {
+        LoadingIndicator.show();
+        FirebaseManager.getInstance().login(function(succeed, msg) {
+            // debugLog("gonna remove loading indicator");
+            if (succeed) {
+                LoadingIndicator.hide();
+                cc.director.replaceScene(new WelcomeScene());
+            } else {
+                LoadingIndicator.hide();
+            }
+        })
     },
 
 });
 
-var MissionPageScene = cc.Scene.extend({
-    ctor: function(hasLaterBtn) {
+var MissionPageBeforeLoginScene = cc.Scene.extend({
+    ctor: function() {
         this._super();
 
-        this.addChild(new MissionPageLayer(hasLaterBtn));
+        this.addChild(new MissionPageBeforeLogin());
     }
 });

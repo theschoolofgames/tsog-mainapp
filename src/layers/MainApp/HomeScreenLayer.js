@@ -50,7 +50,7 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     grownUpCheckCallback: function() {
-        cc.director.replaceScene(new MissionPageScene(true));
+        cc.director.replaceScene(new MissionPageAfterLoginScene());
     },
 
     addBackGround: function() {

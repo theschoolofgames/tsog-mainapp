@@ -1,4 +1,5 @@
 var RewardScreenLayer = cc.Layer.extend({
+
     ctor: function (coins, diamonds) {
         // body...
         this._super();
@@ -7,8 +8,14 @@ var RewardScreenLayer = cc.Layer.extend({
         this._createBackground();
         this._addPageBorders();
         this._addContent(coins, diamonds);
-        this.addBackButton();
         this.addCoinRain();
+
+        var nextScene = SceneFlowController.getInstance().getSceneGoAfterRewardScene();
+        debugLog("nextScene -> " + nextScene);
+        if (nextScene == "growupmenu")
+            this.addBackButton();
+        else
+            this.addForwardButton();
     },
 
     _createBackground: function() {
@@ -144,6 +151,7 @@ var RewardScreenLayer = cc.Layer.extend({
         diamondRewardLb.y = diamondBg.height - 40;
         diamondBg.addChild(diamondRewardLb);
     },
+
     addBackButton: function(){
         var self = this;
         var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
@@ -152,9 +160,23 @@ var RewardScreenLayer = cc.Layer.extend({
         this.addChild(button);
         button.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            cc.director.runScene(new GrownUpMenuScene());
+        });
+    },
+
+    addForwardButton: function(){
+        var self = this;
+        var button = new ccui.Button("back.png", "back-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width - 50;
+        button.y = cc.winSize.height - 70;
+        button.setFlippedX(true);
+        this.addChild(button);
+        button.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             cc.director.runScene(new WelcomeScene());
         });
     },
+
     addCoinRain: function(){
         var cr = new CoinRain();
         this.addChild(cr, 10000);

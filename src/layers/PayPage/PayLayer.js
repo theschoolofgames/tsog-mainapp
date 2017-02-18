@@ -1,8 +1,12 @@
 var PayLayer = cc.Layer.extend({
 	_bottomPageH: 0,
+    _backBtnCallBack: null,
 
-	ctor: function() {
+	ctor: function(backBtnCallBack) {
 		this._super();
+
+        this._backBtnCallBack = backBtnCallBack;
+
 		this._createBackground();
 		this._addPageBorders();
 		this._addHud();
@@ -64,6 +68,10 @@ var PayLayer = cc.Layer.extend({
 		shopHUDLayer._bgDiamond.x = shopHUDLayer._bgGold.x + shopHUDLayer._bgGold.width * 1.1;
 		shopHUDLayer._bgDiamond.y -= shopHUDLayer._bgDiamond.height / 4;
 		this.addChild(shopHUDLayer);
+
+        if (this._backBtnCallBack) {
+            shopHUDLayer.setBackBtnCallback(this._backBtnCallBack);
+        }
 	},
 
 	_addTitle: function() {
@@ -208,9 +216,9 @@ var PayLayer = cc.Layer.extend({
 });
 
 var PayScene = cc.Scene.extend({
-	ctor: function() {
+	ctor: function(backBtnCallBack) {
 		this._super();
-		var payLayer = new PayLayer();
+		var payLayer = new PayLayer(backBtnCallBack);
 		this.addChild(payLayer);
 	}
 })
