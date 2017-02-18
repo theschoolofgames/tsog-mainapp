@@ -6,6 +6,7 @@ var CustomTableViewCell = cc.TableViewCell.extend({
     progressColor:null,
     image: null,
     percent: null,
+    palaceFrame:null,
     draw:function (ctx) {
         this._super(ctx);
     }
@@ -167,7 +168,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             button.y = cc.winSize.height - 75;
             var string = NAME_TAB[i];
             // button.setColor(cc.color.RED);
-            var lb = new cc.LabelBMFont(string, "res/font/progresstrackerfont-export.fnt");
+            var lb = new cc.LabelBMFont(localizeForWriting(string), "res/font/progresstrackerfont-export.fnt");
             lb.scale = 0.63;
             lb.x = button.width/2;
             lb.y = button.height/2 + 10;
@@ -183,7 +184,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
                 this._bgBtnChoose.x = button.width/2 + 1;
                 this._bgBtnChoose.y = button.height/2 - 1;
                 button.addChild(this._bgBtnChoose, 1);
-                var lbChoose = new cc.LabelBMFont(string, "res/font/grownupcheckfont-export.fnt");
+                var lbChoose = new cc.LabelBMFont(localizeForWriting(string), "res/font/grownupcheckfont-export.fnt");
                 lbChoose.scale = 0.4;
                 lbChoose.x = this._bgBtnChoose.width/2;
                 lbChoose.y = this._bgBtnChoose.height/2 + 10;
@@ -208,7 +209,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this._bgBtnChoose = new cc.Sprite("res/SD/progresstracker/tab.png");
         this._bgBtnChoose.x = button.width/2 + 1;
         this._bgBtnChoose.y = button.height/2 - 1;
-        var lbChoose = new cc.LabelBMFont(buttonName, "res/font/grownupcheckfont-export.fnt");
+        var lbChoose = new cc.LabelBMFont(localizeForWriting(buttonName), "res/font/grownupcheckfont-export.fnt");
         lbChoose.scale = 0.4;
         lbChoose.x = this._bgBtnChoose.width/2;
         lbChoose.y = this._bgBtnChoose.height/2 + 10;
@@ -341,7 +342,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
                 if (!jsb.fileUtils.isFileExist("res/SD/" + spritePath)) 
                     spritePath = "animals/" + data["value"].toLowerCase() + ".png";
                 // cc.spriteFrameCache.
-                cell.lbName.setString(data["value"].toUpperCase());
+                cell.lbName.setString(localizeForWriting(data["value"]).toUpperCase());
+                if(localizeForWriting(data["value"]).length > 10)
+                    cell.lbName.scale = cell.palaceFrame.width/(cell.lbName.width + 50);
                 cell.image.setTexture("res/SD/" + spritePath);
                 this.setScaleImage(cell.image);
             };
@@ -368,7 +371,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         palaceFrame.anchorX = 0;
         palaceFrame.anchorY = 0;
         cell.addChild(palaceFrame);
-
+        cell.palaceFrame = palaceFrame;
         
         //ProgressBar
         var progressBarBg = new cc.Sprite("res/SD/progresstracker/progressbarbg-tracker.png");
@@ -402,10 +405,10 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         // gameProgressBar.shaderProgram = shaderScrolling;
         if(data["type"] == "word" || data["type"] == "number" || data["type"] == "math") {
             cell.lbName = new cc.LabelBMFont(data["value"],  "res/font/grownupcheckfont-export.fnt");
-            cell.lbName.scale = 2.5;
+            cell.lbName.scale = 2.3;
             cell.lbName.y = palaceFrame.height/2 + 30;
             if(data["type"] == "math"){
-                cell.lbName.scale = 1.5;
+                cell.lbName.scale = 1.2;
                 cell.lbName.y = palaceFrame.height/2 + 10;
             }
             cell.lbName.x = palaceFrame.width/2;
@@ -421,12 +424,14 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             cell.image.x = palaceFrame.width/2;
             cell.image.y = palaceFrame.height/2 + 50;
             this.setScaleImage(cell.image);
-            cell.lbName = new cc.LabelBMFont(data["value"].toUpperCase(),  "res/font/grownupcheckfont-export.fnt");
+            cell.lbName = new cc.LabelBMFont(localizeForWriting(data["value"]).toUpperCase(),  "res/font/grownupcheckfont-export.fnt");
             cell.lbName.scale = 0.5;
             cell.lbName.x = palaceFrame.width/2;
             cell.lbName.y = 40;
             palaceFrame.addChild(cell.lbName);
         };
+        if(localizeForWriting(data["value"]).length > 10)
+            cell.lbName.scale = cell.palaceFrame.width/(cell.lbName.width + 50);
 
         return cell;
     },

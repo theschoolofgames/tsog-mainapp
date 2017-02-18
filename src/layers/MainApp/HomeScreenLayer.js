@@ -29,10 +29,10 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     addProgressTrackerButton: function(){
-        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var button = new ccui.Button("res/SD/grownup/button-grown-up.png", "res/SD/grownup/button-grown-up-pressed.png", "");
         button.x = cc.winSize.width - button.width/2  - 10;
         button.y = cc.winSize.height - button.height + 10;
-        this.addChild(button, 99);
+        this.addChild(button);
         var self = this;
         button.addClickEventListener(function() {
             // var layer = new ProgressTrackerLayer();
@@ -46,7 +46,7 @@ var HomeScreenLayer = cc.Layer.extend({
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
-        button.getVirtualRenderer().addChild(lb);
+        button.addChild(lb);
     },
 
     grownUpCheckCallback: function() {
@@ -178,8 +178,8 @@ var HomeScreenLayer = cc.Layer.extend({
         lbLearn.y = board.height/2 + 15;
         board.addChild(lbLearn);
         // cc.log("LastLevel: " + UserStorage.getInstance().getLastLevelPlay());
-        var lastLevel = UserStorage.getInstance().getLastLevelPlay();
-        lastLevel = "L. " + lastLevel;
+        // var lastLevel = UserStorage.getInstance().getLastLevelPlay();
+        // lastLevel = "L. " + lastLevel;
         // var lbHighScore = new cc.LabelBMFont(lastLevel, res.CustomFont_fnt);
         // lbHighScore.scale = 0.5;
         // lbHighScore.x = lbLearn.x;

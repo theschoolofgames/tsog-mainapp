@@ -355,38 +355,38 @@ Utils.getScaleFactorTo16And9 = function() {
     return (winSize.width / winSize.height) / (16/9);
 }
 
-Utils.updateStepData = function() {
-    var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
-    var currentLevel = SceneFlowController.getInstance().getCurrentStep();
-    var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
-    var totalSceneInStep = SceneFlowController.getInstance().getTotalSceneInStep();
-    var stepData = {};
-    var currentTotalStars;
-    var completed;
+// Utils.updateStepData = function() {
+//     var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
+//     var currentLevel = SceneFlowController.getInstance().getCurrentStep();
+//     var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
+//     var totalSceneInStep = SceneFlowController.getInstance().getTotalSceneInStep();
+//     var stepData = {};
+//     var currentTotalStars;
+//     var completed;
 
-    var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
-    if (data != null && data != "" && data != "{}") {
-        data = JSON.parse(data);
-        stepData = data;
-    }
+//     var data = KVDatabase.getInstance().getString("stepData", JSON.stringify(stepData));
+//     if (data != null && data != "" && data != "{}") {
+//         data = JSON.parse(data);
+//         stepData = data;
+//     }
 
-    if (!stepData[currentLevel])
-        stepData[currentLevel] = {};
-    else if (stepData[currentLevel][currentSceneIdx])
-        return;
-    if (!stepData[currentLevel]["totalStars"])
-        stepData[currentLevel]["totalStars"] = 0;
+//     if (!stepData[currentLevel])
+//         stepData[currentLevel] = {};
+//     else if (stepData[currentLevel][currentSceneIdx])
+//         return;
+//     if (!stepData[currentLevel]["totalStars"])
+//         stepData[currentLevel]["totalStars"] = 0;
 
-    currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]) + 1;
-    stepData[currentLevel]["totalStars"] = currentTotalStars;
-    completed = (currentTotalStars * 1.0 / totalSceneInStep >= NEW_LEVEL_UNLOCKING_STAR_RATIO) ? 1 : 0;
-    // cc.log("totalSceneInStep: " + totalSceneInStep);
-    // cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
-    stepData[currentLevel][currentSceneIdx] = 1;
-    stepData[currentLevel]["completed"] = completed;
+//     currentTotalStars = parseInt(stepData[currentLevel]["totalStars"]) + 1;
+//     stepData[currentLevel]["totalStars"] = currentTotalStars;
+//     completed = (currentTotalStars * 1.0 / totalSceneInStep >= NEW_LEVEL_UNLOCKING_STAR_RATIO) ? 1 : 0;
+//     // cc.log("totalSceneInStep: " + totalSceneInStep);
+//     // cc.log("currentTotalStars + 1: " + (currentTotalStars + 1));
+//     stepData[currentLevel][currentSceneIdx] = 1;
+//     stepData[currentLevel]["completed"] = completed;
 
-    KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
-}
+//     KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
+// }
 
 Utils.addBuildVersionText = function(parent) {
     var text = "16.11.01.00";

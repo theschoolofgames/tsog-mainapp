@@ -129,7 +129,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         ribbon.x = dialogBg.width/2;
         ribbon.y = dialogBg.height - 10;
         dialogBg.addChild(ribbon);
-        var title = new cc.LabelBMFont("For Parent", "res/font/grownupcheckfont-export.fnt");
+        var title = new cc.LabelBMFont(localizeForWriting("For Parent"), "res/font/grownupcheckfont-export.fnt");
         title.scale = 0.5;
         title.x = ribbon.width/2;
         title.y = ribbon.height/2 + 23;
@@ -170,7 +170,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     },
 
     addNumberForAdultAndProgressBar: function(){
-        var requiredLb = new cc.LabelBMFont("Press number \" " + config[this._numberForAdult.toString()].toUpperCase() + " \" for 3 seconds", "res/font/grownupcheckfont-export.fnt");
+        var requiredLb = new cc.LabelBMFont(localizeForWriting("Press number \"") + config[this._numberForAdult.toString()].toUpperCase() + localizeForWriting("\" for 3 seconds"), "res/font/grownupcheckfont-export.fnt");
         requiredLb.scale = 0.4;
         requiredLb.x = this._dialogBg.width/2;
         requiredLb.y = this._ribbon.y - 70;

@@ -34,6 +34,17 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
+    sendEmail: {
+        iOS: [
+            "H102Wrapper",
+            "sendEmail:"
+        ], 
+        Android: [
+            "com/h102/Wrapper",
+            "sendEmail",
+            "(Ljava/lang/String;)V"
+        ]
+    },
     customLogging: {
         iOS: [
             "H102Wrapper",
