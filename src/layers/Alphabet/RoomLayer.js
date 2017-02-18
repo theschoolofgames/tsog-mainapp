@@ -826,7 +826,6 @@ var RoomLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
-        User.getCurrentChild().winCurrentLevelStep();
         for (var i = 0; i < this._objectDisableds.length; i++) {
             this._objectDisableds[i].removeFromParent();
             this._shadeObjects[i].removeFromParent();
