@@ -189,7 +189,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var lb = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_1), "res/font/grownupcheckfont-export.fnt");
         lb.scale = 0.3;
         lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height/5 * 4 - 40;
+        lb.y = cc.winSize.height/5 * 4 - 55;
         lb.setBoundingWidth(cc.winSize.width * 2);
         this._aboutUsLayer.addChild(lb);
 
