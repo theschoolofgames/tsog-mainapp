@@ -19,6 +19,36 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>btn_later.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{207,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{207,70}</string>
+                <key>textureRect</key>
+                <string>{{582,423},{207,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>btn_later_pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{207,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{207,70}</string>
+                <key>textureRect</key>
+                <string>{{918,1},{207,70}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>btn_pay_with_heart.png</key>
             <dict>
                 <key>aliases</key>
@@ -34,20 +64,35 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>btn_play_for_free.png</key>
+            <key>btn_share_wide.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{291,73}</string>
+                <string>{207,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{291,73}</string>
+                <string>{207,70}</string>
                 <key>textureRect</key>
-                <string>{{582,423},{291,73}}</string>
+                <string>{{875,273},{207,70}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
+            </dict>
+            <key>btn_share_wide_pressed.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{207,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{207,70}</string>
+                <key>textureRect</key>
+                <string>{{947,210},{207,70}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>children.png</key>
             <dict>
@@ -61,6 +106,21 @@
                 <string>{579,494}</string>
                 <key>textureRect</key>
                 <string>{{1,1},{579,494}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>icon_share.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{28,33}</string>
+                <key>spriteSourceSize</key>
+                <string>{28,33}</string>
+                <key>textureRect</key>
+                <string>{{791,423},{28,33}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -102,9 +162,9 @@
             <key>realTextureFileName</key>
             <string>mission_page.png</string>
             <key>size</key>
-            <string>{917,497}</string>
+            <string>{1018,496}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:eaafcf4cde3fe3401bd2988b0067c554:9ca4c2d46817decb324913f4fb732fef:01f020d7d0284a9774acb95a71e6089c$</string>
+            <string>$TexturePacker:SmartUpdate:5d2d2144aee99174454ae20d838e02a3:5e0c4ce0361361c273d5070c95242c13:01f020d7d0284a9774acb95a71e6089c$</string>
             <key>textureFileName</key>
             <string>mission_page.png</string>
         </dict>
