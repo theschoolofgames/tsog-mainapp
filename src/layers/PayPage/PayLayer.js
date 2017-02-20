@@ -1,9 +1,13 @@
 var PayLayer = cc.Layer.extend({
 	_bottomPageH: 0,
+    _backBtnCallBack: null,
 	_purchasedSet: null,
 
-	ctor: function() {
+	ctor: function(backBtnCallBack) {
 		this._super();
+
+        this._backBtnCallBack = backBtnCallBack;
+
 		this._createBackground();
 		this._addPageBorders();
 		this._addHud();
@@ -65,6 +69,10 @@ var PayLayer = cc.Layer.extend({
 		shopHUDLayer._bgDiamond.x = shopHUDLayer._bgGold.x + shopHUDLayer._bgGold.width * 1.1;
 		shopHUDLayer._bgDiamond.y -= shopHUDLayer._bgDiamond.height / 4;
 		this.addChild(shopHUDLayer);
+
+        if (this._backBtnCallBack) {
+            shopHUDLayer.setBackBtnCallback(this._backBtnCallBack);
+        }
 	},
 
 	_addTitle: function() {
@@ -73,7 +81,7 @@ var PayLayer = cc.Layer.extend({
 		ribbon.y = this._bottomPageH;
 		this.addChild(ribbon);
 
-        var label = new cc.LabelBMFont("Pay", res.HudFont_fnt);
+        var label = new cc.LabelBMFont(localizeForWriting("Pay"), res.HudFont_fnt);
         // label.scale = 0.5;
         label.x = ribbon.width / 2;
         label.y = ribbon.height * 0.765;
@@ -82,8 +90,8 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	_addDescription: function() {
-        var description = new cc.LabelBMFont("When you \"pay what's in your heart\"\n" 
-        										+ "we educate a child in need", res.HudFont_fnt);
+        var description = new cc.LabelBMFont(localizeForWriting("When you \"pay what's in your heart\"\n" 
+                                                        + "we educate a child in need"), res.HudFont_fnt);
         description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         description.scale = 0.8;
         description.x = cc.winSize.width / 2;
@@ -132,13 +140,13 @@ var PayLayer = cc.Layer.extend({
 		button.addClickEventListener(callback);
 		slot.addChild(button);
 
-		var buttonLabel = new cc.LabelBMFont("Buy " + price, res.HomeFont_fnt);
+		var buttonLabel = new cc.LabelBMFont(localizeForWriting("Buy ") + price, res.HomeFont_fnt);
         buttonLabel.scale = 0.4;
         buttonLabel.x = button.width / 2;
         buttonLabel.y = button.height / 1.65;
         button.addChild(buttonLabel);	
 
-        var itemLabel = new cc.LabelBMFont(coins + " coins\n" + diamonds + " diamonds", res.HudFont_fnt);
+        var itemLabel = new cc.LabelBMFont(coins + localizeForWriting(" coins\n") + diamonds + localizeForWriting(" diamonds"), res.HudFont_fnt);
         itemLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         itemLabel.scale = 0.6;
         itemLabel.x = slot.width / 2;
@@ -158,7 +166,7 @@ var PayLayer = cc.Layer.extend({
 		dialogLayer.background = dialog;
 		this.addChild(dialogLayer);
 
-		var title = new cc.LabelBMFont("Purchase Succeed",res.Grown_Up_fnt);
+		var title = new cc.LabelBMFont(localizeForWriting("Purchase Succeed"),res.Grown_Up_fnt);
         title.scale = 0.55;
         title.x = dialog.width/2;
         title.y = dialog.height/2 + title.height;
@@ -169,7 +177,7 @@ var PayLayer = cc.Layer.extend({
         confirmBtn.y = dialog.height/2 - 20;
         dialog.addChild(confirmBtn);
 
-        var title = new cc.LabelBMFont("Ok",res.Grown_Up_fnt);
+        var title = new cc.LabelBMFont(localizeForWriting("Ok"),res.Grown_Up_fnt);
         title.scale = 0.55;
         title.x = confirmBtn.width/2;
         title.y = confirmBtn.height/2 + 3;
@@ -208,9 +216,9 @@ var PayLayer = cc.Layer.extend({
 });
 
 var PayScene = cc.Scene.extend({
-	ctor: function() {
+	ctor: function(backBtnCallBack) {
 		this._super();
-		var payLayer = new PayLayer();
+		var payLayer = new PayLayer(backBtnCallBack);
 		this.addChild(payLayer);
 	}
 })

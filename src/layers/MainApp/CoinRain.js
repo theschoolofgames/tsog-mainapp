@@ -19,7 +19,7 @@ var CoinRain = cc.Node.extend({
         this.stopCallback = callback
 
         var c;
-        var numCoins = 100;
+        var numCoins = 150;
         var SW = cc.winSize.width;
         var SH = cc.winSize.height;
         for (var i = 0; i < numCoins; i++) {
@@ -27,8 +27,10 @@ var CoinRain = cc.Node.extend({
             var y = Utils.randFloat2(0, SH * 2) + SH + 50;
             c = new Coin(true);
             c.setPosition(x, y);
-            c.setRotation(Math.random() * (360));
-            c.setScale(Utils.randFloat2(1, 2));
+            cc.log("NAME: " + c.name);
+            if(c.name == "gold")
+                c.setRotation(Math.random() * (360));
+            c.setScale(Utils.randFloat2(1, 1.5));
             this.addChild(c);
             c.randomFirstFrame = true;
             c.startAnimation();

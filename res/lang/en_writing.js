@@ -317,7 +317,7 @@ languagesForWriting["en"] = {
     "pencils": "pencils",
     "pencil" : "pencil",
     "percent" : "percent",
-    "pet" : "pet wa kufuga",
+    "pet" : "pet",
     "photo" : "photo",
     "pie" : "pie",
     "pig" : "pig",

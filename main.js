@@ -119,6 +119,7 @@ cc.game.onStart = function(){
         AudioManager.setupInstance();
         GameObjectsProgress.setupInstance();
         CustomLabel.setupInstance();
+        SceneFlowController.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);
@@ -179,7 +180,8 @@ cc.game.onStart = function(){
             if (loggedIn)
                 cc.director.runScene(new WelcomeScene());
             else
-                cc.director.runScene(new MissionPageScene());
+                cc.director.runScene(new MissionPageBeforeLoginScene());
+            // cc.director.runScene(new MissionPageAfterLoginScene());
         });
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {
