@@ -198,4 +198,44 @@ continueUserActivity:(NSUserActivity *)userActivity
     }];
 }
 
++(void)logEventLevelUpWithLevel:(NSString*)level {
+    [FIRAnalytics logEventWithName:kFIREventLevelUp parameters:@{
+                                                                 kFIRParameterLevel: level
+                                                                 }];
+}
+
++(void)logEventSelectContentWithContentType:(NSString*)contentType andItemId:(NSString*)itemId {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:@{
+                                                                       kFIRParameterContentType:contentType,
+                                                                       kFIRParameterItemID: itemId
+                                                                       }];
+}
+
++(void)logEventPostScoreWithScore:(NSString*)score andLevel:(NSString*)level andCharacter:(NSString*)character {
+    [FIRAnalytics logEventWithName:kFIREventPostScore parameters:@{
+                                                                   kFIRParameterScore: score,
+                                                                   kFIRParameterLevel: level,
+                                                                   kFIRParameterCharacter: character
+                                                                   }];
+}
+
++(void)logEventSpendVirtualCurrencyWithItemName:(NSString*)itemName andVirtualCurrencyName:(NSString*)currencyName andValue:(NSString*)value {
+    [FIRAnalytics logEventWithName:kFIREventSpendVirtualCurrency parameters:@{
+                                                                              kFIRParameterItemName: itemName,
+                                                                              kFIRParameterVirtualCurrencyName: currencyName,
+                                                                              kFIRParameterValue: value
+                                                                              }];
+}
+
++(void)logEventShareWithContentType:(NSString*)contentType andItemId:(NSString*)itemId {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent parameters:@{
+                                                                       kFIRParameterContentType: contentType,
+                                                                       kFIRParameterItemID: itemId
+                                                                       }];
+}
+
++(void)logEventAppOpen {
+    [FIRAnalytics logEventWithName:kFIREventAppOpen parameters:nil];
+}
+
 @end

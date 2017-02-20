@@ -184,6 +184,7 @@ var PayLayer = cc.Layer.extend({
         confirmBtn.addChild(title);
 
         confirmBtn.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         	cc.director.replaceScene(new WelcomeScene());
         });
 	},

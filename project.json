@@ -53,6 +53,7 @@
         "src/meerkat/CurrencyManager.js",
         "src/meerkat/CharacterManager.js",
         "src/meerkat/AudioManager.js",
+        "src/meerkat/AnalyticsManager.js",
 
         "src/layers/FirebaseLayer.js",
 

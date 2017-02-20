@@ -128,6 +128,8 @@ var DialogPlayAlpharacing = Dialog.extend({
                 CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
                 var data = DataManager.getInstance().getDataAlpharacing();
                 cc.director.runScene(new AlphaRacingScene(data, null, 600));
+                AnalyticsManager.getInstance().logEventSpendVirtualCurrency("Alpharacing_start",
+                    "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
             });
         }
 

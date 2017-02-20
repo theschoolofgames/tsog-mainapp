@@ -298,6 +298,7 @@ var res = {
  
     //countdown
     COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
+    coin_rain_mp3: "res/sound/coin_rain.mp3",
     
     // BG sound 
     BACKGROUND_mp3: "sounds/background.mp3",

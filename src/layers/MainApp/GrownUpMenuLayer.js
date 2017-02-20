@@ -46,6 +46,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     },
 
     _handleTouchAction: function(name){
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         switch(name) {
             case "privacy":
                 cc.sys.openURL(PRIVACY_POLICY_URL)
@@ -303,6 +304,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     },
 
     _tabPressed: function(button) {
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         var tabName = button.name;
         this._bgBtnChoose.removeFromParent();
         this._currentButton.setZOrder(1);
@@ -318,7 +320,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         lbChoose.tag = 1;
         this._bgBtnChoose.addChild(lbChoose);
         button.addChild(this._bgBtnChoose)
-        AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
         switch(tabName) {
             case "Features":
                 this._showFeatures();
@@ -335,9 +336,11 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     _btnPressed: function(button) {
         debugLog("pressed button " + button.name);
         var btnName = button.name;
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         switch(btnName) {
             case "Share":
-                var layer = new ShareDialog();
+                var tabName = this._aboutUsLayer.visible ? "About_page" : "Features_page";
+                var layer = new ShareDialog(tabName);
                 this.addChild(layer, 999999);
                 break;
             case "LikeUs":
@@ -375,6 +378,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height - 70;
         this.addChild(button);
         button.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.back_sound_mp3, false, null);
             cc.director.replaceScene(new HomeScene());
         });
     },

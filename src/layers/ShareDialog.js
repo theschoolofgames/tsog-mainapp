@@ -1,11 +1,13 @@
 var ShareDialog = Dialog.extend({
 	_dialogBg: null,
+	_context: null,
 
-	ctor: function() {
+	ctor: function(context) {
 		this._super(cc.color(0, 0, 0, 200));
 		this._addDialogBg();
 		this._addTitle();
 		this._addButtons();
+		this._context = context;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -48,7 +50,9 @@ var ShareDialog = Dialog.extend({
 		buttonWhatsapp.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 			NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-		});
+			AnalyticsManager.getInstance().logEventShare(this._context, 
+				"Whatsapp");
+		}.bind(this));
 		this._dialogBg.addChild(buttonWhatsapp);
 
 		var buttonFacebookBg = new cc.Sprite(res.Button_background_png);
@@ -61,12 +65,14 @@ var ShareDialog = Dialog.extend({
 		buttonFacebook.y = buttonFacebookBg.y;
 		buttonFacebook.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-	        // NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
-	        //             FACEBOOK_SHARING_DESCRIPTION,
-	        //             cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-	        NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
+	        NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
+	                    FACEBOOK_SHARING_DESCRIPTION,
 	                    cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-		});
+	        // NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
+	                    // cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
+			AnalyticsManager.getInstance().logEventShare(this._context, 
+				"Facebook");
+		}.bind(this));
 		this._dialogBg.addChild(buttonFacebook);
 
 		var buttonNativeBg = new cc.Sprite(res.Button_background_png);
@@ -80,7 +86,9 @@ var ShareDialog = Dialog.extend({
 		buttonNative.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
 			NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-		});	
+			AnalyticsManager.getInstance().logEventShare(this._context,
+				"Native")
+		}.bind(this));	
 		this._dialogBg.addChild(buttonNative);
 
 		var buttonClose = new ccui.Button(res.Button_x_normal_png, res.Button_x_pressed_png);

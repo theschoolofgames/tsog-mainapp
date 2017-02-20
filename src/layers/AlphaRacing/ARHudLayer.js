@@ -179,12 +179,17 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         this._lbDistance.setString(this._distance.toString());
     },
 
+    getDistance: function() {
+        return this._lbDistance.getString();
+    },
+
     updateHP: function() {
         var hp = this._player.getHP();
         for(var i = hp; i < this._hearts.length; i ++) {
             this._hearts[i].setSpriteFrame("heart-2.png");
         }
     },
+    
     updatePositonHud: function() {
         this._whiteBg.x = this._bg.x - this._bg.width - HUD_BAR_DISTANCE + 50;
     },
