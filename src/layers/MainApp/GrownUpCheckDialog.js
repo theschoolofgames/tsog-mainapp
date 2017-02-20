@@ -54,6 +54,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     runActionFail: function(){
         this._objectTouching = null;
         this._timeForTouched = 0;
+        AudioManager.getInstance().play(res.incorrect_word_mp3, false, null);
         this._dialogBg.runAction(cc.sequence(
             cc.moveBy(0.05, cc.p(- 4, 0)).easing(cc.easeBackIn(0.05)),
             cc.moveBy(0.05, cc.p(4, 0)).easing(cc.easeBackIn(0.05)),
@@ -113,7 +114,9 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         this._progressBar.percentage = this._timeForTouched/TIME_FOR_ADULT_TOCH * 100;
         //PASS CHECK
         if(this._timeForTouched >= TIME_FOR_ADULT_TOCH && this._isTouching) {
+            AudioManager.getInstance().play(res.right_password_mp3, false, null);
             this._callback();
+
             cc.log("DING DING");
         }
     },

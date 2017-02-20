@@ -18,6 +18,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         this._btnPay = b;
 
         b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
             cc.director.replaceScene(new PayScene(function() {
                 cc.director.replaceScene(new GrownUpMenuScene());    
@@ -52,6 +53,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         this.addChild(b);
 
         b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             this.addChild(new ShareDialog("Mission_page"), 99);
         }.bind(this));
 
@@ -63,6 +65,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         b.y = this._btnPay.y;
         this.addChild(b, this._childrenZOrder);
         b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             cc.director.replaceScene(new GrownUpMenuScene());
         }.bind(this));
 

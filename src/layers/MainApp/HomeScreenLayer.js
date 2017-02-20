@@ -37,6 +37,7 @@ var HomeScreenLayer = cc.Layer.extend({
         button.addClickEventListener(function() {
             // var layer = new ProgressTrackerLayer();
             // self.addChild(layer, 999999);
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
             var dialog = new GrownUpCheckDialog(self.grownUpCheckCallback);
             self.addChild(dialog, 999999);
         });

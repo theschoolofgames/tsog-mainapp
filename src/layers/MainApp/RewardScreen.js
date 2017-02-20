@@ -173,6 +173,7 @@ var RewardScreenLayer = cc.Layer.extend({
     },
 
     addCoinRain: function(){
+       
         var cr = new CoinRain();
         this.addChild(cr, 10000);
         cr.startWithCallback(null);

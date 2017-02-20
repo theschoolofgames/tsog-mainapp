@@ -75,6 +75,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         b.y = b.height/2;
         this.addChild(b, this._childrenZOrder);
         b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             cc.director.replaceScene(new GrownUpMenuScene());
         }.bind(this));
 
@@ -91,6 +92,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         b.y = b.height/2;
         this.addChild(b, this._childrenZOrder);
         b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             cc.director.replaceScene(new HomeScene());
         }.bind(this));
 
@@ -142,6 +144,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
     },
 
     _payBtnPressed: function() {
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
         FirebaseManager.getInstance().login(function(succeed, msg) {
             // debugLog("gonna remove loading indicator");
@@ -155,6 +158,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
     },
 
     _playBtnPressed: function() {
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
         FirebaseManager.getInstance().login(function(succeed, msg) {
             // debugLog("gonna remove loading indicator");
