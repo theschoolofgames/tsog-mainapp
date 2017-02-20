@@ -332,9 +332,12 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             data = this.arrayObjectInType[index];
             if(data["type"] == "word" || data["type"] == "number" || data["type"] == "math")
                 cell.lbName.setString(data["value"]);
-            var id = data["id"];     
-            var percent = User.getCurrentChild().countGameObjectsCompleted(id) / OBJECT_TOTAL_COMPLETED_COUNT * 100;
-            // var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+            var value = data["value"];         
+            var id = data["id"];
+            // var percent = GameObjectsProgress.getInstance().countCompleted(value)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+            var count = User.getCurrentChild().countGameObjectsCompleted(value) || 
+                        User.getCurrentChild().countGameObjectsCompleted(id);
+            var percent = count / OBJECT_TOTAL_COMPLETED_COUNT * 100;
             cc.log('percent = ' + percent);
             percent = Math.ceil(percent);
             cell.progressColor.percentage = percent;
@@ -381,9 +384,12 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         progressBarBg.y = -10 - progressBarBg.height/2;
         palaceFrame.addChild(progressBarBg);
         //       
-        var id = data["id"];         
-        // var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
-        var percent = User.getCurrentChild().countGameObjectsCompleted(id) / OBJECT_TOTAL_COMPLETED_COUNT * 100;
+        var value = data["value"];         
+        var id = data["id"];
+        // var percent = GameObjectsProgress.getInstance().countCompleted(value)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+        var count = User.getCurrentChild().countGameObjectsCompleted(value) || 
+                    User.getCurrentChild().countGameObjectsCompleted(id);
+        var percent = count / OBJECT_TOTAL_COMPLETED_COUNT * 100;
         cc.log('percent = ' + percent);
         percent = Math.ceil(percent);
         var colorBar = new cc.Sprite("res/SD/progresstracker/color-tracker.png");

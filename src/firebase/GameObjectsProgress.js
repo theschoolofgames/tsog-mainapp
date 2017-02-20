@@ -76,6 +76,7 @@ var GameObjectsProgress = BaseFirebaseModel.extend({
     },
 
     countCompleted: function(gameObjectId) {
+        cc.log('count for: ' + gameObjectId);
         var completedGameObjects = this.getCompletedGameObjects();
         if (!completedGameObjects[gameObjectId] || !completedGameObjects[gameObjectId]["completedLevelIds"]) {
             return 0;

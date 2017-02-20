@@ -129,8 +129,6 @@ var LevelDialog = Dialog.extend({
             if (this._completedSteps.hasOwnProperty(stepIndex)) {
                 var stepPrefix = stepIndex.substring(0, stepIndex.lastIndexOf("-"));
                 var stepGame = stepIndex.substring(stepIndex.lastIndexOf("-") + 1);
-                cc.log("fillStar: " + stepPrefix + "::" + stepGame);
-                cc.log("this._level: " + this._level);
                 if (stepPrefix == this._level) {
                     this._stars[stepGame - 1].setSpriteFrame("star-filled.png");
                 }
