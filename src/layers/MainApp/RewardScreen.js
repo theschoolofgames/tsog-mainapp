@@ -75,7 +75,7 @@ var RewardScreenLayer = cc.Layer.extend({
         // lbShare.y = buttonShare.height/2 + 5;
         buttonShare.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-            self.addChild(new ShareDialog(), 1);
+            self.addChild(new ShareDialog("After_buy"), 1);
         });
 
         buttonRate = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png", "");

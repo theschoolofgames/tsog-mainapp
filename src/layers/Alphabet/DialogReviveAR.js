@@ -56,6 +56,8 @@ var DialogReviveAR = cc.LayerColor.extend({
             self.removeFromParent();
             var event = new cc.EventCustom(EVENT_AR_REVIVAL);
             cc.eventManager.dispatchEvent(event);
+            AnalyticsManager.getInstance().logEventSpendVirtualCurrency("Alpharacing_revive",
+                    "Coin", coins);
         });
 
         var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
@@ -63,6 +65,10 @@ var DialogReviveAR = cc.LayerColor.extend({
         closeButton.y = this._dialogBg.height - 25;
         closeButton.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_close_mp3, false, null);
+            var score = self.getParent().getDistance();
+            var revives = Math.log(self.getParent().getParent()._coinsForRevive) / Math.log(2);
+            var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
+            AnalyticsManager.getInstance().logEventPostScore(score, revives, character);
             self.removeFromParent();
             cc.director.runScene(new HomeScene());
         });

@@ -300,8 +300,13 @@ var MapLayer = cc.Layer.extend({
                             SceneFlowController.getInstance().setLastedStepUnlocked(nextStepPrefix);
                         }
                     }
-                }
+                }   
             }
+        }
+
+        if (KVDatabase.getInstance().getString("newLevelUnlocked")) {
+            KVDatabase.getInstance().remove("newLevelUnlocked");
+            AnalyticsManager.getInstance().logEventLevelUp(this._steps["orderToButton"][this._maxStepUnlockedOrder].prefix);
         }
     },
 

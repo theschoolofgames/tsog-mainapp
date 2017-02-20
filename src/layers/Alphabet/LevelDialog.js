@@ -119,6 +119,8 @@ var LevelDialog = Dialog.extend({
     },
 
     _updateLevelDialog: function() {
+        debugLog("_updateLevelDialog");
+        cc.log(JSON.stringify(this._completedSteps));
         if (this._completedSteps == null || this._completedSteps == "" || this._completedSteps == undefined) {
             return;
         }
@@ -127,7 +129,8 @@ var LevelDialog = Dialog.extend({
             if (this._completedSteps.hasOwnProperty(stepIndex)) {
                 var stepPrefix = stepIndex.substring(0, stepIndex.lastIndexOf("-"));
                 var stepGame = stepIndex.substring(stepIndex.lastIndexOf("-") + 1);
-
+                cc.log("fillStar: " + stepPrefix + "::" + stepGame);
+                cc.log("this._level: " + this._level);
                 if (stepPrefix == this._level) {
                     this._stars[stepGame - 1].setSpriteFrame("star-filled.png");
                 }
@@ -191,7 +194,7 @@ var LevelDialog = Dialog.extend({
         SceneFlowController.getInstance().setStepData(stepData);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option);
         debugLog("getCurrentStepData: \t" + SceneFlowController.getInstance().getCurrentStepData());
-
+        AnalyticsManager.getInstance().logEventSelectContent(gameName, this._level + "-" + stepKey);
     },
 
 });

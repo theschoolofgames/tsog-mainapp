@@ -187,6 +187,7 @@ cc.game.onStart = function(){
             isFirstTime = true;
         }
 
+        AnalyticsManager.getInstance().logEventAppOpen();
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);

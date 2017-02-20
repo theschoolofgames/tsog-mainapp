@@ -337,7 +337,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var btnName = button.name;
         switch(btnName) {
             case "Share":
-                var layer = new ShareDialog();
+                var tabName = this._aboutUsLayer.visible ? "About_page" : "Features_page";
+                var layer = new ShareDialog(tabName);
                 this.addChild(layer, 999999);
                 break;
             case "LikeUs":

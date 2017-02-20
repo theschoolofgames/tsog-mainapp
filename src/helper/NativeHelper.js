@@ -471,6 +471,72 @@ var NativeHelperConfig = {
             "shareTwitter",
             "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
+    },
+    logEventLevelUp: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventLevelUpWithLevel:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventLevelUp",
+            "(Ljava/lang/String;)V"   
+        ]
+    },
+    logEventSelectContent: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventSelectContentWithContentType:andItemId:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventSelectContent",
+            "(Ljava/lang/String;Ljava/lang/String;)V"   
+        ]
+    },
+    logEventPostScore: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventPostScoreWithScore:andLevel:andCharacter:",
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventPostScore",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"   
+        ]
+    },
+    logEventSpendVirtualCurrency: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventSpendVirtualCurrencyWithItemName:andVirtualCurrencyName:andValue:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventSpendVirtualCurrency",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"
+        ]
+    },
+    logEventShare: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventShareWithContentType:andItemId:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventShare",
+            "(Ljava/lang/String;Ljava/lang/String;)V"   
+        ]
+    },
+    logEventAppOpen: {
+        iOS: [
+            "FirebaseWrapper",
+            "logEventAppOpen"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logEventAppOpen",
+            "()V"
+        ]
     }
 }
 

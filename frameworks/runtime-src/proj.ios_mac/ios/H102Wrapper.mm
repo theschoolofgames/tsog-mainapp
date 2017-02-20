@@ -24,6 +24,7 @@
 #import "AppController.h"
 
 #import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
+#import <FirebaseAnalytics/FirebaseAnalytics.h>
 
 #import <Social/Social.h>
 
@@ -413,5 +414,4 @@ static NSMutableArray* noiseDetectionArray = nil;
         [rootController presentViewController:alert animated:true completion:nil];
     }
 }
-
 @end

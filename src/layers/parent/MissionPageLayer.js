@@ -185,7 +185,7 @@ var MissionPageLayer = cc.Layer.extend({
                 }
                 break;
             case "share":
-                var layer = new ShareDialog();
+                var layer = new ShareDialog("Mission_page");
                 this.addChild(layer, 999999);
             default:
                 break;

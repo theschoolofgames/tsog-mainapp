@@ -2,6 +2,7 @@ package com.h102;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -342,5 +344,47 @@ public class FirebaseWrapper {
 
     public static void onActivityStop() {
         mGoogleApiClient.disconnect();
+    }
+
+
+    public static void logEventLevelUp(String level) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.LEVEL, level);
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.LEVEL_UP, bundle);
+    }
+
+    public static void logEventSelectContent(String contentType, String itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
+    public static void logEventPostScore(String score, String level, String character) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.SCORE, score);
+        bundle.putString(FirebaseAnalytics.Param.LEVEL, level);
+        bundle.putString(FirebaseAnalytics.Param.CHARACTER, character);
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.POST_SCORE, bundle);
+    }
+
+    public static void logEventSpendVirtualCurrency(String itemName, String virtualCurrencyName, String value) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, itemName);
+        bundle.putString(FirebaseAnalytics.Param.VIRTUAL_CURRENCY_NAME, virtualCurrencyName);
+        bundle.putString(FirebaseAnalytics.Param.VALUE, value);
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.SPEND_VIRTUAL_CURRENCY, bundle);
+    }
+
+    public static void logEventShare(String contentType, String itemId) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, contentType);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.SHARE, bundle);
+    }
+
+    public static void logEventAppOpen() {
+        Bundle bundle = new Bundle();
+        FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
     }
 }
