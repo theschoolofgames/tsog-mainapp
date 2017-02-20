@@ -256,12 +256,12 @@ var TestLayer = cc.LayerColor.extend({
             var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
             var currentLevel = SceneFlowController.getInstance().getCurrentStep();
             var currentGameIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
-            GameObjectsProgress.setGameObjectsProgress(currentStepData, currentLevel);
+            User.getCurrentChild().getGameObjectsProgress().setGameObjectsProgress(currentStepData, currentLevel);
 
             var didCurrentGameCompleted = DataManager.getInstance().isGameCompleted(currentGameIdx);
             debugLog("didCurrentGameCompleted - > " + didCurrentGameCompleted);
             if (!didCurrentGameCompleted) {
-                var objectsLearned = GameObjectsProgress.getInstance().getGameObjectsLearned();
+                var objectsLearned = User.getCurrentChild().getGameObjectsLearned();
                 debugLog("before mapping objectsLearned -> " + objectsLearned);
                 objectsLearned = DataManager.getInstance().filterGameObjectsData(objectsLearned);
 

@@ -12,7 +12,6 @@ var LevelProgress = BaseFirebaseModel.extend({
     winCurrentLevelStep: function() {
         // Utils.updateStepData();
         // return;
-        debugLog("winCurrentLevelStep");
     	var currentStep = SceneFlowController.getInstance().getCurrentStep();
 	    var currentSceneIdx = SceneFlowController.getInstance().getCurrentSceneIdx();
 	    var currentStepGame = currentStep + "-" + currentSceneIdx;
@@ -22,23 +21,20 @@ var LevelProgress = BaseFirebaseModel.extend({
         if (currentStepGame.indexOf("assessment") > - 1) {
             dataPath = "res/config/levels/" + currentStep + ".json";
         }
-        cc.log('dataPath: ' + dataPath);
+
         if (jsb.fileUtils.isFileExist(dataPath)) {
             cc.loader.loadJson(dataPath, function(err, data) {
-                cc.log("heyhey1");
                 if (!err && data) {
-                    cc.log("heyhey2");
-                    var beforeWinningStars = this.countStarsOfCurrentStep(completedSteps, currentStep);
+                    var beforeWinningStars = this.countStarsOfStep(completedSteps, currentStep);
 
                     completedSteps[currentStepGame] = true;
                     this.setCompletedSteps(completedSteps);
 
-                    var afterWinningStars = this.countStarsOfCurrentStep(completedSteps, currentStep);
+                    var afterWinningStars = this.countStarsOfStep(completedSteps, currentStep);
 
                     var stepTotalGames = Object.keys(data).length;
                     if (beforeWinningStars * 1.0 / stepTotalGames < NEW_LEVEL_UNLOCKING_STAR_RATIO) {
                         if (afterWinningStars * 1.0 / stepTotalGames >= NEW_LEVEL_UNLOCKING_STAR_RATIO) {
-                            cc.log("heyhey3");
                             KVDatabase.getInstance().set("newLevelUnlocked", true);
                         }
                     }
@@ -48,7 +44,7 @@ var LevelProgress = BaseFirebaseModel.extend({
         }
     },
 
-    countStarsOfCurrentStep: function(data, step) {
+    countStarsOfStep: function(data, step) {
         var count = 0;
         for (var key in data) {
             if (key.indexOf(step) == 0) {

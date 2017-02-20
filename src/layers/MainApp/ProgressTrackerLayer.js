@@ -333,7 +333,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             if(data["type"] == "word" || data["type"] == "number" || data["type"] == "math")
                 cell.lbName.setString(data["value"]);
             var id = data["id"];     
-            var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+            var percent = User.getCurrentChild().countGameObjectsCompleted(id) / OBJECT_TOTAL_COMPLETED_COUNT * 100;
+            // var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+            cc.log('percent = ' + percent);
             percent = Math.ceil(percent);
             cell.progressColor.percentage = percent;
             cell.percent.setString(percent + "%");
@@ -380,7 +382,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         palaceFrame.addChild(progressBarBg);
         //       
         var id = data["id"];         
-        var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+        // var percent = GameObjectsProgress.getInstance().countCompleted(id)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
+        var percent = User.getCurrentChild().countGameObjectsCompleted(id) / OBJECT_TOTAL_COMPLETED_COUNT * 100;
+        cc.log('percent = ' + percent);
         percent = Math.ceil(percent);
         var colorBar = new cc.Sprite("res/SD/progresstracker/color-tracker.png");
         var gameProgressBar = new cc.ProgressTimer(colorBar);

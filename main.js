@@ -117,7 +117,7 @@ cc.game.onStart = function(){
         IAPManager.setupInstance();
         CharacterManager.setupInstance();
         AudioManager.setupInstance();
-        GameObjectsProgress.setupInstance();
+        // GameObjectsProgress.setupInstance();
         CustomLabel.setupInstance();
         SceneFlowController.setupInstance();
 
