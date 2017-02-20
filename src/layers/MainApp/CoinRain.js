@@ -17,7 +17,7 @@ var CoinRain = cc.Node.extend({
     startWithCallback: function(callback) {
         CoinRain.currentRain = this;
         this.stopCallback = callback
-
+        AudioManager.getInstance().play(res.coin_rain_mp3, false, null);
         var c;
         var numCoins = 150;
         var SW = cc.winSize.width;
