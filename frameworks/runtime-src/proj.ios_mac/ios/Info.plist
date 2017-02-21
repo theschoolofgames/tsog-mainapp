@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>17.02.20.00</string>
+	<string>17.02.21.00</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -128,15 +128,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>TSOG would like to recogize children speaking words</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
