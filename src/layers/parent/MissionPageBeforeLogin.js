@@ -111,13 +111,13 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         lCloud.y = cc.winSize.height;
         this.addChild(lCloud, this._cloudZOrder);
 
-        var content = "When you pay with your heart, we educate a child in need";
+        var content = "Our mission is provide equal education to every child";
         var lContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         lContent.scale = this._contentTextScale;
         lContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lContent.x = lCloud.width/2;
-        lContent.y = lCloud.height/2 + this._contentTextOffSetY;
-        lContent.boundingWidth = lCloud.width * 2;
+        lContent.y = lCloud.height/2 + this._contentTextOffSetY + 10;
+        lContent.boundingWidth = lCloud.width * 2.5;
         lCloud.addChild(lContent);
 
         var rCloud = new cc.Sprite("#right_cloud.png");
@@ -126,14 +126,20 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         rCloud.y = cc.winSize.height;
         this.addChild(rCloud, this._cloudZOrder);
 
-        content = "Our mission is provide equal education to every child";
+        content = "When you pay with your      we educate a child in need";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         rContent.scale = this._contentTextScale;
         rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        rContent.x = rCloud.width/2;
-        rContent.y = rCloud.height/2 + this._contentTextOffSetY;
-        rContent.boundingWidth = rCloud.width * 2;
+        rContent.x = rCloud.width/2 - 4;
+        rContent.y = rCloud.height/2 + this._contentTextOffSetY + 10;
+        rContent.boundingWidth = rCloud.width * 2.3;
         rCloud.addChild(rContent);
+
+        var iconHeart = new cc.Sprite("#icon_heart.png");
+        iconHeart.scale = 0.7;
+        iconHeart.x = rCloud.width * 0.9;
+        iconHeart.y = rCloud.height * 0.8;
+        rCloud.addChild(iconHeart);
     },
 
     _grownUpCheckCallback: function() {
@@ -145,30 +151,38 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _payBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-        LoadingIndicator.show();
-        FirebaseManager.getInstance().login(function(succeed, msg) {
-            // debugLog("gonna remove loading indicator");
-            if (succeed) {
-                LoadingIndicator.hide();
-                this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
-            } else {
-                LoadingIndicator.hide();
-            }
-        }.bind(this));
+        if (User.isLoggedIn())
+            this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
+        else {
+            LoadingIndicator.show();
+            FirebaseManager.getInstance().login(function(succeed, msg) {
+                // debugLog("gonna remove loading indicator");
+                if (succeed) {
+                    LoadingIndicator.hide();
+                    this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
+                } else {
+                    LoadingIndicator.hide();
+                }
+            }.bind(this));
+        }
     },
 
     _playBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-        LoadingIndicator.show();
-        FirebaseManager.getInstance().login(function(succeed, msg) {
-            // debugLog("gonna remove loading indicator");
-            if (succeed) {
-                LoadingIndicator.hide();
-                cc.director.replaceScene(new WelcomeScene());
-            } else {
-                LoadingIndicator.hide();
-            }
-        })
+        if (User.isLoggedIn())
+            cc.director.replaceScene(new WelcomeScene());
+        else {
+            LoadingIndicator.show();
+            FirebaseManager.getInstance().login(function(succeed, msg) {
+                // debugLog("gonna remove loading indicator");
+                if (succeed) {
+                    LoadingIndicator.hide();
+                    cc.director.replaceScene(new WelcomeScene());
+                } else {
+                    LoadingIndicator.hide();
+                }
+            });
+        }
     },
 
 });

@@ -109,6 +109,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>icon_heart.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{50,46}</string>
+                <key>spriteSourceSize</key>
+                <string>{50,46}</string>
+                <key>textureRect</key>
+                <string>{{791,423},{50,46}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>icon_share.png</key>
             <dict>
                 <key>aliases</key>
@@ -120,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,33}</string>
                 <key>textureRect</key>
-                <string>{{791,423},{28,33}}</string>
+                <string>{{947,419},{28,33}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -164,7 +179,7 @@
             <key>size</key>
             <string>{1018,496}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5d2d2144aee99174454ae20d838e02a3:5e0c4ce0361361c273d5070c95242c13:01f020d7d0284a9774acb95a71e6089c$</string>
+            <string>$TexturePacker:SmartUpdate:06d4d968431d4fe77372b3e0c86cc7a0:107f76702f5e7b8b91b0ebc47a38582e:01f020d7d0284a9774acb95a71e6089c$</string>
             <key>textureFileName</key>
             <string>mission_page.png</string>
         </dict>

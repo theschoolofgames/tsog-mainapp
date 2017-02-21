@@ -6,7 +6,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         this._super();
 
         this._childrenOffSetY = 50;
-        this._addLaterBtn();
+        // this._addLaterBtn();
 
         this.addBackButton();
     },
@@ -34,7 +34,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
             "shadowColor": [34, 135, 197, 127],
             "shadowSize": 2,
             "shadowRadius": 6,
-            "fontSize": 18,
+            "fontSize": 24,
             "outlineSize": 1.5,
             "boundingWidthRatio": 1,
             "boundingHeightRatio": 0.5
@@ -46,7 +46,6 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
                                                 btnTitleConfig.outlineSize,
                                                 localizeForWriting(title));
         btnTitle.setDimensions(b.width * btnTitleConfig.boundingWidthRatio, b.height * btnTitleConfig.boundingHeightRatio);
-        btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
         btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
                                 btnTitleConfig.shadowColor[1],
                                 btnTitleConfig.shadowColor[2],
