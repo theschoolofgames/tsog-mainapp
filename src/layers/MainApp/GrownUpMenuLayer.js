@@ -286,7 +286,11 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         offsetX = offsetX || 0;
         var btnTitleConfig = labelConfig[button.name];
         // var btnTitle = new cc.LabelBMFont(title, res.HomeFont_fnt);
-        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], btnTitleConfig.fontSize, cc.color(btnTitleConfig.color), btnTitleConfig.outlineSize,localizeForWriting(title));
+        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                btnTitleConfig.fontSize, 
+                                                cc.color(btnTitleConfig.color), 
+                                                btnTitleConfig.outlineSize,
+                                                localizeForWriting(title));
 
         btnTitle.setDimensions(button.width * btnTitleConfig.boundingWidthRatio, button.height * btnTitleConfig.boundingHeightRatio);
         btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
