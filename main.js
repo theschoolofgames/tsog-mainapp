@@ -119,7 +119,7 @@ cc.game.onStart = function(){
         AudioManager.setupInstance();
         // GameObjectsProgress.setupInstance();
         CustomLabel.setupInstance();
-        SceneFlowController.setupInstance();
+        // SceneFlowController.setupInstance();
 
         // start new session, reset trophiesEarned
         // KVDatabase.getInstance().set("trophiesEarned", 0);
