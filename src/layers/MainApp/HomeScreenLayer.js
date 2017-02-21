@@ -210,7 +210,7 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var text = localizeForWriting("home");
+        var text = localizeForWriting("pets");
         var lbLearn = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
         lbLearn.scale = (lbLearn.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbLearn.width) : BOARD_LABEL_SCALE;
         lbLearn.x = board.width/2;

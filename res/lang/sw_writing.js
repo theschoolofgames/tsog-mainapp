@@ -313,6 +313,7 @@ languagesForWriting["sw"] = {
     "pencils": "Penseli",
     "percent" : "Asilimia",
     "pet" : "Mnyama wa kufuga",
+    "pets": "Mnyama wa kufuga",
     "photo" : "Picha",
     "pie" : "Keki",
     "pig" : "Nguruwe",

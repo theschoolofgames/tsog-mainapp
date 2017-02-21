@@ -318,6 +318,7 @@ languagesForWriting["en"] = {
     "pencil" : "pencil",
     "percent" : "percent",
     "pet" : "pet",
+    "pets": "pets",
     "photo" : "photo",
     "pie" : "pie",
     "pig" : "pig",

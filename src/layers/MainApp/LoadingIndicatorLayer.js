@@ -9,7 +9,7 @@ var LoadingIndicatorLayer = cc.LayerColor.extend({
 
         this.tag = TAG_LOADING_INDICATOR_LAYER;
 
-        this._indicator = new cc.Sprite("#loading_indicator.png");
+        this._indicator = new cc.Sprite("res/SD/loading_indicator.png");
         this._indicator.x = cc.winSize.width/2;
         this._indicator.y = cc.winSize.height/2;
         this.addChild(this._indicator);

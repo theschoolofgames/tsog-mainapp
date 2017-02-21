@@ -13,6 +13,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._addFeaturesBtn();
         this._addAboutUsBtn();
         this.addBackButton();
+        this.addText();
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -20,6 +21,15 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             onTouchMoved: this.onTouchMoved.bind(this),
             onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
+    },
+
+    addText: function(){
+        var text = new cc.LabelBMFont("MENU", res.Grown_Up_fnt);
+        text.anchorY = 0;
+        text.scale = 0.7;
+        text.x = 250;
+        text.y = cc.winSize.height/5 * 4 + 30;
+        this.addChild(text);
     },
 
     onTouchBegan:function(touch, event) {
@@ -174,7 +184,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
         _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, -30));
-        _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share & Spread the message"), _shareBtn));
+        _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share the message"), _shareBtn));
 
         this._featuresLayer.addChild(_progressTrackerBtn);
         this._featuresLayer.addChild(_payBtn);
@@ -276,9 +286,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
         this._lbArray.push(lb5);
         lb5.name = "web";
-        // _likeUsBtn.addChild(this._createBtnTitle(localizeForWriting("Like Us"), _likeUsBtn));
-        // _followUsBtn.addChild(this._createBtnTitle(localizeForWriting("Follow Us"), _followUsBtn));
-        // _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share & Spread the message"), _shareBtn));
 
     },
 

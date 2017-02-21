@@ -132,7 +132,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         ribbon.x = dialogBg.width/2;
         ribbon.y = dialogBg.height - 10;
         dialogBg.addChild(ribbon);
-        var title = new cc.LabelBMFont(localizeForWriting("For Parent"), "res/font/grownupcheckfont-export.fnt");
+        var title = new cc.LabelBMFont(localizeForWriting("For Parents"), "res/font/grownupcheckfont-export.fnt");
         title.scale = 0.5;
         title.x = ribbon.width/2;
         title.y = ribbon.height/2 + 23;

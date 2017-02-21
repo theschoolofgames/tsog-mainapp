@@ -167,7 +167,7 @@ var LevelDialog = Dialog.extend({
     _gameSelectorPressed: function(b) {
         if (this.touchBlocked)
             return;
-
+        Utils.addLoadingIndicatorLayer();
         AudioManager.getInstance().play(res.ui_click_mp3_1, false, null);
         var durationsArray = [];
 
