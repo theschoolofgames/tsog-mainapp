@@ -942,11 +942,13 @@ var GAME_OBJECTS_PROGRESS = "game_objects_progress";
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
 var DYNAMIC_LINK = "http://ymt8s.app.goo.gl/?link=https://www.theschoolofgames.org/?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
-var NATIVE_SHARING_CAPTION = "Native sharing caption";
-var WHATSAPP_SHARING_CAPTION = "Whatsapp sharing caption";
-var FACEBOOK_SHARING_TITLE = "Facebook sharing title";
-var FACEBOOK_SHARING_DESCRIPTION = "Facebook sharing description";
-var TWITTER_SHARING_DESCRIPTION = "Twitter sharing description";
+
+var FACEBOOK_SHARING_TITLE = "";
+
+var NATIVE_SHARING_DESCRIPTION = "Love School of Games, a fun preschool game. Download it today & spread their mission to educate every child.";
+var WHATSAPP_SHARING_DESCRIPTION = "Love @theschoolofgames. A fun numbers & vocabulary game. Download it today & spread their mission to educate every child.";
+var FACEBOOK_SHARING_DESCRIPTION = "Love School of Games, a fun preschool game. Download it today & spread their mission to educate every child.";
+var TWITTER_SHARING_DESCRIPTION = "Love @schoolofgames_ , fun #preschool app. Download it today & spread their mission to #educate every child.";
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";

@@ -103,27 +103,27 @@ var PayLayer = cc.Layer.extend({
 		var self = this;
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
 								res.Icon_gold_small_png, SET_SMALL_PRICE,
-								SET_SMALL_COINS, SET_SMALL_DIAMONDS, function() {
+								"Small Impact", function() {
 									this._purchasedSet = "set1";
 									this.itemCallback();
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
 								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
-								SET_MEDIUM_COINS, SET_MEDIUM_DIAMONDS, function() {
+								"Medium Impact", function() {
 									this._purchasedSet = "set2";
 									this.itemCallback();
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 2.2, 
 								res.Icon_gold_big_png, SET_BIG_PRICE,
-								SET_BIG_COINS, SET_BIG_DIAMONDS, function() {
+								"Big Impact", function() {
 									this._purchasedSet = "set3";
 									this.itemCallback();
 								}.bind(this));
 	},
 
-	_createItemSlot: function(x, y, icon, price, coins, diamonds, callback) {
+	_createItemSlot: function(x, y, icon, price, label, callback) {
 		var slot = new cc.Sprite(res.Item_background_png);
 		slot.x = x;
 		slot.y = y;
@@ -140,13 +140,13 @@ var PayLayer = cc.Layer.extend({
 		button.addClickEventListener(callback);
 		slot.addChild(button);
 
-		var buttonLabel = new cc.LabelBMFont(localizeForWriting("Buy ") + price, res.HomeFont_fnt);
+		var buttonLabel = new cc.LabelBMFont(price, res.HomeFont_fnt);
         buttonLabel.scale = 0.4;
         buttonLabel.x = button.width / 2;
         buttonLabel.y = button.height / 1.65;
         button.addChild(buttonLabel);	
 
-        var itemLabel = new cc.LabelBMFont(coins + localizeForWriting(" coins\n") + diamonds + localizeForWriting(" diamonds"), res.HudFont_fnt);
+        var itemLabel = new cc.LabelBMFont(label, res.HudFont_fnt);
         itemLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         itemLabel.scale = 0.6;
         itemLabel.x = slot.width / 2;

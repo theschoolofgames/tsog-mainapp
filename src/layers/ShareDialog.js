@@ -49,7 +49,7 @@ var ShareDialog = Dialog.extend({
 		buttonWhatsapp.y = buttonWhatsappBg.y;
 		buttonWhatsapp.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-			NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
+			NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_DESCRIPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
 			AnalyticsManager.getInstance().logEventShare(this._context, 
 				"Whatsapp");
 		}.bind(this));
@@ -85,7 +85,7 @@ var ShareDialog = Dialog.extend({
 		buttonNative.y = buttonNativeBg.y;
 		buttonNative.addClickEventListener(function() {
 			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-			NativeHelper.callNative("shareNative", [NATIVE_SHARING_CAPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
+			NativeHelper.callNative("shareNative", [NATIVE_SHARING_DESCRIPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
 			AnalyticsManager.getInstance().logEventShare(this._context,
 				"Native")
 		}.bind(this));	
