@@ -12,7 +12,7 @@ var SettingDialog = cc.Layer.extend({
         this._addMask();
         this._addDialogBg();
         this._addDebugButtons();
-        this._addContactDetail();
+        // this._addContactDetail();
 
         this._dialogBgLabel = text;
         this._logoutBtnXRatio = 0;
@@ -23,7 +23,7 @@ var SettingDialog = cc.Layer.extend({
                 this._textFieldLabel = this._textFieldLabel.substring(0, MAX_NAME_LENGTH_DISPLAYED) + "...";
             this._dialogBgLabel = Utils.getSchoolName();
             this._addResumeButton();
-            this._addTextField();
+            // this._addTextField();
         }
         this._addDialogBgLabel();
         this._addLogoutButton();
@@ -45,11 +45,22 @@ var SettingDialog = cc.Layer.extend({
     },
 
     _addDialogBg: function() {
-        var dialogBg = new cc.Sprite("#setting-dialog-bg.png");
+        var dialogBg = new cc.Sprite("res/SD/grownup/dialog_bg.png");
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
+
+        var ribbon = new cc.Sprite("res/SD/grownup/ribbon.png");
+        ribbon.x = dialogBg.width/2;
+        ribbon.y = dialogBg.height - 10;
+        dialogBg.addChild(ribbon);
+        var title = new cc.LabelBMFont(localizeForWriting("Pause"), "res/font/grownupcheckfont-export.fnt");
+        title.scale = 0.5;
+        title.x = ribbon.width/2;
+        title.y = ribbon.height/2 + 23;
+        ribbon.addChild(title);
+        this._ribbon = ribbon;
     },
 
     _addTextField: function() {
@@ -67,9 +78,9 @@ var SettingDialog = cc.Layer.extend({
 
     _addLogoutButton: function() {
         var logoutBtn = new ccui.Button();
-        logoutBtn.loadTextures("btn_exit.png", "btn_exit-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        logoutBtn.x = this._dialogBg.width/2 - (logoutBtn.width/2 - 10) * this._logoutBtnXRatio;
-        logoutBtn.y = 20;
+        logoutBtn.loadTextures("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png", "");
+        logoutBtn.x = this._dialogBg.width/2;
+        logoutBtn.y = this._dialogBg.height/2 + logoutBtn.height/2 + 30;
         this._dialogBg.addChild(logoutBtn);
 
         var self = this;
@@ -88,21 +99,29 @@ var SettingDialog = cc.Layer.extend({
                 // NativeHelper.callNative("moveToMainApp");
             };
             cc.log("logoutBtn");
-        })
+        });
+        var lbOut = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 30, cc.color("#b15a10"), 1,localizeForWriting("Home"));
+        logoutBtn.addChild(lbOut,1);
+        lbOut.x = logoutBtn.width/2;
+        lbOut.y = logoutBtn.height/2 + 5;
     },
 
     _addResumeButton: function() {
         var resumeBtn = new ccui.Button();
-        resumeBtn.loadTextures("btn_play.png", "btn_play-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        resumeBtn.x = this._dialogBg.width/2 + resumeBtn.width/2 + 10;
-        resumeBtn.y = 20;
+        resumeBtn.loadTextures("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png", "");
+        resumeBtn.x = this._dialogBg.width/2;
+        resumeBtn.y = this._dialogBg.height/2 - resumeBtn.height/2 - 30;
         this._dialogBg.addChild(resumeBtn);
 
         var self = this;
         resumeBtn.addClickEventListener(function() {
             self.removeFromParent();
             cc.director.resume();
-        })
+        });
+        var lbResume = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 30, cc.color("#b15a10"), 1,localizeForWriting("Continue"));
+        resumeBtn.addChild(lbResume,1);
+        lbResume.x = resumeBtn.width/2;
+        lbResume.y = resumeBtn.height/2 + 5;
     },
 
     _addDialogBgLabel: function() {
@@ -124,8 +143,8 @@ var SettingDialog = cc.Layer.extend({
         
         if (TSOG_DEBUG) {
             var winCurTestBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            winCurTestBtn.x = cc.winSize.width - 150;
-            winCurTestBtn.y = cc.winSize.height/2 + 80;
+            winCurTestBtn.x = cc.winSize.width - 50;
+            winCurTestBtn.y = cc.winSize.height/2 + 160;
             winCurTestBtn.anchorX = winCurTestBtn.anchorY = 1;
             winCurTestBtn.titleText = "Win Current Test";
             winCurTestBtn.setTitleColor(cc.color.BLACK);
@@ -140,8 +159,8 @@ var SettingDialog = cc.Layer.extend({
             });
 
             var winToRoomOrForestBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            winToRoomOrForestBtn.x = cc.winSize.width - 150;
-            winToRoomOrForestBtn.y = cc.winSize.height/2;
+            winToRoomOrForestBtn.x = cc.winSize.width - 50;
+            winToRoomOrForestBtn.y = cc.winSize.height/2 + 80;
             winToRoomOrForestBtn.anchorX = winToRoomOrForestBtn.anchorY = 1;
             winToRoomOrForestBtn.titleText = "Win To Room/Forest";
             winToRoomOrForestBtn.setTitleColor(cc.color.BLACK);
@@ -154,8 +173,8 @@ var SettingDialog = cc.Layer.extend({
             });
 
             var resetBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            resetBtn.x = cc.winSize.width - 150;
-            resetBtn.y = cc.winSize.height/2 - 80;
+            resetBtn.x = cc.winSize.width - 50;
+            resetBtn.y = cc.winSize.height/2;
             resetBtn.anchorX = resetBtn.anchorY = 1;
             resetBtn.titleText = "Reset Progress";
             resetBtn.setTitleColor(cc.color.BLACK);
@@ -167,8 +186,8 @@ var SettingDialog = cc.Layer.extend({
             });
 
             var testBtn = new ccui.Button("name-holder.png", "", "", ccui.Widget.PLIST_TEXTURE);
-            testBtn.x = cc.winSize.width - 150;
-            testBtn.y = cc.winSize.height/2 - 160;
+            testBtn.x = cc.winSize.width - 50;
+            testBtn.y = cc.winSize.height/2 - 80;
             testBtn.anchorX = testBtn.anchorY = 1;
             testBtn.titleText = "Test MAP";
             testBtn.setTitleColor(cc.color.BLACK);

@@ -111,15 +111,16 @@ var DialogPlayAlpharacing = Dialog.extend({
             //     self.removeFromParent();
             // });
         } else {
-            var buttonPlay = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            var buttonPlay = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png", "");
             buttonPlay.x = this._dialogBg.width/2;
             buttonPlay.y = 100;
             // buttonPlay.scale = 0.6;
             this._dialogBg.addChild(buttonPlay);
-            lbPlay = new cc.LabelBMFont(localize("Play"), "res/font/custom_font.fnt");
+            var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Play"));
+        // lbPlay.scale = 0.3;
+            buttonPlay.addChild(lbPlay,1);
             lbPlay.x = buttonPlay.width/2;
-            lbPlay.y = buttonPlay.height/2;
-            buttonPlay.addChild(lbPlay);
+            lbPlay.y = buttonPlay.height/2 + 8;
             buttonPlay.addClickEventListener(function(){
                 AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
                 if(canttouch) // ^_^ @david

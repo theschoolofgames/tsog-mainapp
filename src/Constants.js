@@ -968,7 +968,7 @@ var SET_BIG_DIAMONDS = "500";
 var TIME_FOR_ADULT_TOCH = 3;
 
 var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;
-var TEXT_AT_GROWNUP_1 = "The School of game is product of Equally Pbc. Equally is a public "
+var TEXT_AT_GROWNUP_1 = "The School of Games is product of Equally Pbc. Equally is a public "
                         + "benefit corporation with a purpose of improving access " 
                         + "to education and oppotunities for everyone";
 var TEXT_AT_GROWNUP_2 = "For support suggestion contact at";
