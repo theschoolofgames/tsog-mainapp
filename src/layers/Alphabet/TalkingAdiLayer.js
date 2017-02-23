@@ -46,7 +46,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     },
 
     addChooseLanguageButton: function() {
-        var button = new ccui.Button("whitespace.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var button = new ccui.Button("res/SD/pets/button-choose-language.png", "res/SD/pets/button-choose-language-pressed.png", "");
         button.x = button.width/2 + 20;
         button.y = button.height/2 + 10;
         this.addChild(button, 99);
@@ -62,10 +62,10 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         });
         
         var text = localizeForWriting("choose language");
-        var lb = new cc.LabelBMFont(text, res.CustomFont_fnt);
-        lb.scale = (button.width * 0.9) / lb.width;
+        var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
+        lb.scale = (button.width * 0.85) / lb.width;
         lb.x = button.width/2;
-        lb.y = button.height/2 + 3;
+        lb.y = button.height/2 + 5;
         button.getVirtualRenderer().addChild(lb);
 
         // this._changeLanguageButton = button;
@@ -79,7 +79,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
     addShopButton: function() {
         var self = this;
-        var shopBtn = new ccui.Button("shopping-basket.png", "", "");
+        var shopBtn = new ccui.Button("res/SD/pets/button-shop.png", "res/SD/pets/button-shop-pressed.png", "");
         shopBtn.scale = 150/shopBtn.width;
         shopBtn.x = cc.winSize.width - shopBtn.width * shopBtn.scale;
         shopBtn.y = shopBtn.height/2 * shopBtn.scale + 10;
@@ -88,67 +88,54 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             cc.director.runScene(new ShopScene());
         });
 
-        var lbButton = new cc.LabelBMFont(localize("SHOP"), "yellow-font-export.fnt");
-        // lbButton.scale = 0.5;
-        lbButton.x = shopBtn.width/2;
-        lbButton.y = shopBtn.height/2;
-        shopBtn.getRendererNormal().addChild(lbButton);
+        // var lbButton = new cc.LabelBMFont(localize("SHOP"), "yellow-font-export.fnt");
+        // // lbButton.scale = 0.5;
+        // lbButton.x = shopBtn.width/2;
+        // lbButton.y = shopBtn.height/2;
+        // shopBtn.getRendererNormal().addChild(lbButton);
     },
 
     addButtonAnimation: function(){
         var self = this;
 
-        var buttonSitDown = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
-        buttonSitDown.x = 120;
+        var buttonSitDown = new ccui.Button("res/SD/pets/button-1.png", "res/SD/pets/button-1-pressed.png", "");
+        buttonSitDown.x = 20;
+        buttonSitDown.anchorX = 0;
         buttonSitDown.y = cc.winSize.height - 180;
         this.addChild(buttonSitDown, 2);
         buttonSitDown.addClickEventListener(function(){
             self._talkingAdi.adiSitdown();
         });
-        var lb = new cc.LabelBMFont("1", res.CustomFont_fnt);
-        lb.x = buttonSitDown.width/2;
-        lb.y = buttonSitDown.height/2 + 3;
-        lb.scale = 0.7;
-        buttonSitDown.getVirtualRenderer().addChild(lb);
+        
 
-        var buttonSneeze = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var buttonSneeze = new ccui.Button("res/SD/pets/button-2.png", "res/SD/pets/button-2-pressed.png", "");
         buttonSneeze.x = buttonSitDown.x;
+        buttonSneeze.anchorX = 0;
         buttonSneeze.y = buttonSitDown.y - 100;
         this.addChild(buttonSneeze, 2);
         buttonSneeze.addClickEventListener(function(){
             self._talkingAdi.adiSneeze();
         });
-        var lb = new cc.LabelBMFont("2", res.CustomFont_fnt);
-        lb.x = buttonSneeze.width/2;
-        lb.y = buttonSneeze.height/2 + 3;
-        lb.scale = 0.7;
-        buttonSneeze.getVirtualRenderer().addChild(lb);
+        
 
-        var buttonHifi = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var buttonHifi = new ccui.Button("res/SD/pets/button-3.png", "res/SD/pets/button-3-pressed.png", "");
         buttonHifi.x = buttonSneeze.x;
+        buttonHifi.anchorX = 0;
         buttonHifi.y = buttonSneeze.y - 100;
         this.addChild(buttonHifi, 2);
         buttonHifi.addClickEventListener(function(){
             self._talkingAdi.adiHifi();
         });
-        var lb = new cc.LabelBMFont("3", res.CustomFont_fnt);
-        lb.x = buttonHifi.width/2;
-        lb.y = buttonHifi.height/2 + 3;
-        lb.scale = 0.7;
-        buttonHifi.getVirtualRenderer().addChild(lb);
 
-        var buttonJump = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var buttonJump = new ccui.Button("res/SD/pets/button-4.png", "res/SD/pets/button-4-pressed.png", "");
         buttonJump.x = buttonHifi.x;
+        buttonJump.anchorX = 0;
         buttonJump.y = buttonHifi.y - 100;
         this.addChild(buttonJump, 2);
         buttonJump.addClickEventListener(function(){
             self._talkingAdi.adiJump();
         });
-        var lb = new cc.LabelBMFont("4", res.CustomFont_fnt);
-        lb.x = buttonJump.width/2;
-        lb.y = buttonJump.height/2 + 3;
-        lb.scale = 0.7;
-        buttonJump.getVirtualRenderer().addChild(lb);
+        
         
     },
 

@@ -42,7 +42,7 @@ var HomeScreenLayer = cc.Layer.extend({
             self.addChild(dialog, 999999);
         });
         
-        var text = localizeForWriting("Grown-up");
+        var text = localizeForWriting("Parents");
         var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
@@ -136,6 +136,7 @@ var HomeScreenLayer = cc.Layer.extend({
 
         var text = localizeForWriting("play");
         var lbPlay = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
+
         lbPlay.scale = (lbPlay.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbPlay.width) : BOARD_LABEL_SCALE;
         lbPlay.x = board.width/2;
         lbPlay.y = board.height/2 + 15;
@@ -209,12 +210,14 @@ var HomeScreenLayer = cc.Layer.extend({
         board.x = door.width/2;
         board.y = door.height - 130;
         door.addChild(board);
-
+        cc.log("board width: " + board.width);
         var text = localizeForWriting("pets");
         var lbLearn = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
-        lbLearn.scale = (lbLearn.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbLearn.width) : BOARD_LABEL_SCALE;
+        lbLearn.setBoundingWidth(350);
+        lbLearn.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        lbLearn.scale = currentLanguage == "en"? BOARD_LABEL_SCALE : 0.33;
         lbLearn.x = board.width/2;
-        lbLearn.y = board.height/2 + 15;
+        lbLearn.y = board.height/2;
         board.addChild(lbLearn);
 
         var character = new AdiDogNode(true);

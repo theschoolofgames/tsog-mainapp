@@ -470,4 +470,6 @@ languagesForWriting["sw"] = {
     "home": "nyumbani",
     "play": "kucheza",
     "learn": "kujifunza",
+    "Parents": "Wazazi",
+    "Progress Tracker": "Progress Tracker",
 };
