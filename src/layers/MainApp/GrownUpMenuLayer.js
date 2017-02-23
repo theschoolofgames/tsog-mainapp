@@ -147,6 +147,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         title.scale = 0.6;
         title.x = _btn.width/2;
         title.y = _btn.height/2 + 10;
+
         _btn.addChild(title);
 
         _btn.addClickEventListener(this._tabPressed.bind(this));
@@ -264,25 +265,34 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._aboutUsLayer.addChild(lb3);
         this._lbArray.push(lb3);
         lb3.name = "email";
-
+        var textHolder = new cc.Sprite("#text-holder.png");
+        textHolder.anchorX = 1;
+        textHolder.anchorY = 1;
+        textHolder.x = buttonBg.getBoundingBox().x + buttonBg.width;
+        textHolder.y = buttonBg.getBoundingBox().y - 20;
+        this._aboutUsLayer.addChild(textHolder);
         var lb4 = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_4), "res/font/grownupcheckfont-export.fnt");
         lb4.setBoundingWidth(cc.winSize.width/2);
-        lb4.scale = 0.4;
-        lb4.anchorX = 1;
-        lb4.anchorY = 1;
-        lb4.x = buttonBg.getBoundingBox().x + buttonBg.width;
-        lb4.y = buttonBg.getBoundingBox().y - 20;
-        this._aboutUsLayer.addChild(lb4);
+        lb4.scale = 0.3;
+        lb4.x = textHolder.width/2;
+        lb4.y = textHolder.height/2;
+        textHolder.addChild(lb4);
         lb4.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
 
-        this._lbArray.push(lb4);
-        lb4.name = "privacy";
+        this._lbArray.push(textHolder);
+        textHolder.name = "privacy";
 
         var lb5 = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,localizeForWriting(TEXT_AT_GROWNUP_5));
         lb5.setColor(cc.color("#5ce9fd"));
         lb5.x = cc.winSize.width/2;
         lb5.y = 50;
         this._aboutUsLayer.addChild(lb5);
+        var underLine = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,"_______________________");
+        underLine.setColor(cc.color("#5ce9fd"))
+        underLine.anchorX = 1;
+        underLine.x = lb5.width;
+        underLine.y = lb5.height/2 - 8;
+        lb5.addChild(underLine);
 
         this._lbArray.push(lb5);
         lb5.name = "web";
@@ -405,7 +415,7 @@ var labelConfig = {
         "fontSize": 18,
         "outlineSize": 1.5,
         "boundingWidthRatio": 1,
-        "boundingHeightRatio": 0.5
+        "boundingHeightRatio": 0.3
     },
     "Pay": {
         "color": "#b15a10",
@@ -414,8 +424,8 @@ var labelConfig = {
         "shadowRadius": 6,
         "fontSize": 18,
         "outlineSize": 1.5,
-        "boundingWidthRatio": 0.6,
-        "boundingHeightRatio": 0.5
+        "boundingWidthRatio": 1,
+        "boundingHeightRatio": 0.3
     },
     "ProgressTracker": {
         "color": "#18a401",
@@ -425,7 +435,7 @@ var labelConfig = {
         "fontSize": 20,
         "outlineSize": 1.5,
         "boundingWidthRatio": 1,
-        "boundingHeightRatio": 0.4
+        "boundingHeightRatio": 0.3
     }
 };
 
