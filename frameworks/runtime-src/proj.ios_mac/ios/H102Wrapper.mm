@@ -316,6 +316,8 @@ static NSMutableArray* noiseDetectionArray = nil;
     AVAudioSessionRecordPermission systemState = [audioSession recordPermission];
     
     return systemState == AVAudioSessionRecordPermissionGranted;
+  } else if ([permission isEqualToString:@"WRITE_EXTERNAL_STORAGE"]) {
+    return true;
   }
   
   return false;
