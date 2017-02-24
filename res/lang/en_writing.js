@@ -482,5 +482,7 @@ languagesForWriting["en"] = {
     "like us": "Like Us",
     "follow us": "Follow Us",
     "progresstracker": "Progress Tracker",
-    "pay": "Pay with Your Heart"
+    "pay": "Pay with Your Heart",
+    "Parents": "Parents",
+    "Progress Tracker": "Progress Tracker",
 };

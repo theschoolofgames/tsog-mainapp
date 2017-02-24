@@ -69,6 +69,15 @@ static AppDelegate s_sharedApplication;
 
     [eaglView setMultipleTouchEnabled:YES];
     
+    //Clear keychain on first run in case of reinstallation
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"FirstRun"]) {
+        // Delete values from keychain here
+        NSLog(@"Try logging out because it's first run: %d", [FirebaseWrapper logoutSilently]);
+        
+        [[NSUserDefaults standardUserDefaults] setValue:@"1strun" forKey:@"FirstRun"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     // Use Root__viewController manage CCEAGLView
     _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
     _viewController.wantsFullScreenLayout = YES;

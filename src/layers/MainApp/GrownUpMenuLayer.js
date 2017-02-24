@@ -184,7 +184,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _payBtn.addClickEventListener(this._btnPressed.bind(this));
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
-        _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, -30));
+        _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
         _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share the message"), _shareBtn));
 
         this._featuresLayer.addChild(_progressTrackerBtn);

@@ -86,9 +86,7 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
 //                .debuggable(true)
 //                .build();
 //        Fabric.with(fabric);
-
-        Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
-
+        
         return glSurfaceView;
     }
 
