@@ -12,21 +12,24 @@ PODS:
     - Bolts (~> 1.7)
   - FBSDKLoginKit (4.19.0):
     - FBSDKCoreKit
-  - Firebase/Auth (3.13.0):
+  - Firebase/Auth (3.14.0):
     - Firebase/Core
     - FirebaseAuth (= 3.1.1)
-  - Firebase/Core (3.13.0):
+  - Firebase/Core (3.14.0):
     - FirebaseAnalytics (= 3.7.0)
-    - FirebaseCore (= 3.5.0)
-  - Firebase/Database (3.13.0):
+    - FirebaseCore (= 3.5.1)
+  - Firebase/Database (3.14.0):
     - Firebase/Core
     - FirebaseDatabase (= 3.1.2)
-  - Firebase/Invites (3.13.0):
+  - Firebase/Invites (3.14.0):
     - Firebase/Core
     - FirebaseInvites (= 1.2.4)
-  - Firebase/RemoteConfig (3.13.0):
+  - Firebase/Messaging (3.14.0):
     - Firebase/Core
-    - FirebaseRemoteConfig (= 1.3.3)
+    - FirebaseMessaging (= 1.2.2)
+  - Firebase/RemoteConfig (3.14.0):
+    - Firebase/Core
+    - FirebaseRemoteConfig (= 1.3.4)
   - FirebaseAnalytics (3.7.0):
     - FirebaseCore (~> 3.5)
     - FirebaseInstanceID (~> 1.0)
@@ -35,7 +38,7 @@ PODS:
     - FirebaseAnalytics (~> 3.7)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (3.5.0):
+  - FirebaseCore (3.5.1):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (3.1.2):
     - FirebaseAnalytics (~> 3.7)
@@ -56,7 +59,12 @@ PODS:
     - GTMSessionFetcher/Core (~> 1.1)
     - GTMSessionFetcher/Full (~> 1.1)
     - Protobuf (~> 3.1)
-  - FirebaseRemoteConfig (1.3.3):
+  - FirebaseMessaging (1.2.2):
+    - FirebaseAnalytics (~> 3.7)
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - Protobuf (~> 3.1)
+  - FirebaseRemoteConfig (1.3.4):
     - FirebaseAnalytics (~> 3.7)
     - FirebaseInstanceID (~> 1.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
@@ -119,6 +127,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
   - Firebase/Invites
+  - Firebase/Messaging
   - Firebase/RemoteConfig
   - FirebaseUI/Auth (~> 1.0)
   - FirebaseUI/Facebook (~> 1.0)
@@ -131,15 +140,16 @@ SPEC CHECKSUMS:
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   FBSDKCoreKit: 894b2b6eda6a4c8c4204e92e59cc355709ef045c
   FBSDKLoginKit: 83ca4d8f12a2022570af9fd6aacf27f6b425b99f
-  Firebase: 5bc34d7b5ff5792e3386c8b28dc6265deeab0da4
+  Firebase: 85a581fb04e44f63ae9f4fbc8d6dabf4a4c18653
   FirebaseAnalytics: 0d1b7d81d5021155be37702a94ba1ec16d45365d
   FirebaseAuth: cc8a1824170adbd351edb7f994490a3fb5c18be6
-  FirebaseCore: 1c0a13bf59bb95cdd19577252499f0ec6a03e999
+  FirebaseCore: 225d40532489835a034b8f4e2c9c87fbf4f615a2
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseDynamicLinks: f0d025dd29a1d70418c003344813b67ab748ffb9
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseInvites: d50fe8a5ddfa0770ad80f003fdf66b7b0508a6a7
-  FirebaseRemoteConfig: f8625d0693b8a6737cdd867a9c6e9ea0e3c70a6a
+  FirebaseMessaging: df8267f378580a24174ce7861233aa11d5c90109
+  FirebaseRemoteConfig: af3003f4e8daa2bd1d5cf90d3cccc1fe224f8ed9
   FirebaseUI: 82bd64fc3fc5a9451c37a720aee813990e727cf1
   GoogleAPIClientForREST: 9e5fd600a06c38abf92b5db337c5df2cfb95ee12
   GoogleSignIn: d7ad83f13480e1f30453471d00d19b5293ac46af
@@ -149,6 +159,6 @@ SPEC CHECKSUMS:
   PDKeychainBindingsController: fa8cb3cf99f2ea9240d61066ed0549f34e2cec3c
   Protobuf: 745f59e122e5de98d4d7ef291e264a0eef80f58e
 
-PODFILE CHECKSUM: 1b374256ec0fce18d015d8bcde57a13e58aef8c4
+PODFILE CHECKSUM: bbaf11c871e4bec6d69511dfa3df8a80dc231c67
 
 COCOAPODS: 1.2.0

@@ -43,6 +43,7 @@
 #import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
 
 @implementation AppController
+NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 @synthesize viewController = _viewController;
 
@@ -129,8 +130,95 @@ static AppDelegate s_sharedApplication;
     
     //[self.remoteConfig setDefaultsFromPlistFileName:@"RemoteConfigDefaults"];
     
+    //registerForRemoteNotifications
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
+        UIUserNotificationType allNotificationTypes =
+        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+        UIUserNotificationSettings *settings =
+        [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    } else {
+        // iOS 10 or later
+        #if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+        UNAuthorizationOptions authOptions =
+        UNAuthorizationOptionAlert
+        | UNAuthorizationOptionSound
+        | UNAuthorizationOptionBadge;
+        [[UNUserNotificationCenter currentNotificationCenter]
+         requestAuthorizationWithOptions:authOptions
+         completionHandler:^(BOOL granted, NSError * _Nullable error) {
+             NSLog(@">>> completionHandler %@ %@", granted ? @"YES" : @"NO", error);
+             
+             NSLog(@"UNUserNotificationCenter requestAuthorizationWithOptions callback: Subscribing to news topic");
+        }];
+        
+        // For iOS 10 display notification (sent via APNS)
+        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+        // For iOS 10 data message (sent via FCM)
+//        [FIRMessaging messaging].remoteMessageDelegate = self;
+        #endif
+    }
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     return YES;
 }
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    // If you are receiving a notification message while your app is in the background,
+    // this callback will not be fired till the user taps on the notification launching the application.
+    // TODO: Handle data of notification
+    
+    // Print message ID.
+    if (userInfo[kGCMMessageIDKey]) {
+        NSLog(@"Message ID: %@", userInfo[kGCMMessageIDKey]);
+    }
+    
+    // Print full message.
+    NSLog(@"%@", userInfo);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // If you are receiving a notification message while your app is in the background,
+    // this callback will not be fired till the user taps on the notification launching the application.
+    // TODO: Handle data of notification
+    
+    // Print message ID.
+    if (userInfo[kGCMMessageIDKey]) {
+        NSLog(@"Message ID: %@", userInfo[kGCMMessageIDKey]);
+    }
+    
+    // Print full message.
+    NSLog(@"%@", userInfo);
+    
+    [self handleRemoteNotificationMessage:userInfo];
+}
+
+// Receive displayed notifications for iOS 10 devices.
+#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    NSLog(@"userNotificationCenter willPresentNotification withCompletionHandler");
+    // Print message ID.
+    NSDictionary *userInfo = notification.request.content.userInfo;
+    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+    
+    // Print full message.
+    NSLog(@"%@", userInfo);
+    
+    [self handleRemoteNotificationMessage:userInfo];
+}
+
+// Receive data message on iOS 10 devices.
+- (void)applicationReceivedRemoteMessage:(FIRMessagingRemoteMessage *)remoteMessage {
+    NSLog(@"applicationReceivedRemoteMessage remoteMessage");
+    // Print full message
+    NSLog(@"%@", [remoteMessage appData]);
+    
+    [self handleRemoteNotificationMessage:[remoteMessage appData]];
+}
+#endif
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*

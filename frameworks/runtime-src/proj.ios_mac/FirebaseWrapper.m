@@ -13,9 +13,11 @@
 @import FirebaseAuthUI;
 @import FirebaseGoogleAuthUI;
 @import FirebaseFacebookAuthUI;
+@import FirebaseMessaging;
 
 #import "FirebaseDelegate.h"
 #import "Cocos2dxHelper.h"
+
 
 static UIViewController* viewController;
 
