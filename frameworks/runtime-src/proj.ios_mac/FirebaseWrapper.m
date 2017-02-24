@@ -47,6 +47,11 @@ static UIViewController* viewController;
         [Cocos2dxHelper evalString:@"NativeHelper.onReceive('Firebase', 'onLoggedOut')"];
 }
 
++ (BOOL)logoutSilently {
+    return [[FUIAuth defaultAuthUI] signOutWithError:nil];
+}
+
+
 + (NSString*)getUserInfo {
     if (![self isLoggedIn])
         return nil;
