@@ -7,6 +7,7 @@ import android.os.Debug;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.BuildConfig;
@@ -83,7 +84,8 @@ public class FirebaseWrapper {
                         new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
                         new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()
 //                        new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()
-                )).build();
+                ))
+                .setIsSmartLockEnabled(false).build();
         activity.startActivityForResult(intent, RC_SIGN_IN);
     }
 
@@ -234,6 +236,8 @@ public class FirebaseWrapper {
                             Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', 'onLoggedIn', [false, 'NO_NETWORK'])");
                         }
                     });
+                    Toast toast = Toast.makeText(activity, "Cannot login. Please check your internet connection", Toast.LENGTH_LONG);
+                    toast.show();
                     return;
                 }
 
@@ -244,6 +248,8 @@ public class FirebaseWrapper {
                             Cocos2dxJavascriptJavaBridge.evalString("NativeHelper.onReceive('Firebase', 'onLoggedIn', [false, 'UNKNOWN_ERROR'])");
                         }
                     });
+                    Toast toast = Toast.makeText(activity, "Login failed. Please try again later", Toast.LENGTH_LONG);
+                    toast.show();
                     return;
                 }
             }
