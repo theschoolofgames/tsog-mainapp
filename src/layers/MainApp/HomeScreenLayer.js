@@ -237,13 +237,29 @@ var HomeScreenLayer = cc.Layer.extend({
                 this.addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
                 break;
             case "learn":
-                cc.director.runScene(new MapScene());
+                this._handleTappedLearn();
                 break;
             case "home":
                 cc.director.replaceScene(new TalkingAdiScene());
                 break;
             default:
                 break;
+        }
+    },
+
+    _handleTappedLearn: function() {
+        if (NativeHelper.callNative("hasGrantPermission", ["WRITE_EXTERNAL_STORAGE"]))
+            cc.director.runScene(new MapScene());
+        else {
+            NativeHelper.setListener("RequestPermission", this);
+            NativeHelper.callNative("requestPermission", ["WRITE_EXTERNAL_STORAGE"]);
+        }
+    },
+    onRequestPermission: function(succeed) {
+        if (succeed)
+            cc.director.runScene(new MapScene());
+        else {
+            NativeHelper.callNative("showMessage", ["Permission Required", "Please enable permission to read/write files to storage in Device Setting for TSOG"]);
         }
     },
 });
