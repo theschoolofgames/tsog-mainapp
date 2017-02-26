@@ -350,7 +350,6 @@
 		509D4AE917EBB82000697056 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AE817EBB82000697056 /* AppKit.framework */; };
 		509D4AEB17EBB82600697056 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509D4AEA17EBB82600697056 /* IOKit.framework */; };
 		5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B241EFBA459BB96B1F452E /* sdkbox.framework */; };
-		5E0BD1A91E547F5F00A6FC45 /* monkey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5E0BD1A81E547F5F00A6FC45 /* monkey.jpg */; };
 		5EFA74811E433E570023E1AD /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EFA74801E433E570023E1AD /* FBSDKShareKit.framework */; };
 		8462450698AB583F2ECECAF4 /* SDKBoxJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7E314DD78AEFAE4B26D33F4C /* SDKBoxJSHelper.cpp */; };
 		A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D2044A9B4E5A80DD5D1A65E /* PluginIAP.framework */; };
@@ -2639,7 +2638,6 @@
 			files = (
 				BAF426FB19484B3E002B22EF /* script in Resources */,
 				1AE159EC18C9DF3600FCA372 /* project.json in Resources */,
-				5E0BD1A91E547F5F00A6FC45 /* monkey.jpg in Resources */,
 				01F093D31C75965D00B4892E /* make_log_sub_table.py in Resources */,
 				1AD7E0A818C9DB93004817A6 /* main.js in Resources */,
 				010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */,
