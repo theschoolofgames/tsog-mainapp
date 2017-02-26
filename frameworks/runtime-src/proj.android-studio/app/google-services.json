@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "1018788348255",
-    "firebase_url": "https://tsog-d53a2.firebaseio.com",
-    "project_id": "tsog-d53a2",
-    "storage_bucket": "tsog-d53a2.appspot.com"
+    "project_number": "17491481602",
+    "firebase_url": "https://the-school-of-games.firebaseio.com",
+    "project_id": "the-school-of-games",
+    "storage_bucket": "the-school-of-games.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1018788348255:android:d75ef75b87d16581",
+        "mobilesdk_app_id": "1:17491481602:android:d75ef75b87d16581",
         "android_client_info": {
           "package_name": "com.theschoolofgames.tsog"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+          "client_id": "17491481602-2dalrovu2c6ls3la0g1318846ojae9cu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.theschoolofgames.tsog",
+            "certificate_hash": "6b7a28e6a792f38001374dadba07b822c07a4df0"
+          }
+        },
+        {
+          "client_id": "17491481602-68094kc4jbv5th9qujq0i8prg7pc1mil.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAL3E8DNW4ZrP4EOx042TQLWik1m93r3KA"
+          "current_key": "AIzaSyC_p95SYN5_T_mIc-Kk8gGhqEgz2E9Q7OM"
         }
       ],
       "services": {
@@ -32,11 +40,11 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1018788348255-7vmi045affqavtgf6u4db5fs7vnka0sl.apps.googleusercontent.com",
+              "client_id": "17491481602-68094kc4jbv5th9qujq0i8prg7pc1mil.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff.apps.googleusercontent.com",
+              "client_id": "17491481602-adjgldvbc7v3t02ofr0anv28knkao8o8.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.theschoolofgames.tsog",

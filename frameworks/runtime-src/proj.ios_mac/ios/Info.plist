@@ -37,7 +37,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.1</string>
+	<string>1.4.11</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -53,7 +53,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff</string>
+				<string>com.googleusercontent.apps.17491481602-adjgldvbc7v3t02ofr0anv28knkao8o8</string>
 			</array>
 		</dict>
 		<dict>
@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>17.02.23.00</string>
+	<string>17.02.26.00</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -128,15 +128,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG doesn&apos;t use this feature</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG doesn&apos;t use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>TSOG would like to recogize children speaking words</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG doesn&apos;t use this feature</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
