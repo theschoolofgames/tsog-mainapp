@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 
 import com.hub102.tsog.BuildConfig;
@@ -385,7 +386,7 @@ public class Wrapper
     public static void shareWhatsapp(String caption, String url) {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, url);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, caption + " " + url);
         sendIntent.setType("text/plain");
         sendIntent.setPackage("com.whatsapp");
         try {
@@ -446,5 +447,9 @@ public class Wrapper
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getCountryCode() {
+        return Locale.getDefault().getCountry();
     }
 }

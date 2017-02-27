@@ -25,6 +25,8 @@
 + (void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url;
 + (void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url;
 
++ (NSString*)getCountryCode;
+
 @end
 
 

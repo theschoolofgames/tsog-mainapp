@@ -71,12 +71,12 @@ var FirebaseManager = cc.Class.extend({
         });
 
         FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
-            this._setRemoteConstantValue(data);
+            this._setRemoteConstantsValue(data);
         }.bind(this));
 
     },
 
-    _setRemoteConstantValue: function(data) {
+    _setRemoteConstantsValue: function(data) {
         var config = JSON.parse(data);
         OBJECT_TOTAL_COMPLETED_COUNT = config["object_total_completed_count"] || OBJECT_TOTAL_COMPLETED_COUNT;
 
@@ -90,6 +90,13 @@ var FirebaseManager = cc.Class.extend({
         SET_BIG_DIAMONDS = config["set_3_diamonds"] || SET_BIG_DIAMONDS;
 
         NEW_LEVEL_UNLOCKING_STAR_RATIO = config["new_level_unlocking_star_ratio"] || NEW_LEVEL_UNLOCKING_STAR_RATIO;
+
+        for (var key in config) {
+            if (key.indexOf("sharing_option_") == 0) {
+                var countryCode = key.substring(key.lastIndexOf("_") + 1);
+                SHARING_OPTIONS[countryCode] = config[key];
+            }
+        }
     },
 
     setData: function(path, value) {

@@ -33,7 +33,7 @@ var DialogPlayAlpharacing = Dialog.extend({
         if(isNotEnoughCoin) {
             text.setString(localize("Not enough"));
             var coin = new cc.Sprite("#gold.png");
-            coin.x = text.width + coin.width/2;
+            coin.x = text.width + 2.0 * coin.width / 3;
             coin.y = text.height/2 - 10;
             text.addChild(coin);  
             var text2 = new cc.LabelBMFont(" " + localize("to play!"), res.HomeFont_fnt);

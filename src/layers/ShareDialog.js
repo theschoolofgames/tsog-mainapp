@@ -39,58 +39,6 @@ var ShareDialog = Dialog.extend({
 	},
 
 	_addButtons: function() {
-		var buttonWhatsappBg = new cc.Sprite(res.Button_background_png);
-		buttonWhatsappBg.x = this._dialogBg.width / 4 * 1 - buttonWhatsappBg.width / 6;
-		buttonWhatsappBg.y = this._dialogBg.height / 2 + 10;
-		this._dialogBg.addChild(buttonWhatsappBg);
-
-		var buttonWhatsapp = new ccui.Button(res.Button_whatsapp_normal_png, res.Button_whatsapp_pressed_png);
-		buttonWhatsapp.x = buttonWhatsappBg.x;
-		buttonWhatsapp.y = buttonWhatsappBg.y;
-		buttonWhatsapp.addClickEventListener(function() {
-			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-			NativeHelper.callNative("shareWhatsapp", [WHATSAPP_SHARING_DESCRIPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-			AnalyticsManager.getInstance().logEventShare(this._context, 
-				"Whatsapp");
-		}.bind(this));
-		this._dialogBg.addChild(buttonWhatsapp);
-
-		var buttonFacebookBg = new cc.Sprite(res.Button_background_png);
-		buttonFacebookBg.x = this._dialogBg.width / 4 * 2;
-		buttonFacebookBg.y = this._dialogBg.height / 2 + 10;
-		this._dialogBg.addChild(buttonFacebookBg);
-
-		var buttonFacebook = new ccui.Button(res.Button_facebook_normal_png, res.Button_facebook_pressed_png);
-		buttonFacebook.x = buttonFacebookBg.x;
-		buttonFacebook.y = buttonFacebookBg.y;
-		buttonFacebook.addClickEventListener(function() {
-			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-	        NativeHelper.callNative("shareFacebook", [FACEBOOK_SHARING_TITLE, 
-	                    FACEBOOK_SHARING_DESCRIPTION,
-	                    cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-	        // NativeHelper.callNative("shareTwitter", [TWITTER_SHARING_DESCRIPTION, 
-	                    // cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-			AnalyticsManager.getInstance().logEventShare(this._context, 
-				"Facebook");
-		}.bind(this));
-		this._dialogBg.addChild(buttonFacebook);
-
-		var buttonNativeBg = new cc.Sprite(res.Button_background_png);
-		buttonNativeBg.x = this._dialogBg.width / 4 * 3 + buttonWhatsappBg.width / 6;
-		buttonNativeBg.y = this._dialogBg.height / 2 + 10;
-		this._dialogBg.addChild(buttonNativeBg);
-
-		var buttonNative = new ccui.Button(res.Button_more_normal_png, res.Button_more_pressed_png);
-		buttonNative.x = buttonNativeBg.x;
-		buttonNative.y = buttonNativeBg.y;
-		buttonNative.addClickEventListener(function() {
-			AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-			NativeHelper.callNative("shareNative", [NATIVE_SHARING_DESCRIPTION, cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)]);
-			AnalyticsManager.getInstance().logEventShare(this._context,
-				"Native")
-		}.bind(this));	
-		this._dialogBg.addChild(buttonNative);
-
 		var buttonClose = new ccui.Button(res.Button_x_normal_png, res.Button_x_pressed_png);
 		buttonClose.x = this._dialogBg.width - buttonClose.width / 2;
 		buttonClose.y = this._dialogBg.height - buttonClose.height / 2;
@@ -99,5 +47,76 @@ var ShareDialog = Dialog.extend({
 			this.close();
 		}.bind(this));	
 		this._dialogBg.addChild(buttonClose);
+
+		var countryCode = NativeHelper.callNative("getCountryCode");
+		debugLog("countryCode: " + countryCode);
+		var options;
+		if (SHARING_OPTIONS[countryCode]) {
+			options = SHARING_OPTIONS[countryCode].split(",");
+		} else {
+			options = SHARING_OPTIONS['default'].split(",");
+		}
+
+		for (var i = 0; i < 2; i++) {
+			if (options[i] == "facebook") {
+				this.createShareButton(res.Button_facebook_normal_png, res.Button_facebook_pressed_png,
+										i + 1, function() {
+									        NativeHelper.callNative("shareFacebook", 
+									        	[
+									        		FACEBOOK_SHARING_TITLE, 
+							                    	FACEBOOK_SHARING_DESCRIPTION,
+							                    	cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+							                    ]
+											);
+											AnalyticsManager.getInstance().logEventShare(this._context, "Facebook");
+										}.bind(this));
+			} else if (options[i] == "twitter") {
+				this.createShareButton(res.Button_twitter_normal_png, res.Button_twitter_pressed_png,
+										i + 1, function() {
+								        	NativeHelper.callNative("shareTwitter", 
+								        		[
+								        			TWITTER_SHARING_DESCRIPTION, 
+	                    							cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+	                    						]
+	                    					);
+	                    					AnalyticsManager.getInstance().logEventShare(this._context, "Twitter");
+										}.bind(this));
+			} else if (options[i] == "whatsapp") {
+				this.createShareButton(res.Button_whatsapp_normal_png, res.Button_whatsapp_pressed_png,
+										i + 1, function() {
+											NativeHelper.callNative("shareWhatsapp", 
+												[
+													WHATSAPP_SHARING_DESCRIPTION, 
+													cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+												]
+											);
+											AnalyticsManager.getInstance().logEventShare(this._context, "Whatsapp");
+										}.bind(this));
+			}
+		}
+		this.createShareButton(res.Button_more_normal_png, res.Button_more_pressed_png,
+								3, function() {
+									NativeHelper.callNative("shareNative", 
+										[
+											NATIVE_SHARING_DESCRIPTION, 
+											cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+										]
+									);
+									AnalyticsManager.getInstance().logEventShare(this._context, "Native");
+								}.bind(this));
+	},
+
+	//create share button #i (i = 1, 2,...)
+	createShareButton: function(buttonNormal, buttonPressed, index, onClick) {
+		var bg = new cc.Sprite(res.Button_background_png);
+		bg.x = this._dialogBg.width / 4 * index + (index - 2) * bg.width / 6;
+		bg.y = this._dialogBg.height / 2 + 10;
+		this._dialogBg.addChild(bg);
+
+		var button = new ccui.Button(buttonNormal, buttonPressed);
+		button.x = bg.x;
+		button.y = bg.y;
+		button.addClickEventListener(onClick);
+		this._dialogBg.addChild(button);
 	}
 });
