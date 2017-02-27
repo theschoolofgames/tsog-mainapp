@@ -4,28 +4,11 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>4.0.1</string>
+        <string>4.0.2</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog/_sourceart/account-screen/account.tps</string>
+        <string>/Users/Tony/dev/project/tsog-mainapp/_sourceart/account-screen/account.tps</string>
         <key>autoSDSettings</key>
         <array>
-            <struct type="AutoSDSettings">
-                <key>scale</key>
-                <double>1</double>
-                <key>extension</key>
-                <string>HD</string>
-                <key>spriteFilter</key>
-                <string></string>
-                <key>acceptFractionalValues</key>
-                <false/>
-                <key>maxTextureSize</key>
-                <QSize>
-                    <key>width</key>
-                    <int>-1</int>
-                    <key>height</key>
-                    <int>-1</int>
-                </QSize>
-            </struct>
             <struct type="AutoSDSettings">
                 <key>scale</key>
                 <double>0.41667</double>
