@@ -83,7 +83,11 @@ var BaseFirebaseModel = cc.Class.extend({
 		// getter function
     	// "childrenIds" => "getChildrenIds"
     	self["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
-    		return self["_" + key];
+    		if (self["_" + key] == undefined) {
+    			return self._defaultValues[key];
+    		} else {
+    			return self["_" + key];
+    		}
     	}
 
     	// setter function
