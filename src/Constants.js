@@ -939,6 +939,7 @@ var EVENT_LANGUAGE_DIALOG_CLOSE = "event_lang_dialog_close";
 var MAX_BLOCK_NUMBER_SCALE = 0.8;
 
 var GAME_OBJECTS_PROGRESS = "game_objects_progress";
+
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
 var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://www.theschoolofgames.org/?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
@@ -983,3 +984,8 @@ var TWITTER_FAN_PAGE = "https://twitter.com/theschoolofgame";
 var WEB_URL = "http://www.theschoolofgames.org";
 var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
 var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
+
+var SHARING_OPTIONS = {
+    "US": "facebook,twitter",
+    "default": "facebook,whatsapp"
+}

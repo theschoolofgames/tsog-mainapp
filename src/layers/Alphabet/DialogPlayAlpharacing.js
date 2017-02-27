@@ -33,7 +33,7 @@ var DialogPlayAlpharacing = Dialog.extend({
         if(isNotEnoughCoin) {
             text.setString(localize("Not enough"));
             var coin = new cc.Sprite("#gold.png");
-            coin.x = text.width + coin.width/2;
+            coin.x = text.width + 2.0 * coin.width / 3;
             coin.y = text.height/2 - 10;
             text.addChild(coin);  
             var text2 = new cc.LabelBMFont(" " + localize("to play!"), res.HomeFont_fnt);
@@ -75,14 +75,14 @@ var DialogPlayAlpharacing = Dialog.extend({
         // });
 
         if(isNotEnoughCoin) {
-            var buttonLearn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            var buttonLearn = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png");
             buttonLearn.x = this._dialogBg.width/2;
             buttonLearn.y = 100;
-            buttonLearn.scale = 0.6;
+            // buttonLearn.scale = 0.6;
             this._dialogBg.addChild(buttonLearn);
-            lbLearn = new cc.LabelBMFont(localize("Learn"), "res/font/custom_font.fnt");
+            lbLearn = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Learn"));
             lbLearn.x = buttonLearn.width/2;
-            lbLearn.y = buttonLearn.height/2;
+            lbLearn.y = buttonLearn.height/2 + 8;
             buttonLearn.addChild(lbLearn);
             buttonLearn.addClickEventListener(function(){
                 cc.log("Learn");
@@ -111,7 +111,7 @@ var DialogPlayAlpharacing = Dialog.extend({
             //     self.removeFromParent();
             // });
         } else {
-            var buttonPlay = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png", "");
+            var buttonPlay = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png");
             buttonPlay.x = this._dialogBg.width/2;
             buttonPlay.y = 100;
             // buttonPlay.scale = 0.6;

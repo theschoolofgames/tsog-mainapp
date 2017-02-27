@@ -55,15 +55,17 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
 
         var coin = new cc.Sprite("#gold.png");
         coin.scale = CURRENCY_SCALE;
-        coin.x = coin.width / 3;
+        coin.x = coin.width / 5;
         coin.y = coin.height / 3;
         bgGold.addChild(coin, 999);
 
         var coinAmount = CurrencyManager.getInstance().getCoin();
         this._lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
+        this._lbCoin.scale = ((bgGold.width / this._lbCoin.width * 0.6) > 1) ? 1 : (bgGold.width / this._lbCoin.width * 0.6);
+        debugLog("hud coin scale -> " + this._lbCoin.scale);
         // this._lbCoin.anchorX = 0;
-        this._lbCoin.x = bgGold.width/2 + 5;
-        this._lbCoin.y = bgGold.height/2;
+        this._lbCoin.x = bgGold.width * 0.55;
+        this._lbCoin.y = bgGold.height/2 + 2;
         bgGold.addChild(this._lbCoin);
 
         var bgDiamond = new cc.Sprite("#whitespace.png");
@@ -73,15 +75,15 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
 
         var diamond = new cc.Sprite("#diamond.png");
         diamond.scale = CURRENCY_SCALE;
-        diamond.x = diamond.width / 3;
+        diamond.x = diamond.width / 5;
         diamond.y = diamond.height / 2.5;
         bgDiamond.addChild(diamond, 999);
 
         var diamondAmount = CurrencyManager.getInstance().getDiamond();
         this._lbDiamond = new cc.LabelBMFont(diamondAmount.toString(), res.HudFont_fnt);
-        // this._lbDiamond.anchorX = 0;
-        this._lbDiamond.x = bgDiamond.width/2 + 5;
-        this._lbDiamond.y = bgDiamond.height/2;
+        this._lbDiamond.scale = ((bgDiamond.width / this._lbDiamond.width * 0.6) > 1) ? 1 : (bgDiamond.width / this._lbDiamond.width * 0.6);
+        this._lbDiamond.x = bgDiamond.width*0.55;
+        this._lbDiamond.y = bgDiamond.height/2 + 2;
         bgDiamond.addChild(this._lbDiamond);
 
         this._bgGold = bgGold;

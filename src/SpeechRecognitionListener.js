@@ -52,9 +52,12 @@ var SpeechRecognitionListener = cc.Class.extend({
     },
 
     onResult: function(text) {
+        if (!this._speakingLayer)
+            return;
+
         text = text.replace(/ /g,'');
-        cc.log("onResult: " + text);
-        cc.log("currentObjectName: " + this._speakingLayer.currentObjectName.toUpperCase());
+        // cc.log("onResult: " + text);
+        // cc.log("currentObjectName: " + this._speakingLayer.currentObjectName.toUpperCase());
 
         // NUMBER_CONFIG_ITEMS.forEach(function(obj) {
         //     if (obj.value == text) {
@@ -63,7 +66,7 @@ var SpeechRecognitionListener = cc.Class.extend({
         //     }
         // });
 
-        cc.log("after filter: " + text);
+        // cc.log("after filter: " + text);
 
         this._speakingLayer.resultText = text.toUpperCase();
         if (languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName.toLowerCase()].toUpperCase() == text) {

@@ -381,7 +381,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 }
 
 
-+(void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url {
++ (void)shareFacebookWithTitle:(NSString *)title andDescription:(NSString*)description andURL:(NSString*)url {
     FBSDKShareLinkContent* content = [[FBSDKShareLinkContent alloc] init];
     content.contentTitle = title;
     content.contentDescription = description;
@@ -401,7 +401,7 @@ static NSMutableArray* noiseDetectionArray = nil;
 //    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
 }
 
-+(void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url {
++ (void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url {
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = (UIViewController*)appController.viewController;
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
@@ -415,5 +415,9 @@ static NSMutableArray* noiseDetectionArray = nil;
         [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
         [rootController presentViewController:alert animated:true completion:nil];
     }
+}
+
++ (NSString*)getCountryCode {
+    return [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
 }
 @end

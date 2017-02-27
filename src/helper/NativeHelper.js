@@ -537,6 +537,18 @@ var NativeHelperConfig = {
             "logEventAppOpen",
             "()V"
         ]
+    },
+
+    getCountryCode: {
+        iOS: [
+            "H102Wrapper",
+            "getCountryCode"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "getCountryCode",
+            "()Ljava/lang/String;"
+        ]
     }
 }
 

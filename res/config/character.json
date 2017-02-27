@@ -1,7 +1,7 @@
 [
     {
         "name": "adi",
-        "price": 1000,
+        "price": 0,
         "path": "adidog",
         "heathy": 7,
         "unlocked": true,
@@ -10,7 +10,7 @@
     },
     {
         "name": "monkey",
-        "price": 2000,
+        "price": 250,
         "path": "monkey",
         "heathy": 5,
         "unlocked": false,
@@ -19,7 +19,7 @@
     },
     {
         "name": "lion",
-        "price": 2000,
+        "price": 5000,
         "path": "lion",
         "heathy": 5,
         "unlocked": false,
@@ -28,7 +28,7 @@
     },
     {
         "name": "penguin",
-        "price": 2000,
+        "price": 10000,
         "path": "penguin",
         "heathy": 5,
         "unlocked": false,
@@ -46,7 +46,7 @@
     },
     {
         "name": "hen",
-        "price": 2000,
+        "price": 500,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,

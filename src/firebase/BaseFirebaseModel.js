@@ -83,7 +83,11 @@ var BaseFirebaseModel = cc.Class.extend({
 		// getter function
     	// "childrenIds" => "getChildrenIds"
     	self["get" + key.charAt(0).toUpperCase() + key.slice(1)] = function() {
-    		return self["_" + key] || self._defaultValues[key];
+    		if (self["_" + key] == undefined) {
+    			return self._defaultValues[key];
+    		} else {
+    			return self["_" + key];
+    		}
     	}
 
     	// setter function
@@ -108,12 +112,12 @@ var BaseFirebaseModel = cc.Class.extend({
 		        for (var i = 0; i < self._listeningKeys.length; i++) {
 		        	var key = self._listeningKeys[i];
 
-		        	if (!data[key]) {
-		        		if (self._defaultValues[key]) {
-		        			dirtyKeyValues[key] = self._defaultValues[key];
-		        			data[key] = dirtyKeyValues[key];
-		        		}
-		        	}
+		        	// if (!data[key]) {
+		        	// 	if (self._defaultValues[key]) {
+		        	// 		dirtyKeyValues[key] = self._defaultValues[key];
+		        	// 		data[key] = dirtyKeyValues[key];
+		        	// 	}
+		        	// }
 		        	
 			        self["_" + key] = data[key];
 		        }

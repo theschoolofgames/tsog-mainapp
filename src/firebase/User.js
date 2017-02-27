@@ -62,11 +62,11 @@ var User = BaseFirebaseModel.extend({
     },
 
     getCurrentChild: function() {
-        debugLog(this._className + ".getCurrentChild: _selectedChildIndex is " + this._selectedChildIndex);
+        // debugLog(this._className + ".getCurrentChild: _selectedChildIndex is " + this._selectedChildIndex);
         if (this._selectedChildIndex == null) {
             return null;
         }
-        debugLog("this.getChildren(): " + JSON.stringify(this.getChildren()));
+        // debugLog("this.getChildren(): " + JSON.stringify(this.getChildren()));
 
         return this.getChildren()[this._selectedChildIndex];
     }
