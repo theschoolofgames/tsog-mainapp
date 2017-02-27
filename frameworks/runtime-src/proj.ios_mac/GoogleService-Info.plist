@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff.apps.googleusercontent.com</string>
+	<string>17491481602-adjgldvbc7v3t02ofr0anv28knkao8o8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1018788348255-8pcqsip8ss6vkp6cisaj4v1gfiefg0ff</string>
+	<string>com.googleusercontent.apps.17491481602-adjgldvbc7v3t02ofr0anv28knkao8o8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyB7aae51V7oL-oNpi7Z2PxskDUy10J0vfY</string>
+	<string>AIzaSyBBhNmPDMvSEA46AplY-kRDF1Rl8yxxZOs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1018788348255</string>
+	<string>17491481602</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.theschoolofgames.tsog</string>
 	<key>PROJECT_ID</key>
-	<string>tsog-d53a2</string>
+	<string>the-school-of-games</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tsog-d53a2.appspot.com</string>
+	<string>the-school-of-games.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
 	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
 	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1018788348255:ios:d75ef75b87d16581</string>
+	<string>1:17491481602:ios:d75ef75b87d16581</string>
 	<key>DATABASE_URL</key>
-	<string>https://tsog-d53a2.firebaseio.com</string>
+	<string>https://the-school-of-games.firebaseio.com</string>
 </dict>
 </plist>
