@@ -121,7 +121,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
     _addTabs: function() {
         this._addTabBtn("Features", cc.winSize.width/2 + 1, cc.winSize.height - 75, -0.5);
-        this._addTabBtn("About us", cc.winSize.width/2 - 1, cc.winSize.height - 75, 0.5);
+        this._addTabBtn("About Us", cc.winSize.width/2 - 1, cc.winSize.height - 75, 0.5);
     },
 
     _addTabBtn: function(tabName, x, y, offsetX) {
@@ -182,6 +182,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _payBtn.x = cc.winSize.width/2;
         _payBtn.y = _progressTrackerBtn.y - _payBtn.height*2 - this._featuresBtnOffSetY*2;
         _payBtn.addClickEventListener(this._btnPressed.bind(this));
+
+        var userIdLabel = new cc.LabelBMFont("User ID: " + User.getCurrentUser().getId(), "res/font/grownupcheckfont-export.fnt");
+        userIdLabel.scale = 0.4;
+        userIdLabel.x = 20;
+        userIdLabel.anchorX = 0;
+        userIdLabel.y = 50;
+        this._featuresLayer.addChild(userIdLabel);
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
         _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
@@ -345,7 +352,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             case "Features":
                 this._showFeatures();
                 break;
-            case "About us":
+            case "About Us":
                 this._showAboutUs();
                 break;
             default:
