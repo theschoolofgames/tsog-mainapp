@@ -80,13 +80,32 @@ var TalkingAdiLayer = cc.LayerColor.extend({
     addShopButton: function() {
         var self = this;
         var shopBtn = new ccui.Button("res/SD/pets/button-shop.png", "res/SD/pets/button-shop-pressed.png", "");
-        shopBtn.scale = 150/shopBtn.width;
-        shopBtn.x = cc.winSize.width - shopBtn.width * shopBtn.scale;
-        shopBtn.y = shopBtn.height/2 * shopBtn.scale + 10;
+
+        shopBtn.x = cc.winSize.width - shopBtn.width * shopBtn.scale + 70;
+        shopBtn.y = shopBtn.height/2 * shopBtn.scale + 30;
         this.addChild(shopBtn, 2);
         shopBtn.addClickEventListener(function(){
             cc.director.runScene(new ShopScene());
         });
+        shopBtn.opacity = 0;
+
+        shopBtn.runAction(cc.sequence(
+            cc.delayTime(0.5),
+            cc.spawn(
+                cc.fadeTo(0.15, 255),
+                cc.scaleTo(0.15, 1)
+            ),
+            cc.scaleTo(0.05, 1.1),
+            cc.scaleTo(0.05, 1)
+        ));
+
+        shopBtn.runAction(cc.repeatForever(cc.sequence(
+            cc.delayTime(5),
+            cc.scaleTo(0.1, 1.05, 0.95),
+            cc.scaleTo(0.1, 1),
+            cc.scaleTo(0.1, 1.05, 0.95),
+            cc.scaleTo(0.1, 1)
+        )));
 
         // var lbButton = new cc.LabelBMFont(localize("SHOP"), "yellow-font-export.fnt");
         // // lbButton.scale = 0.5;
