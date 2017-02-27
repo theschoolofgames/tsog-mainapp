@@ -264,7 +264,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     self._hudLayer.updateBalance();
                     button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
                     AnalyticsManager.getInstance().logEventSpendVirtualCurrency(characterCfg.name,
-                        "Diamond", cfg.price);
+                        "Diamond", characterCfg.price);
                 }
                 else {
                     self._character.adiShakeHead();
