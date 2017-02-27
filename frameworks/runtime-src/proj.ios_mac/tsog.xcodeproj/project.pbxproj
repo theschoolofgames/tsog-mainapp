@@ -284,7 +284,6 @@
 		01F094031C75965D00B4892E /* slamch.c in Sources */ = {isa = PBXBuildFile; fileRef = 01F092E11C75965D00B4892E /* slamch.c */; };
 		01F094041C75965D00B4892E /* slapack_lite.c in Sources */ = {isa = PBXBuildFile; fileRef = 01F092E21C75965D00B4892E /* slapack_lite.c */; };
 		01F094051C75965D00B4892E /* strfuncs.c in Sources */ = {isa = PBXBuildFile; fileRef = 01F092E31C75965D00B4892E /* strfuncs.c */; };
-		01F3C1461DF67F1100B6FE43 /* AcousticModelSwahili.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01F3C1451DF67F1100B6FE43 /* AcousticModelSwahili.bundle */; };
 		01F481A21C23FAE200FCE13D /* RunParameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F4819C1C23FAE200FCE13D /* RunParameters.cpp */; };
 		01F481A31C23FAE200FCE13D /* SoundStretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F4819E1C23FAE200FCE13D /* SoundStretch.cpp */; };
 		01F481A41C23FAE200FCE13D /* WavFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481A01C23FAE200FCE13D /* WavFile.cpp */; };
@@ -969,7 +968,6 @@
 		01F092E31C75965D00B4892E /* strfuncs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = strfuncs.c; sourceTree = "<group>"; };
 		01F092EB1C75965D00B4892E /* cmd_ln_defn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmd_ln_defn.h; sourceTree = "<group>"; };
 		01F092ED1C75965D00B4892E /* sphinx_wave2feat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sphinx_wave2feat.h; sourceTree = "<group>"; };
-		01F3C1451DF67F1100B6FE43 /* AcousticModelSwahili.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelSwahili.bundle; sourceTree = "<group>"; };
 		01F4819C1C23FAE200FCE13D /* RunParameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunParameters.cpp; sourceTree = "<group>"; };
 		01F4819D1C23FAE200FCE13D /* RunParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunParameters.h; sourceTree = "<group>"; };
 		01F4819E1C23FAE200FCE13D /* SoundStretch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundStretch.cpp; sourceTree = "<group>"; };
@@ -2224,7 +2222,6 @@
 			isa = PBXGroup;
 			children = (
 				01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */,
-				01F3C1451DF67F1100B6FE43 /* AcousticModelSwahili.bundle */,
 				0178BCF31C55EEB000018225 /* OpenAL.framework */,
 				01FDB8921C32773200D21971 /* CoreAudio.framework */,
 				01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */,
@@ -2625,7 +2622,6 @@
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
-				01F3C1461DF67F1100B6FE43 /* AcousticModelSwahili.bundle in Resources */,
 				01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
