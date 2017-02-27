@@ -148,7 +148,6 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.AR_Lands_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Obstacles_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Boosters_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Character_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Homescreen_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AlpharacingBG_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Mission_Page_Plist);
@@ -173,6 +172,7 @@ cc.game.onStart = function(){
             debugLog("authenticate result: " + loggedIn);
             // cc.director.runScene(new WelcomeScene());
             // cc.director.runScene(new HomeScene());
+            // cc.director.runScene(new MapScene());
             // cc.director.runScene(new AlphaRacingScene([]));
             // cc.director.runScene(new FirebaseScene());
             // cc.director.runScene(new RewardScene(200,300));
