@@ -70,10 +70,10 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
 
         // b.addClickEventListener(function() {
         //     AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-        //     SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
-        //     cc.director.replaceScene(new PayScene(function() {
-        //         cc.director.replaceScene(new GrownUpMenuScene());    
-        //     }));
+            // SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
+            // cc.director.replaceScene(new PayScene(function() {
+            //     cc.director.replaceScene(new GrownUpMenuScene());    
+            // }));
         // }.bind(this));
 
         // var lb = new cc.LabelBMFont("Pay with your", res.HomeFont_fnt);
