@@ -144,13 +144,13 @@ static AppDelegate s_sharedApplication;
         UNAuthorizationOptionAlert
         | UNAuthorizationOptionSound
         | UNAuthorizationOptionBadge;
-        [[UNUserNotificationCenter currentNotificationCenter]
-         requestAuthorizationWithOptions:authOptions
-         completionHandler:^(BOOL granted, NSError * _Nullable error) {
-             NSLog(@">>> completionHandler %@ %@", granted ? @"YES" : @"NO", error);
-             
-             NSLog(@"UNUserNotificationCenter requestAuthorizationWithOptions callback: Subscribing to news topic");
-        }];
+//        [[UNUserNotificationCenter currentNotificationCenter]
+//         requestAuthorizationWithOptions:authOptions
+//         completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//             NSLog(@">>> completionHandler %@ %@", granted ? @"YES" : @"NO", error);
+//             
+//             NSLog(@"UNUserNotificationCenter requestAuthorizationWithOptions callback: Subscribing to news topic");
+//        }];
         
         // For iOS 10 display notification (sent via APNS)
         [UNUserNotificationCenter currentNotificationCenter].delegate = self;

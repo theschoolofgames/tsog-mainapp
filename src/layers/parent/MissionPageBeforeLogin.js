@@ -111,13 +111,13 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         lCloud.y = cc.winSize.height;
         this.addChild(lCloud, this._cloudZOrder);
 
-        var content = "Our mission is provide equal education to every child";
+        var content = "Equal education to every child";
         var lContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
-        lContent.scale = this._contentTextScale;
+        lContent.scale = this._contentTextScale + 0.1;
         lContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lContent.x = lCloud.width/2;
         lContent.y = lCloud.height/2 + this._contentTextOffSetY + 10;
-        lContent.boundingWidth = lCloud.width * 2.5;
+        lContent.boundingWidth = lCloud.width * 2;
         lCloud.addChild(lContent);
 
         var rCloud = new cc.Sprite("#right_cloud.png");

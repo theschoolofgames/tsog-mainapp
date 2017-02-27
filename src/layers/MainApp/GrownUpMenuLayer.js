@@ -23,6 +23,59 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         }, this);
     },
 
+    touchEvent: function(sender,type) {
+        var count = sender.getChildrenCount();
+        cc.log("ChildCount = " + count);
+        switch (type) {
+            case ccui.Widget.TOUCH_BEGAN:
+                cc.log("TOUCH_BEGAN");
+                for(var i  = 0; i < count; i++) {
+                    var node = sender.getChildByTag(i);
+                    if(node) {
+                        node.setSpriteFrame(node.name + "-pressed.png");
+                        cc.log("node.name: " + node.name);
+                    };
+                };
+                // sender.setBright(false);
+                break;
+
+            case ccui.Widget.TOUCH_MOVED:
+                cc.log("TOUCH_MOVED");
+                for(var i  = 0; i < count; i++) {
+                    var node = sender.getChildByTag(i);
+                    if(node) {
+                        node.setSpriteFrame(node.name + ".png");
+                    };
+                };
+                // sender.setBright(false);
+                break;
+
+            case ccui.Widget.TOUCH_ENDED:
+                cc.log("TOUCH_ENDED");
+                for(var i  = 0; i < count; i++) {
+                    var node = sender.getChildByTag(i);
+                    if(node) {
+                        node.setSpriteFrame(node.name + ".png");
+                    };
+                };
+                // sender.setBright(true);
+                break;
+
+            case ccui.Widget.TOUCH_CANCELLED:
+                cc.log("TOUCH_CANCELLED");
+                for(var i  = 0; i < count; i++) {
+                    var node = sender.getChildByTag(i);
+                    if(node) {
+                        node.setSpriteFrame(node.name + ".png");
+                    };
+                };
+                // sender.setBright(true);
+                break; 
+            default:
+                break;
+        }
+    },
+
     addText: function(){
         var text = new cc.LabelBMFont("MENU", res.Grown_Up_fnt);
         text.anchorY = 0;
@@ -37,7 +90,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         for(var i = 0; i < this._lbArray.length; i++) {
             var node = this._lbArray[i];
             var isRectContainsPoint = cc.rectContainsPoint(node.getBoundingBox(), touchedPos);
-            if(isRectContainsPoint) {
+            if(isRectContainsPoint && this._aboutUsLayer.visible == true) {
                 this._startTouchPosition = touchedPos;
                 this._isTouching = true;
                 cc.log("TOUCHING TEXT: " + node.name);
@@ -85,7 +138,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         bottomBorder.setScale(-1, -1);
         bottomBorder.x = cc.winSize.width;
         bottomBorder.y = 0;
-        this.addChild(bottomBorder);
+        this.addChild(bottomBorder, 10);
     },
 
     _addBackground: function() {
@@ -129,6 +182,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _btn.x = x + _btn.width*offsetX;
         _btn.y = y;
         _btn.name = tabName;
+        _btn.addTouchEventListener(this.touchEvent, this);
         if(tabName == "Features"){
             _btn.setZOrder(10);
             this._currentButton = _btn;
@@ -164,24 +218,105 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
         _progressTrackerBtn = new ccui.Button("btn_green_wide.png", "btn_green_wide_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         _progressTrackerBtn.name = "ProgressTracker";
+        _progressTrackerBtn.anchorX = 0;
         _progressTrackerBtn.scale = 1.1;
-        _progressTrackerBtn.x = cc.winSize.width/2;
+        _progressTrackerBtn.x = 80;
         _progressTrackerBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _progressTrackerBtn.addClickEventListener(this._btnPressed.bind(this));
+        var _progressTrackerBtnNormal = _progressTrackerBtn.getRendererNormal();
+        var iconProgressTracker = new cc.Sprite("#icon-progress-tracker.png");
+        iconProgressTracker.anchorX = 1;
+        iconProgressTracker.x = _progressTrackerBtnNormal.width - 10;
+        iconProgressTracker.y = _progressTrackerBtnNormal.height/2;
+        iconProgressTracker.tag = 0;
+        iconProgressTracker.name = "icon-progress-tracker";
+        _progressTrackerBtnNormal.addChild(iconProgressTracker);
+        // _progressTrackerBtn.addChild(iconProgressTracker);
+
+        var _progressTrackerBtnClick = _progressTrackerBtn.getRendererClicked();
+        var iconProgressTrackerPressed = new cc.Sprite("#icon-progress-tracker-pressed.png");
+        iconProgressTrackerPressed.anchorX = 1;
+        iconProgressTrackerPressed.x = _progressTrackerBtnClick.width - 10;
+        iconProgressTrackerPressed.y = _progressTrackerBtnClick.height/2;
+        iconProgressTrackerPressed.tag = 0;
+        iconProgressTrackerPressed.name = "icon-progress-tracker";
+        _progressTrackerBtnClick.addChild(iconProgressTrackerPressed);
+        // _progressTrackerBtn.addTouchEventListener(this.touchEvent, this);
 
         _shareBtn = new ccui.Button("btn_blue_wide.png", "btn_blue_wide_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         _shareBtn.name = "Share";
+        _shareBtn.anchorX = 1;
         _shareBtn.scale = 1.1;
-        _shareBtn.x = cc.winSize.width/2;
-        _shareBtn.y = _progressTrackerBtn.y - _shareBtn.height - this._featuresBtnOffSetY;
+        _shareBtn.x = cc.winSize.width - 80;
+        _shareBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _shareBtn.addClickEventListener(this._btnPressed.bind(this));
+        var _shareBtnNormal = _shareBtn.getRendererNormal();
+        var iconFaceChild = new cc.Sprite("#childrenface.png");
+        iconFaceChild.anchorX = 1;
+        iconFaceChild.tag = 0;
+        iconFaceChild.name = "childrenface";
+        iconFaceChild.x = _shareBtnNormal.width - 10;
+        iconFaceChild.y = _shareBtnNormal.height/2;
+        _shareBtnNormal.addChild(iconFaceChild);
+        // _shareBtn.addTouchEventListener(this.touchEvent, this);
 
-        _payBtn = new ccui.Button("btn_pay_with_heart_features_menu.png", "btn_pay_with_heart_features_menu_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        var _shareBtnClick = _shareBtn.getRendererClicked();
+        var iconFaceChildPressed = new cc.Sprite("#childrenface-pressed.png");
+        iconFaceChildPressed.anchorX = 1;
+        iconFaceChildPressed.tag = 0;
+        iconFaceChildPressed.name = "childrenface";
+        iconFaceChildPressed.x = _shareBtnClick.width - 10;
+        iconFaceChildPressed.y = _shareBtnClick.height/2;
+        _shareBtnClick.addChild(iconFaceChildPressed);
+
+        _payBtn = new ccui.Button("button-yellow.png", "button-yellow-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         _payBtn.name = "Pay";
-        _payBtn.scale = 1.1;
-        _payBtn.x = cc.winSize.width/2;
-        _payBtn.y = _progressTrackerBtn.y - _payBtn.height*2 - this._featuresBtnOffSetY*2;
+        _payBtn.anchorX = 0;
+        _payBtn.anchorY = 0;
+        _payBtn.x = 0;
+        _payBtn.y = 0;
         _payBtn.addClickEventListener(this._btnPressed.bind(this));
+        _payBtn.setContentSize(cc.size(cc.winSize.width, _payBtn.height));
+        _payBtnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                38, 
+                                                cc.color("#b15a10"), 
+                                                3,
+                                                localizeForWriting("Pay what's in your"));
+        _payBtnTitle.x = cc.winSize.width/2;
+        _payBtnTitle.y = _payBtn.height/2 + 10;
+        _payBtn.addChild(_payBtnTitle);
+        
+        var normalPay = _payBtn.getRendererNormal();
+        var normalCoin = new cc.Sprite("#icon-coin.png");
+        normalCoin.anchorX = 0;
+        normalCoin.x = 35;
+        normalCoin.y = normalPay.height + 20;
+        normalPay.addChild(normalCoin);
+        var normalAnimal = new cc.Sprite("#icon-shop.png");
+        normalAnimal.anchorX = 1;
+        normalAnimal.x = cc.winSize.width - 35;
+        normalAnimal.y = normalPay.height + 30;
+        normalPay.addChild(normalAnimal);
+        var normalHeart = new cc.Sprite("#icon-heart.png");
+        normalHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
+        normalHeart.y = _payBtn.height/2;
+        normalPay.addChild(normalHeart);
+
+        var clickPay = _payBtn.getRendererClicked();
+        var clickCoin = new cc.Sprite("#icon-coin-pressed.png");
+        clickCoin.anchorX = 0;
+        clickCoin.x = 35;
+        clickCoin.y = clickPay.height + 20;
+        clickPay.addChild(clickCoin);
+        var clickAnimal = new cc.Sprite("#icon-shop-pressed.png");
+        clickAnimal.anchorX = 1;
+        clickAnimal.x = cc.winSize.width - 35;
+        clickAnimal.y = clickPay.height + 30;
+        clickPay.addChild(clickAnimal);
+        var clickHeart = new cc.Sprite("#icon-heart-pressed.png");
+        clickHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
+        clickHeart.y = _payBtn.height/2;
+        clickPay.addChild(clickHeart);
 
         var userIdLabel = new cc.LabelBMFont("User ID: " + User.getCurrentUser().getId(), "res/font/grownupcheckfont-export.fnt");
         userIdLabel.scale = 0.4;
@@ -191,7 +326,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._featuresLayer.addChild(userIdLabel);
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
-        _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
+        // _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
         _shareBtn.addChild(this._createBtnTitle(localizeForWriting("Share the message"), _shareBtn));
 
         this._featuresLayer.addChild(_progressTrackerBtn);
@@ -294,7 +429,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         lb5.x = cc.winSize.width/2;
         lb5.y = 50;
         this._aboutUsLayer.addChild(lb5);
-        var underLine = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,"_______________________");
+        var underLine = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 24, cc.color("#1679bd"), 1,"________________________");
         underLine.setColor(cc.color("#5ce9fd"))
         underLine.anchorX = 1;
         underLine.x = lb5.width;
@@ -316,7 +451,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                                                 btnTitleConfig.outlineSize,
                                                 localizeForWriting(title));
 
-        btnTitle.setDimensions(button.width * btnTitleConfig.boundingWidthRatio, button.height * btnTitleConfig.boundingHeightRatio);
+        // btnTitle.setDimensions(button.width * btnTitleConfig.boundingWidthRatio, button.height * btnTitleConfig.boundingHeightRatio);
         btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
         btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
                                 btnTitleConfig.shadowColor[1],
@@ -325,7 +460,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                             ),
                             cc.size(0, -btnTitleConfig.shadowSize)
         );
-        btnTitle.x = button.width/2 + offsetX;
+        btnTitle.anchorX = 0;
+        btnTitle.x = 25 + offsetX;
         btnTitle.y = button.height/2;
 
         return btnTitle;
@@ -419,7 +555,7 @@ var labelConfig = {
         "shadowColor": [34, 135, 197, 127],
         "shadowSize": 2,
         "shadowRadius": 6,
-        "fontSize": 18,
+        "fontSize": 20,
         "outlineSize": 1.5,
         "boundingWidthRatio": 1,
         "boundingHeightRatio": 0.3
@@ -439,7 +575,7 @@ var labelConfig = {
         "shadowColor": [17, 160, 0, 127],
         "shadowSize": 2,
         "shadowRadius": 6,
-        "fontSize": 20,
+        "fontSize": 22,
         "outlineSize": 1.5,
         "boundingWidthRatio": 1,
         "boundingHeightRatio": 0.3
