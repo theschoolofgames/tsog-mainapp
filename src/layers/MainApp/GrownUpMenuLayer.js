@@ -382,7 +382,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 this.addChild(layer, 999999);
                 break;
             case "Pay":
-                cc.director.replaceScene(new PayScene());
+                cc.director.replaceScene(new PayScene(function() {cc.director.replaceScene(new GrownUpMenuScene());}));
                 break;
             default:
                 break;

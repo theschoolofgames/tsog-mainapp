@@ -33,7 +33,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         this.addChild(new ShopHUDLayer());
         this.addButtonAnimation();
 
-        this.addChooseLanguageButton();
+        // this.addChooseLanguageButton();
 
         // var eventDialogCLose = cc.EventListener.create({
         //     event: cc.EventListener.CUSTOM,

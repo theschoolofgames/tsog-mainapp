@@ -172,6 +172,7 @@ cc.game.onStart = function(){
             debugLog("authenticate result: " + loggedIn);
             // cc.director.runScene(new WelcomeScene());
             // cc.director.runScene(new HomeScene());
+            // cc.director.runScene(new TalkingAdiScene());
             // cc.director.runScene(new MapScene());
             // cc.director.runScene(new AlphaRacingScene([]));
             // cc.director.runScene(new FirebaseScene());
