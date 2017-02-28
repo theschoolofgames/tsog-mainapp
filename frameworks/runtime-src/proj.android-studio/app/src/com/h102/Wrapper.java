@@ -317,7 +317,7 @@ public class Wrapper
         }
     }
 
-    public static void requestPermission(String permission) {
+    private static void actualRequestPermission(String permission) {
         try {
             String fullPermissionString = Wrapper.getFullPermissionString(permission);
 
@@ -327,6 +327,31 @@ public class Wrapper
 
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void requestPermission(String permission) {
+        if (permission.equals("RECORD_AUDIO")) {
+            final String apermission = permission, aMessage = "To play with Adi, we need Audio Permission";
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                    alertDialog.setTitle("");
+                    alertDialog.setMessage(aMessage);
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+
+                                    actualRequestPermission(apermission);
+                                }
+                            });
+                    alertDialog.show();
+                }
+            });
+        } else {
+            actualRequestPermission(permission);
         }
     }
 

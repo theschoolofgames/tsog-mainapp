@@ -248,12 +248,12 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     _handleTappedLearn: function() {
-        if (NativeHelper.callNative("hasGrantPermission", ["WRITE_EXTERNAL_STORAGE"]))
+        // if (NativeHelper.callNative("hasGrantPermission", ["WRITE_EXTERNAL_STORAGE"]))
             cc.director.runScene(new MapScene());
-        else {
-            NativeHelper.setListener("RequestPermission", this);
-            NativeHelper.callNative("requestPermission", ["WRITE_EXTERNAL_STORAGE"]);
-        }
+        // else {
+        //     NativeHelper.setListener("RequestPermission", this);
+        //     NativeHelper.callNative("requestPermission", ["WRITE_EXTERNAL_STORAGE"]);
+        // }
     },
     onRequestPermission: function(succeed) {
         if (succeed)

@@ -955,18 +955,18 @@ var TWITTER_SHARING_DESCRIPTION = "Love @schoolofgames_ , fun #preschool app. Do
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";
-var SET_SMALL_COINS = "100";
-var SET_SMALL_DIAMONDS = "50";
+var SET_SMALL_COINS = "250";
+var SET_SMALL_DIAMONDS = "250";
 
 var SET_MEDIUM_ID = "com.theschoolofgames.tsog.set2";
-var SET_MEDIUM_PRICE = "$9.99";
-var SET_MEDIUM_COINS = "300";
-var SET_MEDIUM_DIAMONDS = "200";
+var SET_MEDIUM_PRICE = "$14.99";
+var SET_MEDIUM_COINS = "750";
+var SET_MEDIUM_DIAMONDS = "1000";
 
 var SET_BIG_ID = "com.theschoolofgames.tsog.set3";
-var SET_BIG_PRICE = "$14.99";
-var SET_BIG_COINS = "800";
-var SET_BIG_DIAMONDS = "500";
+var SET_BIG_PRICE = "$59.99";
+var SET_BIG_COINS = "5000";
+var SET_BIG_DIAMONDS = "6000";
 
 var TIME_FOR_ADULT_TOCH = 3;
 
@@ -980,7 +980,7 @@ var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
-var GAME_URL_IOS = "http://Coming Soon/";
+var GAME_URL_IOS = "https://itunes.apple.com/us/app/the-school-of-games/id1090937711?mt=8";
 var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
 var TWITTER_FAN_PAGE = "https://twitter.com/schoolofgames_";
 var WEB_URL = "http://www.theschoolofgames.org";
@@ -988,6 +988,5 @@ var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
 var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
 
 var SHARING_OPTIONS = {
-    "US": "facebook,twitter",
     "default": "facebook,whatsapp"
 }

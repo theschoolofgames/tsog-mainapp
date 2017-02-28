@@ -111,7 +111,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         lCloud.y = cc.winSize.height;
         this.addChild(lCloud, this._cloudZOrder);
 
-        var content = "Equal education to every child";
+        var content = "Equal education for every child";
         var lContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         lContent.scale = this._contentTextScale + 0.1;
         lContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
@@ -126,7 +126,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         rCloud.y = cc.winSize.height;
         this.addChild(rCloud, this._cloudZOrder);
 
-        content = "When you pay with your      we educate a child in need";
+        content = "When you pay what's in your       we educate a child in need";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         rContent.scale = this._contentTextScale;
         rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
@@ -136,9 +136,9 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         rCloud.addChild(rContent);
 
         var iconHeart = new cc.Sprite("#icon_heart.png");
-        iconHeart.scale = 0.7;
-        iconHeart.x = rCloud.width * 0.9;
-        iconHeart.y = rCloud.height * 0.8;
+        iconHeart.scale = 0.6;
+        iconHeart.x = rCloud.width * 0.33;
+        iconHeart.y = rCloud.height * 0.59;
         rCloud.addChild(iconHeart);
     },
 
