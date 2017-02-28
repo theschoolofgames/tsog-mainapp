@@ -978,7 +978,7 @@ var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
-var GAME_URL_IOS = "http://Coming Soon/";
+var GAME_URL_IOS = "https://itunes.apple.com/us/app/the-school-of-games/id1090937711?mt=8";
 var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
 var TWITTER_FAN_PAGE = "https://twitter.com/theschoolofgames";
 var WEB_URL = "http://www.theschoolofgames.org";
@@ -986,6 +986,5 @@ var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
 var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
 
 var SHARING_OPTIONS = {
-    "US": "facebook,twitter",
     "default": "facebook,whatsapp"
 }
