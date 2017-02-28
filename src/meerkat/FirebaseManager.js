@@ -33,12 +33,23 @@ var FirebaseManager = cc.Class.extend({
 
     authenticate: function(finishCallback) {
         debugLog("FirebaseManager.authenticate");
-        if (! NativeHelper.callNative("isLoggedIn")) {
-            finishCallback(false);
-            return false;
+        var data = {};
+        var isLinked = false;
+        var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
+        if (authenticateUID != "") {
+            isLinked = NativeHelper.callNative("isLoggedIn");
+            data = this.getUserInfo();
+        } else {
+            var uid = this.createChildAutoId("users");
+            data = {
+                "email": "",
+                "photoUrl": "",
+                "uid": uid,
+                "name": ""
+            };
+            data = JSON.stringify(data);
         }
-
-        User.setCurrentUser(this.getUserInfo(), function(found) {
+        User.setCurrentUser(data, function(found) {
             debugLog("setCurrentUser found: " + found);
             var user = User.getCurrentUser();
             if (!found) {
@@ -52,7 +63,7 @@ var FirebaseManager = cc.Class.extend({
                     user.createChild();
                 }
                 user.selectChild(user.getChildrenIds()[0], function() {
-                    finishCallback(true);
+                    finishCallback(true, isLinked);
                 });
 
                 var inviteeId = user.getId();

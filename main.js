@@ -168,8 +168,8 @@ cc.game.onStart = function(){
         
         cc.audioEngine.setMusicVolume(1);
 
-        FirebaseManager.getInstance().authenticate(function(loggedIn) {
-            debugLog("authenticate result: " + loggedIn);
+        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
+            debugLog("authenticate result: authenticate -> " + authenticated + "\t isLinked -> " + isLinked);
 
             // TEST
             // cc.director.runScene(new WelcomeScene());
@@ -183,7 +183,7 @@ cc.game.onStart = function(){
             // cc.director.runScene(new MissionPageAfterLoginScene());
             // END TEST
 
-            if (loggedIn)
+            if (isLinked)
                 cc.director.runScene(new WelcomeScene());
             else
                 cc.director.runScene(new MissionPageBeforeLoginScene());
