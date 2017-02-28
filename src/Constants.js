@@ -942,7 +942,7 @@ var GAME_OBJECTS_PROGRESS = "game_objects_progress";
 
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
-var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://theschoolofgames.org?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog&st=Free%20Download&sd=Pre-school%20app%20for%20children%20aged%202%20-%206%20to%20learn%20vocabulary%2C%20numbers%20and%20reading.&si=https://ucarecdn.com/a898b43b-1ff2-4c47-93eb-7ce583e031c2/share_post.png&utm_source=share_msg&at=share_msg"
+var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://theschoolofgames.org?inviter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog&st=Free%20Download&sd=Pre-school%20app%20for%20children%20aged%202%20-%206%20to%20learn%20vocabulary%2C%20numbers%20and%20reading.&si=https://ucarecdn.com/a898b43b-1ff2-4c47-93eb-7ce583e031c2/share_post.png&utm_source=share_msg&at=share_msg"
 
 var FACEBOOK_SHARING_TITLE = "";
 
