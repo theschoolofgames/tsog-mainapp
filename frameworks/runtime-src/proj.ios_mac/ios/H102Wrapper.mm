@@ -391,6 +391,7 @@ static NSMutableArray* noiseDetectionArray = nil;
     dialog.fromViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     dialog.mode = FBSDKShareDialogModeNative;
     dialog.shareContent = content;
+    dialog.delegate = [FBSharingDelegator new];
     
     if (![dialog canShow]) {
         dialog.mode = FBSDKShareDialogModeBrowser;
@@ -400,6 +401,7 @@ static NSMutableArray* noiseDetectionArray = nil;
     
 //    [FBSDKShareDialog showFromViewController:[UIApplication sharedApplication].keyWindow.rootViewController withContent:content delegate:nil];
 }
+
 
 + (void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url {
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
@@ -420,4 +422,27 @@ static NSMutableArray* noiseDetectionArray = nil;
 + (NSString*)getCountryCode {
     return [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
 }
+@end
+@implementation FBSharingDelegator
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
+    NSLog(@"sharer didCompleteWithResults: %@", results);
+}
+
+/**
+ Sent to the delegate when the sharer encounters an error.
+ - Parameter sharer: The FBSDKSharing that completed.
+ - Parameter error: The error.
+ */
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error {
+    NSLog(@"sharer didFailWithError: %@", [error description]);
+}
+
+/**
+ Sent to the delegate when the sharer is cancelled.
+ - Parameter sharer: The FBSDKSharing that completed.
+ */
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
+    NSLog(@"sharerDidCancel");
+}
+
 @end

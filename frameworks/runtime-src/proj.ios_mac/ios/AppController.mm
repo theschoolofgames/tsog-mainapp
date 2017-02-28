@@ -259,7 +259,16 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return [FirebaseWrapper application:app openURL:url options:options];
+    bool firebaseHandled = [FirebaseWrapper application:app openURL:url options:options];
+    if (firebaseHandled)
+        return true;
+    
+    
+    bool fbHandled = [[FBSDKApplicationDelegate sharedInstance] application:app
+                                                          openURL:url
+                                                sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                       annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    return fbHandled;
 }
 
 - (BOOL)application:(UIApplication *)application

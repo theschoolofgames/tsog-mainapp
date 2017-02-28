@@ -6,6 +6,7 @@
 //
 //
 #import <Foundation/Foundation.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
 
 #ifndef tsog_H102Wrapper_h
 #define tsog_H102Wrapper_h
@@ -30,5 +31,10 @@
 @end
 
 
+@interface FBSharingDelegator : NSObject <FBSDKSharingDelegate>
+- (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results;
+- (void)sharer:(id<FBSDKSharing>)sharer didFailWithError:(NSError *)error;
+- (void)sharerDidCancel:(id<FBSDKSharing>)sharer;
+@end
 
 #endif
