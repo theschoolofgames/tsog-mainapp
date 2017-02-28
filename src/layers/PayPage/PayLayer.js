@@ -90,7 +90,7 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	_addDescription: function() {
-        var description = new cc.LabelBMFont(localizeForWriting("When you \"pay what's in your   \"\n" 
+        var description = new cc.LabelBMFont(localizeForWriting("When you pay what's in your   \n" 
                                                         + "we educate a child in need"), res.HudFont_fnt);
         description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         description.scale = 0.8;
@@ -98,7 +98,7 @@ var PayLayer = cc.Layer.extend({
         description.y = this._bottomPageH - description.height * 1.25;
         this.addChild(description);
         var iconHeart = new cc.Sprite("#icon_heart.png");
-        iconHeart.x = description.width - 45;
+        iconHeart.x = description.width - 20;
         iconHeart.y = description.height - 10;
         description.addChild(iconHeart);
 	},
