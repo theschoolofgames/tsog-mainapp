@@ -21,12 +21,13 @@ var User = BaseFirebaseModel.extend({
         this.uid = data.uid;
 
         this.setDefaultValues({
-         "childrenIds": []
+            "childrenIds": [],
+            "dynamicLink": ""
         });
 
         this.hasMany("children", Child);
 
-        this._super("/users/" + data.uid, data.uid, ["childrenIds"], initCallback);
+        this._super("/users/" + data.uid, data.uid, ["childrenIds", "dynamicLink"], initCallback);
     },
 
     createChild: function(cb) {

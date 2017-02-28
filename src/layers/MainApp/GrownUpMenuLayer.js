@@ -518,7 +518,11 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 this.addChild(layer, 999999);
                 break;
             case "Pay":
-                cc.director.replaceScene(new PayScene(function() {cc.director.replaceScene(new GrownUpMenuScene());}));
+                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+                SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
+                cc.director.replaceScene(new PayScene(function() {
+                    cc.director.replaceScene(new GrownUpMenuScene());
+                }));
                 break;
             default:
                 break;

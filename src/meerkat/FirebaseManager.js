@@ -67,6 +67,31 @@ var FirebaseManager = cc.Class.extend({
                         }
                     });
                 }
+
+                var dynamicLink = user.getDynamicLink();
+                var postedData = {
+                    "longDynamicLink": cc.formatStr(DYNAMIC_LINK, inviteeId)
+                };
+                if (!dynamicLink) {
+                    RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                        if (succeed) {
+                            var data = JSON.parse(responseText);
+                            data && user.setDynamicLink(data["shortLink"]);
+                        } else {
+                            var longLink = cc.formatStr(DYNAMIC_LINK, inviteeId);
+                            user.setDynamicLink(longLink);
+                        }
+                    });
+                } else {
+                    if (dynamicLink.indexOf("?link=") > -1) {
+                        RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                            if (succeed) {
+                                var data = JSON.parse(responseText);
+                                data && user.setDynamicLink(data["shortLink"]);
+                            }
+                        });
+                    }
+                }
             });
         });
 
@@ -189,8 +214,8 @@ var FirebaseManager = cc.Class.extend({
 
     onGameStartedFromDeeplink: function(inviterId) {
         debugLog("JS, onGameStartedFromDeeplink: " + inviterId);
-        if (isFirstTime == true) {
-            isFirstTime = false;
+        if (expectDynamicLink == true) {
+            expectDynamicLink = false;
             KVDatabase.getInstance().set("inviterId", inviterId);
         } 
     },

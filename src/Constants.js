@@ -942,7 +942,9 @@ var GAME_OBJECTS_PROGRESS = "game_objects_progress";
 
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
-var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://www.theschoolofgames.org/?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
+var DYNAMIC_LINK = "https://ymt8s.app.goo.gl/?link=http%3A%2F%2Fwww.theschoolofgames.org%2F%3Finviter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
+
+var LINK_SHORTEN_API = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyCEqe2Z3S45DfoYR9n-uEwdL-nCDfaQWvY";
 
 var FACEBOOK_SHARING_TITLE = "";
 
@@ -980,7 +982,7 @@ var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
 var GAME_URL_IOS = "https://itunes.apple.com/us/app/the-school-of-games/id1090937711?mt=8";
 var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
-var TWITTER_FAN_PAGE = "https://twitter.com/theschoolofgames";
+var TWITTER_FAN_PAGE = "https://twitter.com/schoolofgames_";
 var WEB_URL = "http://www.theschoolofgames.org";
 var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
 var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
