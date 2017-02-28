@@ -136,7 +136,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TSOG doesn&apos;t use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>TSOG would like to recogize children speaking words</string>
+	<string>To play with Adi, we need Audio Permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>TSOG doesn&apos;t use this feature</string>
 	<key>UIPrerenderedIcon</key>
