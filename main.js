@@ -183,7 +183,7 @@ cc.game.onStart = function(){
             // cc.director.runScene(new MissionPageAfterLoginScene());
             // END TEST
 
-            if (isLinked)
+            if (authenticated)
                 cc.director.runScene(new WelcomeScene());
             else
                 cc.director.runScene(new MissionPageBeforeLoginScene());

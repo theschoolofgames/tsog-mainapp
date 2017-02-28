@@ -169,20 +169,8 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _playBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-        if (User.isLoggedIn())
-            cc.director.replaceScene(new WelcomeScene());
-        else {
-            LoadingIndicator.show();
-            FirebaseManager.getInstance().login(function(succeed, msg) {
-                // debugLog("gonna remove loading indicator");
-                if (succeed) {
-                    LoadingIndicator.hide();
-                    cc.director.replaceScene(new WelcomeScene());
-                } else {
-                    LoadingIndicator.hide();
-                }
-            });
-        }
+    
+        cc.director.replaceScene(new WelcomeScene());
     },
 
 });

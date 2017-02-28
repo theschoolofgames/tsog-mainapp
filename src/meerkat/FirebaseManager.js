@@ -48,6 +48,8 @@ var FirebaseManager = cc.Class.extend({
                 "name": ""
             };
             data = JSON.stringify(data);
+
+            KVDatabase.getInstance().set("authenticateUID", uid);
         }
         User.setCurrentUser(data, function(found) {
             debugLog("setCurrentUser found: " + found);
