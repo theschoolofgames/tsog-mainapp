@@ -955,18 +955,18 @@ var TWITTER_SHARING_DESCRIPTION = "Love @schoolofgames_ , fun #preschool app. Do
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";
-var SET_SMALL_COINS = "100";
-var SET_SMALL_DIAMONDS = "50";
+var SET_SMALL_COINS = "250";
+var SET_SMALL_DIAMONDS = "250";
 
 var SET_MEDIUM_ID = "com.theschoolofgames.tsog.set2";
-var SET_MEDIUM_PRICE = "$9.99";
-var SET_MEDIUM_COINS = "300";
-var SET_MEDIUM_DIAMONDS = "200";
+var SET_MEDIUM_PRICE = "$14.99";
+var SET_MEDIUM_COINS = "750";
+var SET_MEDIUM_DIAMONDS = "1000";
 
 var SET_BIG_ID = "com.theschoolofgames.tsog.set3";
-var SET_BIG_PRICE = "$14.99";
-var SET_BIG_COINS = "800";
-var SET_BIG_DIAMONDS = "500";
+var SET_BIG_PRICE = "$59.99";
+var SET_BIG_COINS = "5000";
+var SET_BIG_DIAMONDS = "6000";
 
 var TIME_FOR_ADULT_TOCH = 3;
 
