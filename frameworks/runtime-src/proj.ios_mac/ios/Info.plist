@@ -37,7 +37,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.13</string>
+	<string>1.4.14</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>17.02.28.00</string>
+	<string>17.02.28.01</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -85,10 +85,10 @@
 	</dict>
 	<key>FacebookAppID</key>
 	<string>1432641826786710</string>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>FacebookDisplayName</key>
 	<string>School of Games</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi20150629</string>
@@ -130,15 +130,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To play with Adi, we need Audio Permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
