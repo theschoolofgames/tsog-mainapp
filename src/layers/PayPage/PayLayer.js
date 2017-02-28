@@ -90,13 +90,17 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	_addDescription: function() {
-        var description = new cc.LabelBMFont(localizeForWriting("When you \"pay what's in your heart\"\n" 
+        var description = new cc.LabelBMFont(localizeForWriting("When you \"pay what's in your   \"\n" 
                                                         + "we educate a child in need"), res.HudFont_fnt);
         description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         description.scale = 0.8;
         description.x = cc.winSize.width / 2;
         description.y = this._bottomPageH - description.height * 1.25;
         this.addChild(description);
+        var iconHeart = new cc.Sprite("#icon_heart.png");
+        iconHeart.x = description.width - 45;
+        iconHeart.y = description.height - 10;
+        description.addChild(iconHeart);
 	},
 
 	_addItems: function() {
@@ -128,17 +132,62 @@ var PayLayer = cc.Layer.extend({
 		slot.x = x;
 		slot.y = y;
 		this.addChild(slot);
+        var coinsAmount = 0;
+        var diamondsAmount = 0;
+        switch (price) {
+            case SET_SMALL_PRICE:
+                coinsAmount = SET_SMALL_COINS;
+                diamondsAmount = SET_SMALL_DIAMONDS
+                break;
 
-		var icon = new cc.Sprite(icon);
-		icon.x = slot.width / 2;
-		icon.y = slot.height / 2;
-		slot.addChild(icon);
+            case SET_MEDIUM_PRICE:
+                coinsAmount = SET_MEDIUM_COINS;
+                diamondsAmount = SET_MEDIUM_DIAMONDS
+                break;
 
-		var button = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
-		button.x = slot.width / 2;
-		button.y = 0;
-		button.addClickEventListener(callback);
-		slot.addChild(button);
+            case SET_BIG_PRICE:
+                coinsAmount = SET_BIG_COINS;
+                diamondsAmount = SET_BIG_DIAMONDS
+                break;
+
+            default:
+                break;
+        }
+
+        var icon = new cc.Sprite(icon);
+        icon.x = slot.width / 2;
+        icon.y = slot.height / 3 * 2 - 10;
+        slot.addChild(icon);
+
+        var button = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
+        button.x = slot.width / 2;
+        button.y = 0;
+        button.addClickEventListener(callback);
+        slot.addChild(button);
+
+        var lbCoin = new cc.LabelBMFont(coinsAmount, res.HudFont_fnt);
+        lbCoin.scale = 0.6;
+        lbCoin.x = slot.width/2;
+        lbCoin.y = button.y + button.height - 8;
+        slot.addChild(lbCoin);
+        var iconCoin = new cc.Sprite("#gold.png");
+        iconCoin.anchorX = 0;
+        iconCoin.scale = 0.6;
+        iconCoin.x = lbCoin.width + 5;
+        iconCoin.y = lbCoin.height/2;
+        lbCoin.addChild(iconCoin);
+
+        var lbDiamond = new cc.LabelBMFont(diamondsAmount, res.HudFont_fnt);
+        lbDiamond.scale = 0.6;
+        lbDiamond.x = slot.width/2;
+        lbDiamond.y = button.y + button.height + lbDiamond.height/2;
+        slot.addChild(lbDiamond);
+        var iconDiamond = new cc.Sprite("#diamond.png");
+        iconDiamond.anchorX = 0;
+        iconDiamond.scale = 0.6;
+        iconDiamond.x = lbDiamond.width + 5;
+        iconDiamond.y = lbDiamond.height/2;
+        lbDiamond.addChild(iconDiamond);
 
 		var buttonLabel = new cc.LabelBMFont(price, res.HomeFont_fnt);
         buttonLabel.scale = 0.4;
@@ -150,7 +199,7 @@ var PayLayer = cc.Layer.extend({
         itemLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         itemLabel.scale = 0.6;
         itemLabel.x = slot.width / 2;
-        itemLabel.y = slot.height * 7/8;
+        itemLabel.y = slot.height * 9/10;
         slot.addChild(itemLabel);
 	},
 
