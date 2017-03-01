@@ -37,20 +37,27 @@ var MissionPageBeforeLogin = cc.Layer.extend({
     },
 
     _addButtons: function() {
-        var b = new ccui.Button("btn_pay_with_heart.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
-        b.x = cc.winSize.width/2 - b.width/2 - 20;
+        b.x = cc.winSize.width/2 - b.width/2 - 30;
         b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
+        b.scaleX = 1.2;
         this.addChild(b);
 
         b.addClickEventListener(this._payBtnPressed.bind(this));
 
-        var lb = new cc.LabelBMFont("Pay with your", res.HomeFont_fnt);
+        var lb = new cc.LabelBMFont("Pay what's in your", res.HomeFont_fnt);
         lb.scale = 0.4;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        lb.x = b.width/2 - 30;
-        lb.y = b.height/2 + 10;
-        b.addChild(lb);
+        lb.x = cc.winSize.width/2 - b.width/2 - 50;
+        lb.y = b.height - this._buttonOffSetY + this._childrenOffSetY + 10;
+        this.addChild(lb);
+
+        var iconHeart = new cc.Sprite("#icon_heart.png");
+        iconHeart.x = lb.width + 80;
+        iconHeart.y = lb.height/2 - 10;
+        iconHeart.scale = 1/0.4;
+        lb.addChild(iconHeart);
 
         b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "play";
@@ -62,7 +69,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         lb.y = b.height/2 + 10;
         b.addChild(lb);
         
-        b.x = cc.winSize.width/2 + b.width/2 + 20;
+        b.x = cc.winSize.width/2 + b.width/2 + 30;
         b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
         this.addChild(b);
 

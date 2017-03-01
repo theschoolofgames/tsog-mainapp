@@ -80,7 +80,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var text = new cc.LabelBMFont("MENU", res.Grown_Up_fnt);
         text.anchorY = 0;
         text.scale = 0.7;
-        text.x = 250;
+        text.x = cc.winSize.width/2 - 265;
         text.y = cc.winSize.height/5 * 4 + 30;
         this.addChild(text);
     },
@@ -89,11 +89,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var touchedPos = touch.getLocation();
         for(var i = 0; i < this._lbArray.length; i++) {
             var node = this._lbArray[i];
-            var isRectContainsPoint = cc.rectContainsPoint(node.getBoundingBox(), touchedPos);
+            boudingBox = node.getBoundingBox();
+            if(node.name == "web")
+                boudingBox = cc.rect(boudingBox.x - 5, boudingBox.y - 5, boudingBox.width + 10, boudingBox.height + 10);
+            var isRectContainsPoint = cc.rectContainsPoint(boudingBox, touchedPos);
             if(isRectContainsPoint && this._aboutUsLayer.visible == true) {
                 this._startTouchPosition = touchedPos;
                 this._isTouching = true;
-                cc.log("TOUCHING TEXT: " + node.name);
                 this._handleTouchAction(node.name);
             };
         }
@@ -220,7 +222,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _progressTrackerBtn.name = "ProgressTracker";
         _progressTrackerBtn.anchorX = 0;
         _progressTrackerBtn.scale = 1.1;
-        _progressTrackerBtn.x = 80;
+        _progressTrackerBtn.x = 40 * Utils.getScaleFactorTo16And9();
+        cc.log("SCALE: " + Utils.getScaleFactorTo16And9());
         _progressTrackerBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _progressTrackerBtn.addClickEventListener(this._btnPressed.bind(this));
         var _progressTrackerBtnNormal = _progressTrackerBtn.getRendererNormal();
@@ -247,7 +250,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _shareBtn.name = "Share";
         _shareBtn.anchorX = 1;
         _shareBtn.scale = 1.1;
-        _shareBtn.x = cc.winSize.width - 80;
+        _shareBtn.x = cc.winSize.width - 40 * Utils.getScaleFactorTo16And9();
         _shareBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _shareBtn.addClickEventListener(this._btnPressed.bind(this));
         var _shareBtnNormal = _shareBtn.getRendererNormal();
@@ -278,7 +281,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _payBtn.addClickEventListener(this._btnPressed.bind(this));
         _payBtn.setContentSize(cc.size(cc.winSize.width, _payBtn.height));
         _payBtnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
-                                                38, 
+                                                30, 
                                                 cc.color("#b15a10"), 
                                                 3,
                                                 localizeForWriting("Pay what's in your"));
@@ -414,7 +417,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         textHolder.y = buttonBg.getBoundingBox().y - 20;
         this._aboutUsLayer.addChild(textHolder);
         var lb4 = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_4), "res/font/grownupcheckfont-export.fnt");
-        lb4.setBoundingWidth(cc.winSize.width/2);
+        lb4.setBoundingWidth(cc.winSize.width/2 + 150);
         lb4.scale = 0.3;
         lb4.x = textHolder.width/2;
         lb4.y = textHolder.height/2;

@@ -972,11 +972,11 @@ var TIME_FOR_ADULT_TOCH = 3;
 
 var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;
 var TEXT_AT_GROWNUP_1 = "The School of Games is product of Equally Pbc. Equally is a public "
-                        + "benefit corporation. School of Games wants to provide" 
+                        + "benefit corporation. School of Games wants to provide " 
                         + "equal education to every child.";
-var TEXT_AT_GROWNUP_2 = "For support suggestion contact at";
+var TEXT_AT_GROWNUP_2 = "For support or suggestions contact at";
 var TEXT_AT_GROWNUP_3 = "info@theschoolofgames.org";
-var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
+var TEXT_AT_GROWNUP_4 = "See our privacy policy and terms & Conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
