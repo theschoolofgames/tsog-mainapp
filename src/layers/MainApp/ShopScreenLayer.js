@@ -52,6 +52,9 @@ ShopScreenLayer = cc.LayerColor.extend({
     _addHudLayer: function() {
         this._hudLayer = new ShopHUDLayer(this);
         this.addChild(this._hudLayer);
+        this._hudLayer.setBackBtnCallback(function(){
+            cc.director.replaceScene(new TalkingAdiScene());
+        })
     },
 
     onTouchBegan: function(touch, event) {
