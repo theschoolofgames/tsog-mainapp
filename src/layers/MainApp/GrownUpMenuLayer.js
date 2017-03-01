@@ -89,11 +89,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var touchedPos = touch.getLocation();
         for(var i = 0; i < this._lbArray.length; i++) {
             var node = this._lbArray[i];
-            var isRectContainsPoint = cc.rectContainsPoint(node.getBoundingBox(), touchedPos);
+            boudingBox = node.getBoundingBox();
+            if(node.name == "web")
+                boudingBox = cc.rect(boudingBox.x - 5, boudingBox.y - 5, boudingBox.width + 10, boudingBox.height + 10);
+            var isRectContainsPoint = cc.rectContainsPoint(boudingBox, touchedPos);
             if(isRectContainsPoint && this._aboutUsLayer.visible == true) {
                 this._startTouchPosition = touchedPos;
                 this._isTouching = true;
-                cc.log("TOUCHING TEXT: " + node.name);
                 this._handleTouchAction(node.name);
             };
         }
