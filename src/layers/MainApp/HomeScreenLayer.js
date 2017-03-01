@@ -9,6 +9,7 @@ var HomeScreenLayer = cc.Layer.extend({
 
     _playBeginHomeCutScene: false,
     ctor: function (playBeginHomeCutScene) {
+        AnalyticsManager.getInstance().logCustomEvent(EVENT_HOME_LOAD);
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
 
         this._super();
@@ -38,6 +39,7 @@ var HomeScreenLayer = cc.Layer.extend({
             // var layer = new ProgressTrackerLayer();
             // self.addChild(layer, 999999);
             AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_PARENTS_CLICK);
             var dialog = new GrownUpCheckDialog(self.grownUpCheckCallback);
             self.addChild(dialog, 999999);
         });
@@ -51,6 +53,7 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     grownUpCheckCallback: function() {
+        AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_2);
         cc.director.replaceScene(new MissionPageAfterLoginScene());
     },
 
@@ -234,12 +237,15 @@ var HomeScreenLayer = cc.Layer.extend({
         var doorName = door.name;
         switch(doorName) {
             case "play":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PLAY_CLICK);
                 this.addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
                 break;
             case "learn":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_LEARN_CLICK);
                 this._handleTappedLearn();
                 break;
             case "home":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PETS_CLICK);
                 cc.director.replaceScene(new TalkingAdiScene());
                 break;
             default:

@@ -20,6 +20,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         this._addMissionContent();
         this._addButtons();
 
+        // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
     },
 
     _addBackground: function() {
@@ -144,6 +145,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _grownUpCheckCallback: function() {
         SceneFlowController.getInstance().setSceneGoAfterRewardScene("welcome");
+        AnalyticsManager.getInstance().logCustomEvent(EVENT_PAY_PAGE_1);
         cc.director.replaceScene(new PayScene(function() {
             cc.director.replaceScene(new MissionPageBeforeLoginScene());
         }));
@@ -169,6 +171,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _playBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+        AnalyticsManager.getInstance().logCustomEvent(EVENT_PLAY_FREE);
         if (User.isLoggedIn())
             cc.director.replaceScene(new WelcomeScene());
         else {

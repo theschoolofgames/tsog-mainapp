@@ -503,6 +503,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         switch(btnName) {
             case "Share":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_SHARE_START);
                 var tabName = this._aboutUsLayer.visible ? "About_page" : "Features_page";
                 var layer = new ShareDialog(tabName);
                 this.addChild(layer, 999999);
@@ -514,10 +515,12 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 cc.sys.openURL(TWITTER_FAN_PAGE)
                 break;
             case "ProgressTracker":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PROGRESS_CHECK);
                 var layer = new ProgressTrackerLayer();
                 this.addChild(layer, 999999);
                 break;
             case "Pay":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PAY_PAGE_2);
                 AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
                 SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
                 cc.director.replaceScene(new PayScene(function() {

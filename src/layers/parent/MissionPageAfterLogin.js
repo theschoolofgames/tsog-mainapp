@@ -59,6 +59,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         b.addChild(btnTitle);
 
         b.addClickEventListener(function() {
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_MENU_LOAD);
             cc.director.replaceScene(new GrownUpMenuScene());
         }.bind(this));
         // var b = new ccui.Button("btn_pay_with_heart.png", "", "", ccui.Widget.PLIST_TEXTURE);

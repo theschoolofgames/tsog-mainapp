@@ -245,4 +245,10 @@ continueUserActivity:(NSUserActivity *)userActivity
     [FIRAnalytics logEventWithName:kFIREventAppOpen parameters:nil];
 }
 
++(void)logCustomEventWithName: (NSString*)name {
+    [FIRAnalytics logEventWithName:@"custom_event" parameters:@{
+                                                                @"event_name":name
+                                                                }];
+}
+
 @end

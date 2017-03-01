@@ -172,8 +172,10 @@ var FirebaseManager = cc.Class.extend({
 
         if (succeed) {
             this.authenticate(cb);
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_LOGIN_SUCCESS);
         } else {
             cb && cb(succeed, msg);
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_LOGIN_CANCEL);
         }
     },
     

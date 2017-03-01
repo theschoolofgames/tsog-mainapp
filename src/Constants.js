@@ -5,7 +5,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
 
-var TSOG_DEBUG = false;
+var TSOG_DEBUG = true;
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
 var GAME_URL_IOS = "http://Coming Soon/";
 

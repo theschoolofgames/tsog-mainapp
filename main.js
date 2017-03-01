@@ -186,6 +186,7 @@ cc.game.onStart = function(){
             if (loggedIn) {
                 cc.director.runScene(new WelcomeScene());
             } else {
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
                 cc.director.runScene(new MissionPageBeforeLoginScene());
             }
         });
