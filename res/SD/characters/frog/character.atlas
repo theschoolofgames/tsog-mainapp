@@ -1,0 +1,83 @@
+
+character.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+body
+  rotate: false
+  xy: 2, 65
+  size: 179, 189
+  orig: 179, 189
+  offset: 0, 0
+  index: -1
+close eye
+  rotate: false
+  xy: 2, 2
+  size: 56, 61
+  orig: 56, 61
+  offset: 0, 0
+  index: -1
+eye
+  rotate: false
+  xy: 464, 188
+  size: 135, 66
+  orig: 135, 66
+  offset: 0, 0
+  index: -1
+hand L
+  rotate: true
+  xy: 601, 190
+  size: 64, 134
+  orig: 64, 134
+  offset: 0, 0
+  index: -1
+hand L 2
+  rotate: false
+  xy: 183, 98
+  size: 110, 107
+  orig: 110, 107
+  offset: 0, 0
+  index: -1
+hand R
+  rotate: true
+  xy: 737, 190
+  size: 64, 134
+  orig: 64, 134
+  offset: 0, 0
+  index: -1
+leg L
+  rotate: false
+  xy: 295, 110
+  size: 118, 95
+  orig: 118, 95
+  offset: 0, 0
+  index: -1
+leg R
+  rotate: false
+  xy: 873, 159
+  size: 118, 95
+  orig: 118, 95
+  offset: 0, 0
+  index: -1
+mui
+  rotate: false
+  xy: 60, 29
+  size: 130, 34
+  orig: 130, 34
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 183, 207
+  size: 279, 47
+  orig: 279, 47
+  offset: 0, 0
+  index: -1
+trong mat L
+  rotate: false
+  xy: 415, 165
+  size: 33, 40
+  orig: 33, 40
+  offset: 0, 0
+  index: -1
