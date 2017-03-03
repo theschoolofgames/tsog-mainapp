@@ -79,5 +79,23 @@
         "unlocked": false,
         "animationFrameCount": 5,
         "posY" : -300
+    },
+    {
+        "name": "mouse",
+        "price": 10000,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
+    },
+    {
+        "name": "owl",
+        "price": 10000,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
     }
 ]
