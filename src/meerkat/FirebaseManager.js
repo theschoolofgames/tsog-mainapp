@@ -34,29 +34,29 @@ var FirebaseManager = cc.Class.extend({
     authenticate: function(finishCallback) {
         debugLog("FirebaseManager.authenticate");
         var data = {};
-        var isLinked = false;
+        var isLinked = NativeHelper.callNative("isLoggedIn");
+        var isNewAccount = false;
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
-        if (authenticateUID != "") {
-            isLinked = NativeHelper.callNative("isLoggedIn");
+        if (authenticateUID != "" && isLinked) {
             data = this.getUserInfo();
         } else {
-            var uid = this.createChildAutoId("users");
+            if (!authenticateUID) {
+                isNewAccount = true;
+                authenticateUID = this.createChildAutoId("users");
+                KVDatabase.getInstance().set("authenticateUID", authenticateUID);
+            }
             data = {
                 "email": "",
                 "photoUrl": "",
-                "uid": uid,
+                "uid": authenticateUID,
                 "name": ""
             };
             data = JSON.stringify(data);
-
-            KVDatabase.getInstance().set("authenticateUID", uid);
         }
         User.setCurrentUser(data, function(found) {
             debugLog("setCurrentUser found: " + found);
             var user = User.getCurrentUser();
-            if (!found) {
-                user.create();
-            }
+            
             user.fetchDependencies(function() {
                 debugLog("Loadded current user's dependencies");
 
@@ -82,11 +82,66 @@ var FirebaseManager = cc.Class.extend({
                 }
             });
         });
+        if (isNewAccount)
+            User.getCurrentUser().create();
 
         FirebaseManager.getInstance().fetchConfig(0, function(succeed, data) {
             this._setRemoteConstantsValue(data);
         }.bind(this));
 
+    },
+
+    link: function(finishCallback) {
+        var linkedAccountInfo = getFireBaseAuthInfo();
+
+        var linkedId = linkedAccountInfo.uid;
+        var oldUser = User.getCurrentUser();
+
+        User.setCurrentUser(this.getUserInfo(), function(found) {
+            debugLog("setCurrentUser found: " + found);
+            var user = User.getCurrentUser();
+            if (!found) {
+                user.create();
+            } else {
+                user.setChildrenIds(oldUser.getChildrenIds);
+            }
+            user.fetchDependencies(function() {
+                debugLog("Loadded current user's dependencies");
+
+                debugLog("user: " + JSON.stringify(user));
+                if (user.getChildren().length == 0) {
+                    user.createChild();
+                }
+                user.selectChild(user.getChildrenIds()[0], function() {
+                    finishCallback(true);
+                });
+
+                var dynamicLink = user.getDynamicLink();
+                var postedData = {
+                    "longDynamicLink": cc.formatStr(DYNAMIC_LINK, inviteeId)
+                };
+                if (!dynamicLink) {
+                    RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                        if (succeed) {
+                            var data = JSON.parse(responseText);
+                            data && user.setDynamicLink(data["shortLink"]);
+                        } else {
+                            var longLink = cc.formatStr(DYNAMIC_LINK, inviteeId);
+                            user.setDynamicLink(longLink);
+                        }
+                    });
+                } else {
+                    if (dynamicLink.indexOf("?link=") > -1) {
+                        RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                            if (succeed) {
+                                var data = JSON.parse(responseText);
+                                data && user.setDynamicLink(data["shortLink"]);
+                            }
+                        });
+                    }
+                }
+            });
+        });
     },
 
     _setRemoteConstantsValue: function(data) {
@@ -159,7 +214,7 @@ var FirebaseManager = cc.Class.extend({
         delete this._cbs.login;
 
         if (succeed) {
-            this.authenticate(cb);
+            this.link(cb);
         } else {
             cb && cb(succeed, msg);
         }
