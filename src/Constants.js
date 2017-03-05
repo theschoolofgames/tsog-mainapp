@@ -5,7 +5,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
 
-var TSOG_DEBUG = true;
+var TSOG_DEBUG = false;
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
 var GAME_URL_IOS = "http://Coming Soon/";
 
@@ -942,7 +942,9 @@ var GAME_OBJECTS_PROGRESS = "game_objects_progress";
 
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
-var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://theschoolofgames.org?inverter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog&st=Free%20Download&sd=Pre-school%20app%20for%20children%20aged%202%20-%206%20to%20learn%20vocabulary%2C%20numbers%20and%20reading.&si=https://ucarecdn.com/a898b43b-1ff2-4c47-93eb-7ce583e031c2/share_post.png&utm_source=share_msg&at=share_msg"
+var DYNAMIC_LINK = "https://ymt8s.app.goo.gl/?link=http%3A%2F%2Fwww.theschoolofgames.org%2F%3Finviter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
+
+var LINK_SHORTEN_API = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyCEqe2Z3S45DfoYR9n-uEwdL-nCDfaQWvY";
 
 var FACEBOOK_SHARING_TITLE = "";
 
@@ -953,18 +955,18 @@ var TWITTER_SHARING_DESCRIPTION = "Love @schoolofgames_ , fun #preschool app. Do
 
 var SET_SMALL_ID = "com.theschoolofgames.tsog.set1";
 var SET_SMALL_PRICE = "$4.99";
-var SET_SMALL_COINS = "100";
-var SET_SMALL_DIAMONDS = "50";
+var SET_SMALL_COINS = "250";
+var SET_SMALL_DIAMONDS = "250";
 
 var SET_MEDIUM_ID = "com.theschoolofgames.tsog.set2";
-var SET_MEDIUM_PRICE = "$9.99";
-var SET_MEDIUM_COINS = "300";
-var SET_MEDIUM_DIAMONDS = "200";
+var SET_MEDIUM_PRICE = "$14.99";
+var SET_MEDIUM_COINS = "750";
+var SET_MEDIUM_DIAMONDS = "1000";
 
 var SET_BIG_ID = "com.theschoolofgames.tsog.set3";
-var SET_BIG_PRICE = "$14.99";
-var SET_BIG_COINS = "800";
-var SET_BIG_DIAMONDS = "500";
+var SET_BIG_PRICE = "$59.99";
+var SET_BIG_COINS = "5000";
+var SET_BIG_DIAMONDS = "6000";
 
 var TIME_FOR_ADULT_TOCH = 3;
 
@@ -978,7 +980,7 @@ var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
-var GAME_URL_IOS = "http://Coming Soon/";
+var GAME_URL_IOS = "https://itunes.apple.com/us/app/the-school-of-games/id1090937711?mt=8";
 var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
 var TWITTER_FAN_PAGE = "https://twitter.com/schoolofgames_";
 var WEB_URL = "http://www.theschoolofgames.org";
@@ -986,6 +988,5 @@ var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
 var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
 
 var SHARING_OPTIONS = {
-    "US": "facebook,twitter",
     "default": "facebook,whatsapp"
 }

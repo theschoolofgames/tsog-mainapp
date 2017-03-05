@@ -65,7 +65,7 @@ var ShareDialog = Dialog.extend({
 									        	[
 									        		FACEBOOK_SHARING_TITLE, 
 							                    	FACEBOOK_SHARING_DESCRIPTION,
-							                    	cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+							                    	User.getCurrentUser().getDynamicLink()
 							                    ]
 											);
 											AnalyticsManager.getInstance().logEventShare(this._context, "Facebook");
@@ -76,7 +76,7 @@ var ShareDialog = Dialog.extend({
 								        	NativeHelper.callNative("shareTwitter", 
 								        		[
 								        			TWITTER_SHARING_DESCRIPTION, 
-	                    							cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+	                    							User.getCurrentUser().getDynamicLink()
 	                    						]
 	                    					);
 	                    					AnalyticsManager.getInstance().logEventShare(this._context, "Twitter");
@@ -87,7 +87,7 @@ var ShareDialog = Dialog.extend({
 											NativeHelper.callNative("shareWhatsapp", 
 												[
 													WHATSAPP_SHARING_DESCRIPTION, 
-													cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+													User.getCurrentUser().getDynamicLink()
 												]
 											);
 											AnalyticsManager.getInstance().logEventShare(this._context, "Whatsapp");
@@ -99,7 +99,7 @@ var ShareDialog = Dialog.extend({
 									NativeHelper.callNative("shareNative", 
 										[
 											NATIVE_SHARING_DESCRIPTION, 
-											cc.formatStr(DYNAMIC_LINK, User.getCurrentUser().uid)
+											User.getCurrentUser().getDynamicLink()
 										]
 									);
 									AnalyticsManager.getInstance().logEventShare(this._context, "Native");

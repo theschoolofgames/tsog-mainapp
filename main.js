@@ -47,7 +47,7 @@
  *
  */
 
-var isFirstTime = false;
+var expectDynamicLink = false;
 
 cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
@@ -189,9 +189,9 @@ cc.game.onStart = function(){
         } else
             cc.director.runScene(new MissionPageBeforeLoginScene());
 
-        if (KVDatabase.getInstance().getString("first_time") !== "false") {
-            KVDatabase.getInstance().set("first_time", "false");
-            isFirstTime = true;
+        if (KVDatabase.getInstance().getString("game_first_session") !== "false") {
+            KVDatabase.getInstance().set("game_first_session", "false");
+            expectDynamicLink = true;
         }
 
         AnalyticsManager.getInstance().logEventAppOpen();

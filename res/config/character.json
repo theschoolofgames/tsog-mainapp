@@ -52,5 +52,23 @@
         "unlocked": false,
         "animationFrameCount": 5,
         "posY" : -300
+    },
+    {
+        "name": "bee",
+        "price": 10000,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
+    },
+    {
+        "name": "parrot",
+        "price": 10000,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
     }
 ]
