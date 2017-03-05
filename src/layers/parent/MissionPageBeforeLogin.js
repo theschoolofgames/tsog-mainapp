@@ -151,26 +151,18 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _payBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-        if (User.isLoggedIn())
+        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
             this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
-        else {
-            LoadingIndicator.show();
-            FirebaseManager.getInstance().login(function(succeed, msg) {
-                // debugLog("gonna remove loading indicator");
-                if (succeed) {
-                    LoadingIndicator.hide();
-                    this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
-                } else {
-                    LoadingIndicator.hide();
-                }
-            }.bind(this));
-        }
+        });
     },
 
     _playBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
     
-        cc.director.replaceScene(new WelcomeScene());
+        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
+            cc.director.replaceScene(new WelcomeScene());
+        });
+
     },
 
 });

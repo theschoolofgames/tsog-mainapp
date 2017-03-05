@@ -59,9 +59,15 @@ var HomeScreenLayer = cc.Layer.extend({
         var self = this;
         button.addClickEventListener(function() {
             AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-            FirebaseManager.getInstance().login(function(succeed, msg) {
-                debugLog("login succeed -> " + succeed);
-            });
+            if (!FirebaseManager.getInstance().isLoggedIn()) {
+                LoadingIndicator.show();
+                cc.director.pause();
+                FirebaseManager.getInstance().login(function(succeed, msg) {
+                    cc.director.resume();
+                    LoadingIndicator.hide();
+                    debugLog("login succeed -> " + succeed);
+                });
+            }
         });
         
         var text = localizeForWriting("Save Progress");

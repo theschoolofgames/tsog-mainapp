@@ -168,10 +168,7 @@ cc.game.onStart = function(){
         
         cc.audioEngine.setMusicVolume(1);
 
-        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
-            debugLog("authenticate result: authenticate -> " + authenticated + "\t isLinked -> " + isLinked);
-
-            // TEST
+        // TEST
             // cc.director.runScene(new WelcomeScene());
             // cc.director.runScene(new HomeScene());
             // cc.director.runScene(new TalkingAdiScene());
@@ -181,13 +178,16 @@ cc.game.onStart = function(){
             // cc.director.runScene(new RewardScene(200,300));
             // cc.director.runScene(new GrownUpMenuScene());
             // cc.director.runScene(new MissionPageAfterLoginScene());
-            // END TEST
+        // END TEST
 
-            if (authenticated)
+        var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
+        debugLog("authenticateUID " + authenticateUID);
+        if (authenticateUID) {
+            FirebaseManager.getInstance().authenticate(function(succeed, linked) {
                 cc.director.runScene(new WelcomeScene());
-            else
-                cc.director.runScene(new MissionPageBeforeLoginScene());
-        });
+            });    
+        } else
+            cc.director.runScene(new MissionPageBeforeLoginScene());
 
         if (KVDatabase.getInstance().getString("first_time") !== "false") {
             KVDatabase.getInstance().set("first_time", "false");

@@ -46,7 +46,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         
-        this._hudLayer.updateBalance();
+        // this._hudLayer.updateBalance();
     },
 
     _addHudLayer: function() {
@@ -261,7 +261,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     lbPrice.removeFromParent();
                     lb.setString(localize("Choose"));
                     self._character.adiJump();
-                    self._hudLayer.updateBalance();
+                    // self._hudLayer.updateBalance();
                     button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
                     AnalyticsManager.getInstance().logEventSpendVirtualCurrency(characterCfg.name,
                         "Diamond", characterCfg.price);
@@ -292,7 +292,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                     })
                 ));
             };
-            self._hudLayer.updateBalance();
+            // self._hudLayer.updateBalance();
         });
         var lb = new cc.LabelBMFont(lbButton, res.HomeFont_fnt);
         lb.scale = 0.7;

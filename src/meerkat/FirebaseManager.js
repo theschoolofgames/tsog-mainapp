@@ -25,9 +25,9 @@ var FirebaseManager = cc.Class.extend({
         NativeHelper.callNative("logout");
     },
 
-    getUserInfo: function() {
+    getFireBaseAuthInfo: function() {
         var data = NativeHelper.callNative("getUserInfo");
-        debugLog("getUserInfo: " + data);
+        debugLog("getFireBaseAuthInfo: " + data);
         return data;
     },
 
@@ -38,7 +38,7 @@ var FirebaseManager = cc.Class.extend({
         var isNewAccount = false;
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
         if (authenticateUID != "" && isLinked) {
-            data = this.getUserInfo();
+            data = this.getFireBaseAuthInfo();
         } else {
             if (!authenticateUID) {
                 isNewAccount = true;
@@ -53,6 +53,8 @@ var FirebaseManager = cc.Class.extend({
             };
             data = JSON.stringify(data);
         }
+
+        debugLog("authenticate data " + data);
         User.setCurrentUser(data, function(found) {
             debugLog("setCurrentUser found: " + found);
             var user = User.getCurrentUser();
@@ -92,21 +94,20 @@ var FirebaseManager = cc.Class.extend({
     },
 
     link: function(finishCallback) {
-        var linkedAccountInfo = getFireBaseAuthInfo();
-
+        var linkedAccountInfo = this.getFireBaseAuthInfo();
+        debugLog("linkedAccountInfo -> " + linkedAccountInfo);
         var linkedId = linkedAccountInfo.uid;
         var oldUser = User.getCurrentUser();
 
-        User.setCurrentUser(this.getUserInfo(), function(found) {
+        User.setCurrentUser(linkedAccountInfo, function(found) {
             debugLog("setCurrentUser found: " + found);
             var user = User.getCurrentUser();
             if (!found) {
                 user.create();
-            } else {
-                user.setChildrenIds(oldUser.getChildrenIds);
+                user.setChildrenIds(oldUser.getChildrenIds());
             }
             user.fetchDependencies(function() {
-                debugLog("Loadded current user's dependencies");
+                debugLog("Loaded current user's dependencies");
 
                 debugLog("user: " + JSON.stringify(user));
                 if (user.getChildren().length == 0) {
@@ -116,30 +117,30 @@ var FirebaseManager = cc.Class.extend({
                     finishCallback(true);
                 });
 
-                var dynamicLink = user.getDynamicLink();
-                var postedData = {
-                    "longDynamicLink": cc.formatStr(DYNAMIC_LINK, inviteeId)
-                };
-                if (!dynamicLink) {
-                    RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
-                        if (succeed) {
-                            var data = JSON.parse(responseText);
-                            data && user.setDynamicLink(data["shortLink"]);
-                        } else {
-                            var longLink = cc.formatStr(DYNAMIC_LINK, inviteeId);
-                            user.setDynamicLink(longLink);
-                        }
-                    });
-                } else {
-                    if (dynamicLink.indexOf("?link=") > -1) {
-                        RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
-                            if (succeed) {
-                                var data = JSON.parse(responseText);
-                                data && user.setDynamicLink(data["shortLink"]);
-                            }
-                        });
-                    }
-                }
+                // var dynamicLink = user.getDynamicLink();
+                // var postedData = {
+                //     "longDynamicLink": cc.formatStr(DYNAMIC_LINK, inviteeId)
+                // };
+                // if (!dynamicLink) {
+                //     RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                //         if (succeed) {
+                //             var data = JSON.parse(responseText);
+                //             data && user.setDynamicLink(data["shortLink"]);
+                //         } else {
+                //             var longLink = cc.formatStr(DYNAMIC_LINK, inviteeId);
+                //             user.setDynamicLink(longLink);
+                //         }
+                //     });
+                // } else {
+                //     if (dynamicLink.indexOf("?link=") > -1) {
+                //         RequestHelper.post(LINK_SHORTEN_API, JSON.stringify(postedData), function(succeed, responseText) {
+                //             if (succeed) {
+                //                 var data = JSON.parse(responseText);
+                //                 data && user.setDynamicLink(data["shortLink"]);
+                //             }
+                //         });
+                //     }
+                // }
             });
         });
     },

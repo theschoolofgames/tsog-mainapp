@@ -87,12 +87,12 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         bgDiamond.addChild(this._lbDiamond);
 
         this._bgGold = bgGold;
-        this._bgDiamond = bgDiamond
+        this._bgDiamond = bgDiamond;
     },
 
-    updateBalance: function() {
-        var coin = CurrencyManager.getInstance().getCoin();
-        var diamond = CurrencyManager.getInstance().getDiamond();
+    updatex: function() {
+        var coin = CurrencyManager.getInstance().getCoin().toString();
+        var diamond = CurrencyManager.getInstance().getDiamond().toString();
         this._lbCoin.setString(coin);
         this._lbDiamond.setString(diamond);
     },
