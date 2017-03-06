@@ -153,7 +153,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
             this.addChild(new GrownUpCheckDialog(this._grownUpCheckCallback), this._grownupCheckDialogZOrder);
-        });
+        }.bind(this));
     },
 
     _playBtnPressed: function() {
