@@ -26,7 +26,6 @@ var HomeScreenLayer = cc.Layer.extend({
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
-        this.addSaveProgressButton();
     },
 
     addProgressTrackerButton: function(){
@@ -44,33 +43,6 @@ var HomeScreenLayer = cc.Layer.extend({
         });
         
         var text = localizeForWriting("Parents");
-        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
-        lb.scale = (button.width * 0.8) / lb.width;
-        lb.x = button.width/2;
-        lb.y = button.height/2 + 3;
-        button.addChild(lb);
-    },
-
-    addSaveProgressButton: function(){
-        var button = new ccui.Button("res/SD/grownup/button-grown-up.png", "res/SD/grownup/button-grown-up-pressed.png", "");
-        button.x = button.width/2 + 10;
-        button.y = cc.winSize.height - button.height + 10;
-        this.addChild(button);
-        var self = this;
-        button.addClickEventListener(function() {
-            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
-            if (!FirebaseManager.getInstance().isLoggedIn()) {
-                LoadingIndicator.show();
-                cc.director.pause();
-                FirebaseManager.getInstance().login(function(succeed, msg) {
-                    cc.director.resume();
-                    LoadingIndicator.hide();
-                    debugLog("login succeed -> " + succeed);
-                });
-            }
-        });
-        
-        var text = localizeForWriting("Save Progress");
         var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;

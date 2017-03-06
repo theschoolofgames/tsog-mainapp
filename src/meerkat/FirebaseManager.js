@@ -141,7 +141,7 @@ var FirebaseManager = cc.Class.extend({
                 user.selectChild(user.getChildrenIds()[0], function() {
                     finishCallback(true);
                 });
-
+                var inviteeId = linkedAccountInfo.uid;
                 var dynamicLink = user.getDynamicLink();
                 var postedData = {
                     "longDynamicLink": cc.formatStr(DYNAMIC_LINK, inviteeId)
