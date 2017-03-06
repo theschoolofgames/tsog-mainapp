@@ -1,0 +1,153 @@
+
+character.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bong
+  rotate: false
+  xy: 146, 53
+  size: 206, 39
+  orig: 206, 39
+  offset: 0, 0
+  index: -1
+chan phai
+  rotate: true
+  xy: 444, 8
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+chan trai
+  rotate: true
+  xy: 276, 117
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+dau
+  rotate: true
+  xy: 2, 94
+  size: 160, 144
+  orig: 160, 144
+  offset: 0, 0
+  index: -1
+duoi
+  rotate: true
+  xy: 2, 2
+  size: 90, 142
+  orig: 90, 142
+  offset: 0, 0
+  index: -1
+long may phai
+  rotate: true
+  xy: 496, 17
+  size: 20, 12
+  orig: 20, 12
+  offset: 0, 0
+  index: -1
+long may trai
+  rotate: true
+  xy: 496, 39
+  size: 20, 13
+  orig: 20, 13
+  offset: 0, 0
+  index: -1
+ma hong
+  rotate: false
+  xy: 322, 40
+  size: 120, 11
+  orig: 120, 11
+  offset: 0, 0
+  index: -1
+mat ph
+  rotate: true
+  xy: 322, 5
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+mat trai
+  rotate: true
+  xy: 362, 5
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: false
+  xy: 240, 14
+  size: 80, 37
+  orig: 80, 37
+  offset: 0, 0
+  index: -1
+mui
+  rotate: true
+  xy: 402, 3
+  size: 35, 17
+  orig: 35, 17
+  offset: 0, 0
+  index: -1
+nhay mat
+  rotate: false
+  xy: 146, 13
+  size: 92, 38
+  orig: 92, 38
+  offset: 0, 0
+  index: -1
+tai phai
+  rotate: true
+  xy: 354, 161
+  size: 93, 84
+  orig: 93, 84
+  offset: 0, 0
+  index: -1
+tai trai
+  rotate: true
+  xy: 354, 66
+  size: 93, 84
+  orig: 93, 84
+  offset: 0, 0
+  index: -1
+tay phai
+  rotate: false
+  xy: 444, 158
+  size: 61, 96
+  orig: 61, 96
+  offset: 0, 0
+  index: -1
+tay trai
+  rotate: false
+  xy: 276, 170
+  size: 74, 84
+  orig: 74, 84
+  offset: 0, 0
+  index: -1
+tay trai 2
+  rotate: false
+  xy: 444, 61
+  size: 60, 95
+  orig: 60, 95
+  offset: 0, 0
+  index: -1
+than
+  rotate: false
+  xy: 148, 111
+  size: 126, 143
+  orig: 126, 143
+  offset: 0, 0
+  index: -1
+trong mat phai
+  rotate: false
+  xy: 421, 12
+  size: 21, 26
+  orig: 21, 26
+  offset: 0, 0
+  index: -1
+trong mat trai
+  rotate: true
+  xy: 276, 94
+  size: 21, 26
+  orig: 21, 26
+  offset: 0, 0
+  index: -1

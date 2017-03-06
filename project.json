@@ -39,6 +39,7 @@
         "src/firebase/GameObjectsProgress.js",
         "src/firebase/Child.js",
         "src/firebase/LevelProgress.js",
+        "src/firebase/CharactersProgress.js",
         
         "src/model/GameObject.js",
 

@@ -52,6 +52,9 @@ ShopScreenLayer = cc.LayerColor.extend({
     _addHudLayer: function() {
         this._hudLayer = new ShopHUDLayer(this);
         this.addChild(this._hudLayer);
+        this._hudLayer.setBackBtnCallback(function(){
+            cc.director.replaceScene(new TalkingAdiScene());
+        })
     },
 
     onTouchBegan: function(touch, event) {
@@ -347,7 +350,7 @@ ShopScreenLayer = cc.LayerColor.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; }
         }, mask);
-        cc.log("_pressArrow");
+        // cc.log("_pressArrow");
         this._character.runAction(cc.sequence(
             // cc.spawn(
                 cc.fadeOut(0.5),
@@ -384,6 +387,11 @@ ShopScreenLayer = cc.LayerColor.extend({
                 return;
             self._index ++;
             self._pressArrow();
+            var characterName = self._characterList[self._index].name;
+            if (!KVDatabase.getInstance().getInt("seen_" + characterName)) {
+                KVDatabase.getInstance().set("seen_" + characterName, 1);
+                AnalyticsManager.getInstance().logCustomEvent("EVENT_CHECK_NEW_ANIMAL");
+            } 
         });
         // Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
     },

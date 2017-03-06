@@ -393,4 +393,10 @@ public class FirebaseWrapper {
         Bundle bundle = new Bundle();
         FirebaseAnalytics.getInstance(activity).logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
     }
+
+    public static void logCustomEvent(String eventName) {
+        Bundle bundle = new Bundle();
+        bundle.putString("event_name", eventName);
+        FirebaseAnalytics.getInstance(activity).logEvent("custom_event", bundle);
+    }
 }

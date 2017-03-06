@@ -1,10 +1,5 @@
 var CharacterManager = cc.Class.extend({
-
-    KEY_UNLOCKED_CHARACTER_NAMES: "CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES",
-    KEY_SELECTED_CHARACTER_IDX: "CharacterManager:KEY_SELECTED_CHARACTER_IDX",
-
     _characterCfg: null,
-    _unlockedCharacterNames: [],
 
     ctor: function () {
         cc.assert(CharacterManager._instance == null, "can be instantiated once only");
@@ -12,9 +7,6 @@ var CharacterManager = cc.Class.extend({
         let self = this;
         cc.loader.loadJson("config/character.json", function(err, data) {
             self._characterCfg = data;
-
-            let unlockedCharNamesString = KVDatabase.getInstance().getString(self.KEY_UNLOCKED_CHARACTER_NAMES);
-            self._unlockedCharacterNames = unlockedCharNamesString ? JSON.parse(unlockedCharNamesString) : self._characterCfg.filter(cfg => cfg.unlocked).map(cfg => cfg.name);
         });
     },
 
@@ -42,43 +34,44 @@ var CharacterManager = cc.Class.extend({
     },
 
     hasUnlocked: function(characterName) {
-        cc.log("unlockCharacter: " + JSON.stringify(this._unlockedCharacterNames));
-        return this._unlockedCharacterNames.indexOf(characterName) >= 0;
+        return User.getCurrentChild().getCharactersProgress().isCharacterUnlocked(characterName);
     },
 
     unlockCharacter: function(characterName) {
-        if (this.hasUnlocked(characterName))
+        if (this.hasUnlocked(characterName)) {
             return false;
+        }
 
-        let cfg = this.getCharacterConfig(characterName);
+        var cfg = this.getCharacterConfig(characterName);
 
         if (cfg) {
-            if (cfg.price > CurrencyManager.getInstance().getDiamond())
+            if (cfg.price > CurrencyManager.getInstance().getDiamond()) {
                 return false;
+            }
 
             CurrencyManager.getInstance().decrDiamond(cfg.price);
-            this._unlockedCharacterNames.push(cfg.name);
-            KVDatabase.getInstance().set(this.KEY_UNLOCKED_CHARACTER_NAMES, JSON.stringify(this._unlockedCharacterNames));
-            // this.selectCharacter(characterName);
-
-            return true;
+            User.getCurrentChild().getCharactersProgress().unlockCharacter(characterName);
+            return true
         }
 
         return false;
     },
 
     selectCharacter: function(name) {
-        let idx = this._unlockedCharacterNames.indexOf(name);
-        if (idx < 0)
+        if (!User.getCurrentChild().getCharactersProgress().getUnlockedCharacters()[name]) {
             return false;
-
-        KVDatabase.getInstance().set(this.KEY_SELECTED_CHARACTER_IDX, idx);
-        return true;
+        }
+        User.getCurrentChild().setSelectedCharacter(name);
+        return true
     },
 
     getSelectedCharacter: function() {
-        let idx = KVDatabase.getInstance().getInt(this.KEY_SELECTED_CHARACTER_IDX, 0);
-        return this._unlockedCharacterNames[idx];
+        var user = User.getCurrentUser();
+        if (user) {
+            return user.getCurrentChild().getSelectedCharacter();
+        } else {
+            return null
+        }
     }
 });
 

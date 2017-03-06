@@ -5,9 +5,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
 
-var TSOG_DEBUG = false;
-var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
-var GAME_URL_IOS = "http://Coming Soon/";
+var TSOG_DEBUG = true;
 
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;
@@ -942,9 +940,9 @@ var GAME_OBJECTS_PROGRESS = "game_objects_progress";
 
 var OBJECT_TOTAL_COMPLETED_COUNT = 3;
 
-var DYNAMIC_LINK = "https://ymt8s.app.goo.gl/?link=http%3A%2F%2Fwww.theschoolofgames.org%2F%3Finviter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog"
+var DYNAMIC_LINK = "https://ua23d.app.goo.gl/?link=http://theschoolofgames.org?inviter_id%3D%s&apn=com.theschoolofgames.tsog&isi=1090937711&ibi=com.theschoolofgames.tsog&st=Free%20Download&sd=Pre-school%20app%20for%20children%20aged%202%20-%206%20to%20learn%20vocabulary%2C%20numbers%20and%20reading.&si=https://ucarecdn.com/a898b43b-1ff2-4c47-93eb-7ce583e031c2/share_post.png&utm_source=share_msg&at=share_msg"
 
-var LINK_SHORTEN_API = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyCEqe2Z3S45DfoYR9n-uEwdL-nCDfaQWvY";
+var LINK_SHORTEN_API = "https://firebasedynamiclinks.googleapis.com/v1/shortLinks?key=AIzaSyBIxcQiwDT5YlP8u0V9d2_YfAoVCHA5ygY";
 
 var FACEBOOK_SHARING_TITLE = "";
 
@@ -972,11 +970,11 @@ var TIME_FOR_ADULT_TOCH = 3;
 
 var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;
 var TEXT_AT_GROWNUP_1 = "The School of Games is product of Equally Pbc. Equally is a public "
-                        + "benefit corporation. School of Games wants to provide" 
+                        + "benefit corporation. School of Games wants to provide " 
                         + "equal education to every child.";
-var TEXT_AT_GROWNUP_2 = "For support suggestion contact at";
+var TEXT_AT_GROWNUP_2 = "For support or suggestions contact at";
 var TEXT_AT_GROWNUP_3 = "info@theschoolofgames.org";
-var TEXT_AT_GROWNUP_4 = "See your privacy policy & terms & conditions";
+var TEXT_AT_GROWNUP_4 = "See our privacy policy and terms & Conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";

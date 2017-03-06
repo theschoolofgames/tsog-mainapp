@@ -37,7 +37,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.4.13</string>
+	<string>1.4.16</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -68,7 +68,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>17.02.28.00</string>
+	<string>17.03.02.00</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -86,7 +86,9 @@
 	<key>FacebookAppID</key>
 	<string>1432641826786710</string>
 	<key>FacebookDisplayName</key>
-	<string>TSOG</string>
+	<string>School of Games</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi20150629</string>
@@ -134,7 +136,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>TSOG doesn't use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>TSOG would like to recogize children speaking words</string>
+	<string>To play with Adi, we need Audio Permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>TSOG doesn't use this feature</string>
 	<key>UIPrerenderedIcon</key>

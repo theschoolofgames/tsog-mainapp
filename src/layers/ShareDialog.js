@@ -61,6 +61,7 @@ var ShareDialog = Dialog.extend({
 			if (options[i] == "facebook") {
 				this.createShareButton(res.Button_facebook_normal_png, res.Button_facebook_pressed_png,
 										i + 1, function() {
+											debugLog("link to share = " + User.getCurrentUser().getDynamicLink());
 									        NativeHelper.callNative("shareFacebook", 
 									        	[
 									        		FACEBOOK_SHARING_TITLE, 

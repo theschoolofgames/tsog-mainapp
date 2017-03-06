@@ -85,6 +85,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         shopBtn.y = shopBtn.height/2 * shopBtn.scale + 30;
         this.addChild(shopBtn, 2);
         shopBtn.addClickEventListener(function(){
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_PETS_BASKET_CLICK);
             cc.director.runScene(new ShopScene());
         });
         shopBtn.opacity = 0;

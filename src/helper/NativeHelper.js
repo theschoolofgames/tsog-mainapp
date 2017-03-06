@@ -539,6 +539,18 @@ var NativeHelperConfig = {
         ]
     },
 
+    logCustomEvent: {
+        iOS: [
+            "FirebaseWrapper",
+            "logCustomEventWithName:"
+        ],
+        Android: [
+            "com/h102/FirebaseWrapper",
+            "logCustomEvent",
+            "(Ljava/lang/String;)V"
+        ]
+    },
+
     getCountryCode: {
         iOS: [
             "H102Wrapper",

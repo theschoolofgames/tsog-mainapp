@@ -81,7 +81,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var text = new cc.LabelBMFont("MENU", res.Grown_Up_fnt);
         text.anchorY = 0;
         text.scale = 0.7;
-        text.x = 250;
+        text.x = cc.winSize.width/2 - 265;
         text.y = cc.winSize.height/5 * 4 + 30;
         this.addChild(text);
     },
@@ -90,11 +90,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         var touchedPos = touch.getLocation();
         for(var i = 0; i < this._lbArray.length; i++) {
             var node = this._lbArray[i];
-            var isRectContainsPoint = cc.rectContainsPoint(node.getBoundingBox(), touchedPos);
+            boudingBox = node.getBoundingBox();
+            if(node.name == "web")
+                boudingBox = cc.rect(boudingBox.x - 5, boudingBox.y - 5, boudingBox.width + 10, boudingBox.height + 10);
+            var isRectContainsPoint = cc.rectContainsPoint(boudingBox, touchedPos);
             if(isRectContainsPoint && this._aboutUsLayer.visible == true) {
                 this._startTouchPosition = touchedPos;
                 this._isTouching = true;
-                cc.log("TOUCHING TEXT: " + node.name);
                 this._handleTouchAction(node.name);
             };
         }
@@ -225,6 +227,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         progressTrackerBtn.y = cc.winSize.height/2 + progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         progressTrackerBtn.addClickEventListener(this._btnPressed.bind(this));
         var progressTrackerBtnNormal = progressTrackerBtn.getRendererNormal();
+
         var iconProgressTracker = new cc.Sprite("#icon-progress-tracker.png");
         iconProgressTracker.anchorX = 1;
         iconProgressTracker.x = progressTrackerBtnNormal.width - 10;
@@ -241,6 +244,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         iconProgressTrackerPressed.y = progressTrackerBtnClick.height/2;
         iconProgressTrackerPressed.tag = 0;
         iconProgressTrackerPressed.name = "icon-progress-tracker";
+
         progressTrackerBtnClick.addChild(iconProgressTrackerPressed);
         // progressTrackerBtn.addTouchEventListener(this.touchEvent, this);
 
@@ -252,6 +256,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         shareBtn.y = cc.winSize.height/2 + progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         shareBtn.addClickEventListener(this._btnPressed.bind(this));
         var shareBtnNormal = shareBtn.getRendererNormal();
+
         var iconFaceChild = new cc.Sprite("#childrenface.png");
         iconFaceChild.anchorX = 1;
         iconFaceChild.tag = 0;
@@ -266,6 +271,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         iconFaceChildPressed.anchorX = 1;
         iconFaceChildPressed.tag = 0;
         iconFaceChildPressed.name = "childrenface";
+
         iconFaceChildPressed.x = shareBtnClick.width - 10;
         iconFaceChildPressed.y = shareBtnClick.height/2;
         shareBtnClick.addChild(iconFaceChildPressed);
@@ -279,7 +285,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         payBtn.addClickEventListener(this._btnPressed.bind(this));
         payBtn.setContentSize(cc.size(cc.winSize.width, payBtn.height));
         payBtnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
-                                                38, 
+                                                30, 
                                                 cc.color("#b15a10"), 
                                                 3,
                                                 localizeForWriting("Pay what's in your"));
@@ -415,7 +421,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         textHolder.y = buttonBg.getBoundingBox().y - 20;
         this._aboutUsLayer.addChild(textHolder);
         var lb4 = new cc.LabelBMFont(localizeForWriting(TEXT_AT_GROWNUP_4), "res/font/grownupcheckfont-export.fnt");
-        lb4.setBoundingWidth(cc.winSize.width/2);
+        lb4.setBoundingWidth(cc.winSize.width/2 + 150);
         lb4.scale = 0.3;
         lb4.x = textHolder.width/2;
         lb4.y = textHolder.height/2;
@@ -504,6 +510,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         switch(btnName) {
             case "Share":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_SHARE_START);
                 var tabName = this._aboutUsLayer.visible ? "About_page" : "Features_page";
                 var layer = new ShareDialog(tabName);
                 this.addChild(layer, 999999);
@@ -515,10 +522,12 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 cc.sys.openURL(TWITTER_FAN_PAGE)
                 break;
             case "ProgressTracker":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PROGRESS_CHECK);
                 var layer = new ProgressTrackerLayer();
                 this.addChild(layer, 999999);
                 break;
             case "Pay":
+                AnalyticsManager.getInstance().logCustomEvent(EVENT_PAY_PAGE_2);
                 AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
                 SceneFlowController.getInstance().setSceneGoAfterRewardScene("growupmenu");
                 cc.director.replaceScene(new PayScene(function() {

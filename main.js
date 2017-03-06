@@ -186,8 +186,10 @@ cc.game.onStart = function(){
             FirebaseManager.getInstance().authenticate(function(succeed, linked) {
                 cc.director.runScene(new WelcomeScene());
             });    
-        } else
+        } else {
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
             cc.director.runScene(new MissionPageBeforeLoginScene());
+        }
 
         if (KVDatabase.getInstance().getString("game_first_session") !== "false") {
             KVDatabase.getInstance().set("game_first_session", "false");

@@ -90,7 +90,7 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	_addDescription: function() {
-        var description = new cc.LabelBMFont(localizeForWriting("When you \"pay what's in your   \"\n" 
+        var description = new cc.LabelBMFont(localizeForWriting("When you pay what's in your   \n" 
                                                         + "we educate a child in need"), res.HudFont_fnt);
         description.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
         description.scale = 0.8;
@@ -98,7 +98,7 @@ var PayLayer = cc.Layer.extend({
         description.y = this._bottomPageH - description.height * 1.25;
         this.addChild(description);
         var iconHeart = new cc.Sprite("#icon_heart.png");
-        iconHeart.x = description.width - 45;
+        iconHeart.x = description.width - 20;
         iconHeart.y = description.height - 10;
         description.addChild(iconHeart);
 	},
@@ -108,6 +108,7 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
 								res.Icon_gold_small_png, SET_SMALL_PRICE,
 								"Small Impact", function() {
+                                    Utils.addLoadingIndicatorLayer(true);
 									this._purchasedSet = "set1";
 									this.itemCallback();
 								}.bind(this));
@@ -115,14 +116,16 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
 								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
 								"Medium Impact", function() {
-									this._purchasedSet = "set2";
+                                    Utils.addLoadingIndicatorLayer(true);
+                                    this._purchasedSet = "set2";
 									this.itemCallback();
 								}.bind(this));
 
 		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 2.2, 
 								res.Icon_gold_big_png, SET_BIG_PRICE,
 								"Big Impact", function() {
-									this._purchasedSet = "set3";
+                                    Utils.addLoadingIndicatorLayer(true);
+                                    this._purchasedSet = "set3";
 									this.itemCallback();
 								}.bind(this));
 	},
@@ -239,27 +242,28 @@ var PayLayer = cc.Layer.extend({
 	},
 
 	itemCallback: function() {
-		AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-		IAPManager.getInstance().purchase(this._purchasedSet, function(succeed) {
-			if (succeed) {
-				var currentCoin = parseInt(User.getCurrentChild().getCoin());
-				var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
-				var coins = 0, diamonds = 0
-				if (this._purchasedSet == "set1") {
-					coins = SET_SMALL_COINS;
-					diamonds = SET_SMALL_DIAMONDS;
-				} else if (this._purchasedSet == "set2") {
-					coins = SET_MEDIUM_COINS;
-					diamonds = SET_MEDIUM_DIAMONDS;
-				} else if (this._purchasedSet == "set3") {
-					coins = SET_BIG_COINS;
-					diamonds = SET_BIG_DIAMONDS;
-				}
-				User.getCurrentChild().setCoin(currentCoin + parseInt(coins));
-				User.getCurrentChild().setDiamond(currentDiamond + parseInt(diamonds));
-				// this._succeedDialog();
-				cc.director.replaceScene(new RewardScene(coins, diamonds));
-			}
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+        IAPManager.getInstance().purchase(this._purchasedSet, function(succeed) {
+            if (succeed) {
+                var currentCoin = parseInt(User.getCurrentChild().getCoin());
+                var currentDiamond = parseInt(User.getCurrentChild().getDiamond());
+                var coins = 0, diamonds = 0
+                if (this._purchasedSet == "set1") {
+                    coins = SET_SMALL_COINS;
+                    diamonds = SET_SMALL_DIAMONDS;
+                } else if (this._purchasedSet == "set2") {
+                    coins = SET_MEDIUM_COINS;
+                    diamonds = SET_MEDIUM_DIAMONDS;
+                } else if (this._purchasedSet == "set3") {
+                    coins = SET_BIG_COINS;
+                    diamonds = SET_BIG_DIAMONDS;
+                }
+                User.getCurrentChild().setCoin(currentCoin + parseInt(coins));
+                User.getCurrentChild().setDiamond(currentDiamond + parseInt(diamonds));
+                // this._succeedDialog();
+                cc.director.replaceScene(new RewardScene(coins, diamonds));
+            };
+            Utils.removeLoadingIndicatorLayer();
 		}.bind(this));
 	}
 
