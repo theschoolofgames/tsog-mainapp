@@ -19,7 +19,7 @@
     },
     {
         "name": "lion",
-        "price": 5000,
+        "price": 4000,
         "path": "lion",
         "heathy": 5,
         "unlocked": false,
@@ -28,7 +28,7 @@
     },
     {
         "name": "penguin",
-        "price": 10000,
+        "price": 6000,
         "path": "penguin",
         "heathy": 5,
         "unlocked": false,
@@ -55,7 +55,7 @@
     },
     {
         "name": "bee",
-        "price": 10000,
+        "price": 6000,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,
@@ -64,7 +64,7 @@
     },
     {
         "name": "parrot",
-        "price": 10000,
+        "price": 6000,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,
@@ -73,7 +73,7 @@
     },
     {
         "name": "frog",
-        "price": 10000,
+        "price": 6000,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,
@@ -82,7 +82,7 @@
     },
     {
         "name": "mouse",
-        "price": 10000,
+        "price": 6000,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,
@@ -91,7 +91,7 @@
     },
     {
         "name": "owl",
-        "price": 10000,
+        "price": 6000,
         "path": "hen",
         "heathy": 5,
         "unlocked": false,
