@@ -97,17 +97,7 @@
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="122" name="standing" x="16264" y="1137.64">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
-  <object id="123" name="standing" x="16328" y="1137.64">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
-  <object id="126" name="standing" x="16321.9" y="1149.76">
+  <object id="126" name="standing" x="16321.9" y="1150.76">
    <properties>
     <property name="type" value="standing"/>
    </properties>

@@ -79,27 +79,12 @@
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="108" name="standing" x="10877" y="942.547">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
   <object id="88" name="standing" x="11005" y="942.941">
    <properties>
     <property name="type" value="standing"/>
    </properties>
   </object>
-  <object id="89" name="standing" x="10944" y="942.547">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
   <object id="108" name="standing" x="11962" y="1133.58">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
-  <object id="109" name="standing" x="12038.1" y="1136.67">
    <properties>
     <property name="type" value="standing"/>
    </properties>
@@ -110,11 +95,6 @@
    </properties>
   </object>
   <object id="111" name="standing" x="14134.9" y="1132.49">
-   <properties>
-    <property name="type" value="standing"/>
-   </properties>
-  </object>
-  <object id="112" name="standing" x="14205" y="1133.58">
    <properties>
     <property name="type" value="standing"/>
    </properties>
