@@ -13,14 +13,24 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     _childrenOffSetY: 0,
 
+    _childrenImg: null,
+
     ctor: function() {
         this._super();
+
+        this._childrenOffSetY = 50;
 
         this._addBackground();
         this._addMissionContent();
         this._addButtons();
-
+        this._addPrivacyPolicyText();
         // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this)
+        }, this);
     },
 
     _addBackground: function() {
@@ -34,13 +44,14 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         children.x = cc.winSize.width/2;
         children.y = cc.winSize.height/2 + this._childrenOffSetY;
         this.addChild(children, this._childrenZOrder);
+        this._childrenImg = children;
     },
 
     _addButtons: function() {
         var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
         b.x = cc.winSize.width/2 - b.width/2 - 30;
-        b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
+        b.y = b.height - this._buttonOffSetY;
         b.scaleX = 1.2;
         this.addChild(b);
 
@@ -50,7 +61,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         lb.scale = 0.4;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = cc.winSize.width/2 - b.width/2 - 50;
-        lb.y = b.height - this._buttonOffSetY + this._childrenOffSetY + 10;
+        lb.y = b.height - this._buttonOffSetY + 10;
         this.addChild(lb);
 
         var iconHeart = new cc.Sprite("#icon_heart.png");
@@ -70,7 +81,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         b.addChild(lb);
         
         b.x = cc.winSize.width/2 + b.width/2 + 30;
-        b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
+        b.y = b.height - this._buttonOffSetY;
         this.addChild(b);
 
         b.addClickEventListener(this._playBtnPressed.bind(this));
@@ -174,6 +185,54 @@ var MissionPageBeforeLogin = cc.Layer.extend({
 
     },
 
+    _addPrivacyPolicyText: function() {
+        var str = "By continuing you are accepting our privacy policy";
+        var link = "http://www.theschoolofgames.org/privacy-policy/";
+        var config = {
+            "color": "#ffffff",
+            "shadowColor": [167, 90, 0, 127],
+            "shadowSize": 1,
+            "shadowRadius": 6,
+            "fontSize": 26,
+            "outlineSize": 1,
+            "boundingWidthRatio": 1,
+            "boundingHeightRatio": 0.3
+        };
+
+        var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                config.fontSize, 
+                                                cc.color(config.color), 
+                                                config.outlineSize,
+                                                localizeForWriting(str));
+        text.enableShadow(cc.color(config.shadowColor[0], 
+                                config.shadowColor[1],
+                                config.shadowColor[2],
+                                config.shadowColor[3]
+                            ),
+                            cc.size(0, -config.shadowSize)
+        );
+        text.x = cc.winSize.width/2;
+        text.y = cc.rectGetMinY(this._childrenImg.getBoundingBox()) - text.height/2;
+        text.enableUnderline();
+        text.setUserData(link);
+
+        this.addChild(text);
+
+        this._privacyPolicyText = text;
+    },
+
+    onTouchBegan: function(touch, event) {
+        var touchLoc = touch.getLocation();
+        var self = event.getCurrentTarget();
+
+        var privacyPolicyTextBBox = self._privacyPolicyText.getBoundingBox();
+
+        if (cc.rectContainsPoint(privacyPolicyTextBBox, touchLoc)) {
+            cc.sys.openURL(self._privacyPolicyText.getUserData().toString());
+        }
+
+        return true;
+    },
 });
 
 var MissionPageBeforeLoginScene = cc.Scene.extend({
