@@ -129,6 +129,8 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
         lb.y = b.height/2 + this._contentTextOffSetY;
         b.addChild(lb);
     },
+
+    _addPrivacyPolicyText: function() {},
 });
 
 var MissionPageAfterLoginScene = cc.Scene.extend({

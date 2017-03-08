@@ -186,15 +186,15 @@ var MissionPageBeforeLogin = cc.Layer.extend({
     },
 
     _addPrivacyPolicyText: function() {
-        var str = "By continuing you are accepting our privacy policy";
+        var str = "By continuing you are accepting our privacy policy"; 
         var link = "http://www.theschoolofgames.org/privacy-policy/";
         var config = {
-            "color": "#ffffff",
+            "color": "#5ce9fd",
             "shadowColor": [167, 90, 0, 127],
-            "shadowSize": 1,
+            "shadowSize": 0,
             "shadowRadius": 6,
-            "fontSize": 26,
-            "outlineSize": 1,
+            "fontSize": 18,
+            "outlineSize": 0,
             "boundingWidthRatio": 1,
             "boundingHeightRatio": 0.3
         };
@@ -213,12 +213,20 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         );
         text.x = cc.winSize.width/2;
         text.y = cc.rectGetMinY(this._childrenImg.getBoundingBox()) - text.height/2;
-        text.enableUnderline();
+
         text.setUserData(link);
 
         this.addChild(text);
 
         this._privacyPolicyText = text;
+
+        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"____________");
+        underline.setColor(cc.color("#ffc73a"));
+        underline.anchorX = 1;
+        underline.x = text.width;
+        underline.y = text.height/2;
+
+        text.addChild(underline);
     },
 
     onTouchBegan: function(touch, event) {
@@ -226,6 +234,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         var self = event.getCurrentTarget();
 
         var privacyPolicyTextBBox = self._privacyPolicyText.getBoundingBox();
+        privacyPolicyTextBBox = cc.rect(privacyPolicyTextBBox.x, privacyPolicyTextBBox.y, privacyPolicyTextBBox.width, privacyPolicyTextBBox.height*1.5);
 
         if (cc.rectContainsPoint(privacyPolicyTextBBox, touchLoc)) {
             cc.sys.openURL(self._privacyPolicyText.getUserData().toString());
