@@ -67,4 +67,5 @@ var ARAlphabetWorker = cc.Class.extend({
         }
     },
 
+    end: function() {},
 })

@@ -152,8 +152,9 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
         var text = this._distance.toString();
         this._lbDistance = new cc.LabelBMFont(text, res.MapFont_fnt);
+        this._lbDistance.scale = 1.2;
         this._lbDistance.x = whitespace.width/2 + 10;
-        this._lbDistance.y = whitespace.height/2 + 25;
+        this._lbDistance.y = whitespace.height/2 + 25 * this._lbDistance.scale;
         whitespace.addChild(this._lbDistance);
     },
 

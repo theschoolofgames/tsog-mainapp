@@ -8,6 +8,9 @@ var HomeScreenLayer = cc.Layer.extend({
     _scale: null,
 
     _playBeginHomeCutScene: false,
+
+    lbHighScore: null,
+
     ctor: function (playBeginHomeCutScene) {
         AnalyticsManager.getInstance().logCustomEvent(EVENT_HOME_LOAD);
         currentLanguage = KVDatabase.getInstance().getString("currentLanguage", "en");
@@ -145,17 +148,20 @@ var HomeScreenLayer = cc.Layer.extend({
         lbPlay.y = board.height/2 + 15;
         board.addChild(lbPlay);
 
-        // var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString() + " m", res.CustomFont_fnt);
-        // lbHighScore.scale = 0.5;
-        // lbHighScore.x = lbPlay.x;
-        // lbHighScore.y = lbPlay.y - 37;
-        // board.addChild(lbHighScore);
+        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString(), res.HomeFont_fnt);
+        lbHighScore.scale = 0.7;
+        lbHighScore.x = board.x;
+        lbHighScore.y = cc.rectGetMinY(board.getBoundingBox()) - 105*lbHighScore.scale;
+        door.addChild(lbHighScore);
         var diamond = new cc.Sprite("#diamond-00.png");
         diamond.scale = 0.5;
         diamond.x = lbPlay.x;
         diamond.y = lbPlay.y - 40;
         board.addChild(diamond);
 
+        this.lbHighScore = lbHighScore;
+
+        this.schedule(this.updateHighScore, 0.5);
     },
 
     addLearnDoor: function(){
@@ -267,6 +273,10 @@ var HomeScreenLayer = cc.Layer.extend({
         else {
             NativeHelper.callNative("showMessage", ["Permission Required", "Please enable permission to read/write files to storage in Device Setting for TSOG"]);
         }
+    },
+
+    updateHighScore: function() {
+        this.lbHighScore.setString(UserStorage.getInstance().getARHighscore().toString());
     },
 });
 

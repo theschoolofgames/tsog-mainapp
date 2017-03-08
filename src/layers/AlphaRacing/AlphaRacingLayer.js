@@ -210,6 +210,8 @@ var AlphaRacingLayer = cc.Layer.extend({
     onExit: function() {
         this._super();
 
+        this._workers.forEach(w => w.end());
+
         cc.eventManager.removeListener(this._eventGameOver);
         cc.eventManager.removeListener(this._eventGameRevival);
         cc.audioEngine.stopMusic();
