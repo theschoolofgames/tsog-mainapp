@@ -13,7 +13,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._addFeaturesBtn();
         this._addAboutUsBtn();
         this.addBackButton();
-        this.addSaveProgressButton();
         this.addText();
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -22,6 +21,11 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             onTouchMoved: this.onTouchMoved.bind(this),
             onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
+
+        if (!FirebaseManager.getInstance().isLoggedIn())
+            this.addSaveProgressButton();
+        else
+            this.addUserIdLabel();
     },
 
     touchEvent: function(sender,type) {
@@ -574,12 +578,22 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 FirebaseManager.getInstance().login(function(succeed, msg) {
                     LoadingIndicator.hide();
                     // debugLog("login succeed -> " + succeed);
-                    debugLog("child info -> " + JSON.stringify(User.getCurrentUser().getCurrentChild()));
+                    // debugLog("child info -> " + JSON.stringify(User.getCurrentUser().getCurrentChild()));
+                    cc.director.replaceScene(new WelcomeScene());
                 });
             }
         });
         
         button.addChild(this._createBtnTitle(localizeForWriting("Save Progress"), button, button.width/4 - 35));
+    },
+
+    addUserIdLabel: function() {
+        var userIdLabel = new cc.LabelBMFont("User ID: " + User.getCurrentUser().getId(), "res/font/grownupcheckfont-export.fnt");
+        userIdLabel.scale = 0.4;
+        userIdLabel.x = 20;
+        userIdLabel.anchorX = 0;
+        userIdLabel.y = cc.winSize.height/2 - this._featuresBtnOffSetY;
+        this._featuresLayer.addChild(userIdLabel);
     },
 
 });

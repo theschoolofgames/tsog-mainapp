@@ -4,8 +4,6 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
 
     ctor: function() {
         this._super();
-
-        this._childrenOffSetY = 50;
         // this._addLaterBtn();
 
         this.addBackButton();
@@ -24,6 +22,7 @@ var MissionPageAfterLogin = MissionPageBeforeLogin.extend({
     },
 
     _addButtons: function() {
+        this._childrenOffSetY = 0;
         var b = new ccui.Button("btn_share_wide.png", "btn_share_wide_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         b.x = cc.winSize.width/2;
         b.y = b.height - this._buttonOffSetY + this._childrenOffSetY;
