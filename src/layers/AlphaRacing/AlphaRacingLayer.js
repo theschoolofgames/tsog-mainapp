@@ -167,20 +167,20 @@ var AlphaRacingLayer = cc.Layer.extend({
                     cc.delayTime(3),
                     cc.callFunc(function() {
                         self.diePosition = self._player.getPosition();
-                        if (self._coinsForRevive <= CurrencyManager.getInstance().getCoin()) {
-                            self._hudLayer.addChild(new DialogReviveAR(self._coinsForRevive), 9999);
-                        } else {
+                        // if (self._coinsForRevive <= CurrencyManager.getInstance().getCoin()) {
+                        //     self._hudLayer.addChild(new DialogReviveAR(self._coinsForRevive), 9999);
+                        // } else {
                             var score = self._hudLayer.getDistance();
                             var revives = Math.log(self._coinsForRevive) / Math.log(2);
                             var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
                             AnalyticsManager.getInstance().logEventPostScore(score, revives, character);
-                            if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING) {
-                                self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
-                            } else {
+                            // if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING) {
+                            //     self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
+                            // } else {
                                 cc.director.runScene(new HomeScene());
-                            }
+                        //     }
 
-                        } 
+                        // } 
                     })
                 ))
                 // this.completedScene(localize("Game Over"));
