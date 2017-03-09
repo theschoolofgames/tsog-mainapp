@@ -422,6 +422,29 @@ static NSMutableArray* noiseDetectionArray = nil;
 + (NSString*)getCountryCode {
     return [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
 }
+
++ (void)startLocalNotificationWithFireDate:(NSTimeInterval)fireDateInSeconds {
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:fireDateInSeconds];
+    localNotification.soundName = UILocalNotificationDefaultSoundName;
+    localNotification.alertAction = @"Testing TSOG notifications!";
+    localNotification.alertBody = @"TSOG local notifications";
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+}
+
++ (BOOL)isPNPerMissionAllowed { // PN = Push Notifications
+    BOOL isPNPerMissionAllowed = false;
+    
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){ // Check it's iOS 8 and above
+        UIUserNotificationSettings *grantedSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        if (grantedSettings.types != UIUserNotificationTypeNone) {
+            isPNPerMissionAllowed = true;
+        }
+    }
+    
+    return isPNPerMissionAllowed;
+}
 @end
 @implementation FBSharingDelegator
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
@@ -444,5 +467,4 @@ static NSMutableArray* noiseDetectionArray = nil;
 - (void)sharerDidCancel:(id<FBSDKSharing>)sharer {
     NSLog(@"sharerDidCancel");
 }
-
 @end

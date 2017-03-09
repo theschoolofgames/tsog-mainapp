@@ -27,7 +27,8 @@
 + (void)shareTwitterWithDescription:(NSString*)description andURL:(NSString*)url;
 
 + (NSString*)getCountryCode;
-
++ (void)startLocalNotificationWithFireDate:(NSTimeInterval)fireDateInSeconds;
++ (BOOL)isPNPerMissionAllowed;
 @end
 
 
