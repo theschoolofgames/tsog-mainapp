@@ -9,7 +9,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 17030800
-        versionName "1.4.15"
+        versionName "1.4.17"
         ndk {
             abiFilters "armeabi", "x86"
         }
