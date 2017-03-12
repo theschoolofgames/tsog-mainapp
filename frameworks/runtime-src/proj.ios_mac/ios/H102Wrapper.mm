@@ -423,20 +423,22 @@ static NSMutableArray* noiseDetectionArray = nil;
     return [[NSLocale currentLocale] objectForKey:NSLocaleCountryCode];
 }
 
-+ (void)startLocalNotificationWithFireDate:(NSTimeInterval)fireDateInSeconds {
++ (void)startLocalNotificationWithFireDate:(NSTimeInterval)fireDateInSeconds withTag:(NSString*)tag{
     UILocalNotification* localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:fireDateInSeconds];
     localNotification.soundName = UILocalNotificationDefaultSoundName;
-    localNotification.alertAction = @"Testing TSOG notifications!";
-    localNotification.alertBody = @"TSOG local notifications";
+    localNotification.alertBody = @"👨‍👩‍👧‍👦 Regular practice leads to faster learning. Start Now 😀";
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:tag forKey:tag];
+    localNotification.userInfo = userInfo;
+  
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
 }
 
 + (BOOL)isPNPerMissionAllowed { // PN = Push Notifications
     BOOL isPNPerMissionAllowed = false;
     
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){ // Check it's iOS 8 and above
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){
         UIUserNotificationSettings *grantedSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
         if (grantedSettings.types != UIUserNotificationTypeNone) {
             isPNPerMissionAllowed = true;
@@ -445,6 +447,43 @@ static NSMutableArray* noiseDetectionArray = nil;
     
     return isPNPerMissionAllowed;
 }
+
++ (void)requestPNPermission {
+  // register for local notifications
+  
+  if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+  }
+}
+
++(void)onRequestedPNPermission {
+  NSString* jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('get_notifications', true)"];
+  ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+  
+  // schedule daily PN
+  [self startDailyNotif];
+  
+  // schedule 2 days PN
+  [self startTwoDaysNotif];
+}
+
++ (void)cancelLocalNotificationsWithTag:(NSString*) tag{
+  for (UILocalNotification *notification in [[[UIApplication sharedApplication] scheduledLocalNotifications] copy]){
+    NSDictionary *userInfo = notification.userInfo;
+    if ([tag isEqualToString:[userInfo objectForKey:tag]]){
+      [[UIApplication sharedApplication] cancelLocalNotification:notification];
+    }
+  }
+}
+
++ (void)startDailyNotif {
+  [self startLocalNotificationWithFireDate:86400 withTag:@"kTagDailyLocalNotif"];
+}
+
++ (void)startTwoDaysNotif {
+  [self startLocalNotificationWithFireDate:172800 withTag:@"kTagTwoDaysLocalNotif"];
+}
+
 @end
 @implementation FBSharingDelegator
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {

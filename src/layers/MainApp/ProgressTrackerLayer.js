@@ -24,6 +24,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     _typeTab: null,
     _tabBg: null,
 
+    getUpdatesBtn: null,
+
     ctor: function () {
         // body...
         this._super(cc.color(255,255,255,255));
@@ -47,18 +49,14 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this.addButton();
         this.addBackButton();
         
-        // var test = new cc.Sprite("res/SD/objects/salt.png");
-        // test.x = cc.winSize.width/2;
-        // test.y = cc.winSize.height/2;
-        // this.addChild(test, 1000);
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function() { return true },
         }, this);
 
+        this.addGetUpdatesBtn();
         this.scheduleUpdate();
-        // cc.log("TEST: " + GameObjectsProgress.getInstance().countCompleted("word_a"));
     },
     update: function (dt) {
         // cc.log("IsDraging: " + this._tableView.isDragging());  
@@ -156,7 +154,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             });
             self.arrayObjectInType = (objectArray);
 
-        console.log("Aray Object:  => " + JSON.stringify(objectArray));
+        // console.log("Aray Object:  => " + JSON.stringify(objectArray));
 
     },
 
@@ -449,6 +447,57 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         sprite.scale = 1;
         var scale = MAX_WIDTH/ Math.max(sprite.width,sprite.height);
         sprite.scale = scale;
-    }
+    },
 
+    addGetUpdatesBtn: function() {
+        var isPNPerMissionAllowed = NativeHelper.callNative("isPNPerMissionAllowed") && KVDatabase.getInstance().getString("get_notifications", "");
+        var b = new ccui.Button("btn_blue_short.png", "btn_blue_short_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        b.visible = (isPNPerMissionAllowed) ? false : true;
+        b.setAnchorPoint(1, 0.5);
+        b.x = cc.winSize.width - 30;
+        b.y = cc.winSize.height - b.height/2 - 30;
+
+        b.addClickEventListener(function() {
+            NativeHelper.callNative("requestPNPermission");
+        }.bind(this));
+
+        this.addChild(b, 99);
+
+        var btnTitleConfig = {
+            "color": "#ffffff",
+            "shadowColor": [34, 135, 197, 127],
+            "shadowSize": 1,
+            "shadowRadius": 1,
+            "fontSize": 26,
+            "outlineSize": 0.5,
+            "boundingWidthRatio": -1,
+            "boundingHeightRatio": 1
+        };
+        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                btnTitleConfig.fontSize, 
+                                                cc.color(btnTitleConfig.color), 
+                                                btnTitleConfig.outlineSize,
+                                                localizeForWriting("Get Updates"));
+
+        btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
+        btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
+                                btnTitleConfig.shadowColor[1],
+                                btnTitleConfig.shadowColor[2],
+                                btnTitleConfig.shadowColor[3]
+                            ),
+                            cc.size(0, -btnTitleConfig.shadowSize)
+        );
+        btnTitle.x = b.width/2 - 3;
+        btnTitle.y = b.height/2;
+        b.addChild(btnTitle);
+
+        this.getUpdatesBtn = b;
+
+        this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
+    },
+
+    setUpdatesButtonOnOrOff: function() {
+        var isPNPerMissionAllowed = NativeHelper.callNative("isPNPerMissionAllowed") && KVDatabase.getInstance().getString("get_notifications", "");
+        this.getUpdatesBtn.visible = (isPNPerMissionAllowed) ? false : true;
+    }
 })

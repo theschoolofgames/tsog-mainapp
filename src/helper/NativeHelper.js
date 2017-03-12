@@ -561,6 +561,30 @@ var NativeHelperConfig = {
             "getCountryCode",
             "()Ljava/lang/String;"
         ]
+    },
+
+    isPNPerMissionAllowed: {
+        iOS: [
+            "H102Wrapper",
+            "isPNPerMissionAllowed"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "isPNPerMissionAllowed",
+            "()Ljava/lang/String;"
+        ]
+    },
+
+    requestPNPermission: {
+        iOS: [
+            "H102Wrapper",
+            "requestPNPermission"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "requestPNPermission",
+            "()Ljava/lang/String;"
+        ]
     }
 }
 

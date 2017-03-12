@@ -161,13 +161,21 @@ static AppDelegate s_sharedApplication;
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
-    // register for local notifications
-    
-    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
-        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
-    }
-    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+  
+  if (notificationSettings.types!=7){
+    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Please turn on Notification"
+                                                     message:@"Please enable notification permission in device Settings"
+                                                    delegate:self
+                                           cancelButtonTitle:@"Ok"
+                                           otherButtonTitles: nil];
+    [alert show];
+  } else {
+    [H102Wrapper onRequestedPNPermission];
+  }
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {

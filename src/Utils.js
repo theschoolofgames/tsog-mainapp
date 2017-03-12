@@ -441,6 +441,16 @@ randBool = function() {
     return Math.random() >= 0.5 ? true : false;
 }
 
+startNewDailyLocalNotif = function() {
+    NativeHelper.callNative("cancelLocalNotificationsWithTag", ["kTagDailyLocalNotif"]);
+    NativeHelper.callNative("startDailyNotif");
+}
+
+startNewTwoDaysLocalNotif = function() {
+    NativeHelper.callNative("cancelLocalNotificationsWithTag", ["kTagTwoDaysLocalNotif"]);
+    NativeHelper.callNative("startTwoDaysNotif");
+}
+
 debugLog = function(data) {
     if (TSOG_DEBUG) {
         cc.log("TSOG_DEBUG: " + data);

@@ -112,5 +112,7 @@ var GameObjectsProgress = BaseFirebaseModel.extend({
         for (var i = 0; i < gameObjectIdArray.length; i++) {
             this.setCompleted(gameObjectIdArray[i], levelId);
         }
+        startNewDailyLocalNotif();
+        startNewTwoDaysLocalNotif();
     }
 });

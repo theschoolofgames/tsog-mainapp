@@ -25,12 +25,6 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         this._addButtons();
         this._addPrivacyPolicyText();
         // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
-
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: this.onTouchBegan.bind(this)
-        }, this);
     },
 
     _addBackground: function() {
@@ -186,6 +180,12 @@ var MissionPageBeforeLogin = cc.Layer.extend({
     },
 
     _addPrivacyPolicyText: function() {
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this)
+        }, this);
+        
         var str = "By continuing you are accepting our privacy policy"; 
         var link = "http://www.theschoolofgames.org/privacy-policy/";
         var config = {

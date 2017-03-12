@@ -988,3 +988,6 @@ var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
 var SHARING_OPTIONS = {
     "default": "facebook,whatsapp"
 }
+
+var kTagDailyLocalNotif = "kTagDailyLocalNotif";
+var kTagTwoDaysLocalNotif = "kTagTwoDaysLocalNotif";
