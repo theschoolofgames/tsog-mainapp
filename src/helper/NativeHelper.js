@@ -563,26 +563,14 @@ var NativeHelperConfig = {
         ]
     },
 
-    isPNPerMissionAllowed: {
+    cancelLocalNotificationsWithTag: {
         iOS: [
             "H102Wrapper",
-            "isPNPerMissionAllowed"
+            "cancelLocalNotificationsWithTag"
         ],
         Android: [
             "com/h102/Wrapper",
-            "isPNPerMissionAllowed",
-            "()Ljava/lang/String;"
-        ]
-    },
-
-    requestPNPermission: {
-        iOS: [
-            "H102Wrapper",
-            "requestPNPermission"
-        ],
-        Android: [
-            "com/h102/Wrapper",
-            "requestPNPermission",
+            "cancelLocalNotificationsWithTag",
             "()Ljava/lang/String;"
         ]
     }

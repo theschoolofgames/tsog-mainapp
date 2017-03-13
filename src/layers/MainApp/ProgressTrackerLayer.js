@@ -450,15 +450,16 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     addGetUpdatesBtn: function() {
-        var isPNPerMissionAllowed = NativeHelper.callNative("isPNPerMissionAllowed") && KVDatabase.getInstance().getString("get_notifications", "");
+        var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
         var b = new ccui.Button("btn_blue_short.png", "btn_blue_short_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        b.visible = (isPNPerMissionAllowed) ? false : true;
+        b.visible = (hasGrantPermission) ? false : true;
         b.setAnchorPoint(1, 0.5);
         b.x = cc.winSize.width - 30;
         b.y = cc.winSize.height - b.height/2 - 30;
 
         b.addClickEventListener(function() {
-            NativeHelper.callNative("requestPNPermission");
+            b.setEnabled(false);
+            NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
         }.bind(this));
 
         this.addChild(b, 99);
@@ -497,7 +498,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     setUpdatesButtonOnOrOff: function() {
-        var isPNPerMissionAllowed = NativeHelper.callNative("isPNPerMissionAllowed") && KVDatabase.getInstance().getString("get_notifications", "");
-        this.getUpdatesBtn.visible = (isPNPerMissionAllowed) ? false : true;
-    }
+        var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+        this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
+        this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+    },
 })

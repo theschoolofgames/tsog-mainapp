@@ -318,6 +318,13 @@ static NSMutableArray* noiseDetectionArray = nil;
     return systemState == AVAudioSessionRecordPermissionGranted;
   } else if ([permission isEqualToString:@"WRITE_EXTERNAL_STORAGE"]) {
     return true;
+  } else if ([permission isEqualToString:@"ACCESS_NOTIFICATION_POLICY"]){
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){
+      UIUserNotificationSettings *grantedSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+      if (grantedSettings.types != UIUserNotificationTypeNone) {
+        return true;
+      }
+    }
   }
   
   return false;
@@ -332,6 +339,12 @@ static NSMutableArray* noiseDetectionArray = nil;
         ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
       });
     }];
+  }
+  
+  if ([permission isEqualToString:@"ACCESS_NOTIFICATION_POLICY"]) {
+    if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
+      [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
+    }
   }
 }
 
@@ -433,27 +446,6 @@ static NSMutableArray* noiseDetectionArray = nil;
     localNotification.userInfo = userInfo;
   
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-}
-
-+ (BOOL)isPNPerMissionAllowed { // PN = Push Notifications
-    BOOL isPNPerMissionAllowed = false;
-    
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(currentUserNotificationSettings)]){
-        UIUserNotificationSettings *grantedSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-        if (grantedSettings.types != UIUserNotificationTypeNone) {
-            isPNPerMissionAllowed = true;
-        }
-    }
-    
-    return isPNPerMissionAllowed;
-}
-
-+ (void)requestPNPermission {
-  // register for local notifications
-  
-  if ([UIApplication instancesRespondToSelector:@selector(registerUserNotificationSettings:)]){
-    [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil]];
-  }
 }
 
 +(void)onRequestedPNPermission {

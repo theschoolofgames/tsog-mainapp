@@ -17,7 +17,10 @@ import com.hub102.tsog.BuildConfig;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,9 +34,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
 import org.cocos2dx.javascript.AppActivity;
@@ -44,6 +50,7 @@ public class Wrapper
     public static AppActivity activity;
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 111;
+    private static final int MY_PERMISSIONS_REQUETS_NOTIFICATIONS = 222;
     private static IInAppBillingService mService;
 
     private static ServiceConnection mServiceConn = new ServiceConnection() {
@@ -317,13 +324,13 @@ public class Wrapper
         }
     }
 
-    private static void actualRequestPermission(String permission) {
+    private static void actualRequestPermission(String permission, int requestCode) {
         try {
             String fullPermissionString = Wrapper.getFullPermissionString(permission);
 
             ActivityCompat.requestPermissions(activity,
-                    new String[]{fullPermissionString},
-                    MY_PERMISSIONS_REQUEST_CODE);
+                                            new String[]{fullPermissionString},
+                                            requestCode);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -344,14 +351,16 @@ public class Wrapper
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.dismiss();
 
-                                    actualRequestPermission(apermission);
+                                    actualRequestPermission(apermission, Wrapper.MY_PERMISSIONS_REQUEST_CODE);
                                 }
                             });
                     alertDialog.show();
                 }
             });
+        } else if (permission.equals("ACCESS_NOTIFICATION_POLICY")){
+            actualRequestPermission(permission, Wrapper.MY_PERMISSIONS_REQUETS_NOTIFICATIONS);
         } else {
-            actualRequestPermission(permission);
+            actualRequestPermission(permission, Wrapper.MY_PERMISSIONS_REQUEST_CODE);
         }
     }
 
@@ -377,6 +386,26 @@ public class Wrapper
                         }
                     });
 
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            case Wrapper.MY_PERMISSIONS_REQUETS_NOTIFICATIONS: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    activity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            startLocalNotificationWithFireDate("kTagDailyLocalNotif", 86400, "Daily Notification", "");
+                            startLocalNotificationWithFireDate("kTagTwoDaysLocalNotif", 172800, "Two Days Notification", "");
+                        }
+                    });
+
+                } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                 }
@@ -476,5 +505,32 @@ public class Wrapper
 
     public static String getCountryCode() {
         return Locale.getDefault().getCountry();
+    }
+
+    public static void startLocalNotificationWithFireDate(String id, int fireDateInSeconds, String title, String soundFileName) {
+        Log.i("TAG", "scheduleNotification: " + id + ", " + title + ", in " + fireDateInSeconds + " seconds" + ", soundFileName: '" + soundFileName + "'");
+
+        PendingIntent sender = getPendingIntentForNotification(title, soundFileName, id);
+
+        AlarmManager am = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        am.set(AlarmManager.ELAPSED_REALTIME,
+                SystemClock.elapsedRealtime() + fireDateInSeconds * 1000, sender);
+    }
+
+    public static void cancelLocalNotificationsWithTag(String tag) {
+        Log.d("TAG", "cancelLocalNotification: " + tag);
+        PendingIntent sender = getPendingIntentForNotification(null, null, tag);
+        AlarmManager am = (AlarmManager)activity.getSystemService(Context.ALARM_SERVICE);
+        am.cancel(sender);
+    }
+
+    private static PendingIntent getPendingIntentForNotification(String title, String soundFileName, String tag) {
+        Intent i = new Intent(activity.getApplicationContext(), NotificationReceiver.class);
+        i.putExtra(NotificationReceiver.ID_KEY, tag);
+        i.putExtra(NotificationReceiver.TITLE_KEY, title);
+        i.putExtra(NotificationReceiver.SOUND_FILENAME_KEY, soundFileName);
+
+        PendingIntent sender = PendingIntent.getBroadcast(activity, MY_PERMISSIONS_REQUETS_NOTIFICATIONS, i, PendingIntent.FLAG_CANCEL_CURRENT);
+        return sender;
     }
 }
