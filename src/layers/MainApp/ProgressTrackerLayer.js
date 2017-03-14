@@ -40,7 +40,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             }
         });
         var key = Object.keys(PROGRESSTRACKER);
-
+        this.addGetUpdatesBtn();
         this._filterGameObjectJSON("word");
         this._createBackground();
         this._addPageBorders();
@@ -55,7 +55,6 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             onTouchBegan: function() { return true },
         }, this);
 
-        this.addGetUpdatesBtn();
         this.scheduleUpdate();
     },
     update: function (dt) {
@@ -254,7 +253,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         if(this._scrollBar)
             this._scrollBar.removeFromParent();
         var scrollbar = new cc.Sprite("res/SD/progresstracker/bar-scroll.png");
-        scrollbar.x = cc.winSize.width/2;
+        scrollbar.x = cc.winSize.width/2 - ((this.getUpdatesBtn.visible) ? 80 : 0);
         scrollbar.y = this._tableView.y - 40;
         this.addChild(scrollbar,5);
         this._scrollBar = scrollbar;
@@ -450,23 +449,37 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     addGetUpdatesBtn: function() {
-        var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-        var b = new ccui.Button("btn_blue_short.png", "btn_blue_short_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        var hasGrantPermission = false; 
+        if (cc.sys.os === cc.sys.OS_IOS) 
+            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+        else if (cc.sys.os === cc.sys.OS_ANDROID) {
+            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
+        }
+
+        var b = new ccui.Button("btn_get_updates_short.png", "btn_get_updates_short_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         b.visible = (hasGrantPermission) ? false : true;
+        b.scale = 0.65;
         b.setAnchorPoint(1, 0.5);
-        b.x = cc.winSize.width - 30;
-        b.y = cc.winSize.height - b.height/2 - 30;
+        b.x = cc.winSize.width;
+        b.y = b.height/2;
 
         b.addClickEventListener(function() {
             if (cc.sys.os === cc.sys.OS_IOS)
                 NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
+            else {
+                // hasGrantPermission is always true on Android for The versions below API 19
+                b.visible = false;
+                KVDatabase.getInstance().set("get_notifications", true);
+                startNewDailyLocalNotif();
+                startNewTwoDaysLocalNotif();
+            }
         }.bind(this));
 
         this.addChild(b, 99);
 
         var btnTitleConfig = {
             "color": "#ffffff",
-            "shadowColor": [34, 135, 197, 127],
+            "shadowColor": [183, 188, 255, 127],
             "shadowSize": 1,
             "shadowRadius": 1,
             "fontSize": 26,
@@ -498,8 +511,11 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     setUpdatesButtonOnOrOff: function() {
-        var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-        this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
-        this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+            this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
+            this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+        }
+
     },
 })

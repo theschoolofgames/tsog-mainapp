@@ -2,7 +2,11 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     _featuresLayer: null,
     _aboutUsLayer: null,
     _lbArray: [],
-    _featuresBtnOffSetY: 50,
+    _featuresBtnOffSetY: 25,
+
+    _payBtn: null,
+    _shareBtn: null,
+    _progressTrackerBtn: null,
 
     ctor: function() {
         this._super(cc.color(255, 255, 255));
@@ -26,6 +30,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             this.addSaveProgressButton();
         else
             this.addUserIdLabel();
+        this.addGetUpdatesBtn();
     },
 
     touchEvent: function(sender,type) {
@@ -231,6 +236,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         cc.log("SCALE: " + Utils.getScaleFactorTo16And9());
         _progressTrackerBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _progressTrackerBtn.addClickEventListener(this._btnPressed.bind(this));
+        this._progressTrackerBtn = _progressTrackerBtn;
+
         var _progressTrackerBtnNormal = _progressTrackerBtn.getRendererNormal();
         var iconProgressTracker = new cc.Sprite("#icon-progress-tracker.png");
         iconProgressTracker.anchorX = 1;
@@ -239,7 +246,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         iconProgressTracker.tag = 0;
         iconProgressTracker.name = "icon-progress-tracker";
         _progressTrackerBtnNormal.addChild(iconProgressTracker);
-        // _progressTrackerBtn.addChild(iconProgressTracker);
 
         var _progressTrackerBtnClick = _progressTrackerBtn.getRendererClicked();
         var iconProgressTrackerPressed = new cc.Sprite("#icon-progress-tracker-pressed.png");
@@ -254,10 +260,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _shareBtn = new ccui.Button("btn_blue_wide.png", "btn_blue_wide_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         _shareBtn.name = "Share";
         _shareBtn.anchorX = 1;
-        _shareBtn.scale = 1.1;
+        _shareBtn.scale = (_progressTrackerBtn.width + _shareBtn.width)>cc.winSize.width*0.8 ? 0.9 : 1.1;
         _shareBtn.x = cc.winSize.width - 40 * Utils.getScaleFactorTo16And9();
         _shareBtn.y = cc.winSize.height/2 + _progressTrackerBtn.height/2 + this._featuresBtnOffSetY;
         _shareBtn.addClickEventListener(this._btnPressed.bind(this));
+        this._shareBtn = _shareBtn;
+        _progressTrackerBtn.scale = _shareBtn.scale;
+
         var _shareBtnNormal = _shareBtn.getRendererNormal();
         var iconFaceChild = new cc.Sprite("#childrenface.png");
         iconFaceChild.anchorX = 1;
@@ -293,6 +302,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         _payBtnTitle.x = cc.winSize.width/2;
         _payBtnTitle.y = _payBtn.height/2 + 10;
         _payBtn.addChild(_payBtnTitle);
+        this._payBtn = _payBtn;
         
         var normalPay = _payBtn.getRendererNormal();
         var normalCoin = new cc.Sprite("#icon-coin.png");
@@ -325,13 +335,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         clickHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
         clickHeart.y = _payBtn.height/2;
         clickPay.addChild(clickHeart);
-
-        var userIdLabel = new cc.LabelBMFont("User ID: " + User.getCurrentUser().getId(), "res/font/grownupcheckfont-export.fnt");
-        userIdLabel.scale = 0.4;
-        userIdLabel.x = 20;
-        userIdLabel.anchorX = 0;
-        userIdLabel.y = 50;
-        this._featuresLayer.addChild(userIdLabel);
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
         // _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
@@ -565,10 +568,10 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     addSaveProgressButton: function(){
         var button = new ccui.Button("btn_save_progress.png", "btn_save_progress_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         button.anchorX = 0;
-        button.scale = 1.1;
+        button.scale = this._progressTrackerBtn.scale;
         button.x = 40 * Utils.getScaleFactorTo16And9();
         button.name = "Save";
-        button.y = cc.winSize.height/2 - this._featuresBtnOffSetY;
+        button.y = cc.rectGetMinY(this._progressTrackerBtn.getBoundingBox()) - button.height/2 *b.scale - this._featuresBtnOffSetY;
         this._featuresLayer.addChild(button);
         var self = this;
         button.addClickEventListener(function() {
@@ -590,10 +593,81 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     addUserIdLabel: function() {
         var userIdLabel = new cc.LabelBMFont("User ID: " + User.getCurrentUser().getId(), "res/font/grownupcheckfont-export.fnt");
         userIdLabel.scale = 0.4;
-        userIdLabel.x = 20;
-        userIdLabel.anchorX = 0;
-        userIdLabel.y = cc.winSize.height/2 - this._featuresBtnOffSetY;
+        userIdLabel.x = cc.winSize.width/2;
+        // userIdLabel.anchorX = 0;
+        userIdLabel.y = cc.rectGetMaxY(this._shareBtn.getBoundingBox()) + userIdLabel.height * userIdLabel.scale;
         this._featuresLayer.addChild(userIdLabel);
+    },
+
+    addGetUpdatesBtn: function() {
+        var hasGrantPermission = false; 
+        if (cc.sys.os === cc.sys.OS_IOS) 
+            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+        else if (cc.sys.os === cc.sys.OS_ANDROID) {
+            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
+        }
+
+        var b = new ccui.Button("btn_get_updates.png", "btn_get_updates_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        b.scale = this._shareBtn.scale;
+        b.visible = (hasGrantPermission) ? false : true;
+        b.setAnchorPoint(1, 0.5);
+        b.x = this._shareBtn.x;
+        b.y = cc.rectGetMinY(this._shareBtn.getBoundingBox()) - b.height/2 * b.scale - this._featuresBtnOffSetY;
+
+        b.addClickEventListener(function() {
+            if (cc.sys.os === cc.sys.OS_IOS)
+                NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
+            else {
+                // hasGrantPermission is always true on Android for The versions below API 19
+                b.visible = false;
+                KVDatabase.getInstance().set("get_notifications", true);
+                startNewDailyLocalNotif();
+                startNewTwoDaysLocalNotif();
+            }
+        }.bind(this));
+
+        this.addChild(b, 99);
+
+        var btnTitleConfig = {
+            "color": "#ffffff",
+            "shadowColor": [183, 188, 255, 127],
+            "shadowSize": 1,
+            "shadowRadius": 1,
+            "fontSize": 26,
+            "outlineSize": 0.5,
+            "boundingWidthRatio": -1,
+            "boundingHeightRatio": 1
+        };
+        var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                btnTitleConfig.fontSize, 
+                                                cc.color(btnTitleConfig.color), 
+                                                btnTitleConfig.outlineSize,
+                                                localizeForWriting("Get Progress Updates"));
+
+        btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
+        btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
+                                btnTitleConfig.shadowColor[1],
+                                btnTitleConfig.shadowColor[2],
+                                btnTitleConfig.shadowColor[3]
+                            ),
+                            cc.size(0, -btnTitleConfig.shadowSize)
+        );
+        btnTitle.x = b.width/2 - 3;
+        btnTitle.y = b.height/2;
+        b.addChild(btnTitle);
+
+        this.getUpdatesBtn = b;
+
+        this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
+    },
+
+    setUpdatesButtonOnOrOff: function() {
+        if (cc.sys.os === cc.sys.OS_IOS) {
+            var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+            this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
+            this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+        }
+
     },
 
 });
