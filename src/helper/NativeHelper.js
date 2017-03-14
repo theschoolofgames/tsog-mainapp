@@ -566,12 +566,36 @@ var NativeHelperConfig = {
     cancelLocalNotificationsWithTag: {
         iOS: [
             "H102Wrapper",
-            "cancelLocalNotificationsWithTag"
+            "cancelLocalNotificationsWithTag:"
         ],
         Android: [
             "com/h102/Wrapper",
             "cancelLocalNotificationsWithTag",
-            "()Ljava/lang/String;"
+            "(Ljava/lang/String;)V"
+        ]
+    },
+
+    startDailyNotif: {
+        iOS: [
+            "H102Wrapper",
+            "startDailyNotif"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "startDailyNotif",
+            "()V"
+        ]
+    },
+
+    startTwoDaysNotif: {
+        iOS: [
+            "H102Wrapper",
+            "startTwoDaysNotif"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "startTwoDaysNotif",
+            "()V"
         ]
     }
 }

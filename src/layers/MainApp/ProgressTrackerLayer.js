@@ -458,8 +458,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         b.y = cc.winSize.height - b.height/2 - 30;
 
         b.addClickEventListener(function() {
-            b.setEnabled(false);
-            NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
+            if (cc.sys.os === cc.sys.OS_IOS)
+                NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
         }.bind(this));
 
         this.addChild(b, 99);
