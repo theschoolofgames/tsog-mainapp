@@ -108,7 +108,7 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
 								res.Icon_gold_small_png, SET_SMALL_PRICE,
 								"Small Impact", function() {
-                                    Utils.addLoadingIndicatorLayer(true);
+                                    LoadingIndicator.show();
 									this._purchasedSet = "set1";
 									this.itemCallback();
 								}.bind(this));
@@ -116,7 +116,7 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
 								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
 								"Medium Impact", function() {
-                                    Utils.addLoadingIndicatorLayer(true);
+                                    LoadingIndicator.show();
                                     this._purchasedSet = "set2";
 									this.itemCallback();
 								}.bind(this));
@@ -124,7 +124,7 @@ var PayLayer = cc.Layer.extend({
 		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 2.2, 
 								res.Icon_gold_big_png, SET_BIG_PRICE,
 								"Big Impact", function() {
-                                    Utils.addLoadingIndicatorLayer(true);
+                                    LoadingIndicator.show();
                                     this._purchasedSet = "set3";
 									this.itemCallback();
 								}.bind(this));
@@ -263,7 +263,7 @@ var PayLayer = cc.Layer.extend({
                 // this._succeedDialog();
                 cc.director.replaceScene(new RewardScene(coins, diamonds));
             };
-            Utils.removeLoadingIndicatorLayer();
+            LoadingIndicator.hide();
 		}.bind(this));
 	}
 
