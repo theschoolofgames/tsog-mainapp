@@ -22,6 +22,8 @@ var Dialog = cc.LayerColor.extend({
     },
 
     animateIn: function() {
+        if (!this.background)
+            return;
         this.runAction(cc.fadeTo(0.1, 150));
 
         var self = this;
@@ -52,6 +54,8 @@ var Dialog = cc.LayerColor.extend({
     },
 
     animateOut:function() {
+        if (!this.background)
+            return;
         this.runAction(cc.sequence(cc.delayTime(0.3), 
                             cc.fadeTo(0.2, 0),
                             cc.delayTime(0),
