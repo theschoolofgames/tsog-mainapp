@@ -31,6 +31,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         else
             this.addUserIdLabel();
         this.addGetUpdatesBtn();
+        debugLog("menu ctor");
     },
 
     touchEvent: function(sender,type) {
@@ -571,7 +572,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         button.scale = this._progressTrackerBtn.scale;
         button.x = 40 * Utils.getScaleFactorTo16And9();
         button.name = "Save";
-        button.y = cc.rectGetMinY(this._progressTrackerBtn.getBoundingBox()) - button.height/2 *b.scale - this._featuresBtnOffSetY;
+        button.y = cc.rectGetMinY(this._progressTrackerBtn.getBoundingBox()) - button.height/2 *button.scale - this._featuresBtnOffSetY;
         this._featuresLayer.addChild(button);
         var self = this;
         button.addClickEventListener(function() {
@@ -600,6 +601,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
     },
 
     addGetUpdatesBtn: function() {
+        startNewDailyLocalNotif();
         var hasGrantPermission = false; 
         if (cc.sys.os === cc.sys.OS_IOS) 
             hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
