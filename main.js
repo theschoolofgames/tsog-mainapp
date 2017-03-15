@@ -179,6 +179,8 @@ cc.game.onStart = function(){
             // cc.director.runScene(new GrownUpMenuScene());
             // cc.director.runScene(new MissionPageAfterLoginScene());
         // END TEST
+        cancelLocalNotificationsWithTag(kTagDailyLocalNotif);
+        cancelLocalNotificationsWithTag(kTagTwoDaysLocalNotif);
 
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
         debugLog("authenticateUID " + authenticateUID);

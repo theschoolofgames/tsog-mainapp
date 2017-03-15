@@ -625,6 +625,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 KVDatabase.getInstance().set("get_notifications", true);
                 startNewDailyLocalNotif();
                 startNewTwoDaysLocalNotif();
+                NativeHelper.callNative("showMessage", ["The School Of Games", "We'll keep you posted on learning progress"]);
             }
         }.bind(this));
 
@@ -660,7 +661,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
         this.getUpdatesBtn = b;
 
-        this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
+        // this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
     },
 
     setUpdatesButtonOnOrOff: function() {

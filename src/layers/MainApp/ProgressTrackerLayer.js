@@ -511,11 +511,14 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     setUpdatesButtonOnOrOff: function() {
+        var hasGrantPermission = false;
         if (cc.sys.os === cc.sys.OS_IOS) {
-            var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-            this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
-            this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+        } else {
+            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
         }
+        this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
+        this.getUpdatesBtn.setEnabled(!hasGrantPermission);
 
     },
 })

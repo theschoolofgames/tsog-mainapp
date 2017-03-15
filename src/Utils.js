@@ -442,13 +442,19 @@ randBool = function() {
 }
 
 startNewDailyLocalNotif = function() {
-    NativeHelper.callNative("cancelLocalNotificationsWithTag", ["kTagDailyLocalNotif"]);
+    NativeHelper.callNative("cancelLocalNotificationsWithTag", [kTagDailyLocalNotif]);
     NativeHelper.callNative("startDailyNotif");
 }
 
 startNewTwoDaysLocalNotif = function() {
-    NativeHelper.callNative("cancelLocalNotificationsWithTag", ["kTagTwoDaysLocalNotif"]);
+    NativeHelper.callNative("cancelLocalNotificationsWithTag", [kTagTwoDaysLocalNotif]);
     NativeHelper.callNative("startTwoDaysNotif");
+}
+
+cancelLocalNotificationsWithTag = function(tag) {
+    if (!tag)
+        return;
+    NativeHelper.callNative("cancelLocalNotificationsWithTag", [tag]);
 }
 
 debugLog = function(data) {
