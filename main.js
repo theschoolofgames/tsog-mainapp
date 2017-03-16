@@ -181,6 +181,8 @@ cc.game.onStart = function(){
         // END TEST
         cancelLocalNotificationsWithTag(kTagDailyLocalNotif);
         cancelLocalNotificationsWithTag(kTagTwoDaysLocalNotif);
+        if (TSOG_DEBUG)
+            startNewDailyLocalNotif();
 
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
         debugLog("authenticateUID " + authenticateUID);

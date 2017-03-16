@@ -521,4 +521,12 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this.getUpdatesBtn.setEnabled(!hasGrantPermission);
 
     },
-})
+});
+
+var ProgressTrackerScene = cc.Scene.extend({
+    ctor: function() {
+        this._super();
+
+        this.addChild(new ProgressTrackerLayer());
+    },
+});

@@ -11,16 +11,28 @@ import android.support.v4.app.TaskStackBuilder;
 
 import com.hub102.tsog.R;
 
+import org.cocos2dx.javascript.AppActivity;
+
 public class AlarmReceiver extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent notificationIntent = new Intent(context, NotificationActivity.class);
+//        Intent notificationIntent = new Intent(context, AppActivity.class);
+//        notificationIntent.putExtra("tsog_notification", 1);
+//        notificationIntent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+////        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+////        stackBuilder.addParentStack(AppActivity.class);
+////        stackBuilder.addNextIntent(notificationIntent);
+//
+////        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
 
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-        stackBuilder.addParentStack(NotificationActivity.class);
-        stackBuilder.addNextIntent(notificationIntent);
+        Intent notificationIntent = new Intent(context, AppActivity.class);
+        notificationIntent.putExtra("tsog_notification", 1);
+//        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int)System.currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 

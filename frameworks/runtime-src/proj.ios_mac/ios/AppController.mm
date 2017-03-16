@@ -41,6 +41,7 @@
 
 #import "AudioEngine.h"
 #import <FirebaseRemoteConfig/FirebaseRemoteConfig.h>
+#import "ScriptingCore.h"
 
 @implementation AppController
 NSString *const kGCMMessageIDKey = @"gcm.message_id";
@@ -57,7 +58,7 @@ static AppDelegate s_sharedApplication;
 {
 
     // Override point for customization after application launch.
-
+  
     // Add the view controller's view to the window and display.
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [window bounds]
@@ -160,7 +161,15 @@ static AppDelegate s_sharedApplication;
     }
     
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+  
+    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    NSString* jsCmd = @"";
+    if (localNotification) {
+      jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 1)"];
+    } else {
+      jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 0)"];
+    }
+    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
     return YES;
 }
 
@@ -178,6 +187,16 @@ static AppDelegate s_sharedApplication;
   }
 }
 
+-(void)application:(UIApplication *)application didReceiveLocalNotification: (UILocalNotification *)notification {
+  if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground)
+  {
+    //opened from a push notification when the app was on background
+    NSString* jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 1)"];
+    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+  }
+}
+
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // If you are receiving a notification message while your app is in the background,
     // this callback will not be fired till the user taps on the notification launching the application.
@@ -190,6 +209,8 @@ static AppDelegate s_sharedApplication;
     
     // Print full message.
     NSLog(@"%@", userInfo);
+  
+
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -206,7 +227,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Print full message.
     NSLog(@"%@", userInfo);
     
-    [self handleRemoteNotificationMessage:userInfo];
+//    [self handleRemoteNotificationMessage:userInfo];
 }
 
 // Receive displayed notifications for iOS 10 devices.
@@ -221,7 +242,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Print full message.
     NSLog(@"%@", userInfo);
     
-    [self handleRemoteNotificationMessage:userInfo];
+//    [self handleRemoteNotificationMessage:userInfo];
 }
 
 // Receive data message on iOS 10 devices.
@@ -230,7 +251,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Print full message
     NSLog(@"%@", [remoteMessage appData]);
     
-    [self handleRemoteNotificationMessage:[remoteMessage appData]];
+//    [self handleRemoteNotificationMessage:[remoteMessage appData]];
 }
 #endif
 
@@ -257,6 +278,10 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
     cocos2d::Application::getInstance()->applicationDidEnterBackground();
+  
+    NSString* jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 0)"];
+    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

@@ -52,8 +52,8 @@ public class Wrapper
     public static AppActivity activity;
 
     private static final int MY_PERMISSIONS_REQUEST_CODE = 111;
-    private static final int DAILY_LOCAL_NOTIFICATION_TAG = 11;
-    private static final int TWO_DAYS_NOTIFICATION_TAG = 22;
+    public static final int DAILY_LOCAL_NOTIFICATION_TAG = 11;
+    public static final int TWO_DAYS_NOTIFICATION_TAG = 22;
     private static IInAppBillingService mService;
 
     private static ServiceConnection mServiceConn = new ServiceConnection() {
@@ -502,7 +502,7 @@ public class Wrapper
     }
 
     public static void startDailyNotif() {
-        startLocalNotificationWithFireDate("kTagDailyLocalNotif", 86400);
+        startLocalNotificationWithFireDate("kTagDailyLocalNotif", 15);
     }
     public static void startTwoDaysNotif() {
         startLocalNotificationWithFireDate("kTagTwoDaysLocalNotif", 172800);

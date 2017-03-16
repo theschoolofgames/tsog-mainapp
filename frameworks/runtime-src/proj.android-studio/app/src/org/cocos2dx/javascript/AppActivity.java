@@ -33,10 +33,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.database.FirebaseDatabase;
+import com.h102.AlarmReceiver;
 import com.h102.FirebaseWrapper;
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
@@ -51,10 +53,21 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
 
     @Override
     protected void onCreate(Bundle savedInstanceStat) {
+        Log.i(TAG, "TSOG AppActivity onCreate()");
         super.onCreate(savedInstanceStat);
         FirebaseWrapper.activity = this;
         FirebaseWrapper.setupDeepLinkListener();
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+        Intent intent = this.getIntent();
+        if (intent.getExtras() != null) {
+            Log.i(TAG, "extra: " + intent.getExtras().toString());
+        }
+        if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey("tsog_notification") && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
+            Log.i(TAG, "is opened from notification");
+        } else {
+            Log.i(TAG, "is NOT opened from notification");
+        }
     }
 
     @Override
@@ -67,6 +80,13 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
     protected void onStop() {
         super.onStop();
         FirebaseWrapper.onActivityStop();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i(TAG, "new intent");
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override

@@ -31,7 +31,6 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         else
             this.addUserIdLabel();
         this.addGetUpdatesBtn();
-        debugLog("menu ctor");
     },
 
     touchEvent: function(sender,type) {
@@ -629,7 +628,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
             }
         }.bind(this));
 
-        this.addChild(b, 99);
+        this._featuresLayer.addChild(b, 99);
 
         var btnTitleConfig = {
             "color": "#ffffff",
@@ -661,16 +660,18 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
 
         this.getUpdatesBtn = b;
 
-        // this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
+        this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
     },
 
     setUpdatesButtonOnOrOff: function() {
+        var hasGrantPermission = false;
         if (cc.sys.os === cc.sys.OS_IOS) {
-            var hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-            this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
-            this.getUpdatesBtn.setEnabled(!hasGrantPermission);
+            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
+        } else {
+            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
         }
-
+        this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
+        this.getUpdatesBtn.setEnabled(!hasGrantPermission);
     },
 
 });
