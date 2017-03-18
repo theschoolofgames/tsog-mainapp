@@ -63,7 +63,7 @@ public class AppActivity extends Cocos2dxActivity {
                 .build();
         Fabric.with(fabric);
 
-        Wrapper.requestPermission("RECORD_AUDIO");
+//        Wrapper.requestPermission("RECORD_AUDIO");
         EkStep.setup(this);
         EkStep.getInstance().sendTelemetryEvent("GE_LAUNCH_GAME");
         return glSurfaceView;
