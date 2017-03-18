@@ -31,6 +31,8 @@ var WritingTestLayer = TestLayer.extend({
 
     _currentChar: "",
 
+    _writtenWord: "",
+
     ctor: function(data, oldSceneName, isTestScene, timeForScene) {
         this._super();
 
@@ -180,6 +182,8 @@ var WritingTestLayer = TestLayer.extend({
                     self._tmpRender.getSprite().color = cc.color("#333333");
                     if (self.checkChangingCharacter()) {
                         var correctedCharacter = self._currentChar;
+                        self._correctAction(correctedCharacter);
+
                         if (self.checkChangingWord()){
                             self._changeWord();
                             self._touchCounting++;
@@ -188,7 +192,6 @@ var WritingTestLayer = TestLayer.extend({
                         else {
                             self._moveToNextCharacter();
                         }
-                        self._correctAction(correctedCharacter);
                     } else {
                         self._displayFinger();
                     }
@@ -212,6 +215,7 @@ var WritingTestLayer = TestLayer.extend({
 
                     if (self._writeFailCount >= failTimes) {
                         self._segmentTracking("false");
+                        self._writtenWord += " ";
                         self._finishAndMoveToNextChar();
                     }
                 })
@@ -397,6 +401,9 @@ var WritingTestLayer = TestLayer.extend({
         var sprite, objName;
         self._blockTouch = true;
 
+        var oldWord = self._writingWords[self._nameIdx-1];
+        EkStepHelper.sendAssessEvent(oldWord, oldWord == self._writtenWord, self._writtenWord);
+
         this.runAction(cc.sequence(
             cc.delayTime(1),
             cc.callFunc(function() {
@@ -532,6 +539,8 @@ var WritingTestLayer = TestLayer.extend({
     },
 
     _displayWord: function() {
+        this._writtenWord = "";
+
         if (this._characterNodes.length > 0) {
             this._characterNodes.forEach(function(obj) {obj.removeFromParent();});
         }
@@ -680,6 +689,8 @@ var WritingTestLayer = TestLayer.extend({
         var self = this;
         jsb.AudioEngine.play2d(res.Succeed_sfx);
         cc.log("correct: " + correctedCharacter);
+
+        self._writtenWord += correctedCharacter;
 
         jsb.AudioEngine.play2d("res/sounds/alphabets/" + localize(correctedCharacter) + ".mp3");
         this.runAction(cc.sequence(

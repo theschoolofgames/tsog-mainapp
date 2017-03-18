@@ -109,6 +109,9 @@ var ListeningTestLayer = TestLayer.extend({
                     currentKeyNames = self._keyObject[self._currentKeyIndex];
                 else
                     currentKeyNames = self._names[self._nameIdx];
+
+                EkStepHelper.sendAssessEvent(currentKeyNames, obj.name == currentKeyNames, obj.name);
+
                 if (obj.name == currentKeyNames) {
                     self._celebrateCorrectObj(obj);
                     self._touchCounting ++;
@@ -448,7 +451,6 @@ var ListeningTestLayer = TestLayer.extend({
                 obj_name: correctedObj.name,
                 correct: "true"
             });
-
 
         var effect = AnimatedEffect.create(correctedObj, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         effect.scale = 3;

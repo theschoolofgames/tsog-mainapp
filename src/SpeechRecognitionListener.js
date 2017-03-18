@@ -61,9 +61,15 @@ var SpeechRecognitionListener = cc.Class.extend({
         // });
 
         cc.log("after filter: " + text);
+        text = text.toUpperCase();
 
-        this._speakingLayer.resultText = text.toUpperCase();
-        if (languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName.toLowerCase()].toUpperCase() == text) {
+        this._speakingLayer.resultText = text;
+
+        var expectedAnswer = languagesForWriting[currentLanguage][this._speakingLayer.currentObjectName.toLowerCase()].toUpperCase();
+
+        EkStepHelper.sendAssessEvent(expectedAnswer, text == expectedAnswer, text);
+
+        if (expectedAnswer == text) {
             cc.log("success");
             this._speakingLayer.correctAction();
         } else {
