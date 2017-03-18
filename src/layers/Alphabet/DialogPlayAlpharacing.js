@@ -120,15 +120,20 @@ var DialogPlayAlpharacing = Dialog.extend({
             lbPlay.x = buttonPlay.width/2;
             lbPlay.y = buttonPlay.height/2;
             buttonPlay.addChild(lbPlay);
+
+            let self = this;
             buttonPlay.addClickEventListener(function(){
                 AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
                 if(canttouch) // ^_^ @david
                     return;
                 canttouch = true;
+                cc.log("aha!")
+                EkStepHelper.sendNavigateEvent((self._isRetry ? "alpharacing" : "home"), "alpharacing");
                 CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
                 var data = DataManager.getInstance().getDataAlpharacing();
                 cc.director.runScene(new AlphaRacingScene(data, null, 600));
             });
+
         }
 
         // lbPlay.scale = 0.6;

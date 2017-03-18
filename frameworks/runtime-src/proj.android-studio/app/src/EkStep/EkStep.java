@@ -2,7 +2,9 @@ package EkStep;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
+import android.provider.Settings;
 import android.util.Log;
 
 
@@ -28,48 +30,63 @@ import org.json.JSONException;
  * Created by Tony on 1/13/17.
  */
 public class EkStep implements IRegister, ITelemetryData{
-
+    private static final String TAG = "EkStep";
     private static final String partnerName = "TSOG";
     private static final String partnerId = "com.theschoolofgames.tsog";
     private static final String partnerPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDrgyJbtE4rU8rcyYQURr0eOO08pySMKBJmy4FwylD3Q+EIBnhCDRDDg5sJgADzxqpx7GUvDfAQZjYZo5aJFuy+eswvhRS4IGdInSM9O2b7FcPmCAZdS09/0+OwbWqQHf4cFBe4DoKRkvFH/8FCmlxSeI0NiqGAgiqU0OiwQt2aTQIDAQAB";
 
-    public static String getGeLaunchGameEvent() {
-        return GE_LAUNCH_GAME_EVENT;
+    private static EkStep instance;
+
+    private String appVersionName;
+    private String deviceId;
+
+    public static EkStep getInstance() {
+        assert(instance != null);
+        return instance;
     }
 
-    public static String getGeGameEndEvent() {
-        return GE_GAME_END_EVENT;
+    public static EkStep setup(Activity activity) {
+        EkStep.instance = new EkStep(activity);
+        EkStep.instance.registerPartner(activity.getApplicationContext());
+
+        try {
+            PackageInfo pInfo = activity.getPackageManager().getPackageInfo(activity.getPackageName(), 0);
+            instance.appVersionName = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        instance.deviceId = Settings.Secure.getString(activity.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+
+        return instance;
     }
 
     //    private static RegisterResponseHandler responseHandler;
-    private static final String GE_LAUNCH_GAME_EVENT = "{'eid': 'GE_LAUNCH_GAME','ets': '1442816723','ver': '2.0','gdata': {'id': 'com.theschoolofgames.tsog','ver': '1.0'},'sid': '','uid': '','did': '','edata': {'eks': {}},'tags':[]}";
-    private static final String GE_GAME_END_EVENT = "{'eid': 'GE_GAME_END','ets': '1442816723','ver': '2.0','gdata': {'id': 'com.theschoolofgames.tsog','ver': '1.0'},'sid': '','uid': '','did': '','edata': {'eks': {}},'tags':[]}";
     private final Activity activity;
 
     public EkStep(Activity activity) {
         this.activity = activity;
-
-        registerPartner(activity);
     }
 
     @Override
     public void onRegisterSuccess(GenieResponse genieResponse) {
-        Log.w("GenieResponse register", genieResponse.toString());
+        Log.i("GenieResponse register", genieResponse.toString());
     }
 
     @Override
     public void onRegisterFailure(GenieResponse genieResponse) {
-        Log.w("GenieResponse register", genieResponse.toString());
+        Log.e("GenieResponse register", genieResponse.toString());
     }
 
     @Override
     public void onSuccessTelemetry(GenieResponse genieResponse) {
-        Log.w("Telemetry success", genieResponse.toString());
+        Log.i("Telemetry success", genieResponse.toString());
     }
 
     @Override
     public void onFailureTelemetry(GenieResponse genieResponse) {
-        Log.w("Telemetry failure", genieResponse.toString());
+        Log.e("Telemetry failure", genieResponse.toString());
     }
 
     private void registerPartner(Context context){
@@ -80,12 +97,24 @@ public class EkStep implements IRegister, ITelemetryData{
         Log.w("EkStep", "Register partner");
     }
 
-    // String event -> Json string
-    public void sendTelemetryEvent(String event) {
-        Telemetry telemetry = new Telemetry(activity);
+    public static void sendTelemetryEvent(String name) {
+        sendTelemetryEvent(name, "{}");
+    }
+    public static void sendTelemetryEvent(String name, String eventDetail) {
+        Log.i(TAG, "sendTelemetryEvent: " + name + ", eventDetail: " + eventDetail);
+        long timestamp = System.currentTimeMillis();
+        String data = "{'eid': '" + name +
+                "','ets': '" + timestamp +
+                "','ver': '2.0','gdata': {'id': '" + partnerId +
+                "','ver': '" + instance.appVersionName +
+                "'},'sid': '','uid': '','did': '" + instance.deviceId +
+                "','edata': {'eks': " + eventDetail + "},'tags':[]}";
 
-        TelemetryResponseHandler responseHandler = new TelemetryResponseHandler(this);
-        telemetry.send(event, responseHandler);
+        Log.i(TAG, "  -> full string: " + data);
+        Telemetry telemetry = new Telemetry(instance.activity);
+
+        TelemetryResponseHandler responseHandler = new TelemetryResponseHandler(instance);
+        telemetry.send(data, responseHandler);
     }
 
     private void launchGenieApp(){
@@ -96,4 +125,4 @@ public class EkStep implements IRegister, ITelemetryData{
             activity.startActivity(intent);
         } catch (Exception e) {}
     }
-}
+};

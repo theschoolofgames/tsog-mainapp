@@ -63,9 +63,9 @@ public class AppActivity extends Cocos2dxActivity {
                 .build();
         Fabric.with(fabric);
 
-        Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
-        EkStep e = new EkStep(this);
-        e.sendTelemetryEvent(e.getGeLaunchGameEvent());
+        Wrapper.requestPermission("RECORD_AUDIO");
+        EkStep.setup(this);
+        EkStep.getInstance().sendTelemetryEvent("GE_LAUNCH_GAME");
         return glSurfaceView;
     }
 
@@ -100,9 +100,7 @@ public class AppActivity extends Cocos2dxActivity {
 
     @Override
     protected void onStop() {
-
-        EkStep e = new EkStep(this);
-        e.sendTelemetryEvent(e.getGeGameEndEvent());
+        EkStep.getInstance().sendTelemetryEvent("GE_GAME_END");
         super.onStop();
     }
 

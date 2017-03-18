@@ -135,6 +135,7 @@
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
+        "src/helper/EkStepHelper.js",
 
         "src/lang/Localization.js",
 

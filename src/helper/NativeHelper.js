@@ -300,7 +300,7 @@ var NativeHelperConfig = {
         Android: [
             "EkStep/EkStep",
             "sendTelemetryEvent",
-            "(Ljava/lang/String;)V"
+            "(Ljava/lang/String;Ljava/lang/String;)V"
         ]
     },
 

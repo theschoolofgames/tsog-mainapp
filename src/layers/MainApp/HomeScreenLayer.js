@@ -202,6 +202,7 @@ var HomeScreenLayer = cc.Layer.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
 
         var doorName = door.name;
+        cc.log("_onDoorPressed: doorName");
         switch(doorName) {
             case "play":
                 this.addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
