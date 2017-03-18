@@ -69,6 +69,8 @@ var SpeakingTestLayer = TestLayer.extend({
             }
         });
         cc.eventManager.addListener(self._eventTimeUp, 1);
+
+        EkStepHelper.sendItemResponseEvent("speaking-test", "SPEAK");
     },
 
     onRequestPermission: function(succeed) {

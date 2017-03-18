@@ -79,6 +79,8 @@ var WritingTestLayer = TestLayer.extend({
                 onTouchMoved: this.onTouchMoved.bind(this),
                 onTouchEnded: this.onTouchEnded.bind(this)
         }, this);
+
+        EkStepHelper.sendItemResponseEvent("writing-test", "DRAG");
     },
     _addHudLayer: function(){
         this._super(this._duration);

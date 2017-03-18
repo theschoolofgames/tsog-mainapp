@@ -25,3 +25,14 @@ EkStepHelper.sendAssessEvent = function(word, correct, answer) {
 
     NativeHelper.callNative("sendTelemetryEvent", ["OE_ASSESS", JSON.stringify(event)]);
 };
+
+EkStepHelper.sendItemResponseEvent = function(id, type) {
+    var event = {
+        "qid": id, // unique assessment question id
+        "type": type, // type of interaction. CHOOSE,DRAG,SELECT,MATCH,INPUT,SPEAK,WRITE
+        "state": "SELECTED", // state of the response (SELECTED, UNSELECTED) - to allow the child to unselect an option
+        "resvalues": []
+    };
+
+    NativeHelper.callNative("sendTelemetryEvent", ["OE_ITEM_RESPONSE", JSON.stringify(event)]);
+};

@@ -56,6 +56,8 @@ var ListeningTestLayer = TestLayer.extend({
             }
         });
         cc.eventManager.addListener(this._eventTimeUp, 1);
+
+        EkStepHelper.sendItemResponseEvent("listening-test", "CHOOSE");
     },
 
     onEnterTransitionDidFinish: function() {
