@@ -145,6 +145,7 @@ var DialogPlayAlpharacing = Dialog.extend({
             AudioManager.getInstance().play(res.ui_close_mp3, false, null);
             
             if (self._isRetry) {
+                EkStepHelper.sendNavigateEvent("alpharacing", "home");
                 cc.director.runScene(new HomeScene());
             } else {
                 self.parent._blocktouch = false;

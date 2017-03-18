@@ -5,9 +5,12 @@ var SettingDialog = cc.Layer.extend({
     _dialogBgLabel: null,
     _callback: null,
     _logoutBtnXRatio: -1,
+    _fromScene: "",
 
-    ctor: function(text) {
+    ctor: function(text, fromScene) {
         this._super();
+
+        this._fromScene = fromScene;
 
         this._addMask();
         this._addDialogBg();
@@ -83,6 +86,7 @@ var SettingDialog = cc.Layer.extend({
                 cc.director.replaceScene(new AccountSelectorScene());
             }
             else {
+                EkStepHelper.sendNavigateEvent(self._fromScene, "home");
                 cc.director.replaceScene(new HomeScene());
                 // cc.director.replaceScene(new MapScene());
                 // NativeHelper.callNative("moveToMainApp");

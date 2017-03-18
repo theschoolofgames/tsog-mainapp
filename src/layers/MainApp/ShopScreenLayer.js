@@ -115,6 +115,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         button.y = cc.winSize.height - button.height/2 - 10;
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
+            EkStepHelper.sendNavigateEvent("shop", "home");
             cc.director.runScene(new HomeScene());
         });
     },

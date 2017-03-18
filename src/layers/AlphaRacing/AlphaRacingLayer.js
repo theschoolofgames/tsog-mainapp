@@ -128,8 +128,10 @@ var AlphaRacingLayer = cc.Layer.extend({
                         else {
                             if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING)
                                 self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
-                            else
+                            else {
+                                EkStepHelper.sendNavigateEvent("alpharacing", "home");
                                 cc.director.runScene(new HomeScene());
+                            }
 
                         } 
                     })

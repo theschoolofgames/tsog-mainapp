@@ -33,6 +33,7 @@ var ShopHUDLayer = SpecifyGoalHudLayer.extend({
         this.addChild(button, 9999);
         button.addClickEventListener(function(){
             AudioManager.getInstance().play(res.back_sound_mp3, false, null);
+            EkStepHelper.sendNavigateEvent("shop", "home");
             cc.director.runScene(new HomeScene());
         });
     },

@@ -269,7 +269,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
 
         var self = this;
         settingBtn.addClickEventListener(function() {
-            self.addChild(new SettingDialog(), 999);
+            self.addChild(new SettingDialog(null, "talkingadi"), 999);
         })
         this._settingBtn = settingBtn;
     },

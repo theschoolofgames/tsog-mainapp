@@ -40,7 +40,7 @@ var MapLayer = cc.Layer.extend({
         var self = this;
         settingBtn.addClickEventListener(function() {
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-            self.addChild(new SettingDialog(), 999);
+            self.addChild(new SettingDialog(null, "learn"), 999);
         })
         this._settingBtn = settingBtn;
     },
