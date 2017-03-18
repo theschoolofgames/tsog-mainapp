@@ -12,7 +12,7 @@ var HudLayer = cc.Layer.extend({
     _gameProgressBar: null,
     _lbCoin: null,
 
-    _currencyType: null,
+    currencyType: null,
     _coinEffect: null,
     _coin: null,
 
@@ -24,8 +24,12 @@ var HudLayer = cc.Layer.extend({
 
     _coinAnimationFrames: [],
 
+    totalEarnedAmount: 0,
+
     ctor: function(layer, withoutClock, timeForScene) {
         this._super();
+
+        this.totalEarnedAmount = 0;
 
         this._layer = layer;
         this._trophiesEarned = KVDatabase.getInstance().getInt("trophiesEarned", 0);
@@ -47,10 +51,10 @@ var HudLayer = cc.Layer.extend({
 
     createCoinAnimations: function() {
         this._coinAnimationFrames = [];
-        var totalFrames = (this._currencyType == "gold") ? GOLD_ANIMATION_FRAMES_COUNT : DIAMOND_ANIMATION_FRAMES_COUNT;
+        var totalFrames = (this.currencyType == "gold") ? GOLD_ANIMATION_FRAMES_COUNT : DIAMOND_ANIMATION_FRAMES_COUNT;
 
         for (var i = 0; i < totalFrames; i++) {
-            var frame = this._currencyType + "-0" + i + ".png";
+            var frame = this.currencyType + "-0" + i + ".png";
             // cc.log("frame: " + frame);
             // cc.log("spriteFrameCache: " + cc.spriteFrameCache.getSpriteFrame(frame));
             this._coinAnimationFrames.push(cc.spriteFrameCache.getSpriteFrame(frame));
@@ -177,9 +181,9 @@ var HudLayer = cc.Layer.extend({
         this.addChild(bg);
         this._bg = bg;
 
-        if (!this._currencyType)
-            this._currencyType = "gold";
-        var coin = new cc.Sprite("#" + this._currencyType + ".png");
+        if (!this.currencyType)
+            this.currencyType = "gold";
+        var coin = new cc.Sprite("#" + this.currencyType + ".png");
         coin.scale = CURRENCY_SCALE;
         coin.x = bg.width - coin.width/2 + 10;
         coin.y = bg.height/2;
@@ -187,7 +191,7 @@ var HudLayer = cc.Layer.extend({
         this._coin = coin;
 
         var coinAmount = CurrencyManager.getInstance().getCoin();
-        if(this._currencyType == "diamond")
+        if(this.currencyType == "diamond")
             coinAmount = CurrencyManager.getInstance().getDiamond();
         var lbCoin = new cc.LabelBMFont(coinAmount.toString(), res.HudFont_fnt);
         // lbCoin.scale = 0.4;
@@ -259,7 +263,7 @@ var HudLayer = cc.Layer.extend({
 
     updatex: function() {
         var balance = CurrencyManager.getInstance().getCoin().toString();
-        if (this._currencyType == "diamond")
+        if (this.currencyType == "diamond")
             balance = CurrencyManager.getInstance().getDiamond().toString();
 
         this._lbCoin.setString(balance);
@@ -274,7 +278,7 @@ var HudLayer = cc.Layer.extend({
         if(amount == 0)
             return;
         var self = this;
-        var node = new ccui.Button(this._currencyType + ".png", "", "");
+        var node = new ccui.Button(this.currencyType + ".png", "", "");
 
         node.addClickEventListener(this._tappedGoldNode.bind(this));
         node.tag = amount;
@@ -290,6 +294,8 @@ var HudLayer = cc.Layer.extend({
             })
         ));
         this.addChild(node);
+
+        this.totalEarnedAmount += amount;
     },
 
     playPopGoldSound: function() {
@@ -305,7 +311,7 @@ var HudLayer = cc.Layer.extend({
         var amount = goldNode.tag;
 
         for (var i = 0; i < amount; i++) {
-            var gold = new cc.Sprite("#" + this._currencyType + ".png");
+            var gold = new cc.Sprite("#" + this.currencyType + ".png");
             gold.x = goldNode.x;
             gold.y = goldNode.y;
             gold.scale = CURRENCY_SCALE;//Math.random()*0.1 + 0.8;
@@ -344,7 +350,7 @@ var HudLayer = cc.Layer.extend({
                 cc.callFunc(function() {
                     // cc.log("prepare calling addCoinEffect");
                     self.addCoinEffect();
-                    if (self._currencyType == "gold")
+                    if (self.currencyType == "gold")
                         CurrencyManager.getInstance().incCoin(amount);
                 })
             ));
@@ -379,6 +385,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     setCurrencyType: function(name) {
+        this.currencyType = name;
     },
 
     addSpecifyGoal: function(imageName) {

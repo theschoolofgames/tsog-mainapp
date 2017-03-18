@@ -135,9 +135,4 @@ var SpecifyGoalHudLayer = HudLayer.extend({
         else
             this._specifyGoalLabel.setString(this._currentSpecifyGoal + "/" + this._totalSpecifyGoal);
     },
-
-
-    setCurrencyType: function(name) {
-        this._currencyType = name;
-    },
 });

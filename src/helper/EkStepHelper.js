@@ -36,3 +36,16 @@ EkStepHelper.sendItemResponseEvent = function(id, type) {
 
     NativeHelper.callNative("sendTelemetryEvent", ["OE_ITEM_RESPONSE", JSON.stringify(event)]);
 };
+
+EkStepHelper.sendEarnEvent = function(currencyId, amount) {
+    if (amount <= 0) {
+        return;
+    }
+    
+    var event = {
+        "type": currencyId, // type of points earned by child. MONEY,GEMS,POINTS
+        "points": amount // amount earned.
+    };
+
+    NativeHelper.callNative("sendTelemetryEvent", ["OE_EARN", JSON.stringify(event)]);
+};

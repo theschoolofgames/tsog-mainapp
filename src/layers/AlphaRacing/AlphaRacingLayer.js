@@ -117,6 +117,8 @@ var AlphaRacingLayer = cc.Layer.extend({
             event: cc.EventListener.CUSTOM,
             eventName: EVENT_AR_GAMEOVER,
             callback: function(event) {
+                EkStepHelper.sendEarnEvent(this._hudLayer.currencyType, this._hudLayer.totalEarnedAmount);
+                
                 this.unscheduleUpdate();
                 jsb.AudioEngine.play2d("sound/die.mp3");
                 this.runAction(cc.sequence(

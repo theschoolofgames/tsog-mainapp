@@ -919,6 +919,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
+        EkStepHelper.sendEarnEvent(this._hudLayer.currencyType, this._hudLayer.totalEarnedAmount);
+        
         var numberScene = KVDatabase.getInstance().getInt("scene_number");
         var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();

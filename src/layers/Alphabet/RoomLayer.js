@@ -826,6 +826,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     _moveToNextScene: function() {
+        EkStepHelper.sendEarnEvent(this._hudLayer.currencyType, this._hudLayer.totalEarnedAmount);
+        
         Utils.updateStepData();
         for (var i = 0; i < this._objectDisableds.length; i++) {
             this._objectDisableds[i].removeFromParent();
