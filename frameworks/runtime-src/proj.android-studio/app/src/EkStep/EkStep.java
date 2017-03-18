@@ -117,12 +117,12 @@ public class EkStep implements IRegister, ITelemetryData{
         telemetry.send(data, responseHandler);
     }
 
-    private void launchGenieApp(){
-        PackageManager manager = activity.getPackageManager();
+    public static void launchGenieApp(){
+        PackageManager manager = instance.activity.getPackageManager();
         try {
             Intent intent = manager.getLaunchIntentForPackage("org.ekstep.genieservices");
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            activity.startActivity(intent);
+            instance.activity.startActivity(intent);
         } catch (Exception e) {}
     }
 };

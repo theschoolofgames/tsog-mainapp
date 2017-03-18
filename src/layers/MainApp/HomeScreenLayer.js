@@ -16,7 +16,9 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
-        this.addHomeDoor();        
+        this.addHomeDoor(); 
+
+        this.addEkstepButton();       
         
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
@@ -25,6 +27,18 @@ var HomeScreenLayer = cc.Layer.extend({
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
+    },
+
+    addEkstepButton: function() {
+        var btn = new ccui.Button();
+        btn.loadTextures("ekstep-genie.png", "", "", ccui.Widget.LOCAL_TEXTURE);
+        btn.x = btn.width - 50;
+        btn.y = cc.winSize.height - 80 + btn.height/2 - 30 * Utils.screenRatioTo43();
+        this.addChild(btn);
+
+        btn.addClickEventListener(function() {
+            NativeHelper.callNative("launchGenieApp", []);
+        })
     },
 
     addBackGround: function() {
