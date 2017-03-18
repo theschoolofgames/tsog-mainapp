@@ -1,0 +1,1 @@
+./build_android.sh && adb install -r simulator/android/tsog-debug.apk && adb shell am start -ncom.theschoolofgames.tsog/org.cocos2dx.javascript.AppActivity
