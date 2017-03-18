@@ -43,6 +43,15 @@ var CheckProgressDialog = Dialog.extend({
 		b.y = b.height;
 		this.background.addChild(b);
 
+        var checkProgressCustomEvent = cc.EventListener.create({
+            event: cc.EventListener.CUSTOM,
+            eventName: "checkProgressCustomEvent",
+            callback: function(event){
+                cc.director.replaceScene(new HomeScene());
+            }.bind(this)
+        });
+        cc.eventManager.addListener(checkProgressCustomEvent, 1);
+
 		b.addClickEventListener(function() {
 			cc.director.replaceScene(new cc.TransitionFade(0.5, new ProgressTrackerScene(), cc.color.WHITE));
 		});
@@ -59,11 +68,15 @@ var CheckProgressDialog = Dialog.extend({
 		this.background.addChild(b);
 
 		b.addClickEventListener(function() {
-			cc.director.replaceScene(new cc.TransitionFade(0.5, new HomeScene(), cc.color.WHITE));
-		});
+	       this.close();
+		}.bind(this));
 	},
 });
 
+CheckProgressDialog._instance = null;
+
+
 CheckProgressDialog.show = function() {
-	cc.director.getRunningScene().addChild(new CheckProgressDialog());
+    KVDatabase.getInstance().set("game_new_session", false);
+	cc.director.getRunningScene().addChild(new CheckProgressDialog(), 99999);
 }

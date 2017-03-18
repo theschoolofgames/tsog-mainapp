@@ -25,6 +25,7 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -51,6 +52,8 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
 
     private static AppActivity app = null;
 
+    public static boolean isOpenedFromNotification = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceStat) {
         Log.i(TAG, "TSOG AppActivity onCreate()");
@@ -65,8 +68,10 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
         }
         if (intent != null && intent.getExtras() != null && intent.getExtras().containsKey("tsog_notification") && (intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) == 0) {
             Log.i(TAG, "is opened from notification");
+            isOpenedFromNotification = true;
         } else {
             Log.i(TAG, "is NOT opened from notification");
+            isOpenedFromNotification = false;
         }
     }
 
@@ -80,6 +85,7 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
     protected void onStop() {
         super.onStop();
         FirebaseWrapper.onActivityStop();
+        isOpenedFromNotification = false;
     }
 
     @Override
@@ -120,6 +126,7 @@ public class AppActivity extends Cocos2dxActivity implements GoogleApiClient.OnC
     protected void onDestroy() {
         SpeechRecognizer.getInstance().shutdown();
         super.onDestroy();
+        isOpenedFromNotification = false;
     }
 
     @Override

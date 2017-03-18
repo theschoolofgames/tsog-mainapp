@@ -597,6 +597,18 @@ var NativeHelperConfig = {
             "startTwoDaysNotif",
             "()V"
         ]
+    },
+
+    isOpenedFromNotification: {
+        iOS: [
+            "H102Wrapper",
+            "isOpenedFromNotification"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "isOpenedFromNotification",
+            "()Z"
+        ]
     }
 }
 

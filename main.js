@@ -184,6 +184,14 @@ cc.game.onStart = function(){
         if (TSOG_DEBUG)
             startNewDailyLocalNotif();
 
+        if (KVDatabase.getInstance().getString("game_first_session") !== false) {
+            KVDatabase.getInstance().set("game_first_session", false);
+            expectDynamicLink = true;
+        } else 
+            KVDatabase.getInstance().set("game_first_session", true);
+
+        KVDatabase.getInstance().set("game_new_session", true);
+
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
         debugLog("authenticateUID " + authenticateUID);
         if (authenticateUID) {
@@ -194,12 +202,6 @@ cc.game.onStart = function(){
             AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
             cc.director.runScene(new MissionPageBeforeLoginScene());
         }
-
-        if (KVDatabase.getInstance().getString("game_first_session") !== "false") {
-            KVDatabase.getInstance().set("game_first_session", "false");
-            expectDynamicLink = true;
-        }
-
         AnalyticsManager.getInstance().logEventAppOpen();
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {

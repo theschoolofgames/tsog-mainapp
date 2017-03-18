@@ -17,19 +17,31 @@ var HomeScreenLayer = cc.Layer.extend({
 
         this._super();
 
+        this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
         this.addHomeDoor();        
-        
-        KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
-
+    
         this.addChild(new HomeHUDLayer(),2);
-        // this.addChild(new ProgressTrackerLayer(), 100);
         this.addProgressTrackerButton();
-        this._playBeginHomeCutScene = playBeginHomeCutScene || false;
-        if (this._playBeginHomeCutScene)
-            this.playBeginHomeCutScene();
+        KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
+    },
+
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        var isOpenedFromNotif = NativeHelper.callNative("isOpenedFromNotification");
+        var isFirstSession = KVDatabase.getInstance().getString("game_first_session", false);
+        var isNewSession = KVDatabase.getInstance().getString("game_new_session", false);
+
+        if (isFirstSession || isOpenedFromNotif || !isNewSession) {
+            if (this._playBeginHomeCutScene)
+                this.playBeginHomeCutScene();
+        } else {
+            CheckProgressDialog.show();
+        }
+
     },
 
     addProgressTrackerButton: function(){
@@ -39,8 +51,6 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addChild(button);
         var self = this;
         button.addClickEventListener(function() {
-            // var layer = new ProgressTrackerLayer();
-            // self.addChild(layer, 999999);
             AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
             AnalyticsManager.getInstance().logCustomEvent(EVENT_PARENTS_CLICK);
             var dialog = new GrownUpCheckDialog(self.grownUpCheckCallback);
@@ -72,11 +82,18 @@ var HomeScreenLayer = cc.Layer.extend({
     },  
 
     playBeginHomeCutScene: function() {
-        // KVDatabase.getInstance().set("didPlayCutScene", 1);
         // shadow layer 
         var l = new cc.LayerColor(cc.color(0, 0, 0, 180));
         l.setLocalZOrder(HOME_DOOR_Z_ORDER + 2);
         this.addChild(l);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) {return true;}
+        }, this);
+
+
 
         var door = this.getChildByName("home");
         this.runDoorCutSceneAction(door, 1);

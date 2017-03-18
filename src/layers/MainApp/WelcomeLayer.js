@@ -1,13 +1,9 @@
 var WelcomeLayer = cc.LayerColor.extend({
     _policyAccepted: null,
 
-    _didAppOpenWithNotification: 0,
-
 	ctor: function() {
 		this._super(cc.color(255, 255, 255, 255));
         this.tag = 1;
-        this._didAppOpenWithNotification = KVDatabase.getInstance().getInt('open_with_notifications', 0);
-        debugLog("this._didAppOpenWithNotification" + this._didAppOpenWithNotification);
         
         this.addWelcomeCutscene();
 
@@ -35,12 +31,8 @@ var WelcomeLayer = cc.LayerColor.extend({
 	},
 
 	moveToMainScene: function() {
-		cc.audioEngine.stopMusic();
-
-        if (!this._didAppOpenWithNotification)
-            CheckProgressDialog.show();
-        else
-            cc.director.replaceScene(new HomeScene(true));
+		cc.audioEngine.stopMusic();    
+        cc.director.replaceScene(new HomeScene(true));
 	}
 });
 

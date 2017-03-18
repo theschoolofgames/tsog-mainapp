@@ -502,7 +502,7 @@ public class Wrapper
     }
 
     public static void startDailyNotif() {
-        startLocalNotificationWithFireDate("kTagDailyLocalNotif", 15);
+        startLocalNotificationWithFireDate("kTagDailyLocalNotif", 86400);
     }
     public static void startTwoDaysNotif() {
         startLocalNotificationWithFireDate("kTagTwoDaysLocalNotif", 172800);
@@ -522,8 +522,10 @@ public class Wrapper
             tag = TWO_DAYS_NOTIFICATION_TAG;
         }
         return tag;
+    }
 
-
+    public static boolean isOpenedFromNotification() {
+        return activity.isOpenedFromNotification;
     }
 
 }

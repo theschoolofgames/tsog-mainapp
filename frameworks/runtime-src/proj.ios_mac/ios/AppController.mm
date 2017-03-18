@@ -163,13 +163,12 @@ static AppDelegate s_sharedApplication;
     [[UIApplication sharedApplication] registerForRemoteNotifications];
   
     UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-    NSString* jsCmd = @"";
     if (localNotification) {
-      jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 1)"];
+      [H102Wrapper setOpenedFromNotification:YES];
     } else {
-      jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 0)"];
+      [H102Wrapper setOpenedFromNotification:NO];
     }
-    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+
     return YES;
 }
 
@@ -191,8 +190,7 @@ static AppDelegate s_sharedApplication;
   if (application.applicationState == UIApplicationStateInactive || application.applicationState == UIApplicationStateBackground)
   {
     //opened from a push notification when the app was on background
-    NSString* jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 1)"];
-    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
+    [H102Wrapper setOpenedFromNotification:YES];
   }
 }
 
@@ -278,10 +276,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
     cocos2d::Application::getInstance()->applicationDidEnterBackground();
-  
-    NSString* jsCmd = [NSString stringWithFormat:@"KVDatabase.getInstance().set('open_with_notifications', 0)"];
-    ScriptingCore::getInstance()->evalString([jsCmd UTF8String]);
-
+    
+    [H102Wrapper setOpenedFromNotification:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

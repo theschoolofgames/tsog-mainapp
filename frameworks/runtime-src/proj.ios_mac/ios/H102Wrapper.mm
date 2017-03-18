@@ -35,6 +35,7 @@ static NSTimer* timer;
 
 static int noiseDetectionLoopCount = 0;
 static NSMutableArray* noiseDetectionArray = nil;
+static BOOL isOpenedFromNotification = NO;
 
 @implementation H102Wrapper
 
@@ -476,6 +477,14 @@ static NSMutableArray* noiseDetectionArray = nil;
 
 + (void)startTwoDaysNotif {
   [self startLocalNotificationWithFireDate:172800 withTag:@"kTagTwoDaysLocalNotif"];
+}
+
++ (bool)isOpenedFromNotification {
+  return isOpenedFromNotification;
+}
+
++ (void)setOpenedFromNotification: (bool)isOpened {
+  isOpenedFromNotification = isOpened;
 }
 
 @end

@@ -30,6 +30,7 @@
 + (void)startLocalNotificationWithFireDate:(NSTimeInterval)fireDateInSeconds withTag:(NSString*)tag;
 + (void)onRequestedPNPermission;
 + (BOOL)isPNPerMissionAllowed;
++ (void)setOpenedFromNotification:(bool)isOpened;
 @end
 
 
