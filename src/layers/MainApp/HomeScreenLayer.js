@@ -39,6 +39,12 @@ var HomeScreenLayer = cc.Layer.extend({
             if (this._playBeginHomeCutScene)
                 this.playBeginHomeCutScene();
         } else {
+            var door = this.getChildByName("home");
+            door.setTouchEnabled(true);
+            door = this.getChildByName("play");
+            door.setTouchEnabled(true);
+            door = this.getChildByName("learn");
+            door.setTouchEnabled(true);
             CheckProgressDialog.show();
         }
 
