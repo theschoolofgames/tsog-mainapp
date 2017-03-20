@@ -13,7 +13,7 @@ var MessageDialog = cc.LayerColor.extend({
             onTouchEnded: function() {}
         }, this);
         if (!dialogImage)
-            dialogImage = "#setting-dialog-bg.png";
+            dialogImage = "dialog_bg.png";
         this.addBackground(dialogImage);
 	},
 

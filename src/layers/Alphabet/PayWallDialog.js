@@ -26,7 +26,7 @@ var PayWallDialog = cc.LayerColor.extend({
     },
 
     _addDialogBg: function() {
-        this._dialogBg = new cc.Sprite("#setting-dialog-bg.png");
+        this._dialogBg = new cc.Sprite("dialog_bg.png");
         this._dialogBg.x = cc.winSize.width/2;
         this._dialogBg.y = cc.winSize.height/2;
         this.addChild(this._dialogBg);
