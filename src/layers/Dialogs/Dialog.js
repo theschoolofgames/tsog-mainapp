@@ -8,6 +8,10 @@ var Dialog = cc.LayerColor.extend({
         this._super(cc.color(0, 0, 0, 200));
 
         this._csf = cc.director.getContentScaleFactor();
+        this.addListener();
+    },
+
+    addListener: function() {
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,

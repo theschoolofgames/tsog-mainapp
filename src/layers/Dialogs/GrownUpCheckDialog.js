@@ -10,8 +10,7 @@ var config = {
     "8": "eight",
     "9": "nine"
 };
-var GrownUpCheckDialog = cc.LayerColor.extend({
-    _dialogBg: null,
+var GrownUpCheckDialog = Dialog.extend({
     _numberArray: [],
     _numberForAdult: null,
     _numbersNodeArray: [],
@@ -21,7 +20,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     _progressBar: null,
     _callback: null,
     ctor: function(callback){
-        this._super(cc.color(0, 0, 0 , 200));
+        this._super();
         this._callback = callback;
         this._colors = ["black", "blue", "green", "orange", "pink", "purple", "red", "brown", "white", "yellow"];
         this._numbersNodeArray = [];
@@ -35,11 +34,17 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         this._numberArray = this._numberArray.splice(0,6);
         shuffle(this._colors);
         this._colors = this._colors.splice(0,6);
-        cc.log("COLOR: " + JSON.stringify(this._colors));
+        // cc.log("COLOR: " + JSON.stringify(this._colors));
         this._numberForAdult = this._numberArray[Math.floor(Math.random() * this._numberArray.length)];
-        cc.log("NUMBER: " + JSON.stringify(this._numberArray));
+        // cc.log("NUMBER: " + JSON.stringify(this._numberArray));
         this.addNumberForAdultAndProgressBar();
         this.addRandomNumber();
+        this.addListener();
+        this.scheduleUpdate();
+
+    },
+
+    addListener: function() {
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
@@ -47,15 +52,13 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
             onTouchMoved: this.onTouchMoved.bind(this),
             onTouchEnded: this.onTouchEnded.bind(this),
         }, this);
-        this.scheduleUpdate();
-
     },
 
     runActionFail: function(){
         this._objectTouching = null;
         this._timeForTouched = 0;
         AudioManager.getInstance().play(res.incorrect_word_mp3, false, null);
-        this._dialogBg.runAction(cc.sequence(
+        this.background.runAction(cc.sequence(
             cc.moveBy(0.05, cc.p(- 4, 0)).easing(cc.easeBackIn(0.05)),
             cc.moveBy(0.05, cc.p(4, 0)).easing(cc.easeBackIn(0.05)),
             cc.moveBy(0.05, cc.p(- 4, 0)).easing(cc.easeBackIn(0.05)),
@@ -70,7 +73,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         // targetNode._startTouchPosition = touchedPosNodeSpace;
         for(var i = 0; i < this._numbersNodeArray.length; i++) {
             var node = this._numbersNodeArray[i];
-            var numberPos = this._dialogBg.convertToWorldSpace(cc.p(node.getBoundingBox().x, node.getBoundingBox().y));
+            var numberPos = this.background.convertToWorldSpace(cc.p(node.getBoundingBox().x, node.getBoundingBox().y));
             var numberBoundingBox = cc.rect(numberPos.x, numberPos.y, node.getBoundingBox().width, node.getBoundingBox().height);
             var isRectContainsPoint = cc.rectContainsPoint(numberBoundingBox, touchedPos);
             if(isRectContainsPoint && node.tag == this._numberForAdult) {
@@ -126,7 +129,7 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
-        this._dialogBg = dialogBg;
+        this.background = dialogBg;
 
         var ribbon = new cc.Sprite("res/SD/grownup/ribbon.png");
         ribbon.x = dialogBg.width/2;
@@ -143,13 +146,13 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     addCloseButton: function() {
         var self = this;
         var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
-        closeButton.x = this._dialogBg.width - 25;
-        closeButton.y = this._dialogBg.height - 25;
+        closeButton.x = this.background.width - 25;
+        closeButton.y = this.background.height - 25;
         closeButton.addClickEventListener(function(){
             AudioManager.getInstance().play(res.ui_close_mp3, false, null);
             self.removeFromParent();
         });
-        this._dialogBg.addChild(closeButton);
+        this.background.addChild(closeButton);
     },
 
     addRandomNumber: function(){
@@ -157,9 +160,9 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
             var number = this._numberArray[i];
             btn = new ccui.Button("res/SD/grownup/button-" + number + ".png", "res/SD/grownup/button-" + number + "-pressed.png", "");
             btn.x = this._progressBarBg.x - this._progressBarBg.width/2 + btn.width/2 +  i % 3 * 165;
-            btn.y = this._dialogBg.height - 240 - 140 * (Math.floor(i/3));
+            btn.y = this.background.height - 240 - 140 * (Math.floor(i/3));
             btn.setSwallowTouches(false);
-            this._dialogBg.addChild(btn);
+            this.background.addChild(btn);
             this._numbersNodeArray.push(btn);
             btn.tag = number;
             var underButton = new cc.Sprite("res/SD/grownup/button_bg_grownup.png");
@@ -175,14 +178,14 @@ var GrownUpCheckDialog = cc.LayerColor.extend({
     addNumberForAdultAndProgressBar: function(){
         var requiredLb = new cc.LabelBMFont(localizeForWriting("Press number \"") + config[this._numberForAdult.toString()].toUpperCase() + localizeForWriting("\" for 3 seconds"), "res/font/grownupcheckfont-export.fnt");
         requiredLb.scale = 0.4;
-        requiredLb.x = this._dialogBg.width/2;
+        requiredLb.x = this.background.width/2;
         requiredLb.y = this._ribbon.y - 70;
-        this._dialogBg.addChild(requiredLb);
+        this.background.addChild(requiredLb);
         var progressBarBg = new cc.Sprite("res/SD/grownup/progress-bar-grown-up.png");
-        progressBarBg.x = this._dialogBg.width/2;
-        progressBarBg.y = this._dialogBg.height - 140;
+        progressBarBg.x = this.background.width/2;
+        progressBarBg.y = this.background.height - 140;
         this._progressBarBg = progressBarBg;
-        this._dialogBg.addChild(progressBarBg);
+        this.background.addChild(progressBarBg);
         var colorBar = new cc.Sprite("res/SD/grownup/colorbar-grown-up.png");
         var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 - 1;

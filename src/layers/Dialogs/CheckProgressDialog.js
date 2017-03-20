@@ -53,8 +53,12 @@ var CheckProgressDialog = Dialog.extend({
         cc.eventManager.addListener(checkProgressCustomEvent, 1);
 
 		b.addClickEventListener(function() {
-			cc.director.replaceScene(new cc.TransitionFade(0.5, new ProgressTrackerScene(), cc.color.WHITE));
-		});
+			var currentScene = this.parent;
+			this.close();
+			currentScene.addChild(new GrownUpCheckDialog(function() {
+				cc.director.replaceScene(new ProgressTrackerScene());
+			}));
+		}.bind(this));
 
 		var title = new cc.LabelBMFont("OK", res.HomeFont_fnt);
 		title.scale = 0.5;

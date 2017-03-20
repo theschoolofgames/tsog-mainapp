@@ -79,8 +79,8 @@
 
         "src/layers/TestGameLayer.js",
 
-        "src/layers/Dialogs/GrownUpCheckDialog.js",
         "src/layers/Dialogs/Dialog.js",
+        "src/layers/Dialogs/GrownUpCheckDialog.js",
         "src/layers/Dialogs/DialogPlayAlpharacing.js",
         "src/layers/Dialogs/DialogReviveAR.js",
         "src/layers/Dialogs/AlertDialog.js",
