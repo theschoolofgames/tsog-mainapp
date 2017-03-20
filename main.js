@@ -184,7 +184,7 @@ cc.game.onStart = function(){
         if (TSOG_DEBUG)
             startNewDailyLocalNotif();
 
-        if (KVDatabase.getInstance().getString("game_first_session") !== false) {
+        if (KVDatabase.getInstance().getString("game_first_session", false) !== false) {
             KVDatabase.getInstance().set("game_first_session", false);
             expectDynamicLink = true;
         } else 
