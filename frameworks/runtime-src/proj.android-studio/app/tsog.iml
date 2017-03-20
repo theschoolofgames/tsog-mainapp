@@ -158,11 +158,5 @@
     <orderEntry type="library" exported="" name="recyclerview-v7-25.1.0" level="project" />
     <orderEntry type="library" exported="" name="firebase-invites-10.0.1" level="project" />
     <orderEntry type="module" module-name="libcocos2dx" exported="" />
-    <orderEntry type="library" exported="" name="sdkbox" level="project" />
-    <orderEntry type="library" exported="" name="com.android.vending.expansion.zipfile" level="project" />
-    <orderEntry type="library" exported="" name="httpclient-4.4.1.1" level="project" />
-    <orderEntry type="library" exported="" name="PluginGooglePlay" level="project" />
-    <orderEntry type="library" exported="" name="android-async-http-1.4.9" level="project" />
-    <orderEntry type="library" exported="" name="PluginIAP" level="project" />
   </component>
 </module>

@@ -508,8 +508,8 @@ var SpeakingTestLayer = TestLayer.extend({
         cc.log("data after map: " + JSON.stringify(this._names));
     },
 
-
     onExit: function () {
+        this._timesUp = true;
         cc.eventManager.removeListener(this._eventTimeUp);
         this.removeStoryTimeForSpeakingData();
         NativeHelper.removeListener("RequestPermission");
