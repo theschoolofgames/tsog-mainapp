@@ -582,9 +582,8 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                 LoadingIndicator.show();
                 FirebaseManager.getInstance().login(function(succeed, msg) {
                     LoadingIndicator.hide();
-                    // debugLog("login succeed -> " + succeed);
-                    // debugLog("child info -> " + JSON.stringify(User.getCurrentUser().getCurrentChild()));
-                    cc.director.replaceScene(new WelcomeScene());
+                    if (succeed)
+                        cc.director.replaceScene(new WelcomeScene());
                 });
             }
         });
@@ -633,21 +632,22 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this._featuresLayer.addChild(b, 99);
         var btnTitle = (hasGrantPermission) ? "Stop Getting Updates" : "Get Progress Updates";
         var btnTitleConfig = {
-            "color": "#ffffff",
+            "color": "#292A68",
             "shadowColor": [183, 188, 255, 127],
             "shadowSize": 1,
             "shadowRadius": 1,
-            "fontSize": 26,
-            "outlineSize": 0.5,
+            "fontSize": 20,
+            "outlineSize": 1.5,
             "boundingWidthRatio": -1,
             "boundingHeightRatio": 1
         };
+
+
         var btnTitle = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
                                                 btnTitleConfig.fontSize, 
                                                 cc.color(btnTitleConfig.color), 
                                                 btnTitleConfig.outlineSize,
                                                 localizeForWriting(btnTitle));
-
         btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
         btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
                                 btnTitleConfig.shadowColor[1],
