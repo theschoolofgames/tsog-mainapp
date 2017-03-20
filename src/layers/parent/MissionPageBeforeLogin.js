@@ -189,12 +189,12 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         var str = "By continuing you are accepting our privacy policy"; 
         var link = "http://www.theschoolofgames.org/privacy-policy/";
         var config = {
-            "color": "#5ce9fd",
+            "color": "#292A68",
             "shadowColor": [167, 90, 0, 127],
             "shadowSize": 0,
             "shadowRadius": 6,
             "fontSize": 18,
-            "outlineSize": 0,
+            "outlineSize": 1,
             "boundingWidthRatio": 1,
             "boundingHeightRatio": 0.3
         };
