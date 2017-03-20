@@ -49,3 +49,13 @@ EkStepHelper.sendEarnEvent = function(currencyId, amount) {
 
     NativeHelper.callNative("sendTelemetryEvent", ["OE_EARN", JSON.stringify(event)]);
 };
+
+EkStepHelper.sendUnlockLevelEvent = function(level) {
+    var event = {
+        "category": "learn", // category for which level is set. Game can have multiple levels across categories
+        "current": level, // current level of child
+        "max": -1 // max levels offered within the game, -1 if no max levels
+    };
+
+    NativeHelper.callNative("sendTelemetryEvent", ["OE_LEVEL_SET", JSON.stringify(event)]);
+};

@@ -64,7 +64,7 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
-        var isAllLevelUnlocked = 1;//KVDatabase.getInstance().getInt("UnlockAllLevels");
+        var isAllLevelUnlocked = 0;//KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
         var mapLabel = 0;
@@ -265,21 +265,24 @@ var MapLayer = cc.Layer.extend({
 
     _updateMapData: function() {
         var stepData = KVDatabase.getInstance().getString("stepData");
-        var currentLevel = SceneFlowController.getInstance().getCurrentStep();
-        var currentSceneName = SceneFlowController.getInstance().getCurrentSceneName();
+        var lastCompletedIndex = -1;
         
         if (stepData == null || stepData == "" || stepData == undefined)
             return;
 
         stepData = JSON.parse(stepData);
+
+        var i = 0;
         for (var step in stepData) {
             var eachStepData = stepData[step];
 
             if (!eachStepData)
                 return;
 
-            if (eachStepData.completed)
+            if (eachStepData.completed) {
                 this._updateStepState(step);
+                lastCompletedIndex = i;
+            }
 
             for (var info in eachStepData) {
                 var gameCompleted;
@@ -289,8 +292,18 @@ var MapLayer = cc.Layer.extend({
                 else
                     this._updateStepData(step, eachStepInfo);
             }
+            i = i + 1;
         }
 
+        var lastUnlockedLevel = this._steps[lastCompletedIndex+1].getUserData();
+        cc.log("lastUnlockedLevel: " + lastUnlockedLevel);
+        cc.log("SceneFlowController.getInstance().getLastedStepUnlocked(): " + SceneFlowController.getInstance().getLastedStepUnlocked());
+        if (SceneFlowController.getInstance().getLastedStepUnlocked() != lastUnlockedLevel) {
+            SceneFlowController.getInstance().setLastedStepUnlocked(lastUnlockedLevel);
+            
+            cc.log("unlocked new level: " + lastUnlockedLevel);
+            EkStepHelper.sendUnlockLevelEvent(lastUnlockedLevel);
+        }
     },
 
     _updateStepState: function(step) {
@@ -302,7 +315,6 @@ var MapLayer = cc.Layer.extend({
             if (step == userData) {
                 this._steps[i+1].setEnabled(true);
                 UserStorage.getInstance().setLastLevelPlay(stepBtn.tag);
-                SceneFlowController.getInstance().setLastedStepUnlocked(this._steps[i+1].getUserData());
             }
         }
     },
