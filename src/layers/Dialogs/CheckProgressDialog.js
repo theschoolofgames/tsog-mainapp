@@ -72,6 +72,7 @@ var CheckProgressDialog = Dialog.extend({
 		this.background.addChild(b);
 
 		b.addClickEventListener(function() {
+	       cc.eventManager.removeListener(checkProgressCustomEvent);
 	       this.close();
 		}.bind(this));
 	},

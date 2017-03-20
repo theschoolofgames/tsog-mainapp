@@ -25,6 +25,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     _tabBg: null,
 
     getUpdatesBtn: null,
+    getUpdatesBtnTitle: null,
 
     ctor: function () {
         // body...
@@ -451,34 +452,40 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     addGetUpdatesBtn: function() {
-        var hasGrantPermission = false; 
-        if (cc.sys.os === cc.sys.OS_IOS) 
-            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-        else if (cc.sys.os === cc.sys.OS_ANDROID) {
-            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
-        }
+        var hasGrantPermission = checkNotificationHasGranted(); 
+        
+        var btnTitle = (hasGrantPermission) ? "Stop Updates" : "Get Updates";
 
         var b = new ccui.Button("btn_get_updates_short.png", "btn_get_updates_short_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        b.visible = (hasGrantPermission) ? false : true;
         b.scale = 0.65;
         b.setAnchorPoint(1, 0.5);
         b.x = cc.winSize.width;
         b.y = b.height/2;
 
         b.addClickEventListener(function() {
-            if (cc.sys.os === cc.sys.OS_IOS)
-                NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
-            else {
-                // hasGrantPermission is always true on Android for The versions below API 19
-                b.visible = false;
-                KVDatabase.getInstance().set("get_notifications", true);
-                startNewDailyLocalNotif();
-                startNewTwoDaysLocalNotif();
+            var hasGrantPermission = checkNotificationHasGranted();
+            if (!hasGrantPermission) {
+                if (cc.sys.os === cc.sys.OS_IOS)
+                    NativeHelper.callNative("requestPermission", ["ACCESS_NOTIFICATION_POLICY"]);
+                else {
+                    // hasGrantPermission is always true on Android for The versions below API 19
+                    KVDatabase.getInstance().set("get_notifications", true);
+                    startNewDailyLocalNotif();
+                    startNewTwoDaysLocalNotif();
+                    NativeHelper.callNative("showMessage", ["The School Of Games", "We'll keep you posted on learning progress"]);
+                }
+                this.getUpdatesBtnTitle.setString("Stop Updates");
+            } else {
+                cancelLocalNotificationsWithTag(kTagDailyLocalNotif);
+                cancelLocalNotificationsWithTag(kTagTwoDaysLocalNotif);
+                KVDatabase.getInstance().set("get_notifications", false);
+                NativeHelper.callNative("showMessage", ["The School Of Games", "Notifications are disabled"]);
+                this.getUpdatesBtnTitle.setString("Get Updates");
             }
         }.bind(this));
 
         this.addChild(b, 99);
-
+        var btnTitle = (hasGrantPermission) ? "Stop Updates" : "Get Updates";
         var btnTitleConfig = {
             "color": "#ffffff",
             "shadowColor": [183, 188, 255, 127],
@@ -493,7 +500,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
                                                 btnTitleConfig.fontSize, 
                                                 cc.color(btnTitleConfig.color), 
                                                 btnTitleConfig.outlineSize,
-                                                localizeForWriting("Get Updates"));
+                                                localizeForWriting(btnTitle));
 
         btnTitle.setLineHeight(btnTitle.getLineHeight() + 10);
         btnTitle.enableShadow(cc.color(btnTitleConfig.shadowColor[0], 
@@ -507,21 +514,9 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         btnTitle.y = b.height/2;
         b.addChild(btnTitle);
 
+        this.getUpdatesBtnTitle = btnTitle;
+
         this.getUpdatesBtn = b;
-
-        this.schedule(this.setUpdatesButtonOnOrOff, 0.5);
-    },
-
-    setUpdatesButtonOnOrOff: function() {
-        var hasGrantPermission = false;
-        if (cc.sys.os === cc.sys.OS_IOS) {
-            hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", "");
-        } else {
-            hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", "");
-        }
-        this.getUpdatesBtn.visible = (hasGrantPermission) ? false : true;
-        this.getUpdatesBtn.setEnabled(!hasGrantPermission);
-
     },
 });
 

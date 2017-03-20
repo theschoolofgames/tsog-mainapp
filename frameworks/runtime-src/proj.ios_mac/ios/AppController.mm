@@ -175,7 +175,7 @@ static AppDelegate s_sharedApplication;
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
   
   if (notificationSettings.types!=7){
-    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Please turn on Notification"
+    UIAlertView * alert =[[UIAlertView alloc] initWithTitle:@"The School Of Games"
                                                      message:@"Please enable notification permission in device Settings"
                                                     delegate:self
                                            cancelButtonTitle:@"Ok"

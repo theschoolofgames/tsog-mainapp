@@ -472,7 +472,7 @@ static BOOL isOpenedFromNotification = NO;
 }
 
 + (void)startDailyNotif {
-  [self startLocalNotificationWithFireDate:10 withTag:@"kTagDailyLocalNotif"];
+  [self startLocalNotificationWithFireDate:86400 withTag:@"kTagDailyLocalNotif"];
 }
 
 + (void)startTwoDaysNotif {

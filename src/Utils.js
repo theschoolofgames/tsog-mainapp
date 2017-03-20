@@ -457,6 +457,16 @@ cancelLocalNotificationsWithTag = function(tag) {
     NativeHelper.callNative("cancelLocalNotificationsWithTag", [tag]);
 }
 
+checkNotificationHasGranted = function() {
+    var hasGrantPermission = false;
+    if (cc.sys.os === cc.sys.OS_IOS) 
+        hasGrantPermission = NativeHelper.callNative("hasGrantPermission", ["ACCESS_NOTIFICATION_POLICY"]) && KVDatabase.getInstance().getString("get_notifications", false);
+    else if (cc.sys.os === cc.sys.OS_ANDROID) {
+        hasGrantPermission = KVDatabase.getInstance().getString("get_notifications", false);
+    }
+    return hasGrantPermission;
+}
+
 debugLog = function(data) {
     if (TSOG_DEBUG) {
         cc.log("TSOG_DEBUG: " + data);
