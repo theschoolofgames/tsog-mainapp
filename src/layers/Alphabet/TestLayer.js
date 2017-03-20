@@ -239,7 +239,9 @@ var TestLayer = cc.LayerColor.extend({
     _moveToNextScene: function() {
         // cc.log("TestLayer moveToNextScene");
 
-        EkStepHelper.sendEarnEvent(this._hudLayer.currencyType, this._hudLayer.totalEarnedAmount);
+        if (this._hudLayer) {
+            EkStepHelper.sendEarnEvent(this._hudLayer.currencyType, this._hudLayer.totalEarnedAmount);
+        }
     
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
