@@ -620,7 +620,7 @@ var AccountSelectorLayer = cc.Layer.extend({
             return
         // play background music
         cc.audioEngine.setMusicVolume(0.2);
-        cc.audioEngine.playMusic(res.background_mp3, true);
+        // cc.audioEngine.playMusic(res.background_mp3, true);
     },
 
     turnDownMusicVolume: function() {
