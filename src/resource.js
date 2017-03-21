@@ -64,8 +64,6 @@ var res = {
     LoginSucceed_png: "login-succeed.png",
     Welcome_jpg:"welcome.jpg",
     // Bg
-    Bg_account_jpg: "bg/bg-account.jpg",
-    Bg_school_jpg: "bg/bg-school.jpg",
     Bg_game_jpg: "bg/bg-game.jpg",
     Map_Part1_jpg: "bg/map_part1.jpg",
     Map_Part2_jpg: "bg/map_part2.jpg",

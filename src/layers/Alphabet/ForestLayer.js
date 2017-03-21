@@ -106,7 +106,7 @@ var ForestLayer = cc.Layer.extend({
     createBackground: function() {
 
         NativeHelper.callNative("customLogging", ["Sprite", "BG.jpg"]);
-        var background = new cc.Sprite("BG.jpg");
+        var background = new cc.Sprite("res/SD/bg/bg_forest.jpg");
         this._allScale = cc.winSize.width / background.width;
 
         background.x = cc.winSize.width;

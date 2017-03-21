@@ -18,7 +18,7 @@ ShopScreenLayer = cc.LayerColor.extend({
 
     ctor: function() {
         this._super(cc.color(255,255,255,255));
-        var bg = new cc.Sprite("res/SD/BG-shop.jpg");
+        var bg = new cc.Sprite("res/SD/bg/BG-shop.jpg");
         bg.x = cc.winSize.width/2;
         bg.y = cc.winSize.height/2;
         bg.scale = cc.winSize.height/bg.height;

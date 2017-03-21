@@ -77,7 +77,7 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     addBackGround: function() {
-        var bg = new cc.Sprite("res/SD/BG_home.jpg");
+        var bg = new cc.Sprite("res/SD/bg/BG_home.jpg");
         bg.anchorY = 0;
         bg.x = cc.winSize.width/2;
         bg.y = HOME_BACKGROUND_OFFSET_Y * Utils.getScaleFactorTo16And9();
