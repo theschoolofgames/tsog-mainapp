@@ -47,11 +47,15 @@ var AlphaRacingLayer = cc.Layer.extend({
     _word: null,
 
     _nextWord: null,
+
+    maxVelPlayerReached: null,
     
     ctor: function(inputData,option) {
         this._super();
 
         var self = this;
+
+        this.maxVelPlayerReached = cc.p(0, 0);
 
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
         cc.spriteFrameCache.addSpriteFrames(res.AR_Background_plist);
@@ -174,9 +178,11 @@ var AlphaRacingLayer = cc.Layer.extend({
                             var revives = Math.log(self._coinsForRevive) / Math.log(2);
                             var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
                             AnalyticsManager.getInstance().logEventPostScore(score, revives, character);
-                            // if(CurrencyManager.getInstance().getCoin() >= COIN_NEED_TO_PLAY_ALPHARACING) {
-                            //     self._hudLayer.addChild(new DialogPlayAlpharacing(true), 9999);
-                            // } else {
+                            
+                            if (TSOG_DEBUG) {
+                                var data = DataManager.getInstance().getDataAlpharacing();
+                                cc.director.runScene(new AlphaRacingScene(data, null, 600));
+                            } else
                                 cc.director.runScene(new HomeScene());
                         //     }
 
@@ -232,15 +238,26 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._arEffectLayer.setPosition(this._bgGradient.getPosition());
         this._parallaxLayer.setPosition(this._bgGradient.getPosition());
         this._hudLayer.setPosition(this._bgGradient.getPosition());
-        // cc.log("HUD position: " + JSON.stringify(this._hudLayer.getPosition()));
-        // cc.log("PLAYER position: " + JSON.stringify(this._player.getPosition()));
-        for (var i = 0; i < this._parallaxs.length; i++)
-            this._parallaxs[i].updateWithVelocity(cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32), dt);
 
+        var vel = cc.p(this._player.getVelocity().x / 32, this._player.getVelocity().y / 32);
+
+        if (vel.y > this.maxVelPlayerReached.y)
+            this.maxVelPlayerReached = cc.p(vel.x, vel.y);
+
+        if ((vel.y + this.maxVelPlayerReached.y) < 0)
+            vel.y = -this.maxVelPlayerReached.y;
+
+        debugLog("vel -> " + vel.x + " , " + vel.y);
+        for (var i = 0; i < this._parallaxs.length; i++)
+            this._parallaxs[i].updateWithVelocity(vel, dt);
+
+        debugLog("updateWithVelocity x -> " + vel.x + ", y -> " + vel.y);
         if (this.isFirstTMXOutOfScreen()) {
             this.removeOutOfScreenMap();
             this.createNewMapSegment();
         }
+        if (TSOG_DEBUG)
+            this._player.setBoostFlag(1);
     },
 
     onTouchBegan: function(touch, event) {
