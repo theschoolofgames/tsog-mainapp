@@ -35,6 +35,13 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         this.addGetUpdatesBtn();
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        if (VersionReminderDialog.shouldShow())
+            VersionReminderDialog.show();
+    },
+
     touchEvent: function(sender,type) {
         var count = sender.getChildrenCount();
         cc.log("ChildCount = " + count);
