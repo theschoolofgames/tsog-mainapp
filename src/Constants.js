@@ -991,3 +991,6 @@ var SHARING_OPTIONS = {
 
 var kTagDailyLocalNotif = "kTagDailyLocalNotif";
 var kTagTwoDaysLocalNotif = "kTagTwoDaysLocalNotif";
+var CHECK_VERSION_TIME_TAG = "checkVersionTime";
+var NEWEST_VERSION_IOS_TAG = "newestVersionIos";
+var NEWEST_VERSION_ANDROID_TAG = "newestVersionAndroid";
