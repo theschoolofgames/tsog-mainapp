@@ -2,7 +2,7 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : true,
+    "showFPS" : false,
     "frameRate" : 60,
     "id" : "gameCanvas",
     "renderMode" : 0,
@@ -92,6 +92,7 @@
         "src/layers/Dialogs/ShareDialog.js",
         "src/layers/Dialogs/MessageDialog.js",
         "src/layers/Dialogs/CheckProgressDialog.js",
+        "src/layers/Dialogs/VersionReminderDialog.js",
 
         "src/layers/Alphabet/TestLayer.js",
         "src/layers/StoryTime/StoryMainLayer.js",
