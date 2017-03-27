@@ -609,6 +609,18 @@ var NativeHelperConfig = {
             "isOpenedFromNotification",
             "()Z"
         ]
+    },
+
+    openStore: {
+        iOS: [
+            "H102Wrapper",
+            "openStore"
+        ],
+        Android: [
+            "com/h102/Wrapper",
+            "openStore",
+            "()V"
+        ]
     }
 }
 
@@ -622,7 +634,7 @@ NativeHelper.callNative = function(method, args) {
     }
 
     args = args || [];
-    debugLog("NativeHelper.callNative: " + method + ", args: " + JSON.stringify(args));
+    // debugLog("NativeHelper.callNative: " + method + ", args: " + JSON.stringify(args));
     
     args = NativeHelperConfig[method][cc.sys.os].concat(args);
     return jsb.reflection.callStaticMethod.apply(this, args);
