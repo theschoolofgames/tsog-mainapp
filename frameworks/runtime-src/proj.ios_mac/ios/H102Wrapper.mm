@@ -487,6 +487,11 @@ static BOOL isOpenedFromNotification = NO;
   isOpenedFromNotification = isOpened;
 }
 
++ (void)openStore {
+  NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id1090937711?mt=8";
+  [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+}
+
 @end
 @implementation FBSharingDelegator
 - (void)sharer:(id<FBSDKSharing>)sharer didCompleteWithResults:(NSDictionary *)results {
