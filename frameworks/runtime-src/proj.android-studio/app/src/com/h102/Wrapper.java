@@ -528,4 +528,13 @@ public class Wrapper
         return activity.isOpenedFromNotification;
     }
 
+    public static void openStore() {
+        final String appPackageName = activity.getPackageName(); // getPackageName() from Context or Activity object
+        try {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+        }
+    }
+
 }
