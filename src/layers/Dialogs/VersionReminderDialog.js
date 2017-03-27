@@ -19,7 +19,7 @@ var VersionReminderDialog = Dialog.extend({
         ribbon.y = bg.height - 10;
         bg.addChild(ribbon);
         var title = new cc.LabelBMFont(localizeForWriting("The School Of Games"), "res/font/grownupcheckfont-export.fnt");
-        title.scale = 0.5;
+        title.scale = 0.35;
         title.x = ribbon.width/2;
         title.y = ribbon.height/2 + 23;
         ribbon.addChild(title);
@@ -51,13 +51,10 @@ var VersionReminderDialog = Dialog.extend({
         });
         cc.eventManager.addListener(checkProgressCustomEvent, 1);
 
-        b.addClickEventListener(function() {
-            b.setEnabled(false);
-            var currentScene = this.parent;
+        b.addClickEventListener(function(button) {
+            button.setEnabled(false);
             this.close();
-            currentScene.addChild(new GrownUpCheckDialog(function() {
-                // update app version
-            }));
+            NativeHelper.callNative("openStore");
         }.bind(this));
 
         var title = new cc.LabelBMFont("Update", res.HomeFont_fnt);
@@ -71,8 +68,8 @@ var VersionReminderDialog = Dialog.extend({
         b.y = this.background.height - b.height/2;
         this.background.addChild(b);
 
-        b.addClickEventListener(function() {
-            b.setEnabled(false);
+        b.addClickEventListener(function(button) {
+            button.setEnabled(false);
 
             //schedule next day -> getCurrentTime -> save to KVDatabase
             KVDatabase.getInstance().set(CHECK_VERSION_TIME_TAG, new Date().getTime()/1000);
@@ -89,18 +86,22 @@ VersionReminderDialog.show = function () {
 
 VersionReminderDialog.shouldShow = function() {
     var timeMarkedYesterday = KVDatabase.getInstance().getInt(CHECK_VERSION_TIME_TAG, 0);
+    if (!timeMarkedYesterday) {
+        timeMarkedYesterday = new Date().getTime()/1000;
+        KVDatabase.getInstance().set(CHECK_VERSION_TIME_TAG, timeMarkedYesterday);
+    }
+
     var isTimeUp = ((new Date().getTime()/1000 - timeMarkedYesterday) > 86400) ? true : false;
     var newestVersion = "";
-    var currentVersion = "";
+    var currentVersion = NativeHelper.callNative("getBuildNumber");
     var versionUpdated = false;
 
+    debugLog("time passed " + (new Date().getTime()/1000 - timeMarkedYesterday));
     if (cc.sys.os === cc.sys.OS_IOS) {
         newestVersion = KVDatabase.getInstance().getString(NEWEST_VERSION_IOS_TAG, "");
-        currentVersion = NativeHelper.callNative("getBuildNumber");
         versionUpdated = (newestVersion === currentVersion);
     } else if (cc.sys.os === cc.sys.OS_ANDROID) {
         newestVersion = KVDatabase.getInstance().getString(NEWEST_VERSION_ANDROID_TAG, "");
-        currentVersion = NativeHelper.callNative("getVersionCode");
         versionUpdated = (newestVersion === currentVersion);
     }
 
