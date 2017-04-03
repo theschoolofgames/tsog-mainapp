@@ -185,10 +185,9 @@ var FirebaseManager = cc.Class.extend({
 
         NEW_LEVEL_UNLOCKING_STAR_RATIO = config["new_level_unlocking_star_ratio"] || NEW_LEVEL_UNLOCKING_STAR_RATIO;
 
-        KVDatabase.getInstance().set(NEWEST_VERSION_IOS_TAG, config["app_version_ios"]);
-        KVDatabase.getInstance().set(NEWEST_VERSION_ANDROID_TAG, config["app_version_android"]);
+        KVDatabase.getInstance().set(NEWEST_VERSION_IOS_TAG, config["ask_upgrade_app_version_ios"]);
+        KVDatabase.getInstance().set(NEWEST_VERSION_ANDROID_TAG, config["ask_upgrade_app_version_android"]);
 
-        debugLog("_setRemoteConstantsValue -> " + config["app_version_ios"])
         for (var key in config) {
             if (key.indexOf("sharing_option_") == 0) {
                 var countryCode = key.substring(key.lastIndexOf("_") + 1);
