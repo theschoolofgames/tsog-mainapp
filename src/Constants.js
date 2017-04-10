@@ -912,8 +912,8 @@ var ALPHARACING_DATA =[
       "amount": "50"
     }
 ];
-var COIN_NEED_TO_PLAY_ALPHARACING = 5;
-var COIN_START_GAME = 50;
+var COIN_NEED_TO_PLAY_ALPHARACING = TSOG_DEBUG ? 0 : 5;
+var COIN_START_GAME = 100;
 
 var LANGUAGE = [
     "English", 
