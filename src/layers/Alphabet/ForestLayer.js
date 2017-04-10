@@ -35,38 +35,34 @@ var ForestLayer = cc.Layer.extend({
 
     ctor: function(data, isTestScene, timeForScene) {
         this._super();
-        // cc.log("isTestScene: " + isTestScene);
+
         this._isTestScene = isTestScene;
         this.tag = 1;
         this._fetchObjectData(data);
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
-        // this.setVolume();
+
         this.createBackground();
-        // this.showAllAnimals();
+
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
-        // this.createStarsLabel();
+        
         this.addHud(timeForScene);
         this.runTutorial();
         this.runHintObjectUp();
         this.runSoundCountDown();
 
-        SegmentHelper.track(SEGMENT.LEVEL_START, 
-                    { 
-                        room: "forest", 
-                        object_num: Global.NumberItems
-                    });
+        // SegmentHelper.track(SEGMENT.LEVEL_START, 
+        //             { 
+        //                 room: "forest", 
+        //                 object_num: Global.NumberItems
+        //             });
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
-        // cc.audioEngine.playMusic(res.background_mp3, true);
-        // this.scheduleUpdate();
 
         Utils.showVersionLabel(this);
 
@@ -270,11 +266,11 @@ var ForestLayer = cc.Layer.extend({
 
         targetNode._hudLayer.popGold(1, touchedPos.x, touchedPos.y);
 
-        SegmentHelper.track(SEGMENT.ANIMAL_CLICK, 
-                    { 
-                        forest: "forest", 
-                        animal_name:  targetNode.getAnimalName(targetNode._objectTouching)
-                    });
+        // SegmentHelper.track(SEGMENT.ANIMAL_CLICK, 
+        //             { 
+        //                 forest: "forest", 
+        //                 animal_name:  targetNode.getAnimalName(targetNode._objectTouching)
+        //             });
         if(targetNode._tutorial != null) {
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
@@ -283,11 +279,11 @@ var ForestLayer = cc.Layer.extend({
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
         if (targetNode._objectDisableds.length == Global.NumberItems) {
-            SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
-                {
-                    forest: "forest",
-                    time_taken: targetNode._hudLayer._clock.getElapseTime()
-                });
+            // SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
+            //     {
+            //         forest: "forest",
+            //         time_taken: targetNode._hudLayer._clock.getElapseTime()
+            //     });
         };    
         return true;
     },
@@ -555,13 +551,13 @@ var ForestLayer = cc.Layer.extend({
         AudioManager.getInstance().play(res.you_win_mp3);
         this._hudLayer.pauseClock();
         var elapseTime = this._hudLayer._clock.getElapseTime();
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
+        // RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
         if (elapseTime == 120) {
-            SegmentHelper.track(SEGMENT.LEVEL_INCOMPLETE, 
-                        { 
-                            forest: "forest", 
-                            time_taken: elapseTime 
-                        });
+            // SegmentHelper.track(SEGMENT.LEVEL_INCOMPLETE, 
+            //             { 
+            //                 forest: "forest", 
+            //                 time_taken: elapseTime 
+            //             });
         };
         // cc.log("doCompletedScene");
         var starEarned = this._hudLayer.getStarEarned();

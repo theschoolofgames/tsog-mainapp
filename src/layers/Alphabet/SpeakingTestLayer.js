@@ -252,13 +252,13 @@ var SpeakingTestLayer = TestLayer.extend({
         // }
         var now = Date.now()/1000;
         var deltaTime = now - KVDatabase.getInstance().getInt("startSceneTime", 0);
-        SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
-            player_id: this._userId, 
-            Correct: "incorrectAction",
-            objectName: this._objectName,
-            timestamp: deltaTime,
-            actual_spoken_word:this.resultText
-        });
+        // SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
+        //     player_id: this._userId, 
+        //     Correct: "incorrectAction",
+        //     objectName: this._objectName,
+        //     timestamp: deltaTime,
+        //     actual_spoken_word:this.resultText
+        // });
         return false;
     },
 
@@ -288,14 +288,14 @@ var SpeakingTestLayer = TestLayer.extend({
         ));
         var now = Date.now()/1000;
         var deltaTime = now - KVDatabase.getInstance().getInt("startSceneTime", 0);
-        SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
-            player_id: this._userId, 
-            Correct: "correctAction",
-            objectName: this._objectName,
-            timestamp: deltaTime,
-            actual_spoken_word:this.resultText
+        // SegmentHelper.track(SEGMENT.SPEAK_TEST, { 
+        //     player_id: this._userId, 
+        //     Correct: "correctAction",
+        //     objectName: this._objectName,
+        //     timestamp: deltaTime,
+        //     actual_spoken_word:this.resultText
 
-        });
+        // });
         return false;
     },
 

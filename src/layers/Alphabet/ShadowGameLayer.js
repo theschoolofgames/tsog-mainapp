@@ -510,15 +510,15 @@ var ShadowGameLayer = TestLayer.extend({
         ));
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
+      // RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
         var eventName = elapseTime == GAME_CONFIG.levelTime ? SEGMENT.LEVEL_INCOMPLETE : SEGMENT.LEVEL_COMPLETE;
 
-        SegmentHelper.track(eventName,
-            {
-                room: "room",
-                time_taken: this._hudLayer._clock.getElapseTime()
-            });
+        // SegmentHelper.track(eventName,
+        //     {
+        //         room: "room",
+        //         time_taken: this._hudLayer._clock.getElapseTime()
+        //     });
 
         this.increaseAmountGamePlayed();
 

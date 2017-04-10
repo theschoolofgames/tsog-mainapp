@@ -189,18 +189,18 @@ var SignUpLayer = cc.Layer.extend({
 
             var loadingLayer = Utils.addLoadingIndicatorLayer(true);
 
-            RequestsManager.getInstance().createAccount(username, password1, function(succeed, data) {
-                Utils.removeLoadingIndicatorLayer();
+          // RequestsManager.getInstance().postGameProgress.createAccount(username, password1, function(succeed, data) {
+            //     Utils.removeLoadingIndicatorLayer();
 
-                if (succeed) {
-                    //this._addCreateSucceededDialog();
-                    cc.director.replaceScene(
-                        new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
-                    );
-                } else {
-                    NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
-                }
-            }.bind(this));
+            //     if (succeed) {
+            //         //this._addCreateSucceededDialog();
+            //         cc.director.replaceScene(
+            //             new cc.TransitionFade(1, new AccountSelectorScene(), cc.color(255, 255, 255, 255))
+            //         );
+            //     } else {
+            //         NativeHelper.callNative("showMessage", ["Error", data ? data.message : "Cannot connect to server"]);
+            //     }
+            // }.bind(this));
         }.bind(this));
     },
 

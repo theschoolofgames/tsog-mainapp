@@ -61,11 +61,11 @@ var RoomLayer = cc.Layer.extend({
                 onTouchEnded: this.onTouchEnded
         }, this);
 
-        SegmentHelper.track(SEGMENT.LEVEL_START, 
-            { 
-                room: "room", 
-                object_num: this._data.length
-            });
+        // SegmentHelper.track(SEGMENT.LEVEL_START, 
+        //     { 
+        //         room: "room", 
+        //         object_num: this._data.length
+        //     });
         // cc.audioEngine.playMusic(res.background_mp3, true);
         this.scheduleUpdate();
 
@@ -382,15 +382,15 @@ var RoomLayer = cc.Layer.extend({
         ));
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
+        // RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
         var eventName = elapseTime == GAME_CONFIG.levelTime ? SEGMENT.LEVEL_INCOMPLETE : SEGMENT.LEVEL_COMPLETE;
 
-        SegmentHelper.track(eventName,
-            {
-                room: "room",
-                time_taken: this._hudLayer._clock.getElapseTime()
-            });
+        // SegmentHelper.track(eventName,
+        //     {
+        //         room: "room",
+        //         time_taken: this._hudLayer._clock.getElapseTime()
+        //     });
 
         this.increaseAmountGamePlayed();
 
@@ -448,11 +448,11 @@ var RoomLayer = cc.Layer.extend({
         if (!targetNode._objectTouching)
             return false;
 
-        SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
-            { 
-                room: "room", 
-                object_name: targetNode.getObjectName(targetNode._objectTouching)
-            });
+        // SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
+        //     { 
+        //         room: "room", 
+        //         object_name: targetNode.getObjectName(targetNode._objectTouching)
+        //     });
         
         AudioManager.getInstance().play("sounds/pickup.mp3");
         targetNode.processGameLogic();
@@ -527,11 +527,11 @@ var RoomLayer = cc.Layer.extend({
         ));
 
         if (targetNode._objectDisableds.indexOf(targetNode._objectTouching) >= 0) {
-            SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
-                { 
-                    room: "room", 
-                    object_name:  targetNode.getObjectName(targetNode._objectTouching)
-                });
+            // SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
+            //     { 
+            //         room: "room", 
+            //         object_name:  targetNode.getObjectName(targetNode._objectTouching)
+            //     });
         }
 
         if (targetNode._objectDisableds.indexOf(targetNode._objects[0]) < 0)

@@ -339,7 +339,7 @@ var MainScreenLayer = cc.Layer.extend({
     },
 
     checkPurchasedState: function() {
-        IAPManager.getInstance().restore();
+        // IAPManager.getInstance().restore();
     },
 });
 

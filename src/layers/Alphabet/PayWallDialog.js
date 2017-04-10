@@ -53,11 +53,11 @@ var PayWallDialog = cc.LayerColor.extend({
         var self = this;
         subscribeBtn.addClickEventListener(function() {
             // Call subscription IAP
-            IAPManager.getInstance().purchaseMonthlySubscription(function (purchaseSuccess){
-                console.log("purchaseMonthlySubscription callback: " + purchaseSuccess);
-                if (purchaseSuccess)
-                    self.removeFromParent();
-            });
+            // IAPManager.getInstance().purchaseMonthlySubscription(function (purchaseSuccess){
+            //     console.log("purchaseMonthlySubscription callback: " + purchaseSuccess);
+            //     if (purchaseSuccess)
+            //         self.removeFromParent();
+            // });
 
             if (self._callback)
                 self._callback();
@@ -82,10 +82,10 @@ var PayWallDialog = cc.LayerColor.extend({
         var self = this;
         restorePurchase.addClickEventListener(function() {
             // Call restore purchased products
-            IAPManager.getInstance().restore(function(purchaseSuccess){
-                if (purchaseSuccess)
-                    self.removeFromParent();
-            });
+            // IAPManager.getInstance().restore(function(purchaseSuccess){
+            //     if (purchaseSuccess)
+            //         self.removeFromParent();
+            // });
 
             if (self._callback)
                 self._callback();

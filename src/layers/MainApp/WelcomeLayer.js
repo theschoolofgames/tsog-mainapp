@@ -9,7 +9,7 @@ var WelcomeLayer = cc.LayerColor.extend({
 
         this.scheduleOnce(this.moveToMainScene, 7.5);
 
-        SegmentHelper.track(SEGMENT.TALKING_ADI, null );
+        // SegmentHelper.track(SEGMENT.TALKING_ADI, null );
 
         Utils.showVersionLabel(this);
 	},

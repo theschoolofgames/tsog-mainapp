@@ -49,7 +49,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 var loadingLayer = Utils.addLoadingIndicatorLayer(false);
                 loadingLayer.setIndicactorPosition(cc.winSize.width - 40, 40);
 
-                RequestsManager.getInstance().getSchools(function(succeed, data) {
+              RequestsManager.getInstance().postGameProgress.getSchools(function(succeed, data) {
                     Utils.removeLoadingIndicatorLayer();
                     if (succeed) {
                         SchoolSelectorLayer.loadedData = true;
@@ -72,7 +72,7 @@ var SchoolSelectorLayer = cc.Layer.extend({
         }
         else {
             Utils.addLoadingIndicatorLayer(true);
-            RequestsManager.getInstance().getSchools(function(succeed, data) {
+          // RequestsManager.getInstance().postGameProgress.getSchools(function(succeed, data) {
                 Utils.removeLoadingIndicatorLayer();
                 if (succeed) {
                     DataManager.getInstance().setSchoolData(data);
@@ -201,11 +201,11 @@ var SchoolSelectorLayer = cc.Layer.extend({
                 if (!self._isTouchMoved) {
                     jsb.AudioEngine.play2d(res.bubble_sound_mp3);
 
-                    SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
-                        { 
-                            school_id: schoolData[sender.tag].school_id, 
-                            school_name: schoolData[sender.tag].school_name 
-                        });
+                    // SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
+                    //     { 
+                    //         school_id: schoolData[sender.tag].school_id, 
+                    //         school_name: schoolData[sender.tag].school_name 
+                    //     });
                     
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, schoolData[sender.tag].school_id);
                     KVDatabase.getInstance().set(STRING_SCHOOL_NAME, schoolData[sender.tag].school_name);

@@ -76,11 +76,11 @@ var NewSchoolLayer = cc.Layer.extend({
                     schoolData.unshift(data);
                     DataManager.getInstance().setSchoolData(schoolData);
                     
-                    SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
-                        { 
-                            school_id: data.school_id, 
-                            school_name: data.school_name 
-                        });
+                    // SegmentHelper.track(SEGMENT.SELECT_SCHOOL, 
+                    //     { 
+                    //         school_id: data.school_id, 
+                    //         school_name: data.school_name 
+                    //     });
                     
                     KVDatabase.getInstance().set(STRING_SCHOOL_ID, data.school_id);
                     KVDatabase.getInstance().set(STRING_SCHOOL_NAME, data.school_name);

@@ -714,11 +714,11 @@ var WritingTestLayer = TestLayer.extend({
     _segmentTracking: function(correct) {
         var charName = this._writingWords[this._nameIdx][this._charIdx];
         // cc.log("writingTest charname correct: " + charName + " " + correct);
-        SegmentHelper.track(SEGMENT.WRITE_TEST,
-            {
-                char_name: charName,
-                correct: correct
-            });
+        // SegmentHelper.track(SEGMENT.WRITE_TEST,
+        //     {
+        //         char_name: charName,
+        //         correct: correct
+        //     });
     },
 
     _fetchObjectData: function(data) {

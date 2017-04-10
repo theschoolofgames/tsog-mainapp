@@ -295,7 +295,7 @@ Utils.daysBetweenNow = function(lastDate) {
 };
 
 Utils.checkFullAccessPermission = function(userId) {
-    RequestsManager.getInstance().getUserInfo(userId, function(succeed, data) {
+  RequestsManager.getInstance().postGameProgress.getUserInfo(userId, function(succeed, data) {
         Utils.removeLoadingIndicatorLayer();
 
         if (succeed) {
