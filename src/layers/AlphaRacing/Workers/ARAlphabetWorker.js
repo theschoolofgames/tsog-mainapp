@@ -1,14 +1,17 @@
 var ARAlphabetWorker = cc.Class.extend({
 
-    ctor: function(player, array, hudLayer) {
+    ctor: function(layer,player, array, hudLayer) {
         this._player = player;
         this._array = array;
         this._hudLayer = hudLayer;
+        this._layer = layer;
     },
 
     update: function(dt) {
-
+        this._array = this._layer._alphabetObjectArray;
         for (var i = this._array.length-1; i >= 0; i--) {
+            if(this._hudLayer._isColected)
+                break;
             let delta = cc.pSub(this._player.getPosition(), this._array[i].getPosition());
 
             if (this._player.hasBoostFlag(ARMagnet.getBoostFlag()) && 
@@ -25,12 +28,19 @@ var ARAlphabetWorker = cc.Class.extend({
                 var ratioX = (this._player.x - cameraPos.x + cc.winSize.width/2);
                 var ratioY = (this._player.y - cameraPos.y + cc.winSize.height/2);
                 this._hudLayer.popGold(addedCoin, ratioX, ratioY, cameraPos);
+
                 CurrencyManager.getInstance().incDiamond(addedCoin);
+
+
+                
+
+                this._hudLayer.collectedAlphabet(this._array[i].getName());
 
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                 object.scale = 0.5;
                 object.setPosition(this._array[i].getPosition());
                 this._array[i].parent.addChild(object, AR_PLAYER_ZODER+1);
+                
 
                 object.runAction(cc.sequence(
                         cc.spawn(
@@ -39,10 +49,23 @@ var ARAlphabetWorker = cc.Class.extend({
                         ),
                         cc.callFunc(sender => sender.removeFromParent())
                     ));
-
                 this._array[i].removeFromParent();
                 this._array.splice(i, 1);
+                //When collect Alphabet
+                
+                var self = this;
+                if(this._hudLayer._count == this._hudLayer.amoutWordCollected) {
+                    self._array = self._layer._alphabetObjectArray;
+                    break;
+                };
+                // if(this._hudLayer._isColected) {
+                //     this._layer.addNewAlphabet();
+                //     break;
+                // };
+                ///-----------------------------------------
             }
         }
-    }
+    },
+
+    end: function() {},
 })

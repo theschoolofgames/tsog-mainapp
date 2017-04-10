@@ -1,69 +1,90 @@
 
 character.png
-size: 1024,256
+size: 512,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 body
   rotate: false
-  xy: 232, 66
-  size: 169, 176
-  orig: 169, 176
+  xy: 260, 66
+  size: 83, 87
+  orig: 83, 87
+  offset: 0, 0
+  index: -1
+body die
+  rotate: true
+  xy: 2, 39
+  size: 215, 256
+  orig: 215, 256
   offset: 0, 0
   index: -1
 eyes
   rotate: false
-  xy: 874, 186
-  size: 103, 56
-  orig: 103, 56
+  xy: 260, 36
+  size: 51, 28
+  orig: 51, 28
+  offset: 0, 0
+  index: -1
+hand L die
+  rotate: false
+  xy: 429, 182
+  size: 70, 72
+  orig: 70, 72
   offset: 0, 0
   index: -1
 hand R
-  rotate: true
-  xy: 661, 166
-  size: 76, 211
-  orig: 76, 211
+  rotate: false
+  xy: 345, 49
+  size: 37, 104
+  orig: 37, 104
+  offset: 0, 0
+  index: -1
+hand R die
+  rotate: false
+  xy: 429, 108
+  size: 70, 72
+  orig: 70, 72
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 2, 41
-  size: 228, 201
-  orig: 228, 201
+  xy: 260, 155
+  size: 112, 99
+  orig: 112, 99
   offset: 0, 0
   index: -1
 leg R
-  rotate: true
-  xy: 403, 2
-  size: 81, 159
-  orig: 81, 159
+  rotate: false
+  xy: 384, 80
+  size: 40, 78
+  orig: 40, 78
   offset: 0, 0
   index: -1
 long may
-  rotate: true
-  xy: 596, 104
-  size: 89, 34
-  orig: 89, 34
+  rotate: false
+  xy: 130, 20
+  size: 44, 17
+  orig: 44, 17
   offset: 0, 0
   index: -1
 mouth
   rotate: false
-  xy: 2, 7
-  size: 53, 32
-  orig: 53, 32
+  xy: 130, 2
+  size: 26, 16
+  orig: 26, 16
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 403, 195
-  size: 256, 47
-  orig: 256, 47
+  xy: 2, 14
+  size: 126, 23
+  orig: 126, 23
   offset: 0, 0
   index: -1
 tail
-  rotate: true
-  xy: 403, 85
-  size: 108, 191
-  orig: 108, 191
+  rotate: false
+  xy: 374, 160
+  size: 53, 94
+  orig: 53, 94
   offset: 0, 0
   index: -1

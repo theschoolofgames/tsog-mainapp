@@ -1,111 +1,125 @@
 
 character.png
-size: 512,128
+size: 256,256
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 body
-  rotate: true
-  xy: 97, 44
-  size: 82, 85
-  orig: 82, 85
+  rotate: false
+  xy: 2, 3
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+body die
+  rotate: false
+  xy: 2, 72
+  size: 130, 182
+  orig: 130, 182
   offset: 0, 0
   index: -1
 day co 1
-  rotate: true
-  xy: 184, 44
-  size: 15, 17
-  orig: 15, 17
+  rotate: false
+  xy: 66, 21
+  size: 8, 8
+  orig: 8, 8
   offset: 0, 0
   index: -1
 day co 2
   rotate: false
-  xy: 2, 11
-  size: 81, 32
-  orig: 81, 32
+  xy: 134, 196
+  size: 40, 16
+  orig: 40, 16
   offset: 0, 0
   index: -1
 ear_L
-  rotate: true
-  xy: 282, 96
-  size: 30, 35
-  orig: 30, 35
+  rotate: false
+  xy: 158, 177
+  size: 15, 17
+  orig: 15, 17
   offset: 0, 0
   index: -1
 ear_R
   rotate: false
-  xy: 356, 98
-  size: 32, 28
-  orig: 32, 28
+  xy: 79, 31
+  size: 16, 14
+  orig: 16, 14
   offset: 0, 0
   index: -1
 eyes
   rotate: false
-  xy: 216, 98
-  size: 64, 28
-  orig: 64, 28
+  xy: 45, 31
+  size: 32, 14
+  orig: 32, 14
   offset: 0, 0
   index: -1
 hand_R
   rotate: false
-  xy: 184, 61
-  size: 30, 65
-  orig: 30, 65
+  xy: 182, 222
+  size: 15, 32
+  orig: 15, 32
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 2, 45
-  size: 93, 81
-  orig: 93, 81
+  xy: 134, 214
+  size: 46, 40
+  orig: 46, 40
   offset: 0, 0
   index: -1
 leg_L
   rotate: false
-  xy: 216, 60
-  size: 39, 36
-  orig: 39, 36
+  xy: 45, 11
+  size: 19, 18
+  orig: 19, 18
   offset: 0, 0
   index: -1
 leg_R
   rotate: false
-  xy: 319, 91
-  size: 35, 35
-  orig: 35, 35
+  xy: 134, 157
+  size: 17, 17
+  orig: 17, 17
   offset: 0, 0
   index: -1
 long may
   rotate: false
-  xy: 390, 117
-  size: 41, 9
-  orig: 41, 9
+  xy: 221, 250
+  size: 20, 4
+  orig: 20, 4
   offset: 0, 0
   index: -1
 ma phai
-  rotate: true
-  xy: 85, 2
-  size: 40, 36
-  orig: 40, 36
+  rotate: false
+  xy: 199, 236
+  size: 20, 18
+  orig: 20, 18
   offset: 0, 0
   index: -1
 ma trai
-  rotate: true
-  xy: 257, 65
-  size: 31, 20
-  orig: 31, 20
+  rotate: false
+  xy: 199, 224
+  size: 15, 10
+  orig: 15, 10
   offset: 0, 0
   index: -1
 mouth
   rotate: false
-  xy: 123, 6
-  size: 44, 36
-  orig: 44, 36
+  xy: 134, 176
+  size: 22, 18
+  orig: 22, 18
   offset: 0, 0
   index: -1
 noise
   rotate: false
-  xy: 169, 28
-  size: 15, 14
-  orig: 15, 14
+  xy: 45, 2
+  size: 8, 7
+  orig: 8, 7
+  offset: 0, 0
+  index: -1
+shadow
+  rotate: false
+  xy: 2, 47
+  size: 126, 23
+  orig: 126, 23
   offset: 0, 0
   index: -1

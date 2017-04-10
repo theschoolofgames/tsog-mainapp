@@ -6,127 +6,127 @@ filter: Linear,Linear
 repeat: none
 body
   rotate: true
-  xy: 405, 103
-  size: 151, 158
-  orig: 151, 158
+  xy: 400, 105
+  size: 149, 156
+  orig: 149, 156
   offset: 0, 0
   index: -1
 close eye
-  rotate: false
-  xy: 748, 140
-  size: 60, 65
-  orig: 60, 65
+  rotate: true
+  xy: 2, 2
+  size: 59, 64
+  orig: 59, 64
   offset: 0, 0
   index: -1
 eye
   rotate: false
-  xy: 235, 35
-  size: 141, 65
-  orig: 141, 65
+  xy: 558, 141
+  size: 139, 64
+  orig: 139, 64
   offset: 0, 0
   index: -1
 hand L
   rotate: true
-  xy: 565, 103
-  size: 102, 181
-  orig: 102, 181
+  xy: 232, 2
+  size: 101, 179
+  orig: 101, 179
   offset: 0, 0
   index: -1
 hand L 2
   rotate: true
-  xy: 810, 8
-  size: 142, 146
-  orig: 142, 146
+  xy: 812, 114
+  size: 140, 144
+  orig: 140, 144
   offset: 0, 0
   index: -1
 hand R
   rotate: true
-  xy: 823, 152
-  size: 102, 181
-  orig: 102, 181
+  xy: 413, 2
+  size: 101, 179
+  orig: 101, 179
   offset: 0, 0
   index: -1
 head
   rotate: false
-  xy: 2, 61
-  size: 231, 193
-  orig: 231, 193
+  xy: 2, 63
+  size: 228, 191
+  orig: 228, 191
   offset: 0, 0
   index: -1
 leg L
   rotate: true
-  xy: 405, 26
-  size: 75, 106
-  orig: 75, 106
+  xy: 699, 131
+  size: 74, 104
+  orig: 74, 104
   offset: 0, 0
   index: -1
 leg R
-  rotate: true
-  xy: 513, 26
-  size: 75, 106
-  orig: 75, 106
+  rotate: false
+  xy: 594, 35
+  size: 74, 104
+  orig: 74, 104
   offset: 0, 0
   index: -1
 long may
   rotate: true
-  xy: 958, 29
-  size: 121, 22
-  orig: 121, 22
+  xy: 958, 134
+  size: 120, 21
+  orig: 120, 21
   offset: 0, 0
   index: -1
 mouth
-  rotate: false
-  xy: 156, 26
-  size: 61, 33
-  orig: 61, 33
+  rotate: true
+  xy: 981, 194
+  size: 60, 33
+  orig: 60, 33
   offset: 0, 0
   index: -1
 mui
   rotate: false
-  xy: 748, 117
-  size: 27, 21
-  orig: 27, 21
+  xy: 594, 12
+  size: 26, 21
+  orig: 26, 21
   offset: 0, 0
   index: -1
 shadow
   rotate: false
-  xy: 565, 207
-  size: 256, 47
-  orig: 256, 47
+  xy: 558, 207
+  size: 252, 47
+  orig: 252, 47
   offset: 0, 0
   index: -1
 tai phai
   rotate: true
-  xy: 2, 2
-  size: 57, 75
-  orig: 57, 75
+  xy: 68, 5
+  size: 56, 74
+  orig: 56, 74
   offset: 0, 0
   index: -1
 tai trai
   rotate: true
-  xy: 79, 2
-  size: 57, 75
-  orig: 57, 75
+  xy: 144, 5
+  size: 56, 74
+  orig: 56, 74
   offset: 0, 0
   index: -1
 tai trai 2
   rotate: true
-  xy: 79, 2
-  size: 57, 75
-  orig: 57, 75
+  xy: 144, 5
+  size: 56, 74
+  orig: 56, 74
   offset: 0, 0
   index: -1
 tail
   rotate: false
-  xy: 235, 102
-  size: 168, 152
-  orig: 168, 152
+  xy: 232, 105
+  size: 166, 149
+  orig: 166, 149
   offset: 0, 0
   index: -1
 trong mat L
   rotate: false
-  xy: 621, 57
-  size: 37, 44
-  orig: 37, 44
+  xy: 981, 148
+  size: 36, 44
+  orig: 36, 44
   offset: 0, 0
   index: -1

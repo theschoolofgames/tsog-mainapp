@@ -1,0 +1,111 @@
+
+character.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+canh
+  rotate: false
+  xy: 2, 133
+  size: 342, 115
+  orig: 342, 115
+  offset: 0, 0
+  index: -1
+chan ph 1
+  rotate: false
+  xy: 919, 190
+  size: 58, 58
+  orig: 58, 58
+  offset: 0, 0
+  index: -1
+chan ph 2
+  rotate: false
+  xy: 761, 191
+  size: 77, 57
+  orig: 77, 57
+  offset: 0, 0
+  index: -1
+chan ph 3
+  rotate: true
+  xy: 136, 2
+  size: 34, 72
+  orig: 34, 72
+  offset: 0, 0
+  index: -1
+chan tr 1
+  rotate: true
+  xy: 979, 178
+  size: 70, 43
+  orig: 70, 43
+  offset: 0, 0
+  index: -1
+chan tr 2
+  rotate: false
+  xy: 840, 191
+  size: 77, 57
+  orig: 77, 57
+  offset: 0, 0
+  index: -1
+chan tr 3
+  rotate: true
+  xy: 503, 150
+  size: 35, 73
+  orig: 35, 73
+  offset: 0, 0
+  index: -1
+khuon mat
+  rotate: false
+  xy: 346, 152
+  size: 155, 96
+  orig: 155, 96
+  offset: 0, 0
+  index: -1
+mat
+  rotate: false
+  xy: 503, 187
+  size: 130, 61
+  orig: 130, 61
+  offset: 0, 0
+  index: -1
+mieng
+  rotate: false
+  xy: 635, 205
+  size: 124, 43
+  orig: 124, 43
+  offset: 0, 0
+  index: -1
+nhay mat
+  rotate: false
+  xy: 136, 38
+  size: 130, 61
+  orig: 130, 61
+  offset: 0, 0
+  index: -1
+rau
+  rotate: false
+  xy: 136, 101
+  size: 186, 30
+  orig: 186, 30
+  offset: 0, 0
+  index: -1
+than
+  rotate: false
+  xy: 2, 9
+  size: 132, 122
+  orig: 132, 122
+  offset: 0, 0
+  index: -1
+trong mat ph
+  rotate: false
+  xy: 268, 68
+  size: 27, 31
+  orig: 27, 31
+  offset: 0, 0
+  index: -1
+trong mat tr
+  rotate: false
+  xy: 268, 68
+  size: 27, 31
+  orig: 27, 31
+  offset: 0, 0
+  index: -1
