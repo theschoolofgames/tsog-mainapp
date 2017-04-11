@@ -8,8 +8,8 @@ android {
         applicationId "com.theschoolofgames.tsog"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 17040300
-        versionName "1.5.5"
+        versionCode 17041100
+        versionName "1.5.6"
         ndk {
             abiFilters "armeabi", "x86"
         }
