@@ -80,46 +80,25 @@ var DataManager = cc.Class.extend({
         this._gameData[userId] = data;
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
     },
-    
+
     setDataAlpharacing: function(data) {
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
         if (currentData.length == 0)
             currentData = ["GAME"];
 
-        if (data.value)
-            if (currentData.indexOf(data.value) >= 0)
+        cc.log("currentData");
+        if (data)
+            if (currentData.indexOf(data) >= 0)
                 return;
 
-        if (data.value && data.value.length > 1) {
-            if (data.value.indexOf("color") > -1 || data.value.indexOf("btn") > -1) {
-                data.value = data.value.substr(data.value.indexOf("_") + 1, data.value.length-1);
+        if (data && data.length > 1) {
+            if (data.indexOf("color") > -1 || data.indexOf("btn") > -1) {
+                data = data.substr(data.indexOf("_") + 1, data.length-1);
             };
-            currentData.push(data.value.toUpperCase());
+            currentData.push(data.toUpperCase());
         }
 
         KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData));
-
-        // if(currentData.length == 0)
-        //     currentData = 
-        //         [
-        //             {
-        //               "value": "A",
-        //               "amount" : 20
-        //             }
-        //         ];
-        // if(data.value) {
-        //     for(var i = 0; i < currentData.length; i++ ) {
-        //         if(currentData[i].value == data.value)
-        //             return;
-        //     }
-        // };
-        // if(data.value &&  (data.value.length == 1)){
-        //     currentData.push({
-        //         "value": data.value,
-        //         "amount": 20
-        //     })
-        // };
-        // KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData))
     },
 
     getDataAlpharacing: function(){
