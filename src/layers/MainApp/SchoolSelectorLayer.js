@@ -73,15 +73,15 @@ var SchoolSelectorLayer = cc.Layer.extend({
         else {
             Utils.addLoadingIndicatorLayer(true);
           // RequestsManager.getInstance().postGameProgress.getSchools(function(succeed, data) {
-                Utils.removeLoadingIndicatorLayer();
-                if (succeed) {
-                    DataManager.getInstance().setSchoolData(data);
-                    self.createSearchArea();
-                    self.createScrollView();
-                    self.refreshSchoolList();
-                    self.addArrowImage();
-                }
-            });
+            //     Utils.removeLoadingIndicatorLayer();
+            //     if (succeed) {
+            //         DataManager.getInstance().setSchoolData(data);
+            //         self.createSearchArea();
+            //         self.createScrollView();
+            //         self.refreshSchoolList();
+            //         self.addArrowImage();
+            //     }
+            // });
         }
     },
 

@@ -287,11 +287,7 @@ var res = {
     ui_click_mp3_2 : "res/sounds/backsounds/ui_click_5.mp3",
     you_win_mp3 : "res/sounds/backsounds/you_win.mp3",
  
-    // Adidog_json: "Adidog/ConCho.json",
-    // Adidog_atlas: "AdiDog/ConCho.atlas",
-    // Adidog_png2: "AdiDog/ConCho.png",
-
-    // Adidog_Run_png: "adidog_run/1.png",
+    Character_Jump_mp3: "res/sounds/character_jump.mp3",
  
     Plus_png: "plus.png",
     Create_png: "create-button.png",

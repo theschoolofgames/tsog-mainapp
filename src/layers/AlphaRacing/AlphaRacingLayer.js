@@ -68,7 +68,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         // cc.log("camera: " + JSON.stringify(camera.getPosition()));
         this._alphabetShowed = "";
         // this.resetData();
-      // cc.log("inputData: " + JSON.stringify(inputData));
+        cc.log("inputData: " + JSON.stringify(inputData));
         this._sourceData = shuffle(inputData);
         this._inputData = this._sourceData[0];
         this._word = localizeForWriting(this._inputData.value);
@@ -257,8 +257,10 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        if (this._player.current != "died")
+        if (this._player.current != "died") {
+            jsb.AudioEngine.play2d("sounds/character_jump.mp3");    
             this._player.jump();
+        }
 
         var self =  this;
         if(this._tutorial) {
