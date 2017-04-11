@@ -149,12 +149,12 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             }
         });
 
-            var objectArray = self.gameObjectJson.filter((gameObject) => {
-                if(key2)
-                    return gameObject.type == key || gameObject.type == key2;
-                return gameObject.type == key;
-            });
-            self.arrayObjectInType = (objectArray);
+        var objectArray = self.gameObjectJson.filter((gameObject) => {
+            if(key2)
+                return gameObject.type == key || gameObject.type == key2;
+            return gameObject.type == key;
+        });
+        self.arrayObjectInType = (objectArray);
 
         // console.log("Aray Object:  => " + JSON.stringify(objectArray));
 
