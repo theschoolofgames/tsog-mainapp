@@ -504,7 +504,7 @@ var ListeningTestLayer = TestLayer.extend({
 
     _incorrectAction: function(obj) {
         var self = this;
-        jsb.AudioEngine.play2d(res.Failed_sfx);
+        AudioManager.getInstance().play(res.incorrect_word_mp3);
         this._adiDog.adiShakeHead();
         // cc.log("listeningTest_ _celebrateCorrectObj incorrectedObj.name: " + obj.name);
         SegmentHelper.track(SEGMENT.TOUCH_TEST,

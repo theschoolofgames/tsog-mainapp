@@ -586,7 +586,7 @@ var GoFigureTestLayer = TestLayer.extend({
 
     _incorrectAction: function() {
         var self = this;
-        jsb.AudioEngine.play2d(res.Failed_sfx);
+        AudioManager.getInstance().play(res.incorrect_word_mp3);
         this._adiDog.adiShakeHead();
         this.runAction(
             cc.sequence(
