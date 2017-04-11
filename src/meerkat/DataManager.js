@@ -80,17 +80,21 @@ var DataManager = cc.Class.extend({
         this._gameData[userId] = data;
         KVDatabase.getInstance().set(STRING_GAME_DATA, JSON.stringify(this._gameData));  
     },
+    
     setDataAlpharacing: function(data) {
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
         if (currentData.length == 0)
-            currentData = ["A"];
+            currentData = ["GAME"];
 
         if (data.value)
             if (currentData.indexOf(data.value) >= 0)
                 return;
 
-        if (data.value && data.value.length == 1) {
-            currentData.push(data.value);
+        if (data.value && data.value.length > 1) {
+            if (data.value.indexOf("color") > -1 || data.value.indexOf("btn") > -1) {
+                data.value = data.value.substr(data.value.indexOf("_") + 1, data.value.length-1);
+            };
+            currentData.push(data.value.toUpperCase());
         }
 
         KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData));
@@ -117,6 +121,7 @@ var DataManager = cc.Class.extend({
         // };
         // KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData))
     },
+
     getDataAlpharacing: function(){
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
 
@@ -127,7 +132,7 @@ var DataManager = cc.Class.extend({
         })
 
         if (currentData.length == 0)
-            currentData = ["A"];
+            currentData = ["GAME"];
 
         // cc.log("currentData == []: " + (currentData == []));
         // if(currentData.length == 0)
@@ -144,7 +149,7 @@ var DataManager = cc.Class.extend({
                 amount: 20
             }
         });
-    }
+    },
 });
 
 DataManager._instance = null;

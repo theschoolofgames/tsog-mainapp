@@ -72,11 +72,11 @@ var AlphaRacingLayer = cc.Layer.extend({
         this._sourceData = shuffle(inputData);
         this._inputData = this._sourceData[0];
         this._word = localizeForWriting(this._inputData.value);
-      // cc.log("this._sourceData.length: " + this._sourceData.length);
+        cc.log("this._sourceData.length: " + this._sourceData.length);
         if(this._sourceData.length > 1)
             this._sourceData.splice(0,1);
         this._nextWord = localizeForWriting(this._sourceData[0].value);
-      // cc.log("this._sourceData.length: " + this._sourceData.length);
+        cc.log("this._sourceData.length: " + this._sourceData.length);
         this._inputData = shuffle(localizeForWriting(this._inputData.value).split(''));
         var input = [];
         for(var i  = 0; i < this._inputData.length; i++) {
@@ -146,7 +146,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     addTutorial: function(){
-      // cc.log("addTutorial");
+        cc.log("addTutorial");
         if(this._tutorial)
             this._tutorial.removeFromParent();
         this._tutorial = new TutorialLayer(cc.p(cc.winSize.width/2,cc.winSize.height/2), null);
@@ -258,7 +258,7 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     onTouchBegan: function(touch, event) {
         if (this._player.current != "died") {
-            jsb.AudioEngine.play2d("sounds/character_jump.mp3");    
+            jsb.AudioEngine.play2d(res.Character_Jump_mp3);
             this._player.jump();
         }
 
@@ -284,7 +284,7 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     addHud: function(word) {
-        // cc.log("this._inputData.value: " +word);
+        cc.log("this._inputData.value: " +word);
         var hudLayer = new ARHudLayer(this, localizeForWriting(word));
 
         this.addChild(hudLayer, AR_HUD_ORDER);
@@ -397,7 +397,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         tmxMap.x = this._currentMapX;
         this.addChild(tmxMap, AR_LANDS_ZODER, 2);
 
-        // cc.log("createNewMapSegment");
+        cc.log("createNewMapSegment");
         this.addObstacles(tmxMap);
         this.addBoosters(tmxMap);
         this.addAlphabet(tmxMap);
@@ -596,12 +596,12 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     addNewAlphabet: function(){
-      // cc.log("--------------------------------")
+        cc.log("--------------------------------")
         var self = this;
         this._inputData.splice(0,1);
         let inputArray = this._inputData[0];
         if(this._alphabetShowed.indexOf(inputArray) >= 0){
-          // cc.log("return ->>>>>>>");
+            cc.log("return ->>>>>>>");
             this.addNewAlphabet();
             return;
         };
@@ -615,7 +615,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                     }
                 };
                 // self._alphabetObjectArray = [];
-              // cc.log("pass");
+                cc.log("pass");
                 for(var i = 0; i < self._maps.length; i ++){
                     self.addAlphabet(self._maps[i]);
                 };
@@ -632,7 +632,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         let posArray = this.getGroupPositions(tmxMap).filter(group => group.name.startsWith("alphaPosition"));
         // cc.log("this._inputData: " + JSON.stringify(this._inputData));
         let inputArray = this._inputData[0];
-      // cc.log("addAlphabet: " + inputArray);
+        cc.log("addAlphabet: " + inputArray);
         // if(this._inputData.length == 0){
         //     this.newWordNeedCollect();
         // };
@@ -640,7 +640,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         let self = this;
 
         // cc.log("This.Input Length: %d, That length: %d", this._inputData.length, inputArray.length);
-      // cc.log(JSON.stringify(inputArray));
+        cc.log(JSON.stringify(inputArray));
 
 
         posArray = shuffle(posArray);
@@ -653,7 +653,7 @@ var AlphaRacingLayer = cc.Layer.extend({
         //     for(var j = 0; j < this._alphabetObjectArray.length; j ++) {
         //         if(this._alphabetObjectArray[j].x < (camera.x + cc.winSize.width * 1.5)) {
         //             this._alphabetObjectArray[j].removeFromParent();
-        //           // cc.log("Run IF");
+        //             cc.log("Run IF");
         //             this._alphabetObjectArray.splice(j,1);
         //         }
         //     };
@@ -669,7 +669,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             group.posArray.forEach((pos) => {
                 if(pos.x < camera.x + cc.winSize.width)
                     return;
-              // cc.log(pos.x);
+                cc.log(pos.x);
                 let randomInputIndex = Utils.getRandomInt(0, self._inputData.length);
                 // cc.log("randomInputIndex: " + randomInputIndex);
                 let alphabet = inputArray;

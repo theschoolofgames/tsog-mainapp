@@ -53,6 +53,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
         };
         this.amoutWordCollected = 0;
         this._node = null;
+        cc.log("this._word: " + wordNeedCollect);
         this._word = wordNeedCollect;
         var node = new cc.Node();
         node.x = cc.winSize.width/2;
@@ -101,10 +102,10 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
     collectedAlphabet: function(alphabet){
         var self = this;
-        cc.log("this._word: "+this._word);
+        // cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
         var count = 0;
-        cc.log("getChildrenCount: " + this._node.getChildrenCount());
+        // cc.log("getChildrenCount: " + this._node.getChildrenCount());
         for(var i = 0; i < this._word.length; i ++){
             if(this._word[i] == alphabet) {
                 var child = this._node.getChildByTag(i);
@@ -134,7 +135,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
             this._layer.newWordNeedCollect();
         };
         this._count = this._node.getChildrenCount();
-        cc.log("childCount: " + this._count);
+        // cc.log("childCount: " + this._count);
         
     },
 

@@ -300,7 +300,7 @@ var HudLayer = cc.Layer.extend({
     _tappedGoldNode: function(goldNode, pos) {
         if (goldNode.getNumberOfRunningActions() > 2)
             return;
-        cc.log("POS: " + JSON.stringify(pos));
+        // cc.log("POS: " + JSON.stringify(pos));
         var self = this;
         var amount = goldNode.tag;
 

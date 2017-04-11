@@ -36,7 +36,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
         this.addChild(this._character);
         this.setCascadeOpacityEnabled(true);
 
-        cc.log("character width: " + this._character.width + "character height: " + this._character.height);
+        // cc.log("character width: " + this._character.width + "character height: " + this._character.height);
 
         this._space = space;
 
