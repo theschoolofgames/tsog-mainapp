@@ -261,8 +261,10 @@ var AlphaRacingLayer = cc.Layer.extend({
     },
 
     onTouchBegan: function(touch, event) {
-        if (this._player.current != "died")
+        if (this._player.current != "died") {
+            jsb.AudioEngine.play2d(res.Character_Jump_mp3);
             this._player.jump();
+        }
 
         var self =  this;
         if(this._tutorial) {

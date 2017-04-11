@@ -310,6 +310,8 @@ var res = {
     ui_click_mp3_1 : "res/sounds/backsounds/ui_click_2.mp3",
     ui_click_mp3_2 : "res/sounds/backsounds/ui_click_5.mp3",
     you_win_mp3 : "res/sounds/backsounds/you_win.mp3",
+
+    Character_Jump_mp3: "res/sounds/character_jump.mp3",
  
     // Adidog_json: "Adidog/ConCho.json",
     // Adidog_atlas: "AdiDog/ConCho.atlas",
