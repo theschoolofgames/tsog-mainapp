@@ -467,4 +467,5 @@ languagesForWriting["sw"] = {
     "home": "nyumbani",
     "play": "kucheza",
     "learn": "kujifunza",
+    "adi": "adi",
 };

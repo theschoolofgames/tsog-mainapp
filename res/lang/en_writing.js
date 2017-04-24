@@ -472,4 +472,6 @@ languagesForWriting["en"] = {
     "home": "home",
     "play": "play",
     "learn": "learn",
+    "adi": "adi",
+    
 };

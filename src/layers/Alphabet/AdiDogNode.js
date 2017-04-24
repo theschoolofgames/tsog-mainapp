@@ -90,10 +90,11 @@ var AdiDogNode = cc.Node.extend({
     },
 
     _createTalkingAdi: function(characterName) {
-        cc.log("before creating adi");
+        cc.log("AdiDogNode");
         var name = CharacterManager.getInstance().getSelectedCharacter();
+        cc.log("NAME: " + characterName);
         if(!name) {
-            name = "adi"
+            name = "monkey"
         };
         if(characterName)
             name = characterName;

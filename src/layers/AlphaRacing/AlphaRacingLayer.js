@@ -176,7 +176,7 @@ var AlphaRacingLayer = cc.Layer.extend({
                         // } else {
                             var score = self._hudLayer.getDistance();
                             // var revives = Math.log(self._coinsForRevive) / Math.log(2);
-                            var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
+                            var character = CharacterManager.getInstance().getSelectedCharacter() || "monkey";
                             // AnalyticsManager.getInstance().logEventPostScore(score, revives, character);
                             
                             if (TSOG_DEBUG) {

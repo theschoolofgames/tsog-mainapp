@@ -211,7 +211,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         if(CharacterManager.getInstance().getSelectedCharacter() == characterCfg.name) {
             lbButton = "";
         };
-        var name = localize(characterCfg.name).toUpperCase();
+        var name = localizeForWriting(characterCfg.name).toUpperCase();
         var characterName = new cc.LabelBMFont("" + name, "res/font/custom_font.fnt");
         characterName.scale = 0.4;
         characterName.anchorX = 0;
