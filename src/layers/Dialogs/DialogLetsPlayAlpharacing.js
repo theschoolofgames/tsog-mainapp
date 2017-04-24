@@ -7,6 +7,7 @@ var DialogLetsPlayAlpharacing = Dialog.extend({
 		this._addDialogBg();
         this._addInstructionText();
 		this._addButton();
+        this._addCloseButton();
 	},
 
 	_addDialogBg: function() {
@@ -42,14 +43,16 @@ var DialogLetsPlayAlpharacing = Dialog.extend({
         	this.close();
             cc.director.getRunningScene().addChild(new DialogPlayAlpharacing(false), HOME_DOOR_Z_ORDER+3);
         }.bind(this));
+    },
 
+    _addCloseButton: function() {
         var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
         closeButton.x = this.background.width - 25;
         closeButton.y = this.background.height - 25;
         this.background.addChild(closeButton);
         closeButton.addClickEventListener(function(){
             if (this.closeCallback) {
-            	this.closeCallback();
+                this.closeCallback();
             }
             this.close();
         }.bind(this));

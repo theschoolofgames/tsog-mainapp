@@ -27,6 +27,15 @@ var HomeScreenLayer = cc.Layer.extend({
             this.playBeginHomeCutScene();
     },
 
+    onEnterTransitionDidFinish: function() {
+        this._super();
+
+        if (HomeScreenLayer.didGoFromAlphaRacing && CurrencyManager.getInstance().getDiamond() >= DIAMONDS_TO_SHOW_SHOP_FROM_ALPHARACING) {
+            ShopScreenLayer.wantScrollToNextAvailableCharacter = true;
+            DialogPetStore.show();
+        }
+    },  
+
     addBackGround: function() {
         var bg = new cc.Sprite("res/SD/BG_home.jpg");
         bg.anchorY = 0;
@@ -216,6 +225,11 @@ var HomeScreenLayer = cc.Layer.extend({
                 break;
         }
     },
+
+    onExit: function() {
+        this._super();
+        HomeScreenLayer.didGoFromAlphaRacing = false;
+    },
 });
 
 var HomeScene = cc.Scene.extend({
@@ -225,3 +239,5 @@ var HomeScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
+HomeScreenLayer.didGoFromAlphaRacing = false;

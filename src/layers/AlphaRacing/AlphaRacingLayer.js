@@ -171,25 +171,18 @@ var AlphaRacingLayer = cc.Layer.extend({
                     cc.delayTime(3),
                     cc.callFunc(function() {
                         self.diePosition = self._player.getPosition();
-                        // if (self._coinsForRevive <= CurrencyManager.getInstance().getCoin()) {
-                        //     self._hudLayer.addChild(new DialogReviveAR(self._coinsForRevive), 9999);
-                        // } else {
-                            var score = self._hudLayer.getDistance();
-                            // var revives = Math.log(self._coinsForRevive) / Math.log(2);
-                            var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
-                            // AnalyticsManager.getInstance().logEventPostScore(score, revives, character);
-                            
-                            if (TSOG_DEBUG) {
-                                var data = DataManager.getInstance().getDataAlpharacing();
-                                cc.director.runScene(new AlphaRacingScene(data, null, 600));
-                            } else
-                                cc.director.runScene(new HomeScene());
-                        //     }
-
-                        // } 
+                        var score = self._hudLayer.getDistance();
+                        var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
+                        
+                        if (TSOG_DEBUG) {
+                            var data = DataManager.getInstance().getDataAlpharacing();
+                            cc.director.runScene(new AlphaRacingScene(data, null, 600));
+                        } else {
+                            HomeScreenLayer.didGoFromAlphaRacing = true;
+                            cc.director.runScene(new HomeScene());
+                        }
                     })
                 ))
-                // this.completedScene(localize("Game Over"));
             }.bind(this)
         });
         cc.eventManager.addListener(this._eventGameOver, 1);

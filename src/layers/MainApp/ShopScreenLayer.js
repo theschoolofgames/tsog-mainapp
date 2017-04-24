@@ -27,7 +27,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         // this.addBackToHomeScene();
         this._characterList = CharacterManager.getInstance().getCharacterList();
 
-        // cc.log("characterList: " + JSON.stringify(this._characterList));
+        cc.log("characterList: " + JSON.stringify(this._characterList));
         this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
@@ -43,6 +43,10 @@ ShopScreenLayer = cc.LayerColor.extend({
         this._addHudLayer();
         
         this._hudLayer.updateBalance();
+
+        if (ShopScreenLayer.wantScrollToNextAvailableCharacter) {
+            this.scrollToNextAvailableCharacter();
+        }
     },
 
     _addHudLayer: function() {
@@ -381,6 +385,21 @@ ShopScreenLayer = cc.LayerColor.extend({
         });
         // Utils.runAnimation(this._arrowright, "navigate", 0.3, 2, true, 0.3);
     },
+
+    scrollToNextAvailableCharacter: function() {
+        for (var i = 0; i < this._characterList.length; i++) {
+            var char = this._characterList[i];
+            if (char && !char.unlocked) {
+                this._index = i;
+                this._pressArrow();
+            }
+        }
+    },
+
+    onExit: function() {
+        this._super();
+        ShopScreenLayer.wantScrollToNextAvailableCharacter = false;
+    },
 });
 var ShopScene = cc.Scene.extend({
     ctor: function(){
@@ -389,3 +408,5 @@ var ShopScene = cc.Scene.extend({
         this.addChild(layer);
     }
 });
+
+ShopScreenLayer.wantScrollToNextAvailableCharacter = false;
