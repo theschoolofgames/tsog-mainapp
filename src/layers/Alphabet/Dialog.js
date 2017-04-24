@@ -24,6 +24,12 @@ var Dialog = cc.LayerColor.extend({
         this.animateIn();
     },
 
+    onExit: function() {
+        this._super();
+
+        Dialog.setCurrentDialog(null);
+    },
+
     animateIn: function() {
         this.runAction(cc.fadeTo(0.1, 150));
 
@@ -52,7 +58,6 @@ var Dialog = cc.LayerColor.extend({
         this.touchBlocked = true;
         AudioManager.getInstance().play(res.ui_close_mp3, false, null);
         this.animateOut();
-        Dialog.setCurrentDialog(null);
     },
 
     animateOut:function() {

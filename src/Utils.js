@@ -384,6 +384,7 @@ Utils.updateStepData = function() {
     stepData[currentLevel]["completed"] = completed;
     stepData[currentLevel]["totalStars"] = currentTotalStars+1;
 
+    MapLayer.newLevelUnlocked = completed;
     KVDatabase.getInstance().set("stepData", JSON.stringify(stepData));
 }
 

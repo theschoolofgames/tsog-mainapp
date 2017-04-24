@@ -467,4 +467,5 @@ languagesForWriting["sw"] = {
     "pets": "Kipenzi",
     "play": "kucheza",
     "learn": "kujifunza",
+    "letsplay": "wacha tucheze"
 };

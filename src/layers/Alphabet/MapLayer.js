@@ -402,7 +402,7 @@ var MapLayer = cc.Layer.extend({
         if (!level) {
             var level = SceneFlowController.getInstance().getLastedStepUnlocked() || SceneFlowController.getInstance().getLastedStepPressed();
         }
-       
+        cc.log ("getCurrentDialog - > " + Dialog.getCurrentDialog());
         if (level && !Dialog.getCurrentDialog()) {
             this.addChild(new LevelDialog(level));
         }

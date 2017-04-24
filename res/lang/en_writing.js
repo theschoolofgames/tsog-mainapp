@@ -472,4 +472,5 @@ languagesForWriting["en"] = {
     "pets": "Pets",
     "play": "play",
     "learn": "learn",
+    "letsplay": "Let's play",
 };
