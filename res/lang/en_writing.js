@@ -469,7 +469,7 @@ languagesForWriting["en"] = {
 
     "you win": "you win",
     "choose language": "Choose Language",
-    "home": "home",
+    "pets": "Pets",
     "play": "play",
     "learn": "learn",
     "adi": "adi",

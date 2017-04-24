@@ -464,7 +464,7 @@ languagesForWriting["sw"] = {
 
     "you win": "umeshinda",
     "choose language": "Lugha Kuchagua",
-    "home": "nyumbani",
+    "pets": "Kipenzi",
     "play": "kucheza",
     "learn": "kujifunza",
     "adi": "adi",

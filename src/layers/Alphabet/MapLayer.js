@@ -26,6 +26,11 @@ var MapLayer = cc.Layer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
 
+        if (MapLayer.newLevelUnlocked) {
+            cc.log("showLetsPlayAlphaRacingDialog");
+            this.showLetsPlayAlphaRacingDialog();
+        }
+
         this._prepareMap();
         cc.audioEngine.playMusic(res.map_mp3, true);
     },
@@ -64,7 +69,7 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
-        var isAllLevelUnlocked = 1;//KVDatabase.getInstance().getInt("UnlockAllLevels");
+        var isAllLevelUnlocked = 0;//KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
         var mapLabel = 0;
@@ -334,12 +339,12 @@ var MapLayer = cc.Layer.extend({
         // if (level && parseInt(level.charAt(0)) > 4)
         //     return;
 
-        if (b)
+        if (b) {
             level = b.getUserData();
+        }
 
         cc.log("level: " + level);
-        if (level)
-            this.addChild(new LevelDialog(level));
+        this.showLevelDialog(level);
     },
 
     _prepareMap: function() {
@@ -382,13 +387,31 @@ var MapLayer = cc.Layer.extend({
     onExit: function() {
         this._super();
 
+        MapLayer.newLevelUnlocked = false;
         cc.audioEngine.stopMusic();
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 0);
+    },
+
+    showLetsPlayAlphaRacingDialog: function() {
+        var dialog = new DialogLetsPlayAlpharacing();
+        this.addChild(dialog, 9);
+        dialog.closeCallback = this.showLevelDialog;
+    },
+
+    showLevelDialog: function(level) {
+        if (!level) {
+            var level = SceneFlowController.getInstance().getLastedStepUnlocked() || SceneFlowController.getInstance().getLastedStepPressed();
+        }
+       
+        if (level && !Dialog.getCurrentDialog()) {
+            this.addChild(new LevelDialog(level));
+        }
     },
 });
 
 MapLayer.TotalMapPart = 4;
 MapLayer.TotalStarsEachStep = 6;
+MapLayer.newLevelUnlocked = false;
 
 var MapScene = cc.Scene.extend({
     ctor:function() {
