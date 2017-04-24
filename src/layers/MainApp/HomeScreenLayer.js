@@ -45,7 +45,7 @@ var HomeScreenLayer = cc.Layer.extend({
         l.setLocalZOrder(HOME_DOOR_Z_ORDER + 2);
         this.addChild(l);
 
-        var door = this.getChildByName("home");
+        var door = this.getChildByName("pet");
         this.runDoorCutSceneAction(door, 1);
 
         door = this.getChildByName("play");
@@ -169,7 +169,7 @@ var HomeScreenLayer = cc.Layer.extend({
 
     addHomeDoor: function(){
         var door  = new ccui.Button("home_door.png","home_door_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        door.name = "home";
+        door.name = "pet";
         door.setTouchEnabled(!this._playBeginHomeCutScene);
         door.anchorX = 0;
         door.anchorY = 0;
@@ -183,7 +183,7 @@ var HomeScreenLayer = cc.Layer.extend({
         board.y = door.height - 130;
         door.addChild(board);
 
-        var text = localizeForWriting("home");
+        var text = localizeForWriting("pets");
         var lbLearn = new cc.LabelBMFont(text.toUpperCase(), res.HomeFont_fnt);
         lbLearn.scale = (lbLearn.width*BOARD_LABEL_SCALE > board.width*0.75) ? (board.width*0.75 / lbLearn.width) : BOARD_LABEL_SCALE;
         lbLearn.x = board.width/2;
@@ -209,7 +209,7 @@ var HomeScreenLayer = cc.Layer.extend({
             case "learn":
                 cc.director.runScene(new MapScene());
                 break;
-            case "home":
+            case "pet":
                 cc.director.replaceScene(new TalkingAdiScene());
                 break;
             default:
