@@ -392,6 +392,7 @@ ShopScreenLayer = cc.LayerColor.extend({
             if (char && !char.unlocked) {
                 this._index = i;
                 this._pressArrow();
+                break;
             }
         }
     },
