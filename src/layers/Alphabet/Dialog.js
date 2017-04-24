@@ -4,15 +4,18 @@ var Dialog = cc.LayerColor.extend({
     touchBlocked: false,
     background: null,
 
+    currentDialog: null,
+
     ctor: function() {
         this._super(cc.color(0, 0, 0, 200));
-
         this._csf = cc.director.getContentScaleFactor();
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: function(touch, event) {return true;}
         }, this);
+
+        Dialog.setCurrentDialog(this);
     },
 
     onEnter: function() {
@@ -49,6 +52,7 @@ var Dialog = cc.LayerColor.extend({
         this.touchBlocked = true;
         AudioManager.getInstance().play(res.ui_close_mp3, false, null);
         this.animateOut();
+        Dialog.setCurrentDialog(null);
     },
 
     animateOut:function() {
@@ -74,3 +78,13 @@ var Dialog = cc.LayerColor.extend({
 
 
 });
+
+Dialog._currentDialog = null;
+
+Dialog.setCurrentDialog = function(dialog) {
+    Dialog._currentDialog = dialog;
+};
+
+Dialog.getCurrentDialog = function() {
+    return Dialog._currentDialog;
+};

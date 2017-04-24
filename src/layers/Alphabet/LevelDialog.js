@@ -14,7 +14,6 @@ var LevelDialog = Dialog.extend({
         this._addDialog();
         this._addLayerContent();
 
-        // level = "1-1"; // testing
         this._level = null;
         if (level) {
             this._level = level;
