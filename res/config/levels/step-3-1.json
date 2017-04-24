@@ -135,28 +135,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -208,34 +186,6 @@
       "duration": 240
     },
     "3": {
-      "name": "writing",
-      "data": [
-        "word_e",
-        "word_f",
-        "word_g",
-        "word_h",
-        "word_E",
-        "word_F",
-        "word_G",
-        "word_H"
-      ],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "word_e",
-        "word_f",
-        "word_g",
-        "word_h",
-        "word_E",
-        "word_F",
-        "word_G",
-        "word_H"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "speaking",
       "data": [
         "word_e",

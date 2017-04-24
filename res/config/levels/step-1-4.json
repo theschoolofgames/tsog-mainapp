@@ -121,28 +121,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -176,26 +154,6 @@
       "duration": 240
     },
     "3": {
-      "name": "writing",
-      "data": [
-        "A",
-        "a",
-        "A",
-        "a"
-      ],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "A",
-        "a",
-        "A",
-        "a"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "speaking",
       "data": [
         "A",

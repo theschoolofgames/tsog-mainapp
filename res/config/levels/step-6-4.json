@@ -25,30 +25,6 @@
       "duration": 240
     },
     "3": {
-      "name": "writing",
-      "data": [
-        "word_X",
-        "word_Y",
-        "word_Z",
-        "word_x",
-        "word_y",
-        "word_z"
-      ],
-      "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "word_X",
-        "word_Y",
-        "word_Z",
-        "word_x",
-        "word_y",
-        "word_z"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "speaking",
       "data": [
         "word_X",

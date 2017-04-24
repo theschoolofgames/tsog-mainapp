@@ -37,26 +37,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_s",
-        "word_t",
-        "word_S",
-        "word_T"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_s",
-        "word_t",
-        "word_S",
-        "word_T"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "word_s",
@@ -105,26 +85,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_s",
-        "word_t",
-        "word_S",
-        "word_T"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_s",
-        "word_t",
-        "word_S",
-        "word_T"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "word_s",
@@ -605,27 +565,7 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_S",
-        "word_s",
-        "word_T",
-        "word_t"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_S",
-        "word_s",
-        "word_T",
-        "word_t"
-      ],
-      "duration": 240
-    },
-    "6": {
-      "name": "writing",
+      "name": "speaking",
       "data": [
         "word_S",
         "word_s",
