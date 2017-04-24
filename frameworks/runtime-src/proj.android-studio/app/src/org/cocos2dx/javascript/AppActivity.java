@@ -26,6 +26,7 @@ package org.cocos2dx.javascript;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.h102.SpeechRecognizer;
 import com.h102.Wrapper;
@@ -34,6 +35,8 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import java.util.Locale;
+
+import static android.view.WindowManager.*;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -53,7 +56,7 @@ public class AppActivity extends Cocos2dxActivity {
         SpeechRecognizer.setupInstance(this);
 
         Wrapper.requestPermission("WRITE_EXTERNAL_STORAGE");
-
+        getWindow().addFlags(LayoutParams.FLAG_KEEP_SCREEN_ON);
         return glSurfaceView;
     }
 
