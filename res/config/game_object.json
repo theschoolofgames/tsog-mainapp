@@ -1,148 +1,13 @@
 [
   {
-    "id": "salt",
+    "id": "egg",
     "type": "object",
-    "value": "salt"
-  },
-  {
-    "id": "crayon",
-    "type": "object",
-    "value": "crayon"
-  },
-  {
-    "id": "vest",
-    "type": "object",
-    "value": "vest"
-  },
-  {
-    "id": "fan",
-    "type": "object",
-    "value": "fan"
-  },
-  {
-    "id": "cap",
-    "type": "object",
-    "value": "cap"
-  },
-  {
-    "id": "cup",
-    "type": "object",
-    "value": "cup"
-  },
-  {
-    "id": "arm",
-    "type": "object",
-    "value": "arm"
-  },
-  {
-    "id": "jump",
-    "type": "object",
-    "value": "jump"
-  },
-  {
-    "id": "hang",
-    "type": "object",
-    "value": "hang"
-  },
-  {
-    "id": "light",
-    "type": "object",
-    "value": "light"
-  },
-  {
-    "id": "nose",
-    "type": "object",
-    "value": "nose"
-  },
-  {
-    "id": "river",
-    "type": "object",
-    "value": "river"
-  },
-  {
-    "id": "seed",
-    "type": "object",
-    "value": "seed"
-  },
-  {
-    "id": "seed",
-    "type": "object",
-    "value": "seed"
-  },
-  {
-    "id": "steep",
-    "type": "object",
-    "value": "steep"
-  },
-  {
-    "id": "stew",
-    "type": "object",
-    "value": "stew"
-  },
-  {
-    "id": "tent",
-    "type": "object",
-    "value": "tent"
-  },
-  {
-    "id": "test",
-    "type": "object",
-    "value": "test"
-  },
-  {
-    "id": "tub",
-    "type": "object",
-    "value": "tub"
-  },
-  {
-    "id": "van",
-    "type": "object",
-    "value": "van"
-  },
-  {
-    "id": "wing",
-    "type": "object",
-    "value": "wing"
-  },
-  {
-    "id": "toe",
-    "type": "object",
-    "value": "toe"
-  },
-  {
-    "id": "toes",
-    "type": "object",
-    "value": "toes"
-  },
-  {
-    "id": "heavy",
-    "type": "object",
-    "value": "heavy"
-  },
-  {
-    "id": "sour",
-    "type": "object",
-    "value": "sour"
-  },
-  {
-    "id": "xmas",
-    "type": "object",
-    "value": "xmas"
+    "value": "egg"
   },
   {
     "id": "hat",
     "type": "object",
     "value": "hat"
-  },
-  {
-    "id": "ball",
-    "type": "object",
-    "value": "ball"
-  },
-  {
-    "id": "rat",
-    "type": "object",
-    "value": "rat"
   },
   {
     "id": "jar",
@@ -160,9 +25,39 @@
     "value": "map"
   },
   {
+    "id": "ant",
+    "type": "animal",
+    "value": "ant"
+  },
+  {
+    "id": "cow",
+    "type": "animal",
+    "value": "cow"
+  },
+  {
+    "id": "bee",
+    "type": "animal",
+    "value": "bee"
+  },
+  {
+    "id": "cat",
+    "type": "animal",
+    "value": "cat"
+  },
+  {
+    "id": "dog",
+    "type": "animal",
+    "value": "dog"
+  },
+  {
     "id": "pen",
     "type": "object",
     "value": "pen"
+  },
+  {
+    "id": "rat",
+    "type": "object",
+    "value": "rat"
   },
   {
     "id": "book",
@@ -170,24 +65,69 @@
     "value": "book"
   },
   {
+    "id": "fly",
+    "type": "animal",
+    "value": "fly"
+  },
+  {
+    "id": "fox",
+    "type": "animal",
+    "value": "fox"
+  },
+  {
+    "id": "pig",
+    "type": "animal",
+    "value": "pig"
+  },
+  {
+    "id": "rat",
+    "type": "animal",
+    "value": "rat"
+  },
+  {
+    "id": "owl",
+    "type": "animal",
+    "value": "owl"
+  },
+  {
+    "id": "apple",
+    "type": "object",
+    "value": "apple"
+  },
+  {
+    "id": "lion",
+    "type": "animal",
+    "value": "lion"
+  },
+  {
+    "id": "horse",
+    "type": "animal",
+    "value": "horse"
+  },
+  {
+    "id": "mouse",
+    "type": "animal",
+    "value": "mouse"
+  },
+  {
+    "id": "trees",
+    "type": "object",
+    "value": "trees"
+  },
+  {
+    "id": "happy",
+    "type": "object",
+    "value": "happy"
+  },
+  {
     "id": "desk",
     "type": "object",
     "value": "desk"
   },
   {
-    "id": "flag",
+    "id": "gift",
     "type": "object",
-    "value": "flag"
-  },
-  {
-    "id": "egg",
-    "type": "object",
-    "value": "egg"
-  },
-  {
-    "id": "kite",
-    "type": "object",
-    "value": "kite"
+    "value": "gift"
   },
   {
     "id": "lamp",
@@ -200,24 +140,19 @@
     "value": "nail"
   },
   {
-    "id": "sock",
-    "type": "object",
-    "value": "sock"
-  },
-  {
-    "id": "gift",
-    "type": "object",
-    "value": "gift"
-  },
-  {
-    "id": "apple",
-    "type": "object",
-    "value": "apple"
-  },
-  {
     "id": "chair",
     "type": "object",
     "value": "chair"
+  },
+  {
+    "id": "nest",
+    "type": "animal",
+    "value": "nest"
+  },
+  {
+    "id": "bear",
+    "type": "animal",
+    "value": "bear"
   },
   {
     "id": "grape",
@@ -245,6 +180,31 @@
     "value": "queen"
   },
   {
+    "id": "bird",
+    "type": "animal",
+    "value": "bird"
+  },
+  {
+    "id": "duck",
+    "type": "animal",
+    "value": "duck"
+  },
+  {
+    "id": "fish",
+    "type": "animal",
+    "value": "fish"
+  },
+  {
+    "id": "frog",
+    "type": "animal",
+    "value": "frog"
+  },
+  {
+    "id": "goat",
+    "type": "animal",
+    "value": "goat"
+  },
+  {
     "id": "towel",
     "type": "object",
     "value": "towel"
@@ -260,11 +220,6 @@
     "value": "abacus"
   },
   {
-    "id": "juice",
-    "type": "object",
-    "value": "juice"
-  },
-  {
     "id": "banana",
     "type": "object",
     "value": "banana"
@@ -273,16 +228,6 @@
     "id": "duster",
     "type": "object",
     "value": "duster"
-  },
-  {
-    "id": "eraser",
-    "type": "object",
-    "value": "eraser"
-  },
-  {
-    "id": "insect",
-    "type": "object",
-    "value": "insect"
   },
   {
     "id": "orange",
@@ -295,24 +240,39 @@
     "value": "pencils"
   },
   {
+    "id": "seal",
+    "type": "animal",
+    "value": "seal"
+  },
+  {
+    "id": "wolf",
+    "type": "animal",
+    "value": "wolf"
+  },
+  {
+    "id": "camel",
+    "type": "animal",
+    "value": "camel"
+  },
+  {
+    "id": "eagle",
+    "type": "animal",
+    "value": "eagle"
+  },
+  {
+    "id": "tiger",
+    "type": "animal",
+    "value": "tiger"
+  },
+  {
     "id": "potato",
     "type": "object",
     "value": "potato"
   },
   {
-    "id": "pot",
-    "type": "object",
-    "value": "pot"
-  },
-  {
     "id": "tomato",
     "type": "object",
     "value": "tomato"
-  },
-  {
-    "id": "mat",
-    "type": "object",
-    "value": "mat"
   },
   {
     "id": "umbrella",
@@ -330,9 +290,129 @@
     "value": "vegetable"
   },
   {
-    "id": "computer",
+    "id": "shark",
+    "type": "animal",
+    "value": "shark"
+  },
+  {
+    "id": "sheep",
+    "type": "animal",
+    "value": "sheep"
+  },
+  {
+    "id": "snail",
+    "type": "animal",
+    "value": "snail"
+  },
+  {
+    "id": "panda",
+    "type": "animal",
+    "value": "panda"
+  },
+  {
+    "id": "snake",
+    "type": "animal",
+    "value": "snake"
+  },
+  {
+    "id": "crayon",
     "type": "object",
-    "value": "computer"
+    "value": "crayon"
+  },
+  {
+    "id": "feather",
+    "type": "object",
+    "value": "feather"
+  },
+  {
+    "id": "vehicle",
+    "type": "object",
+    "value": "vehicle"
+  },
+  {
+    "id": "medicine",
+    "type": "object",
+    "value": "medicine"
+  },
+  {
+    "id": "watermelon",
+    "type": "object",
+    "value": "watermelon"
+  },
+  {
+    "id": "zebra",
+    "type": "animal",
+    "value": "zebra"
+  },
+  {
+    "id": "rabbit",
+    "type": "animal",
+    "value": "rabbit"
+  },
+  {
+    "id": "cheetah",
+    "type": "animal",
+    "value": "cheetah"
+  },
+  {
+    "id": "monkey",
+    "type": "animal",
+    "value": "monkey"
+  },
+  {
+    "id": "spider",
+    "type": "animal",
+    "value": "spider"
+  },
+  {
+    "id": "hen",
+    "type": "animal",
+    "value": "hen"
+  },
+  {
+    "id": "hungry",
+    "type": "object",
+    "value": "hungry"
+  },
+  {
+    "id": "kitchen",
+    "type": "object",
+    "value": "kitchen"
+  },
+  {
+    "id": "house",
+    "type": "object",
+    "value": "house"
+  },
+  {
+    "id": "soup",
+    "type": "object",
+    "value": "soup"
+  },
+  {
+    "id": "narrow",
+    "type": "object",
+    "value": "narrow"
+  },
+  {
+    "id": "parrot",
+    "type": "animal",
+    "value": "parrot"
+  },
+  {
+    "id": "strawberry",
+    "type": "object",
+    "value": "strawberry"
+  },
+  {
+    "id": "xylophone",
+    "type": "object",
+    "value": "xylophone"
+  },
+  {
+    "id": "juice",
+    "type": "object",
+    "value": "juice"
   },
   {
     "id": "toytrain",
@@ -340,24 +420,249 @@
     "value": "toytrain"
   },
   {
+    "id": "computer",
+    "type": "object",
+    "value": "computer"
+  },
+  {
+    "id": "dolphin",
+    "type": "animal",
+    "value": "dolphin"
+  },
+  {
+    "id": "kite",
+    "type": "object",
+    "value": "kite"
+  },
+  {
+    "id": "deer",
+    "type": "animal",
+    "value": "deer"
+  },
+  {
+    "id": "goldfish",
+    "type": "animal",
+    "value": "goldfish"
+  },
+  {
+    "id": "sock",
+    "type": "object",
+    "value": "sock"
+  },
+  {
+    "id": "eraser",
+    "type": "object",
+    "value": "eraser"
+  },
+  {
+    "id": "flag",
+    "type": "object",
+    "value": "flag"
+  },
+  {
+    "id": "elephant",
+    "type": "animal",
+    "value": "elephant"
+  },
+  {
+    "id": "insect",
+    "type": "object",
+    "value": "insect"
+  },
+  {
+    "id": "insect",
+    "type": "animal",
+    "value": "insect"
+  },
+  {
+    "id": "giraffe",
+    "type": "animal",
+    "value": "giraffe"
+  },
+  {
+    "id": "hamster",
+    "type": "animal",
+    "value": "hamster"
+  },
+  {
+    "id": "salt",
+    "type": "object",
+    "value": "salt"
+  },
+  {
+    "id": "vest",
+    "type": "object",
+    "value": "vest"
+  },
+  {
+    "id": "xmas",
+    "type": "object",
+    "value": "xmas"
+  },
+  {
+    "id": "stork",
+    "type": "animal",
+    "value": "stork"
+  },
+  {
+    "id": "octopus",
+    "type": "animal",
+    "value": "octopus"
+  },
+  {
+    "id": "mat",
+    "type": "object",
+    "value": "mat"
+  },
+  {
+    "id": "bat",
+    "type": "animal",
+    "value": "bat"
+  },
+  {
+    "id": "sat",
+    "type": "object",
+    "value": "sat"
+  },
+  {
+    "id": "fat",
+    "type": "object",
+    "value": "fat"
+  },
+  {
+    "id": "kangaroo",
+    "type": "animal",
+    "value": "kangaroo"
+  },
+  {
+    "id": "kitten",
+    "type": "animal",
+    "value": "kitten"
+  },
+  {
+    "id": "lobster",
+    "type": "animal",
+    "value": "lobster"
+  },
+  {
+    "id": "boy",
+    "type": "object",
+    "value": "boy"
+  },
+  {
+    "id": "bun",
+    "type": "object",
+    "value": "bun"
+  },
+  {
+    "id": "cap",
+    "type": "object",
+    "value": "cap"
+  },
+  {
+    "id": "cup",
+    "type": "object",
+    "value": "cup"
+  },
+  {
+    "id": "fan",
+    "type": "object",
+    "value": "fan"
+  },
+  {
+    "id": "hare",
+    "type": "animal",
+    "value": "hare"
+  },
+  {
+    "id": "tortoise",
+    "type": "animal",
+    "value": "tortoise"
+  },
+  {
+    "id": "asleep",
+    "type": "object",
+    "value": "asleep"
+  },
+  {
+    "id": "walk",
+    "type": "object",
+    "value": "walk"
+  },
+  {
+    "id": "jump",
+    "type": "object",
+    "value": "jump"
+  },
+  {
+    "id": "sing",
+    "type": "object",
+    "value": "sing"
+  },
+  {
+    "id": "cheer",
+    "type": "object",
+    "value": "cheer"
+  },
+  {
+    "id": "yawn",
+    "type": "object",
+    "value": "yawn"
+  },
+  {
+    "id": "puppy",
+    "type": "animal",
+    "value": "puppy"
+  },
+  {
+    "id": "pear",
+    "type": "object",
+    "value": "pear"
+  },
+  {
+    "id": "pet",
+    "type": "animal",
+    "value": "pet"
+  },
+  {
+    "id": "pan",
+    "type": "object",
+    "value": "pan"
+  },
+  {
+    "id": "pot",
+    "type": "object",
+    "value": "pot"
+  },
+  {
+    "id": "merchant",
+    "type": "object",
+    "value": "merchant"
+  },
+  {
+    "id": "donkey",
+    "type": "animal",
+    "value": "donkey"
+  },
+  {
+    "id": "light",
+    "type": "object",
+    "value": "light"
+  },
+  {
+    "id": "heavy",
+    "type": "object",
+    "value": "heavy"
+  },
+  {
+    "id": "flowers",
+    "type": "object",
+    "value": "flowers"
+  },
+  {
     "id": "sun",
     "type": "object",
     "value": "sun"
-  },
-  {
-    "id": "trees",
-    "type": "object",
-    "value": "trees"
-  },
-  {
-    "id": "leaf",
-    "type": "object",
-    "value": "leaf"
-  },
-  {
-    "id": "animals",
-    "type": "object",
-    "value": "animals"
   },
   {
     "id": "grass",
@@ -365,9 +670,154 @@
     "value": "grass"
   },
   {
+    "id": "river",
+    "type": "object",
+    "value": "river"
+  },
+  {
+    "id": "animals",
+    "type": "object",
+    "value": "animals"
+  },
+  {
     "id": "stars",
     "type": "object",
     "value": "stars"
+  },
+  {
+    "id": "leaf",
+    "type": "object",
+    "value": "leaf"
+  },
+  {
+    "id": "scorpion",
+    "type": "animal",
+    "value": "scorpion"
+  },
+  {
+    "id": "father",
+    "type": "object",
+    "value": "father"
+  },
+  {
+    "id": "grandmother",
+    "type": "object",
+    "value": "grandmother"
+  },
+  {
+    "id": "grandfather",
+    "type": "object",
+    "value": "grandfather"
+  },
+  {
+    "id": "mother",
+    "type": "object",
+    "value": "mother"
+  },
+  {
+    "id": "brother",
+    "type": "object",
+    "value": "brother"
+  },
+  {
+    "id": "sister",
+    "type": "object",
+    "value": "sister"
+  },
+  {
+    "id": "uncle",
+    "type": "object",
+    "value": "uncle"
+  },
+  {
+    "id": "aunt",
+    "type": "object",
+    "value": "aunt"
+  },
+  {
+    "id": "cousin",
+    "type": "object",
+    "value": "cousin"
+  },
+  {
+    "id": "squirrel",
+    "type": "animal",
+    "value": "squirrel"
+  },
+  {
+    "id": "turtle",
+    "type": "animal",
+    "value": "turtle"
+  },
+  {
+    "id": "arm",
+    "type": "object",
+    "value": "arm"
+  },
+  {
+    "id": "afternoon",
+    "type": "object",
+    "value": "afternoon"
+  },
+  {
+    "id": "bunch",
+    "type": "object",
+    "value": "bunch"
+  },
+  {
+    "id": "step",
+    "type": "object",
+    "value": "step"
+  },
+  {
+    "id": "hang",
+    "type": "object",
+    "value": "hang"
+  },
+  {
+    "id": "sour",
+    "type": "object",
+    "value": "sour"
+  },
+  {
+    "id": "nose",
+    "type": "object",
+    "value": "nose"
+  },
+  {
+    "id": "test",
+    "type": "object",
+    "value": "test"
+  },
+  {
+    "id": "tent",
+    "type": "object",
+    "value": "tent"
+  },
+  {
+    "id": "tub",
+    "type": "object",
+    "value": "tub"
+  },
+  {
+    "id": "van",
+    "type": "object",
+    "value": "van"
+  },
+  {
+    "id": "wing",
+    "type": "object",
+    "value": "wing"
+  },
+  {
+    "id": "toe",
+    "type": "object",
+    "value": "toe"
+  },
+  {
+    "id": "toes",
+    "type": "object",
+    "value": "toes"
   },
   {
     "id": "artist",
@@ -415,71 +865,6 @@
     "value": "teacher"
   },
   {
-    "id": "grandmother",
-    "type": "object",
-    "value": "grandmother"
-  },
-  {
-    "id": "grandfather",
-    "type": "object",
-    "value": "grandfather"
-  },
-  {
-    "id": "mother",
-    "type": "object",
-    "value": "mother"
-  },
-  {
-    "id": "father",
-    "type": "object",
-    "value": "father"
-  },
-  {
-    "id": "brother",
-    "type": "object",
-    "value": "brother"
-  },
-  {
-    "id": "sister",
-    "type": "object",
-    "value": "sister"
-  },
-  {
-    "id": "uncle",
-    "type": "object",
-    "value": "uncle"
-  },
-  {
-    "id": "aunt",
-    "type": "object",
-    "value": "aunt"
-  },
-  {
-    "id": "cousin",
-    "type": "object",
-    "value": "cousin"
-  },
-  {
-    "id": "boy",
-    "type": "object",
-    "value": "boy"
-  },
-  {
-    "id": "son",
-    "type": "object",
-    "value": "son"
-  },
-  {
-    "id": "carpenter",
-    "type": "object",
-    "value": "carpenter"
-  },
-  {
-    "id": "merchant",
-    "type": "object",
-    "value": "merchant"
-  },
-  {
     "id": "soldier",
     "type": "object",
     "value": "soldier"
@@ -490,24 +875,29 @@
     "value": "driver"
   },
   {
-    "id": "sing",
+    "id": "seed",
     "type": "object",
-    "value": "sing"
+    "value": "seed"
   },
   {
-    "id": "pet",
-    "type": "animal",
-    "value": "pet"
+    "id": "stew",
+    "type": "object",
+    "value": "stew"
   },
   {
-    "id": "stork",
-    "type": "animal",
-    "value": "stork"
+    "id": "son",
+    "type": "object",
+    "value": "son"
   },
   {
-    "id": "mouse",
-    "type": "animal",
-    "value": "pet"
+    "id": "ball",
+    "type": "object",
+    "value": "ball"
+  },
+  {
+    "id": "carpenter",
+    "type": "object",
+    "value": "carpenter"
   },
   {
     "id": "chimpanzee",
@@ -515,344 +905,9 @@
     "value": "chimpanzee"
   },
   {
-    "id": "flowers",
-    "type": "object",
-    "value": "flowers"
-  },
-  {
-    "id": "feather",
-    "type": "object",
-    "value": "feather"
-  },
-  {
-    "id": "vehicle",
-    "type": "object",
-    "value": "vehicle"
-  },
-  {
-    "id": "medicine",
-    "type": "object",
-    "value": "medicine"
-  },
-  {
     "id": "raspberry",
     "type": "object",
     "value": "raspberry"
-  },
-  {
-    "id": "watermelon",
-    "type": "object",
-    "value": "watermelon"
-  },
-  {
-    "id": "asleep",
-    "type": "object",
-    "value": "asleep"
-  },
-  {
-    "id": "cheer",
-    "type": "object",
-    "value": "cheer"
-  },
-  {
-    "id": "fat",
-    "type": "object",
-    "value": "fat"
-  },
-  {
-    "id": "happy",
-    "type": "object",
-    "value": "happy"
-  },
-  {
-    "id": "hungry",
-    "type": "object",
-    "value": "hungry"
-  },
-  {
-    "id": "sat",
-    "type": "object",
-    "value": "sat"
-  },
-  {
-    "id": "walk",
-    "type": "object",
-    "value": "walk"
-  },
-  {
-    "id": "yawn",
-    "type": "object",
-    "value": "yawn"
-  },
-  {
-    "id": "strawberry",
-    "type": "object",
-    "value": "strawberry"
-  },
-  {
-    "id": "xylophone",
-    "type": "object",
-    "value": "xylophone"
-  },
-  {
-    "id": "ant",
-    "type": "animal",
-    "value": "ant"
-  },
-  {
-    "id": "bat",
-    "type": "animal",
-    "value": "bat"
-  },
-  {
-    "id": "cat",
-    "type": "animal",
-    "value": "cat"
-  },
-  {
-    "id": "bee",
-    "type": "animal",
-    "value": "bee"
-  },
-  {
-    "id": "cow",
-    "type": "animal",
-    "value": "cow"
-  },
-  {
-    "id": "fly",
-    "type": "animal",
-    "value": "fly"
-  },
-  {
-    "id": "fox",
-    "type": "animal",
-    "value": "fox"
-  },
-  {
-    "id": "pig",
-    "type": "animal",
-    "value": "pig"
-  },
-  {
-    "id": "rat",
-    "type": "animal",
-    "value": "rat"
-  },
-  {
-    "id": "parrot",
-    "type": "animal",
-    "value": "parrot"
-  },
-  {
-    "id": "hen",
-    "type": "animal",
-    "value": "hen"
-  },
-  {
-    "id": "owl",
-    "type": "animal",
-    "value": "owl"
-  },
-  {
-    "id": "bear",
-    "type": "animal",
-    "value": "bear"
-  },
-  {
-    "id": "bird",
-    "type": "animal",
-    "value": "bird"
-  },
-  {
-    "id": "deer",
-    "type": "animal",
-    "value": "deer"
-  },
-  {
-    "id": "duck",
-    "type": "animal",
-    "value": "duck"
-  },
-  {
-    "id": "fish",
-    "type": "animal",
-    "value": "fish"
-  },
-  {
-    "id": "frog",
-    "type": "animal",
-    "value": "frog"
-  },
-  {
-    "id": "goat",
-    "type": "animal",
-    "value": "goat"
-  },
-  {
-    "id": "lion",
-    "type": "animal",
-    "value": "lion"
-  },
-  {
-    "id": "seal",
-    "type": "animal",
-    "value": "seal"
-  },
-  {
-    "id": "wolf",
-    "type": "animal",
-    "value": "wolf"
-  },
-  {
-    "id": "nest",
-    "type": "animal",
-    "value": "nest"
-  },
-  {
-    "id": "camel",
-    "type": "animal",
-    "value": "camel"
-  },
-  {
-    "id": "eagle",
-    "type": "animal",
-    "value": "eagle"
-  },
-  {
-    "id": "horse",
-    "type": "animal",
-    "value": "horse"
-  },
-  {
-    "id": "puppy",
-    "type": "animal",
-    "value": "puppy"
-  },
-  {
-    "id": "tiger",
-    "type": "animal",
-    "value": "tiger"
-  },
-  {
-    "id": "shark",
-    "type": "animal",
-    "value": "shark"
-  },
-  {
-    "id": "afternoon",
-    "type": "object",
-    "value": "afternoon"
-  },
-  {
-    "id": "sheep",
-    "type": "animal",
-    "value": "sheep"
-  },
-  {
-    "id": "snail",
-    "type": "animal",
-    "value": "snail"
-  },
-  {
-    "id": "tortoise",
-    "type": "animal",
-    "value": "tortoise"
-  },
-  {
-    "id": "hare",
-    "type": "animal",
-    "value": "hare"
-  },
-  {
-    "id": "panda",
-    "type": "animal",
-    "value": "panda"
-  },
-  {
-    "id": "pan",
-    "type": "object",
-    "value": "pan"
-  },
-  {
-    "id": "pear",
-    "type": "object",
-    "value": "pear"
-  },
-  {
-    "id": "snake",
-    "type": "animal",
-    "value": "snake"
-  },
-  {
-    "id": "zebra",
-    "type": "animal",
-    "value": "zebra"
-  },
-  {
-    "id": "rabbit",
-    "type": "animal",
-    "value": "rabbit"
-  },
-  {
-    "id": "insect",
-    "type": "animal",
-    "value": "insect"
-  },
-  {
-    "id": "cheetah",
-    "type": "animal",
-    "value": "cheetah"
-  },
-  {
-    "id": "monkey",
-    "type": "animal",
-    "value": "monkey"
-  },
-  {
-    "id": "dolphin",
-    "type": "animal",
-    "value": "dolphin"
-  },
-  {
-    "id": "dog",
-    "type": "animal",
-    "value": "dog"
-  },
-  {
-    "id": "kitten",
-    "type": "animal",
-    "value": "kitten"
-  },
-  {
-    "id": "giraffe",
-    "type": "animal",
-    "value": "giraffe"
-  },
-  {
-    "id": "goldfish",
-    "type": "animal",
-    "value": "goldfish"
-  },
-  {
-    "id": "hamster",
-    "type": "animal",
-    "value": "hamster"
-  },
-  {
-    "id": "kangaroo",
-    "type": "animal",
-    "value": "kangaroo"
-  },
-  {
-    "id": "spider",
-    "type": "animal",
-    "value": "spider"
-  },
-  {
-    "id": "turtle",
-    "type": "animal",
-    "value": "turtle"
   },
   {
     "id": "chicken",
@@ -860,34 +915,9 @@
     "value": "chicken"
   },
   {
-    "id": "lobster",
-    "type": "animal",
-    "value": "lobster"
-  },
-  {
-    "id": "octopus",
-    "type": "animal",
-    "value": "octopus"
-  },
-  {
     "id": "crocodile",
     "type": "animal",
     "value": "crocodile"
-  },
-  {
-    "id": "scorpion",
-    "type": "animal",
-    "value": "scorpion"
-  },
-  {
-    "id": "elephant",
-    "type": "animal",
-    "value": "elephant"
-  },
-  {
-    "id": "squirrel",
-    "type": "animal",
-    "value": "squirrel"
   },
   {
     "id": "word_A",
@@ -1488,5 +1518,225 @@
     "id": "number_50",
     "type": "number",
     "value": "50"
+  },
+  {
+    "id": "1+1=2",
+    "type": "math",
+    "value": "1+1=2"
+  },
+  {
+    "id": "2+1=3",
+    "type": "math",
+    "value": "2+1=3"
+  },
+  {
+    "id": "3+1=4",
+    "type": "math",
+    "value": "3+1=4"
+  },
+  {
+    "id": "2+2=4",
+    "type": "math",
+    "value": "2+2=4"
+  },
+  {
+    "id": "4+1=5",
+    "type": "math",
+    "value": "4+1=5"
+  },
+  {
+    "id": "2+3=5",
+    "type": "math",
+    "value": "2+3=5"
+  },
+  {
+    "id": "1+6=6",
+    "type": "math",
+    "value": "1+6=6"
+  },
+  {
+    "id": "3+4=7",
+    "type": "math",
+    "value": "3+4=7"
+  },
+  {
+    "id": "3+5=8",
+    "type": "math",
+    "value": "3+5=8"
+  },
+  {
+    "id": "4+4=8",
+    "type": "math",
+    "value": "4+4=8"
+  },
+  {
+    "id": "4+5=9",
+    "type": "math",
+    "value": "4+5=9"
+  },
+  {
+    "id": "3+6=9",
+    "type": "math",
+    "value": "3+6=9"
+  },
+  {
+    "id": "1+5=6",
+    "type": "math",
+    "value": "1+5=6"
+  },
+  {
+    "id": "3+3=6",
+    "type": "math",
+    "value": "3+3=6"
+  },
+  {
+    "id": "2+5=7",
+    "type": "math",
+    "value": "2+5=7"
+  },
+  {
+    "id": "2+4=6",
+    "type": "math",
+    "value": "2+4=6"
+  },
+  {
+    "id": "2-1=1",
+    "type": "math",
+    "value": "2-1=1"
+  },
+  {
+    "id": "3-1=2",
+    "type": "math",
+    "value": "3-1=2"
+  },
+  {
+    "id": "4-2=2",
+    "type": "math",
+    "value": "4-2=2"
+  },
+  {
+    "id": "4-1=3",
+    "type": "math",
+    "value": "4-1=3"
+  },
+  {
+    "id": "5-2=3",
+    "type": "math",
+    "value": "5-2=3"
+  },
+  {
+    "id": "5-1=4",
+    "type": "math",
+    "value": "5-1=4"
+  },
+  {
+    "id": "10-4=6",
+    "type": "math",
+    "value": "10-4=6"
+  },
+  {
+    "id": "9-4=5",
+    "type": "math",
+    "value": "9-4=5"
+  },
+  {
+    "id": "8-3=5",
+    "type": "math",
+    "value": "8-3=5"
+  },
+  {
+    "id": "7-3=4",
+    "type": "math",
+    "value": "7-3=4"
+  },
+  {
+    "id": "6-2=4",
+    "type": "math",
+    "value": "6-2=4"
+  },
+  {
+    "id": "5-3=2",
+    "type": "math",
+    "value": "5-3=2"
+  },
+  {
+    "id": "10-3=7",
+    "type": "math",
+    "value": "10-3=7"
+  },
+  {
+    "id": "9-4=7",
+    "type": "math",
+    "value": "9-4=7"
+  },
+  {
+    "id": "10-5=5",
+    "type": "math",
+    "value": "10-5=5"
+  },
+  {
+    "id": "6-1=5",
+    "type": "math",
+    "value": "6-1=5"
+  },
+  {
+    "id": "9-2=7",
+    "type": "math",
+    "value": "9-2=7"
+  },
+  {
+    "id": "2+7=9",
+    "type": "math",
+    "value": "2+7=9"
+  },
+  {
+    "id": "6+4",
+    "type": "math",
+    "value": "6+4"
+  },
+  {
+    "id": "2+6=8",
+    "type": "math",
+    "value": "2+6=8"
+  },
+  {
+    "id": "8-4=4",
+    "type": "math",
+    "value": "8-4=4"
+  },
+  {
+    "id": "7-4=3",
+    "type": "math",
+    "value": "7-4=3"
+  },
+  {
+    "id": "8-5=3",
+    "type": "math",
+    "value": "8-5=3"
+  },
+  {
+    "id": "2+8=10",
+    "type": "math",
+    "value": "2+8=10"
+  },
+  {
+    "id": "3+9=12",
+    "type": "math",
+    "value": "3+9=12"
+  },
+  {
+    "id": "9+6=15",
+    "type": "math",
+    "value": "9+6=15"
+  },
+  {
+    "id": "9+4=13",
+    "type": "math",
+    "value": "9+4=13"
+  },
+  {
+    "id": "7+4=11",
+    "type": "math",
+    "value": "7+4=11"
   }
 ]

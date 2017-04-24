@@ -223,7 +223,6 @@ var AlphaRacingLayer = cc.LayerColor.extend({
         var name = CharacterManager.getInstance().getSelectedCharacter();
         switch (name) {
             case "monkey":
-                cc.log("name: " + name);
                 this._player = new ARMonkey();
                 break;
             case "adi":

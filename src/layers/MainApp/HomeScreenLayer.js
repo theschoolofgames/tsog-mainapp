@@ -16,8 +16,22 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
-        this.addHomeDoor();        
-        
+        this.addHomeDoor();
+
+
+        //test
+        var self = this;
+        var buttonProgressTracker = new ccui.Button("res/SD/pets/button-1.png", "res/SD/pets/button-1-pressed.png", "");
+        buttonProgressTracker.x = 20;
+        buttonProgressTracker.anchorX = 0;
+        buttonProgressTracker.y = cc.winSize.height - 180;
+        this.addChild(buttonProgressTracker, 2);
+        buttonProgressTracker.addClickEventListener(function(){
+            var layer = new ProgressTrackerLayer();
+            self.addChild(layer, 999999);
+        });        
+        //end test
+
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
         this.addChild(new HomeHUDLayer(),2);

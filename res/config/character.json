@@ -1,17 +1,44 @@
 [
     {
+        "name": "monkey",
+        "price": 0,
+        "path": "monkey",
+        "heathy": 5,
+        "unlocked": true,
+        "animationFrameCount": 5,
+        "posY" : -300
+    },
+    {
         "name": "adi",
-        "price": 1000,
+        "price": 150,
         "path": "adidog",
         "heathy": 7,
-        "unlocked": true,
+        "unlocked": false,
         "animationFrameCount": 4,
         "posY" : -150
     },
     {
-        "name": "monkey",
-        "price": 2000,
-        "path": "monkey",
+        "name": "hen",
+        "price": 150,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
+    },
+    {
+        "name": "mouse",
+        "price": 150,
+        "path": "hen",
+        "heathy": 5,
+        "unlocked": false,
+        "animationFrameCount": 5,
+        "posY" : -300
+    },
+    {
+        "name": "frog",
+        "price": 500,
+        "path": "hen",
         "heathy": 5,
         "unlocked": false,
         "animationFrameCount": 5,

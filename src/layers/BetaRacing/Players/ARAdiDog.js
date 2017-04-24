@@ -1,5 +1,5 @@
 var ARAdiDog = ARPlayer.extend({
-    _characterName : "adi",
+    _characterName : "monkey",
     animationFrameCount: 4,
 
     ctor: function() {
@@ -9,7 +9,7 @@ var ARAdiDog = ARPlayer.extend({
             this._characterName = name
         };
 
-        var cfg = CharacterManager.getInstance().getCharacterConfig("adi");
+        var cfg = CharacterManager.getInstance().getCharacterConfig("monkey");
         if (cfg) {
             this.animationFrameCount = cfg.animationFrameCount;
             this._hp = cfg.heathy;
@@ -19,7 +19,7 @@ var ARAdiDog = ARPlayer.extend({
     configAnimation: function() {
        
         cc.spriteFrameCache.addSpriteFrames(res.AdiDog_Run_plist);
-        this.sprite = new CharacterNodeAlpharacing("adi");
+        this.sprite = new CharacterNodeAlpharacing("monkey");
         // this.sprite.attr({x:60, y:40, anchorX: 1, anchorY: 1});
         this.sprite.scale = 3.6;
         this.addChild(this.sprite);

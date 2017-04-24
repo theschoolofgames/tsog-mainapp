@@ -25,7 +25,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
 
         var name = CharacterManager.getInstance().getSelectedCharacter();
         if(!name) {
-            name = "adi"
+            name = "monkey"
         };
 
         this._character = new sp.SkeletonAnimation("characters/alpharacing/" + name + "/character.json", "characters/alpharacing/" + name + "/character.atlas", 0.3);
@@ -36,7 +36,7 @@ var ARPlayer = cc.PhysicsSprite.extend({
         this.addChild(this._character);
         this.setCascadeOpacityEnabled(true);
 
-        // cc.log("character width: " + this._character.width + "character height: " + this._character.height);
+        cc.log("character width: " + this._character.width + "character height: " + this._character.height);
 
         this._space = space;
 

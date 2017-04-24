@@ -79,6 +79,7 @@ var res = {
     Number_Config_JSON: "config/number.json",
     Alphabet_Config_JSON: "config/alphabet.json",
     Color_Config_JSON: "config/color.json",
+    Progress_Config_JSON: "config/progresstracker.json",
 
     forest_jpg : "res/forest.jpg",
     room_jpg: "Bedroom-screen.jpg",
@@ -102,6 +103,17 @@ var res = {
     Figure_Game_Png: "figure-game.png",
     Map_Plist: "map.plist",
     Map_Png: "map.png",
+
+    //pay dialog
+    Icon_gold_big_png: "res/SD/dialogs/pay/icon_gold_big.png",
+    Icon_gold_medium_png: "res/SD/dialogs/pay/icon_gold_medium.png",
+    Icon_gold_small_png: "res/SD/dialogs/pay/icon_gold_small.png",
+    Item_background_png: "res/SD/dialogs/pay/item_background.png",
+    Pay_background_png: "res/SD/dialogs/pay/pay_background.png",
+    Pay_border_png: "res/SD/dialogs/pay/pay_border.png",
+    Pay_breaking_line_png: "res/SD/dialogs/pay/pay_breaking_line.png",
+    Pay_button_normal_png: "res/SD/dialogs/pay/pay_button_normal.png",
+    Pay_button_pressed_png: "res/SD/dialogs/pay/pay_button_pressed.png",
  
     // Animals
     Ant_png: "animals/ant.png",
