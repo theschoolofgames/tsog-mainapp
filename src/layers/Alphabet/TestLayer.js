@@ -253,6 +253,7 @@ var TestLayer = cc.LayerColor.extend({
             this.removeCardGameData();
             Utils.updateStepData();
             SceneFlowController.getInstance().clearData();
+            MapLayer.newLevelUnlocked = true;
             cc.director.runScene(new MapScene());
         }
     },
