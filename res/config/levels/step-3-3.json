@@ -137,30 +137,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_10",

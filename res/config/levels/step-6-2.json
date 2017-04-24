@@ -58,7 +58,7 @@
       ],
       "duration": 480
     },
-    "5": {
+    "4": {
       "name": "speaking",
       "data": [
         "word_u",
@@ -126,30 +126,6 @@
       "duration": 480
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_x",
-        "word_y",
-        "word_z",
-        "word_X",
-        "word_Y",
-        "word_Z"
-      ],
-      "duration": 480
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_x",
-        "word_y",
-        "word_z",
-        "word_X",
-        "word_Y",
-        "word_Z"
-      ],
-      "duration": 480
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "wolf",

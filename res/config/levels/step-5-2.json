@@ -148,40 +148,6 @@
       "duration": 480
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 480
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 480
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_1",

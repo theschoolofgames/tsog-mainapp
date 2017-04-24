@@ -41,34 +41,6 @@
         "word_r"
       ],
       "duration": 240
-    },
-    "4": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p",
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p",
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 240
     }
   },
   "2": {

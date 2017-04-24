@@ -47,26 +47,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "word_Q",

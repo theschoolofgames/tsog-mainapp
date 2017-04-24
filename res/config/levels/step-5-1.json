@@ -103,30 +103,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_P",
-        "word_R",
-        "word_n",
-        "word_p",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_P",
-        "word_R",
-        "word_n",
-        "word_p",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "word_N",
@@ -268,40 +244,6 @@
       "duration": 300
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 300
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 300
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "number_1",
@@ -528,26 +470,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p"
-      ],
-      "duration": 240
-    },
-    "6": {
       "name": "speaking",
       "data": [
         "word_N",
