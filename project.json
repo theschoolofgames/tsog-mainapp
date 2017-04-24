@@ -65,6 +65,7 @@
 
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Dialogs/DialogLetsPlayAlpharacing.js",
+        "src/layers/Dialogs/DialogPetStore.js",
         "src/layers/Alphabet/DialogPlayAlpharacing.js",
         "src/layers/Alphabet/DialogReviveAR.js",
         "src/layers/Alphabet/AlertDialog.js",
