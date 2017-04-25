@@ -60,12 +60,12 @@
         "src/layers/MainApp/LoginLayer.js",
         "src/layers/MainApp/HomeScreenLayer.js",
         "src/layers/MainApp/ShopScreenLayer.js",
+        "src/layers/MainApp/ProgressTracker.js",
 
         "src/layers/TestGameLayer.js",
 
         "src/layers/Alphabet/Dialog.js",
         "src/layers/Dialogs/DialogLetsPlayAlpharacing.js",
-        "src/layers/Dialogs/DialogPetStore.js",
         "src/layers/Alphabet/DialogPlayAlpharacing.js",
         "src/layers/Alphabet/DialogReviveAR.js",
         "src/layers/Alphabet/AlertDialog.js",
@@ -134,6 +134,8 @@
         "src/layers/GameTests/ObjectTestSelector.js",
 
         "src/common/MessageDialog.js",
+        "src/common/CustomLabel.js",
+        "src/common/RepeatingSpriteNode.js",
 
         "src/helper/SegmentHelper.js",
         "src/helper/NativeHelper.js",
