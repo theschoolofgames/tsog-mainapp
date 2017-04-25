@@ -17,20 +17,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addPlayDoor();
         this.addLearnDoor();
         this.addHomeDoor();
-
-
-        //test
-        var self = this;
-        var buttonProgressTracker = new ccui.Button("res/SD/pets/button-1.png", "res/SD/pets/button-1-pressed.png", "");
-        buttonProgressTracker.x = 20;
-        buttonProgressTracker.anchorX = 0;
-        buttonProgressTracker.y = cc.winSize.height - 180;
-        this.addChild(buttonProgressTracker, 2);
-        buttonProgressTracker.addClickEventListener(function(){
-            var layer = new ProgressTrackerLayer();
-            self.addChild(layer, 999999);
-        });        
-        //end test
+        this.addProgressTrackerButton();
 
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
 
@@ -39,6 +26,26 @@ var HomeScreenLayer = cc.Layer.extend({
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
+    },
+
+    addProgressTrackerButton: function(){
+        var self = this;
+        var button = new ccui.Button("res/SD/button-progress-tracker.png", "res/SD/button-progress-tracker-pressed.png", "");
+        button.x = cc.winSize.width - button.width/2  - 10;
+        button.y = cc.winSize.height - button.height + 10;
+        this.addChild(button);
+        button.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+            var dialog = new ProgressTrackerLayer();
+            self.addChild(dialog, 999999);
+        });
+        
+        var text = localizeForWriting("Progress Traker");
+        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
+        lb.scale = (button.width * 0.8) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.addChild(lb);
     },
 
     onEnterTransitionDidFinish: function() {
