@@ -472,4 +472,5 @@ languagesForWriting["sw"] = {
     "PLAY TIME!": "KUCHEZA WAKATI!",
     "NEW PET!": "MNYAMA MPYA!",
     "Unlock": "Kufungua",
+    "Progress Tracker": "Maendeleo Kufuatilia",
 };
