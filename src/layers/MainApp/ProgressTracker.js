@@ -27,22 +27,28 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     getUpdatesBtn: null,
     getUpdatesBtnTitle: null,
 
+    gameObjectsProgress: null,
+
     ctor: function () {
         // body...
         this._super(cc.color(255,255,255,255));
-        cc.loader.loadJson(res.Progress_Config_JSON, function(err, data) {
-            if (!err) {
-                PROGRESSTRACKER = data;
-            } else {
-                cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Progress_Config_JSON);
-                cc.loader.loadJson(res.Progress_Config_JSON, function(err, data) {
-                    PROGRESSTRACKER = data;
-                });
-            }
-        });
-        this._keys = Object.keys(PROGRESSTRACKER);
-        cc.log("keys: "  + JSON.stringify(this._keys));
+        // cc.loader.loadJson(res.Progress_Config_JSON, function(err, data) {
+        //     if (!err) {
+        //         PROGRESSTRACKER = data;
+        //     } else {
+        //         cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Progress_Config_JSON);
+        //         cc.loader.loadJson(res.Progress_Config_JSON, function(err, data) {
+        //             PROGRESSTRACKER = data;
+        //         });
+        //     }
+        // });
+        // this._keys = Object.keys(PROGRESSTRACKER);
+        // cc.log("keys: "  + JSON.stringify(this._keys));
         // this.addGetUpdatesBtn();
+        this.gameObjectsProgress = KVDatabase.getInstance().getString("gameObjectsProgress", "{}");
+        this.gameObjectsProgress = JSON.parse(this.gameObjectsProgress);
+
+
         this._filterGameObjectJSON("word");
         this._createBackground();
         this._addPageBorders();
@@ -293,8 +299,8 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         this._scrollBar.stopAllActions();
         this._scrollBar.visible = true;
         this._scrollBar.opacity = 255;
-        cc.log("getContentSize : " + this._tableView.getContentSize().width);
-        cc.log("POS: " + this._tableView.getContentOffset().x);
+        // cc.log("getContentSize : " + this._tableView.getContentSize().width);
+        // cc.log("POS: " + this._tableView.getContentOffset().x);
         
         this._scrollPoint.x = - (this._scrollBar.width - this._scrollPoint.width) * this._tableView.getContentOffset().x/(this._tableView.getContentSize().width - 1000 * Utils.getScaleFactorTo16And9());
     },
@@ -307,17 +313,17 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     tableCellSizeForIndex:function (table, idx) {
-        cc.log("tableCellSizeForIndex");
+        // cc.log("tableCellSizeForIndex");
         var width = 300;
         if(this._type == "math") {
-            cc.log("MATH");
+            // cc.log("MATH");
             width = 400;
         }
         return cc.size(width, cc.winSize.height/3 * 2);
     },
 
     tableCellAtIndex:function (table, idx) {
-        cc.log("tableCellAtIndex");
+        // cc.log("tableCellAtIndex");
         this._index = idx;
         var self = this;
         var cell = table.dequeueCell();
@@ -336,10 +342,15 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
             // var count = User.getCurrentChild().countGameObjectsCompleted(value) || 
             //             User.getCurrentChild().countGameObjectsCompleted(id);
             var count = 0;
-            if(this._keys.indexOf(id) > -1)
-                count = Object.keys(PROGRESSTRACKER[id]["completedLevelIds"]).length;
-            cc.log("COUNT: " + JSON.stringify(count));
+            // if(this._keys.indexOf(id) > -1) {
+            //     count = Object.keys(PROGRESSTRACKER[id]["completedLevelIds"]).length;
+            // }
+            if (this.gameObjectsProgress && this.gameObjectsProgress[id]) {
+                count = Object.keys(this.gameObjectsProgress[id]["completedLevelIds"]).length;
+            }
             var percent = count / OBJECT_TOTAL_COMPLETED_COUNT * 100;
+
+            cc.log("COUNT: " + JSON.stringify(count));
             cc.log('percent = ' + percent);
             percent = Math.ceil(percent);
             cell.progressColor.percentage = percent;
@@ -366,7 +377,7 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
     },
 
     createCell: function(data, table, idx) {
-        cc.log("create Cell: " + JSON.stringify(data));
+        // cc.log("create Cell: " + JSON.stringify(data));
         cell = new CustomTableViewCell();
         var imagePath = "res/SD/progresstracker/square.png";
         if(this._type == "math")
@@ -390,8 +401,11 @@ var ProgressTrackerLayer = cc.LayerColor.extend({
         var id = data["id"];
         // var percent = GameObjectsProgress.getInstance().countCompleted(value)/OBJECT_TOTAL_COMPLETED_COUNT * 100;
         var count = 0;
-        if(this._keys.indexOf(id) > -1)
-            count = Object.keys(PROGRESSTRACKER[id]["completedLevelIds"]).length;
+        
+        if (this.gameObjectsProgress && this.gameObjectsProgress[id]) {
+            count = Object.keys(this.gameObjectsProgress[id]["completedLevelIds"]).length;
+        }
+
         cc.log("COUNT: " + JSON.stringify(count));
         var percent = count / OBJECT_TOTAL_COMPLETED_COUNT * 100;
         cc.log('percent = ' + percent);

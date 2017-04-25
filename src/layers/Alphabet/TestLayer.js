@@ -252,6 +252,25 @@ var TestLayer = cc.LayerColor.extend({
         } else {
             this.removeCardGameData();
             Utils.updateStepData();
+
+            var currentStepData = SceneFlowController.getInstance().getCurrentStepData();
+            var currentLevel = SceneFlowController.getInstance().getCurrentStep();
+
+            var gameObjectsProgress = KVDatabase.getInstance().getString("gameObjectsProgress", "{}");
+            gameObjectsProgress = JSON.parse(gameObjectsProgress);
+
+            cc.log("currentStepData -> " + JSON.stringify(currentStepData));
+            for (var i = 0; i < currentStepData.length; i++) {
+                var d = currentStepData[i];
+                if (!gameObjectsProgress[d]) {
+                    gameObjectsProgress[d] = {};
+                    gameObjectsProgress[d]["completedLevelIds"] = {};
+                }
+                gameObjectsProgress[d]["completedLevelIds"][currentLevel] = true;
+            }
+            KVDatabase.getInstance().set("gameObjectsProgress", JSON.stringify(gameObjectsProgress));
+            cc.log("gameObjectsProgress -> " + JSON.stringify(gameObjectsProgress));
+
             SceneFlowController.getInstance().clearData();
             cc.director.runScene(new MapScene());
         }

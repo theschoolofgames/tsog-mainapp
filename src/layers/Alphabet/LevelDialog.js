@@ -131,6 +131,7 @@ var LevelDialog = Dialog.extend({
 
                 if (stepData[currentLevel] && stepData[currentLevel][info]) {
                     var i = parseInt(info);
+                    cc.log("i -> " + i);
                     this._stars[i-1].setSpriteFrame("star-filled.png"); // because of level started with 1
                 }
             }
@@ -172,22 +173,24 @@ var LevelDialog = Dialog.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_1, false, null);
         var durationsArray = [];
 
-        var stepData = b.getUserData();
-        var dataLength = Object.keys(this._data[stepData]).length;
+        var stepKey = b.getUserData();
+        var stepData = this._data[stepKey];
+        var dataLength = Object.keys(stepData).length;
         var gameName = GAME_IDS[b.tag];
 
         for(var i = 1; i < dataLength + 1; i++) {
             cc.log("stepData: "  + i);
-            durationsArray.push(this._data[stepData][i].duration);
+            durationsArray.push(stepData[i].duration);
         };
         KVDatabase.getInstance().remove("scene_number");
         KVDatabase.getInstance().set("durationsString", JSON.stringify(durationsArray));
-        var nextSceneData = this._data[stepData]["1"].data; // TODO default is 1st game, need save to Local storage current game Index
-        var timeForScene = this._data[stepData]["1"].duration;
-        var option = this._data[stepData]["1"].option;
+        var nextSceneData = stepData["1"].data; // TODO default is 1st game, need save to Local storage current game Index
+        var timeForScene = stepData["1"].duration;
+        var option = stepData["1"].option;
         
         // process redirecting
-        SceneFlowController.getInstance().cacheData(this._level, stepData, gameName, this._data[stepData]);
+        SceneFlowController.getInstance().cacheData(this._level, stepKey, gameName, stepData);
+        SceneFlowController.getInstance().setStepData(stepData);
         SceneFlowController.getInstance().moveToNextScene(gameName, nextSceneData, timeForScene, option); 
     },
 
