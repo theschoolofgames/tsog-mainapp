@@ -11,6 +11,7 @@ var SceneFlowController = cc.Class.extend({
     _totalSceneInStep: 0,
     _lastedStepPressed: null,
     _lastedStepUnlocked: null,
+    _currentStepData: null,
 
     ctor: function() {
 
@@ -112,6 +113,59 @@ var SceneFlowController = cc.Class.extend({
         return sceneName;
     },
 
+    setStepData: function(stepData) {
+        this._currentStepData = stepData;
+    },
+
+    getCurrentStepData: function() {
+        var dataArray = [];
+        var gameIds = Object.keys(this._currentStepData);
+        var firstGameName = this._currentStepData[gameIds[0]].name;
+
+        if (firstGameName.indexOf("fruiddition") > -1) {
+            var fruidditionData = this._currentStepData[gameIds[0]]["data"]["data"][0];
+            // debugLog("fruidditionData -> " + JSON.stringify(fruidditionData));
+            var totalOperation = fruidditionData["first"].length;
+            for (var k = 0; k < totalOperation; k++) {
+                var firstOpe = (fruidditionData["firstOperation"][k] == "plus") ? "+" : "-" ;
+                var operationId = fruidditionData["first"][k] 
+                                    + firstOpe
+                                    + fruidditionData["second"][k]
+                                    + "="
+                                    + fruidditionData["third"][k];
+                // debugLog("operationId -> " + operationId);
+                dataArray.push(operationId);
+            }
+        } else if(firstGameName.indexOf("buildingblock") > -1) {
+            var buildingBlockData = this._currentStepData[gameIds[0]]["data"]["data"][0];
+            // debugLog("buildingBlockData -> " + JSON.stringify(buildingBlockData));
+            var totalOperation = buildingBlockData["first"].length;
+            for (var k = 0; k < totalOperation; k++) {
+                var firstOpe = (buildingBlockData["firstOperation"][k] == "plus") ? "+" : "-" ;
+
+                for (var i = 0; i < buildingBlockData["first"][k].length; i++) {
+                    var first = buildingBlockData["first"][k][i];
+                    var second = buildingBlockData["second"][k][i];
+                    var operationId = first
+                                    + firstOpe
+                                    + second
+                                    + "="
+                                    + buildingBlockData["third"][k];
+                    dataArray.push(operationId);
+                }
+                
+            }
+        } else { 
+            for (var i = 0; i < gameIds.length; i++) {
+                var data = this._currentStepData[gameIds[i]].data;
+                if (!cc.isObject(data[0])) // workaround
+                    dataArray.push.apply(dataArray, data);
+            }
+        }
+        
+        return dataArray;
+    },
+
     resetFlow: function() {
         this._currentLoopSceneIdx = this._currentPreLoopSceneIdx = 0;
     },
@@ -152,6 +206,7 @@ var SceneFlowController = cc.Class.extend({
         this._currentLoopSceneIdx = 0;
         this._currentLoopSceneName = "";
         this._currentSceneData = [];
+        this._currentStepData = null;
         // cc.log("clear cache data: " + JSON.stringify(KVDatabase.getInstance().getString("sceneFlowCache")))
     },
 
