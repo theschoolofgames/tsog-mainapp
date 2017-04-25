@@ -473,5 +473,8 @@ languagesForWriting["en"] = {
     "play": "play",
     "learn": "learn",
     "letsplay": "Let's play",
-    "adi": "adi"
+    "adi": "adi",
+    "PLAY TIME!": "PLAY TIME!",
+    "NEW PET!": "NEW PET!",
+    "Unlock": "Unlock",
 };

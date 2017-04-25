@@ -396,7 +396,7 @@ var MapLayer = cc.Layer.extend({
     },
 
     showLetsPlayAlphaRacingDialog: function() {
-        var dialog = new DialogLetsPlayAlpharacing();
+        var dialog = new DialogLetsPlayAlpharacing("PLAY TIME!");
         this.addChild(dialog, 9);
         dialog.closeCallback = this.showLevelDialog;
     },
@@ -412,14 +412,28 @@ var MapLayer = cc.Layer.extend({
     },
 
     addUnlockLevelButton: function() {
+        var button = new ccui.Button("res/SD/button-progress-tracker.png", "res/SD/button-progress-tracker-pressed.png", "");
+        button.x = cc.winSize.width - button.width/2  - 60;
+        button.y = cc.winSize.height - button.height + 10;
+        button.scale = 1.3;
+        this.addChild(button);
+        button.addClickEventListener(function() {
+            MapLayer.unlockAllLevel = !MapLayer.unlockAllLevel;
+        }.bind(this));
 
+        var text = localizeForWriting("Unlock All Levels");
+        var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
+        lb.scale = (button.width * 0.85) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.addChild(lb);
     },
 });
 
 MapLayer.TotalMapPart = 4;
 MapLayer.TotalStarsEachStep = 6;
 MapLayer.newLevelUnlocked = false;
-MapLayer.unlockAllLevel = 0;
+MapLayer.unlockAllLevel = false;
 
 var MapScene = cc.Scene.extend({
     ctor:function() {

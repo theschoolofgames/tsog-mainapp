@@ -468,5 +468,9 @@ languagesForWriting["sw"] = {
     "play": "kucheza",
     "learn": "kujifunza",
     "letsplay": "wacha tucheze",
-    "adi": "adi"
+    "adi": "adi",
+    "PLAY TIME!": "KUCHEZA WAKATI!",
+    "NEW PET!": "MNYAMA MPYA!",
+    "Unlock": "Kufungua",
+    "Progress Tracker": "Maendeleo Kufuatilia",
 };

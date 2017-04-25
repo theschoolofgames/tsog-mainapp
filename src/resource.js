@@ -332,6 +332,8 @@ var res = {
     AR_New_Level_03_Custom_TMX: "res/new-ar-level03_custom.tmx",
 
     HELVETICARDBLK_ttf: {type:"font", name:"HELVETICARDBLK", srcs:["res/font/HELVETICARDBLK.TTF"]},
+    Grown_Up_fnt: "res/font/grownupcheckfont-export.fnt",
+    Grown_Up_png: "res/font/grownupcheckfont-export.png",
 };
 
 var g_resources = [];

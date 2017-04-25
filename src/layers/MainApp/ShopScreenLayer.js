@@ -26,8 +26,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         this.addChild(bg, 0);
         // this.addBackToHomeScene();
         this._characterList = CharacterManager.getInstance().getCharacterList();
-
-        cc.log("characterList: " + JSON.stringify(this._characterList));
+        // CurrencyManager.getInstance().incDiamond(1000);
         this.addArrows();
         this.showCharacter(this._index);
         // this.updateScrollView();
@@ -39,7 +38,6 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
         // CurrencyManager.getInstance().incDiamond(2000);
-        cc.log("Character Unlock: " + KVDatabase.getInstance().getString("CharacterManager:KEY_UNLOCKED_CHARACTER_NAMES"));
         this._addHudLayer();
         
         this._hudLayer.updateBalance();
