@@ -18,7 +18,7 @@ var DialogPlayAlpharacing = Dialog.extend({
         }, this);
     },
     _addDialogBg: function() {
-        var dialogBg = new cc.Sprite("#level_dialog_frame.png");
+        var dialogBg = new cc.Sprite("res/SD/dialog_bg.png");
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);

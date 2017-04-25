@@ -1,21 +1,36 @@
 var DialogLetsPlayAlpharacing = Dialog.extend({
 	closeCallback: null,
 
-	ctor: function() {
+	ctor: function(dialogName) {
 		this._super();
 
 		this._addDialogBg();
-        this._addInstructionText();
+        // this._addInstructionText();
 		this._addButton();
         this._addCloseButton();
+        this._addRibbon(dialogName);
 	},
 
+    _addRibbon: function(dialogName) {
+        var ribbon = new cc.Sprite("res/SD/ribbon.png");
+        ribbon.x = this._dialogBg.width/2;
+        ribbon.y = this._dialogBg.height;
+        this._dialogBg.addChild(ribbon);
+
+        var title = new cc.LabelBMFont(localizeForWriting(dialogName), "res/font/grownupcheckfont-export.fnt");
+        title.scale = 0.5;
+        title.x = ribbon.width/2;
+        title.y = ribbon.height/2 + 18;
+        ribbon.addChild(title);
+    },
+
 	_addDialogBg: function() {
-        var dialogBg = new cc.Sprite("#level_dialog_frame.png");
+        var dialogBg = new cc.Sprite("res/SD/dialog-play-alpharacing.png");
         dialogBg.x = cc.winSize.width/2;
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this.background = dialogBg;
+        this._dialogBg = dialogBg;
     },
 
     _addInstructionText: function() {
@@ -28,14 +43,14 @@ var DialogLetsPlayAlpharacing = Dialog.extend({
     },
 
     _addButton: function() {
-    	var okBtn = new ccui.Button("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+    	var okBtn = new ccui.Button("res/SD/dialogs/pay/pay_button_normal.png", "res/SD/dialogs/pay/pay_button_pressed.png",  "");
         okBtn.x = this.background.width/2;
-        okBtn.y = 100;
-        okBtn.scale = 0.8;
+        okBtn.y = 65;
         this.background.addChild(okBtn);
-        lbLearn = new cc.LabelBMFont(localizeForWriting("OK"), res.GreenFont_fnt);
+        lbLearn = new cc.LabelBMFont(localizeForWriting("play").toUpperCase(), res.HomeFont_fnt);
         lbLearn.x = okBtn.width/2;
-        lbLearn.y = okBtn.height/2;
+        lbLearn.y = okBtn.height/2 + 10;
+        lbLearn.scale = 0.5;
         okBtn.addChild(lbLearn);
 
         okBtn.addClickEventListener(function(){

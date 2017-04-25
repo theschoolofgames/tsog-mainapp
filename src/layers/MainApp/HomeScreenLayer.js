@@ -26,13 +26,15 @@ var HomeScreenLayer = cc.Layer.extend({
         this._playBeginHomeCutScene = playBeginHomeCutScene || false;
         if (this._playBeginHomeCutScene)
             this.playBeginHomeCutScene();
+        
     },
 
     addProgressTrackerButton: function(){
         var self = this;
         var button = new ccui.Button("res/SD/button-progress-tracker.png", "res/SD/button-progress-tracker-pressed.png", "");
-        button.x = cc.winSize.width - button.width/2  - 10;
+        button.x = cc.winSize.width - button.width/2  - 60;
         button.y = cc.winSize.height - button.height + 10;
+        button.scale = 1.3;
         this.addChild(button);
         button.addClickEventListener(function() {
             AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
@@ -41,8 +43,8 @@ var HomeScreenLayer = cc.Layer.extend({
         });
         
         var text = localizeForWriting("Progress Traker");
-        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
-        lb.scale = (button.width * 0.8) / lb.width;
+        var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
+        lb.scale = (button.width * 0.85) / lb.width;
         lb.x = button.width/2;
         lb.y = button.height/2 + 3;
         button.addChild(lb);
@@ -51,7 +53,8 @@ var HomeScreenLayer = cc.Layer.extend({
     onEnterTransitionDidFinish: function() {
         this._super();
 
-        if (HomeScreenLayer.didGoFromAlphaRacing && CurrencyManager.getInstance().getDiamond() >= DIAMONDS_TO_SHOW_SHOP_FROM_ALPHARACING) {
+        var characterList = CharacterManager.getInstance().getCharactersHasNotUnlock();
+        if (HomeScreenLayer.didGoFromAlphaRacing && CurrencyManager.getInstance().getDiamond() >= characterList[0].price) {
             ShopScreenLayer.wantScrollToNextAvailableCharacter = true;
             DialogPetStore.show();
         }

@@ -20,10 +20,12 @@ var AdiDogNode = cc.Node.extend({
             this._addTouchEvent();
     },
 
-    getBoundingBox: function() {
+    getAdiBoundingBox: function() {
         var bb = this._talkingAdi.getBoundingBox();
         // cc.log("Talking ADi bbox: " + JSON.stringify(bb));
-        return cc.rect(bb.x + this.x, bb.y + this.y, bb.width, bb.height);
+        cc.log("this: " + JSON.stringify(this.getPosition()));
+        positionConverted = this.parent.convertToWorldSpace(this.getPosition());
+        return cc.rect(bb.x + positionConverted.x, bb.y + positionConverted.y, bb.width, bb.height);
     },
 
     _addTouchEvent: function() {
@@ -39,10 +41,10 @@ var AdiDogNode = cc.Node.extend({
 
                 self.stopAllActions();
 
-                var bbox = self._talkingAdi.getBoundingBox();
+                var bbox = self.getAdiBoundingBox();
                 // cc.log("bbox: " + JSON.stringify(bbox));
-                bbox.x += self.x;
-                bbox.y += self.y;
+                // bbox.x += self.x;
+                // bbox.y += self.y;
 
                 if (cc.rectContainsPoint(bbox, touchPos)) {
                     // cc.log("touchPos.x: " + touchPos.x);
