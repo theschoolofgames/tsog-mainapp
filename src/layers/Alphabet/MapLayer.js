@@ -419,9 +419,10 @@ var MapLayer = cc.Layer.extend({
         this.addChild(button);
         button.addClickEventListener(function() {
             MapLayer.unlockAllLevel = !MapLayer.unlockAllLevel;
+            cc.director.replaceScene(new MapScene());
         }.bind(this));
 
-        var text = localizeForWriting("Unlock All Levels");
+        var text = localizeForWriting(MapLayer.unlockAllLevel ? "Lock All Levels" : "Unlock All Levels");
         var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
         lb.scale = (button.width * 0.85) / lb.width;
         lb.x = button.width/2;
