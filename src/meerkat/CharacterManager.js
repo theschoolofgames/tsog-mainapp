@@ -34,6 +34,16 @@ var CharacterManager = cc.Class.extend({
         });
     },
 
+    getCharactersHasNotUnlock:function() {
+        var charactersHasNotUnlock = [];
+        var characterList = this.getCharacterList();
+        for(var i = 0; i < characterList.length; i ++) {
+            if(!characterList[i].unlocked)
+                charactersHasNotUnlock.push(characterList[i]);
+        };
+        return charactersHasNotUnlock;
+    },
+
     getCharacterConfig: function(name) {
         let cfg = this._characterCfg.filter(cfg => cfg.name == name);
         cfg = cfg.length > 0 ? cfg[0] : null;

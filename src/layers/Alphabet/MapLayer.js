@@ -393,7 +393,7 @@ var MapLayer = cc.Layer.extend({
     },
 
     showLetsPlayAlphaRacingDialog: function() {
-        var dialog = new DialogLetsPlayAlpharacing();
+        var dialog = new DialogLetsPlayAlpharacing("PLAY TIME!");
         this.addChild(dialog, 9);
         dialog.closeCallback = this.showLevelDialog;
     },
