@@ -86,17 +86,17 @@ var DataManager = cc.Class.extend({
         if (currentData.length == 0)
             currentData = ["GAME"];
 
-        cc.log("data before filter -> " + JSON.stringify(data));
+        // cc.log("data before filter -> " + JSON.stringify(data));
 
+        if (data instanceof Object) {
+            data = data.value;
+        }
         if (data && data.length > 1) {
             if (data.indexOf("color") > -1 || data.indexOf("btn") > -1 || data.indexOf("number") > -1 || data.indexOf("word") > -1) {
                 data = data.substr(data.indexOf("_") + 1, data.length-1);
             }
         }
-
-        if (data instanceof Object) {
-            data = data.value;
-        }
+        // cc.log("data -> " + data);        
 
         if (data) {
             if (currentData.indexOf(data.toUpperCase()) >= 0) {
