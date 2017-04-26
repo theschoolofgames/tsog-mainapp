@@ -155,12 +155,22 @@
     },
     "2": {
       "name": "writing",
-      "data": [],
+      "data": [
+        "A",
+        "a",
+        "B",
+        "b"
+      ],
       "duration": 240
     },
     "3": {
       "name": "speaking",
-      "data": [],
+      "data": [
+        "A",
+        "a",
+        "B",
+        "b"
+      ],
       "duration": 240
     }
   }
