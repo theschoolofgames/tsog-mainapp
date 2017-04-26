@@ -6,6 +6,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 
 var TSOG_DEBUG = true;
 var ALPHA_RACING_INFINITY = false;
+var ALPHA_RACING_INCDIAMOND_QUANTITY = 50;
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;
 
@@ -21,7 +22,7 @@ SCHOOL_NAME_COLOR = [
     res.GreenFont_fnt
 ];
 
-let DEFAULT_LANGUAGE = "en";
+let DEFAULT_LANGUAGE = "sw";
 
 var HINT_TOP_LEFT_ID = 0;
 var HINT_TOP_RIGHT_ID = 1;
