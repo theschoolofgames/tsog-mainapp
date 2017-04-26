@@ -21,6 +21,10 @@ var MapLayer = cc.Layer.extend({
         this.addSettingButton();
         // this.addBackToHomeScene();
         this._updateMapData();
+
+        if (TSOG_DEBUG) {
+            this.addUnlockLevelButton();
+        }
     },
 
     onEnterTransitionDidFinish: function() {
@@ -69,7 +73,6 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
-        var isAllLevelUnlocked = 1;//KVDatabase.getInstance().getInt("UnlockAllLevels");
 
         this._steps = [];
         var mapLabel = 0;
@@ -105,7 +108,7 @@ var MapLayer = cc.Layer.extend({
                         var btn = new ccui.Button("btn_level.png", "btn_level-pressed.png", "btn_level-disabled.png", ccui.Widget.PLIST_TEXTURE);
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (mapLabel - 1);
                         btn.y = pos.y + btn.height * 1.5;
-                        btn.setEnabled(isAllLevelUnlocked ? true : enabled);
+                        btn.setEnabled(MapLayer.unlockAllLevel ? true : enabled);
                         var lb = new cc.LabelBMFont(level, res.MapFont_fnt);
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;
@@ -407,11 +410,31 @@ var MapLayer = cc.Layer.extend({
             this.addChild(new LevelDialog(level));
         }
     },
+
+    addUnlockLevelButton: function() {
+        var button = new ccui.Button("res/SD/button-progress-tracker.png", "res/SD/button-progress-tracker-pressed.png", "");
+        button.x = cc.winSize.width - button.width/2  - 60;
+        button.y = cc.winSize.height - button.height + 10;
+        button.scale = 1.3;
+        this.addChild(button);
+        button.addClickEventListener(function() {
+            MapLayer.unlockAllLevel = !MapLayer.unlockAllLevel;
+            cc.director.replaceScene(new MapScene());
+        }.bind(this));
+
+        var text = localizeForWriting(MapLayer.unlockAllLevel ? "Lock All Levels" : "Unlock All Levels");
+        var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
+        lb.scale = (button.width * 0.85) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.addChild(lb);
+    },
 });
 
 MapLayer.TotalMapPart = 4;
 MapLayer.TotalStarsEachStep = 6;
 MapLayer.newLevelUnlocked = false;
+MapLayer.unlockAllLevel = false;
 
 var MapScene = cc.Scene.extend({
     ctor:function() {
