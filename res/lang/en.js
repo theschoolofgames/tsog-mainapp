@@ -943,6 +943,7 @@ languages["en"] = {
     "BACK": "BACK",
     "Choose": "Choose",
     "Game Over":"Game Over",
+    "Progress Tracker": "Progress Tracker",
 
     "put_objects_in_the_basket_": "en/put_objects_in_the_basket_"
 };

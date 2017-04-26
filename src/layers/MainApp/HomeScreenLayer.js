@@ -42,7 +42,7 @@ var HomeScreenLayer = cc.Layer.extend({
             self.addChild(dialog, 999999);
         });
         
-        var text = localizeForWriting("Progress Traker");
+        var text = localizeForWriting("Progress Tracker");
         var lb = new cc.LabelBMFont(text, res.HomeFont_fnt);
         lb.scale = (button.width * 0.85) / lb.width;
         lb.x = button.width/2;
