@@ -170,11 +170,14 @@ var AlphaRacingLayer = cc.Layer.extend({
                 this.runAction(cc.sequence(
                     cc.delayTime(3),
                     cc.callFunc(function() {
+                        if (TSOG_DEBUG) {
+                            CurrencyManager.getInstance().incDiamond(100);
+                        }
                         self.diePosition = self._player.getPosition();
                         var score = self._hudLayer.getDistance();
                         var character = CharacterManager.getInstance().getSelectedCharacter() || "adi";
                         
-                        if (TSOG_DEBUG) {
+                        if (ALPHA_RACING_INFINITY) {
                             var data = DataManager.getInstance().getDataAlpharacing();
                             cc.director.runScene(new AlphaRacingScene(data, null, 600));
                         } else {
