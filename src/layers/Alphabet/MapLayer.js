@@ -336,7 +336,7 @@ var MapLayer = cc.Layer.extend({
             return;
         // cc.log("Level: " + b.tag);
         var level = SceneFlowController.getInstance().getLastedStepPressed();
-        if (!level)
+        if (!level || !b)
             level = SceneFlowController.getInstance().getLastedStepUnlocked();
 
         // if (level && parseInt(level.charAt(0)) > 4)
@@ -346,7 +346,7 @@ var MapLayer = cc.Layer.extend({
             level = b.getUserData();
         }
 
-        cc.log("level: " + level);
+        // cc.log("level: " + level);
         this.showLevelDialog(level);
     },
 
@@ -354,12 +354,13 @@ var MapLayer = cc.Layer.extend({
         var ignoreMapScrollAnimation = KVDatabase.getInstance().getInt("ignoreMapScrollAnimation", 0);
         var delayTime = ignoreMapScrollAnimation ? 0 : 0.5;
         var step = SceneFlowController.getInstance().getLastedStepPressed();
-        // cc.log("step: " + step);
+        cc.log("step: " + step);
         // cc.log("ignoreMapScrollAnimation: " + ignoreMapScrollAnimation);
         // cc.log("delayTime: " + delayTime);
 
         if (!step)
             step = SceneFlowController.getInstance().getLastedStepUnlocked();
+        cc.log("LAST STEP UNLOCKED: " + SceneFlowController.getInstance().getLastedStepUnlocked());
         
         this._steps.forEach(function(stp) {
             if (stp.getUserData() === step) {

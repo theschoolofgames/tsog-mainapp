@@ -187,7 +187,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         cc.log("index: " + index);
         if(this._character) {
             this._character.removeFromParent();
-            this._heathy.removeFromParent();
+            // this._heathy.removeFromParent();
             this._name.removeFromParent();
             this._button.removeFromParent();
             this._heathy = null,
@@ -227,15 +227,15 @@ ShopScreenLayer = cc.LayerColor.extend({
         characterHeathy.anchorX = 0;
         characterHeathy.x = this._character.width/2 + 185;
         characterHeathy.y = cc.winSize.height/2;
-        for(var i = 0; i < characterCfg.heathy; i ++) {
-            var heart = new cc.Sprite("#heart-1.png");
-            heart.scale = 1/characterHeathy.scale - 0.4;
-            heart.x = characterHeathy.width + 50 + i * 120;
-            heart.y = characterHeathy.height/2;
-            characterHeathy.addChild(heart);
-        };
-        this._character.addChild(characterHeathy);
-        this._heathy = characterHeathy;
+        // for(var i = 0; i < characterCfg.heathy; i ++) {
+        //     var heart = new cc.Sprite("#heart-1.png");
+        //     heart.scale = 1/characterHeathy.scale - 0.4;
+        //     heart.x = characterHeathy.width + 50 + i * 120;
+        //     heart.y = characterHeathy.height/2;
+        //     characterHeathy.addChild(heart);
+        // };
+        // this._character.addChild(characterHeathy);
+        // this._heathy = characterHeathy;
         var button = new ccui.Button("button-unlock.png", "button-unlock-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         button.x = cc.winSize.width/2 + 150;
         button.y = cc.winSize.height/2 - 100;
