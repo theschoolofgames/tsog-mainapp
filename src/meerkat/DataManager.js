@@ -86,24 +86,32 @@ var DataManager = cc.Class.extend({
         if (currentData.length == 0)
             currentData = ["GAME"];
 
-        cc.log("currentData");
-        if (data)
-            if (currentData.indexOf(data) >= 0)
-                return;
+        cc.log("data before filter -> " + JSON.stringify(data));
 
         if (data && data.length > 1) {
-            if (data.indexOf("color") > -1 || data.indexOf("btn") > -1) {
+            if (data.indexOf("color") > -1 || data.indexOf("btn") > -1 || data.indexOf("number") > -1 || data.indexOf("word") > -1) {
                 data = data.substr(data.indexOf("_") + 1, data.length-1);
-            };
+            }
+        }
+
+        if (data instanceof Object) {
+            data = data.value;
+        }
+
+        if (data) {
+            if (currentData.indexOf(data.toUpperCase()) >= 0) {
+                return;
+            }
             currentData.push(data.toUpperCase());
         }
+
 
         KVDatabase.getInstance().set(STRING_GAME_ALPHARACING, JSON.stringify(currentData));
     },
 
     getDataAlpharacing: function(){
         var currentData = JSON.parse(KVDatabase.getInstance().getString(STRING_GAME_ALPHARACING, "[]"));
-
+        cc.log("currentData for ALpharacing -> " + JSON.stringify(currentData));
         currentData = currentData.map(d => {
             if (d instanceof Object)
                 return d.value;
