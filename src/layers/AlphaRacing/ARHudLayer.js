@@ -9,7 +9,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
     _hearts: [],
     _word: null,
     _count: null,
-    amoutWordCollected: 0,
+    amountWordCollected: 0,
 
     ctor: function(layer, wordNeedCollect) {
         this._showClock = false;
@@ -51,7 +51,7 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
             ));
             self._node.removeFromParent();
         };
-        this.amoutWordCollected = 0;
+        this.amountWordCollected = 0;
         this._node = null;
         cc.log("this._word: " + wordNeedCollect);
         this._word = wordNeedCollect;
@@ -84,11 +84,8 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
             cc.callFunc(function(){
             })
         ));
-        // var word = new cc.LabelBMFont(wordNeedCollect,res.HomeFont_fnt);
-        // word.x = this._settingBtn.x + this._settingBtn.width + word.width;
-        // word.y = this._settingBtn.y + 10;
-        // this.addChild(word);
-        // word.opacity = 0;
+        this._count = this._node.getChildrenCount();
+
         this._oldWord = wordNeedCollect; 
         cc.log("addWordNeedCollect: " + wordNeedCollect);
     },
@@ -102,41 +99,34 @@ var ARHudLayer = SpecifyGoalHudLayer.extend({
 
     collectedAlphabet: function(alphabet){
         var self = this;
-        // cc.log("this._word: "+this._word);
         var index = this._word.indexOf(alphabet);
-        var count = 0;
-        // cc.log("getChildrenCount: " + this._node.getChildrenCount());
+
         for(var i = 0; i < this._word.length; i ++){
             if(this._word[i] == alphabet) {
                 var child = this._node.getChildByTag(i);
                 if(child) {
-                    count++;
                     // this._layer._inputData.splice(0,1);
                     child.tag = 1000;
                     child.opacity = 255;
-                    this.amoutWordCollected++;
+                    this.amountWordCollected++;
                     this._node.runAction(cc.sequence(
                         cc.fadeTo(0.5, 255),
                         cc.delayTime(1.2),
-                        cc.fadeTo(1, 0),
-                        cc.callFunc(function(){
-                        })
+                        cc.fadeTo(1, 0)
                     ));
-                    cc.log("alphabet HUD: " + alphabet);
                     this._isColected = true;
-                    if(count < 2)
-                        this._layer.addNewAlphabet();
+                    this._layer.refreshCurrentAlphabetArray();
+                    this._layer.addNewAlphabet();
+                    break;
                 }
             }
         };
-        if(this.amoutWordCollected == this._count) {
-            this._layer._nextWord = localizeForWriting(this._layer._sourceData[0].value);
-            this.addWordNeedCollect(this._layer._nextWord);
+        if(this.amountWordCollected == this._count) {
             this._layer.newWordNeedCollect();
-        };
-        this._count = this._node.getChildrenCount();
+            this.addWordNeedCollect(this._layer.getNextWord());
+            this._layer.refreshSourceData();
+        }
         // cc.log("childCount: " + this._count);
-        
     },
 
     _addDistanceLabel: function() {

@@ -1,6 +1,6 @@
 var ARAlphabetWorker = cc.Class.extend({
 
-    ctor: function(layer,player, array, hudLayer) {
+    ctor: function(layer, player, array, hudLayer) {
         this._player = player;
         this._array = array;
         this._hudLayer = hudLayer;
@@ -31,10 +31,9 @@ var ARAlphabetWorker = cc.Class.extend({
 
                 CurrencyManager.getInstance().incDiamond(addedCoin);
 
-
-                
-
-                this._hudLayer.collectedAlphabet(this._array[i].getName());
+                if (this._layer.currentGoalAlphabet() === this._array[i].getName()) {
+                    this._hudLayer.collectedAlphabet(this._array[i].getName());
+                }
 
                 var object = new cc.LabelBMFont("+" + addedCoin.toString(), res.CustomFont_fnt);
                 object.scale = 0.5;
@@ -54,7 +53,7 @@ var ARAlphabetWorker = cc.Class.extend({
                 //When collect Alphabet
                 
                 var self = this;
-                if(this._hudLayer._count == this._hudLayer.amoutWordCollected) {
+                if(this._hudLayer._count == this._hudLayer.amountWordCollected) {
                     self._array = self._layer._alphabetObjectArray;
                     break;
                 };
