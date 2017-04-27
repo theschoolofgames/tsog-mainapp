@@ -23,7 +23,7 @@ var MapLayer = cc.Layer.extend({
         this._updateMapData();
 
         if (TSOG_DEBUG) {
-            this.addUnlockLevelButton();
+            // this.addUnlockLevelButton();
         }
     },
 
@@ -435,7 +435,7 @@ var MapLayer = cc.Layer.extend({
 MapLayer.TotalMapPart = 4;
 MapLayer.TotalStarsEachStep = 6;
 MapLayer.newLevelUnlocked = false;
-MapLayer.unlockAllLevel = false;
+MapLayer.unlockAllLevel = true;
 
 var MapScene = cc.Scene.extend({
     ctor:function() {
