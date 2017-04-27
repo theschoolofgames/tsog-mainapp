@@ -383,7 +383,7 @@ var SpellingGameLayer = TestLayer.extend({
     },
 
     _handleObjectFailedDrop: function() {
-        jsb.AudioEngine.play2d(res.Failed_sfx);
+        jsb.AudioEngine.play2d(res.incorrect_word_mp3);
         this._currentObjectMoving.setPosition(this._currentObjectOriginPos);
         this._runObjectDropAction(this._currentObjectMoving, this._objectScale);
         this._currentObjectMoving.rotation = this._currentObjectRotation;

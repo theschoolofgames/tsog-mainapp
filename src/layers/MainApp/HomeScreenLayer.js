@@ -32,7 +32,8 @@ var HomeScreenLayer = cc.Layer.extend({
     addProgressTrackerButton: function(){
         var self = this;
         var button = new ccui.Button("res/SD/button-progress-tracker.png", "res/SD/button-progress-tracker-pressed.png", "");
-        button.x = cc.winSize.width - button.width/2  - 60;
+        button.anchorX =  1;
+        button.x = cc.winSize.width - 5;
         button.y = cc.winSize.height - button.height + 10;
         button.scale = 1.3;
         this.addChild(button);

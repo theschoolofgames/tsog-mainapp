@@ -220,7 +220,7 @@ var SpeakingTestLayer = TestLayer.extend({
         if (!this._adiDog)
             return;
 
-        jsb.AudioEngine.play2d(res.Failed_sfx);
+        jsb.AudioEngine.play2d(res.incorrect_word_mp3);
 
         ConfigStore.getInstance().setBringBackObj(
             this._oldSceneName == "room" ? BEDROOM_ID : FOREST_ID, 
