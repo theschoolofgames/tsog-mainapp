@@ -241,13 +241,16 @@ var TestLayer = cc.LayerColor.extend({
     
         var nextSceneName = SceneFlowController.getInstance().getNextSceneName();
 
+        if(currentLanguage == "sw" && nextSceneName == "speaking")
+            nextSceneName = SceneFlowController.getInstance().getNextSceneName();
+
         if (nextSceneName) {
             this.setCardGameData(this.getCardGameData());
             var numberScene = KVDatabase.getInstance().getInt("scene_number");
             var durationArray = JSON.parse(KVDatabase.getInstance().getString("durationsString"));
             // cc.log("durationArray: " + JSON.stringify(durationArray));
             var sceneData = SceneFlowController.getInstance().getNextSceneData();
-            cc.log("sceneData: " + JSON.stringify(sceneData));
+            // cc.log("sceneData: " + JSON.stringify(sceneData));
             SceneFlowController.getInstance().moveToNextScene(nextSceneName, sceneData, durationArray[numberScene]);
         } else {
             this.removeCardGameData();
