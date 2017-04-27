@@ -37,7 +37,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         //         onTouchMoved: this.onTouchMoved.bind(this),
         //         onTouchEnded: this.onTouchEnded.bind(this),
         // }, this);
-        // CurrencyManager.getInstance().incDiamond(2000);
+        CurrencyManager.getInstance().incDiamond(2000);
         this._addHudLayer();
         
         this._hudLayer.updateBalance();
@@ -239,9 +239,18 @@ ShopScreenLayer = cc.LayerColor.extend({
         var button = new ccui.Button("button-unlock.png", "button-unlock-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         button.x = cc.winSize.width/2 + 150;
         button.y = cc.winSize.height/2 - 100;
+        
+
         if(unlocked) {
             button.x = cc.winSize.width/2 + 80;
-            button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+            button.loadTextures("res/SD/temp/btn-normal.png", "res/SD/temp/btn-pressed.png",  "");
+            button.runAction(cc.repeatForever(cc.sequence(
+                cc.delayTime(5),
+                cc.scaleTo(0.1, 1.05, 0.95),
+                cc.scaleTo(0.1, 1),
+                cc.scaleTo(0.1, 1.05, 0.95),
+                cc.scaleTo(0.1, 1)
+            )));
         }
         if(characterCfg.name == CharacterManager.getInstance().getSelectedCharacter())
             button.setVisible(false);
@@ -252,15 +261,25 @@ ShopScreenLayer = cc.LayerColor.extend({
             cc.log("unlocked:  " + unlocked);
             unlocked = CharacterManager.getInstance().hasUnlocked(characterCfg.name);
             if(!unlocked) {
-                var buy = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
-                if(buy) {
+                var buySuccess = CharacterManager.getInstance().unlockCharacter(characterCfg.name);
+                if(buySuccess) {
                     cc.log("button.x");
-                    button.x = cc.winSize.width/2;
+                    button.loadTextures("res/SD/temp/btn-normal.png", "res/SD/temp/btn-pressed.png",  "");
+                    button.x = cc.winSize.width/2 + 80;
                     lbPrice.removeFromParent();
                     lb.setString(localize("Choose"));
+                    lb.x = button.width/2;
+                    lb.y = button.height/2 + 10;
+                    lb.scale = 0.5;
                     self._character.adiJump();
                     self._hudLayer.updateBalance();
-                    button.loadTextures("btn-language.png", "", "", ccui.Widget.PLIST_TEXTURE);
+                    button.runAction(cc.repeatForever(cc.sequence(
+                        cc.delayTime(5),
+                        cc.scaleTo(0.1, 1.05, 0.95),
+                        cc.scaleTo(0.1, 1),
+                        cc.scaleTo(0.1, 1.05, 0.95),
+                        cc.scaleTo(0.1, 1)
+                    )));
                 }
                 else {
                     self._character.adiShakeHead();
@@ -291,9 +310,9 @@ ShopScreenLayer = cc.LayerColor.extend({
             self._hudLayer.updateBalance();
         });
         var lb = new cc.LabelBMFont(lbButton, res.HomeFont_fnt);
-        lb.scale = 0.7;
+        lb.scale = 0.5;
         lb.x = button.width/2;
-        lb.y = button.height/2;
+        lb.y = button.height/2 + 10;
         button.addChild(lb);
         if(!unlocked) {
             var price = characterCfg.price;

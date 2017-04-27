@@ -98,10 +98,6 @@
       "name": "speaking",
       "data": [
         "number_1",
-        "number_2",
-        "number_1",
-        "number_2",
-        "number_1",
         "number_2"
       ],
       "duration": 120
@@ -109,10 +105,6 @@
     "4": {
       "name": "writing",
       "data": [
-        "number_1",
-        "number_2",
-        "number_1",
-        "number_2",
         "number_1",
         "number_2"
       ],

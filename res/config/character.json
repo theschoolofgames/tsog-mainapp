@@ -9,15 +9,6 @@
         "posY" : -300
     },
     {
-        "name": "adi",
-        "price": 150,
-        "path": "adidog",
-        "heathy": 7,
-        "unlocked": false,
-        "animationFrameCount": 4,
-        "posY" : -150
-    },
-    {
         "name": "hen",
         "price": 150,
         "path": "hen",
