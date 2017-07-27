@@ -25,6 +25,7 @@ var HomeScreenLayer = cc.Layer.extend({
     
         this.addChild(new HomeHUDLayer(),2);
         this.addProgressTrackerButton();
+        this.addDemosButton();
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
     },
 
@@ -64,6 +65,27 @@ var HomeScreenLayer = cc.Layer.extend({
         });
         
         var text = localizeForWriting("Parents");
+        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
+        lb.scale = (button.width * 0.8) / lb.width;
+        lb.x = button.width/2;
+        lb.y = button.height/2 + 3;
+        button.addChild(lb);
+    },
+
+    addDemosButton: function(){
+        var button = new ccui.Button("res/SD/grownup/button-grown-up.png", "res/SD/grownup/button-grown-up-pressed.png", "");
+        button.x = cc.winSize.width - button.width/2  - 150;
+        button.y = cc.winSize.height - button.height + 10;
+        this.addChild(button);
+        var self = this;
+        button.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_0, false, null);
+
+            var dialog = new DemosDialog();
+            self.addChild(dialog, 999999);
+        });
+        
+        var text = localizeForWriting("Demos");
         var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
         lb.scale = (button.width * 0.8) / lb.width;
         lb.x = button.width/2;
