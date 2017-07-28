@@ -9,10 +9,21 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
         DemoSpeechCommandLayer._instance = this;
 
         this._addAdi();
+        this._hudLayer = new ShopHUDLayer(this);
+        this.addChild(this._hudLayer);
+        this._hudLayer.setBackBtnCallback(function(){
+            cc.director.replaceScene(new HomeScene());
+        })
 
         let self = this;
 
         this._animations = [
+            {
+                text: "CoreML",
+                func: function(){
+                    NativeHelper.callNative("showCoreMLDemo");
+                }
+            },
             {
                 text: "SIT",
                 func: function(){
@@ -84,6 +95,8 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
         NativeHelper.removeListener("RequestPermission");
         NativeHelper.callNative("changeAudioRoute");
         SpeechRecognitionListener.setupInstance();
+
+        this._super();
     },
 
     _addAnimationButtons: function(){
@@ -110,10 +123,10 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
     _addListenButton: function(){
         var self = this;
 
-        var button = new ccui.Button("res/SD/grownup/button-grown-up.png", "res/SD/grownup/button-grown-up-pressed.png", "");
-        button.x = cc.winSize.width - 20;
+        var button = new ccui.Button("btn_yellow.png", "btn_yellow-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        button.x = cc.winSize.width - 30;
         button.anchorX = 1;
-        button.y = cc.winSize.height - 100;
+        button.y =  100;
         this.addChild(button, 2);
         this._listenButton = button;
         button.addClickEventListener(function() {
@@ -124,12 +137,11 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
             self._listenButton.opacity = 100;
         });
 
-        var text = "listen";
-        var lb = new cc.LabelBMFont(text, res.Grown_Up_fnt);
-        lb.scale = 0.3;
-        lb.x = button.width/2;
-        lb.y = button.height/2 + 3;
-        button.addChild(lb);
+        var icon = new cc.Sprite(res.Demo_mic_png);
+        button.addChild(icon);
+        icon.x = button.width/2;
+        icon.y = button.height/2;
+        icon.scale = 0.4;
     },
 
     onRequestPermission: function(succeed) {

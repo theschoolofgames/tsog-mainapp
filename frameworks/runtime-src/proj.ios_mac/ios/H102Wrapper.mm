@@ -62,6 +62,11 @@ static BOOL isOpenedFromNotification = NO;
   [dialog show];
 }
 
++ (void)showCoreMLDemo {
+    CCLOG("showCoreMLDemo");
+    // A Steve: pls integrate here
+}
+
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
 //  NSURL *theURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", bundleId, data]];
 //  if ([[UIApplication sharedApplication] canOpenURL:theURL])
