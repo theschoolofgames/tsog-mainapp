@@ -27,6 +27,7 @@ var DemosDialog = Dialog.extend({
         var demos = [
             {
                 func: function() {
+                    cc.director.runScene(new DemoSpeechCommandScene());
                 },
                 text: "Speech Command"
             },
