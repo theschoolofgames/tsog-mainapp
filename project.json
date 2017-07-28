@@ -58,7 +58,6 @@
         "src/meerkat/AnalyticsManager.js",
 
         "src/layers/FirebaseLayer.js",
-        "src/layers/Demos/DemoLayer.js",
 
         "src/layers/MainApp/AccountSelectorLayer.js",
         "src/layers/MainApp/SignUpLayer.js",
@@ -173,7 +172,8 @@
         "src/layers/parent/MissionPageAfterLogin.js",
         "src/common/CustomLabel.js",
 
-        "src/layers/demos/DemosDialog.js",
-        "src/layers/demos/DemoSpeechCommandLayer.js"
+        "src/layers/demo/DemosDialog.js",
+        "src/layers/demo/DemoSpeechCommandLayer.js",
+        "src/layers/demo/DemoLayer.js"
     ]
 }
