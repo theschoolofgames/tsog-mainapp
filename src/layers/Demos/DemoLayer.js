@@ -4,7 +4,8 @@ var DemosLayer = cc.LayerColor.extend({
     currentElementIndex: 0,
 
     scrollViewInnerContainerSize: null,
-    scrViewContainerHeigthToIncrease: 0,
+    labelLineHeight: 32,
+    labelHeight: null,
 
     ctor: function() {
         this._super(cc.color(0,0,0,255));
@@ -21,60 +22,65 @@ var DemosLayer = cc.LayerColor.extend({
         this.scrollView.setTouchEnabled(true);
         this.scrollView.setSwallowTouches(false);
         this.scrollView.setBounceEnabled(true);
-        this.scrollView.setContentSize(cc.size(cc.winSize.width, cc.winSize.height));
+
+        this.scrollViewInnerContainerSize = cc.size(cc.winSize.width*0.9, cc.winSize.height);
+        this.scrollView.setContentSize(this.scrollViewInnerContainerSize);
         this.scrollView.x = cc.winSize.width*0.1;
         this.scrollView.y = 0;
-
-        this.scrollViewContent = new cc.Node();
-        // this.scrollViewContent.setLayoutType(ccui.Layout.LINEAR_VERTICAL);
-        // this.scrollViewContent.setPosition(cc.winSize.width, this.scrollView.height/2);
-        // scrollView.addChild(this.scrollViewContent);
+        
         this.addChild(this.scrollView);
 
         this.addNextSentence();
     },
 
     addLabel: function(sentences) {
-        cc.log("sentences -> " + sentences);
-        this.label = new cc.LabelTTF(sentences, 'Arial', 32, cc.TEXT_ALIGNMENT_LEFT);
-        this.label.x = this.label.width;
-        // this.label.y = -this.label.height/2;
+        let label = new cc.LabelTTF(sentences, 'Arial', 32, cc.TEXT_ALIGNMENT_LEFT);
+        label.textAlign = cc.TEXT_ALIGNMENT_LEFT;
+        label.x = this.scrollView.getContentSize().width*0.5;
+        label.boundingWidth = this.scrollView.getContentSize().width * 0.7;
+        label.anchorY = 1;
 
-        
-        var vBox = new ccui.VBox();
-        // vBox.x = cc.winSize.width;
-        // vBox.setContentSize(this.scrollView.getContentSize().width, 100);
-        vBox.addChild(this.label);
-        this.scrollView.addChild(vBox);
+        this.labelHeight = label.height;
+        let hBox = new ccui.HBox();
+        hBox.setContentSize(this.scrollView.getContentSize().width, this.labelLineHeight);
+        hBox.addChild(label);
+
+        let lp = new ccui.LinearLayoutParameter();
+
+        lp.setMargin(new ccui.Margin(0, this.labelLineHeight, 0, this.labelLineHeight));
+
+        hBox.setLayoutParameter(lp);
+        this.scrollView.addChild(hBox);
     },
 
     addButton: function(choices) {
-        var choiceContents = Object.keys(choices);
-        var firstChoiceContent = choiceContents[0];
-        var secondChoiceContent = choiceContents[1];
-        var button_1 = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png","");
-        // button_1.scale = 2;
-        button_1.x = cc.winSize.width/2;
+        let choiceContents = Object.keys(choices);
+        let firstChoiceContent = choiceContents[0];
+        let secondChoiceContent = choiceContents[1];
+        let button_1 = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png","");
+        button_1.scale = 1.5;
 
         button_1.setTitleText(firstChoiceContent);
         button_1.setTitleFontSize(32);
 
-        var button_2 = new ccui.Button("res/SD/btn_get_updates.png", "res/SD/btn_get_update_pressed.png","");
-        // button_2.scale = 2;
-        button_2.x = this.scrollView.width/2;
+        let button_2 = new ccui.Button("res/SD/btn_get_updates.png", "res/SD/btn_get_updates_pressed.png","");
+        button_2.scale = 1.5;
 
         button_2.setTitleText(secondChoiceContent);
         button_2.setTitleFontSize(32);
 
-        var vBox1 = new ccui.VBox();
-        var vBox2 = new ccui.VBox();
+        let hBox1 = new ccui.HBox();
+        let hBox2 = new ccui.HBox();
 
-        // vBox1.setContentSize(this.scrollView.getContentSize().width, 100);
-        // vBox2.setContentSize(this.scrollView.getContentSize().width, 100);
+        hBox1.setContentSize(this.scrollView.getContentSize().width, button_1.height*button_1.scale);
+        hBox2.setContentSize(this.scrollView.getContentSize().width, button_2.height*button_2.scale);
+
         button_1.addClickEventListener(function() {
             // add next sentences to scrollview
-            vBox1.removeFromParent();
-            vBox2.removeFromParent();
+            this.scrollView.removeChild(hBox1);
+            this.scrollView.removeChild(hBox2);
+
+            this.addLabel(firstChoiceContent);
 
             this.currentElement = choices[firstChoiceContent];
             this.currentElementIndex++;
@@ -83,24 +89,27 @@ var DemosLayer = cc.LayerColor.extend({
 
         button_2.addClickEventListener(function() {
             // add next sentences to scrollview
-            vBox1.removeFromParent();
-            vBox2.removeFromParent();
+            this.scrollView.removeChild(hBox1);
+            this.scrollView.removeChild(hBox2);
+
+            this.addLabel(secondChoiceContent);
 
             this.currentElement = choices[secondChoiceContent];
             this.currentElementIndex++;
             this.addNextSentence();
         }.bind(this));
 
-        var lp = new ccui.LinearLayoutParameter();
-        // // lp.setGravity(ccui.LinearLayoutParameter.LEFT);
-        lp.setMargin(new ccui.Margin(0, 0, 0, 0));
-        button_1.setLayoutParameter(lp);
-        button_2.setLayoutParameter(lp);
-        // vBox1.addChild(button_1);
-        // vBox2.addChild(button_2);
+        let lp1 = new ccui.LinearLayoutParameter();
 
-        this.scrollView.addChild(button_1);
-        this.scrollView.addChild(button_2);
+        lp1.setMargin(new ccui.Margin(this.scrollView.getContentSize().width/4, this.labelHeight, 0, 0));
+
+        button_1.setLayoutParameter(lp1);
+        button_2.setLayoutParameter(lp1);
+        hBox1.addChild(button_1);
+        hBox2.addChild(button_2);
+
+        this.scrollView.addChild(hBox1);
+        this.scrollView.addChild(hBox2);
 
     },
 
@@ -110,24 +119,19 @@ var DemosLayer = cc.LayerColor.extend({
         for (var i = 0; i < sentences.length; i++) {
             string += sentences[i] + "\n";
         }
-        // var labelPos = cc.p(cc.winSize.width, this.scrollView.height *0.8);
-        // if (this.label != null) {
-        //     labelPos.y = this.label.y - this.label.height - 10;
-        // }
+        
         this.addLabel(string);
         
         if (this.currentElement.hasOwnProperty('choices')) {
             var choices = this.currentElement['choices'];
             this.addButton(choices);
         }
-        // this.scrollViewInnerContainerSize.height += this.scrViewContainerHeigthToIncrease;
-        // this.scrollView.setInnerContainerSize(this.scrollViewInnerContainerSize);
-        // this.scrollViewContent.y += this.scrViewContainerHeigthToIncrease;
-
-        this.scrollView.scrollToBottom(0.1, true);
+        this.scrollView.forceDoLayout();
+        // this.scrollView.doLayout();
+        // this.scrollView.scrollToBottom(0.1, true);
     }
 });
-var DemosScene = cc.Scene.extend({
+var DemosStoryScene = cc.Scene.extend({
     ctor: function(){
         this._super();
 

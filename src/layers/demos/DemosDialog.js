@@ -36,6 +36,12 @@ var DemosDialog = Dialog.extend({
                 },
                 text: "Collect Objects"
             },
+            {
+                func: function() {
+                    cc.director.runScene(new DemosStoryScene());
+                },
+                text: "Create Your Story"
+            },
         ];
 
         for (let i = 0; i < demos.length; i++) {
