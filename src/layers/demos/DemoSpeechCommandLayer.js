@@ -9,6 +9,11 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
         DemoSpeechCommandLayer._instance = this;
 
         this._addAdi();
+        this._hudLayer = new ShopHUDLayer(this);
+        this.addChild(this._hudLayer);
+        this._hudLayer.setBackBtnCallback(function(){
+            cc.director.replaceScene(new HomeScene());
+        })
 
         let self = this;
 
@@ -84,6 +89,8 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
         NativeHelper.removeListener("RequestPermission");
         NativeHelper.callNative("changeAudioRoute");
         SpeechRecognitionListener.setupInstance();
+
+        this._super();
     },
 
     _addAnimationButtons: function(){
