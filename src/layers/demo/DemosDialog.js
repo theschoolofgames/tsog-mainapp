@@ -33,6 +33,7 @@ var DemosDialog = Dialog.extend({
             },
             {
                 func: function() {
+                    NativeHelper.callNative("showCoreMLDemo");
                 },
                 text: "Collect Objects"
             },

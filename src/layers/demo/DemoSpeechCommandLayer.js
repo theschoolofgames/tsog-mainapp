@@ -19,12 +19,6 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
 
         this._animations = [
             {
-                text: "CoreML",
-                func: function(){
-                    NativeHelper.callNative("showCoreMLDemo");
-                }
-            },
-            {
                 text: "SIT",
                 func: function(){
                     self._adi.adiSitdown();
