@@ -58,6 +58,7 @@
         "src/meerkat/AnalyticsManager.js",
 
         "src/layers/FirebaseLayer.js",
+        "src/layers/Demos/DemoLayer.js",
 
         "src/layers/MainApp/AccountSelectorLayer.js",
         "src/layers/MainApp/SignUpLayer.js",
