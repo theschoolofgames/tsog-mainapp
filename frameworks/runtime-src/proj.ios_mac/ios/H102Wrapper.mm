@@ -459,7 +459,7 @@ static BOOL isOpenedFromNotification = NO;
   // schedule 2 days PN
   [self startTwoDaysNotif];
   
-  [self showMessage:@"The School Of Games" message:@"We'll keep you posted on learning progress"];
+//  [self showMessage:@"The School Of Games" message:@"We'll keep you posted on learning progress"];
 }
 
 + (void)cancelLocalNotificationsWithTag:(NSString*) tag{

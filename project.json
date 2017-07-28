@@ -86,7 +86,6 @@
         "src/layers/Dialogs/DialogPlayAlpharacing.js",
         "src/layers/Dialogs/DialogReviveAR.js",
         "src/layers/Dialogs/AlertDialog.js",
-        "src/layers/Dialogs/DialogPlayAlpharacing.js",
         "src/layers/Dialogs/SettingDialog.js",
         "src/layers/Dialogs/PayWallDialog.js",
         "src/layers/Dialogs/LevelDialog.js",
@@ -172,6 +171,9 @@
 
         "src/layers/parent/MissionPageBeforeLogin.js",
         "src/layers/parent/MissionPageAfterLogin.js",
-        "src/common/CustomLabel.js"
+        "src/common/CustomLabel.js",
+
+        "src/layers/demos/DemosDialog.js",
+        "src/layers/demos/DemoSpeechCommandLayer.js"
     ]
 }
