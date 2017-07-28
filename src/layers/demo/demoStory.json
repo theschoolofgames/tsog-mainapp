@@ -1,0 +1,114 @@
+{
+  "sentences": [
+    "One day Adi wanted to go for a walk"
+  ],
+  "choices": {
+    "Walk in the park": {
+      "sentences": [
+        "Adi puts his hat on and  says, 'I will go to the park'.",
+        "On the way he finds his friend Mr. Monkey."
+      ],
+      "choices": {
+        "Invite Mr. Monkey.": {
+          "sentences": [
+            "Adi says,'Hi, Mr.Monkey. I was going for a walk. Do you want to come along?'",
+            "Mr.Monkey says, Yes, I would love to and start to go with Adi.",
+            "Mr.Monkey and Adi start to walk to the park and reach the park."
+          ],
+          "choices": {
+            "Let's go on the swings": {
+              "sentences": [
+                "Mr. Monkey and Adi go on the swings and have a fun time.",
+                "Mr Monkey and Adi after enjoying on the swings, go back and Adi reaches back home."
+              ]
+            },
+            "Adi says,'Lets sit under the shade of the tree and enjoy the view'": {
+              "sentences": [
+                "Mr. Monkey says, 'OK' and Adi and Monkey have a nap under the tree shade",
+                "Mr. Monkey and Adi go on the swings and have a fun time.",
+                "Mr Monkey and Adi after enjoying on the swings, go back and Adi reaches back home."
+              ]
+            }
+          }
+        },
+        "Say 'Hi' to Mr. Monkey and go for a walk alone.": {
+          "sentences": [
+            "Adi Says, 'Hi Mr. Monkey, hope you are well. I was on my way to the park for a walk'",
+            "Mr. Monkey says, 'Have fun' and Adi starts to walk by himself.",
+            "Adi walks by himself and reaches the park"
+          ],
+          "choices": {
+            "Adi goes on the swings": {
+              "sentences": [
+                "Adi has a fun time on the swings.",
+                "Adi after enjoying on the swings, says",
+                "'Let me go back' and Adi reaches back home."
+              ]
+            },
+            "Adi sits under the shade of the tree": {
+              "sentences": [
+                "Adi say, 'I'll take a nap under the tree'.",
+                "Adi has a fun time on the swings.",
+                "Adi after enjoying on the swings, says, 'Let me go back' and Adi reaches back home."
+              ]
+            }
+          }
+        }
+      }
+    },
+    "Walk near the river": {
+      "sentences": [
+        "Adi packs a picnic and says, 'I will go to the river'",
+        "On the way to the river Adi meets Dr. Penguin"
+      ],
+      "choices": {
+        "Invite Dr. Penguin": {
+          "sentences": [
+            "Adi says, Hi Dr, Penguin. Are you free? I was going to the river for a walk and then a picnic. Do you want to join me?",
+            "Dr. Penguin says, 'That sounds like a great plan' and joins Adi.",
+            "Dr. Penguin and Adi walk to gether and reach the river"
+          ],
+          "choices": {
+            "Dr. Penguin and Adi open the picnic": {
+              "sentences": [
+                "Dr. Penguin and Adi enjoy the picnin next to the beautiful river.",
+                "Dr. Penguin and Adi sit under the tree and Adi says, 'Let's take a nap'.",
+                "After this Adi says to Dr. Penguin, 'What a wonderful time we had. Now let's go back home'. And they start walking back and go home."
+              ]
+            },
+            "Dr. Penguin and Adi sit under the shade of the tree": {
+              "sentences": [
+                "Dr. Penguin and Adi sit under the tree and Adi says, 'Let's take a nap'.",
+                "Dr. Penguin and Adi enjoy the picnin next to the beautiful river.",
+                "After this Adi says to Dr. Penguin, 'What a wonderful time we had. Now let's go back home'. And they start walking back and go home."
+              ]
+            }
+          }
+        },
+        "Go to Dr. Penguin's house.": {
+          "sentences": [
+            "Adi says, HI Dr. Penguin, how are you? I was going to the river to have this picnic but would love to share it with you at your home.",
+            "Dr. Penguin says, I am busy with some patients today. You have fun.",
+            "Adi walks by himself and reaches the river."
+          ],
+          "choices": {
+            "Adi opens a picnic on the bench": {
+              "sentences": [
+                "Adi enjoys the picnic next to the beautiful river",
+                "Dr. Penguin and Adi sit under the tree and Adi says, 'Let's take a nap'.",
+                "After this Adi says to Dr. Penguin, 'What a wonderful time we had. Now let's go back home'. And they start walking back and go home."
+              ]
+            },
+            "Adi sits under the shade of the tree": {
+              "sentence": [
+                "Adi sits under the tree and says, 'Let me take a nap'.",
+                "Adi enjoys the picnic next to the beautiful river",
+                "After this Adi says, 'What a wonderful time I had. Now let's go back home'. And he starts walking back and go home."
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
