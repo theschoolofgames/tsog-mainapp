@@ -39,6 +39,9 @@ var res = {
     Pugdog_png: "res/SD/dialogs/pugdog.png",
     Ribbon_png: "res/SD/dialogs/ribbon.png",
 
+    // demo
+    Demo_mic_png: "res/SD/demo/mic-button.png",
+
     //share dialog
     Button_more_normal_png: "res/SD/dialogs/share/button_more_normal.png",
     Button_more_pressed_png: "res/SD/dialogs/share/button_more_pressed.png",
