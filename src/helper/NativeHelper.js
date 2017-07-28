@@ -12,6 +12,12 @@ var NativeHelperConfig = {
             "(Ljava/lang/String;Ljava/lang/String;)Z"
         ]
     },
+    showCoreMLDemo: {
+        iOS: [
+            "H102Wrapper",
+            "showCoreMLDemo"
+        ]
+    },
     getUDID: {
         iOS:[
             "H102Wrapper",
