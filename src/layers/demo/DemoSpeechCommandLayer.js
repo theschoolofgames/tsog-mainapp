@@ -1,4 +1,4 @@
-let VERBS = ["sit", "dance", "jump", "fly", "walk", "swim", "talk", "sleep", "eat", "love", "wave"];
+let VERBS = ["sit", "dance", "jump", "fly", "walk", "swim", "talk", "sleep", "eat", "love", "wave", "speak"];
 var DemoSpeechCommandLayer = cc.LayerColor.extend({
     _isListening: false,
     _adi: null,
@@ -43,6 +43,13 @@ var DemoSpeechCommandLayer = cc.LayerColor.extend({
                 text: "JUMP",
                 func: function(){
                     self._adi.adiJump();
+                    self.schedule(self._resetToIdle, 2, 1);
+                }
+            },
+            {
+                text: "SPEAK",
+                func: function(){
+                    self._adi.adiTalk();
                     self.schedule(self._resetToIdle, 2, 1);
                 }
             },
