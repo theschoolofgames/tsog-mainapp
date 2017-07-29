@@ -41,7 +41,7 @@ var DemosDialog = Dialog.extend({
                 func: function() {
                     cc.director.runScene(new DemosStoryScene());
                 },
-                text: "Create Your Story"
+                text: "Story with Choices"
             },
         ];
 
