@@ -28,7 +28,7 @@
 
 #import <Social/Social.h>
 
-//#import "DetectObjectViewController.h"
+#import "DetectObjectViewController.h"
 
 static UIViewController* viewController;
 static double startTime = -1;
@@ -67,14 +67,14 @@ static BOOL isOpenedFromNotification = NO;
 + (void)showCoreMLDemo {
     CCLOG("showCoreMLDemo");
     
-//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-//    DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-//    nav.navigationBarHidden = YES;
-//    
-//    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-//    UIViewController *rootController = (UIViewController*)appController.viewController;
-//    [rootController presentViewController:nav animated:YES completion:nil];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+    DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+    nav.navigationBarHidden = YES;
+    
+    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+    UIViewController *rootController = (UIViewController*)appController.viewController;
+    [rootController presentViewController:nav animated:YES completion:nil];
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
