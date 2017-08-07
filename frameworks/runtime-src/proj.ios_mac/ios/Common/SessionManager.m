@@ -16,6 +16,7 @@
     dispatch_once(&onceToken, ^{
         _instance = [[SessionManager alloc] init];
         _instance.identifiedObjects = [NSMutableDictionary dictionary];
+        _instance.synthesizer = [[AVSpeechSynthesizer alloc] init];
     });
     
     return _instance;
@@ -41,6 +42,18 @@
         self.objCount++;
         return YES;
     }
+}
+
+- (void)textToSpeech:(NSString *)text {
+    if (!text.length) {
+        return;
+    }
+    
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    
+    [utterance setRate:0.2f];
+    [self.synthesizer speakUtterance:utterance];
 }
 
 @end

@@ -7,14 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface SessionManager : NSObject
 
 @property (nonatomic, strong) NSMutableDictionary *identifiedObjects;
 @property (nonatomic, assign) NSInteger objCount;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
 
 + (SessionManager *)sharedInstance;
 
 - (BOOL)addIdentifiedObject:(NSString *)objString;
+- (void)textToSpeech:(NSString *)text;
 
 @end
