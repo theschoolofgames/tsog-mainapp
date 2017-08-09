@@ -94,6 +94,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
                                                                     dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary
                                                                  acousticModelAtPath:self.acousticModelPath
                                                                  languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't already listening.
+      [OEPocketsphinxController sharedInstance].returnNullHypotheses = YES;
   } else
     [[OEPocketsphinxController sharedInstance] resumeRecognition];
 }
@@ -150,6 +151,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
   // We're restarting the previously-stopped listening loop.
   if(![OEPocketsphinxController sharedInstance].isListening){
     [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't currently listening.
+      [OEPocketsphinxController sharedInstance].returnNullHypotheses = YES;
   }
 }
 
@@ -168,6 +170,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
   NSLog(@"Local callback: The audio input is available"); // Log it.
   if(![OEPocketsphinxController sharedInstance].isListening) {
     [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:FALSE]; // Start speech recognition, but only if we aren't already listening.
+      [OEPocketsphinxController sharedInstance].returnNullHypotheses = YES;
   }
 }
 // An optional delegate method of OEEventsObserver which informs that there was a change to the audio route (e.g. headphones were plugged in or unplugged).
@@ -180,6 +183,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
   
   if(![OEPocketsphinxController sharedInstance].isListening) {
     [[OEPocketsphinxController sharedInstance] startListeningWithLanguageModelAtPath:self.pathToDynamicallyGeneratedLanguageModel dictionaryAtPath:self.pathToDynamicallyGeneratedDictionary acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"] languageModelIsJSGF:FALSE]; // Start speech recognition if we aren't already listening.
+      [OEPocketsphinxController sharedInstance].returnNullHypotheses = YES;
   }
 }
 
@@ -268,6 +272,7 @@ static SpeechRecognitionListener *sharedEngine = nil;
          acousticModelAtPath:[OEAcousticModel pathToModel:@"AcousticModelEnglish"]
          languageModelIsJSGF:FALSE]; // Start speech recognition.
         
+          [OEPocketsphinxController sharedInstance].returnNullHypotheses = YES;
         self.startupFailedDueToLackOfPermissions = FALSE;
       }
     }

@@ -29,7 +29,7 @@ var DemosDialog = Dialog.extend({
                 func: function() {
                     cc.director.runScene(new DemoSpeechCommandScene());
                 },
-                text: "Speech Command"
+                text: "Pets"
             },
             {
                 func: function() {
@@ -43,12 +43,18 @@ var DemosDialog = Dialog.extend({
                 },
                 text: "Story with Choices"
             },
+            {
+                func: function() {
+                    cc.director.runScene(new DemoObjectsScene());
+                },
+                text: "Speech Game"
+            },
         ];
 
         for (let i = 0; i < demos.length; i++) {
             var buttonPlay = new ccui.Button("btn_save_progress.png", "btn_save_progress_pressed.png", "", ccui.Widget.PLIST_TEXTURE);
             buttonPlay.x = this._dialogBg.width/2;
-            buttonPlay.y = this._dialogBg.height - i * 100 - 100;
+            buttonPlay.y = this._dialogBg.height - i * 90 - 90;
 
             this._dialogBg.addChild(buttonPlay);
             var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 26, cc.color("#b15a10"), 1, demos[i].text);

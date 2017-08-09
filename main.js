@@ -197,7 +197,7 @@ cc.game.onStart = function(){
         if (authenticateUID) {
             FirebaseManager.getInstance().authenticate(function(succeed, linked) {
                 cc.director.runScene(new WelcomeScene());
-                // cc.director.runScene(new DemoSpeechCommandScene());
+                // cc.director.runScene(new DemoObjectsScene());
             });    
         } else {
             AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
