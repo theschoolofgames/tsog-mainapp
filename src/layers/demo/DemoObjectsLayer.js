@@ -126,10 +126,15 @@ var DemoObjectsLayer = cc.LayerColor.extend({
             vocab.push(this._currentObjects[i].imageName);
         }
 
-
         // noise
         for (let i = 0; i < NUM_OBJECTS_ON_SCREEN; i++) {
             vocab.push(this._allObjects[i].imageName);
+        }
+
+        for (let i = 0; i < vocab.length; i++) {
+            if (vocab[i] == "toytrain") {
+                vocab[i] = "toy train";
+            }
         }
 
         cc.log("_setVocab: %s", JSON.stringify(vocab));
