@@ -4,12 +4,14 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="ChalkboardSE.ttc">
+            <string>ChalkboardSE-Regular</string>
+        </array>
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
         </array>
@@ -74,6 +76,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Grn-pX-6Qy">
+                                <rect key="frame" x="137" y="25" width="100" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="120" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4SK-Yz-ODF">
+                                        <rect key="frame" x="20" y="0.0" width="76" height="27"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="23"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="4SK-Yz-ODF" firstAttribute="top" secondItem="Grn-pX-6Qy" secondAttribute="top" id="Em7-nF-Qz2"/>
+                                    <constraint firstAttribute="bottom" secondItem="4SK-Yz-ODF" secondAttribute="bottom" constant="3" id="UYP-Ym-sd4"/>
+                                    <constraint firstAttribute="height" constant="30" id="ctt-hk-Ql8"/>
+                                    <constraint firstItem="4SK-Yz-ODF" firstAttribute="centerX" secondItem="Grn-pX-6Qy" secondAttribute="centerX" constant="8" id="ld2-UX-Sth"/>
+                                    <constraint firstAttribute="width" constant="100" id="rF1-sY-m7u"/>
+                                    <constraint firstItem="4SK-Yz-ODF" firstAttribute="leading" secondItem="Grn-pX-6Qy" secondAttribute="leading" constant="20" id="zJ1-lz-cAh"/>
+                                </constraints>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock-countdown.png" translatesAutoresizingMaskIntoConstraints="NO" id="12L-63-7gl">
+                                <rect key="frame" x="117" y="16.5" width="45" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="QYk-GV-Lbs"/>
+                                    <constraint firstAttribute="width" constant="45" id="RdE-b1-dzH"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -84,15 +113,19 @@
                             <constraint firstItem="stm-ZM-fmL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="20" id="Nhh-zM-4Xx"/>
                             <constraint firstItem="AHr-4d-SxF" firstAttribute="top" secondItem="Fzs-mB-9qe" secondAttribute="top" id="OXy-fh-kuk"/>
                             <constraint firstItem="Fzs-mB-9qe" firstAttribute="centerX" secondItem="AHr-4d-SxF" secondAttribute="centerX" id="Qbh-Cc-Jf1"/>
+                            <constraint firstItem="12L-63-7gl" firstAttribute="leading" secondItem="Grn-pX-6Qy" secondAttribute="leading" constant="-20" id="Zoe-k0-maj"/>
                             <constraint firstItem="stm-ZM-fmL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="aob-K4-8vc"/>
                             <constraint firstAttribute="trailing" secondItem="AHr-4d-SxF" secondAttribute="trailing" constant="20" id="c0b-bE-okn"/>
                             <constraint firstItem="uLK-QD-bCS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dHc-tR-Sxr"/>
+                            <constraint firstItem="Grn-pX-6Qy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="25" id="drq-cr-3Ew"/>
                             <constraint firstAttribute="bottom" secondItem="AHr-4d-SxF" secondAttribute="bottom" id="fGj-mB-WEV"/>
                             <constraint firstItem="wM9-YR-Vl8" firstAttribute="width" secondItem="AHr-4d-SxF" secondAttribute="width" id="fba-2E-fGv"/>
                             <constraint firstAttribute="bottom" secondItem="uLK-QD-bCS" secondAttribute="bottom" id="gpd-zE-vP1"/>
+                            <constraint firstItem="Grn-pX-6Qy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hbq-8o-bbf"/>
                             <constraint firstAttribute="trailing" secondItem="CPY-3X-r01" secondAttribute="trailing" constant="8" id="lB6-gB-MbZ"/>
                             <constraint firstAttribute="bottom" secondItem="CPY-3X-r01" secondAttribute="bottom" id="pgz-vA-m9K"/>
                             <constraint firstAttribute="trailing" secondItem="uLK-QD-bCS" secondAttribute="trailing" id="tah-Q4-aDy"/>
+                            <constraint firstItem="12L-63-7gl" firstAttribute="centerY" secondItem="Grn-pX-6Qy" secondAttribute="centerY" id="xGO-sc-nfH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -101,7 +134,9 @@
                         <outlet property="btnShoppingCart" destination="AHr-4d-SxF" id="dIw-Pg-poV"/>
                         <outlet property="coinImage" destination="Fzs-mB-9qe" id="gi6-xt-Y5Z"/>
                         <outlet property="constraintTopCoinImage" destination="OXy-fh-kuk" id="j6E-uu-1eY"/>
+                        <outlet property="countdownView" destination="Grn-pX-6Qy" id="9ze-Mm-Mg9"/>
                         <outlet property="lbCount" destination="wM9-YR-Vl8" id="abb-YY-eJV"/>
+                        <outlet property="lbCountdown" destination="4SK-Yz-ODF" id="Il9-nZ-cWP"/>
                         <outlet property="lbResult" destination="CPY-3X-r01" id="pev-5M-Ocf"/>
                         <outlet property="previewView" destination="uLK-QD-bCS" id="QRY-PQ-YZ5"/>
                     </connections>
@@ -175,6 +210,7 @@
     </scenes>
     <resources>
         <image name="button-back.png" width="168" height="173"/>
+        <image name="clock-countdown.png" width="45" height="47"/>
         <image name="coin.png" width="66" height="69"/>
         <image name="shopping-cart.png" width="84" height="114"/>
     </resources>

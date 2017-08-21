@@ -11,13 +11,14 @@
 
 @interface SessionManager : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary *identifiedObjects;
-@property (nonatomic, assign) NSInteger objCount;
-@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;
+@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;         // Speak
+@property (nonatomic, assign) NSInteger elapsedTime;                    // Elapsed time
 
-+ (SessionManager *)sharedInstance;
++ (SessionManager *)sharedInstance;                                     // Shared instance
 
-- (BOOL)addIdentifiedObject:(NSString *)objString;
-- (void)textToSpeech:(NSString *)text;
+- (NSInteger)getIdentifiedObjsCount;
+- (NSMutableDictionary *)getIdentifiedObjects;
+- (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
+- (void)textToSpeech:(NSString *)text;                                  // Speak a word
 
 @end

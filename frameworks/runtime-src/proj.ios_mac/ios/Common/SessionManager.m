@@ -8,6 +8,15 @@
 
 #import "SessionManager.h"
 
+@interface SessionManager () {
+    
+}
+
+@property (nonatomic, strong) NSMutableDictionary *identifiedObjects;   // Identified objects
+@property (nonatomic, assign) NSInteger objCount;                       // Objects count
+
+@end
+
 @implementation SessionManager
 
 + (SessionManager *)sharedInstance {
@@ -17,9 +26,18 @@
         _instance = [[SessionManager alloc] init];
         _instance.identifiedObjects = [NSMutableDictionary dictionary];
         _instance.synthesizer = [[AVSpeechSynthesizer alloc] init];
+        _instance.elapsedTime = 120;
     });
     
     return _instance;
+}
+
+- (NSInteger)getIdentifiedObjsCount {
+    return self.objCount;
+}
+
+- (NSMutableDictionary *)getIdentifiedObjects {
+    return self.identifiedObjects;
 }
 
 - (BOOL)addIdentifiedObject:(NSString *)objString {

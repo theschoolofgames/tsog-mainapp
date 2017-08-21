@@ -387,6 +387,15 @@
 		C47F93BC1F2B233600ABF1C1 /* shopping-cart@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C47F93B31F2B233100ABF1C1 /* shopping-cart@3x.png */; };
 		C47F93BD1F2B233B00ABF1C1 /* CoreMLDemo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C47F93AB1F2B228B00ABF1C1 /* CoreMLDemo.storyboard */; };
 		C47F93BF1F2B2CE800ABF1C1 /* button-back.png in Resources */ = {isa = PBXBuildFile; fileRef = C47F93BE1F2B2CE300ABF1C1 /* button-back.png */; };
+		C4FD0D531F4AD99900CF9681 /* clock-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D4E1F4AD99800CF9681 /* clock-countdown@2x.png */; };
+		C4FD0D541F4AD99900CF9681 /* clock-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D4F1F4AD99800CF9681 /* clock-countdown@3x.png */; };
+		C4FD0D551F4AD99900CF9681 /* clock-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D521F4AD99900CF9681 /* clock-countdown.png */; };
+		C4FD0D5C1F4AE7AC00CF9681 /* dialog-bg-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D561F4AE7AB00CF9681 /* dialog-bg-countdown@2x.png */; };
+		C4FD0D5D1F4AE7AC00CF9681 /* ribbon-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D571F4AE7AB00CF9681 /* ribbon-countdown.png */; };
+		C4FD0D5E1F4AE7AC00CF9681 /* ribbon-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D581F4AE7AB00CF9681 /* ribbon-countdown@3x.png */; };
+		C4FD0D5F1F4AE7AC00CF9681 /* ribbon-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D591F4AE7AB00CF9681 /* ribbon-countdown@2x.png */; };
+		C4FD0D601F4AE7AC00CF9681 /* dialog-bg-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D5A1F4AE7AB00CF9681 /* dialog-bg-countdown@3x.png */; };
+		C4FD0D611F4AE7AC00CF9681 /* dialog-bg-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C4FD0D5B1F4AE7AB00CF9681 /* dialog-bg-countdown.png */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
@@ -1115,6 +1124,15 @@
 		C47F93B51F2B233100ABF1C1 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		C47F93B61F2B233100ABF1C1 /* shopping-cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping-cart.png"; sourceTree = "<group>"; };
 		C47F93BE1F2B2CE300ABF1C1 /* button-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-back.png"; sourceTree = "<group>"; };
+		C4FD0D4E1F4AD99800CF9681 /* clock-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clock-countdown@2x.png"; path = "../../../../../../../../Desktop/Number image/scale/clock-countdown@2x.png"; sourceTree = "<group>"; };
+		C4FD0D4F1F4AD99800CF9681 /* clock-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clock-countdown@3x.png"; path = "../../../../../../../../Desktop/Number image/scale/clock-countdown@3x.png"; sourceTree = "<group>"; };
+		C4FD0D521F4AD99900CF9681 /* clock-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "clock-countdown.png"; path = "../../../../../../../../Desktop/Number image/scale/clock-countdown.png"; sourceTree = "<group>"; };
+		C4FD0D561F4AE7AB00CF9681 /* dialog-bg-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dialog-bg-countdown@2x.png"; path = "../../../../../../../../Desktop/Number image/scale/dialog-bg-countdown@2x.png"; sourceTree = "<group>"; };
+		C4FD0D571F4AE7AB00CF9681 /* ribbon-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ribbon-countdown.png"; path = "../../../../../../../../Desktop/Number image/scale/ribbon-countdown.png"; sourceTree = "<group>"; };
+		C4FD0D581F4AE7AB00CF9681 /* ribbon-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ribbon-countdown@3x.png"; path = "../../../../../../../../Desktop/Number image/scale/ribbon-countdown@3x.png"; sourceTree = "<group>"; };
+		C4FD0D591F4AE7AB00CF9681 /* ribbon-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ribbon-countdown@2x.png"; path = "../../../../../../../../Desktop/Number image/scale/ribbon-countdown@2x.png"; sourceTree = "<group>"; };
+		C4FD0D5A1F4AE7AB00CF9681 /* dialog-bg-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dialog-bg-countdown@3x.png"; path = "../../../../../../../../Desktop/Number image/scale/dialog-bg-countdown@3x.png"; sourceTree = "<group>"; };
+		C4FD0D5B1F4AE7AB00CF9681 /* dialog-bg-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dialog-bg-countdown.png"; path = "../../../../../../../../Desktop/Number image/scale/dialog-bg-countdown.png"; sourceTree = "<group>"; };
 		C6A140F0B17066B07294BD6A /* SDKBoxJSHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SDKBoxJSHelper.h; path = ../Classes/SDKBoxJSHelper.h; sourceTree = SOURCE_ROOT; };
 		D454520B156E22BD00887EB5 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D4545215156E28EF00887EB5 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
@@ -2356,6 +2374,15 @@
 		C47F93A91F2B228B00ABF1C1 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				C4FD0D5B1F4AE7AB00CF9681 /* dialog-bg-countdown.png */,
+				C4FD0D561F4AE7AB00CF9681 /* dialog-bg-countdown@2x.png */,
+				C4FD0D5A1F4AE7AB00CF9681 /* dialog-bg-countdown@3x.png */,
+				C4FD0D571F4AE7AB00CF9681 /* ribbon-countdown.png */,
+				C4FD0D591F4AE7AB00CF9681 /* ribbon-countdown@2x.png */,
+				C4FD0D581F4AE7AB00CF9681 /* ribbon-countdown@3x.png */,
+				C4FD0D521F4AD99900CF9681 /* clock-countdown.png */,
+				C4FD0D4E1F4AD99800CF9681 /* clock-countdown@2x.png */,
+				C4FD0D4F1F4AD99800CF9681 /* clock-countdown@3x.png */,
 				C47F93BE1F2B2CE300ABF1C1 /* button-back.png */,
 				C47F93B51F2B233100ABF1C1 /* coin.png */,
 				C47F93B21F2B233100ABF1C1 /* coin@2x.png */,
@@ -2737,19 +2764,28 @@
 				C47F93B81F2B233600ABF1C1 /* coin@2x.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
+				C4FD0D5C1F4AE7AC00CF9681 /* dialog-bg-countdown@2x.png in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
 				509D4AC517EBB2AB00697056 /* Icon-144.png in Resources */,
+				C4FD0D551F4AD99900CF9681 /* clock-countdown.png in Resources */,
+				C4FD0D5F1F4AE7AC00CF9681 /* ribbon-countdown@2x.png in Resources */,
+				C4FD0D601F4AE7AC00CF9681 /* dialog-bg-countdown@3x.png in Resources */,
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
+				C4FD0D5D1F4AE7AC00CF9681 /* ribbon-countdown.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
 				01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */,
+				C4FD0D541F4AD99900CF9681 /* clock-countdown@3x.png in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				C47F93BC1F2B233600ABF1C1 /* shopping-cart@3x.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
 				C47F93BD1F2B233B00ABF1C1 /* CoreMLDemo.storyboard in Resources */,
+				C4FD0D611F4AE7AC00CF9681 /* dialog-bg-countdown.png in Resources */,
+				C4FD0D531F4AD99900CF9681 /* clock-countdown@2x.png in Resources */,
 				509D4AC417EBB2AB00697056 /* Icon-120.png in Resources */,
+				C4FD0D5E1F4AE7AC00CF9681 /* ribbon-countdown@3x.png in Resources */,
 				C47F93B71F2B233600ABF1C1 /* coin.png in Resources */,
 				01F093D41C75965D00B4892E /* make_log_table.py in Resources */,
 				5091731D17ECDF7A00D62437 /* Icon-58.png in Resources */,

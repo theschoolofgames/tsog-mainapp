@@ -32,12 +32,17 @@
     NSTimer *showAnimatedStringTimer;
     NSTimer *hideAnimatedStringTimer;
     
+    // Clock Timer
+    NSTimer *countdownTimer;                  // Timer to do countdown
+    
     __weak IBOutlet UILabel *lbResult;
     __weak IBOutlet UIView *previewView;
     __weak IBOutlet UIImageView *coinImage;
     __weak IBOutlet UIButton *btnShoppingCart;
     __weak IBOutlet UILabel *lbCount;
     __weak IBOutlet NSLayoutConstraint *constraintTopCoinImage;
+    __weak IBOutlet UIView *countdownView;
+    __weak IBOutlet UILabel *lbCountdown;
     
     BOOL foundingObj;
 }
@@ -75,6 +80,8 @@
     if (![session isRunning]) {
         [session startRunning];
     }
+    
+    [self startCountDown];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -241,6 +248,13 @@
 #pragma mark - Setup view
 - (void)setupView {
     lbResult.text = kShowMeAnObject;
+    
+    // Countdown clock
+    countdownView.layer.cornerRadius = countdownView.bounds.size.height/2.0;
+    countdownView.layer.masksToBounds = YES;
+    
+    // Reset counter
+    [SessionManager sharedInstance].elapsedTime = 20;
 }
 
 #pragma mark - Setup Observer
@@ -357,7 +371,7 @@
                 [backgroundView removeFromSuperview];
                 
                 // Increase counter
-                lbCount.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].objCount];
+                lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
                 
                 [self animateShoppingCart];
             }
@@ -441,6 +455,44 @@
             });
         }
     }];
+}
+
+#pragma mark - Countdown timer
+- (void)startCountDown {
+    if (countdownTimer) {
+        [countdownTimer invalidate];
+        countdownTimer = nil;
+    }
+    
+    countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCurrentTime) userInfo:nil repeats:YES];
+}
+
+- (void)checkCurrentTime {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([SessionManager sharedInstance].elapsedTime > 0) {
+            [SessionManager sharedInstance].elapsedTime--;
+            
+            // Update UI
+            lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
+        } else {
+            // release timer
+            [countdownTimer invalidate];
+            countdownTimer = nil;
+            
+            // Update countdown UI
+            lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
+            
+            // Stop identifying
+            foundingObj = NO;
+            
+            // Show Welldone alert
+            
+        }
+    });
+}
+
+- (void)showWelldoneAlert {
+    
 }
 
 @end
