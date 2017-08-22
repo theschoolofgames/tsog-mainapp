@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *identifiedObjects;   // Identified objects
 @property (nonatomic, assign) NSInteger objCount;                       // Objects count
+@property (nonatomic, assign) NSInteger diamondCount;
 
 @end
 
@@ -72,6 +73,14 @@
     
     [utterance setRate:0.2f];
     [self.synthesizer speakUtterance:utterance];
+}
+
+- (void)setDiamondCount:(NSInteger)diamondCount {
+    self.diamondCount = diamondCount;
+}
+
+- (NSInteger)getDiamondCount {
+    return self.diamondCount;
 }
 
 @end

@@ -16,9 +16,10 @@
 
 + (SessionManager *)sharedInstance;                                     // Shared instance
 
-- (NSInteger)getIdentifiedObjsCount;
-- (NSMutableDictionary *)getIdentifiedObjects;
+- (NSInteger)getIdentifiedObjsCount;                                    // Get identified objects count
+- (NSMutableDictionary *)getIdentifiedObjects;                          // Get identified objects list
 - (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
 - (void)textToSpeech:(NSString *)text;                                  // Speak a word
-
+- (void)setDiamondCount:(NSInteger)diamondCount;                        // Set total diamonds
+- (NSInteger)getDiamondCount;                                           // Get current diamonds
 @end

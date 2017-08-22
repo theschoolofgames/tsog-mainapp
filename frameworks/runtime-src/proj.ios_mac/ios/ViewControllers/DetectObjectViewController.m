@@ -120,7 +120,13 @@
 }
 
 - (IBAction)btnBackClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+}
+
+- (IBAction)btnFinishClicked:(id)sender {
+    
 }
 
 #pragma mark - Update preview layer when orientation changed
@@ -307,6 +313,7 @@
     }
 }
 
+#pragma mark - Animation
 - (void)showAnimatedString:(NSString *)animatedString {
     // Current Window
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
@@ -486,21 +493,32 @@
             foundingObj = NO;
             
             // Show Welldone alert
-            
+            [self showWelldoneAlert];
         }
     });
 }
 
 - (void)showWelldoneAlert {
-    CGSize windowSize = [UIScreen mainScreen].bounds.size;
-    UIView *alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
-    UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    bgImgView.image = [UIImage imageNamed:@"dialog-bg-countdown"];
-    [alertView addSubview:bgImgView];
-    
-    UIImageView *ribbonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-    ribbonImgView.image = [UIImage imageNamed:@"ribbon-countdown"];
-    [alertView addSubview:ribbonImgView];
+//    CGSize windowSize = [UIScreen mainScreen].bounds.size;
+//    UIView *alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
+//    
+//    UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+//    bgImgView.image = [UIImage imageNamed:@"dialog-bg-countdown"];
+//    [alertView addSubview:bgImgView];
+//    
+////    UIImageView *ribbonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+////    ribbonImgView.image = [UIImage imageNamed:@"ribbon-countdown"];
+////    [alertView addSubview:ribbonImgView];
+//    
+//    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bgImgView.bounds.size.width, bgImgView.bounds.size.height)];
+//    lbTitle.textAlignment = NSTextAlignmentCenter;
+//    lbTitle.text = @"Well done!";
+//    lbTitle.font = [UIFont boldSystemFontOfSize:24.0];
+//    [alertView addSubview:lbTitle];
+//    
+//    UIButton *btnFinish = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 40.0)];
+//    [btnFinish addTarget:self action:@selector(btnFinishClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    btnFinish.titleLabel.text = @"Finish";
     
     
 }

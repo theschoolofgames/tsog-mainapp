@@ -29,6 +29,7 @@
 #import <Social/Social.h>
 
 #import "DetectObjectViewController.h"
+#import "SessionManager.h"
 
 static UIViewController* viewController;
 static double startTime = -1;
@@ -66,6 +67,9 @@ static BOOL isOpenedFromNotification = NO;
 
 + (void)showCoreMLDemo {
     CCLOG("showCoreMLDemo");
+    
+    // Set current diamonds and current object list
+    [[SessionManager sharedInstance] setDiamondCount:100];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
     DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];
