@@ -492,6 +492,16 @@
 }
 
 - (void)showWelldoneAlert {
+    CGSize windowSize = [UIScreen mainScreen].bounds.size;
+    UIView *alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
+    UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    bgImgView.image = [UIImage imageNamed:@"dialog-bg-countdown"];
+    [alertView addSubview:bgImgView];
+    
+    UIImageView *ribbonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    ribbonImgView.image = [UIImage imageNamed:@"ribbon-countdown"];
+    [alertView addSubview:ribbonImgView];
+    
     
 }
 
