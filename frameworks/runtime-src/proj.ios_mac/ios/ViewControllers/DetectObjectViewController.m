@@ -26,6 +26,8 @@
     CAGradientLayer *gradientLayer;
     NSArray *visionRequests;
 
+    UIView *finishAlertView;
+    
     // Animation pointer
     UIView *backgroundView;
     UILabel *animatedLabel;
@@ -47,6 +49,7 @@
     __weak IBOutlet UILabel *lbDiamond;
     
     BOOL foundingObj;
+    BOOL stopFindning;
 }
 
 @end
@@ -122,12 +125,29 @@
 }
 
 - (IBAction)btnBackClicked:(id)sender {
+    // Stop session
+    if (session.isRunning) {
+        [session stopRunning];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissViewControllerAnimated:YES completion:nil];
     });
 }
 
 - (IBAction)btnFinishClicked:(id)sender {
+    // Stop session
+    if (session.isRunning) {
+        [session stopRunning];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (finishAlertView) {
+            [finishAlertView removeFromSuperview];
+            finishAlertView = nil;
+        }
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
     
 }
 
@@ -226,7 +246,7 @@
         // Handle the response
         
         // Check found object
-        if (foundingObj) {
+        if (foundingObj || stopFindning) {
             return;
         }
         
@@ -267,6 +287,8 @@
     
     // Reset counter
     [SessionManager sharedInstance].elapsedTime = 20;
+    // Update UI
+    lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
 }
 
 #pragma mark - Setup Observer
@@ -279,6 +301,11 @@
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
+    
+    if (foundingObj || stopFindning) {
+        return;
+    }
+    
     CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     
     NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
@@ -496,7 +523,7 @@
             lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
             
             // Stop identifying
-            foundingObj = NO;
+            stopFindning = YES;
             
             // Show Welldone alert
             [self showWelldoneAlert];
@@ -506,27 +533,71 @@
 
 - (void)showWelldoneAlert {
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
-    UIView *alertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
+    finishAlertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
+    finishAlertView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
     
-    UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    CGSize popUpSize = CGSizeMake(286.0, 240.0);
+    UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake((windowSize.width-popUpSize.width)/2.0, (windowSize.height-popUpSize.height)/2.0, popUpSize.width, popUpSize.height)];
     bgImgView.image = [UIImage imageNamed:@"dialog-bg-countdown"];
-    [alertView addSubview:bgImgView];
+    [finishAlertView addSubview:bgImgView];
     
-//    UIImageView *ribbonImgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-//    ribbonImgView.image = [UIImage imageNamed:@"ribbon-countdown"];
-//    [alertView addSubview:ribbonImgView];
+    CGSize ribbonSize = CGSizeMake(194.0, 44.0);
+    UIImageView *ribbonImgView = [[UIImageView alloc] initWithFrame:CGRectMake((popUpSize.width-ribbonSize.width)/2.0, -17.0, ribbonSize.width, ribbonSize.height)];
+    ribbonImgView.image = [UIImage imageNamed:@"ribbon-countdown"];
+    [bgImgView addSubview:ribbonImgView];
     
-    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bgImgView.bounds.size.width, bgImgView.bounds.size.height)];
+    UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, -15.0, bgImgView.bounds.size.width, 20.0)];
     lbTitle.textAlignment = NSTextAlignmentCenter;
-    lbTitle.text = @"Well done!";
-    lbTitle.font = [UIFont boldSystemFontOfSize:24.0];
-    [alertView addSubview:lbTitle];
+    lbTitle.text = @"Result";
+    lbTitle.font = [UIFont boldSystemFontOfSize:18.0];
+    lbTitle.textColor = UIColorFromRGB(0xfec309);
+    [bgImgView addSubview:lbTitle];
     
-    UIButton *btnFinish = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 0.0, 50.0, 40.0)];
+    UILabel *lbContent = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, bgImgView.bounds.size.width, bgImgView.bounds.size.height)];
+    lbContent.textAlignment = NSTextAlignmentCenter;
+    lbContent.text = @"Well done!";
+    lbContent.font = [UIFont boldSystemFontOfSize:16.0];
+    lbContent.textColor = UIColorFromRGB(0xfec309);
+    [bgImgView addSubview:lbContent];
+    
+    CGSize btnSize = CGSizeMake(124.0, 34.0);
+    UIButton *btnFinish = [[UIButton alloc] initWithFrame:CGRectMake((popUpSize.width-btnSize.width)/2.0, (popUpSize.height - btnSize.height - 23.0), btnSize.width, btnSize.height)];
     [btnFinish addTarget:self action:@selector(btnFinishClicked:) forControlEvents:UIControlEventTouchUpInside];
-    btnFinish.titleLabel.text = @"Finish";
+    [btnFinish setTitle:@"Finish" forState:UIControlStateNormal];
+    btnFinish.titleLabel.textColor = [UIColor whiteColor];
+    btnFinish.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    [btnFinish setBackgroundImage:[UIImage imageNamed:@"button-finish"] forState:UIControlStateNormal];
+    [btnFinish setBackgroundImage:[UIImage imageNamed:@"button-finish-pressed"] forState:UIControlStateHighlighted];
+    [bgImgView addSubview:btnFinish];
+    [bgImgView setUserInteractionEnabled:YES]; // to enable touch on button
+
     
+    finishAlertView.alpha = 0.0;
+    [self.view addSubview:finishAlertView];
     
+    // Show alert
+    [UIView animateWithDuration:0.25 animations:^{
+        finishAlertView.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [UIView animateWithDuration:0.2 animations:^{
+                bgImgView.transform = CGAffineTransformMakeScale(1.05, 1.05);
+            } completion:^(BOOL finished2) {
+                if (finished2) {
+                    [UIView animateWithDuration:0.135 animations:^{
+                        bgImgView.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                    } completion:^(BOOL finished3) {
+                        if (finished3) {
+                            [UIView animateWithDuration:0.05 animations:^{
+                                bgImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                            } completion:^(BOOL finished4) {
+                            }];
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
 }
 
 @end

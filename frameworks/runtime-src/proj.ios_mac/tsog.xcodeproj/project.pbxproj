@@ -386,6 +386,12 @@
 		C41647D51F4D33C500D0E474 /* diamond-identified-object.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D21F4D33C000D0E474 /* diamond-identified-object.png */; };
 		C41647D61F4D33C500D0E474 /* diamond-identified-object@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */; };
 		C41647D71F4D33C500D0E474 /* diamond-identified-object@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */; };
+		C41647DE1F4D3E8100D0E474 /* button-finish-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D81F4D3E7C00D0E474 /* button-finish-pressed.png */; };
+		C41647DF1F4D3E8100D0E474 /* button-finish-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DC1F4D3E7C00D0E474 /* button-finish-pressed@2x.png */; };
+		C41647E01F4D3E8100D0E474 /* button-finish-pressed@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DA1F4D3E7C00D0E474 /* button-finish-pressed@3x.png */; };
+		C41647E11F4D3E8100D0E474 /* button-finish.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DB1F4D3E7C00D0E474 /* button-finish.png */; };
+		C41647E21F4D3E8100D0E474 /* button-finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DD1F4D3E7C00D0E474 /* button-finish@2x.png */; };
+		C41647E31F4D3E8100D0E474 /* button-finish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D91F4D3E7C00D0E474 /* button-finish@3x.png */; };
 		C47F93A41F2B222000ABF1C1 /* DetectObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A11F2B221500ABF1C1 /* DetectObjectViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A51F2B222200ABF1C1 /* IdentifiedObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A31F2B221500ABF1C1 /* IdentifiedObjectListViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A61F2B222600ABF1C1 /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F939B1F2B221100ABF1C1 /* CommonTools.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1121,6 +1127,12 @@
 		C41647D21F4D33C000D0E474 /* diamond-identified-object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object.png"; sourceTree = "<group>"; };
 		C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object@2x.png"; sourceTree = "<group>"; };
 		C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object@3x.png"; sourceTree = "<group>"; };
+		C41647D81F4D3E7C00D0E474 /* button-finish-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish-pressed.png"; sourceTree = "<group>"; };
+		C41647D91F4D3E7C00D0E474 /* button-finish@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish@3x.png"; sourceTree = "<group>"; };
+		C41647DA1F4D3E7C00D0E474 /* button-finish-pressed@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish-pressed@3x.png"; sourceTree = "<group>"; };
+		C41647DB1F4D3E7C00D0E474 /* button-finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish.png"; sourceTree = "<group>"; };
+		C41647DC1F4D3E7C00D0E474 /* button-finish-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish-pressed@2x.png"; sourceTree = "<group>"; };
+		C41647DD1F4D3E7C00D0E474 /* button-finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish@2x.png"; sourceTree = "<group>"; };
 		C47F939A1F2B221100ABF1C1 /* CommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		C47F939B1F2B221100ABF1C1 /* CommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		C47F939C1F2B221100ABF1C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -2380,6 +2392,12 @@
 		C47F93A91F2B228B00ABF1C1 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				C41647D81F4D3E7C00D0E474 /* button-finish-pressed.png */,
+				C41647DC1F4D3E7C00D0E474 /* button-finish-pressed@2x.png */,
+				C41647DA1F4D3E7C00D0E474 /* button-finish-pressed@3x.png */,
+				C41647DB1F4D3E7C00D0E474 /* button-finish.png */,
+				C41647DD1F4D3E7C00D0E474 /* button-finish@2x.png */,
+				C41647D91F4D3E7C00D0E474 /* button-finish@3x.png */,
 				C41647D21F4D33C000D0E474 /* diamond-identified-object.png */,
 				C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */,
 				C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */,
@@ -2762,12 +2780,18 @@
 				C47F93BA1F2B233600ABF1C1 /* shopping-cart.png in Resources */,
 				C41647C91F4D32DD00D0E474 /* clock-countdown.png in Resources */,
 				1AD7E0A818C9DB93004817A6 /* main.js in Resources */,
+				C41647E31F4D3E8100D0E474 /* button-finish@3x.png in Resources */,
 				010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */,
 				509D4ABE17EBB2AB00697056 /* Default.png in Resources */,
 				C41647D11F4D32DD00D0E474 /* ribbon-countdown@3x.png in Resources */,
+				C41647E21F4D3E8100D0E474 /* button-finish@2x.png in Resources */,
+				C41647E01F4D3E8100D0E474 /* button-finish-pressed@3x.png in Resources */,
 				5091731E17ECDF7A00D62437 /* Icon-80.png in Resources */,
+				C41647DF1F4D3E8100D0E474 /* button-finish-pressed@2x.png in Resources */,
+				C41647E11F4D3E8100D0E474 /* button-finish.png in Resources */,
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
+				C41647DE1F4D3E8100D0E474 /* button-finish-pressed.png in Resources */,
 				C47F93B91F2B233600ABF1C1 /* coin@3x.png in Resources */,
 				C41647D01F4D32DD00D0E474 /* ribbon-countdown@2x.png in Resources */,
 				C41647D61F4D33C500D0E474 /* diamond-identified-object@2x.png in Resources */,
