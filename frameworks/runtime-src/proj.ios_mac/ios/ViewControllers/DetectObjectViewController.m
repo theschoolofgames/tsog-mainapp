@@ -465,57 +465,102 @@
     diamondImgView.frame = originalFrame;
     
     diamondImgView.transform = CGAffineTransformMakeScale(0.1, 0.1);
-    diamondImgView.alpha = 0.1;
+//    diamondImgView.alpha = 0.1;
     // Transparent animation
-    [UIView animateWithDuration:0.3 animations:^{
-        diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//    [UIView animateWithDuration:0.15 animations:^{
+//        diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+//        diamondImgView.alpha = 1.0;
+//    } completion:^(BOOL finished) {
+//        if (finished) {
+//            // Transition animation
+//
+//            diamondImgView.layer.anchorPoint = CGPointZero;
+//
+//            // Set up path movement
+//            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+//            pathAnimation.calculationMode = kCAAnimationPaced;
+//            pathAnimation.fillMode = kCAFillModeForwards;
+//            pathAnimation.removedOnCompletion = NO;
+//            pathAnimation.duration = 0.75f;
+//            //Setting Endpoint of the animation
+//            CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
+//            CGMutablePathRef curvedPath = CGPathCreateMutable();
+//            CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
+//            CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x + 150.0, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y - 100.0, endPoint.x, endPoint.y);
+//            pathAnimation.path = curvedPath;
+//            CGPathRelease(curvedPath);
+//            [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+//        }
+//    }];
+    
+    
+    [UIView animateWithDuration:0.05 animations:^{
         diamondImgView.alpha = 1.0;
     } completion:^(BOOL finished) {
         if (finished) {
-            // Transition animation
-            
-//            [UIView animateWithDuration:0.5 animations:^{
-//                diamondImgView.frame = CGRectMake(originalFrame.origin.x + 30.0, originalFrame.origin.y + 30.0, originalFrame.size.width, originalFrame.size.height);
-//            } completion:^(BOOL finished2) {
-//                if (finished2) {
-//                    [UIView animateWithDuration:1.0 animations:^{
-//                        diamondImgView.frame = destinationalFrame;
-//                    } completion:^(BOOL finished3) {
-//                        if (finished3) {
-//                            // Reset bottom text
-//                            lbResult.text = kShowMeAnObject;
-//                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                                // Let the app check object again
-//                                foundingObj = NO;
-//                            });
-//                        }
-//                    }];
-//                }
-//            }];
-            
-            UIBezierPath *customPath = [UIBezierPath bezierPath];
-            [customPath moveToPoint:CGPointMake(100,100)];
-            [customPath addLineToPoint:CGPointMake(200,100)];
-            [customPath addLineToPoint:CGPointMake(200,200)];
-            [customPath addLineToPoint:CGPointMake(100,200)];
-            [customPath addLineToPoint:CGPointMake(100,100)];
-            
-            diamondImgView.layer.anchorPoint = CGPointZero;
-            
-            // Set up path movement
-            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-            pathAnimation.calculationMode = kCAAnimationPaced;
-            pathAnimation.fillMode = kCAFillModeForwards;
-            pathAnimation.removedOnCompletion = NO;
-            pathAnimation.duration = 0.75f;
-            //Setting Endpoint of the animation
-            CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
-            CGMutablePathRef curvedPath = CGPathCreateMutable();
-            CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
-            CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y, endPoint.x, endPoint.y);
-            pathAnimation.path = curvedPath;
-            CGPathRelease(curvedPath);
-            [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+            [UIView animateWithDuration:0.2 animations:^{
+                diamondImgView.transform = CGAffineTransformMakeScale(1.05, 1.05);
+            } completion:^(BOOL finished2) {
+                if (finished2) {
+                    [UIView animateWithDuration:0.135 animations:^{
+                        diamondImgView.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                    } completion:^(BOOL finished3) {
+                        if (finished3) {
+                            [UIView animateWithDuration:0.05 animations:^{
+                                diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                            } completion:^(BOOL finished4) {
+                                if (finished4) {
+                                    diamondImgView.layer.anchorPoint = CGPointZero;
+                                    
+                                    [CATransaction begin];
+                                    [CATransaction setCompletionBlock:^{
+                                        [diamondImgView.layer removeAllAnimations];
+                                        [diamondImgView removeFromSuperview];
+                                        
+                                        // HUD animation
+                                        [UIView animateWithDuration:0.2/2 animations:^{
+                                            diamondView.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                                            ivDiamondHUD.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                                        } completion:^(BOOL finished5) {
+                                            if (finished5) {
+                                                [UIView animateWithDuration:0.135/2 animations:^{
+                                                    diamondView.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                                                    ivDiamondHUD.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                                                } completion:^(BOOL finished6) {
+                                                    if (finished6) {
+                                                        [UIView animateWithDuration:0.05/2 animations:^{
+                                                            diamondView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                                            ivDiamondHUD.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                                        } completion:^(BOOL finished7) {
+                                                        }];
+                                                    }
+                                                }];
+                                            }
+                                        }];
+                                    }];
+                                    
+                                    // Set up path movement
+                                    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+                                    pathAnimation.calculationMode = kCAAnimationPaced;
+                                    pathAnimation.fillMode = kCAFillModeForwards;
+                                    pathAnimation.removedOnCompletion = NO;
+                                    pathAnimation.duration = 0.5f;
+                                    //Setting Endpoint of the animation
+                                    CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
+                                    CGMutablePathRef curvedPath = CGPathCreateMutable();
+                                    CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
+                                    CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x + 150.0, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y - 100.0, endPoint.x, endPoint.y);
+                                    pathAnimation.path = curvedPath;
+                                    CGPathRelease(curvedPath);
+                                    [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+                                    
+                                    [CATransaction commit];
+                                }
+                            }];
+                        }
+                    }];
+                }
+            }];
         }
     }];
 }
