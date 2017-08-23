@@ -47,6 +47,7 @@
     __weak IBOutlet UILabel *lbCountdown;
     __weak IBOutlet UIView *diamondView;
     __weak IBOutlet UILabel *lbDiamond;
+    __weak IBOutlet UIImageView *ivDiamondHUD;
     
     BOOL foundingObj;
     BOOL stopFindning;
@@ -139,13 +140,16 @@
 
 - (IBAction)btnBackClicked:(id)sender {
     // Stop session
-    if (session.isRunning) {
-        [session stopRunning];
-    }
+//    if (session.isRunning) {
+//        [session stopRunning];
+//    }
+//
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
+    
+    [self animateShowDiamond];
 }
 
 - (IBAction)btnFinishClicked:(id)sender {
@@ -312,7 +316,7 @@
     diamondView.layer.masksToBounds = YES;
     
     // Reset counter
-    [SessionManager sharedInstance].elapsedTime = 20;
+    [SessionManager sharedInstance].elapsedTime = 120;
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
 }
@@ -328,7 +332,7 @@
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     
-    if (foundingObj || stopFindning) {
+    if (stopFindning) {
         return;
     }
     
@@ -388,7 +392,6 @@
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1.0 alpha:1.0] range:NSMakeRange(0,1)];
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithWhite:1.0 alpha:0.6] range:NSMakeRange(1,animatedString.length - 1)];
     animatedLabel.attributedText = attributedString;
-//    [animatedLabel setFont:[UIFont boldSystemFontOfSize:kAnimatedFontSize]];
     [animatedLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:kAnimatedFontSize]];
     [animatedLabel setMinimumScaleFactor:0.1];
     animatedLabel.textAlignment = NSTextAlignmentCenter;
@@ -401,17 +404,15 @@
     CGFloat minWidth = 50.0;
     CGFloat maxWidth = 400.0;
     CGFloat textHeight = 80.0;
-//    animatedLabel.frame = CGRectMake((windowSize.width - minWidth)/2, (windowSize.height - textHeight)/2, minWidth, textHeight);
     
     animatedLabel.frame = CGRectMake((windowSize.width - maxWidth)/2, (windowSize.height - textHeight)/2, maxWidth, textHeight);
     animatedLabel.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    animatedLabel.alpha = 0.1;
     
     [UIView animateWithDuration:0.5 animations:^{
         backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-//        animatedLabel.frame = CGRectMake((windowSize.width - maxWidth)/2, (windowSize.height - textHeight)/2, maxWidth, textHeight);
-        
         animatedLabel.transform = CGAffineTransformMakeScale(1, 1);
-        
+        animatedLabel.alpha = 1.0;
     } completion:^(BOOL finished) {
         if (finished) {
             // Keep the text on the screen
@@ -429,8 +430,8 @@
     if (backgroundView && animatedLabel) {
         [UIView animateWithDuration:0.5 animations:^{
             backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
-            animatedLabel.frame = CGRectMake(btnShoppingCart.frame.origin.x - (animatedLabel.frame.size.width)/2.0 + 20.0, btnShoppingCart.frame.origin.y - (animatedLabel.frame.size.height)/2.0, animatedLabel.frame.size.width, animatedLabel.frame.size.height);    // 20.0 is a gap space
             animatedLabel.transform = CGAffineTransformMakeScale(0.1, 0.1);
+            animatedLabel.alpha = 0.1;
         } completion:^(BOOL finished) {
             if (finished) {
                 // Hide the text
@@ -439,7 +440,7 @@
                 // Increase counter
                 lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
                 
-                [self animateShoppingCart];
+                [self animateShowDiamond];
             }
         }];
     } else {
@@ -451,6 +452,77 @@
     }
 }
 
+- (void)animateShowDiamond {
+    CGSize windowSize = [UIScreen mainScreen].bounds.size;
+    UIImage *diamondImg = [UIImage imageNamed:@"diamond-identified-object"];
+    CGSize diamondSize = ivDiamondHUD.bounds.size;
+    UIImageView *diamondImgView = [[UIImageView alloc] initWithFrame:CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0, diamondSize.width, diamondSize.height)];
+    diamondImgView.image = diamondImg;
+    CGRect originalFrame = CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0, diamondSize.width, diamondSize.height);
+    CGRect destinationalFrame = ivDiamondHUD.frame;
+    
+    [self.view addSubview:diamondImgView];
+    diamondImgView.frame = originalFrame;
+    
+    diamondImgView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    diamondImgView.alpha = 0.1;
+    // Transparent animation
+    [UIView animateWithDuration:0.3 animations:^{
+        diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        diamondImgView.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            // Transition animation
+            
+//            [UIView animateWithDuration:0.5 animations:^{
+//                diamondImgView.frame = CGRectMake(originalFrame.origin.x + 30.0, originalFrame.origin.y + 30.0, originalFrame.size.width, originalFrame.size.height);
+//            } completion:^(BOOL finished2) {
+//                if (finished2) {
+//                    [UIView animateWithDuration:1.0 animations:^{
+//                        diamondImgView.frame = destinationalFrame;
+//                    } completion:^(BOOL finished3) {
+//                        if (finished3) {
+//                            // Reset bottom text
+//                            lbResult.text = kShowMeAnObject;
+//                            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                                // Let the app check object again
+//                                foundingObj = NO;
+//                            });
+//                        }
+//                    }];
+//                }
+//            }];
+            
+            UIBezierPath *customPath = [UIBezierPath bezierPath];
+            [customPath moveToPoint:CGPointMake(100,100)];
+            [customPath addLineToPoint:CGPointMake(200,100)];
+            [customPath addLineToPoint:CGPointMake(200,200)];
+            [customPath addLineToPoint:CGPointMake(100,200)];
+            [customPath addLineToPoint:CGPointMake(100,100)];
+            
+            diamondImgView.layer.anchorPoint = CGPointZero;
+            
+            // Set up path movement
+            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+            pathAnimation.calculationMode = kCAAnimationPaced;
+            pathAnimation.fillMode = kCAFillModeForwards;
+            pathAnimation.removedOnCompletion = NO;
+            pathAnimation.duration = 0.75f;
+            //Setting Endpoint of the animation
+            CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
+            CGMutablePathRef curvedPath = CGPathCreateMutable();
+            CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
+            CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y, endPoint.x, endPoint.y);
+            pathAnimation.path = curvedPath;
+            CGPathRelease(curvedPath);
+            [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+        }
+    }];
+}
+
+/*
+ *  outdated animation
+ */
 - (void)animateShoppingCart {
     // Shake animation
     CABasicAnimation *translateAnimation =

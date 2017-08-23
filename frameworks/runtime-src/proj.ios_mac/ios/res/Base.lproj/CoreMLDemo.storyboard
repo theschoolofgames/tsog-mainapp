@@ -168,6 +168,7 @@
                         <outlet property="constraintTopCoinImage" destination="OXy-fh-kuk" id="j6E-uu-1eY"/>
                         <outlet property="countdownView" destination="Grn-pX-6Qy" id="9ze-Mm-Mg9"/>
                         <outlet property="diamondView" destination="hRc-sP-DON" id="0fC-Tt-kCI"/>
+                        <outlet property="ivDiamondHUD" destination="4RH-5l-cLQ" id="xA1-cd-mju"/>
                         <outlet property="lbCount" destination="wM9-YR-Vl8" id="abb-YY-eJV"/>
                         <outlet property="lbCountdown" destination="4SK-Yz-ODF" id="Il9-nZ-cWP"/>
                         <outlet property="lbDiamond" destination="bnm-Ha-Y7O" id="YOR-bl-tbV"/>
