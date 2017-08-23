@@ -374,6 +374,18 @@
 		C06E23CC18CEFE680093C81A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C06E23CB18CEFE680093C81A /* main.cpp */; };
 		C0799CB918BAE62000E9C828 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C0799CB518BAE62000E9C828 /* res */; };
 		C0799CBA18BAE62000E9C828 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C0799CB518BAE62000E9C828 /* res */; };
+		C41647C91F4D32DD00D0E474 /* clock-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C71F4D32D600D0E474 /* clock-countdown.png */; };
+		C41647CA1F4D32DD00D0E474 /* clock-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C61F4D32D600D0E474 /* clock-countdown@2x.png */; };
+		C41647CB1F4D32DD00D0E474 /* clock-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C11F4D32D500D0E474 /* clock-countdown@3x.png */; };
+		C41647CC1F4D32DD00D0E474 /* dialog-bg-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C51F4D32D600D0E474 /* dialog-bg-countdown.png */; };
+		C41647CD1F4D32DD00D0E474 /* dialog-bg-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C01F4D32D500D0E474 /* dialog-bg-countdown@2x.png */; };
+		C41647CE1F4D32DD00D0E474 /* dialog-bg-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C41F4D32D600D0E474 /* dialog-bg-countdown@3x.png */; };
+		C41647CF1F4D32DD00D0E474 /* ribbon-countdown.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C21F4D32D500D0E474 /* ribbon-countdown.png */; };
+		C41647D01F4D32DD00D0E474 /* ribbon-countdown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C31F4D32D600D0E474 /* ribbon-countdown@2x.png */; };
+		C41647D11F4D32DD00D0E474 /* ribbon-countdown@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647C81F4D32D600D0E474 /* ribbon-countdown@3x.png */; };
+		C41647D51F4D33C500D0E474 /* diamond-identified-object.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D21F4D33C000D0E474 /* diamond-identified-object.png */; };
+		C41647D61F4D33C500D0E474 /* diamond-identified-object@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */; };
+		C41647D71F4D33C500D0E474 /* diamond-identified-object@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */; };
 		C47F93A41F2B222000ABF1C1 /* DetectObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A11F2B221500ABF1C1 /* DetectObjectViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A51F2B222200ABF1C1 /* IdentifiedObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A31F2B221500ABF1C1 /* IdentifiedObjectListViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A61F2B222600ABF1C1 /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F939B1F2B221100ABF1C1 /* CommonTools.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1097,15 +1109,18 @@
 		C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_js_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C06E23CB18CEFE680093C81A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		C0799CB518BAE62000E9C828 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../../res; sourceTree = "<group>"; };
-		C41647B71F4D304D00D0E474 /* dialog-bg-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown.png"; sourceTree = "<group>"; };
-		C41647B81F4D304D00D0E474 /* clock-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown@2x.png"; sourceTree = "<group>"; };
-		C41647B91F4D304D00D0E474 /* ribbon-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown@2x.png"; sourceTree = "<group>"; };
-		C41647BA1F4D304D00D0E474 /* dialog-bg-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown@3x.png"; sourceTree = "<group>"; };
-		C41647BB1F4D304D00D0E474 /* dialog-bg-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown@2x.png"; sourceTree = "<group>"; };
-		C41647BC1F4D304D00D0E474 /* clock-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown@3x.png"; sourceTree = "<group>"; };
-		C41647BD1F4D304D00D0E474 /* ribbon-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown@3x.png"; sourceTree = "<group>"; };
-		C41647BE1F4D304D00D0E474 /* clock-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown.png"; sourceTree = "<group>"; };
-		C41647BF1F4D304D00D0E474 /* ribbon-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown.png"; sourceTree = "<group>"; };
+		C41647C01F4D32D500D0E474 /* dialog-bg-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown@2x.png"; sourceTree = "<group>"; };
+		C41647C11F4D32D500D0E474 /* clock-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown@3x.png"; sourceTree = "<group>"; };
+		C41647C21F4D32D500D0E474 /* ribbon-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown.png"; sourceTree = "<group>"; };
+		C41647C31F4D32D600D0E474 /* ribbon-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown@2x.png"; sourceTree = "<group>"; };
+		C41647C41F4D32D600D0E474 /* dialog-bg-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown@3x.png"; sourceTree = "<group>"; };
+		C41647C51F4D32D600D0E474 /* dialog-bg-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dialog-bg-countdown.png"; sourceTree = "<group>"; };
+		C41647C61F4D32D600D0E474 /* clock-countdown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown@2x.png"; sourceTree = "<group>"; };
+		C41647C71F4D32D600D0E474 /* clock-countdown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock-countdown.png"; sourceTree = "<group>"; };
+		C41647C81F4D32D600D0E474 /* ribbon-countdown@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ribbon-countdown@3x.png"; sourceTree = "<group>"; };
+		C41647D21F4D33C000D0E474 /* diamond-identified-object.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object.png"; sourceTree = "<group>"; };
+		C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object@2x.png"; sourceTree = "<group>"; };
+		C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "diamond-identified-object@3x.png"; sourceTree = "<group>"; };
 		C47F939A1F2B221100ABF1C1 /* CommonTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		C47F939B1F2B221100ABF1C1 /* CommonTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		C47F939C1F2B221100ABF1C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
@@ -2365,15 +2380,18 @@
 		C47F93A91F2B228B00ABF1C1 /* res */ = {
 			isa = PBXGroup;
 			children = (
-				C41647BE1F4D304D00D0E474 /* clock-countdown.png */,
-				C41647B81F4D304D00D0E474 /* clock-countdown@2x.png */,
-				C41647BC1F4D304D00D0E474 /* clock-countdown@3x.png */,
-				C41647B71F4D304D00D0E474 /* dialog-bg-countdown.png */,
-				C41647BB1F4D304D00D0E474 /* dialog-bg-countdown@2x.png */,
-				C41647BA1F4D304D00D0E474 /* dialog-bg-countdown@3x.png */,
-				C41647BF1F4D304D00D0E474 /* ribbon-countdown.png */,
-				C41647B91F4D304D00D0E474 /* ribbon-countdown@2x.png */,
-				C41647BD1F4D304D00D0E474 /* ribbon-countdown@3x.png */,
+				C41647D21F4D33C000D0E474 /* diamond-identified-object.png */,
+				C41647D31F4D33C100D0E474 /* diamond-identified-object@2x.png */,
+				C41647D41F4D33C100D0E474 /* diamond-identified-object@3x.png */,
+				C41647C71F4D32D600D0E474 /* clock-countdown.png */,
+				C41647C61F4D32D600D0E474 /* clock-countdown@2x.png */,
+				C41647C11F4D32D500D0E474 /* clock-countdown@3x.png */,
+				C41647C51F4D32D600D0E474 /* dialog-bg-countdown.png */,
+				C41647C01F4D32D500D0E474 /* dialog-bg-countdown@2x.png */,
+				C41647C41F4D32D600D0E474 /* dialog-bg-countdown@3x.png */,
+				C41647C21F4D32D500D0E474 /* ribbon-countdown.png */,
+				C41647C31F4D32D600D0E474 /* ribbon-countdown@2x.png */,
+				C41647C81F4D32D600D0E474 /* ribbon-countdown@3x.png */,
 				C47F93BE1F2B2CE300ABF1C1 /* button-back.png */,
 				C47F93B51F2B233100ABF1C1 /* coin.png */,
 				C47F93B21F2B233100ABF1C1 /* coin@2x.png */,
@@ -2736,28 +2754,39 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C41647CE1F4D32DD00D0E474 /* dialog-bg-countdown@3x.png in Resources */,
 				C47F93BF1F2B2CE800ABF1C1 /* button-back.png in Resources */,
 				BAF426FB19484B3E002B22EF /* script in Resources */,
 				1AE159EC18C9DF3600FCA372 /* project.json in Resources */,
 				01F093D31C75965D00B4892E /* make_log_sub_table.py in Resources */,
 				C47F93BA1F2B233600ABF1C1 /* shopping-cart.png in Resources */,
+				C41647C91F4D32DD00D0E474 /* clock-countdown.png in Resources */,
 				1AD7E0A818C9DB93004817A6 /* main.js in Resources */,
 				010552371E338A2B00B449AC /* GoogleService-Info.plist in Resources */,
 				509D4ABE17EBB2AB00697056 /* Default.png in Resources */,
+				C41647D11F4D32DD00D0E474 /* ribbon-countdown@3x.png in Resources */,
 				5091731E17ECDF7A00D62437 /* Icon-80.png in Resources */,
 				5091731F17ECDF7A00D62437 /* Icon-100.png in Resources */,
 				509D4AC117EBB2AB00697056 /* Icon-72.png in Resources */,
 				C47F93B91F2B233600ABF1C1 /* coin@3x.png in Resources */,
+				C41647D01F4D32DD00D0E474 /* ribbon-countdown@2x.png in Resources */,
+				C41647D61F4D33C500D0E474 /* diamond-identified-object@2x.png in Resources */,
+				C41647CA1F4D32DD00D0E474 /* clock-countdown@2x.png in Resources */,
 				01F093C91C75965D00B4892E /* fe_design.txt in Resources */,
+				C41647CB1F4D32DD00D0E474 /* clock-countdown@3x.png in Resources */,
 				0136A55D1DF010F90014D70F /* jsb_CCParallaxScrollNode_auto_api.js in Resources */,
+				C41647CD1F4D32DD00D0E474 /* dialog-bg-countdown@2x.png in Resources */,
 				509D4AC017EBB2AB00697056 /* Icon-57.png in Resources */,
 				5091731A17ECDF7A00D62437 /* Icon-29.png in Resources */,
 				C47F93B81F2B233600ABF1C1 /* coin@2x.png in Resources */,
 				C03780EB18BEE0E400FE4F13 /* src in Resources */,
 				509D4AC617EBB2AB00697056 /* Icon-152.png in Resources */,
+				C41647CC1F4D32DD00D0E474 /* dialog-bg-countdown.png in Resources */,
 				C0799CB918BAE62000E9C828 /* res in Resources */,
+				C41647D51F4D33C500D0E474 /* diamond-identified-object.png in Resources */,
 				509D4AC517EBB2AB00697056 /* Icon-144.png in Resources */,
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
+				C41647D71F4D33C500D0E474 /* diamond-identified-object@3x.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
@@ -2770,6 +2799,7 @@
 				509D4AC417EBB2AB00697056 /* Icon-120.png in Resources */,
 				C47F93B71F2B233600ABF1C1 /* coin.png in Resources */,
 				01F093D41C75965D00B4892E /* make_log_table.py in Resources */,
+				C41647CF1F4D32DD00D0E474 /* ribbon-countdown.png in Resources */,
 				5091731D17ECDF7A00D62437 /* Icon-58.png in Resources */,
 				C47F93BB1F2B233600ABF1C1 /* shopping-cart@2x.png in Resources */,
 			);

@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;         // Speak
 @property (nonatomic, assign) NSInteger elapsedTime;                    // Elapsed time
+@property (nonatomic, assign) NSInteger diamondCount;                   // Diamond count
 
 + (SessionManager *)sharedInstance;                                     // Shared instance
 
@@ -20,6 +21,5 @@
 - (NSMutableDictionary *)getIdentifiedObjects;                          // Get identified objects list
 - (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
 - (void)textToSpeech:(NSString *)text;                                  // Speak a word
-- (void)setDiamondCount:(NSInteger)diamondCount;                        // Set total diamonds
-- (NSInteger)getDiamondCount;                                           // Get current diamonds
+
 @end

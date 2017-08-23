@@ -69,7 +69,7 @@ static BOOL isOpenedFromNotification = NO;
     CCLOG("showCoreMLDemo");
     
     // Set current diamonds and current object list
-    [[SessionManager sharedInstance] setDiamondCount:100];
+    [SessionManager sharedInstance].diamondCount = 100;
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
     DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];

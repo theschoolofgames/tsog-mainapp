@@ -14,7 +14,6 @@
 
 @property (nonatomic, strong) NSMutableDictionary *identifiedObjects;   // Identified objects
 @property (nonatomic, assign) NSInteger objCount;                       // Objects count
-@property (nonatomic, assign) NSInteger diamondCount;
 
 @end
 
@@ -28,6 +27,8 @@
         _instance.identifiedObjects = [NSMutableDictionary dictionary];
         _instance.synthesizer = [[AVSpeechSynthesizer alloc] init];
         _instance.elapsedTime = 120;
+        _instance.diamondCount = 0;
+        _instance.objCount = 0;
     });
     
     return _instance;
@@ -73,14 +74,6 @@
     
     [utterance setRate:0.2f];
     [self.synthesizer speakUtterance:utterance];
-}
-
-- (void)setDiamondCount:(NSInteger)diamondCount {
-    self.diamondCount = diamondCount;
-}
-
-- (NSInteger)getDiamondCount {
-    return self.diamondCount;
 }
 
 @end
