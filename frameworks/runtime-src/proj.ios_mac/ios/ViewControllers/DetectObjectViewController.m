@@ -50,6 +50,7 @@
     
     BOOL foundingObj;
     BOOL stopFindning;
+    BOOL didInitCamera;
 }
 
 @end
@@ -60,11 +61,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    // Setup Camera
-    [self setupCamera];
-    
-    // Setup CoreML and Vision
-    [self setupVisionAndCoreML];
+    // Set need to init camera
+    didInitCamera = NO;
     
     // Setup View
     [self setupView];
@@ -75,10 +73,25 @@
     
     // Setup observer
     [self setupObserver];
+    
+    // Init camera if needed
+    if (!didInitCamera) {
+        didInitCamera = YES;
+        
+        // Setup Camera
+        [self setupCamera];
+        
+        // Setup CoreML and Vision
+        [self setupVisionAndCoreML];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    // Update preview layer and gradient layer size
+    previewLayer.frame = previewView.bounds;
+    gradientLayer.frame = previewView.bounds;
     
     [self deviceOrientationDidChange:nil];
     
@@ -204,6 +217,10 @@
     gradientLayer.locations = @[@(0.85), @(1.0)];
     [previewView.layer addSublayer:gradientLayer];
     
+    // Update preview layer and gradient layer size
+    previewLayer.frame = previewView.bounds;
+    gradientLayer.frame = previewView.bounds;
+    
     // create the capture input and the video output
     NSError *error;
     AVCaptureDeviceInput *cameraInput = [[AVCaptureDeviceInput alloc] initWithDevice:inputDevice error:&error];
@@ -224,7 +241,16 @@
     AVCaptureConnection *connection = [videoOutput connectionWithMediaType:AVMediaTypeVideo];
     if ([connection isVideoOrientationSupported])
     {
-        [self deviceOrientationDidChange:nil];
+        UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+        AVCaptureVideoOrientation newOrientation = AVCaptureVideoOrientationLandscapeRight;
+        if (deviceOrientation == UIDeviceOrientationLandscapeLeft){
+            newOrientation = AVCaptureVideoOrientationLandscapeRight;
+        } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+            newOrientation = AVCaptureVideoOrientationLandscapeLeft;
+        }
+        [connection setVideoOrientation:newOrientation];
+    } else {
+        [connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
     }
     
     // Start the session
