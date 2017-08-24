@@ -15,16 +15,7 @@ var IAPManager = cc.Class.extend({
         this.purchaseCallback = cb;
     },
 
-    purchaseMonthlySubscription: function(callback){
-        sdkbox.IAP.purchase(SUBSCRIPTION_IAP_NAME);
-        
-        this.purchaseCallback = callback;
-    },
-
     restore: function(callback){
-        // Set @subscribed to 0 (not subscribed) before restoring
-        KVDatabase.getInstance().set("subscribed", 0);
-
         this.purchaseCallback = callback;
 
         if (cc.sys.os === "iOS")
@@ -50,7 +41,6 @@ var IAPManager = cc.Class.extend({
             for (var i = 0; i < jsonData.length; i++) {
                 var receipt = jsonData[i];
                 if (SUBSCRIPTION_IAP_ID_ANDROID == receipt.productId){
-                    KVDatabase.getInstance().set("subscribed", 1);
                     Utils.startCountDownTimePlayed("showPayWall");
                     hasPurchased = true;
                     break;
@@ -79,10 +69,8 @@ var IAPManager = cc.Class.extend({
                 console.log(JSON.stringify(product));
 
                 // Only one type of IAP so dont need to check productID
-                KVDatabase.getInstance().set("subscribed", 1);
                 if (self.purchaseCallback)
                     self.purchaseCallback(true);
-                // Utils.startCountDownTimePlayed("showPayWall");
             },
             onFailure : function (product, msg) {
                 console.log("onProductPurchaseFailure");
@@ -99,21 +87,9 @@ var IAPManager = cc.Class.extend({
                     self.purchaseCallback(false);
             },
             onRestored : function (product) {
-                //Purchase restored
                 console.log("onProductRestoreSuccess");
-                //console.log(JSON.stringify(product));
-
-                // Check list products, 
-                // If subscription id existed 
-                // Set @subscribed value = 1
-                // else
-                // Show message user need to renew subscription
-                // Format: {"name":"subscription_monthly","id":"com.theschoolofgames.tsog.subscription.monthly","title":"Monthly Subscription","description":"Monthly Subscription","price":"4,99 US$","currencyCode":"USD","receipt":"","receiptCipheredPayload":""}
-                if (SUBSCRIPTION_IAP_ID_IOS == product.id){
-                    KVDatabase.getInstance().set("subscribed", 1);
-                    if (self.purchaseCallback)
-                        self.purchaseCallback(true);
-                    // Utils.startCountDownTimePlayed("showPayWall");
+                if (self.purchaseCallback) {
+                    self.purchaseCallback(true, product);
                 }
             },
             onProductRequestSuccess : function (products) {

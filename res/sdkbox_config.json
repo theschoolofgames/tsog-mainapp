@@ -32,6 +32,10 @@
                 "set3": {
                     "type": "consumable",
                     "id": "com.theschoolofgames.tsog.set3"
+                },
+                "monthlysub": {
+                    "type": "subscription",
+                    "id": "com.theschoolofgames.tsog.monthlysub"
                 }
             }
         }

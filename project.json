@@ -170,6 +170,7 @@
 
         "src/layers/parent/MissionPageBeforeLogin.js",
         "src/layers/parent/MissionPageAfterLogin.js",
+        "src/layers/parent/MonthlySubscriptionLayer.js",
         "src/common/CustomLabel.js",
 
         "src/layers/demo/DemosDialog.js",

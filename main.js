@@ -203,6 +203,8 @@ cc.game.onStart = function(){
             AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
             cc.director.runScene(new MissionPageBeforeLoginScene());
         }
+        // cc.director.runScene(new MonthlySubscriptionScene());
+
         AnalyticsManager.getInstance().logEventAppOpen();
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
