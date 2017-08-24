@@ -78,6 +78,10 @@ static BOOL isOpenedFromNotification = NO;
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = (UIViewController*)appController.viewController;
     [rootController presentViewController:nav animated:YES completion:nil];
+    
+    // Example get diamond count and objects
+    NSLog(@"---> Current diamond:%ld", [SessionManager sharedInstance].diamondCount);
+    NSLog(@"---> Objects:%@", [[SessionManager sharedInstance] getIdentifiedObjectsArray]);
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
