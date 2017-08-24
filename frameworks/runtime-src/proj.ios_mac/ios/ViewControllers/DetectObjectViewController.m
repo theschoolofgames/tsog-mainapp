@@ -48,6 +48,7 @@
     __weak IBOutlet UIView *diamondView;
     __weak IBOutlet UILabel *lbDiamond;
     __weak IBOutlet UIImageView *ivDiamondHUD;
+    __weak IBOutlet UIImageView *ivClockHUD;
     
     BOOL foundingObj;
     BOOL stopFindning;
@@ -140,16 +141,13 @@
 
 - (IBAction)btnBackClicked:(id)sender {
     // Stop session
-//    if (session.isRunning) {
-//        [session stopRunning];
-//    }
-//
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    });
-    
-    
-    [self animateShowDiamond];
+    if (session.isRunning) {
+        [session stopRunning];
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 - (IBAction)btnFinishClicked:(id)sender {
@@ -317,8 +315,10 @@
     
     // Reset counter
     [SessionManager sharedInstance].elapsedTime = 120;
+    
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
+    lbDiamond.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].diamondCount];
 }
 
 #pragma mark - Setup Observer
@@ -368,7 +368,13 @@
     if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {
         // Show text on screen
         dispatch_async(dispatch_get_main_queue(), ^{
+            // Update bottom text
             lbResult.text = kYouFoundIt;
+            
+            // Increase diamond
+            [SessionManager sharedInstance].diamondCount++;
+            
+            // Show word
             [self showAnimatedString:identifiedObj];
         });
     } else {
@@ -380,7 +386,7 @@
 - (void)showAnimatedString:(NSString *)animatedString {
     // Current Window
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
     // Create dimmed background
     backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
@@ -397,7 +403,13 @@
     animatedLabel.textAlignment = NSTextAlignmentCenter;
     animatedLabel.adjustsFontSizeToFitWidth = YES;
     [backgroundView addSubview:animatedLabel];
-    [window addSubview:backgroundView];
+    [self.view addSubview:backgroundView];
+    
+    // Bring HUD to front
+    [self.view bringSubviewToFront:countdownView];
+    [self.view bringSubviewToFront:ivClockHUD];
+    [self.view bringSubviewToFront:diamondView];
+    [self.view bringSubviewToFront:ivDiamondHUD];
     
     // animation
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
@@ -420,6 +432,9 @@
                 [self hideAnimatedString];
             });
             
+            // Aniamtion increase diamond
+            [self animateShowDiamond];
+            
             // Speak
             [[SessionManager sharedInstance] textToSpeech:animatedString];
         }
@@ -440,7 +455,13 @@
                 // Increase counter
                 lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
                 
-                [self animateShowDiamond];
+                // Reset bottom text
+                lbResult.text = kShowMeAnObject;
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    // Let the app check object again
+                    foundingObj = NO;
+                });
             }
         }];
     } else {
@@ -456,43 +477,15 @@
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
     UIImage *diamondImg = [UIImage imageNamed:@"diamond-identified-object"];
     CGSize diamondSize = ivDiamondHUD.bounds.size;
-    UIImageView *diamondImgView = [[UIImageView alloc] initWithFrame:CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0, diamondSize.width, diamondSize.height)];
+    UIImageView *diamondImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     diamondImgView.image = diamondImg;
-    CGRect originalFrame = CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0, diamondSize.width, diamondSize.height);
+    CGRect originalFrame = CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0 + 40.0, diamondSize.width, diamondSize.height);
     CGRect destinationalFrame = ivDiamondHUD.frame;
     
     [self.view addSubview:diamondImgView];
     diamondImgView.frame = originalFrame;
     
     diamondImgView.transform = CGAffineTransformMakeScale(0.1, 0.1);
-//    diamondImgView.alpha = 0.1;
-    // Transparent animation
-//    [UIView animateWithDuration:0.15 animations:^{
-//        diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-//        diamondImgView.alpha = 1.0;
-//    } completion:^(BOOL finished) {
-//        if (finished) {
-//            // Transition animation
-//
-//            diamondImgView.layer.anchorPoint = CGPointZero;
-//
-//            // Set up path movement
-//            CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-//            pathAnimation.calculationMode = kCAAnimationPaced;
-//            pathAnimation.fillMode = kCAFillModeForwards;
-//            pathAnimation.removedOnCompletion = NO;
-//            pathAnimation.duration = 0.75f;
-//            //Setting Endpoint of the animation
-//            CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
-//            CGMutablePathRef curvedPath = CGPathCreateMutable();
-//            CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
-//            CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x + 150.0, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y - 100.0, endPoint.x, endPoint.y);
-//            pathAnimation.path = curvedPath;
-//            CGPathRelease(curvedPath);
-//            [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
-//        }
-//    }];
-    
     
     [UIView animateWithDuration:0.05 animations:^{
         diamondImgView.alpha = 1.0;
@@ -510,51 +503,57 @@
                                 diamondImgView.transform = CGAffineTransformMakeScale(1.0, 1.0);
                             } completion:^(BOOL finished4) {
                                 if (finished4) {
-                                    diamondImgView.layer.anchorPoint = CGPointZero;
                                     
-                                    [CATransaction begin];
-                                    [CATransaction setCompletionBlock:^{
-                                        [diamondImgView.layer removeAllAnimations];
-                                        [diamondImgView removeFromSuperview];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                        diamondImgView.layer.anchorPoint = CGPointZero;
                                         
-                                        // HUD animation
-                                        [UIView animateWithDuration:0.2/2 animations:^{
-                                            diamondView.transform = CGAffineTransformMakeScale(0.95, 0.95);
-                                            ivDiamondHUD.transform = CGAffineTransformMakeScale(0.95, 0.95);
-                                        } completion:^(BOOL finished5) {
-                                            if (finished5) {
-                                                [UIView animateWithDuration:0.135/2 animations:^{
-                                                    diamondView.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                                                    ivDiamondHUD.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                                                } completion:^(BOOL finished6) {
-                                                    if (finished6) {
-                                                        [UIView animateWithDuration:0.05/2 animations:^{
-                                                            diamondView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                                                            ivDiamondHUD.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                                                        } completion:^(BOOL finished7) {
-                                                        }];
-                                                    }
-                                                }];
-                                            }
+                                        [CATransaction begin];
+                                        [CATransaction setCompletionBlock:^{
+                                            [diamondImgView.layer removeAllAnimations];
+                                            [diamondImgView removeFromSuperview];
+                                            
+                                            // Update text
+                                            lbDiamond.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].diamondCount];
+                                            
+                                            // HUD animation
+                                            [UIView animateWithDuration:0.2/2 animations:^{
+                                                diamondView.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                                                ivDiamondHUD.transform = CGAffineTransformMakeScale(0.95, 0.95);
+                                            } completion:^(BOOL finished5) {
+                                                if (finished5) {
+                                                    [UIView animateWithDuration:0.135/2 animations:^{
+                                                        diamondView.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                                                        ivDiamondHUD.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                                                    } completion:^(BOOL finished6) {
+                                                        if (finished6) {
+                                                            [UIView animateWithDuration:0.05/2 animations:^{
+                                                                diamondView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                                                ivDiamondHUD.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                                                            } completion:^(BOOL finished7) {
+                                                            }];
+                                                        }
+                                                    }];
+                                                }
+                                            }];
                                         }];
-                                    }];
-                                    
-                                    // Set up path movement
-                                    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-                                    pathAnimation.calculationMode = kCAAnimationPaced;
-                                    pathAnimation.fillMode = kCAFillModeForwards;
-                                    pathAnimation.removedOnCompletion = NO;
-                                    pathAnimation.duration = 0.5f;
-                                    //Setting Endpoint of the animation
-                                    CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
-                                    CGMutablePathRef curvedPath = CGPathCreateMutable();
-                                    CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
-                                    CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x + 150.0, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y - 100.0, endPoint.x, endPoint.y);
-                                    pathAnimation.path = curvedPath;
-                                    CGPathRelease(curvedPath);
-                                    [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
-                                    
-                                    [CATransaction commit];
+                                        
+                                        // Set up path movement
+                                        CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+                                        pathAnimation.calculationMode = kCAAnimationPaced;
+                                        pathAnimation.fillMode = kCAFillModeForwards;
+                                        pathAnimation.removedOnCompletion = NO;
+                                        pathAnimation.duration = 0.5f;
+                                        //Setting Endpoint of the animation
+                                        CGPoint endPoint = CGPointMake(destinationalFrame.origin.x, destinationalFrame.origin.y);
+                                        CGMutablePathRef curvedPath = CGPathCreateMutable();
+                                        CGPathMoveToPoint(curvedPath, NULL, originalFrame.origin.x, originalFrame.origin.y);
+                                        CGPathAddCurveToPoint(curvedPath, NULL, originalFrame.origin.x + 150.0, originalFrame.origin.y + 100.0, endPoint.x, originalFrame.origin.y - 100.0, endPoint.x, endPoint.y);
+                                        pathAnimation.path = curvedPath;
+                                        CGPathRelease(curvedPath);
+                                        [diamondImgView.layer addAnimation:pathAnimation forKey:@"movingAnimation"];
+                                        
+                                        [CATransaction commit];
+                                    });
                                 }
                             }];
                         }
@@ -677,8 +676,8 @@
 - (void)showWelldoneAlert {
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
     finishAlertView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, windowSize.width, windowSize.height)];
-    finishAlertView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.2];
-    
+    finishAlertView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+
     CGSize popUpSize = CGSizeMake(286.0, 240.0);
     UIImageView *bgImgView = [[UIImageView alloc] initWithFrame:CGRectMake((windowSize.width-popUpSize.width)/2.0, (windowSize.height-popUpSize.height)/2.0, popUpSize.width, popUpSize.height)];
     bgImgView.image = [UIImage imageNamed:@"dialog-bg-countdown"];
