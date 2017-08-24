@@ -168,6 +168,7 @@
                         <outlet property="constraintTopCoinImage" destination="OXy-fh-kuk" id="j6E-uu-1eY"/>
                         <outlet property="countdownView" destination="Grn-pX-6Qy" id="9ze-Mm-Mg9"/>
                         <outlet property="diamondView" destination="hRc-sP-DON" id="0fC-Tt-kCI"/>
+                        <outlet property="ivClockHUD" destination="12L-63-7gl" id="XJr-9W-rN9"/>
                         <outlet property="ivDiamondHUD" destination="4RH-5l-cLQ" id="xA1-cd-mju"/>
                         <outlet property="lbCount" destination="wM9-YR-Vl8" id="abb-YY-eJV"/>
                         <outlet property="lbCountdown" destination="4SK-Yz-ODF" id="Il9-nZ-cWP"/>
@@ -196,7 +197,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AmM-T6-UL0" id="6AK-45-vic">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
