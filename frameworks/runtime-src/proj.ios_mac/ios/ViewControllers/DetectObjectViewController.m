@@ -76,6 +76,21 @@
     // Setup observer
     [self setupObserver];
     
+//    // Init camera if needed
+//    if (!didInitCamera) {
+//        didInitCamera = YES;
+//
+//        // Setup Camera
+//        [self setupCamera];
+//
+//        // Setup CoreML and Vision
+//        [self setupVisionAndCoreML];
+//    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     // Init camera if needed
     if (!didInitCamera) {
         didInitCamera = YES;
@@ -86,16 +101,22 @@
         // Setup CoreML and Vision
         [self setupVisionAndCoreML];
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     
-    // Update preview layer and gradient layer size
-    previewLayer.frame = previewView.bounds;
-    gradientLayer.frame = previewView.bounds;
+    // Reset the preview orientation
+    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+    AVCaptureVideoOrientation newOrientation = AVCaptureVideoOrientationLandscapeRight;
+    if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+        newOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    }
+    AVCaptureConnection *previewLayerConnection = previewLayer.connection;
+    if ([previewLayerConnection isVideoOrientationSupported])
+    {
+        [previewLayerConnection setVideoOrientation:newOrientation];
+    }
     
-    [self deviceOrientationDidChange:nil];
+    if (backgroundView) {
+        backgroundView.frame = [UIScreen mainScreen].bounds;
+    }
     
     if (![session isRunning]) {
         [session startRunning];
@@ -122,9 +143,9 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    // Update preview layer and gradient layer size
-    previewLayer.frame = previewView.bounds;
-    gradientLayer.frame = previewView.bounds;
+//    // Update preview layer and gradient layer size
+//    previewLayer.frame = previewView.bounds;
+//    gradientLayer.frame = previewView.bounds;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -155,7 +176,7 @@
     if (session.isRunning) {
         [session stopRunning];
     }
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         if (finishAlertView) {
             [finishAlertView removeFromSuperview];
@@ -170,9 +191,6 @@
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
     AVCaptureVideoOrientation newOrientation;
-//    if (deviceOrientation == UIDeviceOrientationPortrait) {
-//        newOrientation = AVCaptureVideoOrientationPortrait;
-//    } else if (deviceOrientation == UIDeviceOrientationLandscapeLeft) {
     if (deviceOrientation == UIDeviceOrientationLandscapeLeft){
         newOrientation = AVCaptureVideoOrientationLandscapeRight;
     } else if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
@@ -220,8 +238,8 @@
     [previewView.layer addSublayer:gradientLayer];
     
     // Update preview layer and gradient layer size
-    previewLayer.frame = previewView.bounds;
-    gradientLayer.frame = previewView.bounds;
+    previewLayer.frame = [UIScreen mainScreen].bounds;
+    gradientLayer.frame = [UIScreen mainScreen].bounds;
     
     // create the capture input and the video output
     NSError *error;
@@ -314,7 +332,7 @@
     diamondView.layer.masksToBounds = YES;
     
     // Reset counter
-    [SessionManager sharedInstance].elapsedTime = 120;
+    [SessionManager sharedInstance].elapsedTime = 20;
     
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
@@ -372,13 +390,25 @@
             lbResult.text = kYouFoundIt;
             
             // Increase diamond
-            [SessionManager sharedInstance].diamondCount++;
+            [SessionManager sharedInstance].diamondCount+=5;
             
             // Show word
             [self showAnimatedString:identifiedObj];
         });
     } else {
-        foundingObj = NO;
+//        foundingObj = NO;
+        
+        // Show text on screen
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update bottom text
+            lbResult.text = kYouFoundIt;
+            
+            // Increase diamond
+            [SessionManager sharedInstance].diamondCount+=1;
+            
+            // Show word
+            [self showAnimatedString:identifiedObj];
+        });
     }
 }
 

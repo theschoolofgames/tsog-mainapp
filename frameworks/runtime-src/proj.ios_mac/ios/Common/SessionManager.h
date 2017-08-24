@@ -18,8 +18,10 @@
 + (SessionManager *)sharedInstance;                                     // Shared instance
 
 - (NSInteger)getIdentifiedObjsCount;                                    // Get identified objects count
-- (NSMutableDictionary *)getIdentifiedObjects;                          // Get identified objects list
+- (NSMutableDictionary *)getIdentifiedObjectsDict;                      // Get identified objects list as a dictionary
+- (NSArray *)getIdentifiedObjectsArray;                                 // Get identified objects list as an Array
 - (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
+- (void)addArayOfIdentifiedObjects:(NSArray *)objArray;                 // Add an array of objects
 - (void)textToSpeech:(NSString *)text;                                  // Speak a word
 
 @end

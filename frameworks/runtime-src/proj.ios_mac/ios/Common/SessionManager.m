@@ -38,8 +38,20 @@
     return self.objCount;
 }
 
-- (NSMutableDictionary *)getIdentifiedObjects {
+- (NSMutableDictionary *)getIdentifiedObjectsDict {
     return self.identifiedObjects;
+}
+
+- (NSArray *)getIdentifiedObjectsArray {
+    NSArray *allKeys = self.identifiedObjects.allKeys;
+    NSMutableArray *objects = [NSMutableArray array];
+    for (NSString *key in allKeys) {
+        NSDictionary *collection = [self.identifiedObjects objectForKey:key];
+        for (NSString *item in collection.allKeys) {
+            [objects addObject:item];
+        }
+    }
+    return objects;
 }
 
 - (BOOL)addIdentifiedObject:(NSString *)objString {
@@ -61,6 +73,14 @@
         [self.identifiedObjects setObject:collection forKey:firstCharacter];
         self.objCount++;
         return YES;
+    }
+}
+
+- (void)addArayOfIdentifiedObjects:(NSArray *)objArray {
+    // Reset obj list
+    self.identifiedObjects = [NSMutableDictionary dictionary];
+    for (NSString *item in objArray) {
+        [self addIdentifiedObject:item];
     }
 }
 

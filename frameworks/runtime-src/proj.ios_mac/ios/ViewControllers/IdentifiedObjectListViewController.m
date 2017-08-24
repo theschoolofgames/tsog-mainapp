@@ -27,8 +27,8 @@
     
     [self setupView];
     
-    NSLog(@"section count: %ld", [[[SessionManager sharedInstance] getIdentifiedObjects] allKeys].count);
-    NSLog(@"section: %@", [[[SessionManager sharedInstance] getIdentifiedObjects] allKeys]);
+    NSLog(@"section count: %ld", [[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys].count);
+    NSLog(@"section: %@", [[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,11 +58,11 @@
 - (void)setupView {
     indexTitles = @[@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"R", @"S", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z"];
     // sort all keys
-    sortedKeys = [[[[SessionManager sharedInstance] getIdentifiedObjects] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    sortedKeys = [[[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     
     sortedObjectList = [NSMutableDictionary dictionary];
     for (NSString *key in sortedKeys) {
-        NSDictionary *collection = [[[SessionManager sharedInstance] getIdentifiedObjects] objectForKey:key];
+        NSDictionary *collection = [[[SessionManager sharedInstance] getIdentifiedObjectsDict] objectForKey:key];
         NSArray*sortedCollection = [collection.allKeys sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         [sortedObjectList setObject:sortedCollection forKey:key];
     }
@@ -71,7 +71,7 @@
 
 #pragma mark - Tableview Delegate and datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[[SessionManager sharedInstance] getIdentifiedObjects] allKeys].count;
+    return [[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys].count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
