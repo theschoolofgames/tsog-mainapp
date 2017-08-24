@@ -33,7 +33,9 @@ var DemosDialog = Dialog.extend({
             },
             {
                 func: function() {
-                    NativeHelper.callNative("showCoreMLDemo");
+                    var diamondBalance = CurrencyManager.getInstance().getDiamond();
+                    cc.log("diamondBalance: %d", diamondBalance);
+                    NativeHelper.callNative("showCoreMLDemo", [diamondBalance]);
                 },
                 text: "Collect Objects"
             },

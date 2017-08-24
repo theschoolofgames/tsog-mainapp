@@ -15,7 +15,7 @@ var NativeHelperConfig = {
     showCoreMLDemo: {
         iOS: [
             "H102Wrapper",
-            "showCoreMLDemo"
+            "showCoreMLDemo:"
         ]
     },
     getUDID: {
