@@ -332,7 +332,7 @@
     diamondView.layer.masksToBounds = YES;
     
     // Reset counter
-    [SessionManager sharedInstance].elapsedTime = 20;
+    [SessionManager sharedInstance].elapsedTime = 120;
     
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
@@ -393,7 +393,7 @@
             [SessionManager sharedInstance].diamondCount+=5;
             
             // Show word
-            [self showAnimatedString:identifiedObj];
+            [self showAnimatedString:identifiedObj withDiamondnumber:5];
         });
     } else {
 //        foundingObj = NO;
@@ -407,13 +407,13 @@
             [SessionManager sharedInstance].diamondCount+=1;
             
             // Show word
-            [self showAnimatedString:identifiedObj];
+            [self showAnimatedString:identifiedObj withDiamondnumber:1];
         });
     }
 }
 
 #pragma mark - Animation
-- (void)showAnimatedString:(NSString *)animatedString {
+- (void)showAnimatedString:(NSString *)animatedString withDiamondnumber:(NSInteger)diamondCount {
     // Current Window
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
 //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -451,7 +451,8 @@
     animatedLabel.transform = CGAffineTransformMakeScale(0.1, 0.1);
     animatedLabel.alpha = 0.1;
     
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.5
+                     animations:^{
         backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
         animatedLabel.transform = CGAffineTransformMakeScale(1, 1);
         animatedLabel.alpha = 1.0;
@@ -463,7 +464,15 @@
             });
             
             // Aniamtion increase diamond
-            [self animateShowDiamond];
+            if (diamondCount > 1) {
+                for (NSInteger i=0; i<diamondCount; i++) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self animateShowDiamondInSerial:YES];
+                    });
+                }
+            } else {
+                [self animateShowDiamondInSerial:NO];
+            }
             
             // Speak
             [[SessionManager sharedInstance] textToSpeech:animatedString];
@@ -503,7 +512,7 @@
     }
 }
 
-- (void)animateShowDiamond {
+- (void)animateShowDiamondInSerial:(BOOL)inSerial {
     CGSize windowSize = [UIScreen mainScreen].bounds.size;
     UIImage *diamondImg = [UIImage imageNamed:@"diamond-identified-object"];
     CGSize diamondSize = ivDiamondHUD.bounds.size;
@@ -534,7 +543,7 @@
                             } completion:^(BOOL finished4) {
                                 if (finished4) {
                                     
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((inSerial)?0.0:0.15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                         diamondImgView.layer.anchorPoint = CGPointZero;
                                         
                                         [CATransaction begin];
