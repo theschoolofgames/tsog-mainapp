@@ -162,19 +162,23 @@
     [self.navigationController pushViewController:iOLVC animated:YES];
 }
 
-- (void)saveIdentifiedObjects {
+- (void)persistGameProgress {
     NSArray *identifiedObjects = [[SessionManager sharedInstance] getIdentifiedObjectsArray];
     NSString *str = [identifiedObjects componentsJoinedByString:@"-@-"];
-    NSLog(@"saveIdentifiedObjects: %@", str);
+    NSLog(@"persistGameProgress: %@", str);
     
     NSString *evalStr = [NSString stringWithFormat:@"NativeHelper.saveIdentifiedObjects('%@')", str, NULL];
     NSLog(@"Eval str: %@", evalStr);
-
     [Cocos2dxHelper evalString:evalStr];
+    
+    evalStr = [NSString stringWithFormat:@"User.getCurrentChild().setDiamond(%ld);", [[SessionManager sharedInstance] diamondCount], NULL];
+    NSLog(@"Eval str: %@", evalStr);
+    [Cocos2dxHelper evalString:evalStr];
+
 }
 
 - (IBAction)btnBackClicked:(id)sender {
-    [self saveIdentifiedObjects];
+    [self persistGameProgress];
 
     // Stop session
     if (session.isRunning) {
@@ -187,7 +191,7 @@
 }
 
 - (IBAction)btnFinishClicked:(id)sender {
-    [self saveIdentifiedObjects];
+    [self persistGameProgress];
     
     // Stop session
     if (session.isRunning) {

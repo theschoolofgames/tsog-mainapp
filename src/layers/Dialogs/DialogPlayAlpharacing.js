@@ -157,6 +157,9 @@ var DialogPlayAlpharacing = Dialog.extend({
 
                 AnalyticsManager.getInstance().logEventSpendVirtualCurrency("CollectObject_start",
                     "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
+
+                self.parent._blocktouch = false;
+                self.removeFromParent();
             });
         }
 
