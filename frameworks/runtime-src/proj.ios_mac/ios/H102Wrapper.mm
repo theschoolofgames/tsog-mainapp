@@ -69,7 +69,11 @@ static BOOL isOpenedFromNotification = NO;
     // Set current diamonds and current object list
     [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
     
-    NSArray *identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
+    NSArray *identifiedObjectsArray = @[];
+    
+    if ([identifiedObjects length] > 0) {
+        identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
+    }
     
     [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
     
