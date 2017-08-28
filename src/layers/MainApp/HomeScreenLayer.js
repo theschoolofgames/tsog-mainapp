@@ -73,6 +73,9 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     addDemosButton: function(){
+        if (! TSOG_DEBUG) {
+            return;
+        }
         var button = new ccui.Button("res/SD/grownup/button-grown-up.png", "res/SD/grownup/button-grown-up-pressed.png", "");
         button.x = cc.winSize.width - button.width/2  - 10;
         button.y = cc.winSize.height - button.height - 50;

@@ -29,7 +29,7 @@ var DialogPlayAlpharacing = Dialog.extend({
         var text = new cc.LabelBMFont(localize("Spend") + " " + COIN_NEED_TO_PLAY_ALPHARACING.toString(), res.HomeFont_fnt);
         text.scale = 0.7;
         text.x = this._dialogBg.width/2 - 20;
-        text.y = this._dialogBg.height/2 + 100;
+        text.y = this._dialogBg.height/2 + 160;
         if(isNotEnoughCoin) {
             text.setString(localize("Not enough"));
             var coin = new cc.Sprite("#gold.png");
@@ -111,12 +111,12 @@ var DialogPlayAlpharacing = Dialog.extend({
             //     self.removeFromParent();
             // });
         } else {
-            var buttonPlay = new ccui.Button("res/SD/reward/btn_rate.png", "res/SD/reward/btn_rate_pressed.png");
+            var buttonPlay = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png");
             buttonPlay.x = this._dialogBg.width/2;
-            buttonPlay.y = 100;
+            buttonPlay.y = 180;
             // buttonPlay.scale = 0.6;
             this._dialogBg.addChild(buttonPlay);
-            var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Play"));
+            var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1, localizeForWriting("Alpha Racing"));
         // lbPlay.scale = 0.3;
             buttonPlay.addChild(lbPlay,1);
             lbPlay.x = buttonPlay.width/2;
@@ -130,6 +130,32 @@ var DialogPlayAlpharacing = Dialog.extend({
                 var data = DataManager.getInstance().getDataAlpharacing();
                 cc.director.runScene(new AlphaRacingScene(data, null, 600));
                 AnalyticsManager.getInstance().logEventSpendVirtualCurrency("Alpharacing_start",
+                    "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
+            });
+
+            var buttonCollectObject = new ccui.Button("res/SD/btn_get_updates.png", "res/SD/btn_get_updates_pressed.png");
+            buttonCollectObject.x = this._dialogBg.width/2;
+            buttonCollectObject.y = 80;
+            // buttonCollectObject.scale = 0.6;
+            this._dialogBg.addChild(buttonCollectObject);
+            lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Collect Objects"));
+        // lbPlay.scale = 0.3;
+            buttonCollectObject.addChild(lbPlay,1);
+            lbPlay.x = buttonCollectObject.width/2;
+            lbPlay.y = buttonCollectObject.height/2 + 8;
+            buttonCollectObject.addClickEventListener(function(){
+                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+                if(canttouch) // ^_^ @david
+                    return;
+                canttouch = true;
+                CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
+                
+                var diamondBalance = CurrencyManager.getInstance().getDiamond();
+                var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
+                cc.log("identifiedObjectsString: %s", identifiedObjectsString);
+                NativeHelper.callNative("showCoreMLDemo", [diamondBalance, identifiedObjectsString]);
+
+                AnalyticsManager.getInstance().logEventSpendVirtualCurrency("CollectObject_start",
                     "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
             });
         }
