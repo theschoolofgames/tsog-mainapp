@@ -23,7 +23,7 @@ var User = BaseFirebaseModel.extend({
         this.setDefaultValues({
             "childrenIds": [],
             "dynamicLink": "",
-            "identifiedObjectsString": "{}"
+            "identifiedObjectsString": ""
         });
 
         this.hasMany("children", Child);
@@ -32,6 +32,7 @@ var User = BaseFirebaseModel.extend({
     },
 
     isSubscriptionValid: function() {
+        cc.log("isSubscriptionValid: %s -> %d", this.getSubscription(), this.getSubscription() != null);
         return this.getSubscription() != null;
     },
 

@@ -193,13 +193,15 @@ cc.game.onStart = function(){
         KVDatabase.getInstance().set("game_new_session", true);
 
         var authenticateUID = KVDatabase.getInstance().getString("authenticateUID", "");
-        debugLog("authenticateUID " + authenticateUID);
+        debugLog("authenticateUID: " + authenticateUID);
         if (authenticateUID) {
             FirebaseManager.getInstance().authenticate(function(succeed, linked) {
-               if (User.getCurrentUser().isSubscriptionValid()) {
-                    cc.director.runScene(new WelcomeScene());
-                } else {
-                    cc.director.runScene(new MonthlySubscriptionScene());
+                if  (succeed) {
+                    if (User.getCurrentUser().isSubscriptionValid()) {
+                        cc.director.runScene(new WelcomeScene());
+                    } else {
+                        cc.director.runScene(new MonthlySubscriptionScene());
+                    }
                 }
             });    
         } else {

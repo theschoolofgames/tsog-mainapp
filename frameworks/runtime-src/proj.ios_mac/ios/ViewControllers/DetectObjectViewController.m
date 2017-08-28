@@ -163,21 +163,10 @@
 
 - (void)saveIdentifiedObjects {
     NSArray *identifiedObjects = [[SessionManager sharedInstance] getIdentifiedObjectsArray];
+    NSString *str = [identifiedObjects componentsJoinedByString:@"-@-"];
+    NSLog(@"saveIdentifiedObjects: %@", str);
     
-    NSString* json = nil;
-    
-    NSError* error = nil;
-    NSData *data = [NSJSONSerialization dataWithJSONObject:identifiedObjects options:NSJSONWritingPrettyPrinted error:&error];
-    json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    json = [json stringByReplacingOccurrencesOfString:@"\\n+"
-                                                          withString:@" "
-                                                             options:NSRegularExpressionSearch
-                                                               range:NSMakeRange(0, json.length)];
-
-    
-    NSLog(@"saveIdentifiedObjects: %@", json);
-    
-    NSString *evalStr = [NSString stringWithFormat:@"NativeHelper.saveIdentifiedObjects('%@')", json, NULL];
+    NSString *evalStr = [NSString stringWithFormat:@"NativeHelper.saveIdentifiedObjects('%@')", str, NULL];
     NSLog(@"Eval str: %@", evalStr);
 
     [Cocos2dxHelper evalString:evalStr];
