@@ -77,6 +77,9 @@ static BOOL isOpenedFromNotification = NO;
     
     [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
     
+    // Count down time
+    [SessionManager sharedInstance].elapsedTime = 120;
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
     DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
@@ -85,10 +88,6 @@ static BOOL isOpenedFromNotification = NO;
     AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
     UIViewController *rootController = (UIViewController*)appController.viewController;
     [rootController presentViewController:nav animated:YES completion:nil];
-    
-    // Example get diamond count and objects
-    NSLog(@"---> Current diamond:%ld", [SessionManager sharedInstance].diamondCount);
-    NSLog(@"---> Objects:%@", [[SessionManager sharedInstance] getIdentifiedObjectsArray]);
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
