@@ -1,4 +1,4 @@
-var MonthlySubscriptionLayer = cc.Layer.extend({
+var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _loggedIn: false,
 
     _contentTextScale: 0.35,
@@ -16,14 +16,16 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
     _childrenImg: null,
 
     ctor: function() {
-        this._super();
+        this._super(cc.color.WHITE);
 
-        this._childrenOffSetY = 50;
+        // this._childrenOffSetY = 50;
 
-        this._addBackground();
-        this._addMissionContent();
+        // this._addBackground();
+        // this._addMissionContent();
+        this._createTalkingAdi();
         this._addButtons();
         this._addRestorePurchasesText();
+        this._addWelcomeText();
         // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
     },
 
@@ -44,26 +46,27 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
     _addButtons: function() {
         var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
-        b.x = cc.winSize.width/2;
-        b.y = b.height - this._buttonOffSetY;
+        b.x = cc.winSize.width * 0.6;
+        b.y = cc.winSize.height/4 - 20;
         b.scaleX = 1.2;
         this.addChild(b);
 
         b.addClickEventListener(this._payBtnPressed.bind(this));
 
         var lb = new cc.LabelBMFont("Start 7-day free trial", res.HomeFont_fnt);
-        lb.scale = 0.4;
+        lb.scale = 0.35;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = b.width/2;
-        lb.y = b.height/2;
+        lb.y = b.height/2 + 6;
         b.addChild(lb);
 
         // Debug bypass purchase
         b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "debug bypass";
-        b.x = cc.winSize.width/2;
-        b.y = cc.winSize.height - 50;
-        this.addChild(b);
+        b.scale = 0.6;
+        b.x = cc.winSize.width/4;
+        b.y = cc.winSize.height/5 - b.height * b.scale;
+        
 
         b.addClickEventListener(this._bypassBtnPressed.bind(this));
 
@@ -71,8 +74,11 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
         lb.scale = 0.4;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = b.width/2;
-        lb.y = b.height/2;
+        lb.y = b.height/2 + 6;
         b.addChild(lb);
+        if (TSOG_DEBUG) {
+            this.addChild(b);
+        }
     },
 
     _addMissionContent: function() {
@@ -180,8 +186,8 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
                             ),
                             cc.size(0, -config.shadowSize)
         );
-        text.x = cc.winSize.width/2;
-        text.y = cc.rectGetMinY(this._childrenImg.getBoundingBox()) - text.height/2;
+        text.x = cc.winSize.width*0.6;
+        text.y = cc.winSize.height/4 + 50;
 
         this.addChild(text);
 
@@ -201,16 +207,35 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
         var self = event.getCurrentTarget();
 
         var restorePurchasesLinkBBox = self._restorePurchasesLink.getBoundingBox();
-        restorePurchasesLinkBBox = cc.rect(restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width, restorePurchasesLinkBBox.height*1.5);
+        restorePurchasesLinkBBox = cc.rect(restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width +20, restorePurchasesLinkBBox.height+20);
 
         if (cc.rectContainsPoint(restorePurchasesLinkBBox, touchLoc)) {
             // TODO login before restore purchases
+            cc.log("tapping on restore purchases");
             IAPManager.getInstance().restore(function(success, data) {
                 cc.log("restore result: %s, %s", success ? "true" : "false", JSON.stringify(data));
             })
         }
 
         return true;
+    },
+
+    _createTalkingAdi: function() {
+        var adidogNode = new AdiDogNode(true);
+        adidogNode.setPosition(cc.p(cc.winSize.width / 4, cc.winSize.height / 5));
+        this.addChild(adidogNode);
+        this._talkingAdi = adidogNode;
+    },
+
+    _addWelcomeText: function() {
+        var content = "Welcome to The School Of Games";
+        var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
+        rContent.scale = this._contentTextScale;
+        rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        rContent.x = cc.winSize.width * 0.6;
+        rContent.y = cc.winSize.height/2 + rContent.height/2;
+        rContent.boundingWidth = cc.winSize.width;
+        this.addChild(rContent);
     },
 });
 
