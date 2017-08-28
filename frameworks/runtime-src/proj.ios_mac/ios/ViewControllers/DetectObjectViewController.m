@@ -13,6 +13,7 @@
 #import "IdentifiedObjectListViewController.h"
 #import "SessionManager.h"
 #import "Cocos2dxHelper.h"
+#import "FirebaseWrapper.h"
 
 @import AVFoundation;
 @import CoreML;
@@ -495,6 +496,9 @@
             } else {
                 [self animateShowDiamondInSerial:NO];
             }
+            
+            // Analytic
+            [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:animatedString];
             
             // Speak
             [[SessionManager sharedInstance] textToSpeech:animatedString];
