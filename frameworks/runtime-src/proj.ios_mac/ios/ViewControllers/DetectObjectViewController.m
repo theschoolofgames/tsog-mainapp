@@ -337,7 +337,11 @@
 
 #pragma mark - Setup view
 - (void)setupView {
+    // Bottom text
     lbResult.text = kShowMeAnObject;
+    
+    // Objects count
+    lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
     
     // Countdown clock
     countdownView.layer.cornerRadius = countdownView.bounds.size.height/2.0;
@@ -348,7 +352,9 @@
     diamondView.layer.masksToBounds = YES;
     
     // Reset counter
-    [SessionManager sharedInstance].elapsedTime = 120;
+    if ([SessionManager sharedInstance].elapsedTime < 0) {
+        [SessionManager sharedInstance].elapsedTime = 120;  // Default value should be 120
+    }
     
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
