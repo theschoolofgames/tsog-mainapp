@@ -27,7 +27,11 @@ var User = BaseFirebaseModel.extend({
 
         this.hasMany("children", Child);
 
-        this._super("/users/" + data.uid, data.uid, ["childrenIds", "dynamicLink"], initCallback);
+        this._super("/users/" + data.uid, data.uid, ["childrenIds", "dynamicLink", "subscription"], initCallback);
+    },
+
+    isSubscriptionValid: function() {
+        return this.getSubscription() != null;
     },
 
     createChild: function(cb) {

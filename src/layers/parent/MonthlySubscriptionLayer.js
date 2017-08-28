@@ -54,9 +54,25 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
         var lb = new cc.LabelBMFont("Start 7-day free trial", res.HomeFont_fnt);
         lb.scale = 0.4;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        lb.x = cc.winSize.width/2;
-        lb.y = b.height - this._buttonOffSetY + 10;
-        this.addChild(lb);
+        lb.x = b.width/2;
+        lb.y = b.height/2;
+        b.addChild(lb);
+
+        // Debug bypass purchase
+        b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        b.name = "debug bypass";
+        b.x = cc.winSize.width/2;
+        b.y = cc.winSize.height - 50;
+        this.addChild(b);
+
+        b.addClickEventListener(this._bypassBtnPressed.bind(this));
+
+        lb = new cc.LabelBMFont("Debug Skip", res.HomeFont_fnt);
+        lb.scale = 0.4;
+        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        lb.x = b.width/2;
+        lb.y = b.height/2;
+        b.addChild(lb);
     },
 
     _addMissionContent: function() {
@@ -105,16 +121,30 @@ var MonthlySubscriptionLayer = cc.Layer.extend({
     },
 
     _payBtnPressed: function() {
-        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
-            if (authenticated) {
-                LoadingIndicator.show();
-                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-                IAPManager.getInstance().purchase("monthlysub", function(succeed) {
-                    if (succeed) {
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+        LoadingIndicator.show();
+
+        IAPManager.getInstance().purchase("monthlysub", function(succeed) {
+            if (succeed) {
+                FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
+                    if (authenticated) {
                         cc.director.runScene(new WelcomeScene());
                     };
                     LoadingIndicator.hide();
                 }.bind(this));
+            } else {
+                LoadingIndicator.hide();
+            }
+        }.bind(this));
+    },
+
+    _bypassBtnPressed: function() {
+        LoadingIndicator.show();
+        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
+            if (authenticated) {
+                User.getCurrentUser().setSubscription("debug-bypass");
+                LoadingIndicator.hide();
+                cc.director.runScene(new WelcomeScene());
             }
         }.bind(this));
     },

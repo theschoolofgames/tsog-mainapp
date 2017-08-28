@@ -196,14 +196,17 @@ cc.game.onStart = function(){
         debugLog("authenticateUID " + authenticateUID);
         if (authenticateUID) {
             FirebaseManager.getInstance().authenticate(function(succeed, linked) {
-                cc.director.runScene(new WelcomeScene());
-                // cc.director.runScene(new DemoObjectsScene());
+               if (User.getCurrentUser().isSubscriptionValid()) {
+                    cc.director.runScene(new WelcomeScene());
+                } else {
+                    cc.director.runScene(new MonthlySubscriptionScene());
+                }
             });    
         } else {
-            AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
-            cc.director.runScene(new MissionPageBeforeLoginScene());
+            // AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_1);
+            // cc.director.runScene(new MissionPageBeforeLoginScene());
+            cc.director.runScene(new MonthlySubscriptionScene());
         }
-        // cc.director.runScene(new MonthlySubscriptionScene());
 
         AnalyticsManager.getInstance().logEventAppOpen();
 
