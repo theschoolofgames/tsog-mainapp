@@ -154,6 +154,9 @@ var DialogPlayAlpharacing = Dialog.extend({
                 var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
                 cc.log("identifiedObjectsString: %s", identifiedObjectsString);
                 NativeHelper.callNative("showCoreMLDemo", [diamondBalance, identifiedObjectsString]);
+
+                AnalyticsManager.getInstance().logEventSpendVirtualCurrency("CollectObject_start",
+                    "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
             });
         }
 
