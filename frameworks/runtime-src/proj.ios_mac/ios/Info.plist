@@ -130,7 +130,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG need to see objects around you</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
