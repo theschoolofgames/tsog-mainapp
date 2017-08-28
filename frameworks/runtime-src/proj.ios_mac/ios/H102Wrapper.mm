@@ -65,10 +65,15 @@ static BOOL isOpenedFromNotification = NO;
   [dialog show];
 }
 
-+ (void)showCoreMLDemo:(NSNumber*)gemBalance {    
++ (void)showCoreMLDemo:(NSNumber*)gemBalance identifiedObjects:(NSString *)identifiedObjects {
     // Set current diamonds and current object list
     [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
-    [[SessionManager sharedInstance] addArayOfIdentifiedObjects:[NSArray arrayWithObjects:@"Monitor", @"Mouse", @"Keyboard", nil]];
+    
+    NSError *error;
+    NSData* data = [identifiedObjects dataUsingEncoding:NSUTF8StringEncoding];
+    NSArray *identifiedObjectsArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    
+    [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
     DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];

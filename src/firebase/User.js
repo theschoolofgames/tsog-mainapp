@@ -22,12 +22,13 @@ var User = BaseFirebaseModel.extend({
 
         this.setDefaultValues({
             "childrenIds": [],
-            "dynamicLink": ""
+            "dynamicLink": "",
+            "identifiedObjectsString": "{}"
         });
 
         this.hasMany("children", Child);
 
-        this._super("/users/" + data.uid, data.uid, ["childrenIds", "dynamicLink", "subscription"], initCallback);
+        this._super("/users/" + data.uid, data.uid, ["childrenIds", "dynamicLink", "subscription", "identifiedObjectsString"], initCallback);
     },
 
     isSubscriptionValid: function() {

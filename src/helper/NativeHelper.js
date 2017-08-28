@@ -15,7 +15,7 @@ var NativeHelperConfig = {
     showCoreMLDemo: {
         iOS: [
             "H102Wrapper",
-            "showCoreMLDemo:"
+            "showCoreMLDemo:identifiedObjects:"
         ]
     },
     getUDID: {
@@ -662,4 +662,9 @@ NativeHelper.onReceive = function(name, fnName, args) {
     }
     else
         cc.error("WARNING: listener " + name + " not found");
+}
+
+NativeHelper.saveIdentifiedObjects = function(objsString) {
+    cc.log("NativeHelper.saveIdentifiedObjects: '%s'", objsString);
+    User.getCurrentUser().setIdentifiedObjectsString(objsString);
 }
