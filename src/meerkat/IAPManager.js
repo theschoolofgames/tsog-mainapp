@@ -70,7 +70,7 @@ var IAPManager = cc.Class.extend({
 
                 // Only one type of IAP so dont need to check productID
                 if (self.purchaseCallback)
-                    self.purchaseCallback(true);
+                    self.purchaseCallback(true, product);
             },
             onFailure : function (product, msg) {
                 console.log("onProductPurchaseFailure");

@@ -130,10 +130,11 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
 
-        IAPManager.getInstance().purchase("monthlysub", function(succeed) {
+        IAPManager.getInstance().purchase("monthlysub", function(succeed, product) {
             if (succeed) {
                 FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
                     if (authenticated) {
+                        User.getCurrentUser().setSubscription(product.receiptCipheredPayload);
                         cc.director.runScene(new WelcomeScene());
                     };
                     LoadingIndicator.hide();
