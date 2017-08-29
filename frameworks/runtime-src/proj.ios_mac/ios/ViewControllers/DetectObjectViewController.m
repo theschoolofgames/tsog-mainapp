@@ -18,16 +18,23 @@
 @import AVFoundation;
 @import CoreML;
 @import Vision;
+@import ARKit;
 
-@interface DetectObjectViewController () <AVCaptureVideoDataOutputSampleBufferDelegate> {
-    AVCaptureSession *session;
+@interface DetectObjectViewController () <AVCaptureVideoDataOutputSampleBufferDelegate, ARSCNViewDelegate> {
+    AVCaptureSession *avCaptureSession;
 
     dispatch_queue_t captureQueue;
 
     AVCaptureVideoPreviewLayer *previewLayer;
     CAGradientLayer *gradientLayer;
+    
+    // CoreML
     NSArray *visionRequests;
-
+    dispatch_queue_t dispatchQueueML;
+    
+    // Timer to detect object
+    NSTimer *feedCoreMLTimer;
+    
     UIView *finishAlertView;
     
     // Animation pointer
@@ -51,10 +58,15 @@
     __weak IBOutlet UILabel *lbDiamond;
     __weak IBOutlet UIImageView *ivDiamondHUD;
     __weak IBOutlet UIImageView *ivClockHUD;
+    __weak IBOutlet ARSCNView *arSceneView;
     
     BOOL foundingObj;
     BOOL stopFindning;
     BOOL didInitCamera;
+    
+    // ARKit
+    CGFloat textDepth;
+    NSString *latestPrediction;
 }
 
 @end
@@ -98,31 +110,36 @@
         didInitCamera = YES;
         
         // Setup Camera
-        [self setupCamera];
+//        [self setupCamera];
+        
+        // Setup ARKit
+        [self setupARKit];
         
         // Setup CoreML and Vision
         [self setupVisionAndCoreML];
+    } else {
+        [self startARKitAgain];
     }
     
-    // Reset the preview orientation
-    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
-    AVCaptureVideoOrientation newOrientation = AVCaptureVideoOrientationLandscapeRight;
-    if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
-        newOrientation = AVCaptureVideoOrientationLandscapeLeft;
-    }
-    AVCaptureConnection *previewLayerConnection = previewLayer.connection;
-    if ([previewLayerConnection isVideoOrientationSupported])
-    {
-        [previewLayerConnection setVideoOrientation:newOrientation];
-    }
+//    // Reset the preview orientation
+//    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
+//    AVCaptureVideoOrientation newOrientation = AVCaptureVideoOrientationLandscapeRight;
+//    if (deviceOrientation == UIDeviceOrientationLandscapeRight) {
+//        newOrientation = AVCaptureVideoOrientationLandscapeLeft;
+//    }
+//    AVCaptureConnection *previewLayerConnection = previewLayer.connection;
+//    if ([previewLayerConnection isVideoOrientationSupported])
+//    {
+//        [previewLayerConnection setVideoOrientation:newOrientation];
+//    }
     
     if (backgroundView) {
         backgroundView.frame = [UIScreen mainScreen].bounds;
     }
     
-    if (![session isRunning]) {
-        [session startRunning];
-    }
+//    if (![avCaptureSession isRunning]) {
+//        [avCaptureSession startRunning];
+//    }
     
     [self startCountDown];
 }
@@ -130,9 +147,14 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    if ([session isRunning]) {
-        [session stopRunning];
-    }
+//    if ([avCaptureSession isRunning]) {
+//        [avCaptureSession stopRunning];
+//    }
+    
+    // Pause session
+    [arSceneView.session pause];
+    
+    stopFindning = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -181,9 +203,9 @@
     [self persistGameProgress];
 
     // Stop session
-    if (session.isRunning) {
-        [session stopRunning];
-    }
+//    if (avCaptureSession.isRunning) {
+//        [avCaptureSession stopRunning];
+//    }
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -194,9 +216,9 @@
     [self persistGameProgress];
     
     // Stop session
-    if (session.isRunning) {
-        [session stopRunning];
-    }
+//    if (avCaptureSession.isRunning) {
+//        [avCaptureSession stopRunning];
+//    }
 
     dispatch_async(dispatch_get_main_queue(), ^{
         if (finishAlertView) {
@@ -235,7 +257,7 @@
 #pragma mark - Setup Camera
 - (void)setupCamera {
     // Init session
-    session = [[AVCaptureSession alloc] init];
+    avCaptureSession = [[AVCaptureSession alloc] init];
     
     // Init Input device
     AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -249,7 +271,7 @@
     captureQueue = dispatch_queue_create( "captureQueue", DISPATCH_QUEUE_SERIAL );
     
     // add the preview layer
-    previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
+    previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:avCaptureSession];
     [previewView.layer addSublayer:previewLayer];
     
     // add a slight gradient overlay so we can read the results easily
@@ -273,11 +295,11 @@
     [videoOutput setSampleBufferDelegate:self queue:captureQueue];
     videoOutput.alwaysDiscardsLateVideoFrames = YES;
     videoOutput.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-    session.sessionPreset = AVCaptureSessionPresetHigh;
+    avCaptureSession.sessionPreset = AVCaptureSessionPresetHigh;
     
     // wire up the session
-    [session addInput:cameraInput];
-    [session addOutput:videoOutput];
+    [avCaptureSession addInput:cameraInput];
+    [avCaptureSession addOutput:videoOutput];
     
     AVCaptureConnection *connection = [videoOutput connectionWithMediaType:AVMediaTypeVideo];
     if ([connection isVideoOrientationSupported])
@@ -295,10 +317,52 @@
     }
     
     // Start the session
-    [session startRunning];
+    [avCaptureSession startRunning];
 }
 
-#pragma mark - Setup Camera
+#pragma mark - Setup ARKit
+- (void)setupARKit {
+    // Set delegate for arscene
+    arSceneView.delegate = self;
+    
+    // Show statistics
+    arSceneView.showsStatistics = YES;
+    
+    // Create new scene
+    SCNScene *scene = [[SCNScene alloc] init];
+    
+    // Set scene to arview
+    arSceneView.scene = scene;
+    
+    // Enable Default Lighting - makes the 3D text a bit poppier.
+    arSceneView.autoenablesDefaultLighting = YES;
+    
+    // Create a session configuration
+    ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+    // Enable plane detection
+    configuration.planeDetection = ARPlaneDetectionHorizontal;
+    
+    // Run the view's session
+    [arSceneView.session runWithConfiguration:configuration];
+}
+
+- (void)startARKitAgain {
+    // Create a session configuration
+    ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+    // Enable plane detection
+    configuration.planeDetection = ARPlaneDetectionHorizontal;
+    
+    // Run the view's session
+    [arSceneView.session runWithConfiguration:configuration];
+    
+    // Feed core ML
+    if ([SessionManager sharedInstance].elapsedTime > 0) {
+        stopFindning = NO;
+        [self feedCoreML];
+    }
+}
+
+#pragma mark - Setup Vision and CoreML
 - (void)setupVisionAndCoreML {
     // Read MLModel
     NSError *error;
@@ -338,6 +402,55 @@
     
     classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
     visionRequests = @[classificationRequest];
+    
+//    feedCoreMLTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(feedCoreML) userInfo:nil repeats:YES];
+    
+    dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
+    
+    [self feedCoreML];
+}
+
+- (void)feedCoreML {
+    
+    // Check found object
+    if (foundingObj) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatchQueueML, ^{
+            [self feedCoreML];
+        });
+        return;
+    }
+    
+    if (stopFindning) {
+        return;
+    }
+    
+    dispatch_async(dispatchQueueML, ^{
+        CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
+        
+        if (!pixBuff) {
+            return;
+        }
+        
+        //    CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixBuff];
+        //    VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCIImage:ciImage options:[NSDictionary dictionary]];
+        
+        //    NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
+        //    VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:kCGImagePropertyOrientationUpMirrored options:requestOptions];
+        
+        NSLog(@"===== Make request =====");
+        
+        VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
+        NSError *error;
+        [imageRequestHandler performRequests:visionRequests error:&error];
+        if (error) {
+            NSLog(@"--->ERROR: %@", error.description);
+            return;
+        }
+        
+        [self feedCoreML];
+    });
+    
 }
 
 #pragma mark - Setup view
@@ -809,6 +922,11 @@
             }];
         }
     }];
+}
+
+#pragma mark - ARSCNViewDelegate
+- (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
+    
 }
 
 @end
