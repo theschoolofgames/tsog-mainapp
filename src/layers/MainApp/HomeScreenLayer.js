@@ -46,7 +46,7 @@ var HomeScreenLayer = cc.Layer.extend({
             door.setTouchEnabled(true);
             door = this.getChildByName("learn");
             door.setTouchEnabled(true);
-            CheckProgressDialog.show();
+            // CheckProgressDialog.show();
         }
 
     },
