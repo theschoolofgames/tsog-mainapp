@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="230" height="20" tilewidth="64" tileheight="64" nextobjectid="215">
+ <tileset firstgid="1" name="alpha-racing-tmx" tilewidth="64" tileheight="64" tilecount="256" columns="16">
+  <image source="SD/alpha-racing-tmx.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="257" name="alpha_racing2" tilewidth="64" tileheight="64" tilecount="84" columns="14">
+  <image source="SD/alpha-racing-lands.png" width="896" height="384"/>
+ </tileset>
+ <tileset firstgid="341" name="alpha_racing" tilewidth="64" tileheight="64" tilecount="72" columns="8">
+  <image source="SD/alpha-racing-lands01.png" width="512" height="576"/>
+ </tileset>
+ <layer name="Lands" width="230" height="20" offsetx="0" offsety="3">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKwCAMAMGAhf7/x75AilVqrDOwVyN6SQQAAAAAAAAAAAAA8Del0Yq5O52fzap/BADo9XZnybS3zpzdc+7IPb7evZ86jXcAgIhLUrpuSemqqVkKwQ==
+  </data>
+ </layer>
+ <objectgroup name="alphaPosition1">
+  <object id="67" x="4425.09" y="713.819"/>
+  <object id="213" x="7445.45" y="812.485"/>
+  <object id="214" x="11242.4" y="1073.09"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition2">
+  <object id="80" x="6269.94" y="699.758"/>
+  <object id="207" x="6180.12" y="922.667"/>
+  <object id="208" x="4528.61" y="1089.33"/>
+  <object id="210" x="7895.27" y="686.303"/>
+  <object id="211" x="10013.5" y="1101.45"/>
+  <object id="212" x="9286.18" y="698.424"/>
+ </objectgroup>
+ <objectgroup name="alphaPosition3">
+  <object id="92" x="10821" y="1052"/>
+  <object id="189" x="629.212" y="965.091"/>
+  <object id="190" x="1077.7" y="1110.55"/>
+  <object id="191" x="1801.94" y="1083.27"/>
+  <object id="192" x="2717.09" y="940.848"/>
+  <object id="193" x="3226.18" y="907.515"/>
+  <object id="194" x="3992.85" y="904.485"/>
+  <object id="195" x="3747.39" y="1089.33"/>
+  <object id="196" x="13995.9" y="1107.52"/>
+  <object id="197" x="13429.2" y="1095.39"/>
+  <object id="198" x="12917.1" y="1104.48"/>
+  <object id="199" x="11732.2" y="737.818"/>
+  <object id="200" x="10953.5" y="759.03"/>
+  <object id="201" x="11665.6" y="977.212"/>
+  <object id="202" x="12417.1" y="995.394"/>
+  <object id="203" x="8283.76" y="913.576"/>
+  <object id="204" x="7577.7" y="1107.52"/>
+  <object id="205" x="6971.64" y="901.455"/>
+  <object id="206" x="5398.91" y="1074.18"/>
+ </objectgroup>
+ <layer name="LowLayer1" width="230" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7AZwL9dNOwiJK2CJgAAAAAAAAAAAAAAAAAAAD/MdQAAAAoL06AADg==
+  </data>
+ </layer>
+ <layer name="LowLayer2" width="230" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7ApwL9cNOwiJK2CJgAAAAAAAAAAAAAAAAAAAD/MdQAAAAoL3mAADw==
+  </data>
+ </layer>
+ <objectgroup color="#80ff00" name="Boosters">
+  <object id="64" x="4098.97" y="925.697"/>
+  <object id="66" x="4361.03" y="1126.79"/>
+  <object id="78" x="6975.94" y="1050.3"/>
+  <object id="125" x="13056" y="1049.27"/>
+ </objectgroup>
+</map>

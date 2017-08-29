@@ -126,7 +126,7 @@ var AlphaRacingLayer = cc.Layer.extend({
             }
 
             this.initPhysicWorld();
-
+            cc.log("jsb.fileUtils.getWritablePath(): " + jsb.fileUtils.getWritablePath());
             jsb.fileUtils.writeStringToFile(JSON.stringify(this._polygonConfigs), cc.path.join(jsb.fileUtils.getWritablePath(), "ar_map_polygons.json"));
         }
     },
@@ -396,7 +396,11 @@ var AlphaRacingLayer = cc.Layer.extend({
 
     createNewMapSegment: function() {
         var index = Math.floor(Math.random() * AR_TMX_LEVELS.length);
-        var tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[index]);
+        var tmxMap;
+        if(!this._tmxMap) {
+            index = AR_TMX_LEVELS.length - 1
+        }
+        tmxMap = new cc.TMXTiledMap(AR_TMX_LEVELS[index]);
         this._tmxMap = tmxMap;
         tmxMap.x = this._currentMapX;
         this.addChild(tmxMap, AR_LANDS_ZODER, 2);

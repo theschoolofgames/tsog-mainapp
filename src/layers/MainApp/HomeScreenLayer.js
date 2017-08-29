@@ -27,6 +27,7 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addProgressTrackerButton();
         this.addDemosButton();
         KVDatabase.getInstance().set("ignoreMapScrollAnimation", 1);
+        // CurrencyManager.getInstance().incCoin(9000);
     },
 
     onEnterTransitionDidFinish: function() {
