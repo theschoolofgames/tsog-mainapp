@@ -6,6 +6,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 
 
 var TSOG_DEBUG = true;
+var UNLOCK_ALL_LEVELS = true;
 
 var PAYWALL_DISABLED = true;
 var SHOW_VERSION_LABEL = false;

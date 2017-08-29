@@ -69,7 +69,8 @@ var MapLayer = cc.Layer.extend({
         var lastPartXPos = 0;
         var stepIndex = 1;
         var mapIndex = 1;
-        var isAllLevelUnlocked = 0
+        var isAllLevelUnlocked = 0;
+        var unlockAllLevel = true;
 
         var stepCounter = 0;
 
@@ -107,6 +108,9 @@ var MapLayer = cc.Layer.extend({
                         btn.x = pos.x + btn.width * 0.5 + mapPart.width * (mapLabel - 1);
                         btn.y = pos.y + btn.height * 1.5;
                         btn.setEnabled(isAllLevelUnlocked ? true : enabled);
+                        if(UNLOCK_ALL_LEVELS){
+                            btn.setEnabled(UNLOCK_ALL_LEVELS)
+                        }
                         var lb = new cc.LabelBMFont(level, res.MapFont_fnt);
                         lb.x = btn.width/2;
                         lb.y = btn.height/2 + 35 * this._csf;
