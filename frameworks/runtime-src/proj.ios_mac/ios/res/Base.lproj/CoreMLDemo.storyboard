@@ -23,10 +23,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uLK-QD-bCS">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90x-Qs-pqZ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
@@ -128,12 +124,18 @@
                                     <constraint firstAttribute="width" secondItem="4RH-5l-cLQ" secondAttribute="height" multiplier="15:14" id="NdA-iK-cB5"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="target.png" translatesAutoresizingMaskIntoConstraints="NO" id="PK2-bZ-iUh">
+                                <rect key="frame" x="157.5" y="303.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Edv-4g-M4f"/>
+                                    <constraint firstAttribute="height" constant="60" id="NO1-D8-paC"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="4RH-5l-cLQ" firstAttribute="centerY" secondItem="hRc-sP-DON" secondAttribute="centerY" constant="1" id="1v3-gA-ezo"/>
                             <constraint firstAttribute="trailing" secondItem="hRc-sP-DON" secondAttribute="trailing" constant="5" id="2Fl-WF-Ti2"/>
-                            <constraint firstItem="uLK-QD-bCS" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="2em-bj-87j"/>
                             <constraint firstAttribute="bottom" secondItem="90x-Qs-pqZ" secondAttribute="bottom" id="5a9-ea-5UO"/>
                             <constraint firstItem="CPY-3X-r01" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="8Rp-WG-Vle"/>
                             <constraint firstItem="90x-Qs-pqZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8S7-4Y-wtd"/>
@@ -147,20 +149,19 @@
                             <constraint firstItem="Fzs-mB-9qe" firstAttribute="centerX" secondItem="AHr-4d-SxF" secondAttribute="centerX" id="Qbh-Cc-Jf1"/>
                             <constraint firstItem="4RH-5l-cLQ" firstAttribute="height" secondItem="hRc-sP-DON" secondAttribute="height" constant="3" id="WkR-un-8jI"/>
                             <constraint firstItem="12L-63-7gl" firstAttribute="leading" secondItem="Grn-pX-6Qy" secondAttribute="leading" constant="-10" id="Zoe-k0-maj"/>
+                            <constraint firstItem="PK2-bZ-iUh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aZV-Ly-5TT"/>
                             <constraint firstItem="stm-ZM-fmL" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="aob-K4-8vc"/>
                             <constraint firstAttribute="trailing" secondItem="AHr-4d-SxF" secondAttribute="trailing" constant="20" id="c0b-bE-okn"/>
-                            <constraint firstItem="uLK-QD-bCS" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dHc-tR-Sxr"/>
                             <constraint firstItem="Grn-pX-6Qy" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="19" id="drq-cr-3Ew"/>
                             <constraint firstAttribute="bottom" secondItem="AHr-4d-SxF" secondAttribute="bottom" id="fGj-mB-WEV"/>
                             <constraint firstItem="wM9-YR-Vl8" firstAttribute="width" secondItem="AHr-4d-SxF" secondAttribute="width" id="fba-2E-fGv"/>
-                            <constraint firstAttribute="bottom" secondItem="uLK-QD-bCS" secondAttribute="bottom" id="gpd-zE-vP1"/>
                             <constraint firstItem="Grn-pX-6Qy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="20" id="hbq-8o-bbf"/>
                             <constraint firstItem="4RH-5l-cLQ" firstAttribute="trailing" secondItem="hRc-sP-DON" secondAttribute="trailing" constant="2" id="ib2-ad-Yxi"/>
                             <constraint firstItem="hRc-sP-DON" firstAttribute="height" secondItem="Grn-pX-6Qy" secondAttribute="height" id="jxe-Gw-fOR"/>
                             <constraint firstAttribute="trailing" secondItem="CPY-3X-r01" secondAttribute="trailing" constant="8" id="lB6-gB-MbZ"/>
+                            <constraint firstItem="PK2-bZ-iUh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pLN-3M-NHw"/>
                             <constraint firstAttribute="bottom" secondItem="CPY-3X-r01" secondAttribute="bottom" id="pgz-vA-m9K"/>
                             <constraint firstAttribute="trailing" secondItem="90x-Qs-pqZ" secondAttribute="trailing" id="tRN-Dw-WV3"/>
-                            <constraint firstAttribute="trailing" secondItem="uLK-QD-bCS" secondAttribute="trailing" id="tah-Q4-aDy"/>
                             <constraint firstItem="12L-63-7gl" firstAttribute="centerY" secondItem="Grn-pX-6Qy" secondAttribute="centerY" id="xGO-sc-nfH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -179,7 +180,6 @@
                         <outlet property="lbCountdown" destination="4SK-Yz-ODF" id="Il9-nZ-cWP"/>
                         <outlet property="lbDiamond" destination="bnm-Ha-Y7O" id="YOR-bl-tbV"/>
                         <outlet property="lbResult" destination="CPY-3X-r01" id="pev-5M-Ocf"/>
-                        <outlet property="previewView" destination="uLK-QD-bCS" id="QRY-PQ-YZ5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -202,7 +202,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AmM-T6-UL0" id="6AK-45-vic">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -255,5 +255,6 @@
         <image name="coin.png" width="66" height="69"/>
         <image name="diamond-identified-object.png" width="45" height="42"/>
         <image name="shopping-cart.png" width="84" height="114"/>
+        <image name="target.png" width="100" height="100"/>
     </resources>
 </document>
