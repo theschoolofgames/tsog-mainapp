@@ -80,6 +80,18 @@
     
     // Setup View
     [self setupView];
+    
+    
+    // Setup ARKit
+    [self setupARKit];
+    
+    // Setup CoreML and Vision
+    [self setupVisionAndCoreML];
+    
+    
+    // test code
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.view addGestureRecognizer:tapGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -97,16 +109,16 @@
     if (!didInitCamera) {
         didInitCamera = YES;
         
-        // Setup ARKit
-        [self setupARKit];
-        
-        // Setup CoreML and Vision
-        [self setupVisionAndCoreML];
-        
-        
-        // test code
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-        [self.view addGestureRecognizer:tapGesture];
+//        // Setup ARKit
+//        [self setupARKit];
+//
+//        // Setup CoreML and Vision
+//        [self setupVisionAndCoreML];
+//
+//
+//        // test code
+//        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+//        [self.view addGestureRecognizer:tapGesture];
 
     } else {
         [self startARKitAgain];
@@ -245,7 +257,7 @@
     NSError *error;
     VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
     if (error) {
-//        NSLog(@"--->ERROR: %@", error.description);
+        NSLog(@"--->ERROR: %@", error.description);
         return;
     }
     
