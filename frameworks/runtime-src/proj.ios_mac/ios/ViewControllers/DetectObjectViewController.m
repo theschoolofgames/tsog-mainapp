@@ -36,6 +36,7 @@
     NSTimer *showAnimatedStringTimer;
     NSTimer *hideAnimatedStringTimer;
     
+    
     // Clock Timer
     NSTimer *countdownTimer;                  // Timer to do countdown
     
@@ -61,6 +62,9 @@
     // ARKit
     CGFloat textDepth;
     NSString *latestPrediction;
+    
+    // DEbug
+    NSTimeInterval lastTime;
 }
 
 @end
@@ -273,6 +277,12 @@
         }
         
         // Debug
+        NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+        if (currentTime - lastTime < 1) {
+            return;
+        }
+        
+        lastTime = currentTime;
         NSMutableString *objArrayStr = [NSMutableString stringWithString:@""];
         
         [request.results enumerateObjectsUsingBlock:^(VNClassificationObservation *obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -548,12 +558,15 @@
 
 #pragma mark - Countdown timer
 - (void)startCountDown {
-    if (countdownTimer) {
-        [countdownTimer invalidate];
-        countdownTimer = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (countdownTimer) {
+            [countdownTimer invalidate];
+            countdownTimer = nil;
+        }
+        
+        countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCurrentTime) userInfo:nil repeats:YES];
+    });
     
-    countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkCurrentTime) userInfo:nil repeats:YES];
 }
 
 - (void)checkCurrentTime {
@@ -742,6 +755,14 @@
 - (void)handleTap:(UITapGestureRecognizer *)gestureRecognize {
     
     if (foundingObj || latestPrediction.length == 0) {
+        if (latestPrediction.length == 0) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Cannot detect object via CoreML, please tap again" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction* defaultAction = [UIAlertAction
+                                            actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {}];
+            [alert addAction:defaultAction];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
         return;
     }
     
@@ -815,6 +836,13 @@
             // Let the app check object again
             foundingObj = NO;
         });
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Cannot draw text on space because ARKit could not found any 3d object on screen, please rotate the camera around the object to detect it again" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* defaultAction = [UIAlertAction
+                                        actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {}];
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
