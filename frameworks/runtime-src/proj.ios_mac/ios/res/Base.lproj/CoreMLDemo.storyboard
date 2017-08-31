@@ -131,6 +131,16 @@
                                     <constraint firstAttribute="height" constant="60" id="NO1-D8-paC"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVV-0R-Dui">
+                                <rect key="frame" x="8" y="605" width="200" height="12"/>
+                                <color key="backgroundColor" white="1" alpha="0.50470890410958902" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="sWQ-kc-5KK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -143,10 +153,12 @@
                             <constraint firstItem="wM9-YR-Vl8" firstAttribute="centerX" secondItem="AHr-4d-SxF" secondAttribute="centerX" id="92i-Xu-FBF"/>
                             <constraint firstItem="hRc-sP-DON" firstAttribute="centerY" secondItem="Grn-pX-6Qy" secondAttribute="centerY" id="92s-md-Shn"/>
                             <constraint firstItem="90x-Qs-pqZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="BZH-Wg-U1U"/>
+                            <constraint firstItem="YVV-0R-Dui" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="DZ3-iq-bip"/>
                             <constraint firstItem="AHr-4d-SxF" firstAttribute="bottom" secondItem="wM9-YR-Vl8" secondAttribute="bottom" constant="8" id="LkL-4r-VpP"/>
                             <constraint firstItem="stm-ZM-fmL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="Nhh-zM-4Xx"/>
                             <constraint firstItem="AHr-4d-SxF" firstAttribute="top" secondItem="Fzs-mB-9qe" secondAttribute="top" id="OXy-fh-kuk"/>
                             <constraint firstItem="Fzs-mB-9qe" firstAttribute="centerX" secondItem="AHr-4d-SxF" secondAttribute="centerX" id="Qbh-Cc-Jf1"/>
+                            <constraint firstAttribute="bottom" secondItem="YVV-0R-Dui" secondAttribute="bottom" constant="50" id="TLh-6b-dwN"/>
                             <constraint firstItem="4RH-5l-cLQ" firstAttribute="height" secondItem="hRc-sP-DON" secondAttribute="height" constant="3" id="WkR-un-8jI"/>
                             <constraint firstItem="12L-63-7gl" firstAttribute="leading" secondItem="Grn-pX-6Qy" secondAttribute="leading" constant="-10" id="Zoe-k0-maj"/>
                             <constraint firstItem="PK2-bZ-iUh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aZV-Ly-5TT"/>
@@ -178,6 +190,7 @@
                         <outlet property="ivDiamondHUD" destination="4RH-5l-cLQ" id="xA1-cd-mju"/>
                         <outlet property="lbCount" destination="wM9-YR-Vl8" id="abb-YY-eJV"/>
                         <outlet property="lbCountdown" destination="4SK-Yz-ODF" id="Il9-nZ-cWP"/>
+                        <outlet property="lbDebug" destination="YVV-0R-Dui" id="vpY-lV-loL"/>
                         <outlet property="lbDiamond" destination="bnm-Ha-Y7O" id="YOR-bl-tbV"/>
                         <outlet property="lbResult" destination="CPY-3X-r01" id="pev-5M-Ocf"/>
                     </connections>

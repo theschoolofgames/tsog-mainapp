@@ -52,6 +52,7 @@
     __weak IBOutlet UIImageView *ivDiamondHUD;
     __weak IBOutlet UIImageView *ivClockHUD;
     __weak IBOutlet ARSCNView *arSceneView;
+    __weak IBOutlet UILabel *lbDebug;
     
     BOOL foundingObj;
     BOOL stopFindning;
@@ -270,6 +271,23 @@
             // Found object
             [self handleFoundObject:firstObj];
         }
+        
+        // Debug
+        NSMutableString *objArrayStr = [NSMutableString stringWithString:@""];
+        
+        [request.results enumerateObjectsUsingBlock:^(VNClassificationObservation *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx > 2) {
+                stop = YES;
+                return;
+            }
+            [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{ 
+            lbDebug.text = objArrayStr;
+            [lbDebug sizeToFit];
+        });
+        
     }];
     
     classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
@@ -363,7 +381,7 @@
 - (void)handleFoundObject:(VNClassificationObservation *)obj {
     // Found object
 //    foundingObj = YES;
-    
+
     // analyze string
     NSString *fullName = obj.identifier;
     NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
