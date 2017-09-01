@@ -120,6 +120,8 @@
 //        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
 //        [self.view addGestureRecognizer:tapGesture];
 
+        [self feedCoreML];
+        
     } else {
         [self startARKitAgain];
     }
@@ -211,6 +213,9 @@
     // Set delegate for arscene
     arSceneView.delegate = self;
     
+    // Debug
+    arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
+    
     // Show statistics
     arSceneView.showsStatistics = YES;
     
@@ -225,6 +230,7 @@
     
     // Create a session configuration
     ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+    
     // Enable plane detection
     configuration.planeDetection = ARPlaneDetectionHorizontal;
     
@@ -255,15 +261,20 @@
 - (void)setupVisionAndCoreML {
     // Read MLModel
     NSError *error;
+    NSLog(@"---Load inception model");
     VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
     if (error) {
         NSLog(@"--->ERROR: %@", error.description);
         return;
     }
     
+    NSLog(@"---Create request");
+    
     // Create request to classify object
     VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
         // Handle the response
+        
+        NSLog(@"---Handle response CoreML");
         
         // Check found object
         if (stopFindning) {
@@ -280,6 +291,8 @@
             NSLog(@"--->ERROR: No Results");
             return;
         }
+        
+        NSLog(@"---End checking");
         
         // Just get first object
         VNClassificationObservation *firstObj = [request.results firstObject];
@@ -312,14 +325,14 @@
         
     }];
     
+    NSLog(@"---Set classification");
     classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
     visionRequests = @[classificationRequest];
     
 //    feedCoreMLTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(feedCoreML) userInfo:nil repeats:YES];
     
-    dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
+//    dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
     
-    [self feedCoreML];
 }
 
 - (void)feedCoreML {
@@ -337,12 +350,19 @@
         return;
     }
     
-    dispatch_async(dispatchQueueML, ^{
+    NSLog(@"Feed CoreML");
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        NSLog(@"---Start");
+        
         CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
         
         if (!pixBuff) {
             return;
         }
+        
+        NSLog(@"---Get pixel buff");
         
         //    CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixBuff];
         //    VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCIImage:ciImage options:[NSDictionary dictionary]];
@@ -389,6 +409,8 @@
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
     lbDiamond.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].diamondCount];
+    
+    NSLog(@"---Setup view");
 }
 
 #pragma mark - Setup Observer
@@ -404,6 +426,8 @@
     // Found object
 //    foundingObj = YES;
 
+    NSLog(@"---handleFoundObject");
+    
     // analyze string
     NSString *fullName = obj.identifier;
     NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
