@@ -111,59 +111,61 @@ var DialogPlayAlpharacing = Dialog.extend({
             //     self.removeFromParent();
             // });
         } else {
-            var buttonPlay = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png");
-            buttonPlay.x = this._dialogBg.width/2;
-            buttonPlay.y = 180;
-            // buttonPlay.scale = 0.6;
-            this._dialogBg.addChild(buttonPlay);
-            var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1, localizeForWriting("Alpha Racing"));
-        // lbPlay.scale = 0.3;
-            buttonPlay.addChild(lbPlay,1);
-            lbPlay.x = buttonPlay.width/2;
-            lbPlay.y = buttonPlay.height/2 + 8;
-            buttonPlay.addClickEventListener(function(){
-                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-                if(canttouch) // ^_^ @david
-                    return;
-                canttouch = true;
-                CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
-                var data = DataManager.getInstance().getDataAlpharacing();
-                cc.director.runScene(new AlphaRacingScene(data, null, 600));
-                AnalyticsManager.getInstance().logEventSpendVirtualCurrency("Alpharacing_start",
-                    "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
-            });
+            var isCollectObjectGameAvailable = true;
 
-            var buttonCollectObject = new ccui.Button("res/SD/btn_get_updates.png", "res/SD/btn_get_updates_pressed.png");
-            buttonCollectObject.x = this._dialogBg.width/2;
-            buttonCollectObject.y = 80;
-            // buttonCollectObject.scale = 0.6;
-            this._dialogBg.addChild(buttonCollectObject);
-            lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Collect Objects"));
-        // lbPlay.scale = 0.3;
-            buttonCollectObject.addChild(lbPlay,1);
-            lbPlay.x = buttonCollectObject.width/2;
-            lbPlay.y = buttonCollectObject.height/2 + 8;
-            buttonCollectObject.addClickEventListener(function(){
-                AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-                if(canttouch) // ^_^ @david
-                    return;
-                canttouch = true;
-                CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
-                
-                var diamondBalance = CurrencyManager.getInstance().getDiamond();
-                var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
-                cc.log("identifiedObjectsString: %s", identifiedObjectsString);
-                NativeHelper.callNative("showCoreMLDemo", [diamondBalance, identifiedObjectsString]);
+            if (! isCollectObjectGameAvailable) {
+                var buttonPlay = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png");
+                buttonPlay.x = this._dialogBg.width/2;
+                buttonPlay.y = 130;
 
-                AnalyticsManager.getInstance().logEventSpendVirtualCurrency("CollectObject_start",
-                    "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
+                this._dialogBg.addChild(buttonPlay);
+                var lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1, localizeForWriting("Play"));
 
-                self.parent._blocktouch = false;
-                self.removeFromParent();
-            });
+                buttonPlay.addChild(lbPlay,1);
+                lbPlay.x = buttonPlay.width/2;
+                lbPlay.y = buttonPlay.height/2 + 8;
+                buttonPlay.addClickEventListener(function(){
+                    AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+                    if(canttouch) // ^_^ @david
+                        return;
+                    canttouch = true;
+                    CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
+                    var data = DataManager.getInstance().getDataAlpharacing();
+                    cc.director.runScene(new AlphaRacingScene(data, null, 600));
+                    AnalyticsManager.getInstance().logEventSpendVirtualCurrency("Alpharacing_start",
+                        "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
+                });
+            }
+            else {
+                var buttonCollectObject = new ccui.Button("res/SD/btn_get_updates.png", "res/SD/btn_get_updates_pressed.png");
+                buttonCollectObject.x = this._dialogBg.width/2;
+                buttonCollectObject.y = 130;
+
+                this._dialogBg.addChild(buttonCollectObject);
+                lbPlay = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 40, cc.color("#b15a10"), 1,localizeForWriting("Play"));
+                buttonCollectObject.addChild(lbPlay,1);
+                lbPlay.x = buttonCollectObject.width/2;
+                lbPlay.y = buttonCollectObject.height/2 + 8;
+                buttonCollectObject.addClickEventListener(function(){
+                    AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+                    if(canttouch) // ^_^ @david
+                        return;
+                    canttouch = true;
+                    CurrencyManager.getInstance().decrCoin(COIN_NEED_TO_PLAY_ALPHARACING);
+                    
+                    var diamondBalance = CurrencyManager.getInstance().getDiamond();
+                    var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
+                    cc.log("identifiedObjectsString: %s", identifiedObjectsString);
+                    NativeHelper.callNative("showCoreMLDemo", [diamondBalance, identifiedObjectsString]);
+
+                    AnalyticsManager.getInstance().logEventSpendVirtualCurrency("CollectObject_start",
+                        "Coin", COIN_NEED_TO_PLAY_ALPHARACING);
+
+                    self.parent._blocktouch = false;
+                    self.removeFromParent();
+                });
+            }
         }
-
-        // lbPlay.scale = 0.6;
 
         var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "",ccui.Widget.PLIST_TEXTURE);
         closeButton.x = this._dialogBg.width - 25;
