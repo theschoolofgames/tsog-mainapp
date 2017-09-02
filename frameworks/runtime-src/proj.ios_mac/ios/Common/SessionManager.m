@@ -92,7 +92,7 @@
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
     
-    [utterance setRate:0.2f];
+    [utterance setRate:0.5f];
     [self.synthesizer speakUtterance:utterance];
 }
 
