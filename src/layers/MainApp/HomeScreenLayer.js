@@ -127,18 +127,18 @@ var HomeScreenLayer = cc.Layer.extend({
 
 
 
-        var door = this.getChildByName("home");
-        this.runDoorCutSceneAction(door, 1);
+        // var door = this.getChildByName("home");
+        // this.runDoorCutSceneAction(door, 1);
 
-        door = this.getChildByName("play");
+        var door = this.getChildByName("play");
         this.runDoorCutSceneAction(door, 0);
 
-        door = this.getChildByName("learn");
-        this.runDoorCutSceneAction(door, 0.5);
+        // door = this.getChildByName("learn");
+        // this.runDoorCutSceneAction(door, 0.5);
     
 
         this.runAction(cc.sequence(
-            cc.delayTime(2.2),
+            cc.delayTime(1),
             cc.callFunc(function() {
                 l.removeFromParent();
             }.bind(this))
@@ -211,6 +211,13 @@ var HomeScreenLayer = cc.Layer.extend({
         this.lbHighScore = lbHighScore;
 
         this.schedule(this.updateHighScore, 0.5);
+
+        var character = new AdiDogNode(true);
+        character.scale  = 0.5;
+        character.anchorX = 0;
+        // character.x = door.x;
+        // character.y = door.y;
+        door.addChild(character, HOME_DOOR_Z_ORDER+2);
     },
 
     addLearnDoor: function(){
@@ -277,13 +284,6 @@ var HomeScreenLayer = cc.Layer.extend({
         lbLearn.x = board.width/2;
         lbLearn.y = board.height/2;
         board.addChild(lbLearn);
-
-        var character = new AdiDogNode(true);
-        character.scale  = 0.5;
-        character.anchorX = 0;
-        // character.x = door.x;
-        // character.y = door.y;
-        door.addChild(character, HOME_DOOR_Z_ORDER+2);
     },
 
     _onDoorPressed: function(door) {
