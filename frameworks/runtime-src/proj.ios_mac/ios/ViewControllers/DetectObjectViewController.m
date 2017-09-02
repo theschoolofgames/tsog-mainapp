@@ -14,6 +14,8 @@
 #import "SessionManager.h"
 #import "Cocos2dxHelper.h"
 #import "FirebaseWrapper.h"
+#import <AudioToolbox/AudioServices.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @import AVFoundation;
 @import CoreML;
@@ -441,6 +443,15 @@
     
     // test code
     latestPrediction = identifiedObj;
+    
+    // Play success sound
+    NSString *soundPath = [[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"];
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:soundPath], &soundID);
+    AudioServicesPlaySystemSound(soundID);
+
+    // Vibrate
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
     return;
     
