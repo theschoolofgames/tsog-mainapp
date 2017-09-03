@@ -102,17 +102,17 @@
 //    // Play success sound
 //    if (!self.soundPath) {
 //        self.soundPath = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"]];
-//        
+//
 //        [[AVAudioSession sharedInstance]
 //         setCategory: AVAudioSessionCategoryAmbient
 //         error: nil];
 //    }
-//    
+//
 //    if (!self.player) {
 //        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.soundPath error:NULL];
 //        [self.player setVolume:1.0];
 //    }
-//    
+//
 //    // Play sound
 //    [self.player play];
     
