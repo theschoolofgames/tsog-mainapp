@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *identifiedObjects;   // Identified objects
 @property (nonatomic, assign) NSInteger objCount;                       // Objects count
+@property (nonatomic, strong) NSURL *soundPath;
 
 @end
 
@@ -94,6 +95,19 @@
     
     [utterance setRate:0.5f];
     [self.synthesizer speakUtterance:utterance];
+}
+
+- (void)playSoundAndVibrateFoundObj {
+    // Play success sound
+    if (!self.soundPath) {
+        self.soundPath = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"]];
+    }
+    SystemSoundID soundID;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)self.soundPath, &soundID);
+    AudioServicesPlaySystemSound(soundID);
+    
+    // Vibrate
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
 @end

@@ -392,10 +392,11 @@
 		C41647E11F4D3E8100D0E474 /* button-finish.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DB1F4D3E7C00D0E474 /* button-finish.png */; };
 		C41647E21F4D3E8100D0E474 /* button-finish@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647DD1F4D3E7C00D0E474 /* button-finish@2x.png */; };
 		C41647E31F4D3E8100D0E474 /* button-finish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C41647D91F4D3E7C00D0E474 /* button-finish@3x.png */; };
+		C427799F1F5BCF49005FF0F7 /* DetectObjectCameraKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C427799B1F5BCF46005FF0F7 /* DetectObjectCameraKitViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C44F0D501F56C3CF006235E9 /* target.png in Resources */ = {isa = PBXBuildFile; fileRef = C44F0D4D1F56C3C9006235E9 /* target.png */; };
 		C44F0D511F56C3CF006235E9 /* target@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44F0D4F1F56C3C9006235E9 /* target@2x.png */; };
 		C44F0D521F56C3CF006235E9 /* target@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C44F0D4E1F56C3C9006235E9 /* target@3x.png */; };
-		C47F93A41F2B222000ABF1C1 /* DetectObjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A11F2B221500ABF1C1 /* DetectObjectViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		C47F93A41F2B222000ABF1C1 /* DetectObjectARKitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A11F2B221500ABF1C1 /* DetectObjectARKitViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A51F2B222200ABF1C1 /* IdentifiedObjectListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F93A31F2B221500ABF1C1 /* IdentifiedObjectListViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A61F2B222600ABF1C1 /* CommonTools.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F939B1F2B221100ABF1C1 /* CommonTools.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		C47F93A71F2B222900ABF1C1 /* SessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C47F939E1F2B221100ABF1C1 /* SessionManager.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1137,6 +1138,8 @@
 		C41647DB1F4D3E7C00D0E474 /* button-finish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish.png"; sourceTree = "<group>"; };
 		C41647DC1F4D3E7C00D0E474 /* button-finish-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish-pressed@2x.png"; sourceTree = "<group>"; };
 		C41647DD1F4D3E7C00D0E474 /* button-finish@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-finish@2x.png"; sourceTree = "<group>"; };
+		C427799B1F5BCF46005FF0F7 /* DetectObjectCameraKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectObjectCameraKitViewController.m; sourceTree = "<group>"; };
+		C427799C1F5BCF46005FF0F7 /* DetectObjectCameraKitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectObjectCameraKitViewController.h; sourceTree = "<group>"; };
 		C44F0D4D1F56C3C9006235E9 /* target.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target.png; sourceTree = "<group>"; };
 		C44F0D4E1F56C3C9006235E9 /* target@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@3x.png"; sourceTree = "<group>"; };
 		C44F0D4F1F56C3C9006235E9 /* target@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "target@2x.png"; sourceTree = "<group>"; };
@@ -1145,8 +1148,8 @@
 		C47F939C1F2B221100ABF1C1 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C47F939D1F2B221100ABF1C1 /* SessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionManager.h; sourceTree = "<group>"; };
 		C47F939E1F2B221100ABF1C1 /* SessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SessionManager.m; sourceTree = "<group>"; };
-		C47F93A01F2B221500ABF1C1 /* DetectObjectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectObjectViewController.h; sourceTree = "<group>"; };
-		C47F93A11F2B221500ABF1C1 /* DetectObjectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectObjectViewController.m; sourceTree = "<group>"; };
+		C47F93A01F2B221500ABF1C1 /* DetectObjectARKitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetectObjectARKitViewController.h; sourceTree = "<group>"; };
+		C47F93A11F2B221500ABF1C1 /* DetectObjectARKitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetectObjectARKitViewController.m; sourceTree = "<group>"; };
 		C47F93A21F2B221500ABF1C1 /* IdentifiedObjectListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdentifiedObjectListViewController.h; sourceTree = "<group>"; };
 		C47F93A31F2B221500ABF1C1 /* IdentifiedObjectListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentifiedObjectListViewController.m; sourceTree = "<group>"; };
 		C47F93AC1F2B228B00ABF1C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CoreMLDemo.storyboard; sourceTree = "<group>"; };
@@ -2388,8 +2391,10 @@
 		C47F939F1F2B221500ABF1C1 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				C47F93A01F2B221500ABF1C1 /* DetectObjectViewController.h */,
-				C47F93A11F2B221500ABF1C1 /* DetectObjectViewController.m */,
+				C427799C1F5BCF46005FF0F7 /* DetectObjectCameraKitViewController.h */,
+				C427799B1F5BCF46005FF0F7 /* DetectObjectCameraKitViewController.m */,
+				C47F93A01F2B221500ABF1C1 /* DetectObjectARKitViewController.h */,
+				C47F93A11F2B221500ABF1C1 /* DetectObjectARKitViewController.m */,
 				C47F93A21F2B221500ABF1C1 /* IdentifiedObjectListViewController.h */,
 				C47F93A31F2B221500ABF1C1 /* IdentifiedObjectListViewController.m */,
 			);
@@ -2942,6 +2947,7 @@
 				01F093521C75965D00B4892E /* cmu_us_kal_residx_phon.c in Sources */,
 				01F093CA1C75965D00B4892E /* fe_interface.c in Sources */,
 				EB7B09041BB50D2200B36D24 /* lwf_lwfcontainer.cpp in Sources */,
+				C427799F1F5BCF49005FF0F7 /* DetectObjectCameraKitViewController.m in Sources */,
 				01F093201C75965D00B4892E /* ngram.c in Sources */,
 				01F093AA1C75965D00B4892E /* fsg_search.c in Sources */,
 				01F093AC1C75965D00B4892E /* kws_detections.c in Sources */,
@@ -3223,7 +3229,7 @@
 				01F093CF1C75965D00B4892E /* fe_warp_affine.c in Sources */,
 				EB7B09071BB50D2200B36D24 /* lwf_movieop.cpp in Sources */,
 				01F093671C75965D00B4892E /* us_text.c in Sources */,
-				C47F93A41F2B222000ABF1C1 /* DetectObjectViewController.m in Sources */,
+				C47F93A41F2B222000ABF1C1 /* DetectObjectARKitViewController.m in Sources */,
 				01C6E51E1CA5516E003C043B /* Dialog.m in Sources */,
 				01F481C71C23FFE300FCE13D /* InterpolateCubic.cpp in Sources */,
 				01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */,

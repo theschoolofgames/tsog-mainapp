@@ -23,5 +23,6 @@
 - (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
 - (void)addArayOfIdentifiedObjects:(NSArray *)objArray;                 // Add an array of objects
 - (void)textToSpeech:(NSString *)text;                                  // Speak a word
+- (void)playSoundAndVibrateFoundObj;
 
 @end

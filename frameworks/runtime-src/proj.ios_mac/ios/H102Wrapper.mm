@@ -28,7 +28,8 @@
 
 #import <Social/Social.h>
 
-#import "DetectObjectViewController.h"
+#import "DetectObjectARKitViewController.h"
+#import "DetectObjectCameraKitViewController.h"
 #import "SessionManager.h"
 
 static UIViewController* viewController;
@@ -80,14 +81,26 @@ static BOOL isOpenedFromNotification = NO;
     // Count down time
     [SessionManager sharedInstance].elapsedTime = 120;
     
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-    DetectObjectViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectViewController"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-    nav.navigationBarHidden = YES;
-    
-    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-    UIViewController *rootController = (UIViewController*)appController.viewController;
-    [rootController presentViewController:nav animated:YES completion:nil];
+#warning TODO: Need some ways to detect ARKit support
+    if (NO) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+        DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+        nav.navigationBarHidden = YES;
+        
+        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+        UIViewController *rootController = (UIViewController*)appController.viewController;
+        [rootController presentViewController:nav animated:YES completion:nil];
+    } else {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+        DetectObjectCameraKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectCameraKitViewController"];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+        nav.navigationBarHidden = YES;
+        
+        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+        UIViewController *rootController = (UIViewController*)appController.viewController;
+        [rootController presentViewController:nav animated:YES completion:nil];
+    }
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
