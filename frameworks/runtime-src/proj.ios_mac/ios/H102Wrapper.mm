@@ -31,6 +31,7 @@
 #import "DetectObjectARKitViewController.h"
 #import "DetectObjectCameraKitViewController.h"
 #import "SessionManager.h"
+#import "CommonTools.h"
 
 static UIViewController* viewController;
 static double startTime = -1;
@@ -81,8 +82,7 @@ static BOOL isOpenedFromNotification = NO;
     // Count down time
     [SessionManager sharedInstance].elapsedTime = 120;
     
-#warning TODO: Need some ways to detect ARKit support
-    if (YES) {
+    if ([CommonTools isCompatibleARKit]) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
         DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];

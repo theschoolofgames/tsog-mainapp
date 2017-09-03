@@ -190,7 +190,7 @@
 //    arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
     
     // Show statistics
-    arSceneView.showsStatistics = YES;
+    arSceneView.showsStatistics = NO;
     
     // Create new scene
     SCNScene *scene = [[SCNScene alloc] init];
@@ -209,7 +209,9 @@
 
 - (void)setupARSession {
     // Clear previous node
-    
+    for (SCNNode *childNode in arSceneView.scene.rootNode.childNodes) {
+        [childNode removeFromParentNode];
+    }
     
     // Create a session configuration
     ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
@@ -245,8 +247,6 @@
     // Create request to classify object
     VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
         // Handle the response
-        
-        NSLog(@"---Handle response CoreML");
         
         // Check found object
         if (FoundedObj || stopFindning) {
@@ -367,11 +367,6 @@
 
 #pragma mark - Handle found object
 - (void)handleFoundObject:(VNClassificationObservation *)obj {
-    // Found object
-//    FoundedObj = YES;
-
-    NSLog(@"---handleFoundObject");
-    
     // analyze string
     NSString *fullName = obj.identifier;
     NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
@@ -444,7 +439,9 @@
         [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:identifiedObj];
         
         // Speak
-        [[SessionManager sharedInstance] textToSpeech:identifiedObj];
+        dispatch_async(dispatch_get_main_queue(), ^{            
+            [[SessionManager sharedInstance] textToSpeech:identifiedObj];
+        });
         
         // Get Coordinates of HitTest
         matrix_float4x4 transform = closestResult.worldTransform;

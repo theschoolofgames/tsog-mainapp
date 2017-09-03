@@ -505,7 +505,9 @@
             [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:animatedString];
             
             // Speak
-            [[SessionManager sharedInstance] textToSpeech:animatedString];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[SessionManager sharedInstance] textToSpeech:animatedString];
+            });
         }
     }];
 }

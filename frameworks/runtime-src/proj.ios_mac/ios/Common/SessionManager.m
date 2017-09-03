@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableDictionary *identifiedObjects;   // Identified objects
 @property (nonatomic, assign) NSInteger objCount;                       // Objects count
 @property (nonatomic, strong) NSURL *soundPath;
+@property (nonatomic, strong) AVAudioPlayer *player;
 
 @end
 
@@ -92,19 +93,28 @@
     
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
-    
+    utterance.volume = 1.0;
     [utterance setRate:0.5f];
     [self.synthesizer speakUtterance:utterance];
 }
 
 - (void)playSoundAndVibrateFoundObj {
-    // Play success sound
-    if (!self.soundPath) {
-        self.soundPath = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"]];
-    }
-    SystemSoundID soundID;
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)self.soundPath, &soundID);
-    AudioServicesPlaySystemSound(soundID);
+//    // Play success sound
+//    if (!self.soundPath) {
+//        self.soundPath = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"]];
+//        
+//        [[AVAudioSession sharedInstance]
+//         setCategory: AVAudioSessionCategoryAmbient
+//         error: nil];
+//    }
+//    
+//    if (!self.player) {
+//        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:self.soundPath error:NULL];
+//        [self.player setVolume:1.0];
+//    }
+//    
+//    // Play sound
+//    [self.player play];
     
     // Vibrate
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);

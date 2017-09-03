@@ -12,5 +12,6 @@
 @interface CommonTools : NSObject
 
 + (NSString *)capitalizeFirstLetterOnlyOfString:(NSString *) sourceString;
++ (BOOL)isCompatibleARKit;
 
 @end
