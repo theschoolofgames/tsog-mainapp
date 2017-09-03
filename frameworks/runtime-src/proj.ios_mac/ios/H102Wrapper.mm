@@ -82,7 +82,7 @@ static BOOL isOpenedFromNotification = NO;
     [SessionManager sharedInstance].elapsedTime = 120;
     
 #warning TODO: Need some ways to detect ARKit support
-    if (NO) {
+    if (YES) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
         DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];

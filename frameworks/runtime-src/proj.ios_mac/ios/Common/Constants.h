@@ -9,7 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
-#define kRecognitionThreshold   0.3
+#define kRecognitionThreshold   0.4
 #define kAnimatedFontSize       60.0
 #define kShowMeAnObject         @"Show me an object..."
 #define kYouFoundIt             @"Yay you found it!"

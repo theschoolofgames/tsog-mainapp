@@ -304,7 +304,7 @@
     NSError *error;
     VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
     if (error) {
-//        NSLog(@"--->ERROR: %@", error.description);
+        NSLog(@"--->ERROR: %@", error.description);
         return;
     }
     
