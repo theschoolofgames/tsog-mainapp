@@ -199,7 +199,7 @@ var HomeScreenLayer = cc.Layer.extend({
         lbPlay.y = board.height/2 + 15;
         board.addChild(lbPlay);
 
-        var lbHighScore = new cc.LabelBMFont(UserStorage.getInstance().getARHighscore().toString(), res.HomeFont_fnt);
+        var lbHighScore = new cc.LabelBMFont("", res.HomeFont_fnt);
         lbHighScore.scale = 0.7;
         lbHighScore.x = board.x;
         lbHighScore.y = cc.rectGetMinY(board.getBoundingBox()) - 105*lbHighScore.scale;
@@ -327,7 +327,21 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     updateHighScore: function() {
-        this.lbHighScore.setString(UserStorage.getInstance().getARHighscore().toString());
+        var isCollectObjectGameAvailable = NativeHelper.callNative("isCoreMLAvailable", []);
+        var highScore = 0;
+        if (isCollectObjectGameAvailable) {
+            var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
+
+            if (identifiedObjectsString == "" || identifiedObjectsString == null) {
+                highScore = 0;
+            } else {
+                highScore = identifiedObjectsString.split("-@-").length;
+            }
+        } else {
+            highScore = UserStorage.getInstance().getARHighscore();
+        }
+
+        this.lbHighScore.setString(highScore.toString());
     },
 
     addShopButton: function() {

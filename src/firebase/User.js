@@ -32,7 +32,7 @@ var User = BaseFirebaseModel.extend({
     },
 
     isSubscriptionValid: function() {
-        cc.log("isSubscriptionValid: %s -> %d", this.getSubscription(), this.getSubscription() != null);
+//        cc.log("isSubscriptionValid: %s -> %d", this.getSubscription(), this.getSubscription() != null);
         return this.getSubscription() != null;
     },
 
