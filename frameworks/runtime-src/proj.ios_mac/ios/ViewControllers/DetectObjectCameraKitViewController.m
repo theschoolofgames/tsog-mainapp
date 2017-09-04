@@ -52,9 +52,13 @@
     __weak IBOutlet UIImageView *ivDiamondHUD;
     __weak IBOutlet UIImageView *ivClockHUD;
     
+    // Flag
     BOOL foundingObj;
     BOOL stopFindning;
     BOOL didInitCamera;
+    
+    // Data
+    NSMutableDictionary *sessionIdentifiedObj;
 }
 
 @end
@@ -300,6 +304,10 @@
 
 #pragma mark - Setup Camera
 - (void)setupVisionAndCoreML {
+    
+    // Reset session list
+    sessionIdentifiedObj = [NSMutableDictionary dictionary];
+    
     // Read MLModel
     NSError *error;
     VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
@@ -403,15 +411,27 @@
     
     if (nameArray.count == 0) {
         // No name -> Stop
+        foundingObj = NO;
         return;
     }
+    
     // just get first name
     NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
+    
+    // Check current session
+    if ([sessionIdentifiedObj objectForKey:identifiedObj]) {
+        // same object, should check it again
+        foundingObj = NO;
+        return;
+    }
     
     // Analytic
     [FirebaseWrapper logEventCollectObject:identifiedObj confident:obj.confidence];
     
     [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+    
+    // Add to session list
+    [sessionIdentifiedObj setObject:identifiedObj forKey:identifiedObj];
     
     // Add object to the Identified Object List
     if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {

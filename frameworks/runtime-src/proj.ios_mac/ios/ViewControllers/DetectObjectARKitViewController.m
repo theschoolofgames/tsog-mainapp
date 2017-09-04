@@ -54,6 +54,9 @@
     // ARKit
     CGFloat textDepth;
     
+    // Data
+    NSMutableDictionary *sessionIdentifiedObj;
+    
     // DEbug
     NSTimeInterval lastTime;
 }
@@ -239,6 +242,9 @@
 - (void)setupVisionAndCoreML {
     if (@available(iOS 11.0, *)) {
     
+        // Reset session list
+        sessionIdentifiedObj = [NSMutableDictionary dictionary];
+        
         // Read MLModel
         NSError *error;
         VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
@@ -406,6 +412,13 @@
         // just get first name
         NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
         
+        // Check current session
+        if ([sessionIdentifiedObj objectForKey:identifiedObj]) {
+            // same object, should check it again
+            [self startProcessCoreML];
+            return;
+        }
+        
         // Get center point
         CGPoint screenCentre = CGPointMake(CGRectGetMidX(arSceneView.bounds), CGRectGetMidY(arSceneView.bounds));
         
@@ -418,6 +431,9 @@
             
             // Play sound and vibrate
             [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+            
+            // Add to session list
+            [sessionIdentifiedObj setObject:identifiedObj forKey:identifiedObj];
             
             // Remove exceeding node
             if (arSceneView.scene.rootNode.childNodes.count > 5) {
