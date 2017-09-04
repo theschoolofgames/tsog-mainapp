@@ -100,7 +100,8 @@ var HomeScreenLayer = cc.Layer.extend({
 
     grownUpCheckCallback: function() {
         AnalyticsManager.getInstance().logCustomEvent(EVENT_MISSION_PAGE_2);
-        cc.director.replaceScene(new MissionPageAfterLoginScene());
+        // cc.director.replaceScene(new MissionPageAfterLoginScene());
+        cc.director.replaceScene(new GrownUpMenuScene());
     },
 
     addBackGround: function() {
