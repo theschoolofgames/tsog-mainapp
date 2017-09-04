@@ -68,38 +68,41 @@ static BOOL isOpenedFromNotification = NO;
 }
 
 + (void)showCoreMLDemo:(NSNumber*)gemBalance identifiedObjects:(NSString *)identifiedObjects {
-    // Set current diamonds and current object list
-    [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
-    
-    NSArray *identifiedObjectsArray = @[];
-    
-    if ([identifiedObjects length] > 0) {
-        identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
-    }
-    
-    [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
-    
-    // Count down time
-    [SessionManager sharedInstance].elapsedTime = 120;
-    
-    if ([CommonTools isCompatibleARKit]) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-        DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-        nav.navigationBarHidden = YES;
+    if (@available(iOS 11.0, *)) {
         
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        UIViewController *rootController = (UIViewController*)appController.viewController;
-        [rootController presentViewController:nav animated:YES completion:nil];
-    } else {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-        DetectObjectCameraKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectCameraKitViewController"];
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-        nav.navigationBarHidden = YES;
+        // Set current diamonds and current object list
+        [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
         
-        AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-        UIViewController *rootController = (UIViewController*)appController.viewController;
-        [rootController presentViewController:nav animated:YES completion:nil];
+        NSArray *identifiedObjectsArray = @[];
+        
+        if ([identifiedObjects length] > 0) {
+            identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
+        }
+        
+        [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
+        
+        // Count down time
+        [SessionManager sharedInstance].elapsedTime = 120;
+        
+        if ([CommonTools isCompatibleARKit]) {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+            DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+            nav.navigationBarHidden = YES;
+            
+            AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+            UIViewController *rootController = (UIViewController*)appController.viewController;
+            [rootController presentViewController:nav animated:YES completion:nil];
+        } else {
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+            DetectObjectCameraKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectCameraKitViewController"];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+            nav.navigationBarHidden = YES;
+            
+            AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+            UIViewController *rootController = (UIViewController*)appController.viewController;
+            [rootController presentViewController:nav animated:YES completion:nil];
+        }
     }
 }
 
