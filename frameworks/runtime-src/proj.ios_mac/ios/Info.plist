@@ -130,15 +130,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>TSOG need to see objects around you</string>
+	<string>The app needs to see the objects around you</string>
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG doesn&apos;t use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To play with Adi, we need Audio Permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TSOG doesn't use this feature</string>
+	<string>TSOG doesn&apos;t use this feature</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
