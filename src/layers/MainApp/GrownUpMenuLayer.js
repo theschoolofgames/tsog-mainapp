@@ -307,7 +307,7 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
                                                 30, 
                                                 cc.color("#b15a10"), 
                                                 3,
-                                                localizeForWriting("Pay what's in your"));
+                                                localizeForWriting("Get Coins and Diamonds"));
         _payBtnTitle.x = cc.winSize.width/2;
         _payBtnTitle.y = _payBtn.height/2 + 10;
         _payBtn.addChild(_payBtnTitle);
@@ -324,10 +324,10 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         normalAnimal.x = cc.winSize.width - 35;
         normalAnimal.y = normalPay.height + 30;
         normalPay.addChild(normalAnimal);
-        var normalHeart = new cc.Sprite("#icon-heart.png");
-        normalHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
-        normalHeart.y = _payBtn.height/2;
-        normalPay.addChild(normalHeart);
+        // var normalHeart = new cc.Sprite("#icon-heart.png");
+        // normalHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
+        // normalHeart.y = _payBtn.height/2;
+        // normalPay.addChild(normalHeart);
 
         var clickPay = _payBtn.getRendererClicked();
         var clickCoin = new cc.Sprite("#icon-coin-pressed.png");
@@ -340,10 +340,10 @@ var GrownUpMenuLayer = cc.LayerColor.extend({
         clickAnimal.x = cc.winSize.width - 35;
         clickAnimal.y = clickPay.height + 30;
         clickPay.addChild(clickAnimal);
-        var clickHeart = new cc.Sprite("#icon-heart-pressed.png");
-        clickHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
-        clickHeart.y = _payBtn.height/2;
-        clickPay.addChild(clickHeart);
+        // var clickHeart = new cc.Sprite("#icon-heart-pressed.png");
+        // clickHeart.x = _payBtnTitle.x + _payBtnTitle.width/2 + 35;
+        // clickHeart.y = _payBtn.height/2;
+        // clickPay.addChild(clickHeart);
 
         _progressTrackerBtn.addChild(this._createBtnTitle(localizeForWriting("Progress Tracker"), _progressTrackerBtn));
         // _payBtn.addChild(this._createBtnTitle(localizeForWriting("Pay what's in your"), _payBtn, - 20));
