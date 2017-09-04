@@ -33,7 +33,6 @@
     NSTimer *countdownTimer;                  // Timer to do countdown
     
     __weak IBOutlet UILabel *lbResult;
-    __weak IBOutlet UIView *previewView;
     __weak IBOutlet UIImageView *coinImage;
     __weak IBOutlet UIButton *btnShoppingCart;
     __weak IBOutlet UILabel *lbCount;
@@ -44,8 +43,9 @@
     __weak IBOutlet UILabel *lbDiamond;
     __weak IBOutlet UIImageView *ivDiamondHUD;
     __weak IBOutlet UIImageView *ivClockHUD;
-    __weak IBOutlet ARSCNView *arSceneView;
     __weak IBOutlet UILabel *lbDebug;
+    
+    IBOutlet ARSCNView *arSceneView;
     
     BOOL FoundedObj;
     BOOL stopFindning;
@@ -71,7 +71,6 @@
     
     // Setup View
     [self setupView];
-    
     
     // Setup ARKit
     [self setupARKitScene];
@@ -208,19 +207,21 @@
 }
 
 - (void)setupARSession {
-    // Clear previous node
-    for (SCNNode *childNode in arSceneView.scene.rootNode.childNodes) {
-        [childNode removeFromParentNode];
+    if (@available(iOS 11.0, *)) {
+        // Clear previous node
+        for (SCNNode *childNode in arSceneView.scene.rootNode.childNodes) {
+            [childNode removeFromParentNode];
+        }
+        
+        // Create a session configuration
+        ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+        
+        // Enable plane detection
+        configuration.planeDetection = ARPlaneDetectionHorizontal;
+        
+        // Run the view's session
+        [arSceneView.session runWithConfiguration:configuration];
     }
-    
-    // Create a session configuration
-    ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
-    
-    // Enable plane detection
-    configuration.planeDetection = ARPlaneDetectionHorizontal;
-    
-    // Run the view's session
-    [arSceneView.session runWithConfiguration:configuration];
 }
 
 - (void)startARKitAgain {
@@ -236,103 +237,126 @@
 
 #pragma mark - Setup Vision and CoreML
 - (void)setupVisionAndCoreML {
-    // Read MLModel
-    NSError *error;
-    VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
-    if (error) {
-        NSLog(@"--->ERROR: %@", error.description);
-        return;
-    }
+    if (@available(iOS 11.0, *)) {
     
-    // Create request to classify object
-    VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
-        // Handle the response
+        // Read MLModel
+        NSError *error;
+        VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
+        if (error) {
+            NSLog(@"--->ERROR: %@", error.description);
+            return;
+        }
         
-        // Check found object
+        // Create request to classify object
+        VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
+            // Handle the response
+            
+            // Check found object
+            if (FoundedObj || stopFindning) {
+                return;
+            }
+            
+            // Check error
+            if (error) {
+                NSLog(@"--->ERROR: %@", error.description);
+                
+                // Don't find out any object, should check it again
+                [self startProcessCoreML];
+                return;
+            }
+            
+            if (!request.results) {
+                NSLog(@"--->ERROR: No Results");
+                
+                // Don't find out any object, should check it again
+                [self startProcessCoreML];
+                return;
+            }
+            
+            // Debug - UPDATE LABEL
+            NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+            if (currentTime - lastTime > 1) {
+                lastTime = currentTime;
+                NSMutableString *objArrayStr = [NSMutableString stringWithString:@""];
+                
+                [request.results enumerateObjectsUsingBlock:^(VNClassificationObservation *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (idx > 2) {
+                        stop = YES;
+                        return;
+                    }
+                    [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    lbDebug.text = objArrayStr;
+                    [lbDebug sizeToFit];
+                });
+            }
+            // End debug part
+            
+            // Just get first object
+            VNClassificationObservation *firstObj = [request.results firstObject];
+            if (firstObj.confidence > kRecognitionThreshold) {
+                // Found object
+                [self handleFoundObject:firstObj];
+            } else {
+                // Don't find out any object, should check it again
+                NSLog(@"--->Cannot find out CoreML object, find again");
+                [self startProcessCoreML];
+            }
+        }];
+        
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
+        visionRequests = @[classificationRequest];
+        
+        dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
+        
+    }
+}
+
+- (void)startProcessCoreML {
+    if (@available(iOS 11.0, *)) {
+        // Stop CoreML process if found obj or stop finding
         if (FoundedObj || stopFindning) {
             return;
         }
         
-        // Check error
-        if (error) {
-            NSLog(@"--->ERROR: %@", error.description);
-            
-            // Don't find out any object, should check it again
-            [self startProcessCoreML];
-            return;
-        }
-        
-        if (!request.results) {
-            NSLog(@"--->ERROR: No Results");
-            
-            // Don't find out any object, should check it again
-            [self startProcessCoreML];
-            return;
-        }
-        
-        // Debug - UPDATE LABEL
-        NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
-        if (currentTime - lastTime > 1) {
-            lastTime = currentTime;
-            NSMutableString *objArrayStr = [NSMutableString stringWithString:@""];
-            
-            [request.results enumerateObjectsUsingBlock:^(VNClassificationObservation *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx > 2) {
-                    stop = YES;
-                    return;
-                }
-                [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
-            }];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                lbDebug.text = objArrayStr;
-                [lbDebug sizeToFit];
-            });
-        }
-        // End debug part
-        
-        // Just get first object
-        VNClassificationObservation *firstObj = [request.results firstObject];
-        if (firstObj.confidence > kRecognitionThreshold) {
-            // Found object
-            [self handleFoundObject:firstObj];
-        } else {
-            // Don't find out any object, should check it again
-            NSLog(@"--->Cannot find out CoreML object, find again");
-            [self startProcessCoreML];
-        }
-    }];
-    
-    classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
-    visionRequests = @[classificationRequest];
-    
-    dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
-}
-
-- (void)startProcessCoreML {
-    // Stop CoreML process if found obj or stop finding
-    if (FoundedObj || stopFindning) {
-        return;
+        dispatch_async(dispatchQueueML, ^{
+            CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
+            if (!pixBuff) {
+                NSLog(@"--->ERROR: Non pixel buffer");
+                return;
+            }
+            VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
+            NSError *error;
+            [imageRequestHandler performRequests:visionRequests error:&error];
+            if (error) {
+                NSLog(@"--->ERROR: %@", error.description);
+                return;
+            }
+        });
     }
-    
-    dispatch_async(dispatchQueueML, ^{
-        CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
-        if (!pixBuff) {
-            NSLog(@"--->ERROR: Non pixel buffer");
-            return;
-        }
-        VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
-        NSError *error;
-        [imageRequestHandler performRequests:visionRequests error:&error];
-        if (error) {
-            NSLog(@"--->ERROR: %@", error.description);
-            return;
-        }
-    });
 }
 
 #pragma mark - Setup view
 - (void)setupView {
+    if (@available(iOS 11.0, *)) {
+        if (!arSceneView) {
+            arSceneView = [[ARSCNView alloc] init];
+            [self.view addSubview:arSceneView];
+            [arSceneView setTranslatesAutoresizingMaskIntoConstraints:NO];
+            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[arSceneView]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:NSDictionaryOfVariableBindings(arSceneView)]];
+            [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[arSceneView]|"
+                                                                              options:0
+                                                                              metrics:nil
+                                                                                views:NSDictionaryOfVariableBindings(arSceneView)]];
+            [self.view layoutIfNeeded];
+            [self.view sendSubviewToBack:arSceneView];
+        }
+    }
     // Bottom text
     lbResult.text = kShowMeAnObject;
     
@@ -367,108 +391,112 @@
 
 #pragma mark - Handle found object
 - (void)handleFoundObject:(VNClassificationObservation *)obj {
-    // analyze string
-    NSString *fullName = obj.identifier;
-    NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
-    
-    if (nameArray.count == 0) {
-        // No name -> Stop
+    if (@available(iOS 11.0, *)) {
+        // analyze string
+        NSString *fullName = obj.identifier;
+        NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
         
-        // Don't find out any object, should check it again
-        [self startProcessCoreML];
-        return;
-    }
-    // just get first name
-    NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
-    
-    // Get center point
-    CGPoint screenCentre = CGPointMake(CGRectGetMidX(arSceneView.bounds), CGRectGetMidY(arSceneView.bounds));
-    
-    // Check ARKit to find the object
-    NSArray *arHitTestResults = [arSceneView hitTest:screenCentre types:ARHitTestResultTypeFeaturePoint];
-    ARHitTestResult *closestResult = arHitTestResults.firstObject;
-    if (closestResult) {
-        // Find out via ARKit
-        FoundedObj = YES;
+        if (nameArray.count == 0) {
+            // No name -> Stop
+            
+            // Don't find out any object, should check it again
+            [self startProcessCoreML];
+            return;
+        }
+        // just get first name
+        NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
         
-        // Play sound and vibrate
-        [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+        // Get center point
+        CGPoint screenCentre = CGPointMake(CGRectGetMidX(arSceneView.bounds), CGRectGetMidY(arSceneView.bounds));
         
-        // Remove exceeding node
-        if (arSceneView.scene.rootNode.childNodes.count > 5) {
-            NSMutableArray *shouldRemoveObjs = [NSMutableArray array];
-            for (int i=0; i<arSceneView.scene.rootNode.childNodes.count-5; i++) {
-                [shouldRemoveObjs addObject:arSceneView.scene.rootNode.childNodes[i]];
+        // Check ARKit to find the object
+        NSArray *arHitTestResults = [arSceneView hitTest:screenCentre types:ARHitTestResultTypeFeaturePoint];
+        ARHitTestResult *closestResult = arHitTestResults.firstObject;
+        if (closestResult) {
+            // Find out via ARKit
+            FoundedObj = YES;
+            
+            // Play sound and vibrate
+            [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+            
+            // Remove exceeding node
+            if (arSceneView.scene.rootNode.childNodes.count > 5) {
+                NSMutableArray *shouldRemoveObjs = [NSMutableArray array];
+                for (int i=0; i<arSceneView.scene.rootNode.childNodes.count-5; i++) {
+                    [shouldRemoveObjs addObject:arSceneView.scene.rootNode.childNodes[i]];
+                }
+                
+                if (shouldRemoveObjs.count) {
+                    for (SCNNode *childNode in shouldRemoveObjs) {
+                        [childNode removeFromParentNode];
+                    }
+                }
             }
             
-            if (shouldRemoveObjs.count) {
-                for (SCNNode *childNode in shouldRemoveObjs) {
-                    [childNode removeFromParentNode];
-                }
+            // Add object to the Identified Object List
+            if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = kYouFoundIt;
+                    
+                    // Increase diamond
+                    [SessionManager sharedInstance].diamondCount+=5;
+                    
+                    // Animation
+                    for (NSInteger i=0; i<5; i++) {
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self animateShowDiamondInSerial:YES];
+                        });
+                    }
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = kYouFoundIt;
+                    
+                    // Increase diamond
+                    [SessionManager sharedInstance].diamondCount+=1;
+                    [self animateShowDiamondInSerial:NO];
+                });
             }
-        }
-        
-        // Add object to the Identified Object List
-        if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {
+            
+            // Analytic
+            [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:identifiedObj];
+            
+            // Speak
             dispatch_async(dispatch_get_main_queue(), ^{
-                // Update bottom text
-                lbResult.text = kYouFoundIt;
+                [[SessionManager sharedInstance] textToSpeech:identifiedObj];
+            });
+            
+            // Get Coordinates of HitTest
+            matrix_float4x4 transform = closestResult.worldTransform;
+            SCNVector3 worldCoord = SCNVector3Make(transform.columns[3][0] , transform.columns[3][1], transform.columns[3][2]);
+            
+            // Create 3D text
+            SCNNode *newNode = [self createNewBubleParentNode:identifiedObj withConfident:obj.confidence];
+            [arSceneView.scene.rootNode addChildNode:newNode];
+            newNode.position = worldCoord;
+            
+            [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
+            
+            // Increase counter
+            dispatch_async(dispatch_get_main_queue(), ^{
+                lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
+            });
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                // Reset bottom text
+                lbResult.text = kShowMeAnObject;
                 
-                // Increase diamond
-                [SessionManager sharedInstance].diamondCount+=5;
-                
-                // Animation
-                for (NSInteger i=0; i<5; i++) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self animateShowDiamondInSerial:YES];
-                    });
-                }
+                // Let the app check object again
+                FoundedObj = NO;
+                [self startProcessCoreML];
             });
         } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Update bottom text
-                lbResult.text = kYouFoundIt;
-                
-                // Increase diamond
-                [SessionManager sharedInstance].diamondCount+=1;
-                [self animateShowDiamondInSerial:NO];
-            });
-        }
-        
-        // Analytic
-        [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:identifiedObj];
-        
-        // Speak
-        dispatch_async(dispatch_get_main_queue(), ^{            
-            [[SessionManager sharedInstance] textToSpeech:identifiedObj];
-        });
-        
-        // Get Coordinates of HitTest
-        matrix_float4x4 transform = closestResult.worldTransform;
-        SCNVector3 worldCoord = SCNVector3Make(transform.columns[3][0] , transform.columns[3][1], transform.columns[3][2]);
-        
-        // Create 3D text
-        SCNNode *newNode = [self createNewBubleParentNode:identifiedObj withConfident:obj.confidence];
-        [arSceneView.scene.rootNode addChildNode:newNode];
-        newNode.position = worldCoord;
-        
-        [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
-        
-        // Increase counter
-        lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // Reset bottom text
-            lbResult.text = kShowMeAnObject;
-            
-            // Let the app check object again
-            FoundedObj = NO;
+            // Cannot find out ARKit object
+            NSLog(@"--->Cannot find out ARKit object, find again");
             [self startProcessCoreML];
-        });
-    } else {
-        // Cannot find out ARKit object
-        NSLog(@"--->Cannot find out ARKit object, find again");
-        [self startProcessCoreML];
+        }
     }
 }
 

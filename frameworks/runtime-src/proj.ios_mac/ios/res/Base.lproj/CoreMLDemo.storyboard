@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -23,9 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90x-Qs-pqZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </arscnView>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show me an object..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="CPY-3X-r01">
                                 <rect key="frame" x="8" y="627" width="359" height="40"/>
                                 <constraints>
@@ -146,13 +144,10 @@
                         <constraints>
                             <constraint firstItem="4RH-5l-cLQ" firstAttribute="centerY" secondItem="hRc-sP-DON" secondAttribute="centerY" constant="1" id="1v3-gA-ezo"/>
                             <constraint firstAttribute="trailing" secondItem="hRc-sP-DON" secondAttribute="trailing" constant="5" id="2Fl-WF-Ti2"/>
-                            <constraint firstAttribute="bottom" secondItem="90x-Qs-pqZ" secondAttribute="bottom" id="5a9-ea-5UO"/>
                             <constraint firstItem="CPY-3X-r01" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="8Rp-WG-Vle"/>
-                            <constraint firstItem="90x-Qs-pqZ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="8S7-4Y-wtd"/>
                             <constraint firstItem="12L-63-7gl" firstAttribute="height" secondItem="Grn-pX-6Qy" secondAttribute="height" constant="12" id="8Zv-xv-mbZ"/>
                             <constraint firstItem="wM9-YR-Vl8" firstAttribute="centerX" secondItem="AHr-4d-SxF" secondAttribute="centerX" id="92i-Xu-FBF"/>
                             <constraint firstItem="hRc-sP-DON" firstAttribute="centerY" secondItem="Grn-pX-6Qy" secondAttribute="centerY" id="92s-md-Shn"/>
-                            <constraint firstItem="90x-Qs-pqZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="BZH-Wg-U1U"/>
                             <constraint firstItem="YVV-0R-Dui" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="DZ3-iq-bip"/>
                             <constraint firstItem="AHr-4d-SxF" firstAttribute="bottom" secondItem="wM9-YR-Vl8" secondAttribute="bottom" constant="8" id="LkL-4r-VpP"/>
                             <constraint firstItem="stm-ZM-fmL" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="10" id="Nhh-zM-4Xx"/>
@@ -173,14 +168,12 @@
                             <constraint firstAttribute="trailing" secondItem="CPY-3X-r01" secondAttribute="trailing" constant="8" id="lB6-gB-MbZ"/>
                             <constraint firstItem="PK2-bZ-iUh" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="pLN-3M-NHw"/>
                             <constraint firstAttribute="bottom" secondItem="CPY-3X-r01" secondAttribute="bottom" id="pgz-vA-m9K"/>
-                            <constraint firstAttribute="trailing" secondItem="90x-Qs-pqZ" secondAttribute="trailing" id="tRN-Dw-WV3"/>
                             <constraint firstItem="12L-63-7gl" firstAttribute="centerY" secondItem="Grn-pX-6Qy" secondAttribute="centerY" id="xGO-sc-nfH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="eAX-Qo-EgV"/>
                     <connections>
-                        <outlet property="arSceneView" destination="90x-Qs-pqZ" id="ZEc-Kr-6rl"/>
                         <outlet property="btnShoppingCart" destination="AHr-4d-SxF" id="dIw-Pg-poV"/>
                         <outlet property="coinImage" destination="Fzs-mB-9qe" id="gi6-xt-Y5Z"/>
                         <outlet property="constraintTopCoinImage" destination="OXy-fh-kuk" id="j6E-uu-1eY"/>
