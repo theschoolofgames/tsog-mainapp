@@ -53,7 +53,7 @@ ShopScreenLayer = cc.LayerColor.extend({
         this._hudLayer = new ShopHUDLayer(this);
         this.addChild(this._hudLayer);
         this._hudLayer.setBackBtnCallback(function(){
-            cc.director.replaceScene(new TalkingAdiScene());
+            cc.director.replaceScene(new HomeScene());
         })
     },
 
@@ -291,7 +291,7 @@ ShopScreenLayer = cc.LayerColor.extend({
                 self.runAction(cc.sequence(
                     cc.delayTime(1),
                     cc.callFunc(function(){
-                        cc.director.runScene(new TalkingAdiScene());
+                        cc.director.replaceScene(new HomeScene());
                     })
                 ));
             };

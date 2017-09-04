@@ -21,7 +21,8 @@ var HomeScreenLayer = cc.Layer.extend({
         this.addBackGround();
         this.addPlayDoor();
         this.addLearnDoor();
-        this.addHomeDoor();        
+        this.addHomeDoor();       
+        this.addShopButton(); 
     
         this.addChild(new HomeHUDLayer(),2);
         this.addProgressTrackerButton();
@@ -327,6 +328,42 @@ var HomeScreenLayer = cc.Layer.extend({
     updateHighScore: function() {
         this.lbHighScore.setString(UserStorage.getInstance().getARHighscore().toString());
     },
+
+    addShopButton: function() {
+        var self = this;
+        var shopBtn = new ccui.Button("res/SD/pets/button-shop.png", "res/SD/pets/button-shop-pressed.png", "");
+
+        shopBtn.x = 60;
+        shopBtn.y = cc.winSize.height - 50;
+
+        this.addChild(shopBtn, 2);
+        shopBtn.addClickEventListener(function(){
+            AnalyticsManager.getInstance().logCustomEvent(EVENT_PETS_BASKET_CLICK);
+            cc.director.runScene(new ShopScene());
+        });
+        shopBtn.opacity = 0;
+
+        var scale = 0.4;
+
+        shopBtn.runAction(cc.sequence(
+            cc.delayTime(0.5),
+            cc.spawn(
+                cc.fadeTo(0.15, 255),
+                cc.scaleTo(0.15, 1)
+            ),
+            cc.scaleTo(0.05, scale * 1.1),
+            cc.scaleTo(0.05, scale)
+        ));
+
+        shopBtn.runAction(cc.repeatForever(cc.sequence(
+            cc.delayTime(5),
+            cc.scaleTo(0.1, scale * 1.05, scale * 0.95),
+            cc.scaleTo(0.1, scale),
+            cc.scaleTo(0.1, scale * 1.05, scale * 0.95),
+            cc.scaleTo(0.1, scale)
+        )));
+    },
+
 });
 
 var HomeScene = cc.Scene.extend({
