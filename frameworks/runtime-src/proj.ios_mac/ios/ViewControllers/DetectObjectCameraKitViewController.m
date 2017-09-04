@@ -333,9 +333,8 @@
         if (firstObj.confidence > kRecognitionThreshold) {
             // Found object
             [self handleFoundObject:firstObj];
-        }
+        };
     }];
-    
     classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
     visionRequests = @[classificationRequest];
 }
@@ -408,6 +407,9 @@
     }
     // just get first name
     NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
+    
+    // Analytic
+    [FirebaseWrapper logEventCollectObject:identifiedObj confident:obj.confidence];
     
     [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
     
@@ -500,9 +502,6 @@
             } else {
                 [self animateShowDiamondInSerial:NO];
             }
-            
-            // Analytic
-            [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:animatedString];
             
             // Speak
             dispatch_async(dispatch_get_main_queue(), ^{

@@ -20,6 +20,7 @@
 + (void)logEventSpendVirtualCurrencyWithItemName:(NSString*)itemName andVirtualCurrencyName:(NSString*)currencyName andValue:(NSString*)value;
 + (void)logEventShareWithContentType:(NSString*)contentType andItemId:(NSString*)itemId;
 + (void)logEventAppOpen;
++ (void)logEventCollectObject:(NSString *)objectName confident:(float)confident;
 
 + (BOOL)logoutSilently;
 

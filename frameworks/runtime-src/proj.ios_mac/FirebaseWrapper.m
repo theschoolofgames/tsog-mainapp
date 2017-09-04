@@ -241,6 +241,16 @@ continueUserActivity:(NSUserActivity *)userActivity
                                                                        }];
 }
 
++(void)logEventCollectObject:(NSString *)objectName confident:(float)confident {
+    NSString* confidentStr = [NSString stringWithFormat:@"%.02f", confident];
+
+    [FIRAnalytics logEventWithName:@"collect_object" parameters:@{
+                                                                       kFIRParameterItemID: objectName,
+                                                                       kFIRParameterScore: confidentStr
+                                                                       }];
+}
+
+
 +(void)logEventAppOpen {
     [FIRAnalytics logEventWithName:kFIREventAppOpen parameters:nil];
 }
