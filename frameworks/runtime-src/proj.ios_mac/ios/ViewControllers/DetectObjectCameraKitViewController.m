@@ -304,47 +304,48 @@
 
 #pragma mark - Setup Camera
 - (void)setupVisionAndCoreML {
-    
-    // Reset session list
-    sessionIdentifiedObj = [NSMutableDictionary dictionary];
-    
-    // Read MLModel
-    NSError *error;
-    VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
-    if (error) {
-        NSLog(@"--->ERROR: %@", error.description);
-        return;
-    }
-    
-    // Create request to classify object
-    VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
-        // Handle the response
+    if (@available(iOS 11.0, *)) {
+        // Reset session list
+        sessionIdentifiedObj = [NSMutableDictionary dictionary];
         
-        // Check found object
-        if (foundingObj || stopFindning) {
-            return;
-        }
-        
-        // Check error
+        // Read MLModel
+        NSError *error;
+        VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
         if (error) {
             NSLog(@"--->ERROR: %@", error.description);
             return;
         }
         
-        if (!request.results) {
-            NSLog(@"--->ERROR: No Results");
-            return;
-        }
-        
-        // Just get first object
-        VNClassificationObservation *firstObj = [request.results firstObject];
-        if (firstObj.confidence > kRecognitionThreshold) {
-            // Found object
-            [self handleFoundObject:firstObj];
-        };
-    }];
-    classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
-    visionRequests = @[classificationRequest];
+        // Create request to classify object
+        VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
+            // Handle the response
+            
+            // Check found object
+            if (foundingObj || stopFindning) {
+                return;
+            }
+            
+            // Check error
+            if (error) {
+                NSLog(@"--->ERROR: %@", error.description);
+                return;
+            }
+            
+            if (!request.results) {
+                NSLog(@"--->ERROR: No Results");
+                return;
+            }
+            
+            // Just get first object
+            VNClassificationObservation *firstObj = [request.results firstObject];
+            if (firstObj.confidence > kRecognitionThreshold) {
+                // Found object
+                [self handleFoundObject:firstObj];
+            };
+        }];
+        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
+        visionRequests = @[classificationRequest];
+    }
 }
 
 #pragma mark - Setup view
@@ -383,20 +384,21 @@
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    
-    if (stopFindning) {
-        return;
-    }
-    
-    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    
-    NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
-    VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:kCGImagePropertyOrientationUpMirrored options:requestOptions];
-    NSError *error;
-    [imageRequestHandler performRequests:visionRequests error:&error];
-    if (error) {
-        NSLog(@"--->ERROR: %@", error.description);
-        return;
+    if (@available(iOS 11.0, *)) {
+        if (stopFindning) {
+            return;
+        }
+        
+        CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        
+        NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
+        VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:kCGImagePropertyOrientationUpMirrored options:requestOptions];
+        NSError *error;
+        [imageRequestHandler performRequests:visionRequests error:&error];
+        if (error) {
+            NSLog(@"--->ERROR: %@", error.description);
+            return;
+        }
     }
 }
 
@@ -492,7 +494,6 @@
     
     // animation
     backgroundView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
-    CGFloat minWidth = 50.0;
     CGFloat maxWidth = 400.0;
     CGFloat textHeight = 80.0;
     
