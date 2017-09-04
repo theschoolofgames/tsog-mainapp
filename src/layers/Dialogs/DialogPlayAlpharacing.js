@@ -111,7 +111,7 @@ var DialogPlayAlpharacing = Dialog.extend({
             //     self.removeFromParent();
             // });
         } else {
-            var isCollectObjectGameAvailable = true;
+            var isCollectObjectGameAvailable = NativeHelper.callNative("isCoreMLAvailable", []);
 
             if (! isCollectObjectGameAvailable) {
                 var buttonPlay = new ccui.Button("res/SD/btn_blue_wide.png", "res/SD/btn_blue_wide_pressed.png");

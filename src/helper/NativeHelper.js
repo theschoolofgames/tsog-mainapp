@@ -18,6 +18,12 @@ var NativeHelperConfig = {
             "showCoreMLDemo:identifiedObjects:"
         ]
     },
+    isCoreMLAvailable: {
+        iOS: [
+            "H102Wrapper",
+            "isCoreMLAvailable"
+        ]
+    },
     getUDID: {
         iOS:[
             "H102Wrapper",

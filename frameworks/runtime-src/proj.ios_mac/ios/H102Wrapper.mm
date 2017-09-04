@@ -67,6 +67,14 @@ static BOOL isOpenedFromNotification = NO;
   [dialog show];
 }
 
++ (bool)isCoreMLAvailable {
+    if (@available(iOS 11.0, *)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 + (void)showCoreMLDemo:(NSNumber*)gemBalance identifiedObjects:(NSString *)identifiedObjects {
     if (@available(iOS 11.0, *)) {
         
