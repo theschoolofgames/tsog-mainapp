@@ -12,7 +12,7 @@ var PayLayer = cc.Layer.extend({
 		this._addPageBorders();
 		this._addHud();
 		this._addTitle();
-		this._addDescription();
+		// this._addDescription();
 		this._addItems();
 	},
 
@@ -81,7 +81,7 @@ var PayLayer = cc.Layer.extend({
 		ribbon.y = this._bottomPageH;
 		this.addChild(ribbon);
 
-        var label = new cc.LabelBMFont(localizeForWriting("Pay"), res.HudFont_fnt);
+        var label = new cc.LabelBMFont(localizeForWriting("Get"), res.HudFont_fnt);
         // label.scale = 0.5;
         label.x = ribbon.width / 2;
         label.y = ribbon.height * 0.765;
@@ -105,7 +105,7 @@ var PayLayer = cc.Layer.extend({
 
 	_addItems: function() {
 		var self = this;
-		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 2.2, 
+		this._createItemSlot(cc.winSize.width / 4, this._bottomPageH / 1.8, 
 								res.Icon_gold_small_png, SET_SMALL_PRICE,
 								"Small Impact", function() {
                                     LoadingIndicator.show();
@@ -113,7 +113,7 @@ var PayLayer = cc.Layer.extend({
 									this.itemCallback();
 								}.bind(this));
 
-		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 2.2, 
+		this._createItemSlot(cc.winSize.width / 2, this._bottomPageH / 1.8, 
 								res.Icon_gold_medium_png, SET_MEDIUM_PRICE, 
 								"Medium Impact", function() {
                                     LoadingIndicator.show();
@@ -121,7 +121,7 @@ var PayLayer = cc.Layer.extend({
 									this.itemCallback();
 								}.bind(this));
 
-		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 2.2, 
+		this._createItemSlot(cc.winSize.width / 4 * 3, this._bottomPageH / 1.8, 
 								res.Icon_gold_big_png, SET_BIG_PRICE,
 								"Big Impact", function() {
                                     LoadingIndicator.show();
@@ -159,7 +159,7 @@ var PayLayer = cc.Layer.extend({
 
         var icon = new cc.Sprite(icon);
         icon.x = slot.width / 2;
-        icon.y = slot.height / 3 * 2 - 10;
+        icon.y = slot.height / 3 * 2 + 20;
         slot.addChild(icon);
 
         var button = new ccui.Button(res.Pay_button_normal_png, res.Pay_button_pressed_png);
@@ -198,12 +198,12 @@ var PayLayer = cc.Layer.extend({
         buttonLabel.y = button.height / 1.65;
         button.addChild(buttonLabel);	
 
-        var itemLabel = new cc.LabelBMFont(label, res.HudFont_fnt);
-        itemLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
-        itemLabel.scale = 0.6;
-        itemLabel.x = slot.width / 2;
-        itemLabel.y = slot.height * 9/10;
-        slot.addChild(itemLabel);
+        // var itemLabel = new cc.LabelBMFont(label, res.HudFont_fnt);
+        // itemLabel.setAlignment(cc.TEXT_ALIGNMENT_CENTER);
+        // itemLabel.scale = 0.6;
+        // itemLabel.x = slot.width / 2;
+        // itemLabel.y = slot.height * 9/10;
+        // slot.addChild(itemLabel);
 	},
 
 	_succeedDialog: function() {
