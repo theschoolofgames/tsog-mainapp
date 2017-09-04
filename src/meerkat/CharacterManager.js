@@ -58,7 +58,7 @@ var CharacterManager = cc.Class.extend({
     },
 
     selectCharacter: function(name) {
-        if (!User.getCurrentChild().getCharactersProgress().getUnlockedCharacters()[name]) {
+        if (!User.getCurrentChild().getCharactersProgress().isCharacterUnlocked(name)) {
             return false;
         }
         User.getCurrentChild().setSelectedCharacter(name);

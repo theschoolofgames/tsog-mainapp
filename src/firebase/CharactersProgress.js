@@ -18,6 +18,9 @@ var CharactersProgress = BaseFirebaseModel.extend({
 	},
 
 	isCharacterUnlocked: function (name) {
+        if (UNLOCK_ALL_CHARACTERS) {
+            return true;
+        }
 		var unlockedCharacters = this.getUnlockedCharacters();
 		return unlockedCharacters[name] ? true : false;
 	}
