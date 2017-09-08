@@ -8,26 +8,8 @@
 	<string>SchoolOfGames</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icon-29.png</string>
-		<string>Icon-40.png</string>
-		<string>Icon-50.png</string>
-		<string>Icon-57.png</string>
-		<string>Icon-58.png</string>
-		<string>Icon-72.png</string>
-		<string>Icon-76.png</string>
-		<string>Icon-80.png</string>
-		<string>Icon-100.png</string>
-		<string>Icon-114.png</string>
-		<string>Icon-120.png</string>
-		<string>Icon-144.png</string>
-		<string>Icon-152.png</string>
-	</array>
-	<key>CFBundleIcons</key>
-	<dict/>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<key>CFBundleIconName</key>
+	<string></string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -37,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.5.6</string>
+	<string>1.5.11</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -68,7 +50,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>17.04.11.00</string>
+	<string>17.09.07.05</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -134,11 +116,11 @@
 	<key>NSContactsUsageDescription</key>
 	<string>TSOG uses your contacts to make it easy to share recipes with your friends</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To play with Adi, we need Audio Permission</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>TSOG doesn&apos;t use this feature</string>
+	<string>TSOG doesn't use this feature</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -154,7 +136,6 @@
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 </dict>
