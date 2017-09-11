@@ -15,7 +15,8 @@ FILE_LIST += $(wildcard $(LOCAL_PATH)/../../../Classes/CCParallaxScrollNode/js-b
 LOCAL_SRC_FILES := hellojavascript/main.cpp
 LOCAL_SRC_FILES += $(FILE_LIST:$(LOCAL_PATH)/%=%)
 
-LOCAL_WHOLE_STATIC_LIBRARIES := pocketsphinx PluginIAP sdkbox android_native_app_glue 
+LOCAL_WHOLE_STATIC_LIBRARIES := PluginIAP sdkbox android_native_app_glue 
+# LOCAL_WHOLE_STATIC_LIBRARIES := pocketsphinx PluginIAP sdkbox android_native_app_glue 
 
 LOCAL_CPPFLAGS := -DSDKBOX_ENABLED
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../Classes \
@@ -41,6 +42,6 @@ $(call import-add-path,$(LOCAL_PATH))
 $(call import-module, scripting/js-bindings/proj.android)
 $(call import-module, ../../lwf)
 $(call import-module, ../../SoundStretch)
-$(call import-module, ./pocketsphinx)
+#$(call import-module, ./pocketsphinx)
 $(call import-module, ./sdkbox)
 $(call import-module, ./pluginiap)

@@ -12,7 +12,6 @@
 		0105523F1E33B4F700B449AC /* FirebaseDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0105523E1E33B4F700B449AC /* FirebaseDelegate.m */; };
 		010552421E33BA4C00B449AC /* Cocos2dxHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 010552411E33BA4C00B449AC /* Cocos2dxHelper.mm */; };
 		01062FC71C194E7600AB72D4 /* H102Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01062FC61C194E7600AB72D4 /* H102Wrapper.mm */; };
-		01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */; };
 		01062FDB1C1ACFBB00AB72D4 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */; };
 		0136A55B1DF010F90014D70F /* CCParallaxScrollNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0136A5521DF010F90014D70F /* CCParallaxScrollNode.cpp */; };
 		0136A55C1DF010F90014D70F /* CCParallaxScrollOffset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0136A5541DF010F90014D70F /* CCParallaxScrollOffset.cpp */; };
@@ -525,7 +524,6 @@
 		010552401E33BA4C00B449AC /* Cocos2dxHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cocos2dxHelper.h; sourceTree = "<group>"; };
 		010552411E33BA4C00B449AC /* Cocos2dxHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Cocos2dxHelper.mm; sourceTree = "<group>"; };
 		01062FC61C194E7600AB72D4 /* H102Wrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = H102Wrapper.mm; path = ios/H102Wrapper.mm; sourceTree = "<group>"; };
-		01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AcousticModelEnglish.bundle; sourceTree = "<group>"; };
 		01062FD71C1ACECC00AB72D4 /* SpeechRecognitionListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpeechRecognitionListener.h; sourceTree = "<group>"; };
 		01062FDA1C1ACFBB00AB72D4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
 		0136A5521DF010F90014D70F /* CCParallaxScrollNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCParallaxScrollNode.cpp; sourceTree = "<group>"; };
@@ -2285,7 +2283,6 @@
 			isa = PBXGroup;
 			children = (
 				492AD6DF1E602FC1005AE4F2 /* UserNotifications.framework */,
-				01062FD11C1ACC8900AB72D4 /* AcousticModelEnglish.bundle */,
 				509D4AE817EBB82000697056 /* AppKit.framework */,
 				A92275471517C094001B78AA /* AudioToolbox.framework */,
 				01C9EA711BD50BC20062EF7D /* AVFoundation.framework */,
@@ -2791,7 +2788,6 @@
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
-				01062FD31C1ACC8900AB72D4 /* AcousticModelEnglish.bundle in Resources */,
 				C47F93BC1F2B233600ABF1C1 /* shopping-cart@3x.png in Resources */,
 				C47F93BD1F2B233B00ABF1C1 /* CoreMLDemo.storyboard in Resources */,
 				C44F0D501F56C3CF006235E9 /* target.png in Resources */,
