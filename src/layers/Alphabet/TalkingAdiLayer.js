@@ -42,6 +42,7 @@ var TalkingAdiLayer = cc.LayerColor.extend({
         //     }.bind(this)
         // });
         // cc.eventManager.addListener(eventDialogCLose, this);
+        this.addLabel();
     },
 
     addChooseLanguageButton: function() {
@@ -291,6 +292,18 @@ var TalkingAdiLayer = cc.LayerColor.extend({
             scene = new window[nextSceneName]();
         cc.director.replaceScene(new cc.TransitionFade(1, scene, cc.color(255, 255, 255, 255)));
     },
+
+    addLabel: function() {
+        let string = "Magic coming soon";
+        let lb = new cc.LabelBMFont(string, res.Grown_Up_fnt);
+        lb.scale = 3;
+        lb.x = cc.winSize.width/2;
+        lb.y = cc.winSize.height - 150;
+        lb.runAction(cc.sequence(
+            cc.scaleTo(2, 1).easing(cc.easeElasticOut(0.5))
+        ));
+        this.addChild(lb,10);
+    }
 });
 
 var TalkingAdiScene = cc.Scene.extend({
