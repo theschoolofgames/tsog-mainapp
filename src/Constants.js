@@ -975,7 +975,7 @@ var TEXT_AT_GROWNUP_1 = "The School of Games is product of Equally Pbc. Equally 
                         + "benefit corporation. School of Games wants to provide " 
                         + "equal education to every child.";
 var TEXT_AT_GROWNUP_2 = "For support or suggestions contact at";
-var TEXT_AT_GROWNUP_3 = "info@theschoolofgames.org";
+var TEXT_AT_GROWNUP_3 = "Hello@Equal.ly";
 var TEXT_AT_GROWNUP_4 = "See our privacy policy and terms & Conditions";
 var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
 
@@ -985,7 +985,7 @@ var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
 var TWITTER_FAN_PAGE = "https://twitter.com/schoolofgames_";
 var WEB_URL = "http://www.theschoolofgames.org";
 var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
-var EMAIL_ADRESS_GAME = "info@theschoolofgames.org";
+var EMAIL_ADRESS_GAME = "Hello@Equal.ly";
 
 var SHARING_OPTIONS = {
     "default": "facebook,whatsapp"
