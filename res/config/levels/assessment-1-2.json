@@ -27,20 +27,6 @@
         "book"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "egg",
-        "hat",
-        "jar",
-        "key",
-        "map",
-        "pen",
-        "rat",
-        "book"
-      ],
-      "duration": 60
     }
   },
   "2": {
@@ -75,22 +61,6 @@
         "owl"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "ant",
-        "cow",
-        "bee",
-        "cat",
-        "dog",
-        "fly",
-        "fox",
-        "pig",
-        "rat",
-        "owl"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -111,21 +81,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "egg",
-        "hat",
-        "hat",
-        "jar",
-        "jar",
-        "book",
-        "book",
-        "apple",
-        "key"
-      ],
-      "duration": 60
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "egg",
         "hat",

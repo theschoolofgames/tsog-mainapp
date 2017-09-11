@@ -15,7 +15,7 @@
       "duration": 120
     },
     "2": {
-      "name": "speaking",
+      "name": "writing",
       "data": [
         "word_N",
         "word_n",
@@ -43,20 +43,6 @@
       "duration": 240
     },
     "4": {
-      "name": "writing",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p",
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 240
-    },
-    "5": {
       "name": "writing",
       "data": [
         "word_N",
@@ -199,21 +185,6 @@
         }
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking-fruiddition",
-      "data": [
-        {
-          "third": [
-            "number_4",
-            "number_5",
-            "number_2",
-            "number_3"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -421,23 +392,6 @@
         }
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_4",
-            "number_2",
-            "number_2"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -473,20 +427,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "sun",
-        "grass",
-        "trees",
-        "bird",
-        "animals",
-        "stars",
-        "flowers",
-        "leaf"
-      ],
-      "duration": 300
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "sun",
         "grass",

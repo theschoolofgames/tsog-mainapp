@@ -25,19 +25,6 @@
         "hat"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "potato",
-        "tomato",
-        "umbrella",
-        "uniform",
-        "vegetable",
-        "egg",
-        "hat"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,19 +43,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "shark",
-        "sheep",
-        "snail",
-        "panda",
-        "snake",
-        "ant",
-        "cat"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "shark",
         "sheep",
@@ -146,19 +120,6 @@
         "number_7"
       ],
       "duration": 300
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7"
-      ],
-      "duration": 120
     }
   },
   "4": {

@@ -63,20 +63,6 @@
         "word_d"
       ],
       "duration": 300
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_A",
-        "word_B",
-        "word_C",
-        "word_D",
-        "word_a",
-        "word_b",
-        "word_c",
-        "word_d"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -159,20 +145,6 @@
       "duration": 300
     },
     "6": {
-      "name": "speaking",
-      "data": [
-        "A",
-        "B",
-        "C",
-        "D",
-        "a",
-        "b",
-        "c",
-        "d"
-      ],
-      "duration": 120
-    },
-    "7": {
       "name": "freecolor",
       "data": [
         "ant",
@@ -264,22 +236,6 @@
         "number_10"
       ],
       "duration": 360
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
-      ],
-      "duration": 120
     }
   },
   "5": {
@@ -381,20 +337,6 @@
         "word_C",
         "word_c",
         "word_D",
-        "word_d"
-      ],
-      "duration": 120
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_A",
-        "word_B",
-        "word_C",
-        "word_D",
-        "word_a",
-        "word_b",
-        "word_c",
         "word_d"
       ],
       "duration": 120

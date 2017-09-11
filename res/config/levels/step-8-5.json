@@ -20,17 +20,6 @@
         "apple"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "banana",
-        "computer",
-        "duster",
-        "crayon",
-        "apple"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -60,17 +49,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "duck",
-        "bear",
-        "deer",
-        "camel",
-        "cheetah"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "duck",
         "bear",
@@ -157,17 +135,6 @@
         "number_5"
       ],
       "duration": 360
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5"
-      ],
-      "duration": 120
     }
   },
   "5": {

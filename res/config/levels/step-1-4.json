@@ -21,17 +21,6 @@
         "queen"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "grape",
-        "joker",
-        "lemon",
-        "onion",
-        "queen"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -48,17 +37,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "bird",
-        "duck",
-        "fish",
-        "frog",
-        "goat"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "bird",
         "duck",
@@ -141,17 +119,6 @@
         "number_5"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -194,16 +161,6 @@
         "a"
       ],
       "duration": 240
-    },
-    "5": {
-      "name": "speaking",
-      "data": [
-        "A",
-        "a",
-        "A",
-        "a"
-      ],
-      "duration": 120
     }
   }
 }

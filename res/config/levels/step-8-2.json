@@ -25,19 +25,6 @@
         "key"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "crayon",
-        "feather",
-        "vehicle",
-        "medicine",
-        "watermelon",
-        "jar",
-        "key"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,19 +43,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "zebra",
-        "rabbit",
-        "cheetah",
-        "monkey",
-        "spider",
-        "bee",
-        "cow"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "zebra",
         "rabbit",
@@ -107,11 +81,6 @@
             "bird",
             "object",
             "object"
-          ],
-          "speaking": [
-            "goose",
-            "egg",
-            "nest"
           ]
         }
       ],
@@ -129,15 +98,6 @@
         "nest",
         "chair",
         "key"
-      ],
-      "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "goose",
-        "egg",
-        "nest"
       ],
       "duration": 60
     }
@@ -165,11 +125,6 @@
     },
     "4": {
       "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "5": {
-      "name": "speaking",
       "data": [],
       "duration": 240
     }

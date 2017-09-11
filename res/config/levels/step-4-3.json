@@ -25,19 +25,6 @@
         "fan"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "boy",
-        "bun",
-        "cap",
-        "cup",
-        "can",
-        "dad",
-        "fan"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -331,23 +318,6 @@
         }
       ],
       "duration": 240
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_4",
-            "number_5",
-            "number_5"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -376,16 +346,6 @@
             "animal",
             "animal",
             "live"
-          ],
-          "speaking": [
-            "tortoise",
-            "hare",
-            "forest",
-            "asleep",
-            "walk",
-            "cheer",
-            "yawn",
-            "stop"
           ]
         }
       ],
@@ -405,20 +365,6 @@
         "house"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "tortoise",
-        "hare",
-        "forest",
-        "asleep",
-        "walk",
-        "cheer",
-        "yawn",
-        "stop"
-      ],
-      "duration": 120
     }
   }
 }

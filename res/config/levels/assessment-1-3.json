@@ -29,15 +29,6 @@
         "color_blue"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "color_red",
-        "color_green",
-        "color_blue"
-      ],
-      "duration": 60
     }
   },
   "2": {
@@ -72,22 +63,6 @@
         "number_10"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -176,22 +151,6 @@
         "number_3",
         "number_4",
         "number_5"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
       ],
       "duration": 120
     }

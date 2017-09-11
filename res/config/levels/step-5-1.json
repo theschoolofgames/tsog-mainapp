@@ -41,24 +41,6 @@
         "word_Q"
       ],
       "duration": 120
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "nail",
-        "nest",
-        "pen",
-        "pencils",
-        "potato",
-        "queen",
-        "word_n",
-        "word_p",
-        "word_q",
-        "word_N",
-        "word_P",
-        "word_Q"
-      ],
-      "duration": 240
     }
   },
   "2": {
@@ -125,23 +107,6 @@
         "word_r"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_N",
-        "word_P",
-        "word_R",
-        "word_n",
-        "word_p",
-        "word_r",
-        "panda",
-        "pig",
-        "puppy",
-        "rabbit",
-        "rat"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -300,42 +265,6 @@
         "number_30"
       ],
       "duration": 300
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -463,21 +392,6 @@
         }
       ],
       "duration": 120
-    },
-    "4": {
-      "name": "speaking-fruiddition",
-      "data": [
-        {
-          "third": [
-            "number_4",
-            "number_3",
-            "number_2",
-            "number_1"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "5": {
@@ -546,16 +460,6 @@
         "word_p"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_N",
-        "word_n",
-        "word_P",
-        "word_p"
-      ],
-      "duration": 120
     }
   }
 }

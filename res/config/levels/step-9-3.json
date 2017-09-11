@@ -21,17 +21,6 @@
         "insect"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "egg",
-        "hat",
-        "flag",
-        "gift",
-        "insect"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -48,17 +37,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "elephant",
-        "eagle",
-        "giraffe",
-        "frog",
-        "goat"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "elephant",
         "eagle",
@@ -159,23 +137,6 @@
         "number_20"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -204,11 +165,6 @@
             "animal",
             "animal",
             "object"
-          ],
-          "speaking": [
-            "fox",
-            "stork",
-            "chair"
           ]
         }
       ],

@@ -25,19 +25,6 @@
         "map"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "bee",
-        "dog",
-        "fox",
-        "box",
-        "pig",
-        "fly",
-        "map"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -78,23 +65,6 @@
         "I",
         "O",
         "U"
-      ],
-      "duration": 120
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "i",
-        "o",
-        "u",
-        "I",
-        "O",
-        "U",
-        "insect",
-        "onion",
-        "orange",
-        "uniform",
-        "umbrella"
       ],
       "duration": 120
     }
@@ -143,23 +113,6 @@
         "I",
         "O",
         "U"
-      ],
-      "duration": 120
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "i",
-        "o",
-        "u",
-        "I",
-        "O",
-        "U",
-        "octopus",
-        "owl",
-        "insect",
-        "horse",
-        "hamster"
       ],
       "duration": 120
     }
@@ -260,32 +213,6 @@
         "number_20"
       ],
       "duration": 240
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ],
-      "duration": 120
     }
   }
 }

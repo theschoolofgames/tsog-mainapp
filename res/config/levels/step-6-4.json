@@ -47,18 +47,6 @@
         "word_z"
       ],
       "duration": 240
-    },
-    "5": {
-      "name": "speaking",
-      "data": [
-        "word_X",
-        "word_Y",
-        "word_Z",
-        "word_x",
-        "word_y",
-        "word_z"
-      ],
-      "duration": 240
     }
   },
   "2": {
@@ -258,62 +246,6 @@
         "number_50"
       ],
       "duration": 480
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30",
-        "number_31",
-        "number_32",
-        "number_33",
-        "number_34",
-        "number_35",
-        "number_36",
-        "number_37",
-        "number_38",
-        "number_39",
-        "number_40",
-        "number_41",
-        "number_42",
-        "number_43",
-        "number_44",
-        "number_45",
-        "number_46",
-        "number_47",
-        "number_48",
-        "number_49",
-        "number_50"
-      ],
-      "duration": 180
     }
   },
   "3": {
@@ -335,22 +267,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "toe",
-        "tub",
-        "van",
-        "tent",
-        "test",
-        "toes",
-        "tree",
-        "wing",
-        "wolf",
-        "vest"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "toe",
         "tub",

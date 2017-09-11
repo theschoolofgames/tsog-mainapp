@@ -101,20 +101,6 @@
         "word_m"
       ],
       "duration": 360
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_J",
-        "word_j",
-        "word_K",
-        "word_k",
-        "word_L",
-        "word_l",
-        "word_M",
-        "word_m"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -458,25 +444,6 @@
         }
       ],
       "duration": 480
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_6",
-            "number_6",
-            "number_7",
-            "number_7",
-            "number_8",
-            "number_8",
-            "number_9",
-            "number_9"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 240
     }
   },
   "4": {

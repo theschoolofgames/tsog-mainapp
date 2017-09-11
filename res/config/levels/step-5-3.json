@@ -65,16 +65,6 @@
         "word_r"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_Q",
-        "word_q",
-        "word_R",
-        "word_r"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -202,21 +192,6 @@
         }
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking-fruiddition",
-      "data": [
-        {
-          "third": [
-            "number_6",
-            "number_5",
-            "number_4",
-            "number_3"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -424,23 +399,6 @@
         }
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_6",
-            "number_5",
-            "number_5",
-            "number_4",
-            "number_4",
-            "number_3"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "4": {

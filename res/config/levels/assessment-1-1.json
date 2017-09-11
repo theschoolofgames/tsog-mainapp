@@ -51,29 +51,6 @@
         "D"
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "book",
-        "desk",
-        "apple",
-        "chair",
-        "abacus",
-        "banana",
-        "computer",
-        "duster",
-        "crayon",
-        "a",
-        "b",
-        "c",
-        "d",
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -130,30 +107,6 @@
         "D"
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "ant",
-        "cat",
-        "dog",
-        "bee",
-        "cow",
-        "duck",
-        "bear",
-        "deer",
-        "camel",
-        "cheetah",
-        "a",
-        "b",
-        "c",
-        "d",
-        "A",
-        "B",
-        "C",
-        "D"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -204,22 +157,6 @@
         "number_10"
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
-      ],
-      "duration": 120
     }
   }
 }

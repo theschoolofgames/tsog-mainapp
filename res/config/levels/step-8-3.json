@@ -25,19 +25,6 @@
         "pen"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "strawberry",
-        "xylophone",
-        "juice",
-        "toytrain",
-        "computer",
-        "map",
-        "pen"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,19 +43,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "dolphin",
-        "kitten",
-        "giraffe",
-        "goldfish",
-        "hamster",
-        "dog",
-        "fly"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "dolphin",
         "kitten",
@@ -173,22 +147,6 @@
         "number_10"
       ],
       "duration": 120
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -214,11 +172,6 @@
     },
     "4": {
       "name": "writing",
-      "data": [],
-      "duration": 240
-    },
-    "5": {
-      "name": "speaking",
       "data": [],
       "duration": 240
     }

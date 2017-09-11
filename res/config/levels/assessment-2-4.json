@@ -25,19 +25,6 @@
         "fan"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "boy",
-        "bun",
-        "cap",
-        "cup",
-        "can",
-        "dad",
-        "fan"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -84,25 +71,6 @@
         "M"
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "kangaroo",
-        "kitten",
-        "lion",
-        "lobster",
-        "monkey",
-        "j",
-        "k",
-        "l",
-        "m",
-        "J",
-        "K",
-        "L",
-        "M"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -155,28 +123,6 @@
         "M"
       ],
       "duration": 180
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "j",
-        "k",
-        "l",
-        "m",
-        "J",
-        "K",
-        "L",
-        "M",
-        "jar",
-        "joker",
-        "key",
-        "kite",
-        "lamp",
-        "lemon",
-        "map",
-        "medicine"
-      ],
-      "duration": 120
     }
   }
 }

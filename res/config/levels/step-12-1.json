@@ -31,22 +31,6 @@
         "pet"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "grandmother",
-        "grandfather",
-        "mother",
-        "father",
-        "brother",
-        "sister",
-        "uncle",
-        "aunt",
-        "cousin",
-        "pet"
-      ],
-      "duration": 180
     }
   },
   "2": {
@@ -188,42 +172,6 @@
         "number_30"
       ],
       "duration": 480
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20",
-        "number_21",
-        "number_22",
-        "number_23",
-        "number_24",
-        "number_25",
-        "number_26",
-        "number_27",
-        "number_28",
-        "number_29",
-        "number_30"
-      ],
-      "duration": 360
     }
   },
   "3": {
@@ -244,21 +192,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "seed",
-        "sheep",
-        "son",
-        "star",
-        "step",
-        "stew",
-        "sun",
-        "toe",
-        "tub"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "seed",
         "sheep",

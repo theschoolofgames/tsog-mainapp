@@ -78,23 +78,6 @@
         "umbrella"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "word_I",
-        "word_O",
-        "word_U",
-        "word_i",
-        "word_o",
-        "word_u",
-        "insect",
-        "onion",
-        "orange",
-        "uniform",
-        "umbrella"
-      ],
-      "duration": 240
     }
   },
   "2": {
@@ -152,17 +135,6 @@
         "hamster"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "octopus",
-        "owl",
-        "insect",
-        "horse",
-        "hamster"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -295,32 +267,6 @@
         "number_20"
       ],
       "duration": 600
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15",
-        "number_16",
-        "number_17",
-        "number_18",
-        "number_19",
-        "number_20"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -410,22 +356,6 @@
         "word_U"
       ],
       "duration": 480
-    },
-    "4": {
-      "name": "speaking",
-      "data": [
-        "word_g",
-        "word_G",
-        "word_h",
-        "word_H",
-        "word_i",
-        "word_I",
-        "word_o",
-        "word_O",
-        "word_u",
-        "word_U"
-      ],
-      "duration": 120
     }
   }
 }

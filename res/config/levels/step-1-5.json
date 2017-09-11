@@ -25,19 +25,6 @@
         "pencils"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "towel",
-        "watch",
-        "abacus",
-        "banana",
-        "duster",
-        "orange",
-        "pencils"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,19 +43,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "lion",
-        "seal",
-        "wolf",
-        "camel",
-        "eagle",
-        "horse",
-        "tiger"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "lion",
         "seal",
@@ -141,18 +115,6 @@
         "number_6"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6"
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -188,16 +150,6 @@
     },
     "4": {
       "name": "writing",
-      "data": [
-        "B",
-        "b",
-        "B",
-        "b"
-      ],
-      "duration": 120
-    },
-    "5": {
-      "name": "speaking",
       "data": [
         "B",
         "b",

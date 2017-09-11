@@ -25,19 +25,6 @@
         "chair"
       ],
       "duration": 120
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "desk",
-        "flag",
-        "gift",
-        "lamp",
-        "nail",
-        "sock",
-        "chair"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,19 +43,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "nest",
-        "fly",
-        "fox",
-        "pig",
-        "rat",
-        "owl",
-        "bear"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "nest",
         "fly",
@@ -136,17 +110,6 @@
         "number_5"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5"
-      ],
-      "duration": 240
     }
   },
   "4": {
@@ -175,18 +138,6 @@
     },
     "2": {
       "name": "listening",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6"
-      ],
-      "duration": 120
-    },
-    "3": {
-      "name": "speaking",
       "data": [
         "number_1",
         "number_2",

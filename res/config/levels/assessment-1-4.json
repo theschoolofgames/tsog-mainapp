@@ -25,19 +25,6 @@
         "shape_circle"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "shape_straight_line",
-        "shape_curved_line",
-        "shape_semi_circle",
-        "shape_square",
-        "shape_rectangle",
-        "shape_triangle",
-        "shape_circle"
-      ],
-      "duration": 120
     }
   },
   "2": {

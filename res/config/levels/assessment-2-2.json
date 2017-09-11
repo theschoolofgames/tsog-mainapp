@@ -25,19 +25,6 @@
         "fat"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "hat",
-        "bat",
-        "mat",
-        "cat",
-        "rat",
-        "sat",
-        "fat"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -165,22 +152,6 @@
         }
       ],
       "duration": 240
-    },
-    "4": {
-      "name": "speaking-fruiddition",
-      "data": [
-        {
-          "third": [
-            "number_1",
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_5"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   },
   "4": {
@@ -388,23 +359,6 @@
         }
       ],
       "duration": 360
-    },
-    "4": {
-      "name": "speaking-buildingblocks",
-      "data": [
-        {
-          "third": [
-            "number_2",
-            "number_3",
-            "number_4",
-            "number_4",
-            "number_5",
-            "number_5"
-          ],
-          "sentences": []
-        }
-      ],
-      "duration": 120
     }
   }
 }

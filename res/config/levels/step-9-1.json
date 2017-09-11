@@ -21,17 +21,6 @@
         "gift"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "egg",
-        "eraser",
-        "feather",
-        "flag",
-        "gift"
-      ],
-      "duration": 120
     }
   },
   "2": {
@@ -56,17 +45,6 @@
         "fox"
       ],
       "duration": 60
-    },
-    "3": {
-      "name": "speaking",
-      "data": [
-        "eagle",
-        "elephant",
-        "fish",
-        "fly",
-        "fox"
-      ],
-      "duration": 120
     }
   },
   "3": {
@@ -155,27 +133,6 @@
         "number_15"
       ],
       "duration": 240
-    },
-    "6": {
-      "name": "speaking",
-      "data": [
-        "number_1",
-        "number_2",
-        "number_3",
-        "number_4",
-        "number_5",
-        "number_6",
-        "number_7",
-        "number_8",
-        "number_9",
-        "number_10",
-        "number_11",
-        "number_12",
-        "number_13",
-        "number_14",
-        "number_15"
-      ],
-      "duration": 240
     }
   },
   "4": {
@@ -223,20 +180,6 @@
     },
     "4": {
       "name": "writing",
-      "data": [
-        "word_e",
-        "word_f",
-        "word_g",
-        "word_h",
-        "word_E",
-        "word_F",
-        "word_G",
-        "word_H"
-      ],
-      "duration": 240
-    },
-    "5": {
-      "name": "speaking",
       "data": [
         "word_e",
         "word_f",
