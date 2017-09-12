@@ -977,14 +977,14 @@ var TEXT_AT_GROWNUP_1 = "The School of Games is product of Equally Pbc. Equally 
 var TEXT_AT_GROWNUP_2 = "For support or suggestions contact at";
 var TEXT_AT_GROWNUP_3 = "Hello@Equal.ly";
 var TEXT_AT_GROWNUP_4 = "See our privacy policy and terms & Conditions";
-var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.org";
+var TEXT_AT_GROWNUP_5 = "Visit us at theschoolofgames.ai";
 
 var GAME_URL_ANDROID = "https://play.google.com/store/apps/details?id=com.theschoolofgames.tsog&hl=en";
 var GAME_URL_IOS = "https://itunes.apple.com/us/app/the-school-of-games/id1090937711?mt=8";
 var FACEBOOK_FAN_PAGE = "https://www.facebook.com/theschoolofgames/";
 var TWITTER_FAN_PAGE = "https://twitter.com/schoolofgames_";
-var WEB_URL = "http://www.theschoolofgames.org";
-var PRIVACY_POLICY_URL = "http://www.theschoolofgames.org/privacy-policy/";
+var WEB_URL = "http://www.theschoolofgames.ai";
+var PRIVACY_POLICY_URL = "http://www.theschoolofgames.ai/privacy-policy/";
 var EMAIL_ADRESS_GAME = "Hello@Equal.ly";
 
 var SHARING_OPTIONS = {

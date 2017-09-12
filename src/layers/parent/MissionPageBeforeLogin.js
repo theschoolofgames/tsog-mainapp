@@ -187,7 +187,7 @@ var MissionPageBeforeLogin = cc.Layer.extend({
         }, this);
         
         var str = "By continuing you are accepting our privacy policy"; 
-        var link = "http://www.theschoolofgames.org/privacy-policy/";
+        var link = "http://www.theschoolofgames.ai/privacy-policy/";
         var config = {
             "color": "#292A68",
             "shadowColor": [167, 90, 0, 127],

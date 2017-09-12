@@ -123,7 +123,7 @@ var PayWallDialog = cc.LayerColor.extend({
     },
 
     _addRedirectLink: function() {
-        var text = "For more information visit http://theschoolofgames.org";
+        var text = "For more information visit http://theschoolofgames.ai";
         var redirectLink = new cc.LabelTTF(text, "Arial", 24);
         redirectLink.color = cc.color.WHITE;
         redirectLink.textAlign = cc.TEXT_ALIGNMENT_CENTER;
@@ -139,7 +139,7 @@ var PayWallDialog = cc.LayerColor.extend({
         var touchLocation = touch.getLocation();
         var linkBBox = self._redirectLink.getBoundingBox();
         if (cc.rectContainsPoint(linkBBox, touchLocation)) {
-            NativeHelper.callNative("openUrlWith", ["http://theschoolofgames.org"]);
+            NativeHelper.callNative("openUrlWith", ["http://theschoolofgames.ai"]);
         }
 
         return true; 
