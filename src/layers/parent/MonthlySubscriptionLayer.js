@@ -81,43 +81,6 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         }
     },
 
-    _addMissionContent: function() {
-        var lCloud = new cc.Sprite("#left_cloud.png");
-        lCloud.setAnchorPoint(0, 1);
-        lCloud.y = cc.winSize.height;
-        this.addChild(lCloud, this._cloudZOrder);
-
-        var content = "Equal education for every child";
-        var lContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
-        lContent.scale = this._contentTextScale + 0.1;
-        lContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        lContent.x = lCloud.width/2;
-        lContent.y = lCloud.height/2 + this._contentTextOffSetY + 10;
-        lContent.boundingWidth = lCloud.width * 2;
-        lCloud.addChild(lContent);
-
-        var rCloud = new cc.Sprite("#right_cloud.png");
-        rCloud.setAnchorPoint(1, 1);
-        rCloud.x = cc.winSize.width;
-        rCloud.y = cc.winSize.height;
-        this.addChild(rCloud, this._cloudZOrder);
-
-        content = "When you pay what's in your       we educate a child in need";
-        var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
-        rContent.scale = this._contentTextScale;
-        rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        rContent.x = rCloud.width/2 - 4;
-        rContent.y = rCloud.height/2 + this._contentTextOffSetY + 10;
-        rContent.boundingWidth = rCloud.width * 2.3;
-        rCloud.addChild(rContent);
-
-        var iconHeart = new cc.Sprite("#icon_heart.png");
-        iconHeart.scale = 0.6;
-        iconHeart.x = rCloud.width * 0.33;
-        iconHeart.y = rCloud.height * 0.59;
-        rCloud.addChild(iconHeart);
-    },
-
     _grownUpCheckCallback: function() {
         SceneFlowController.getInstance().setSceneGoAfterRewardScene("welcome");
         AnalyticsManager.getInstance().logCustomEvent(EVENT_PAY_PAGE_1);
@@ -229,7 +192,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addWelcomeText: function() {
-        var content = "Welcome to The School Of Games";
+        var content = "School of Game AR:\nPreschool app with words, numbers and stories";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         rContent.scale = this._contentTextScale;
         rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
