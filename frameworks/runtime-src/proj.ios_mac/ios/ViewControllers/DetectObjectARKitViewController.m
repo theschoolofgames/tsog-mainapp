@@ -217,7 +217,7 @@
         }
         
         // Create a session configuration
-        ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+        ARWorldTrackingConfiguration *configuration = [[ARWorldTrackingConfiguration alloc] init];
         
         // Enable plane detection
         configuration.planeDetection = ARPlaneDetectionHorizontal;
