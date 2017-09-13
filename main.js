@@ -119,6 +119,7 @@ cc.game.onStart = function(){
         AudioManager.setupInstance();
         // GameObjectsProgress.setupInstance();
         CustomLabel.setupInstance();
+        // AssetManager.setupInstance();
         // SceneFlowController.setupInstance();
 
         // start new session, reset trophiesEarned

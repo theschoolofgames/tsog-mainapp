@@ -5,7 +5,7 @@ var BACKEND_ADDRESS = "http://130.211.195.223/";
 // var BACKEND_ADDRESS = "http://192.168.1.17:3000/";
 
 
-var TSOG_DEBUG = false;
+var TSOG_DEBUG = true;
 var UNLOCK_ALL_LEVELS = true;
 var UNLOCK_ALL_CHARACTERS = false;
 

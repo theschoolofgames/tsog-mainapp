@@ -56,6 +56,7 @@
         "src/meerkat/CharacterManager.js",
         "src/meerkat/AudioManager.js",
         "src/meerkat/AnalyticsManager.js",
+        "src/meerkat/AssetManager.js",
 
         "src/layers/FirebaseLayer.js",
 

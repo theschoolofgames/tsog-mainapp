@@ -18,8 +18,11 @@ var IAPManager = cc.Class.extend({
     restore: function(callback){
         this.purchaseCallback = callback;
 
-        if (cc.sys.os === "iOS")
+        cc.log("cc.sys.os: '%s'", cc.sys.os);
+        if (cc.sys.os === "iOS") {
+            cc.log("calling sdkbox.IAP.restore");
             sdkbox.IAP.restore();
+        }
         else {
             var purchaseDatasJson = NativeHelper.callNative("getPurchases");
             //console.log(purchaseDatasJson);
