@@ -35,7 +35,7 @@
                 },
                 "monthlysub": {
                     "type": "subscription",
-                    "id": "com.theschoolofgames.tsog.monthlysub"
+                    "id": "com.theschoolofgames.tsog.newmonthlysub"
                 }
             }
         }

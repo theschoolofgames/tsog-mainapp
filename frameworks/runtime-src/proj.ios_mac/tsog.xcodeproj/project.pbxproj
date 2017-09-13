@@ -305,7 +305,6 @@
 		01F481CE1C23FFE300FCE13D /* sse_optimized.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481BE1C23FFE300FCE13D /* sse_optimized.cpp */; };
 		01F481CF1C23FFE300FCE13D /* TDStretch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F481C01C23FFE300FCE13D /* TDStretch.cpp */; };
 		01FDB8931C32773200D21971 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01FDB8921C32773200D21971 /* CoreAudio.framework */; };
-		09774F24B79C133E33E12AAD /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 040046FEB9CCA404A188E297 /* StoreKit.framework */; };
 		0F894A29946A4CDA50A42032 /* PluginIAPJSHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 711C4CF98DC325D005838185 /* PluginIAPJSHelper.cpp */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
@@ -437,6 +436,7 @@
 		EB7B090E1BB50D2200B36D24 /* lwf_utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B08EB1BB50D2200B36D24 /* lwf_utility.cpp */; };
 		EB7B09141BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js in Resources */ = {isa = PBXBuildFile; fileRef = EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */; };
 		EB7B09151BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */; };
+		EB95D6FD1F6992DE00DA4611 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB95D6FC1F6992DE00DA4611 /* StoreKit.framework */; };
 		F8E7271A1BA2040B00223CB0 /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727151BA2040B00223CB0 /* Alloc.c */; };
 		F8E7271B1BA2040B00223CB0 /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = F8E727171BA2040B00223CB0 /* LzmaDec.c */; };
 		F8E7272A1BA2129000223CB0 /* LWFSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E727281BA2129000223CB0 /* LWFSprite.cpp */; };
@@ -1039,7 +1039,6 @@
 		01F481C01C23FFE300FCE13D /* TDStretch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TDStretch.cpp; sourceTree = "<group>"; };
 		01F481C11C23FFE300FCE13D /* TDStretch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStretch.h; sourceTree = "<group>"; };
 		01FDB8921C32773200D21971 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.2.sdk/System/Library/Frameworks/CoreAudio.framework; sourceTree = DEVELOPER_DIR; };
-		040046FEB9CCA404A188E297 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		04486EC9B7978CF2513CB5EA /* Pods_tsog.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tsog.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		181B6DBD67525E579743CC69 /* libPods-tsog-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
@@ -1211,6 +1210,7 @@
 		EB7B09111BB50D6B00B36D24 /* jsb_cocos2dx_lwf_api.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsb_cocos2dx_lwf_api.js; sourceTree = "<group>"; };
 		EB7B09121BB50D6B00B36D24 /* jsb_cocos2dx_lwf.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsb_cocos2dx_lwf.cpp; sourceTree = "<group>"; };
 		EB7B09131BB50D6B00B36D24 /* jsb_cocos2dx_lwf.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = jsb_cocos2dx_lwf.hpp; sourceTree = "<group>"; };
+		EB95D6FC1F6992DE00DA4611 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F8C057241B99386D00DEB2C0 /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
 		F8E727151BA2040B00223CB0 /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
 		F8E727161BA2040B00223CB0 /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
@@ -1270,6 +1270,7 @@
 				D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */,
 				1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */,
 				D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */,
+				EB95D6FD1F6992DE00DA4611 /* StoreKit.framework in Frameworks */,
 				A92275421517C094001B78AA /* QuartzCore.framework in Frameworks */,
 				A92275441517C094001B78AA /* OpenGLES.framework in Frameworks */,
 				A92275461517C094001B78AA /* OpenAL.framework in Frameworks */,
@@ -1280,7 +1281,6 @@
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
 				5179447E9669994860706DF0 /* sdkbox.framework in Frameworks */,
 				A76A4637934F0762D10E8620 /* PluginIAP.framework in Frameworks */,
-				09774F24B79C133E33E12AAD /* StoreKit.framework in Frameworks */,
 				B96B98D8EBAB9932FC35C073 /* Pods_tsog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2282,6 +2282,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB95D6FC1F6992DE00DA4611 /* StoreKit.framework */,
 				492AD6DF1E602FC1005AE4F2 /* UserNotifications.framework */,
 				509D4AE817EBB82000697056 /* AppKit.framework */,
 				A92275471517C094001B78AA /* AudioToolbox.framework */,
@@ -2319,7 +2320,6 @@
 				96B241EFBA459BB96B1F452E /* sdkbox.framework */,
 				BAEE4D831AC40C11003BEB0F /* Security.framework */,
 				BA3A85EB1A724AE900924D24 /* Security.framework */,
-				040046FEB9CCA404A188E297 /* StoreKit.framework */,
 				01C9EA7B1BD50BDB0062EF7D /* SystemConfiguration.framework */,
 				A922754B1517C094001B78AA /* UIKit.framework */,
 			);
@@ -2648,6 +2648,9 @@
 						DevelopmentTeam = 34F8D32X5G;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};

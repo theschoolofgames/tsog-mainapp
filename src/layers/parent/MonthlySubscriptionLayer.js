@@ -94,7 +94,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         LoadingIndicator.show();
 
         IAPManager.getInstance().purchase("monthlysub", function(succeed, product) {
-            if (succeed) {
+            if (succeed && product.name == "monthlysub") {
                 FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
                     if (authenticated) {
                         User.getCurrentUser().setSubscription(product.receiptCipheredPayload);
