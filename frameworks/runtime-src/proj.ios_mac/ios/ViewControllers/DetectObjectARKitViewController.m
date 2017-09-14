@@ -293,10 +293,10 @@
                     [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
                 }];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    lbDebug.text = objArrayStr;
-                    [lbDebug sizeToFit];
-                });
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    lbDebug.text = objArrayStr;
+//                    [lbDebug sizeToFit];
+//                });
             }
             // End debug part
             
