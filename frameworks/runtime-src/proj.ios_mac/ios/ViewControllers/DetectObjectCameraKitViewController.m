@@ -59,6 +59,10 @@
     
     // Data
     NSMutableDictionary *sessionIdentifiedObj;
+    
+    // Speaking
+    AVSpeechSynthesizer *synthesizer;
+    BOOL isGuessing;
 }
 
 @end
@@ -74,6 +78,9 @@
     
     // Setup View
     [self setupView];
+    
+    // Setup SpeechSynthesizer
+    [self setupSpeechSynthesizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -338,10 +345,13 @@
             
             // Just get first object
             VNClassificationObservation *firstObj = [request.results firstObject];
-            if (firstObj.confidence > kRecognitionThreshold) {
+            if (firstObj.confidence > kRecognitionThresholdMax) {
                 // Found object
                 [self handleFoundObject:firstObj];
-            };
+            } else if (firstObj.confidence > kRecognitionThresholdMin) {
+                // Guess
+                [self guessObject:request.results];
+            }
         }];
         classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
         visionRequests = @[classificationRequest];
@@ -380,6 +390,28 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                            selector:@selector(deviceOrientationDidChange:)
                                name:UIDeviceOrientationDidChangeNotification object:nil];
+}
+
+#pragma mark - setup SpeechSynthesizer
+- (void)setupSpeechSynthesizer {
+    synthesizer = [[AVSpeechSynthesizer alloc] init];
+    synthesizer.delegate = self;
+}
+
+- (void)textToSpeech:(NSString *)text {
+    if (!text.length) {
+        return;
+    }
+    
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    utterance.volume = 1.0;
+    [utterance setRate:0.5f];
+    
+    if ([synthesizer isSpeaking]) {
+        [synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
+    [synthesizer speakUtterance:utterance];
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -427,10 +459,16 @@
         return;
     }
     
+    // Stop guessing
+    isGuessing = NO;
+    if ([synthesizer isSpeaking]) {
+        [synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
+    
     // Analytic
     [FirebaseWrapper logEventCollectObject:identifiedObj confident:obj.confidence];
     
-    [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+    [[SessionManager sharedInstance] vibrateFoundObj];
     
     // Add to session list
     [sessionIdentifiedObj setObject:identifiedObj forKey:identifiedObj];
@@ -440,7 +478,10 @@
         // Show text on screen
         dispatch_async(dispatch_get_main_queue(), ^{
             // Update bottom text
-            lbResult.text = kYouFoundIt;
+            lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
+            
+            // Speak
+            [self textToSpeech:lbResult.text];
             
             // Increase diamond
             [SessionManager sharedInstance].diamondCount+=5;
@@ -452,7 +493,10 @@
         // Show text on screen
         dispatch_async(dispatch_get_main_queue(), ^{
             // Update bottom text
-            lbResult.text = kYouFoundIt;
+            lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
+            
+            // Speak
+            [self textToSpeech:lbResult.text];
             
             // Increase diamond
             [SessionManager sharedInstance].diamondCount+=1;
@@ -461,6 +505,59 @@
             [self showAnimatedString:identifiedObj withDiamondnumber:1];
         });
     }
+}
+
+#pragma mark - guess object
+- (void)guessObject:(NSArray *)results {
+    if (isGuessing) {
+        return;
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        NSMutableArray *guessingObjects = [NSMutableArray array];
+        for (int i = 0; (i < results.count) && (i < 3); i++) {
+            VNClassificationObservation *guessingObj = results[i];
+            NSString *firstName = [self getFirstName:guessingObj];
+            if (guessingObj.confidence > kRecognitionThresholdMin && ![sessionIdentifiedObj objectForKey:firstName]) {
+                [guessingObjects addObject:firstName];
+            }
+        }
+        
+        if (guessingObjects.count == 0) {
+            return;
+        }
+        
+        NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+        [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx < guessingObjects.count - 1) {
+                [guessingLabel appendFormat:@" %@ Or", objName];
+            } else {
+                [guessingLabel appendFormat:@" %@", objName];
+            }
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update bottom text
+            lbResult.text = guessingLabel;
+            
+            // Speak
+            isGuessing = YES;
+            [self textToSpeech:lbResult.text];
+        });
+    }
+}
+
+- (NSString *)getFirstName:(VNClassificationObservation *)source {
+    // analyze string
+    NSString *fullName = source.identifier;
+    NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
+    
+    if (nameArray.count == 0) {
+        // No name -> Stop
+        return nil;
+    }
+    // just get first name
+    return [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
 }
 
 #pragma mark - Animation
@@ -523,11 +620,7 @@
             } else {
                 [self animateShowDiamondInSerial:NO];
             }
-            
-            // Speak
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[SessionManager sharedInstance] textToSpeech:animatedString];
-            });
+        
         }
     }];
 }
@@ -831,6 +924,13 @@
             }];
         }
     }];
+}
+
+#pragma mark - AVSpeechSynthesizerDelegate
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
+    if (isGuessing) {
+        isGuessing = NO;
+    }
 }
 
 @end

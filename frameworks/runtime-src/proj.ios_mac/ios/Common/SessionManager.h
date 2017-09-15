@@ -11,7 +11,6 @@
 
 @interface SessionManager : NSObject
 
-@property (nonatomic, strong) AVSpeechSynthesizer *synthesizer;         // Speak
 @property (nonatomic, assign) NSInteger elapsedTime;                    // Elapsed time
 @property (nonatomic, assign) NSInteger diamondCount;                   // Diamond count
 
@@ -22,7 +21,6 @@
 - (NSArray *)getIdentifiedObjectsArray;                                 // Get identified objects list as an Array
 - (BOOL)addIdentifiedObject:(NSString *)objString;                      // Add object
 - (void)addArayOfIdentifiedObjects:(NSArray *)objArray;                 // Add an array of objects
-- (void)textToSpeech:(NSString *)text;                                  // Speak a word
-- (void)playSoundAndVibrateFoundObj;
+- (void)vibrateFoundObj;
 
 @end
