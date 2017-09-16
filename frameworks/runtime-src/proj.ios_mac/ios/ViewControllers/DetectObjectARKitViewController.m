@@ -574,23 +574,69 @@
             return;
         }
         
-        NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
-        [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < guessingObjects.count - 1) {
-                [guessingLabel appendFormat:@" %@ Or", objName];
-            } else {
-                [guessingLabel appendFormat:@" %@", objName];
-            }
-        }];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update bottom text
-            lbResult.text = guessingLabel;
+//        // Check current String
+//        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
+//            // Continue guessing
+//            NSInteger countOr = [self occurrenceCountOfCharacter:@" Or " fromString:lbResult.text];
+//            if (countOr >= 2) {
+//                // start guessing
+//                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+//                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    if (idx < guessingObjects.count - 1) {
+//                        [guessingLabel appendFormat:@" %@ Or", objName];
+//                    } else {
+//                        [guessingLabel appendFormat:@" %@", objName];
+//                    }
+//                }];
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    // Update bottom text
+//                    lbResult.text = guessingLabel;
+//
+//                    // Speak
+//                    isGuessing = YES;
+//                    [self textToSpeech:lbResult.text];
+//                });
+//            } else {
+//                // Continue guessing
+//                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
+//                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+//                    if (idx < guessingObjects.count - 1) {
+//                        [guessingLabel appendFormat:@" %@ Or", objName];
+//                    } else {
+//                        [guessingLabel appendFormat:@" %@", objName];
+//                    }
+//                }];
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    // Update bottom text
+//                    lbResult.text = guessingLabel;
+//
+//                    // Speak
+//                    isGuessing = YES;
+//                    [self textToSpeech:lbResult.text];
+//                });
+//            }
+//        } else {
+            // Start guessing
+            NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+            [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx < guessingObjects.count - 1) {
+                    [guessingLabel appendFormat:@" %@ Or", objName];
+                } else {
+                    [guessingLabel appendFormat:@" %@", objName];
+                }
+            }];
             
-            // Speak
-            isGuessing = YES;
-            [self textToSpeech:lbResult.text];
-        });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Update bottom text
+                lbResult.text = guessingLabel;
+                
+                // Speak
+                isGuessing = YES;
+                [self textToSpeech:lbResult.text];
+            });
+//        }
     }
 }
 
@@ -842,26 +888,26 @@
     bubbleNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
     
     // Percentage
-    // Bubble text
-    SCNText *percentageText = [SCNText textWithString:[NSString stringWithFormat:@"(%.2f%%)", (confident*100)] extrusionDepth:textDepth];
-    percentageText.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.15];
-    percentageText.alignmentMode = kCAAlignmentCenter;
-    percentageText.firstMaterial.diffuse.contents = [UIColor whiteColor];
-    percentageText.firstMaterial.specular.contents = [UIColor blackColor];
-    percentageText.firstMaterial.doubleSided = YES;
-    //    bubbleText.flatness = 1.0;
-    percentageText.chamferRadius = textDepth;
-    
-    // Bubble node
-    SCNVector3 boundingPercentageBoxMin;
-    SCNVector3 boundingPercentageBoxMax;
-    [percentageText getBoundingBoxMin:&boundingPercentageBoxMin max:&boundingPercentageBoxMax];
-    
-    SCNNode *percentageNode = [SCNNode nodeWithGeometry:percentageText];
-    // Centre node - to centre-bottom point
-    percentageNode.pivot = SCNMatrix4MakeTranslation((boundingPercentageBoxMax.x - boundingPercentageBoxMin.x)/2.0, boundingPercentageBoxMin.y + 0.14, textDepth/2.0);
-    percentageNode.scale = SCNVector3Make(0.1, 0.1, 0.1);
-    percentageNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
+//    // Bubble text
+//    SCNText *percentageText = [SCNText textWithString:[NSString stringWithFormat:@"(%.2f%%)", (confident*100)] extrusionDepth:textDepth];
+//    percentageText.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.15];
+//    percentageText.alignmentMode = kCAAlignmentCenter;
+//    percentageText.firstMaterial.diffuse.contents = [UIColor whiteColor];
+//    percentageText.firstMaterial.specular.contents = [UIColor blackColor];
+//    percentageText.firstMaterial.doubleSided = YES;
+//    //    bubbleText.flatness = 1.0;
+//    percentageText.chamferRadius = textDepth;
+//
+//    // Bubble node
+//    SCNVector3 boundingPercentageBoxMin;
+//    SCNVector3 boundingPercentageBoxMax;
+//    [percentageText getBoundingBoxMin:&boundingPercentageBoxMin max:&boundingPercentageBoxMax];
+//
+//    SCNNode *percentageNode = [SCNNode nodeWithGeometry:percentageText];
+//    // Centre node - to centre-bottom point
+//    percentageNode.pivot = SCNMatrix4MakeTranslation((boundingPercentageBoxMax.x - boundingPercentageBoxMin.x)/2.0, boundingPercentageBoxMin.y + 0.14, textDepth/2.0);
+//    percentageNode.scale = SCNVector3Make(0.1, 0.1, 0.1);
+//    percentageNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
     
     // Sphere
     // Centre point node
@@ -873,7 +919,7 @@
     SCNNode *bubbleNodeParent = [[SCNNode alloc] init];
     [bubbleNodeParent addChildNode:bubbleNode];
     [bubbleNodeParent addChildNode:sphereNode];
-    [bubbleNodeParent addChildNode:percentageNode];
+//    [bubbleNodeParent addChildNode:percentageNode];
     
     return bubbleNodeParent;
 }
@@ -884,6 +930,24 @@
         isGuessing = NO;
         [self startProcessCoreML];
     }
+}
+
+#pragma mark - utils string
+- (NSUInteger)occurrenceCountOfCharacter:(UniChar)character fromString:(NSString *)source {
+    CFStringRef selfAsCFStr = (__bridge CFStringRef)source;
+    
+    CFStringInlineBuffer inlineBuffer;
+    CFIndex length = CFStringGetLength(selfAsCFStr);
+    CFStringInitInlineBuffer(selfAsCFStr, &inlineBuffer, CFRangeMake(0, length));
+    
+    NSUInteger counter = 0;
+    
+    for (CFIndex i = 0; i < length; i++) {
+        UniChar c = CFStringGetCharacterFromInlineBuffer(&inlineBuffer, i);
+        if (c == character) counter += 1;
+    }
+    
+    return counter;
 }
 
 @end
