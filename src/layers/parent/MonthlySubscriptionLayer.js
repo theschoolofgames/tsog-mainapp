@@ -25,7 +25,15 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         this._createTalkingAdi();
         this._addButtons();
         this._addRestorePurchasesText();
+        this._addTOSandPrivacyPolicyText();
         this._addWelcomeText();
+        this._addPriceText();
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan.bind(this)
+        }, this);
         // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
     },
 
@@ -47,8 +55,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
         b.x = cc.winSize.width * 0.6;
-        b.y = cc.winSize.height/4 - 20;
-        b.scaleX = 1.2;
+        b.y = cc.winSize.height/4 + 60;
         this.addChild(b);
 
         b.addClickEventListener(this._payBtnPressed.bind(this));
@@ -79,6 +86,30 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         if (TSOG_DEBUG) {
             this.addChild(b);
         }
+    },
+
+    _addPriceText: function() {
+        var str = "$4.99/Month. Cancel Anytime."; 
+        var config = {
+            "color": "#292A68",
+            "shadowColor": [167, 90, 0, 127],
+            "shadowSize": 0,
+            "shadowRadius": 6,
+            "fontSize": 18,
+            "outlineSize": 1,
+            "boundingWidthRatio": 1,
+            "boundingHeightRatio": 0.3
+        };
+
+        var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                config.fontSize, 
+                                                cc.color(config.color), 
+                                                config.outlineSize,
+                                                localizeForWriting(str));
+        text.x = cc.winSize.width*0.6;
+        text.y = cc.winSize.height/4 + 10;
+
+        this.addChild(text);
     },
 
     _grownUpCheckCallback: function() {
@@ -120,12 +151,6 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addRestorePurchasesText: function() {
-        cc.eventManager.addListener({
-            event: cc.EventListener.TOUCH_ONE_BY_ONE,
-            swallowTouches: true,
-            onTouchBegan: this.onTouchBegan.bind(this)
-        }, this);
-        
         var str = "Restore purchases"; 
         var config = {
             "color": "#292A68",
@@ -143,15 +168,9 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
                                                 cc.color(config.color), 
                                                 config.outlineSize,
                                                 localizeForWriting(str));
-        text.enableShadow(cc.color(config.shadowColor[0], 
-                                config.shadowColor[1],
-                                config.shadowColor[2],
-                                config.shadowColor[3]
-                            ),
-                            cc.size(0, -config.shadowSize)
-        );
+
         text.x = cc.winSize.width*0.6;
-        text.y = cc.winSize.height/4 + 50;
+        text.y = cc.winSize.height/4 - 30;
 
         this.addChild(text);
 
@@ -166,6 +185,54 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         text.addChild(underline);
     },
 
+    _addTOSandPrivacyPolicyText: function() {
+        
+        var str = "By proceeding you agree to our Terms of Service and Privacy Policy"; 
+        var config = {
+            "color": "#292A68",
+            "shadowColor": [167, 90, 0, 127],
+            "shadowSize": 0,
+            "shadowRadius": 6,
+            "fontSize": 18,
+            "outlineSize": 1,
+            "boundingWidthRatio": 1,
+            "boundingHeightRatio": 0.3
+        };
+
+        var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                                config.fontSize, 
+                                                cc.color(config.color), 
+                                                config.outlineSize,
+                                                localizeForWriting(str));
+
+        text.x = cc.winSize.width*0.6;
+        text.y = cc.winSize.height/4 - 100;
+
+        this.addChild(text);
+
+        // term of services link
+        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"__________________");
+        underline.setColor(cc.color("#ffc73a"));
+        underline.anchorX = 1;
+        underline.x = text.width - 190;
+        underline.y = text.height/2 - 5;
+
+        this._tosLink = underline;
+
+        text.addChild(underline);
+
+        // privacy policy link
+        underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"_______________");
+        underline.setColor(cc.color("#ffc73a"));
+        underline.anchorX = 1;
+        underline.x = text.width;
+        underline.y = text.height/2 - 5;
+
+        this._privacyPolicyLink = underline;
+
+        text.addChild(underline);
+    },
+
     onTouchBegan: function(touch, event) {
         var touchLoc = touch.getLocation();
         var self = event.getCurrentTarget();
@@ -173,12 +240,28 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         var restorePurchasesLinkBBox = self._restorePurchasesLink.getBoundingBox();
         restorePurchasesLinkBBox = cc.rect(restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width +20, restorePurchasesLinkBBox.height+20);
 
+        var tosBBox = self._tosLink.getBoundingBox();
+        tosBBox = cc.rect(tosBBox.x + self._tosLink.parent.getBoundingBox().x, tosBBox.y + self._tosLink.parent.getBoundingBox().y, tosBBox.width + 20, tosBBox.height+20);
+
+        var privacyPolicyBBox = self._privacyPolicyLink.getBoundingBox();
+        privacyPolicyBBox = cc.rect(privacyPolicyBBox.x + self._privacyPolicyLink.parent.getBoundingBox().x, privacyPolicyBBox.y + self._privacyPolicyLink.parent.getBoundingBox().y, privacyPolicyBBox.width + 20, privacyPolicyBBox.height+20);
+
+        cc.log("restorePurchasesLinkBBox: %d, %d, %d, %d", restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width, restorePurchasesLinkBBox.height);
+        cc.log("tosBBox: %d, %d, %d, %d", tosBBox.x, tosBBox.y, tosBBox.width, tosBBox.height);
+        cc.log("privacyPolicyBBox: %d, %d, %d, %d", privacyPolicyBBox.x, privacyPolicyBBox.y, privacyPolicyBBox.width, privacyPolicyBBox.height);
+
         if (cc.rectContainsPoint(restorePurchasesLinkBBox, touchLoc)) {
             // TODO login before restore purchases
             cc.log("tapping on restore purchases");
             IAPManager.getInstance().restore(function(success, data) {
                 cc.log("restore result: %s, %s", success ? "true" : "false", JSON.stringify(data));
             })
+        } else if (cc.rectContainsPoint(tosBBox, touchLoc)) {
+            var link = "http://www.theschoolofgames.org/terms-of-service/";
+            cc.sys.openURL(link);
+        } else if (cc.rectContainsPoint(privacyPolicyBBox, touchLoc)) {
+            var link = "http://www.theschoolofgames.org/privacy-policy/";
+            cc.sys.openURL(link);
         }
 
         return true;
