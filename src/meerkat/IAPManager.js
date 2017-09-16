@@ -58,6 +58,8 @@ var IAPManager = cc.Class.extend({
     init: function() {
         //console.log("SDKBox IAP start init");
         sdkbox.IAP.init();
+        // sdkbox.IAP.setDebug(true);
+        // sdkbox.IAP.enableUserSideVerification(true);
 
         var self = this;
         
@@ -90,9 +92,15 @@ var IAPManager = cc.Class.extend({
                     self.purchaseCallback(false);
             },
             onRestored : function (product) {
-                console.log("onProductRestoreSuccess");
+                console.log("onRestored: " + JSON.stringify(product));
                 if (self.purchaseCallback) {
                     self.purchaseCallback(true, product);
+                }
+            },
+            onRestoreComplete: function(success, msg) {
+                console.log("onRestoreComplete: " + msg);
+                if (self.purchaseCallback) {
+                    self.purchaseCallback(success, msg);
                 }
             },
             onProductRequestSuccess : function (products) {

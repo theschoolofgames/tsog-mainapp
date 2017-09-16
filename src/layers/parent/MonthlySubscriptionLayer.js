@@ -1,3 +1,4 @@
+var MONTHLY_SUBSCRIPTION_IAP_NAME = "monthlysub";
 var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _loggedIn: false,
 
@@ -15,13 +16,13 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
 
     _childrenImg: null,
 
+    _restoredSubscriptionWithPayload: null,
+
     ctor: function() {
         this._super(cc.color.WHITE);
 
         // this._childrenOffSetY = 50;
 
-        // this._addBackground();
-        // this._addMissionContent();
         this._createTalkingAdi();
         this._addButtons();
         this._addRestorePurchasesText();
@@ -37,25 +38,12 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         // AnalyticsManager.getInstance().logCustomEvent("EVENT_MISSION_PAGE_1");
     },
 
-    _addBackground: function() {
-        var background = new cc.Sprite(res.Mission_Page_bg);
-        background.x = cc.winSize.width/2;
-        background.y = cc.winSize.height/2;
-        this.addChild(background);
-
-        var children = new cc.Sprite("#children.png");
-        children.scale = 0.9;
-        children.x = cc.winSize.width/2;
-        children.y = cc.winSize.height/2 + this._childrenOffSetY;
-        this.addChild(children, this._childrenZOrder);
-        this._childrenImg = children;
-    },
 
     _addButtons: function() {
         var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
         b.x = cc.winSize.width * 0.6;
-        b.y = cc.winSize.height/4 + 60;
+        b.y = cc.winSize.height/4 + 30;
         this.addChild(b);
 
         b.addClickEventListener(this._payBtnPressed.bind(this));
@@ -89,16 +77,11 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addPriceText: function() {
-        var str = "$4.99/Month. Cancel Anytime."; 
+        var str = "$4.99/Month. Cancel Anytime.";
         var config = {
-            "color": "#292A68",
-            "shadowColor": [167, 90, 0, 127],
-            "shadowSize": 0,
-            "shadowRadius": 6,
-            "fontSize": 18,
-            "outlineSize": 1,
-            "boundingWidthRatio": 1,
-            "boundingHeightRatio": 0.3
+            "color": "#b56421",
+            "fontSize": 16 * 2,
+            "outlineSize": 2,
         };
 
         var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
@@ -106,8 +89,11 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
                                                 cc.color(config.color), 
                                                 config.outlineSize,
                                                 localizeForWriting(str));
+        
+        // var text = cc.LabelBMFont("$4.99/Month. Cancel Anytime.", res.HomeFont_fnt);
         text.x = cc.winSize.width*0.6;
-        text.y = cc.winSize.height/4 + 10;
+        text.y = cc.winSize.height/4 + 76;
+        text.scale = 0.5;
 
         this.addChild(text);
     },
@@ -120,19 +106,24 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         }));
     },
 
+    _authenticateUser: function(receiptCipheredPayload) {
+        FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
+            if (authenticated) {
+                User.getCurrentUser().setSubscription(receiptCipheredPayload);
+                cc.director.runScene(new WelcomeScene());
+            };
+            LoadingIndicator.hide();
+        });
+        LoadingIndicator.hide();
+    },
+
     _payBtnPressed: function() {
         AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
 
-        IAPManager.getInstance().purchase("monthlysub", function(succeed, product) {
-            if (succeed && product.name == "monthlysub") {
-                FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
-                    if (authenticated) {
-                        User.getCurrentUser().setSubscription(product.receiptCipheredPayload);
-                        cc.director.runScene(new WelcomeScene());
-                    };
-                    LoadingIndicator.hide();
-                }.bind(this));
+        IAPManager.getInstance().purchase(MONTHLY_SUBSCRIPTION_IAP_NAME, function(succeed, product) {
+            if (succeed && product.name == MONTHLY_SUBSCRIPTION_IAP_NAME) {
+                this._authenticateUser(product.receiptCipheredPayload);
             } else {
                 LoadingIndicator.hide();
             }
@@ -153,14 +144,9 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _addRestorePurchasesText: function() {
         var str = "Restore purchases"; 
         var config = {
-            "color": "#292A68",
-            "shadowColor": [167, 90, 0, 127],
-            "shadowSize": 0,
-            "shadowRadius": 6,
-            "fontSize": 18,
-            "outlineSize": 1,
-            "boundingWidthRatio": 1,
-            "boundingHeightRatio": 0.3
+            "color": "#46478c",
+            "fontSize": 18 * 2,
+            "outlineSize": 2,
         };
 
         var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
@@ -171,13 +157,14 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
 
         text.x = cc.winSize.width*0.6;
         text.y = cc.winSize.height/4 - 30;
+        text.scale = 0.5;
 
         this.addChild(text);
 
         this._restorePurchasesLink = text;
 
-        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"_____________________");
-        underline.setColor(cc.color("#ffc73a"));
+        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], config.fontSize, cc.color("#ffffff"), config.outlineSize/2, "____________________");
+        underline.setColor(cc.color(config.color));
         underline.anchorX = 1;
         underline.x = text.width;
         underline.y = text.height/2 - 5;
@@ -186,17 +173,11 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addTOSandPrivacyPolicyText: function() {
-        
         var str = "By proceeding you agree to our Terms of Service and Privacy Policy"; 
         var config = {
-            "color": "#292A68",
-            "shadowColor": [167, 90, 0, 127],
-            "shadowSize": 0,
-            "shadowRadius": 6,
-            "fontSize": 18,
-            "outlineSize": 1,
-            "boundingWidthRatio": 1,
-            "boundingHeightRatio": 0.3
+            "color": "#46478c",
+            "fontSize": 15 * 2,
+            "outlineSize": 1 * 2,
         };
 
         var text = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
@@ -205,16 +186,17 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
                                                 config.outlineSize,
                                                 localizeForWriting(str));
 
-        text.x = cc.winSize.width*0.6;
+        text.x = cc.winSize.width/2;
         text.y = cc.winSize.height/4 - 100;
+        text.scale = 0.5;
 
         this.addChild(text);
 
         // term of services link
-        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"__________________");
-        underline.setColor(cc.color("#ffc73a"));
+        var underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], config.fontSize, cc.color("#ffffff"), config.outlineSize/2,"__________________");
+        underline.setColor(cc.color(config.color));
         underline.anchorX = 1;
-        underline.x = text.width - 190;
+        underline.x = text.width - 300;
         underline.y = text.height/2 - 5;
 
         this._tosLink = underline;
@@ -222,8 +204,8 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         text.addChild(underline);
 
         // privacy policy link
-        underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 18, cc.color("#ffffff"), 1,"_______________");
-        underline.setColor(cc.color("#ffc73a"));
+        underline = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], config.fontSize, cc.color("#ffffff"), config.outlineSize/2,"_______________");
+        underline.setColor(cc.color(config.color));
         underline.anchorX = 1;
         underline.x = text.width;
         underline.y = text.height/2 - 5;
@@ -235,31 +217,43 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
 
     onTouchBegan: function(touch, event) {
         var touchLoc = touch.getLocation();
+        var touchRect = cc.rect(touchLoc.x - 4, touchLoc.y - 4, 8, 8);
         var self = event.getCurrentTarget();
 
-        var restorePurchasesLinkBBox = self._restorePurchasesLink.getBoundingBox();
-        restorePurchasesLinkBBox = cc.rect(restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width +20, restorePurchasesLinkBBox.height+20);
+        cc.log("self._restorePurchasesLink.getBoundingBoxToWorld(): ", self._restorePurchasesLink.getBoundingBoxToWorld().x, self._restorePurchasesLink.getBoundingBoxToWorld().y, self._restorePurchasesLink.getBoundingBoxToWorld().width, self._restorePurchasesLink.getBoundingBoxToWorld().height);
 
-        var tosBBox = self._tosLink.getBoundingBox();
-        tosBBox = cc.rect(tosBBox.x + self._tosLink.parent.getBoundingBox().x, tosBBox.y + self._tosLink.parent.getBoundingBox().y, tosBBox.width + 20, tosBBox.height+20);
-
-        var privacyPolicyBBox = self._privacyPolicyLink.getBoundingBox();
-        privacyPolicyBBox = cc.rect(privacyPolicyBBox.x + self._privacyPolicyLink.parent.getBoundingBox().x, privacyPolicyBBox.y + self._privacyPolicyLink.parent.getBoundingBox().y, privacyPolicyBBox.width + 20, privacyPolicyBBox.height+20);
-
-        cc.log("restorePurchasesLinkBBox: %d, %d, %d, %d", restorePurchasesLinkBBox.x, restorePurchasesLinkBBox.y, restorePurchasesLinkBBox.width, restorePurchasesLinkBBox.height);
-        cc.log("tosBBox: %d, %d, %d, %d", tosBBox.x, tosBBox.y, tosBBox.width, tosBBox.height);
-        cc.log("privacyPolicyBBox: %d, %d, %d, %d", privacyPolicyBBox.x, privacyPolicyBBox.y, privacyPolicyBBox.width, privacyPolicyBBox.height);
-
-        if (cc.rectContainsPoint(restorePurchasesLinkBBox, touchLoc)) {
-            // TODO login before restore purchases
-            cc.log("tapping on restore purchases");
+        if (cc.rectIntersectsRect(self._restorePurchasesLink.getBoundingBoxToWorld(), touchRect)) {
+            cc.log(" -> tapping on restore purchases");
+            LoadingIndicator.show();
             IAPManager.getInstance().restore(function(success, data) {
-                cc.log("restore result: %s, %s", success ? "true" : "false", JSON.stringify(data));
+                log("restore callback: " + success + ", '" + JSON.stringify(data) + "'");
+                if (!success) {
+                    showNativeMessage("Restore failed!", "Could not restore your purchases. Please try again later!");
+                    LoadingIndicator.hide();
+                    return;
+                }
+
+                if (data == '') {
+                    // restore completed
+                    LoadingIndicator.hide();
+
+                    if (self._restoredSubscriptionWithPayload != null) {
+                        self._authenticateUser(self._restoredSubscriptionWithPayload);
+                    } else {
+                        showNativeMessage("Subscription not found", "Your subscription couldn not be found or has been expried.");
+                    }
+                } else {
+                    cc.log("  -> restored product: '%s'", data.name);
+                    if (data.name == MONTHLY_SUBSCRIPTION_IAP_NAME) {
+                        cc.log("  -> is %s", MONTHLY_SUBSCRIPTION_IAP_NAME)
+                        self._restoredSubscriptionWithPayload = "restored purchase";
+                    }
+                }
             })
-        } else if (cc.rectContainsPoint(tosBBox, touchLoc)) {
+        } else if (cc.rectIntersectsRect(self._tosLink.getBoundingBoxToWorld(), touchRect)) {
             var link = "http://www.theschoolofgames.org/terms-of-service/";
             cc.sys.openURL(link);
-        } else if (cc.rectContainsPoint(privacyPolicyBBox, touchLoc)) {
+        } else if (cc.rectIntersectsRect(self._privacyPolicyLink.getBoundingBoxToWorld(), touchRect)) {
             var link = "http://www.theschoolofgames.org/privacy-policy/";
             cc.sys.openURL(link);
         }
