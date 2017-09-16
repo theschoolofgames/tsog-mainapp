@@ -10,7 +10,6 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _backgroundZOrder: 1,
     _childrenZOrder: 3,
     _cloudZOrder: 2,
-    _grownupCheckDialogZOrder: 5,
 
     _childrenOffSetY: 0,
 
@@ -46,8 +45,13 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         b.y = cc.winSize.height/4 + 30;
         this.addChild(b);
 
-        b.addClickEventListener(this._payBtnPressed.bind(this));
-
+        var self = this;
+        b.addClickEventListener(function() {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            var dialog = new GrownUpCheckDialog(self._payBtnPressed.bind(self));
+            self.addChild(dialog, 999999);
+        });
+        
         var lb = new cc.LabelBMFont("Start 7-day free trial", res.HomeFont_fnt);
         lb.scale = 0.35;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
@@ -98,14 +102,6 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         this.addChild(text);
     },
 
-    _grownUpCheckCallback: function() {
-        SceneFlowController.getInstance().setSceneGoAfterRewardScene("welcome");
-        AnalyticsManager.getInstance().logCustomEvent(EVENT_PAY_PAGE_1);
-        cc.director.replaceScene(new PayScene(function() {
-            cc.director.replaceScene(new MonthlySubscriptionLayerScene());
-        }));
-    },
-
     _authenticateUser: function(receiptCipheredPayload) {
         FirebaseManager.getInstance().authenticate(function(authenticated, isLinked) {
             if (authenticated) {
@@ -114,11 +110,10 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
             };
             LoadingIndicator.hide();
         });
-        LoadingIndicator.hide();
     },
 
     _payBtnPressed: function() {
-        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+        // AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
 
         IAPManager.getInstance().purchase(MONTHLY_SUBSCRIPTION_IAP_NAME, function(succeed, product) {
@@ -215,6 +210,36 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         text.addChild(underline);
     },
 
+    _restorePurchasePressed: function() {
+        var self = this;
+        LoadingIndicator.show();
+        IAPManager.getInstance().restore(function(success, data) {
+            log("restore callback: " + success + ", '" + JSON.stringify(data) + "'");
+            if (!success) {
+                showNativeMessage("Restore failed!", "Could not restore your purchases. Please try again later!");
+                LoadingIndicator.hide();
+                return;
+            }
+
+            if (data == '') {
+                // restore completed
+                LoadingIndicator.hide();
+
+                if (self._restoredSubscriptionWithPayload != null) {
+                    self._authenticateUser(self._restoredSubscriptionWithPayload);
+                } else {
+                    showNativeMessage("Subscription not found", "Your subscription couldn not be found or has been expried.");
+                }
+            } else {
+                cc.log("  -> restored product: '%s'", data.name);
+                if (data.name == MONTHLY_SUBSCRIPTION_IAP_NAME) {
+                    cc.log("  -> is %s", MONTHLY_SUBSCRIPTION_IAP_NAME)
+                    self._restoredSubscriptionWithPayload = "restored purchase";
+                }
+            }
+        })
+    },
+
     onTouchBegan: function(touch, event) {
         var touchLoc = touch.getLocation();
         var touchRect = cc.rect(touchLoc.x - 4, touchLoc.y - 4, 8, 8);
@@ -224,36 +249,15 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
 
         if (cc.rectIntersectsRect(self._restorePurchasesLink.getBoundingBoxToWorld(), touchRect)) {
             cc.log(" -> tapping on restore purchases");
-            LoadingIndicator.show();
-            IAPManager.getInstance().restore(function(success, data) {
-                log("restore callback: " + success + ", '" + JSON.stringify(data) + "'");
-                if (!success) {
-                    showNativeMessage("Restore failed!", "Could not restore your purchases. Please try again later!");
-                    LoadingIndicator.hide();
-                    return;
-                }
-
-                if (data == '') {
-                    // restore completed
-                    LoadingIndicator.hide();
-
-                    if (self._restoredSubscriptionWithPayload != null) {
-                        self._authenticateUser(self._restoredSubscriptionWithPayload);
-                    } else {
-                        showNativeMessage("Subscription not found", "Your subscription couldn not be found or has been expried.");
-                    }
-                } else {
-                    cc.log("  -> restored product: '%s'", data.name);
-                    if (data.name == MONTHLY_SUBSCRIPTION_IAP_NAME) {
-                        cc.log("  -> is %s", MONTHLY_SUBSCRIPTION_IAP_NAME)
-                        self._restoredSubscriptionWithPayload = "restored purchase";
-                    }
-                }
-            })
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+            var dialog = new GrownUpCheckDialog(self._restorePurchasePressed.bind(self));
+            self.addChild(dialog, 999999);
         } else if (cc.rectIntersectsRect(self._tosLink.getBoundingBoxToWorld(), touchRect)) {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             var link = "http://www.theschoolofgames.org/terms-of-service/";
             cc.sys.openURL(link);
         } else if (cc.rectIntersectsRect(self._privacyPolicyLink.getBoundingBoxToWorld(), touchRect)) {
+            AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
             var link = "http://www.theschoolofgames.org/privacy-policy/";
             cc.sys.openURL(link);
         }

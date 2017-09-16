@@ -118,6 +118,7 @@ var GrownUpCheckDialog = Dialog.extend({
         //PASS CHECK
         if(this._timeForTouched >= TIME_FOR_ADULT_TOCH && this._isTouching) {
             AudioManager.getInstance().play(res.right_password_mp3, false, null);
+            this.removeFromParent();
             this._callback();
 
             cc.log("DING DING");
