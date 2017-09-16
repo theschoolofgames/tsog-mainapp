@@ -254,12 +254,18 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
             self.addChild(dialog, 999999);
         } else if (cc.rectIntersectsRect(self._tosLink.getBoundingBoxToWorld(), touchRect)) {
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-            var link = "http://www.theschoolofgames.org/terms-of-service/";
-            cc.sys.openURL(link);
+            var dialog = new GrownUpCheckDialog(function() {
+                var link = "http://www.theschoolofgames.org/terms-of-service/";
+                cc.sys.openURL(link);
+            });
+            self.addChild(dialog, 999999);
         } else if (cc.rectIntersectsRect(self._privacyPolicyLink.getBoundingBoxToWorld(), touchRect)) {
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-            var link = "http://www.theschoolofgames.org/privacy-policy/";
-            cc.sys.openURL(link);
+            var dialog = new GrownUpCheckDialog(function() {
+                var link = "http://www.theschoolofgames.org/privacy-policy/";
+                cc.sys.openURL(link);
+            });
+            self.addChild(dialog, 999999);
         }
 
         return true;
