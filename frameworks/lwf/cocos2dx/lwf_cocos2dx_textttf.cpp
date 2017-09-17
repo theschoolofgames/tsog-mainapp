@@ -99,7 +99,10 @@ public:
 	{
 		if (bVisible && !isVisible())
 			m_matrix.Invalidate();
-		cocos2d::Label::setVisible(bVisible);
+//        cocos2d::Label::setVisible(bVisible);
+        
+        // Stefan workaround to hide BETA text on welcome cutscene
+        cocos2d::Label::setVisible(false);
 	}
 
 	virtual const cocos2d::Mat4& getNodeToParentTransform() const override
