@@ -23,6 +23,9 @@
     AVCaptureSession *session;
 
     dispatch_queue_t captureQueue;
+    dispatch_queue_t dispatchQueueML;
+    
+    UIImage *currentImage;
 
     AVCaptureVideoPreviewLayer *previewLayer;
     CAGradientLayer *gradientLayer;
@@ -63,6 +66,7 @@
     // Speaking
     AVSpeechSynthesizer *synthesizer;
     BOOL isGuessing;
+    NSMutableDictionary *guessedDict;
 }
 
 @end
@@ -114,6 +118,9 @@
         // Setup CoreML and Vision
         [self setupVisionAndCoreML];
     }
+    
+    // Just start process core ml
+    [self startProcessCoreML];
     
     // Reset the preview orientation
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
@@ -320,6 +327,7 @@
         VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
         if (error) {
             NSLog(@"--->ERROR: %@", error.description);
+            [self startProcessCoreML];
             return;
         }
         
@@ -335,11 +343,13 @@
             // Check error
             if (error) {
                 NSLog(@"--->ERROR: %@", error.description);
+                [self startProcessCoreML];
                 return;
             }
             
             if (!request.results) {
                 NSLog(@"--->ERROR: No Results");
+                [self startProcessCoreML];
                 return;
             }
             
@@ -348,14 +358,91 @@
             if (firstObj.confidence > kRecognitionThresholdMax) {
                 // Found object
                 [self handleFoundObject:firstObj];
+                NSLog(@"Confident:%f", firstObj.confidence);
             } else if (firstObj.confidence > kRecognitionThresholdMin) {
                 // Guess
                 [self guessObject:request.results];
+                NSLog(@"Confident:%f", firstObj.confidence);
+            } else {
+                // Don't find out any object, should check it again
+                [self startProcessCoreML];
             }
         }];
         classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
         visionRequests = @[classificationRequest];
+        dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
     }
+}
+
+- (void)startProcessCoreML {
+    
+    NSLog(@"Start coreml processing");
+    if (@available(iOS 11.0, *)) {
+        // Stop CoreML process if found obj or stop finding
+        if (foundingObj || stopFindning) {
+            return;
+        }
+        
+        dispatch_async(dispatchQueueML, ^{
+            if (!currentImage) {
+                NSLog(@"--->ERROR: Non pixel buffer");
+                return;
+            }
+            
+            UIImage *copyImage = [UIImage imageWithCGImage:currentImage.CGImage];
+            
+//            VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
+            VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCGImage:copyImage.CGImage options:[NSDictionary dictionary]];
+            NSError *error;
+            [imageRequestHandler performRequests:visionRequests error:&error];
+            if (error) {
+                NSLog(@"--->ERROR: %@", error.description);
+                return;
+            }
+        });
+    }
+}
+
+// Create a UIImage from sample buffer data
+- (UIImage *) imageFromSampleBuffer:(CMSampleBufferRef) sampleBuffer
+{
+    // Get a CMSampleBuffer's Core Video image buffer for the media data
+    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    // Lock the base address of the pixel buffer
+    CVPixelBufferLockBaseAddress(imageBuffer, 0);
+    
+    // Get the number of bytes per row for the pixel buffer
+    void *baseAddress = CVPixelBufferGetBaseAddress(imageBuffer);
+    
+    // Get the number of bytes per row for the pixel buffer
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer);
+    // Get the pixel buffer width and height
+    size_t width = CVPixelBufferGetWidth(imageBuffer);
+    size_t height = CVPixelBufferGetHeight(imageBuffer);
+    
+    // Create a device-dependent RGB color space
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    
+    // Create a bitmap graphics context with the sample buffer data
+    CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
+                                                 bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
+    // Create a Quartz image from the pixel data in the bitmap graphics context
+    CGImageRef quartzImage = CGBitmapContextCreateImage(context);
+    // Unlock the pixel buffer
+    CVPixelBufferUnlockBaseAddress(imageBuffer,0);
+    
+    
+    // Free up the context and color space
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+    // Create an image object from the Quartz image
+    UIImage *image = [UIImage imageWithCGImage:quartzImage];
+    
+    // Release the Quartz image
+    CGImageRelease(quartzImage);
+    
+    return (image);
 }
 
 #pragma mark - Setup view
@@ -416,22 +503,25 @@
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    if (@available(iOS 11.0, *)) {
-        if (stopFindning) {
-            return;
-        }
-        
-        CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-        
-        NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
-        VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:kCGImagePropertyOrientationUpMirrored options:requestOptions];
-        NSError *error;
-        [imageRequestHandler performRequests:visionRequests error:&error];
-        if (error) {
-            NSLog(@"--->ERROR: %@", error.description);
-            return;
-        }
-    }
+//    if (@available(iOS 11.0, *)) {
+//        if (stopFindning) {
+//            return;
+//        }
+//
+//        CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+//
+//        NSDictionary *requestOptions = [NSDictionary dictionaryWithObjectsAndKeys:CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil), VNImageOptionCameraIntrinsics, nil];
+//        VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:kCGImagePropertyOrientationUpMirrored options:requestOptions];
+//        NSError *error;
+//        [imageRequestHandler performRequests:visionRequests error:&error];
+//        if (error) {
+//            NSLog(@"--->ERROR: %@", error.description);
+//            return;
+//        }
+//    }
+    
+    // Create a UIImage from the sample buffer data
+    currentImage = [self imageFromSampleBuffer:sampleBuffer];
 }
 
 #pragma mark - Handle found object
@@ -446,6 +536,7 @@
     if (nameArray.count == 0) {
         // No name -> Stop
         foundingObj = NO;
+        [self startProcessCoreML];
         return;
     }
     
@@ -456,6 +547,7 @@
     if ([sessionIdentifiedObj objectForKey:identifiedObj]) {
         // same object, should check it again
         foundingObj = NO;
+        [self startProcessCoreML];
         return;
     }
     
@@ -510,40 +602,98 @@
 #pragma mark - guess object
 - (void)guessObject:(NSArray *)results {
     if (isGuessing) {
+        [self startProcessCoreML];
         return;
     }
     
     if (@available(iOS 11.0, *)) {
         NSMutableArray *guessingObjects = [NSMutableArray array];
-        for (int i = 0; (i < results.count) && (i < 3); i++) {
+        
+        NSInteger counter = 0;
+        for (int i = 0; i < results.count; i++) {
             VNClassificationObservation *guessingObj = results[i];
+            
+            if (guessingObj.confidence < kRecognitionThresholdMin && counter >= 1) {
+                break;
+            }
+            
             NSString *firstName = [self getFirstName:guessingObj];
-            if (guessingObj.confidence > kRecognitionThresholdMin && ![sessionIdentifiedObj objectForKey:firstName]) {
+            // Check threshold and session object and guessed dict
+            if (guessingObj.confidence <= kRecognitionThresholdMax && ![sessionIdentifiedObj objectForKey:firstName] && ![guessedDict objectForKey:firstName]) {
                 [guessingObjects addObject:firstName];
+                counter++;
             }
         }
         
         if (guessingObjects.count == 0) {
+            [self startProcessCoreML];
             return;
         }
         
-        NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
-        [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < guessingObjects.count - 1) {
-                [guessingLabel appendFormat:@" %@ Or", objName];
-            } else {
-                [guessingLabel appendFormat:@" %@", objName];
-            }
-        }];
+        isGuessing = YES;
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // Update bottom text
-            lbResult.text = guessingLabel;
+        // Check current String
+        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
+            // Continue guessing
             
-            // Speak
-            isGuessing = YES;
-            [self textToSpeech:lbResult.text];
-        });
+            // Check guessed object and guessing object if it > 3?
+            NSInteger countGuessedDict = [guessedDict allKeys].count;
+            NSInteger countTotal = guessingObjects.count + countGuessedDict;
+            
+            if (countTotal > 3) {
+                // start guessing
+                guessedDict = [NSMutableDictionary dictionary];
+                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (idx == 0) {
+                        [guessingLabel appendFormat:@" %@", objName];
+                    } else {
+                        [guessingLabel appendFormat:@" Or %@", objName];
+                    }
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:lbResult.text];
+                });
+            } else {
+                // Continue guessing
+                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
+                NSMutableString *speakingString = [NSMutableString string];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [guessingLabel appendFormat:@" Or %@", objName];
+                    [speakingString appendFormat:@" Or %@", objName];
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:speakingString];
+                });
+            }
+        } else {
+            // Have not guessed anything
+            // Start guessing
+            guessedDict = [NSMutableDictionary dictionary];
+            NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+            [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx < guessingObjects.count - 1) {
+                    [guessingLabel appendFormat:@" %@ Or", objName];
+                } else {
+                    [guessingLabel appendFormat:@" %@", objName];
+                }
+                [guessedDict setObject:objName forKey:objName];
+            }];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Update bottom text
+                lbResult.text = guessingLabel;
+                [self textToSpeech:lbResult.text];
+            });
+        }
     }
 }
 
@@ -645,6 +795,7 @@
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                     // Let the app check object again
                     foundingObj = NO;
+                    [self startProcessCoreML];
                 });
             }
         }];
@@ -653,6 +804,7 @@
         [backgroundView removeFromSuperview];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             foundingObj = NO;
+            [self startProcessCoreML];
         });
     }
 }
@@ -815,6 +967,7 @@
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                             // Let the app check object again
                             foundingObj = NO;
+                            [self startProcessCoreML];
                         });
                     }
                 }];
@@ -931,6 +1084,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (isGuessing) {
             isGuessing = NO;
+            [self startProcessCoreML];
         }
     });
 }
