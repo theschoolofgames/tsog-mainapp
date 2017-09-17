@@ -63,6 +63,7 @@
     // Speaking
     AVSpeechSynthesizer *synthesizer;
     BOOL isGuessing;
+    NSMutableDictionary *guessedDict;
 }
 
 @end
@@ -224,7 +225,7 @@
         }
         
         // Create a session configuration
-        ARWorldTrackingSessionConfiguration *configuration = [[ARWorldTrackingSessionConfiguration alloc] init];
+        ARWorldTrackingConfiguration *configuration = [[ARWorldTrackingConfiguration alloc] init];
         
         // Enable plane detection
         configuration.planeDetection = ARPlaneDetectionHorizontal;
@@ -561,64 +562,78 @@
     
     if (@available(iOS 11.0, *)) {
         NSMutableArray *guessingObjects = [NSMutableArray array];
-        for (int i = 0; (i < results.count) && (i < 3); i++) {
+        
+        NSInteger counter = 0;
+        for (int i = 0; i < results.count; i++) {
             VNClassificationObservation *guessingObj = results[i];
+            
+            if (guessingObj.confidence < kRecognitionThresholdMin && counter >= 1) {
+                break;
+            }
+            
             NSString *firstName = [self getFirstName:guessingObj];
-            if (guessingObj.confidence > kRecognitionThresholdMin && ![sessionIdentifiedObj objectForKey:firstName]) {
+            // Check threshold and session object and guessed dict
+            if (guessingObj.confidence <= kRecognitionThresholdMax && ![sessionIdentifiedObj objectForKey:firstName] && ![guessedDict objectForKey:firstName]) {
                 [guessingObjects addObject:firstName];
+                counter++;
             }
         }
         
+        // No item in the threshold range
         if (guessingObjects.count == 0) {
             [self startProcessCoreML];
             return;
         }
         
-//        // Check current String
-//        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
-//            // Continue guessing
-//            NSInteger countOr = [self occurrenceCountOfCharacter:@" Or " fromString:lbResult.text];
-//            if (countOr >= 2) {
-//                // start guessing
-//                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
-//                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    if (idx < guessingObjects.count - 1) {
-//                        [guessingLabel appendFormat:@" %@ Or", objName];
-//                    } else {
-//                        [guessingLabel appendFormat:@" %@", objName];
-//                    }
-//                }];
-//
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    // Update bottom text
-//                    lbResult.text = guessingLabel;
-//
-//                    // Speak
-//                    isGuessing = YES;
-//                    [self textToSpeech:lbResult.text];
-//                });
-//            } else {
-//                // Continue guessing
-//                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
-//                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-//                    if (idx < guessingObjects.count - 1) {
-//                        [guessingLabel appendFormat:@" %@ Or", objName];
-//                    } else {
-//                        [guessingLabel appendFormat:@" %@", objName];
-//                    }
-//                }];
-//
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    // Update bottom text
-//                    lbResult.text = guessingLabel;
-//
-//                    // Speak
-//                    isGuessing = YES;
-//                    [self textToSpeech:lbResult.text];
-//                });
-//            }
-//        } else {
+        // Speak
+        isGuessing = YES;
+        
+        // Check current String
+        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
+            // Continue guessing
+            
+            // Check guessed object and guessing object if it > 3?
+            NSInteger countGuessedDict = [guessedDict allKeys].count;
+            NSInteger countTotal = guessingObjects.count + countGuessedDict;
+            
+            if (countTotal > 3) {
+                // start guessing
+                guessedDict = [NSMutableDictionary dictionary];
+                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (idx == 0) {
+                        [guessingLabel appendFormat:@" %@", objName];
+                    } else {
+                        [guessingLabel appendFormat:@" Or %@", objName];
+                    }
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:lbResult.text];
+                });
+            } else {
+                // Continue guessing
+                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
+                NSMutableString *speakingString = [NSMutableString string];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [guessingLabel appendFormat:@" Or %@", objName];
+                    [speakingString appendFormat:@" Or %@", objName];
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:speakingString];
+                });
+            }
+        } else {
+            // Have not guessed anything
             // Start guessing
+            guessedDict = [NSMutableDictionary dictionary];
             NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
             [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (idx < guessingObjects.count - 1) {
@@ -626,17 +641,15 @@
                 } else {
                     [guessingLabel appendFormat:@" %@", objName];
                 }
+                [guessedDict setObject:objName forKey:objName];
             }];
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 // Update bottom text
                 lbResult.text = guessingLabel;
-                
-                // Speak
-                isGuessing = YES;
                 [self textToSpeech:lbResult.text];
             });
-//        }
+        }
     }
 }
 
@@ -926,10 +939,12 @@
 
 #pragma mark - AVSpeechSynthesizerDelegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
-    if (isGuessing) {
-        isGuessing = NO;
-        [self startProcessCoreML];
-    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (isGuessing) {
+            isGuessing = NO;
+            [self startProcessCoreML];
+        }
+    });
 }
 
 #pragma mark - utils string
