@@ -22,7 +22,7 @@
 @import Vision;
 @import ARKit;
 
-@interface DetectObjectARKitViewController () <ARSCNViewDelegate> {
+@interface DetectObjectARKitViewController () <ARSCNViewDelegate, AVSpeechSynthesizerDelegate> {
     // CoreML
     NSArray *visionRequests;
     dispatch_queue_t dispatchQueueML;
@@ -59,6 +59,11 @@
     
     // DEbug
     NSTimeInterval lastTime;
+    
+    // Speaking
+    AVSpeechSynthesizer *synthesizer;
+    BOOL isGuessing;
+    NSMutableDictionary *guessedDict;
 }
 
 @end
@@ -80,6 +85,9 @@
     
     // Setup CoreML and Vision
     [self setupVisionAndCoreML];
+    
+    // Setup SpeechSynthesizer
+    [self setupSpeechSynthesizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -302,9 +310,12 @@
             
             // Just get first object
             VNClassificationObservation *firstObj = [request.results firstObject];
-            if (firstObj.confidence > kRecognitionThreshold) {
+            if (firstObj.confidence > kRecognitionThresholdMax) {
                 // Found object
                 [self handleFoundObject:firstObj];
+            } else if (firstObj.confidence > kRecognitionThresholdMin) {
+                // Guess object
+                [self guessObject:request.results];
             } else {
                 // Don't find out any object, should check it again
                 NSLog(@"--->Cannot find out CoreML object, find again");
@@ -342,6 +353,28 @@
             }
         });
     }
+}
+
+#pragma mark - setup SpeechSynthesizer
+- (void)setupSpeechSynthesizer {
+    synthesizer = [[AVSpeechSynthesizer alloc] init];
+    synthesizer.delegate = self;
+}
+
+- (void)textToSpeech:(NSString *)text {
+    if (!text.length) {
+        return;
+    }
+    
+    AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:text];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    utterance.volume = 1.0;
+    [utterance setRate:0.5f];
+    
+    if ([synthesizer isSpeaking]) {
+        [synthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+    }
+    [synthesizer speakUtterance:utterance];
 }
 
 #pragma mark - Setup view
@@ -429,8 +462,11 @@
             // Find out via ARKit
             FoundedObj = YES;
             
+            // Disable guessing
+            isGuessing = NO;
+            
             // Play sound and vibrate
-            [[SessionManager sharedInstance] playSoundAndVibrateFoundObj];
+            [[SessionManager sharedInstance] vibrateFoundObj];
             
             // Add to session list
             [sessionIdentifiedObj setObject:identifiedObj forKey:identifiedObj];
@@ -453,7 +489,10 @@
             if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // Update bottom text
-                    lbResult.text = kYouFoundIt;
+                    lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
+                    
+                    // Speak
+                    [self textToSpeech:lbResult.text];
                     
                     // Increase diamond
                     [SessionManager sharedInstance].diamondCount+=5;
@@ -468,7 +507,10 @@
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     // Update bottom text
-                    lbResult.text = kYouFoundIt;
+                    lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
+                    
+                    // Speak
+                    [self textToSpeech:lbResult.text];
                     
                     // Increase diamond
                     [SessionManager sharedInstance].diamondCount+=1;
@@ -478,11 +520,6 @@
             
             // Analytic
             [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:identifiedObj];
-            
-            // Speak
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[SessionManager sharedInstance] textToSpeech:identifiedObj];
-            });
             
             // Get Coordinates of HitTest
             matrix_float4x4 transform = closestResult.worldTransform;
@@ -514,6 +551,119 @@
             [self startProcessCoreML];
         }
     }
+}
+
+#pragma mark - guess object
+- (void)guessObject:(NSArray *)results {
+    if (isGuessing) {
+        [self startProcessCoreML];
+        return;
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        NSMutableArray *guessingObjects = [NSMutableArray array];
+        
+        NSInteger counter = 0;
+        for (int i = 0; i < results.count; i++) {
+            VNClassificationObservation *guessingObj = results[i];
+            
+            if (guessingObj.confidence < kRecognitionThresholdMin && counter >= 1) {
+                break;
+            }
+            
+            NSString *firstName = [self getFirstName:guessingObj];
+            // Check threshold and session object and guessed dict
+            if (guessingObj.confidence <= kRecognitionThresholdMax && ![sessionIdentifiedObj objectForKey:firstName] && ![guessedDict objectForKey:firstName]) {
+                [guessingObjects addObject:firstName];
+                counter++;
+            }
+        }
+        
+        // No item in the threshold range
+        if (guessingObjects.count == 0) {
+            [self startProcessCoreML];
+            return;
+        }
+        
+        // Speak
+        isGuessing = YES;
+        
+        // Check current String
+        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
+            // Continue guessing
+            
+            // Check guessed object and guessing object if it > 3?
+            NSInteger countGuessedDict = [guessedDict allKeys].count;
+            NSInteger countTotal = guessingObjects.count + countGuessedDict;
+            
+            if (countTotal > 3) {
+                // start guessing
+                guessedDict = [NSMutableDictionary dictionary];
+                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if (idx == 0) {
+                        [guessingLabel appendFormat:@" %@", objName];
+                    } else {
+                        [guessingLabel appendFormat:@" Or %@", objName];
+                    }
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:lbResult.text];
+                });
+            } else {
+                // Continue guessing
+                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
+                NSMutableString *speakingString = [NSMutableString string];
+                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [guessingLabel appendFormat:@" Or %@", objName];
+                    [speakingString appendFormat:@" Or %@", objName];
+                    [guessedDict setObject:objName forKey:objName];
+                }];
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update bottom text
+                    lbResult.text = guessingLabel;
+                    [self textToSpeech:speakingString];
+                });
+            }
+        } else {
+            // Have not guessed anything
+            // Start guessing
+            guessedDict = [NSMutableDictionary dictionary];
+            NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
+            [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (idx < guessingObjects.count - 1) {
+                    [guessingLabel appendFormat:@" %@ Or", objName];
+                } else {
+                    [guessingLabel appendFormat:@" %@", objName];
+                }
+                [guessedDict setObject:objName forKey:objName];
+            }];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // Update bottom text
+                lbResult.text = guessingLabel;
+                [self textToSpeech:lbResult.text];
+            });
+        }
+    }
+}
+
+- (NSString *)getFirstName:(VNClassificationObservation *)source {
+    // analyze string
+    NSString *fullName = source.identifier;
+    NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
+    
+    if (nameArray.count == 0) {
+        // No name -> Stop
+        return nil;
+    }
+    // just get first name
+    return [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
 }
 
 #pragma mark - Animation
@@ -785,6 +935,34 @@
 //    [bubbleNodeParent addChildNode:percentageNode];
     
     return bubbleNodeParent;
+}
+
+#pragma mark - AVSpeechSynthesizerDelegate
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (isGuessing) {
+            isGuessing = NO;
+            [self startProcessCoreML];
+        }
+    });
+}
+
+#pragma mark - utils string
+- (NSUInteger)occurrenceCountOfCharacter:(UniChar)character fromString:(NSString *)source {
+    CFStringRef selfAsCFStr = (__bridge CFStringRef)source;
+    
+    CFStringInlineBuffer inlineBuffer;
+    CFIndex length = CFStringGetLength(selfAsCFStr);
+    CFStringInitInlineBuffer(selfAsCFStr, &inlineBuffer, CFRangeMake(0, length));
+    
+    NSUInteger counter = 0;
+    
+    for (CFIndex i = 0; i < length; i++) {
+        UniChar c = CFStringGetCharacterFromInlineBuffer(&inlineBuffer, i);
+        if (c == character) counter += 1;
+    }
+    
+    return counter;
 }
 
 @end
