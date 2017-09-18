@@ -183,14 +183,14 @@
 - (void)persistGameProgress {
     NSArray *identifiedObjects = [[SessionManager sharedInstance] getIdentifiedObjectsArray];
     NSString *str = [identifiedObjects componentsJoinedByString:@"-@-"];
-    NSLog(@"persistGameProgress: %@", str);
+//    NSLog(@"persistGameProgress: %@", str);
     
     NSString *evalStr = [NSString stringWithFormat:@"NativeHelper.saveIdentifiedObjects('%@')", str, NULL];
-    NSLog(@"Eval str: %@", evalStr);
+//    NSLog(@"Eval str: %@", evalStr);
     [Cocos2dxHelper evalString:evalStr];
     
     evalStr = [NSString stringWithFormat:@"User.getCurrentChild().setDiamond(%ld);", [[SessionManager sharedInstance] diamondCount], NULL];
-    NSLog(@"Eval str: %@", evalStr);
+//    NSLog(@"Eval str: %@", evalStr);
     [Cocos2dxHelper evalString:evalStr];
 
 }
@@ -259,7 +259,7 @@
     AVCaptureDevice *inputDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     if (!inputDevice) {
-        NSLog(@"No video camera available");
+//        NSLog(@"No video camera available");
         return;
     }
     
@@ -284,7 +284,7 @@
     NSError *error;
     AVCaptureDeviceInput *cameraInput = [[AVCaptureDeviceInput alloc] initWithDevice:inputDevice error:&error];
     if (error) {
-        NSLog(@"--->ERROR: %@", error.description);
+//        NSLog(@"--->ERROR: %@", error.description);
         return;
     }
     AVCaptureVideoDataOutput *videoOutput = [[AVCaptureVideoDataOutput alloc] init];
@@ -326,7 +326,7 @@
         NSError *error;
         VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
         if (error) {
-            NSLog(@"--->ERROR: %@", error.description);
+//            NSLog(@"--->ERROR: %@", error.description);
             [self startProcessCoreML];
             return;
         }
@@ -342,13 +342,13 @@
             
             // Check error
             if (error) {
-                NSLog(@"--->ERROR: %@", error.description);
+//                NSLog(@"--->ERROR: %@", error.description);
                 [self startProcessCoreML];
                 return;
             }
             
             if (!request.results) {
-                NSLog(@"--->ERROR: No Results");
+//                NSLog(@"--->ERROR: No Results");
                 [self startProcessCoreML];
                 return;
             }
@@ -358,11 +358,9 @@
             if (firstObj.confidence > kRecognitionThresholdMax) {
                 // Found object
                 [self handleFoundObject:firstObj];
-                NSLog(@"Confident:%f", firstObj.confidence);
             } else if (firstObj.confidence > kRecognitionThresholdMin) {
                 // Guess
                 [self guessObject:request.results];
-                NSLog(@"Confident:%f", firstObj.confidence);
             } else {
                 // Don't find out any object, should check it again
                 [self startProcessCoreML];
@@ -376,7 +374,7 @@
 
 - (void)startProcessCoreML {
     
-    NSLog(@"Start coreml processing");
+//    NSLog(@"Start coreml processing");
     if (@available(iOS 11.0, *)) {
         // Stop CoreML process if found obj or stop finding
         if (foundingObj || stopFindning) {
@@ -385,7 +383,7 @@
         
         dispatch_async(dispatchQueueML, ^{
             if (!currentImage) {
-                NSLog(@"--->ERROR: Non pixel buffer");
+//                NSLog(@"--->ERROR: Non pixel buffer");
                 return;
             }
             
@@ -396,7 +394,7 @@
             NSError *error;
             [imageRequestHandler performRequests:visionRequests error:&error];
             if (error) {
-                NSLog(@"--->ERROR: %@", error.description);
+//                NSLog(@"--->ERROR: %@", error.description);
                 return;
             }
         });

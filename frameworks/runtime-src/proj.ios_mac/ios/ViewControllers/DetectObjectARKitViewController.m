@@ -153,14 +153,14 @@
 - (void)persistGameProgress {
     NSArray *identifiedObjects = [[SessionManager sharedInstance] getIdentifiedObjectsArray];
     NSString *str = [identifiedObjects componentsJoinedByString:@"-@-"];
-    NSLog(@"persistGameProgress: %@", str);
+//    NSLog(@"persistGameProgress: %@", str);
     
     NSString *evalStr = [NSString stringWithFormat:@"NativeHelper.saveIdentifiedObjects('%@')", str, NULL];
-    NSLog(@"Eval str: %@", evalStr);
+//    NSLog(@"Eval str: %@", evalStr);
     [Cocos2dxHelper evalString:evalStr];
     
     evalStr = [NSString stringWithFormat:@"User.getCurrentChild().setDiamond(%ld);", [[SessionManager sharedInstance] diamondCount], NULL];
-    NSLog(@"Eval str: %@", evalStr);
+//    NSLog(@"Eval str: %@", evalStr);
     [Cocos2dxHelper evalString:evalStr];
 
 }
@@ -257,7 +257,7 @@
         NSError *error;
         VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
         if (error) {
-            NSLog(@"--->ERROR: %@", error.description);
+//            NSLog(@"--->ERROR: %@", error.description);
             return;
         }
         
@@ -272,7 +272,7 @@
             
             // Check error
             if (error) {
-                NSLog(@"--->ERROR: %@", error.description);
+//                NSLog(@"--->ERROR: %@", error.description);
                 
                 // Don't find out any object, should check it again
                 [self startProcessCoreML];
@@ -280,7 +280,7 @@
             }
             
             if (!request.results) {
-                NSLog(@"--->ERROR: No Results");
+//                NSLog(@"--->ERROR: No Results");
                 
                 // Don't find out any object, should check it again
                 [self startProcessCoreML];
@@ -318,7 +318,7 @@
                 [self guessObject:request.results];
             } else {
                 // Don't find out any object, should check it again
-                NSLog(@"--->Cannot find out CoreML object, find again");
+//                NSLog(@"--->Cannot find out CoreML object, find again");
                 [self startProcessCoreML];
             }
         }];
@@ -341,14 +341,14 @@
         dispatch_async(dispatchQueueML, ^{
             CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
             if (!pixBuff) {
-                NSLog(@"--->ERROR: Non pixel buffer");
+//                NSLog(@"--->ERROR: Non pixel buffer");
                 return;
             }
             VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
             NSError *error;
             [imageRequestHandler performRequests:visionRequests error:&error];
             if (error) {
-                NSLog(@"--->ERROR: %@", error.description);
+//                NSLog(@"--->ERROR: %@", error.description);
                 return;
             }
         });
@@ -547,7 +547,7 @@
             });
         } else {
             // Cannot find out ARKit object
-            NSLog(@"--->Cannot find out ARKit object, find again");
+//            NSLog(@"--->Cannot find out ARKit object, find again");
             [self startProcessCoreML];
         }
     }

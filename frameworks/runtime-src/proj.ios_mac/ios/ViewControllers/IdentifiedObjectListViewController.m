@@ -26,9 +26,6 @@
     // Do any additional setup after loading the view.
     
     [self setupView];
-    
-    NSLog(@"section count: %ld", [[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys].count);
-    NSLog(@"section: %@", [[[SessionManager sharedInstance] getIdentifiedObjectsDict] allKeys]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
