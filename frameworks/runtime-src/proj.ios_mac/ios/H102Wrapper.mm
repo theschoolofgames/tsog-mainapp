@@ -32,6 +32,7 @@
 #import "DetectObjectCameraKitViewController.h"
 #import "SessionManager.h"
 #import "CommonTools.h"
+#import "Constants.h"
 
 static UIViewController* viewController;
 static double startTime = -1;
@@ -542,6 +543,10 @@ static BOOL isOpenedFromNotification = NO;
 + (void)openStore {
   NSString *iTunesLink = @"itms://itunes.apple.com/us/app/apple-store/id1090937711?mt=8";
   [[UIApplication sharedApplication] openURL:[NSURL URLWithString:iTunesLink]];
+}
+
++ (BOOL)isDebugMode {
+    return DEBUG_MODE;
 }
 
 @end

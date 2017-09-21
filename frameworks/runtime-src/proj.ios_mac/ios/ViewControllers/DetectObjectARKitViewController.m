@@ -301,10 +301,12 @@
                     [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
                 }];
                 
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    lbDebug.text = objArrayStr;
-//                    [lbDebug sizeToFit];
-//                });
+#if DEBUG_MODE
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    lbDebug.text = objArrayStr;
+                    [lbDebug sizeToFit];
+                });
+#endif
             }
             // End debug part
             
@@ -418,6 +420,13 @@
     // Update UI
     lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
     lbDiamond.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].diamondCount];
+    
+    // Debug label
+    if (DEBUG_MODE) {
+        lbDebug.hidden = NO;
+    } else {
+        lbDebug.hidden = YES;
+    }
 }
 
 #pragma mark - Setup Observer
@@ -900,27 +909,29 @@
     bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2);
     bubbleNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
     
+#if DEBUG_MODE
     // Percentage
-//    // Bubble text
-//    SCNText *percentageText = [SCNText textWithString:[NSString stringWithFormat:@"(%.2f%%)", (confident*100)] extrusionDepth:textDepth];
-//    percentageText.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.15];
-//    percentageText.alignmentMode = kCAAlignmentCenter;
-//    percentageText.firstMaterial.diffuse.contents = [UIColor whiteColor];
-//    percentageText.firstMaterial.specular.contents = [UIColor blackColor];
-//    percentageText.firstMaterial.doubleSided = YES;
-//    //    bubbleText.flatness = 1.0;
-//    percentageText.chamferRadius = textDepth;
-//
-//    // Bubble node
-//    SCNVector3 boundingPercentageBoxMin;
-//    SCNVector3 boundingPercentageBoxMax;
-//    [percentageText getBoundingBoxMin:&boundingPercentageBoxMin max:&boundingPercentageBoxMax];
-//
-//    SCNNode *percentageNode = [SCNNode nodeWithGeometry:percentageText];
-//    // Centre node - to centre-bottom point
-//    percentageNode.pivot = SCNMatrix4MakeTranslation((boundingPercentageBoxMax.x - boundingPercentageBoxMin.x)/2.0, boundingPercentageBoxMin.y + 0.14, textDepth/2.0);
-//    percentageNode.scale = SCNVector3Make(0.1, 0.1, 0.1);
-//    percentageNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
+    // Bubble text
+    SCNText *percentageText = [SCNText textWithString:[NSString stringWithFormat:@"(%.2f%%)", (confident*100)] extrusionDepth:textDepth];
+    percentageText.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.15];
+    percentageText.alignmentMode = kCAAlignmentCenter;
+    percentageText.firstMaterial.diffuse.contents = [UIColor whiteColor];
+    percentageText.firstMaterial.specular.contents = [UIColor blackColor];
+    percentageText.firstMaterial.doubleSided = YES;
+    //    bubbleText.flatness = 1.0;
+    percentageText.chamferRadius = textDepth;
+
+    // Bubble node
+    SCNVector3 boundingPercentageBoxMin;
+    SCNVector3 boundingPercentageBoxMax;
+    [percentageText getBoundingBoxMin:&boundingPercentageBoxMin max:&boundingPercentageBoxMax];
+
+    SCNNode *percentageNode = [SCNNode nodeWithGeometry:percentageText];
+    // Centre node - to centre-bottom point
+    percentageNode.pivot = SCNMatrix4MakeTranslation((boundingPercentageBoxMax.x - boundingPercentageBoxMin.x)/2.0, boundingPercentageBoxMin.y + 0.14, textDepth/2.0);
+    percentageNode.scale = SCNVector3Make(0.1, 0.1, 0.1);
+    percentageNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
+#endif
     
     // Sphere
     // Centre point node
@@ -932,8 +943,9 @@
     SCNNode *bubbleNodeParent = [[SCNNode alloc] init];
     [bubbleNodeParent addChildNode:bubbleNode];
     [bubbleNodeParent addChildNode:sphereNode];
-//    [bubbleNodeParent addChildNode:percentageNode];
-    
+#if DEBUG_MODE
+    [bubbleNodeParent addChildNode:percentageNode];
+#endif
     return bubbleNodeParent;
 }
 

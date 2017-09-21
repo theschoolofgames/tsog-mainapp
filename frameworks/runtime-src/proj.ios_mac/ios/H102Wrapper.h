@@ -31,6 +31,8 @@
 + (void)onRequestedPNPermission;
 + (BOOL)isPNPerMissionAllowed;
 + (void)setOpenedFromNotification:(bool)isOpened;
+
++ (BOOL)isDebugMode;
 @end
 
 
