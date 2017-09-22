@@ -9,7 +9,7 @@
 #ifndef Constants_h
 #define Constants_h
 
-#define DEBUG_MODE                  1
+#define DEBUG_MODE                  0
 
 #define kRecognitionThresholdMax    0.6
 #define kRecognitionThresholdMin    0.35
