@@ -81,7 +81,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addPriceText: function() {
-        var str = "$4.99/Month. Cancel Anytime.";
+        var str = "Full Game Access\n\n$4.99/Month, will be charged to iTunes Account.\n\nCancel Anytime by going to the Account Settings.";
         var config = {
             "color": "#b56421",
             "fontSize": 16 * 2,
@@ -96,7 +96,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         
         // var text = cc.LabelBMFont("$4.99/Month. Cancel Anytime.", res.HomeFont_fnt);
         text.x = cc.winSize.width*0.6;
-        text.y = cc.winSize.height/4 + 76;
+        text.y = cc.winSize.height/4 + 110;
         text.scale = 0.5;
 
         this.addChild(text);
