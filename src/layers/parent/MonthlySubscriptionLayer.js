@@ -27,7 +27,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         this._addRestorePurchasesText();
         this._addTOSandPrivacyPolicyText();
         this._addWelcomeText();
-        this._addPriceText();
+        // this._addPriceText();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -48,7 +48,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         var self = this;
         b.addClickEventListener(function() {
             AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
-            var dialog = new GrownUpCheckDialog(self._payBtnPressed.bind(self));
+            var dialog = new GrownUpCheckDialog(self._addIAPDetailDialog.bind(self));
             self.addChild(dialog, 999999);
         });
         
@@ -113,7 +113,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _payBtnPressed: function() {
-        // AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
+        AudioManager.getInstance().play(res.ui_click_mp3_2, false, null);
         LoadingIndicator.show();
 
         IAPManager.getInstance().purchase(MONTHLY_SUBSCRIPTION_IAP_NAME, function(succeed, product) {
@@ -123,6 +123,58 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
                 LoadingIndicator.hide();
             }
         }.bind(this));
+    },
+
+    _addIAPDetailDialog: function() {
+        var dialog = new MessageDialog("#level_dialog_frame.png");
+
+        var titleLabel = new cc.LabelBMFont("$4.99/month for Full Game Access", res.Grown_Up_fnt);
+        titleLabel.scale = 0.4;
+        titleLabel.x = dialog.background.width/2;
+        titleLabel.y = dialog.background.height/2 + 170;
+        dialog.addComponent(titleLabel);
+
+        var str = "• Payment will be charged to iTunes Account.\n\
+• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period.\n\
+• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal.\n\
+• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase.\n";
+        var contentLabel = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
+                                        18, 
+                                        cc.color.WHITE, 
+                                        0,
+                                        localizeForWriting(str));
+        contentLabel.x = dialog.background.width/2 + 10;
+        contentLabel.y = dialog.background.height/2 + 10;
+        contentLabel.setLineHeight(22);
+        contentLabel.setDimensions(dialog.background.width - 50, 0);
+        contentLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
+        dialog.addComponent(contentLabel);
+
+        var btn = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btn.x = dialog.background.width/2;
+        btn.y = 80;
+        btn.addClickEventListener(function(){
+            this._payBtnPressed();
+        }.bind(this));
+        var lb = new cc.LabelBMFont("Start 7-day free trial", res.HomeFont_fnt);
+        lb.scale = 0.35;
+        lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        lb.x = btn.width/2;
+        lb.y = btn.height/2 + 6;
+        btn.addChild(lb);
+
+        dialog.addComponent(btn);
+
+        var closeButton = new ccui.Button("btn_x.png", "btn_x-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
+        closeButton.x = dialog.background.width - 25;
+        closeButton.y = dialog.background.height - 25;
+        closeButton.addClickEventListener(function(){
+            AudioManager.getInstance().play(res.ui_close_mp3, false, null);
+            dialog.removeFromParent();
+        });
+        dialog.addComponent(closeButton);
+
+        this.addChild(dialog, 2);
     },
 
     _bypassBtnPressed: function() {
@@ -279,7 +331,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addWelcomeText: function() {
-        var content = "School of Game AR:\nPreschool app with words, numbers and stories";
+        var content = "School of Games AR:\nPreschool app for words, numbers and stories";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
         rContent.scale = this._contentTextScale;
         rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
