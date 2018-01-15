@@ -26,7 +26,6 @@
     
     // Clock Timer
     NSTimer *countdownTimer;                  // Timer to do countdown
-    NSTimer *animalLifeTimer;
     NSTimer *generateAnimalTimer;
     
     __weak IBOutlet UILabel *lbResult;
@@ -56,13 +55,10 @@
     // Animal life time
     NSInteger animalLifeTime;
     
-    // Animal index
-    NSInteger animalIndex;
+    NSString *virtualObjName;
     
-    NSString *currentObject;
-    
-    // Objects
-    NSMutableArray *virtualObjects;
+    // CurentObject
+    SCNNode *virtualObject;
     
     // Speaking
     AVSpeechSynthesizer *synthesizer;
@@ -73,15 +69,12 @@
 
 @implementation DetectObjectARKitViewController
 
-const NSInteger ANIMAL_LIFE_TIME = 10;
 const NSInteger GENERATION_TIME = 15;
-const CGFloat GENERATE_DISTANCE = 1;
+const CGFloat GENERATE_DISTANCE = 1.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    animalIndex = 0;
     
     // Setup View
     [self setupView];
@@ -165,6 +158,17 @@ const CGFloat GENERATE_DISTANCE = 1;
                 [self startGenerateAnimalNode];
                 break;
             case SceneStateEnd:
+                // Remove all timer
+                if (countdownTimer) {
+                    [countdownTimer invalidate];
+                    countdownTimer = nil;
+                }
+                
+                if (generateAnimalTimer) {
+                    [generateAnimalTimer invalidate];
+                    generateAnimalTimer = nil;
+                }
+                
                 // Show Welldone alert
                 [self showWelldoneAlert];
                 break;
@@ -263,7 +267,6 @@ const CGFloat GENERATE_DISTANCE = 1;
         
         // Create a session configuration
         ARWorldTrackingConfiguration *configuration = [[ARWorldTrackingConfiguration alloc] init];
-
         
         // Disable plane detection
         configuration.planeDetection = ARPlaneDetectionNone;
@@ -292,18 +295,18 @@ const CGFloat GENERATE_DISTANCE = 1;
         NSArray *hits = [arSceneView hitTest:location options:@{SCNHitTestBoundingBoxOnlyKey: @YES, SCNHitTestFirstFoundOnlyKey: @YES, SCNHitTestBackFaceCullingKey:@YES}];
         if (hits.count) {
             for (SCNHitTestResult *result in hits) {
-                if (result.node == virtualObjects.firstObject) {
+                if (result.node == virtualObject) {
                     // Handle found object
-                    if (currentObject.length) {
-                        [self handleFoundObject:currentObject atLocation:location];
-                        NSLog(@"--->FOUND");
+                    if (virtualObjName.length) {
+                        [self handleFoundObjectAtLocation:location];
+                    } else {
+                        // Continue generate object
+                        virtualObject = nil;
                     }
                 } else {
-                    NSLog(@"--->NOT EQUAL");
                 }
             }
         } else {
-            NSLog(@"--->NOT Found!!!");
         }
     }
 }
@@ -391,12 +394,12 @@ const CGFloat GENERATE_DISTANCE = 1;
 }
 
 #pragma mark - Handle found object
-- (void)handleFoundObject:(NSString *)currentObj atLocation:(CGPoint) location {
+- (void)handleFoundObjectAtLocation:(CGPoint) location {
     // Play sound and vibrate
     [[SessionManager sharedInstance] vibrateFoundObj];
     
-    NSString *foundObject = currentObj;
-    currentObject = nil;
+    NSString *foundObject = virtualObjName;
+    virtualObjName = nil;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         // Update bottom text
@@ -414,6 +417,11 @@ const CGFloat GENERATE_DISTANCE = 1;
                 [self animateShowDiamondInSerial:YES fromPosition:location];
             });
         }
+        
+        // Continue generate object
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            virtualObject = nil;
+        });
     });
     
     // Analytic
@@ -422,7 +430,7 @@ const CGFloat GENERATE_DISTANCE = 1;
     // Create 3D text
     SCNNode *newNode = [self createNewBubleParentNode:foundObject];
     [arSceneView.scene.rootNode addChildNode:newNode];
-    SCNNode *currentObject = virtualObjects.firstObject;
+    SCNNode *currentObject = virtualObject;
     newNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y - 0.08, currentObject.position.z);
     
     if (@available(iOS 11.0, *)) {
@@ -679,7 +687,10 @@ const CGFloat GENERATE_DISTANCE = 1;
 #pragma mark - Objects
 - (void)startGenerateAnimalNode {
     NSLog(@"Starttimer");
-    [self stopGenerateAnimalNode];
+    if (generateAnimalTimer) {
+        [generateAnimalTimer invalidate];
+        generateAnimalTimer = nil;
+    }
     
     // Check state
     if (self.currentState != SceneStateGenerating) {
@@ -687,22 +698,7 @@ const CGFloat GENERATE_DISTANCE = 1;
     }
     
     // Start timer
-    generateAnimalTimer = [NSTimer scheduledTimerWithTimeInterval:GENERATION_TIME target:self selector:@selector(addAnimal) userInfo:nil repeats:YES];
-    
-    // Generate first animal
-    [generateAnimalTimer fire];
-}
-
-- (void)stopGenerateAnimalNode {
-    if (generateAnimalTimer) {
-        [generateAnimalTimer invalidate];
-        generateAnimalTimer = nil;
-    }
-    
-    if (animalLifeTimer) {
-        [animalLifeTimer invalidate];
-        animalLifeTimer = nil;
-    }
+    generateAnimalTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(addAnimalIfNeeded) userInfo:nil repeats:YES];
 }
 
 - (SCNNode *)makeNode:(UIImage *)image andWidth:(CGFloat)width andHeight:(CGFloat)height {
@@ -729,33 +725,34 @@ const CGFloat GENERATE_DISTANCE = 1;
     }
 }
 
-- (void)addAnimal {
-    NSLog(@"---> Add animal");
-    // Remove old object
-    [self removeAllAnimals];
+- (void)addAnimalIfNeeded {
+    // Check if object is exist
+    if (virtualObject) {
+        return;
+    }
 
     // Remove all nodes in scene
     [self removeAllNodesInScene];
     
     // Generate a node
-    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.05];
-    SCNMaterial *material = [SCNMaterial material];
-    material.diffuse.contents = [UIColor redColor];
-    sphereGeometry.materials = @[material];
-    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
-
-    // get random animal position
-    if (@available(iOS 11.0, *)) {
-        sphereNode.worldPosition = [self generateAnimalPosition];
-    } else {
-        // Fallback on earlier versions
-    }
+//    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.05];
+//    SCNMaterial *material = [SCNMaterial material];
+//    material.diffuse.contents = [UIColor redColor];
+//    sphereGeometry.materials = @[material];
+//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
+//
+//    // get random animal position
+//    if (@available(iOS 11.0, *)) {
+//        sphereNode.worldPosition = [self generateAnimalPosition];
+//    } else {
+//        // Fallback on earlier versions
+//    }
 
     // Create animal node
-    currentObject = [self getAnimalName];
-    SCNNode *animeNode = [self makeNode:[UIImage imageNamed:currentObject] andWidth:0.1 andHeight:0.1];
+    virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal];
+    SCNNode *animeNode = [self makeNode:[UIImage imageNamed:virtualObjName] andWidth:0.1 andHeight:0.1];
     if (@available(iOS 11.0, *)) {
-        animeNode.worldPosition = sphereNode.worldPosition;
+        animeNode.worldPosition = [self generateAnimalPosition];
     } else {
         // Fallback on earlier versions
     }
@@ -766,62 +763,7 @@ const CGFloat GENERATE_DISTANCE = 1;
 
     [arSceneView.scene.rootNode addChildNode:animeNode];
 
-    // Add to animal array
-    if (!virtualObjects) {
-        virtualObjects = [NSMutableArray array];
-    }
-    [virtualObjects addObject:animeNode];
-
-    // Start coundown
-    [self startCoundown];
-}
-
-- (void)removeAllAnimals {
-    if (virtualObjects.count > 0) {
-        SCNNode *animal = virtualObjects.firstObject;
-        [animal removeFromParentNode];
-        [virtualObjects removeObject:animal];
-        [self removeAllAnimals];
-    }
-}
-
-- (void)startCoundown {
-    animalLifeTime = ANIMAL_LIFE_TIME;
-    animalLifeTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(animalLifeTrigger) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:animalLifeTimer forMode:NSRunLoopCommonModes];
-}
-
-- (void)animalLifeTrigger {
-    if (animalLifeTime > 0) {
-        animalLifeTime--;
-    } else {
-        // Release timer
-        [animalLifeTimer invalidate];
-        animalLifeTimer = nil;
-        
-        // Remove animal
-        [self removeAllAnimals];
-    }
-}
-
-- (NSString *)getAnimalName {
-    NSString *imageName;
-    switch (animalIndex%3) {
-        case 0:
-            imageName = @"bird";
-            break;
-        case 1:
-            imageName = @"bee";
-            break;
-        case 2:
-            imageName = @"bear";
-            break;
-        default:
-            imageName = @"bear";
-            break;
-    }
-    animalIndex++;
-    return imageName;
+    virtualObject = animeNode;
 }
 
 - (SCNVector3)generateAnimalPosition {
@@ -830,7 +772,7 @@ const CGFloat GENERATE_DISTANCE = 1;
     double ratioY = (double)arc4random()/UINT32_MAX;
     
     NSInteger signX = arc4random()%2;
-    NSInteger signY = arc4random()%2;
+    NSInteger signY = arc4random_uniform(3);
     NSInteger signZ = arc4random()%2;
     
     SCNVector3 cameraPosition = SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2]);
@@ -847,16 +789,22 @@ const CGFloat GENERATE_DISTANCE = 1;
         positionZ = (-b - sqrtf(delta))/2;
     }
     
-    CGFloat positionY = cameraPosition.y + (signY?1:-1) * ratioY * 0.2;
+    CGFloat translateY = 0;
+    if (signY == 1) {
+        translateY = ratioY * 0.1;
+    } else if (signY == 2) {
+        translateY = - (ratioY * 0.1);
+    }
+    CGFloat positionY = cameraPosition.y + translateY;
     
     return SCNVector3Make(positionX, positionY, positionZ);
 }
 
 #pragma mark - AVSpeechSynthesizerDelegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self startGenerateAnimalNode];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self startGenerateAnimalNode];
+//    });
 }
 
 #pragma mark - utils string
