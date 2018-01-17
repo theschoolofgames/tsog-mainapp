@@ -77,6 +77,10 @@
     
     // First session
     BOOL isFirstSession;
+    
+    // Background music
+    AVAudioPlayer *backgroundPlayer;
+    AVAudioPlayer *successPlayer;
 }
 
 @end
@@ -104,6 +108,8 @@ const CGFloat THRESHOLD_POSITION = 0.2;
     
     // Setup touch gesture
     [self setupTouchGesture];
+    
+    [self setupBackgroundMusic];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,6 +118,7 @@ const CGFloat THRESHOLD_POSITION = 0.2;
     // Setup observer
     [self setupObserver];
     
+    [backgroundPlayer play];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -131,6 +138,8 @@ const CGFloat THRESHOLD_POSITION = 0.2;
     
     // Stop countdown
     [self stopCountDown];
+    
+    [backgroundPlayer stop];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -155,6 +164,21 @@ const CGFloat THRESHOLD_POSITION = 0.2;
     {
         [self updateState];
     }
+}
+
+#pragma mark - Play background music
+- (void)setupBackgroundMusic {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"alpha_racing" ofType:@"mp3"];
+    backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path] error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    backgroundPlayer.numberOfLoops = -1;
+    [backgroundPlayer prepareToPlay];
+    
+    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"];
+    successPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path2] error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    successPlayer.numberOfLoops = 0;
+    [successPlayer prepareToPlay];
 }
 
 #pragma mark - Update state
@@ -449,6 +473,9 @@ const CGFloat THRESHOLD_POSITION = 0.2;
         
         // Update bottom text
         lbResult.text = [NSString stringWithFormat:@"You found %@", currentObjName];
+        
+        // Play success sound
+        [successPlayer play];
         
         // Speak
         [self textToSpeech:currentObjName];
