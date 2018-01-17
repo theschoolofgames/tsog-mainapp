@@ -17,8 +17,8 @@
 @property (nonatomic, strong) NSURL *soundPath;
 @property (nonatomic, strong) AVAudioPlayer *player;
 
-@property (nonatomic, strong) NSArray *animals;
-@property (nonatomic, strong) NSArray *objects;
+@property (nonatomic, strong) NSMutableArray *animals;
+@property (nonatomic, strong) NSMutableArray *objects;
 
 @end
 
@@ -33,204 +33,8 @@
         _instance.elapsedTime = 120;
         _instance.diamondCount = 0;
         _instance.objCount = 0;
-        _instance.animals = [NSArray arrayWithObjects:@"ant",
-                             @"bat",
-                             @"bear",
-                             @"bee",
-                             @"bird",
-                             @"camel",
-                             @"cat",
-                             @"cheetah",
-                             @"chicken",
-                             @"chimpanzee",
-                             @"cow",
-                             @"crocodile",
-                             @"deer",
-                             @"dog",
-                             @"dolphin",
-                             @"donkey",
-                             @"duck",
-                             @"eagle",
-                             @"elephant",
-                             @"fish",
-                             @"fly",
-                             @"fox",
-                             @"frog",
-                             @"giraffe",
-                             @"goat",
-                             @"goldfish",
-                             @"goose",
-                             @"hamster",
-                             @"hare",
-                             @"hen",
-                             @"horse",
-                             @"insect",
-                             @"kangaroo",
-                             @"kitten",
-                             @"lion",
-                             @"lobster",
-                             @"monkey",
-                             @"mouse",
-                             @"nest",
-                             @"octopus",
-                             @"owl",
-                             @"panda",
-                             @"parrot",
-                             @"pet",
-                             @"pig",
-                             @"puppy",
-                             @"rabbit",
-                             @"rat",
-                             @"scorpion",
-                             @"seal",
-                             @"shark",
-                             @"sheep",
-                             @"snail",
-                             @"snake",
-                             @"spider",
-                             @"squirrel",
-                             @"stork",
-                             @"tiger",
-                             @"tortoise",
-                             @"turtle",
-                             @"wolf",
-                             @"zebra", nil];
-        _instance.objects = [NSArray arrayWithObjects:@"abacus",
-                             @"afternoon",
-                             @"animals",
-                             @"apple",
-                             @"arm",
-                             @"artist",
-                             @"asleep",
-                             @"aunt",
-                             @"bag",
-                             @"ball",
-                             @"banana",
-                             @"book",
-                             @"box",
-                             @"boy",
-                             @"brother",
-                             @"bun",
-                             @"bunch",
-                             @"can",
-                             @"cap",
-                             @"carpenter",
-                             @"chair",
-                             @"cheer",
-                             @"computer",
-                             @"cousin",
-                             @"crayon",
-                             @"cup",
-                             @"dad",
-                             @"desk",
-                             @"doctor",
-                             @"driver",
-                             @"duster",
-                             @"egg",
-                             @"engineer",
-                             @"eraser",
-                             @"fan",
-                             @"fat",
-                             @"father",
-                             @"feather",
-                             @"firefighter",
-                             @"flag",
-                             @"flowers",
-                             @"forest",
-                             @"gift",
-                             @"grandfather",
-                             @"grandmother",
-                             @"grape",
-                             @"grass",
-                             @"hang",
-                             @"happy",
-                             @"hat",
-                             @"heavy",
-                             @"house",
-                             @"hungry",
-                             @"insect",
-                             @"jar",
-                             @"joker",
-                             @"juice",
-                             @"jump",
-                             @"key",
-                             @"king",
-                             @"kitchen",
-                             @"kite",
-                             @"lamp",
-                             @"lawyer",
-                             @"leaf",
-                             @"lemon",
-                             @"light",
-                             @"map",
-                             @"mat",
-                             @"medicine",
-                             @"merchant",
-                             @"mother",
-                             @"musician",
-                             @"nail",
-                             @"narrow",
-                             @"nest",
-                             @"nose",
-                             @"nurse",
-                             @"onion",
-                             @"orange",
-                             @"pan",
-                             @"pear",
-                             @"pen",
-                             @"pencils",
-                             @"pie",
-                             @"policeman",
-                             @"pot",
-                             @"potato",
-                             @"queen",
-                             @"raspberry",
-                             @"rat",
-                             @"river",
-                             @"salt",
-                             @"sat",
-                             @"school",
-                             @"seed",
-                             @"sing",
-                             @"sister",
-                             @"sock",
-                             @"soldier",
-                             @"son",
-                             @"soup",
-                             @"sour",
-                             @"star",
-                             @"stars",
-                             @"step",
-                             @"stew",
-                             @"stop",
-                             @"strawberry",
-                             @"sun",
-                             @"table",
-                             @"teacher",
-                             @"tent",
-                             @"test",
-                             @"toe",
-                             @"toes",
-                             @"tomato",
-                             @"towel",
-                             @"toytrain",
-                             @"tree",
-                             @"trees",
-                             @"tub",
-                             @"umbrella",
-                             @"uncle",
-                             @"uniform",
-                             @"van",
-                             @"vegetable",
-                             @"vehicle",
-                             @"vest",
-                             @"walk",
-                             @"watch",
-                             @"watermelon",
-                             @"wing",
-                             @"xmas",
-                             @"xylophone",
-                             @"yawn", nil];
+        _instance.animals = [_instance defaultAnimalList];
+        _instance.objects = [_instance defaultObjectList];
     });
     
     return _instance;
@@ -291,8 +95,8 @@
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
-- (NSArray *)animalList {
-    NSArray *animalList = [NSArray arrayWithObjects:@"ant",
+- (NSArray *)defaultAnimalList {
+    return [NSMutableArray arrayWithObjects:@"ant",
                            @"bat",
                            @"bear",
                            @"bee",
@@ -354,11 +158,10 @@
                            @"turtle",
                            @"wolf",
                            @"zebra", nil];
-    return  animalList;
 }
 
-- (NSArray *)objectList {
-    NSArray *objectList = [NSArray arrayWithObjects:@"abacus",
+- (NSArray *)defaultObjectList {
+    return [NSMutableArray arrayWithObjects:@"abacus",
                            @"afternoon",
                            @"animals",
                            @"apple",
@@ -494,16 +297,30 @@
                            @"xmas",
                            @"xylophone",
                            @"yawn", nil];
-    return objectList;
 }
 
-- (NSString *)randomAnObjectOrAnimal {
-    NSInteger index = arc4random_uniform(198);
-    if (index > 61) {
-        return [self objectList][index - 62];
-    } else {
-        return [self animalList][index];
+- (NSString *)randomAnObjectOrAnimal:(NSArray *)foundObjects {
+    // Update object list
+    if (self.animals.count) {
+        [self.animals removeObjectsInArray:foundObjects];
     }
+    
+    if (self.objects.count) {
+        [self.objects removeObjectsInArray:foundObjects];
+    }
+
+    uint32_t upperBound = (uint32_t) (self.objects.count + self.animals.count);
+    NSInteger index = arc4random_uniform(upperBound);
+    if (index > self.animals.count - 1) {
+        return self.objects[index - self.animals.count];
+    } else {
+        return self.animals[index];
+    }
+}
+
+- (void)resetAllList {
+    self.animals = [self defaultAnimalList];
+    self.objects = [self defaultObjectList];
 }
 
 @end

@@ -81,6 +81,7 @@ const NSInteger GENERATION_TIME = 15;
 const CGFloat GENERATE_DISTANCE = 1.0;
 const NSUInteger INDEX_NOTFOUND = 999;
 const NSUInteger LIVED_ANIMAL_MAX = 5;
+const CGFloat THRESHOLD_POSITION = 0.01;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -414,6 +415,7 @@ const NSUInteger LIVED_ANIMAL_MAX = 5;
     objectNameNodes = [NSMutableDictionary dictionary];
     scale = 0.3;
     maxObject = 5;
+    [[SessionManager sharedInstance] resetAllList];
 }
 
 #pragma mark - Setup Observer
@@ -453,20 +455,20 @@ const NSUInteger LIVED_ANIMAL_MAX = 5;
         }
         
         // Create 3D text
-        SCNNode *newNode = [self createNewBubleParentNode:currentObjName];
-        [arSceneView.scene.rootNode addChildNode:newNode];
-        [objectNameNodes setObject:newNode forKey:virtualObjNames[index]];
-        newNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y - 0.08, currentObject.position.z);
+        SCNNode *textNode = [self createNewBubleParentNode:currentObjName];
+        [arSceneView.scene.rootNode addChildNode:textNode];
+        [objectNameNodes setObject:textNode forKey:virtualObjNames[index]];
+        textNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y + 0.15, currentObject.position.z);
         
         if (@available(iOS 11.0, *)) {
-            [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
+            [textNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
         } else {
             // Fallback on earlier versions
         }
         
         // Continue generate object
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [newNode removeFromParentNode];
+            [textNode removeFromParentNode];
             [currentObject removeFromParentNode];
             diamondFlyAnimation = NO;
         });
@@ -769,17 +771,41 @@ const NSUInteger LIVED_ANIMAL_MAX = 5;
             count++;
         }
     }
-    NSLog(@"---> Check add: %ld", count);
     if (count >= maxObject) {
         return;
     }
 
     // Create animal node
-    NSString *virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal];
+    NSString *virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal:virtualObjNames];
     SCNNode *animeNode = [self makeNode:[UIImage imageNamed:virtualObjName] andWidth:scale andHeight:scale];
     animeNode.name = @"AnimalNode";
     if (@available(iOS 11.0, *)) {
-        animeNode.worldPosition = [self generateAnimalPosition];
+        // Check position
+        
+        BOOL badPosition = YES;
+        SCNVector3 newPosition;
+        while(badPosition) {
+            newPosition = [self generateAnimalPosition];
+            
+            if (virtualObjects.count) {
+                for (SCNNode *oldNode in virtualObjects) {
+                    BOOL badX = NO;
+                    BOOL badZ = NO;
+                    if (fabsf(oldNode.position.x - newPosition.x) < THRESHOLD_POSITION) {
+                        badX = YES;
+                    }
+                    if (fabsf(oldNode.position.z - newPosition.z) < THRESHOLD_POSITION) {
+                        badZ = YES;
+                    }
+                    if (!(badX && badZ)) {
+                        badPosition = NO;
+                    }
+                }
+            } else {
+                badPosition = NO;
+            }
+        }
+        animeNode.position = newPosition;
     } else {
         // Fallback on earlier versions
     }

@@ -23,8 +23,7 @@
 - (void)addArayOfIdentifiedObjects:(NSArray *)objArray;                 // Add an array of objects
 - (void)vibrateFoundObj;
 
-- (NSArray *)animalList;
-- (NSArray *)objectList;
-- (NSString *)randomAnObjectOrAnimal;
+- (NSString *)randomAnObjectOrAnimal:(NSArray *)foundObjects;
+- (void)resetAllList;
 
 @end
