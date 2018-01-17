@@ -893,32 +893,4 @@ const CGFloat THRESHOLD_POSITION = 0.1;
     return counter;
 }
 
-#pragma mark - debug
-
-- (IBAction)scaleDebug:(UISwitch *)sender {
-    if (sender.isOn) {
-        scale = 0.3;
-    } else {
-        scale = 0.2;
-    }
-    
-    [self removeAllNodes];
-}
-
-- (IBAction)countDebug:(UISwitch *)sender {
-    if (sender.isOn) {
-        maxObject = 5;
-    } else {
-        maxObject = 3;
-    }
-    
-    [self removeAllNodes];
-}
-
-- (void)removeAllNodes {
-    [arSceneView.scene.rootNode.childNodes enumerateObjectsUsingBlock:^(SCNNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [obj removeFromParentNode];
-    }];
-}
-
 @end
