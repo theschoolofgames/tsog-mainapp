@@ -81,7 +81,7 @@ const NSInteger GENERATION_TIME = 15;
 const CGFloat GENERATE_DISTANCE = 1.0;
 const NSUInteger INDEX_NOTFOUND = 999;
 const NSUInteger LIVED_ANIMAL_MAX = 5;
-const CGFloat THRESHOLD_POSITION = 0.01;
+const CGFloat THRESHOLD_POSITION = 0.1;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -799,6 +799,7 @@ const CGFloat THRESHOLD_POSITION = 0.01;
                 for (SCNNode *oldNode in virtualObjects) {
                     BOOL badX = NO;
                     BOOL badZ = NO;
+                    NSLog(@"--->%f %f = %f",oldNode.position.x, newPosition.x, fabsf(oldNode.position.x - newPosition.x));
                     if (fabsf(oldNode.position.x - newPosition.x) < THRESHOLD_POSITION) {
                         badX = YES;
                     }
