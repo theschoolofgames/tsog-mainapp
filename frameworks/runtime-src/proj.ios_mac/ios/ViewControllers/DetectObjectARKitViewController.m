@@ -777,7 +777,15 @@ const CGFloat THRESHOLD_POSITION = 0.01;
 
     // Create animal node
     NSString *virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal:virtualObjNames];
-    SCNNode *animeNode = [self makeNode:[UIImage imageNamed:virtualObjName] andWidth:scale andHeight:scale];
+    UIImage *objImage = [UIImage imageNamed:virtualObjName];
+    CGFloat scaleWidth = scale;
+    CGFloat scaleHeight = scale;
+    if (objImage.size.width > objImage.size.height) {
+        scaleHeight = objImage.size.height/objImage.size.width * scaleWidth;
+    } else if (objImage.size.width < objImage.size.height) {
+        scaleWidth = objImage.size.width/objImage.size.height * scaleHeight;
+    }
+    SCNNode *animeNode = [self makeNode:objImage andWidth:scaleWidth andHeight:scaleHeight];
     animeNode.name = @"AnimalNode";
     if (@available(iOS 11.0, *)) {
         // Check position
@@ -823,7 +831,6 @@ const CGFloat THRESHOLD_POSITION = 0.01;
             reCount++;
         }
     }
-    NSLog(@"---> Check recount: %ld", reCount);
     if (reCount < maxObject) {
         [self addAnimalIfNeeded];
     }
