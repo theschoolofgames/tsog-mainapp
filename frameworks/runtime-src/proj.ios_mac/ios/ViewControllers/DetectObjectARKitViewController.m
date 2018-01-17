@@ -467,7 +467,12 @@ const CGFloat THRESHOLD_POSITION = 0.2;
         SCNNode *textNode = [self createNewBubleParentNode:currentObjName];
         [arSceneView.scene.rootNode addChildNode:textNode];
         [objectNameNodes setObject:textNode forKey:virtualObjNames[index]];
-        textNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y + 0.15, currentObject.position.z);
+        
+        SCNVector3 boundingBoxMin;
+        SCNVector3 boundingBoxMax;
+        [currentObject getBoundingBoxMin:&boundingBoxMin max:&boundingBoxMax];
+        CGFloat textPositionY = currentObject.position.y + (boundingBoxMax.y - boundingBoxMin.y)/2.0;
+        textNode.position = SCNVector3Make(currentObject.position.x, textPositionY, currentObject.position.z);
         
         if (@available(iOS 11.0, *)) {
             [textNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
@@ -852,7 +857,13 @@ const CGFloat THRESHOLD_POSITION = 0.2;
                 tutorialFinger = [self makeNode:fingerImage andWidth:fingerWidth andHeight:fingerHeight];
                 tutorialFinger.name = @"TutorialFinger";
                 tutorialFinger.scale = SCNVector3Make(1.0, 1.0, 1.0);
-                tutorialFinger.position = SCNVector3Make(scaleWidth, cameraPosition.y - 0.1, -GENERATE_DISTANCE);
+                
+                SCNVector3 boundingBoxMin;
+                SCNVector3 boundingBoxMax;
+                [animeNode getBoundingBoxMin:&boundingBoxMin max:&boundingBoxMax];
+                CGFloat fingerX = animeNode.position.x + (boundingBoxMax.x - boundingBoxMin.x)/2.0;
+                CGFloat fingerY = animeNode.position.y;
+                tutorialFinger.position = SCNVector3Make(fingerX, fingerY, -GENERATE_DISTANCE + 0.1);
                 [arSceneView.scene.rootNode addChildNode:tutorialFinger];
             }
         }
