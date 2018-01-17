@@ -55,14 +55,22 @@
     // Animal life time
     NSInteger animalLifeTime;
     
-    NSString *virtualObjName;
-    
     // CurentObject
-    SCNNode *virtualObject;
+    NSMutableArray *virtualObjects;
+    NSMutableDictionary *objectNameNodes;
+    NSMutableArray *virtualObjNames;
+    
+    // Counter
+//    NSUInteger countObject;
     
     // Speaking
     AVSpeechSynthesizer *synthesizer;
-    NSMutableDictionary *guessedDict;
+    
+    // animation flag
+    BOOL diamondFlyAnimation;
+    
+    CGFloat scale;
+    NSInteger maxObject;
 }
 
 @end
@@ -71,6 +79,8 @@
 
 const NSInteger GENERATION_TIME = 15;
 const CGFloat GENERATE_DISTANCE = 1.0;
+const NSUInteger INDEX_NOTFOUND = 999;
+const NSUInteger LIVED_ANIMAL_MAX = 5;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -290,25 +300,44 @@ const CGFloat GENERATE_DISTANCE = 1.0;
 
 #pragma mark - Tap gesture
 -(void)handleTap:(UITapGestureRecognizer *)recognize {
+    if (diamondFlyAnimation) {
+        return;
+    }
+    
     if (recognize.state == UIGestureRecognizerStateEnded) {
         CGPoint location = [recognize locationInView:arSceneView];
-        NSArray *hits = [arSceneView hitTest:location options:@{SCNHitTestBoundingBoxOnlyKey: @YES, SCNHitTestFirstFoundOnlyKey: @YES, SCNHitTestBackFaceCullingKey:@YES}];
+        NSArray *hits = [arSceneView hitTest:location options:@{SCNHitTestBoundingBoxOnlyKey: @YES}];
         if (hits.count) {
             for (SCNHitTestResult *result in hits) {
-                if (result.node == virtualObject) {
+                NSInteger foundIndex = [self matchObject:result.node];
+                if (foundIndex != INDEX_NOTFOUND) {
                     // Handle found object
-                    if (virtualObjName.length) {
-                        [self handleFoundObjectAtLocation:location];
-                    } else {
-                        // Continue generate object
-                        virtualObject = nil;
-                    }
+                    diamondFlyAnimation = YES;
+                    [self handleFoundObject:foundIndex atLocation:location];
                 } else {
+                    // Not found object
+                    NSLog(@"NOTFOUND!!!");
                 }
             }
         } else {
+            NSLog(@"NO hit");
         }
     }
+}
+
+- (NSUInteger)matchObject:(SCNNode *)tappedNode {
+    __block NSUInteger index = INDEX_NOTFOUND; // Not found
+    [virtualObjects enumerateObjectsUsingBlock:^(SCNNode *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (@available(iOS 11.0, *)) {
+            if (tappedNode.worldPosition.x == obj.worldPosition.x && tappedNode.worldPosition.y == obj.worldPosition.y && tappedNode.worldPosition.z == obj.worldPosition.z) {
+                stop = YES;
+                index = idx;
+            }
+        } else {
+            // Fallback on earlier versions
+        }
+    }];
+    return index;
 }
 
 #pragma mark - setup SpeechSynthesizer
@@ -366,7 +395,7 @@ const CGFloat GENERATE_DISTANCE = 1.0;
     
     // Reset counter
     if ([SessionManager sharedInstance].elapsedTime < 0) {
-        [SessionManager sharedInstance].elapsedTime = 120;  // Default value should be 120
+        [SessionManager sharedInstance].elapsedTime = 30;  // Default value should be 120
     }
     
     // Update UI
@@ -380,6 +409,11 @@ const CGFloat GENERATE_DISTANCE = 1.0;
         lbDebug.hidden = YES;
     }
     
+    virtualObjects = [NSMutableArray array];
+    virtualObjNames = [NSMutableArray array];
+    objectNameNodes = [NSMutableDictionary dictionary];
+    scale = 0.3;
+    maxObject = 5;
 }
 
 #pragma mark - Setup Observer
@@ -394,19 +428,19 @@ const CGFloat GENERATE_DISTANCE = 1.0;
 }
 
 #pragma mark - Handle found object
-- (void)handleFoundObjectAtLocation:(CGPoint) location {
-    // Play sound and vibrate
-    [[SessionManager sharedInstance] vibrateFoundObj];
-    
-    NSString *foundObject = virtualObjName;
-    virtualObjName = nil;
-    
+- (void)handleFoundObject:(NSUInteger)index atLocation:(CGPoint) location {
     dispatch_async(dispatch_get_main_queue(), ^{
+        // Play sound and vibrate
+        [[SessionManager sharedInstance] vibrateFoundObj];
+        
+        NSString *currentObjName = virtualObjNames[index];
+        SCNNode *currentObject = virtualObjects[index];
+        
         // Update bottom text
-        lbResult.text = [NSString stringWithFormat:@"You found %@", foundObject];
+        lbResult.text = [NSString stringWithFormat:@"You found %@", currentObjName];
         
         // Speak
-        [self textToSpeech:foundObject];
+        [self textToSpeech:currentObjName];
         
         // Increase diamond
         [SessionManager sharedInstance].diamondCount+=5;
@@ -418,26 +452,28 @@ const CGFloat GENERATE_DISTANCE = 1.0;
             });
         }
         
+        // Create 3D text
+        SCNNode *newNode = [self createNewBubleParentNode:currentObjName];
+        [arSceneView.scene.rootNode addChildNode:newNode];
+        [objectNameNodes setObject:newNode forKey:virtualObjNames[index]];
+        newNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y - 0.08, currentObject.position.z);
+        
+        if (@available(iOS 11.0, *)) {
+            [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
+        } else {
+            // Fallback on earlier versions
+        }
+        
         // Continue generate object
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            virtualObject = nil;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [newNode removeFromParentNode];
+            [currentObject removeFromParentNode];
+            diamondFlyAnimation = NO;
         });
+        
+        // Analytic
+        [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:currentObjName];
     });
-    
-    // Analytic
-    [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:foundObject];
-    
-    // Create 3D text
-    SCNNode *newNode = [self createNewBubleParentNode:foundObject];
-    [arSceneView.scene.rootNode addChildNode:newNode];
-    SCNNode *currentObject = virtualObject;
-    newNode.position = SCNVector3Make(currentObject.position.x, currentObject.position.y - 0.08, currentObject.position.z);
-    
-    if (@available(iOS 11.0, *)) {
-        [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
-    } else {
-        // Fallback on earlier versions
-    }
 }
 
 #pragma mark - Animation
@@ -686,7 +722,7 @@ const CGFloat GENERATE_DISTANCE = 1.0;
 
 #pragma mark - Objects
 - (void)startGenerateAnimalNode {
-    NSLog(@"Starttimer");
+    NSLog(@"Start timer");
     if (generateAnimalTimer) {
         [generateAnimalTimer invalidate];
         generateAnimalTimer = nil;
@@ -727,43 +763,44 @@ const CGFloat GENERATE_DISTANCE = 1.0;
 
 - (void)addAnimalIfNeeded {
     // Check if object is exist
-    if (virtualObject) {
+    NSInteger count = 0;
+    for (SCNNode *child in arSceneView.scene.rootNode.childNodes) {
+        if ([child.name isEqualToString:@"AnimalNode"]) {
+            count++;
+        }
+    }
+    NSLog(@"---> Check add: %ld", count);
+    if (count >= maxObject) {
         return;
     }
 
-    // Remove all nodes in scene
-    [self removeAllNodesInScene];
-    
-    // Generate a node
-//    SCNSphere *sphereGeometry = [SCNSphere sphereWithRadius:0.05];
-//    SCNMaterial *material = [SCNMaterial material];
-//    material.diffuse.contents = [UIColor redColor];
-//    sphereGeometry.materials = @[material];
-//    SCNNode *sphereNode = [SCNNode nodeWithGeometry:sphereGeometry];
-//
-//    // get random animal position
-//    if (@available(iOS 11.0, *)) {
-//        sphereNode.worldPosition = [self generateAnimalPosition];
-//    } else {
-//        // Fallback on earlier versions
-//    }
-
     // Create animal node
-    virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal];
-    SCNNode *animeNode = [self makeNode:[UIImage imageNamed:virtualObjName] andWidth:0.1 andHeight:0.1];
+    NSString *virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal];
+    SCNNode *animeNode = [self makeNode:[UIImage imageNamed:virtualObjName] andWidth:scale andHeight:scale];
+    animeNode.name = @"AnimalNode";
     if (@available(iOS 11.0, *)) {
         animeNode.worldPosition = [self generateAnimalPosition];
     } else {
         // Fallback on earlier versions
     }
-
-    //    animeNode.pivot = SCNMatrix4MakeTranslation((boundingBoxMax.x - boundingBoxMin.x)/2.0, boundingBoxMin.y, textDepth/2.0);
     animeNode.scale = SCNVector3Make(1.0, 1.0, 1.0);
-    //    animeNode.eulerAngles = SCNVector3Make(0, 0, 0);    // Trick to have correct orientation
-
     [arSceneView.scene.rootNode addChildNode:animeNode];
-
-    virtualObject = animeNode;
+    
+    [virtualObjects addObject:animeNode];
+    [virtualObjNames addObject:virtualObjName];
+    
+    // Re count
+    // Check if object is exist
+    NSInteger reCount = 0;
+    for (SCNNode *child in arSceneView.scene.rootNode.childNodes) {
+        if ([child.name isEqualToString:@"AnimalNode"]) {
+            reCount++;
+        }
+    }
+    NSLog(@"---> Check recount: %ld", reCount);
+    if (reCount < maxObject) {
+        [self addAnimalIfNeeded];
+    }
 }
 
 - (SCNVector3)generateAnimalPosition {
@@ -802,9 +839,6 @@ const CGFloat GENERATE_DISTANCE = 1.0;
 
 #pragma mark - AVSpeechSynthesizerDelegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self startGenerateAnimalNode];
-//    });
 }
 
 #pragma mark - utils string
@@ -823,6 +857,34 @@ const CGFloat GENERATE_DISTANCE = 1.0;
     }
     
     return counter;
+}
+
+#pragma mark - debug
+
+- (IBAction)scaleDebug:(UISwitch *)sender {
+    if (sender.isOn) {
+        scale = 0.3;
+    } else {
+        scale = 0.2;
+    }
+    
+    [self removeAllNodes];
+}
+
+- (IBAction)countDebug:(UISwitch *)sender {
+    if (sender.isOn) {
+        maxObject = 5;
+    } else {
+        maxObject = 3;
+    }
+    
+    [self removeAllNodes];
+}
+
+- (void)removeAllNodes {
+    [arSceneView.scene.rootNode.childNodes enumerateObjectsUsingBlock:^(SCNNode * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromParentNode];
+    }];
 }
 
 @end
