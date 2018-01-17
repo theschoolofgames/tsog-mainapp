@@ -90,10 +90,10 @@ static BOOL isOpenedFromNotification = NO;
         
         [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
         
-        // Count down time
-        [SessionManager sharedInstance].elapsedTime = 120;
-        
         if ([CommonTools isCompatibleARKit]) {
+            // Count down time
+            [SessionManager sharedInstance].elapsedTime = 30;
+            
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
             DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
@@ -103,6 +103,9 @@ static BOOL isOpenedFromNotification = NO;
             UIViewController *rootController = (UIViewController*)appController.viewController;
             [rootController presentViewController:nav animated:YES completion:nil];
         } else {
+            // Count down time
+            [SessionManager sharedInstance].elapsedTime = 120;
+            
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
             DetectObjectCameraKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectCameraKitViewController"];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];

@@ -71,6 +71,12 @@
     
     CGFloat scale;
     NSInteger maxObject;
+    
+    // Tutorial finger
+    SCNNode *tutorialFinger;
+    
+    // First session
+    BOOL isFirstSession;
 }
 
 @end
@@ -81,7 +87,7 @@ const NSInteger GENERATION_TIME = 15;
 const CGFloat GENERATE_DISTANCE = 1.0;
 const NSUInteger INDEX_NOTFOUND = 999;
 const NSUInteger LIVED_ANIMAL_MAX = 5;
-const CGFloat THRESHOLD_POSITION = 0.1;
+const CGFloat THRESHOLD_POSITION = 0.2;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -153,7 +159,6 @@ const CGFloat THRESHOLD_POSITION = 0.1;
 
 #pragma mark - Update state
 - (void)updateState {
-    NSLog(@"Update state: %ld", self.currentState);
     dispatch_async(dispatch_get_main_queue(), ^{
         switch (self.currentState) {
             case SceneStateInitialization:
@@ -244,7 +249,7 @@ const CGFloat THRESHOLD_POSITION = 0.1;
     
     // Debug
     if (@available(iOS 11.0, *)) {
-        arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
+//        arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
     } else {
         // Fallback on earlier versions
     }
@@ -333,6 +338,7 @@ const CGFloat THRESHOLD_POSITION = 0.1;
             if (tappedNode.worldPosition.x == obj.worldPosition.x && tappedNode.worldPosition.y == obj.worldPosition.y && tappedNode.worldPosition.z == obj.worldPosition.z) {
                 stop = YES;
                 index = idx;
+            } else {
             }
         } else {
             // Fallback on earlier versions
@@ -416,6 +422,9 @@ const CGFloat THRESHOLD_POSITION = 0.1;
     scale = 0.3;
     maxObject = 5;
     [[SessionManager sharedInstance] resetAllList];
+    
+    // Set first session
+    isFirstSession = YES;
 }
 
 #pragma mark - Setup Observer
@@ -472,6 +481,12 @@ const CGFloat THRESHOLD_POSITION = 0.1;
             [currentObject removeFromParentNode];
             diamondFlyAnimation = NO;
         });
+        
+        // Remove finger if needed
+        if (tutorialFinger) {
+            [tutorialFinger removeFromParentNode];
+            tutorialFinger = nil;
+        }
         
         // Analytic
         [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:currentObjName];
@@ -724,7 +739,6 @@ const CGFloat THRESHOLD_POSITION = 0.1;
 
 #pragma mark - Objects
 - (void)startGenerateAnimalNode {
-    NSLog(@"Start timer");
     if (generateAnimalTimer) {
         [generateAnimalTimer invalidate];
         generateAnimalTimer = nil;
@@ -788,33 +802,60 @@ const CGFloat THRESHOLD_POSITION = 0.1;
     SCNNode *animeNode = [self makeNode:objImage andWidth:scaleWidth andHeight:scaleHeight];
     animeNode.name = @"AnimalNode";
     if (@available(iOS 11.0, *)) {
-        // Check position
-        
-        BOOL badPosition = YES;
-        SCNVector3 newPosition;
-        while(badPosition) {
-            newPosition = [self generateAnimalPosition];
-            
-            if (virtualObjects.count) {
+        // Check if first object
+        if (virtualObjects.count) {
+            // Check position
+            BOOL badPosition = YES;
+            SCNVector3 newPosition;
+            while(badPosition) {
+                newPosition = [self generateAnimalPosition];
+                
+                BOOL falseOneNode = NO;
+                
                 for (SCNNode *oldNode in virtualObjects) {
                     BOOL badX = NO;
                     BOOL badZ = NO;
-                    NSLog(@"--->%f %f = %f",oldNode.position.x, newPosition.x, fabsf(oldNode.position.x - newPosition.x));
                     if (fabsf(oldNode.position.x - newPosition.x) < THRESHOLD_POSITION) {
                         badX = YES;
                     }
                     if (fabsf(oldNode.position.z - newPosition.z) < THRESHOLD_POSITION) {
                         badZ = YES;
                     }
-                    if (!(badX && badZ)) {
-                        badPosition = NO;
+                    if (badX && badZ) {
+                        falseOneNode = YES;
+                    } else {
                     }
                 }
-            } else {
-                badPosition = NO;
+                
+                if (!falseOneNode) {
+                    badPosition = NO;
+                }
+                
+            }
+            animeNode.position = newPosition;
+        } else {
+            // First object
+            SCNVector3 cameraPosition = SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2]);
+            animeNode.position = SCNVector3Make(0.0, cameraPosition.y, -GENERATE_DISTANCE);
+            
+            if (isFirstSession) {
+                isFirstSession = NO;
+                
+                UIImage *fingerImage = [UIImage imageNamed:@"finger"];
+                CGFloat fingerWidth = 0.2;
+                CGFloat fingerHeight = 0.2;
+                if (fingerImage.size.width > fingerImage.size.height) {
+                    fingerHeight = fingerImage.size.height/fingerImage.size.width * fingerWidth;
+                } else if (fingerImage.size.width < fingerImage.size.height) {
+                    fingerWidth = fingerImage.size.width/fingerImage.size.height * fingerWidth;
+                }
+                tutorialFinger = [self makeNode:fingerImage andWidth:fingerWidth andHeight:fingerHeight];
+                tutorialFinger.name = @"TutorialFinger";
+                tutorialFinger.scale = SCNVector3Make(1.0, 1.0, 1.0);
+                tutorialFinger.position = SCNVector3Make(scaleWidth, cameraPosition.y - 0.1, -GENERATE_DISTANCE);
+                [arSceneView.scene.rootNode addChildNode:tutorialFinger];
             }
         }
-        animeNode.position = newPosition;
     } else {
         // Fallback on earlier versions
     }

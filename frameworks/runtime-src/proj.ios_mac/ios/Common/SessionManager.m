@@ -30,7 +30,7 @@
     dispatch_once(&onceToken, ^{
         _instance = [[SessionManager alloc] init];
         _instance.identifiedObjects = [NSMutableDictionary dictionary];
-        _instance.elapsedTime = 120;
+        _instance.elapsedTime = 30;
         _instance.diamondCount = 0;
         _instance.objCount = 0;
         _instance.animals = [_instance defaultAnimalList];
@@ -95,7 +95,7 @@
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 }
 
-- (NSArray *)defaultAnimalList {
+- (NSMutableArray *)defaultAnimalList {
     return [NSMutableArray arrayWithObjects:@"ant",
                            @"bat",
                            @"bear",
@@ -160,7 +160,7 @@
                            @"zebra", nil];
 }
 
-- (NSArray *)defaultObjectList {
+- (NSMutableArray *)defaultObjectList {
     return [NSMutableArray arrayWithObjects:@"abacus",
                            @"afternoon",
                            @"animals",
