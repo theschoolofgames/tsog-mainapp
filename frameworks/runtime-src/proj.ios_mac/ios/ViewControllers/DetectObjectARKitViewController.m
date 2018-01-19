@@ -499,7 +499,7 @@ const CGFloat THRESHOLD_POSITION = 0.2;
         SCNVector3 boundingBoxMax;
         [currentObject getBoundingBoxMin:&boundingBoxMin max:&boundingBoxMax];
         CGFloat textPositionY = currentObject.position.y + (boundingBoxMax.y - boundingBoxMin.y)/2.0;
-        textNode.position = SCNVector3Make(currentObject.position.x, textPositionY, currentObject.position.z);
+        textNode.position = SCNVector3Make(currentObject.position.x, textPositionY, currentObject.position.z - 0.01);
         
         if (@available(iOS 11.0, *)) {
             [textNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];

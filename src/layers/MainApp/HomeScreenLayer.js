@@ -327,7 +327,7 @@ var HomeScreenLayer = cc.Layer.extend({
     },
 
     updateHighScore: function() {
-        var isCollectObjectGameAvailable = NativeHelper.callNative("isCoreMLAvailable", []);
+        var isCollectObjectGameAvailable = NativeHelper.callNative("isARKitAvailable", []);
         var highScore = 0;
         if (isCollectObjectGameAvailable) {
             var identifiedObjectsString = User.getCurrentUser().getIdentifiedObjectsString();
