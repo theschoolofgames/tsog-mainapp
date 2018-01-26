@@ -17,6 +17,8 @@
 #define kShowMeAnObject             @"Show me an object..."
 #define kYouFoundIt                 @"Yay you found it!"
 
+#define kFindObject                 @"Find object..."
+
 /** Degrees to Radian **/
 #define degreesToRadians(degrees)   ((degrees)/180.0*M_PI)
 

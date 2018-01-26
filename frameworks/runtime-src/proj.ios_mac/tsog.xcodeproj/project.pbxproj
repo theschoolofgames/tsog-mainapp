@@ -346,6 +346,7 @@
 		A922754C1517C094001B78AA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754B1517C094001B78AA /* UIKit.framework */; };
 		A922754E1517C094001B78AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754D1517C094001B78AA /* Foundation.framework */; };
 		A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A922754F1517C094001B78AA /* CoreGraphics.framework */; };
+		AA8596F5200FC1BE0088D97B /* alpha_racing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA8596F4200FC1BE0088D97B /* alpha_racing.mp3 */; };
 		B96B98D8EBAB9932FC35C073 /* Pods_tsog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04486EC9B7978CF2513CB5EA /* Pods_tsog.framework */; };
 		BA3A85EC1A724AE900924D24 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA3A85EB1A724AE900924D24 /* Security.framework */; };
 		BA4E718119EB6E3F00932425 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA4E718019EB6E3E00932425 /* MediaPlayer.framework */; };
@@ -1084,6 +1085,7 @@
 		A922754B1517C094001B78AA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A922754D1517C094001B78AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A922754F1517C094001B78AA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AA8596F4200FC1BE0088D97B /* alpha_racing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = alpha_racing.mp3; sourceTree = "<group>"; };
 		BA3A85EB1A724AE900924D24 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		BA4E718019EB6E3E00932425 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		BAEE4D831AC40C11003BEB0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -2366,6 +2368,7 @@
 		C47F93A91F2B228B00ABF1C1 /* res */ = {
 			isa = PBXGroup;
 			children = (
+				AA8596F4200FC1BE0088D97B /* alpha_racing.mp3 */,
 				EB0216A01F5B06DD00BFE33A /* speaking-success.mp3 */,
 				C44F0D4D1F56C3C9006235E9 /* target.png */,
 				C44F0D4F1F56C3C9006235E9 /* target@2x.png */,
@@ -2774,6 +2777,7 @@
 				EB0216A11F5B081A00BFE33A /* speaking-success.mp3 in Resources */,
 				C41647DE1F4D3E8100D0E474 /* button-finish-pressed.png in Resources */,
 				C47F93B91F2B233600ABF1C1 /* coin@3x.png in Resources */,
+				AA8596F5200FC1BE0088D97B /* alpha_racing.mp3 in Resources */,
 				C41647D01F4D32DD00D0E474 /* ribbon-countdown@2x.png in Resources */,
 				C41647D61F4D33C500D0E474 /* diamond-identified-object@2x.png in Resources */,
 				C41647CA1F4D32DD00D0E474 /* clock-countdown@2x.png in Resources */,

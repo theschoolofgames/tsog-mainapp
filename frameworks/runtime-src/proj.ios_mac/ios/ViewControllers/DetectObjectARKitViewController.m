@@ -7,7 +7,6 @@
 //
 
 #import "DetectObjectARKitViewController.h"
-#import "Inceptionv3.h"
 #import "CommonTools.h"
 #import "Constants.h"
 #import "IdentifiedObjectListViewController.h"
@@ -23,14 +22,11 @@
 @import ARKit;
 
 @interface DetectObjectARKitViewController () <ARSCNViewDelegate, AVSpeechSynthesizerDelegate> {
-    // CoreML
-    NSArray *visionRequests;
-    dispatch_queue_t dispatchQueueML;
-    
     UIView *finishAlertView;
     
     // Clock Timer
     NSTimer *countdownTimer;                  // Timer to do countdown
+    NSTimer *generateAnimalTimer;
     
     __weak IBOutlet UILabel *lbResult;
     __weak IBOutlet UIImageView *coinImage;
@@ -46,11 +42,7 @@
     __weak IBOutlet UILabel *lbDebug;
     
     IBOutlet ARSCNView *arSceneView;
-    
-    BOOL FoundedObj;
-    BOOL stopFindning;
-    BOOL didInitCamera;
-    
+        
     // ARKit
     CGFloat textDepth;
     
@@ -60,22 +52,50 @@
     // DEbug
     NSTimeInterval lastTime;
     
+    // Animal life time
+    NSInteger animalLifeTime;
+    
+    // CurentObject
+    NSMutableArray *virtualObjects;
+    NSMutableDictionary *objectNameNodes;
+    NSMutableArray *virtualObjNames;
+    
+    // Counter
+//    NSUInteger countObject;
+    
     // Speaking
     AVSpeechSynthesizer *synthesizer;
-    BOOL isGuessing;
-    NSMutableDictionary *guessedDict;
+    
+    // animation flag
+    BOOL diamondFlyAnimation;
+    
+    CGFloat scale;
+    NSInteger maxObject;
+    
+    // Tutorial finger
+    SCNNode *tutorialFinger;
+    
+    // First session
+    BOOL isFirstSession;
+    
+    // Background music
+    AVAudioPlayer *backgroundPlayer;
+    AVAudioPlayer *successPlayer;
 }
 
 @end
 
 @implementation DetectObjectARKitViewController
 
+const NSInteger GENERATION_TIME = 15;
+const CGFloat GENERATE_DISTANCE = 1.0;
+const NSUInteger INDEX_NOTFOUND = 999;
+const NSUInteger LIVED_ANIMAL_MAX = 5;
+const CGFloat THRESHOLD_POSITION = 0.2;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    // Set need to init camera
-    didInitCamera = NO;
     
     // Setup View
     [self setupView];
@@ -83,11 +103,13 @@
     // Setup ARKit
     [self setupARKitScene];
     
-    // Setup CoreML and Vision
-    [self setupVisionAndCoreML];
-    
     // Setup SpeechSynthesizer
     [self setupSpeechSynthesizer];
+    
+    // Setup touch gesture
+    [self setupTouchGesture];
+    
+    [self setupBackgroundMusic];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,20 +118,14 @@
     // Setup observer
     [self setupObserver];
     
+    [backgroundPlayer play];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    // Init camera if needed
-    if (!didInitCamera) {
-        didInitCamera = YES;
-
-        // Just start process core ml
-        [self startProcessCoreML];
-    } else {
-        [self startARKitAgain];
-    }
+    // Init ARSession
+    [self setupARSession];
     
     [self startCountDown];
 }
@@ -123,8 +139,7 @@
     // Stop countdown
     [self stopCountDown];
     
-    // Stop process CoreML
-    stopFindning = YES;
+    [backgroundPlayer stop];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -132,6 +147,7 @@
     
     // Remove observer
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self removeObserver:self forKeyPath:@"currentState"];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -141,6 +157,65 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if([keyPath isEqualToString:@"currentState"])
+    {
+        [self updateState];
+    }
+}
+
+#pragma mark - Play background music
+- (void)setupBackgroundMusic {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"alpha_racing" ofType:@"mp3"];
+    backgroundPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path] error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    backgroundPlayer.numberOfLoops = -1;
+    [backgroundPlayer prepareToPlay];
+    
+    NSString *path2 = [[NSBundle mainBundle] pathForResource:@"speaking-success" ofType:@"mp3"];
+    successPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL URLWithString:path2] error:nil];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:nil];
+    successPlayer.numberOfLoops = 0;
+    [successPlayer prepareToPlay];
+}
+
+#pragma mark - Update state
+- (void)updateState {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        switch (self.currentState) {
+            case SceneStateInitialization:
+//                [self setCalibrationText];
+                break;
+            case SceneStateCalibration:
+//                [self setCalibratingText];
+                break;
+            case SceneStateGenerating:
+                // Start generate object
+                // Bottom text
+                lbResult.text = kFindObject;
+                [self startGenerateAnimalNode];
+                break;
+            case SceneStateEnd:
+                // Remove all timer
+                if (countdownTimer) {
+                    [countdownTimer invalidate];
+                    countdownTimer = nil;
+                }
+                
+                if (generateAnimalTimer) {
+                    [generateAnimalTimer invalidate];
+                    generateAnimalTimer = nil;
+                }
+                
+                // Show Welldone alert
+                [self showWelldoneAlert];
+                break;
+            default:
+                break;
+        }
+    });
 }
 
 #pragma mark - Button Handler
@@ -197,10 +272,17 @@
     arSceneView.delegate = self;
     
     // Debug
-//    arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
+    if (@available(iOS 11.0, *)) {
+//        arSceneView.debugOptions = ARSCNDebugOptionShowWorldOrigin | ARSCNDebugOptionShowFeaturePoints;
+    } else {
+        // Fallback on earlier versions
+    }
     
     // Show statistics
     arSceneView.showsStatistics = NO;
+    
+    // Make things look pretty :)
+    arSceneView.antialiasingMode = SCNAntialiasingModeMultisampling4X;
     
     // Create new scene
     SCNScene *scene = [[SCNScene alloc] init];
@@ -210,8 +292,7 @@
     
     // Enable Default Lighting - makes the 3D text a bit poppier.
     arSceneView.autoenablesDefaultLighting = YES;
-    
-    [self setupARSession];
+    arSceneView.automaticallyUpdatesLighting = YES;
     
     // Set text depth
     textDepth = 0.1;
@@ -227,134 +308,67 @@
         // Create a session configuration
         ARWorldTrackingConfiguration *configuration = [[ARWorldTrackingConfiguration alloc] init];
         
-        // Enable plane detection
-        configuration.planeDetection = ARPlaneDetectionHorizontal;
+        // Disable plane detection
+        configuration.planeDetection = ARPlaneDetectionNone;
         
         // Run the view's session
         [arSceneView.session runWithConfiguration:configuration];
-    }
-}
-
-- (void)startARKitAgain {
-    [self setupARSession];
-    
-    // Feed core ML
-    if ([SessionManager sharedInstance].elapsedTime > 0) {
-        FoundedObj = NO;
-        stopFindning = NO;
-        [self startProcessCoreML];
-    }
-}
-
-#pragma mark - Setup Vision and CoreML
-- (void)setupVisionAndCoreML {
-    if (@available(iOS 11.0, *)) {
-    
-        // Reset session list
-        sessionIdentifiedObj = [NSMutableDictionary dictionary];
         
-        // Read MLModel
-        NSError *error;
-        VNCoreMLModel *inceptionv3Model = [VNCoreMLModel modelForMLModel:[[[Inceptionv3 alloc] init] model] error:&error];
-        if (error) {
-//            NSLog(@"--->ERROR: %@", error.description);
-            return;
+        // Start game
+        if ([SessionManager sharedInstance].elapsedTime > 0) {
+            self.currentState = SceneStateGenerating;
+        } else {
+            self.currentState = SceneStateEnd;
         }
-        
-        // Create request to classify object
-        VNCoreMLRequest *classificationRequest = [[VNCoreMLRequest alloc] initWithModel:inceptionv3Model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
-            // Handle the response
-            
-            // Check found object
-            if (FoundedObj || stopFindning) {
-                return;
+    }
+}
+
+- (void)setupTouchGesture {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [arSceneView addGestureRecognizer:tapGesture];
+}
+
+#pragma mark - Tap gesture
+-(void)handleTap:(UITapGestureRecognizer *)recognize {
+    if (diamondFlyAnimation) {
+        return;
+    }
+    
+    if (recognize.state == UIGestureRecognizerStateEnded) {
+        CGPoint location = [recognize locationInView:arSceneView];
+        NSArray *hits = [arSceneView hitTest:location options:@{SCNHitTestBoundingBoxOnlyKey: @YES}];
+        if (hits.count) {
+            for (SCNHitTestResult *result in hits) {
+                NSInteger foundIndex = [self matchObject:result.node];
+                if (foundIndex != INDEX_NOTFOUND) {
+                    // Handle found object
+                    diamondFlyAnimation = YES;
+                    [self handleFoundObject:foundIndex atLocation:location];
+                } else {
+                    // Not found object
+                    NSLog(@"NOTFOUND!!!");
+                }
             }
-            
-            // Check error
-            if (error) {
-//                NSLog(@"--->ERROR: %@", error.description);
-                
-                // Don't find out any object, should check it again
-                [self startProcessCoreML];
-                return;
-            }
-            
-            if (!request.results) {
-//                NSLog(@"--->ERROR: No Results");
-                
-                // Don't find out any object, should check it again
-                [self startProcessCoreML];
-                return;
-            }
-            
-            // Debug - UPDATE LABEL
-            NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
-            if (currentTime - lastTime > 1) {
-                lastTime = currentTime;
-                NSMutableString *objArrayStr = [NSMutableString stringWithString:@""];
-                
-                [request.results enumerateObjectsUsingBlock:^(VNClassificationObservation *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (idx > 2) {
-                        stop = YES;
-                        return;
-                    }
-                    [objArrayStr appendString:[NSString stringWithFormat:@"%@(%f)\n", obj.identifier, obj.confidence]];
-                }];
-                
-#if DEBUG_MODE
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    lbDebug.text = objArrayStr;
-                    [lbDebug sizeToFit];
-                });
-#endif
-            }
-            // End debug part
-            
-            // Just get first object
-            VNClassificationObservation *firstObj = [request.results firstObject];
-            if (firstObj.confidence > kRecognitionThresholdMax) {
-                // Found object
-                [self handleFoundObject:firstObj];
-            } else if (firstObj.confidence > kRecognitionThresholdMin) {
-                // Guess object
-                [self guessObject:request.results];
+        } else {
+            NSLog(@"NO hit");
+        }
+    }
+}
+
+- (NSUInteger)matchObject:(SCNNode *)tappedNode {
+    __block NSUInteger index = INDEX_NOTFOUND; // Not found
+    [virtualObjects enumerateObjectsUsingBlock:^(SCNNode *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (@available(iOS 11.0, *)) {
+            if (tappedNode.worldPosition.x == obj.worldPosition.x && tappedNode.worldPosition.y == obj.worldPosition.y && tappedNode.worldPosition.z == obj.worldPosition.z) {
+                stop = YES;
+                index = idx;
             } else {
-                // Don't find out any object, should check it again
-//                NSLog(@"--->Cannot find out CoreML object, find again");
-                [self startProcessCoreML];
             }
-        }];
-        
-        classificationRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionCenterCrop;
-        visionRequests = @[classificationRequest];
-        
-        dispatchQueueML = dispatch_queue_create([@"DispatchQueueML" UTF8String], DISPATCH_QUEUE_SERIAL);
-        
-    }
-}
-
-- (void)startProcessCoreML {
-    if (@available(iOS 11.0, *)) {
-        // Stop CoreML process if found obj or stop finding
-        if (FoundedObj || stopFindning) {
-            return;
+        } else {
+            // Fallback on earlier versions
         }
-        
-        dispatch_async(dispatchQueueML, ^{
-            CVPixelBufferRef pixBuff = arSceneView.session.currentFrame.capturedImage;
-            if (!pixBuff) {
-//                NSLog(@"--->ERROR: Non pixel buffer");
-                return;
-            }
-            VNImageRequestHandler *imageRequestHandler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixBuff orientation:kCGImagePropertyOrientationUpMirrored options:[NSDictionary dictionary]];
-            NSError *error;
-            [imageRequestHandler performRequests:visionRequests error:&error];
-            if (error) {
-//                NSLog(@"--->ERROR: %@", error.description);
-                return;
-            }
-        });
-    }
+    }];
+    return index;
 }
 
 #pragma mark - setup SpeechSynthesizer
@@ -398,8 +412,6 @@
             [self.view sendSubviewToBack:arSceneView];
         }
     }
-    // Bottom text
-    lbResult.text = kShowMeAnObject;
     
     // Objects count
     lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
@@ -414,7 +426,7 @@
     
     // Reset counter
     if ([SessionManager sharedInstance].elapsedTime < 0) {
-        [SessionManager sharedInstance].elapsedTime = 120;  // Default value should be 120
+        [SessionManager sharedInstance].elapsedTime = 30;  // Default value should be 120
     }
     
     // Update UI
@@ -427,6 +439,16 @@
     } else {
         lbDebug.hidden = YES;
     }
+    
+    virtualObjects = [NSMutableArray array];
+    virtualObjNames = [NSMutableArray array];
+    objectNameNodes = [NSMutableDictionary dictionary];
+    scale = 0.3;
+    maxObject = 5;
+    [[SessionManager sharedInstance] resetAllList];
+    
+    // Set first session
+    isFirstSession = YES;
 }
 
 #pragma mark - Setup Observer
@@ -435,254 +457,81 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                            selector:@selector(deviceOrientationDidChange:)
                                name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    // Add observer
+    [self addObserver:self forKeyPath:@"currentState" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
 }
 
 #pragma mark - Handle found object
-- (void)handleFoundObject:(VNClassificationObservation *)obj {
-    if (@available(iOS 11.0, *)) {
-        // analyze string
-        NSString *fullName = obj.identifier;
-        NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
+- (void)handleFoundObject:(NSUInteger)index atLocation:(CGPoint) location {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Play sound and vibrate
+        [[SessionManager sharedInstance] vibrateFoundObj];
         
-        if (nameArray.count == 0) {
-            // No name -> Stop
-            
-            // Don't find out any object, should check it again
-            [self startProcessCoreML];
-            return;
-        }
-        // just get first name
-        NSString *identifiedObj = [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
+        NSString *currentObjName = virtualObjNames[index];
+        SCNNode *currentObject = virtualObjects[index];
         
-        // Check current session
-        if ([sessionIdentifiedObj objectForKey:identifiedObj]) {
-            // same object, should check it again
-            [self startProcessCoreML];
-            return;
-        }
+        // Update bottom text
+        lbResult.text = [NSString stringWithFormat:@"You found %@", currentObjName];
         
-        // Get center point
-        CGPoint screenCentre = CGPointMake(CGRectGetMidX(arSceneView.bounds), CGRectGetMidY(arSceneView.bounds));
-        
-        // Check ARKit to find the object
-        NSArray *arHitTestResults = [arSceneView hitTest:screenCentre types:ARHitTestResultTypeFeaturePoint];
-        ARHitTestResult *closestResult = arHitTestResults.firstObject;
-        if (closestResult) {
-            // Find out via ARKit
-            FoundedObj = YES;
-            
-            // Disable guessing
-            isGuessing = NO;
-            
-            // Play sound and vibrate
-            [[SessionManager sharedInstance] vibrateFoundObj];
-            
-            // Add to session list
-            [sessionIdentifiedObj setObject:identifiedObj forKey:identifiedObj];
-            
-            // Remove exceeding node
-            if (arSceneView.scene.rootNode.childNodes.count > 5) {
-                NSMutableArray *shouldRemoveObjs = [NSMutableArray array];
-                for (int i=0; i<arSceneView.scene.rootNode.childNodes.count-5; i++) {
-                    [shouldRemoveObjs addObject:arSceneView.scene.rootNode.childNodes[i]];
-                }
-                
-                if (shouldRemoveObjs.count) {
-                    for (SCNNode *childNode in shouldRemoveObjs) {
-                        [childNode removeFromParentNode];
-                    }
-                }
-            }
-            
-            // Add object to the Identified Object List
-            if ([[SessionManager sharedInstance] addIdentifiedObject:identifiedObj]) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // Update bottom text
-                    lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
-                    
-                    // Speak
-                    [self textToSpeech:lbResult.text];
-                    
-                    // Increase diamond
-                    [SessionManager sharedInstance].diamondCount+=5;
-                    
-                    // Animation
-                    for (NSInteger i=0; i<5; i++) {
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self animateShowDiamondInSerial:YES];
-                        });
-                    }
-                });
-            } else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // Update bottom text
-                    lbResult.text = [NSString stringWithFormat:@"Oh I know, I see %@", identifiedObj];
-                    
-                    // Speak
-                    [self textToSpeech:lbResult.text];
-                    
-                    // Increase diamond
-                    [SessionManager sharedInstance].diamondCount+=1;
-                    [self animateShowDiamondInSerial:NO];
-                });
-            }
-            
-            // Analytic
-            [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:identifiedObj];
-            
-            // Get Coordinates of HitTest
-            matrix_float4x4 transform = closestResult.worldTransform;
-            SCNVector3 worldCoord = SCNVector3Make(transform.columns[3][0] , transform.columns[3][1], transform.columns[3][2]);
-            
-            // Create 3D text
-            SCNNode *newNode = [self createNewBubleParentNode:identifiedObj withConfident:obj.confidence];
-            [arSceneView.scene.rootNode addChildNode:newNode];
-            newNode.position = worldCoord;
-            
-            [newNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
-            
-            // Increase counter
-            dispatch_async(dispatch_get_main_queue(), ^{
-                lbCount.text = [NSString stringWithFormat:@"%ld", [[SessionManager sharedInstance] getIdentifiedObjsCount]];
-            });
-            
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                // Reset bottom text
-                lbResult.text = kShowMeAnObject;
-                
-                // Let the app check object again
-                FoundedObj = NO;
-                [self startProcessCoreML];
-            });
-        } else {
-            // Cannot find out ARKit object
-//            NSLog(@"--->Cannot find out ARKit object, find again");
-            [self startProcessCoreML];
-        }
-    }
-}
-
-#pragma mark - guess object
-- (void)guessObject:(NSArray *)results {
-    if (isGuessing) {
-        [self startProcessCoreML];
-        return;
-    }
-    
-    if (@available(iOS 11.0, *)) {
-        NSMutableArray *guessingObjects = [NSMutableArray array];
-        
-        NSInteger counter = 0;
-        for (int i = 0; i < results.count; i++) {
-            VNClassificationObservation *guessingObj = results[i];
-            
-            if (guessingObj.confidence < kRecognitionThresholdMin && counter >= 1) {
-                break;
-            }
-            
-            NSString *firstName = [self getFirstName:guessingObj];
-            // Check threshold and session object and guessed dict
-            if (guessingObj.confidence <= kRecognitionThresholdMax && ![sessionIdentifiedObj objectForKey:firstName] && ![guessedDict objectForKey:firstName]) {
-                [guessingObjects addObject:firstName];
-                counter++;
-            }
-        }
-        
-        // No item in the threshold range
-        if (guessingObjects.count == 0) {
-            [self startProcessCoreML];
-            return;
-        }
+        // Play success sound
+        [successPlayer play];
         
         // Speak
-        isGuessing = YES;
+        [self textToSpeech:currentObjName];
         
-        // Check current String
-        if ([lbResult.text rangeOfString:@"May be "].location != NSNotFound) {
-            // Continue guessing
-            
-            // Check guessed object and guessing object if it > 3?
-            NSInteger countGuessedDict = [guessedDict allKeys].count;
-            NSInteger countTotal = guessingObjects.count + countGuessedDict;
-            
-            if (countTotal > 3) {
-                // start guessing
-                guessedDict = [NSMutableDictionary dictionary];
-                NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
-                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if (idx == 0) {
-                        [guessingLabel appendFormat:@" %@", objName];
-                    } else {
-                        [guessingLabel appendFormat:@" Or %@", objName];
-                    }
-                    [guessedDict setObject:objName forKey:objName];
-                }];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // Update bottom text
-                    lbResult.text = guessingLabel;
-                    [self textToSpeech:lbResult.text];
-                });
-            } else {
-                // Continue guessing
-                NSMutableString *guessingLabel = [NSMutableString stringWithString:lbResult.text];
-                NSMutableString *speakingString = [NSMutableString string];
-                [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-                    [guessingLabel appendFormat:@" Or %@", objName];
-                    [speakingString appendFormat:@" Or %@", objName];
-                    [guessedDict setObject:objName forKey:objName];
-                }];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // Update bottom text
-                    lbResult.text = guessingLabel;
-                    [self textToSpeech:speakingString];
-                });
-            }
-        } else {
-            // Have not guessed anything
-            // Start guessing
-            guessedDict = [NSMutableDictionary dictionary];
-            NSMutableString *guessingLabel = [NSMutableString stringWithFormat:@"May be"];
-            [guessingObjects enumerateObjectsUsingBlock:^(NSString *objName, NSUInteger idx, BOOL * _Nonnull stop) {
-                if (idx < guessingObjects.count - 1) {
-                    [guessingLabel appendFormat:@" %@ Or", objName];
-                } else {
-                    [guessingLabel appendFormat:@" %@", objName];
-                }
-                [guessedDict setObject:objName forKey:objName];
-            }];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                // Update bottom text
-                lbResult.text = guessingLabel;
-                [self textToSpeech:lbResult.text];
+        // Increase diamond
+        [SessionManager sharedInstance].diamondCount+=5;
+        
+        // Animation
+        for (NSInteger i=0; i<5; i++) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.15 * i * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self animateShowDiamondInSerial:YES fromPosition:location];
             });
         }
-    }
-}
-
-- (NSString *)getFirstName:(VNClassificationObservation *)source {
-    // analyze string
-    NSString *fullName = source.identifier;
-    NSArray *nameArray = [fullName componentsSeparatedByString:@", "];
-    
-    if (nameArray.count == 0) {
-        // No name -> Stop
-        return nil;
-    }
-    // just get first name
-    return [CommonTools capitalizeFirstLetterOnlyOfString:nameArray[0]];
+        
+        // Create 3D text
+        SCNNode *textNode = [self createNewBubleParentNode:currentObjName];
+        [arSceneView.scene.rootNode addChildNode:textNode];
+        [objectNameNodes setObject:textNode forKey:virtualObjNames[index]];
+        
+        SCNVector3 boundingBoxMin;
+        SCNVector3 boundingBoxMax;
+        [currentObject getBoundingBoxMin:&boundingBoxMin max:&boundingBoxMax];
+        CGFloat textPositionY = currentObject.position.y + (boundingBoxMax.y - boundingBoxMin.y)/2.0;
+        textNode.position = SCNVector3Make(currentObject.position.x, textPositionY, currentObject.position.z - 0.01);
+        
+        if (@available(iOS 11.0, *)) {
+            [textNode lookAt:SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2])];
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        // Continue generate object
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [textNode removeFromParentNode];
+            [currentObject removeFromParentNode];
+            diamondFlyAnimation = NO;
+        });
+        
+        // Remove finger if needed
+        if (tutorialFinger) {
+            [tutorialFinger removeFromParentNode];
+            tutorialFinger = nil;
+        }
+        
+        // Analytic
+        [FirebaseWrapper logEventSelectContentWithContentType:@"CollectObject" andItemId:currentObjName];
+    });
 }
 
 #pragma mark - Animation
-- (void)animateShowDiamondInSerial:(BOOL)inSerial {
-    CGSize windowSize = [UIScreen mainScreen].bounds.size;
+- (void)animateShowDiamondInSerial:(BOOL)inSerial fromPosition:(CGPoint)location {
     UIImage *diamondImg = [UIImage imageNamed:@"diamond-identified-object"];
     CGSize diamondSize = ivDiamondHUD.bounds.size;
     UIImageView *diamondImgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     diamondImgView.image = diamondImg;
-    CGRect originalFrame = CGRectMake((windowSize.width - diamondSize.width)/2.0, (windowSize.height - diamondSize.height)/2.0 + 40.0, diamondSize.width, diamondSize.height);
+    CGRect originalFrame = CGRectMake(location.x, location.y, diamondSize.width, diamondSize.height);
     CGRect destinationalFrame = ivDiamondHUD.frame;
     
     [self.view addSubview:diamondImgView];
@@ -803,10 +652,7 @@
             lbCountdown.text = [NSString stringWithFormat:@"%ld", [SessionManager sharedInstance].elapsedTime];
             
             // Stop identifying
-            stopFindning = YES;
-            
-            // Show Welldone alert
-            [self showWelldoneAlert];
+            self.currentState = SceneStateEnd;
         }
     });
 }
@@ -886,7 +732,7 @@
 }
 
 #pragma mark - Create text in ARKit
-- (SCNNode *)createNewBubleParentNode:(NSString *)word withConfident:(CGFloat)confident {
+- (SCNNode *)createNewBubleParentNode:(NSString *)word {
     // Bubble text
 //    NSString *displayString = [NSString stringWithFormat:@"%@(%.2f%%)", word, (confident*100)];
     SCNText *bubbleText = [SCNText textWithString:word extrusionDepth:textDepth];
@@ -909,30 +755,6 @@
     bubbleNode.scale = SCNVector3Make(0.2, 0.2, 0.2);
     bubbleNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
     
-#if DEBUG_MODE
-    // Percentage
-    // Bubble text
-    SCNText *percentageText = [SCNText textWithString:[NSString stringWithFormat:@"(%.2f%%)", (confident*100)] extrusionDepth:textDepth];
-    percentageText.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:0.15];
-    percentageText.alignmentMode = kCAAlignmentCenter;
-    percentageText.firstMaterial.diffuse.contents = [UIColor whiteColor];
-    percentageText.firstMaterial.specular.contents = [UIColor blackColor];
-    percentageText.firstMaterial.doubleSided = YES;
-    //    bubbleText.flatness = 1.0;
-    percentageText.chamferRadius = textDepth;
-
-    // Bubble node
-    SCNVector3 boundingPercentageBoxMin;
-    SCNVector3 boundingPercentageBoxMax;
-    [percentageText getBoundingBoxMin:&boundingPercentageBoxMin max:&boundingPercentageBoxMax];
-
-    SCNNode *percentageNode = [SCNNode nodeWithGeometry:percentageText];
-    // Centre node - to centre-bottom point
-    percentageNode.pivot = SCNMatrix4MakeTranslation((boundingPercentageBoxMax.x - boundingPercentageBoxMin.x)/2.0, boundingPercentageBoxMin.y + 0.14, textDepth/2.0);
-    percentageNode.scale = SCNVector3Make(0.1, 0.1, 0.1);
-    percentageNode.eulerAngles = SCNVector3Make(0, M_PI, 0);    // Trick to have correct orientation
-#endif
-    
     // Sphere
     // Centre point node
     SCNSphere *sphere = [SCNSphere sphereWithRadius:0.005];
@@ -943,20 +765,193 @@
     SCNNode *bubbleNodeParent = [[SCNNode alloc] init];
     [bubbleNodeParent addChildNode:bubbleNode];
     [bubbleNodeParent addChildNode:sphereNode];
-#if DEBUG_MODE
-    [bubbleNodeParent addChildNode:percentageNode];
-#endif
+
     return bubbleNodeParent;
+}
+
+#pragma mark - Objects
+- (void)startGenerateAnimalNode {
+    if (generateAnimalTimer) {
+        [generateAnimalTimer invalidate];
+        generateAnimalTimer = nil;
+    }
+    
+    // Check state
+    if (self.currentState != SceneStateGenerating) {
+        return;
+    }
+    
+    // Start timer
+    generateAnimalTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(addAnimalIfNeeded) userInfo:nil repeats:YES];
+}
+
+- (SCNNode *)makeNode:(UIImage *)image andWidth:(CGFloat)width andHeight:(CGFloat)height {
+    SCNPlane *plane = [SCNPlane planeWithWidth:width height:height];
+    plane.firstMaterial.diffuse.contents = image;
+    SCNNode *node = [SCNNode nodeWithGeometry:plane];
+    SCNBillboardConstraint *constraint = [SCNBillboardConstraint billboardConstraint];
+    node.constraints = @[constraint];
+    return node;
+}
+
+- (void)removeAllNodesInScene {
+    if (arSceneView.scene.rootNode.childNodes.count > 0) {
+        NSMutableArray *shouldRemoveObjs = [NSMutableArray array];
+        for (int i=0; i<arSceneView.scene.rootNode.childNodes.count; i++) {
+            [shouldRemoveObjs addObject:arSceneView.scene.rootNode.childNodes[i]];
+        }
+        
+        if (shouldRemoveObjs.count) {
+            for (SCNNode *childNode in shouldRemoveObjs) {
+                [childNode removeFromParentNode];
+            }
+        }
+    }
+}
+
+- (void)addAnimalIfNeeded {
+    // Check if object is exist
+    NSInteger count = 0;
+    for (SCNNode *child in arSceneView.scene.rootNode.childNodes) {
+        if ([child.name isEqualToString:@"AnimalNode"]) {
+            count++;
+        }
+    }
+    if (count >= maxObject) {
+        return;
+    }
+
+    // Create animal node
+    NSString *virtualObjName = [[SessionManager sharedInstance] randomAnObjectOrAnimal:virtualObjNames];
+    UIImage *objImage = [UIImage imageNamed:virtualObjName];
+    CGFloat scaleWidth = scale;
+    CGFloat scaleHeight = scale;
+    if (objImage.size.width > objImage.size.height) {
+        scaleHeight = objImage.size.height/objImage.size.width * scaleWidth;
+    } else if (objImage.size.width < objImage.size.height) {
+        scaleWidth = objImage.size.width/objImage.size.height * scaleHeight;
+    }
+    SCNNode *animeNode = [self makeNode:objImage andWidth:scaleWidth andHeight:scaleHeight];
+    animeNode.name = @"AnimalNode";
+    if (@available(iOS 11.0, *)) {
+        // Check if first object
+        if (virtualObjects.count) {
+            // Check position
+            BOOL badPosition = YES;
+            SCNVector3 newPosition;
+            while(badPosition) {
+                newPosition = [self generateAnimalPosition];
+                
+                BOOL falseOneNode = NO;
+                
+                for (SCNNode *oldNode in virtualObjects) {
+                    BOOL badX = NO;
+                    BOOL badZ = NO;
+                    if (fabsf(oldNode.position.x - newPosition.x) < THRESHOLD_POSITION) {
+                        badX = YES;
+                    }
+                    if (fabsf(oldNode.position.z - newPosition.z) < THRESHOLD_POSITION) {
+                        badZ = YES;
+                    }
+                    if (badX && badZ) {
+                        falseOneNode = YES;
+                    } else {
+                    }
+                }
+                
+                if (!falseOneNode) {
+                    badPosition = NO;
+                }
+                
+            }
+            animeNode.position = newPosition;
+        } else {
+            // First object
+            SCNVector3 cameraPosition = SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2]);
+            animeNode.position = SCNVector3Make(0.0, cameraPosition.y, -GENERATE_DISTANCE);
+            
+            if (isFirstSession) {
+                isFirstSession = NO;
+                
+                UIImage *fingerImage = [UIImage imageNamed:@"finger"];
+                CGFloat fingerWidth = 0.2;
+                CGFloat fingerHeight = 0.2;
+                if (fingerImage.size.width > fingerImage.size.height) {
+                    fingerHeight = fingerImage.size.height/fingerImage.size.width * fingerWidth;
+                } else if (fingerImage.size.width < fingerImage.size.height) {
+                    fingerWidth = fingerImage.size.width/fingerImage.size.height * fingerWidth;
+                }
+                tutorialFinger = [self makeNode:fingerImage andWidth:fingerWidth andHeight:fingerHeight];
+                tutorialFinger.name = @"TutorialFinger";
+                tutorialFinger.scale = SCNVector3Make(1.0, 1.0, 1.0);
+                
+                SCNVector3 boundingBoxMin;
+                SCNVector3 boundingBoxMax;
+                [animeNode getBoundingBoxMin:&boundingBoxMin max:&boundingBoxMax];
+                CGFloat fingerX = animeNode.position.x + (boundingBoxMax.x - boundingBoxMin.x)/2.0;
+                CGFloat fingerY = animeNode.position.y;
+                tutorialFinger.position = SCNVector3Make(fingerX, fingerY, -GENERATE_DISTANCE + 0.1);
+                [arSceneView.scene.rootNode addChildNode:tutorialFinger];
+            }
+        }
+    } else {
+        // Fallback on earlier versions
+    }
+    animeNode.scale = SCNVector3Make(1.0, 1.0, 1.0);
+    [arSceneView.scene.rootNode addChildNode:animeNode];
+    
+    [virtualObjects addObject:animeNode];
+    [virtualObjNames addObject:virtualObjName];
+    
+    // Re count
+    // Check if object is exist
+    NSInteger reCount = 0;
+    for (SCNNode *child in arSceneView.scene.rootNode.childNodes) {
+        if ([child.name isEqualToString:@"AnimalNode"]) {
+            reCount++;
+        }
+    }
+    if (reCount < maxObject) {
+        [self addAnimalIfNeeded];
+    }
+}
+
+- (SCNVector3)generateAnimalPosition {
+    // random position around user
+    double ratioX = (double)arc4random()/UINT32_MAX;
+    double ratioY = (double)arc4random()/UINT32_MAX;
+    
+    NSInteger signX = arc4random()%2;
+    NSInteger signY = arc4random_uniform(3);
+    NSInteger signZ = arc4random()%2;
+    
+    SCNVector3 cameraPosition = SCNVector3Make(arSceneView.session.currentFrame.camera.transform.columns[3][0], arSceneView.session.currentFrame.camera.transform.columns[3][1], arSceneView.session.currentFrame.camera.transform.columns[3][2]);
+    
+    CGFloat positionX = cameraPosition.x + (signX?1:-1) * ratioX * GENERATE_DISTANCE;
+    
+    CGFloat b = - 2 * cameraPosition.z;
+    CGFloat c = cameraPosition.x * cameraPosition.x + cameraPosition.z * cameraPosition.z - GENERATE_DISTANCE * GENERATE_DISTANCE + positionX * positionX - 2 * cameraPosition.x * positionX;
+    CGFloat delta = b * b - 4 * c;
+    CGFloat positionZ = 0;
+    if (signZ) {
+        positionZ = (-b + sqrtf(delta))/2;
+    } else {
+        positionZ = (-b - sqrtf(delta))/2;
+    }
+    
+    CGFloat translateY = 0;
+    if (signY == 1) {
+        translateY = ratioY * 0.1;
+    } else if (signY == 2) {
+        translateY = - (ratioY * 0.1);
+    }
+    CGFloat positionY = cameraPosition.y + translateY;
+    
+    return SCNVector3Make(positionX, positionY, positionZ);
 }
 
 #pragma mark - AVSpeechSynthesizerDelegate
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer didFinishSpeechUtterance:(AVSpeechUtterance *)utterance {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (isGuessing) {
-            isGuessing = NO;
-            [self startProcessCoreML];
-        }
-    });
 }
 
 #pragma mark - utils string

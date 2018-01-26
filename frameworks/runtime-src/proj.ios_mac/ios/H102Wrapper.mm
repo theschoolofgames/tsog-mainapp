@@ -68,51 +68,41 @@ static BOOL isOpenedFromNotification = NO;
   [dialog show];
 }
 
-+ (bool)isCoreMLAvailable {
++ (bool)isARKitAvailable {
     if (@available(iOS 11.0, *)) {
-        return true;
+        if ([CommonTools isCompatibleARKit]) {
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
 }
 
 + (void)showCoreMLDemo:(NSNumber*)gemBalance identifiedObjects:(NSString *)identifiedObjects {
-    if (@available(iOS 11.0, *)) {
-        
-        // Set current diamonds and current object list
-        [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
-        
-        NSArray *identifiedObjectsArray = @[];
-        
-        if ([identifiedObjects length] > 0) {
-            identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
-        }
-        
-        [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
-        
-        // Count down time
-        [SessionManager sharedInstance].elapsedTime = 120;
-        
-        if ([CommonTools isCompatibleARKit]) {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-            DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-            nav.navigationBarHidden = YES;
-            
-            AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-            UIViewController *rootController = (UIViewController*)appController.viewController;
-            [rootController presentViewController:nav animated:YES completion:nil];
-        } else {
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
-            DetectObjectCameraKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectCameraKitViewController"];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
-            nav.navigationBarHidden = YES;
-            
-            AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
-            UIViewController *rootController = (UIViewController*)appController.viewController;
-            [rootController presentViewController:nav animated:YES completion:nil];
-        }
+    // Set current diamonds and current object list
+    [SessionManager sharedInstance].diamondCount = [gemBalance intValue];
+    
+    NSArray *identifiedObjectsArray = @[];
+    
+    if ([identifiedObjects length] > 0) {
+        identifiedObjectsArray = [identifiedObjects componentsSeparatedByString:@"-@-"];
     }
+    
+    [[SessionManager sharedInstance] addArayOfIdentifiedObjects:identifiedObjectsArray];
+    
+    // Count down time
+    [SessionManager sharedInstance].elapsedTime = 30;
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"CoreMLDemo" bundle:nil];
+    DetectObjectARKitViewController *detectVC = [sb instantiateViewControllerWithIdentifier:@"DetectObjectARKitViewController"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detectVC];
+    nav.navigationBarHidden = YES;
+    
+    AppController *appController = (AppController*)[[UIApplication sharedApplication] delegate];
+    UIViewController *rootController = (UIViewController*)appController.viewController;
+    [rootController presentViewController:nav animated:YES completion:nil];
 }
 
 //+ (void)openScheme:(NSString *)bundleId withData:(NSString *)data {
