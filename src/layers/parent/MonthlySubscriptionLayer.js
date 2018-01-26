@@ -81,7 +81,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addPriceText: function() {
-        var str = "Full Game Access\n\n$2.99/Month, will be charged to iTunes Account.\n\nCancel Anytime by going to the Account Settings.";
+        var str = "Full Game Access\n\n" + MONTHLY_SUBSCRIPTION_PRICE + "/Month, will be charged to iTunes Account.\n\nCancel Anytime by going to the Account Settings.";
         var config = {
             "color": "#b56421",
             "fontSize": 16 * 2,
@@ -94,7 +94,6 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
                                                 config.outlineSize,
                                                 localizeForWriting(str));
         
-        // var text = cc.LabelBMFont("$9.99/Month. Cancel Anytime.", res.HomeFont_fnt);
         text.x = cc.winSize.width*0.6;
         text.y = cc.winSize.height/4 + 110;
         text.scale = 0.5;
@@ -128,7 +127,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _addIAPDetailDialog: function() {
         var dialog = new MessageDialog("#level_dialog_frame.png");
 
-        var titleLabel = new cc.LabelBMFont("$2.99/month for Full Game Access", res.Grown_Up_fnt);
+        var titleLabel = new cc.LabelBMFont(MONTHLY_SUBSCRIPTION_PRICE + "/month for Full Game Access", res.Grown_Up_fnt);
         titleLabel.scale = 0.4;
         titleLabel.x = dialog.background.width/2;
         titleLabel.y = dialog.background.height/2 + 170;

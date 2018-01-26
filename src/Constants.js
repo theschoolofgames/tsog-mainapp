@@ -968,6 +968,9 @@ var SET_BIG_PRICE = "$59.99";
 var SET_BIG_COINS = "5000";
 var SET_BIG_DIAMONDS = "6000";
 
+var MONTHLY_SUBSCRIPTION_ID = "com.theschoolofgames.tsog.newmonthlysub";
+var MONTHLY_SUBSCRIPTION_PRICE = "$4.99";
+
 var TIME_FOR_ADULT_TOCH = 3;
 
 var NEW_LEVEL_UNLOCKING_STAR_RATIO = 0.6;

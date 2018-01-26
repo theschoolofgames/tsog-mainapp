@@ -118,6 +118,9 @@ var IAPManager = cc.Class.extend({
                     else if (products[i]["id"] == SET_BIG_ID) {
                         SET_BIG_PRICE = products[i]["price"] || SET_BIG_PRICE;
                     }
+                    else if (products[i]["id"] == MONTHLY_SUBSCRIPTION_ID) {
+                        MONTHLY_SUBSCRIPTION_PRICE = products[i]["price"] || MONTHLY_SUBSCRIPTION_PRICE;
+                    }
                 }
             },
             onProductRequestFailure : function (msg) {
