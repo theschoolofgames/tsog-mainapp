@@ -33,7 +33,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fzs-mB-9qe">
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coin.png" translatesAutoresizingMaskIntoConstraints="NO" id="Fzs-mB-9qe">
                                 <rect key="frame" x="594.5" y="289" width="43" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="kzN-or-9TT"/>
@@ -51,7 +51,7 @@
                                     <action selector="btnBackClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Exg-5a-yVs"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHr-4d-SxF">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHr-4d-SxF">
                                 <rect key="frame" x="584" y="289" width="63" height="86"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="MS5-TZ-PXX"/>
@@ -62,7 +62,7 @@
                                     <action selector="btnGotoListClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="02O-Id-jbu"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="wM9-YR-Vl8">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="wM9-YR-Vl8">
                                 <rect key="frame" x="584" y="346" width="63" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="K40-ka-7RM"/>
