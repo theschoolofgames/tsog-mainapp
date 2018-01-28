@@ -29,7 +29,6 @@
 #import <Social/Social.h>
 
 #import "DetectObjectARKitViewController.h"
-#import "DetectObjectCameraKitViewController.h"
 #import "SessionManager.h"
 #import "CommonTools.h"
 #import "Constants.h"
