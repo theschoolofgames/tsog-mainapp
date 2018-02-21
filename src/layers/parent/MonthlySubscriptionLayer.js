@@ -41,8 +41,9 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     _addButtons: function() {
         var b = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
         b.name = "pay";
+                                                    b.scale = b.scale * 1.7;
         b.x = cc.winSize.width * 0.6;
-        b.y = cc.winSize.height/4 + 30;
+        b.y = cc.winSize.height/4 + 80 ;
         this.addChild(b);
 
         var self = this;
@@ -126,6 +127,7 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
 
     _addIAPDetailDialog: function() {
         var dialog = new MessageDialog("#level_dialog_frame.png");
+        dialog.scale = 1.3;
 
         var titleLabel = new cc.LabelBMFont(MONTHLY_SUBSCRIPTION_PRICE + "/month for Full Game Access", res.Grown_Up_fnt);
         titleLabel.scale = 0.4;
@@ -133,10 +135,11 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         titleLabel.y = dialog.background.height/2 + 170;
         dialog.addComponent(titleLabel);
 
-        var str = "• Payment will be charged to iTunes Account.\n\
-• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period.\n\
-• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal.\n\
-• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase.\n";
+        var str = "• Payment of " + MONTHLY_SUBSCRIPTION_PRICE + " will be charged every month to iTunes Account.\n\
+• Subscription automatically renews every month unless auto-renew is turned off at least 24-hours before the end of the current period.\n\
+• Account will be charged for renewal within 24-hours prior to the end of the current period.\n\
+• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase.\n\
+• Any unused portion of a free trial period will be forfeited when the user purchases a subscription.\n";
         var contentLabel = CustomLabel.createWithTTF(res.HELVETICARDBLK_ttf.srcs[0], 
                                         18, 
                                         cc.color.WHITE, 
@@ -145,18 +148,21 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
         contentLabel.x = dialog.background.width/2 + 10;
         contentLabel.y = dialog.background.height/2 + 10;
         contentLabel.setLineHeight(22);
-        contentLabel.setDimensions(dialog.background.width - 50, 0);
+        contentLabel.setDimensions(dialog.background.width + 50, 0);
         contentLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_LEFT);
+        contentLabel.scale = 0.8;
+                                                    
         dialog.addComponent(contentLabel);
 
         var btn = new ccui.Button("btn_empty.png", "", "", ccui.Widget.PLIST_TEXTURE);
+        btn.scale = 1.4;
         btn.x = dialog.background.width/2;
         btn.y = 80;
         btn.addClickEventListener(function(){
             this._payBtnPressed();
         }.bind(this));
-        var lb = new cc.LabelBMFont("Start 7-day free trial", res.HomeFont_fnt);
-        lb.scale = 0.35;
+        var lb = new cc.LabelBMFont("Start Subscription with 7-day free trial", res.HomeFont_fnt);
+        lb.scale = 0.20;
         lb.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         lb.x = btn.width/2;
         lb.y = btn.height/2 + 6;
@@ -330,9 +336,9 @@ var MonthlySubscriptionLayer = cc.LayerColor.extend({
     },
 
     _addWelcomeText: function() {
-        var content = "School of Games AR:\nPreschool app for words, numbers and stories";
+        var content = "School of Games AR:\nPreschool app for words,\n numbers and stories";
         var rContent = new cc.LabelBMFont(content, res.Grown_Up_fnt);
-        rContent.scale = this._contentTextScale;
+        rContent.scale = this._contentTextScale * 2;
         rContent.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         rContent.x = cc.winSize.width * 0.6;
         rContent.y = cc.winSize.height/2 + rContent.height/2;
